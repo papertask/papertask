@@ -1,6 +1,8 @@
 /**
  * Created by antiprovn on 9/27/14.
  */
+var angularApp = angularApp || angular.module('project', []);
+
 angularApp.run(function($rootScope){
     $("#form").steps({
         bodyTag: "fieldset",
@@ -69,16 +71,9 @@ angularApp.run(function($rootScope){
         }
     });
 });
-angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, $q){
-    $scope.catTools = [];
+
+angularApp.controller("BasicUserInfoUpdateController", function($scope, $http){
     $scope.countries = [];
-    $scope.languages = [];
-    $scope.operatingSystems = [];
-    $scope.resource_active = {};
-    $scope.resources = [];
-    $scope.specialisms = [];
-    $scope.translationPrice = {};
-    $scope.translationPrices = [];
     $scope.userInfo = {
         "city": null,
         "country": {
@@ -103,7 +98,37 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
         "TranslationCatTools": null,
         "TranslationSpecialisms": null
     };
-    $scope.freelancerInfo = {};
+
+    $scope.init = function(listeners){
+        $http.get("/api/user/" + USER_ID + "/info")
+            .success(function($data){
+                $scope.userInfo = $data['user'];
+                if($scope.countries.length){
+                    $scope.userInfo.country = findOption($scope.countries, $scope.userInfo.country);
+                }
+
+                angular.element(listeners).each(function(){
+                    angular.element(this).scope().initWithUserInfo($scope.userInfo);
+                });
+            });
+
+        $http.get("/api/common/country")
+            .success(function($data){
+                $scope.countries = $data['countries'];
+                if($scope.userInfo.country){
+                    $scope.userInfo.country = findOption($scope.countries, $scope.userInfo.country);
+                }
+            });
+    };
+
+    $scope.submit = function(){
+        return requestInfo = $http.put("/api/user/" + $scope.userInfo.id + "/info/", $scope.userInfo);
+    };
+});
+
+angularApp.controller('FreelancerResourceUpdateController', function($scope, $http, $timeout, $q){
+    $scope.resource_active = {};
+    $scope.resources = [];
 
     /**
      * Mark resource active params
@@ -114,6 +139,46 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
             $scope.resource_active[$scope.freelancerInfo.Resources[i]] = 'active';
         }
     }
+
+    $scope.initWithUserInfo = function($userInfo){
+        $scope.userInfo = $userInfo;
+        $http.get("/api/user/" + $userInfo.id + "/freelancer")
+            .success(function($data){
+                $scope.freelancerInfo = $data['freelancer'];
+                generateActiveResources();
+
+                $http.get("/api/user/resource")
+                    .success(function($data){
+                        $scope.resources = $data['resources'];
+                    });
+            });
+    };
+
+    $scope.init = function(){
+        $http.get("/api/user/" + USER_ID + "/info")
+            .success(function($data){
+                $scope.initWithUserInfo($data['user']);
+            });
+    };
+
+    $scope.submit = function(){
+        angular.element("#")
+    };
+});
+
+angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, $q){
+    $scope.catTools = [];
+    $scope.countries = [];
+    $scope.freelancerInfo = {};
+    $scope.languages = [];
+    $scope.operatingSystems = [];
+    $scope.resource_active = {};
+    $scope.resources = [];
+    $scope.specialisms = [];
+    $scope.translationPrice = {};
+    $scope.translationPrices = [];
+    $scope.userInfo = {};
+
 
     function updateUserInfoPriceData(){
         var $info = $scope.freelancerInfo;
@@ -154,23 +219,10 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
 
     /** end mapping function **/
 
-    $http.get("/api/user/" + USER_ID + "/info")
-        .success(function($data){
-            $scope.userInfo = $data['user'];
-            if($scope.countries.length){
-                $scope.userInfo.country = findOption($scope.countries, $scope.userInfo.country);
-            }
-        });
     $http.get("/api/user/" + USER_ID + "/freelancer")
         .success(function($data){
             $scope.freelancerInfo = $data['freelancer'];
 
-            generateActiveResources();
-
-            $http.get("/api/user/resource")
-                .success(function($data){
-                    $scope.resources = $data['resources'];
-                });
 
             $http.get("/api/user/priceData")
                 .success(function($data){
@@ -187,14 +239,6 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
 
                     rebuildMultiSelect();
                 });
-        });
-
-    $http.get("/api/common/country")
-        .success(function($data){
-            $scope.countries = $data['countries'];
-            if($scope.userInfo.country){
-                $scope.userInfo.country = findOption($scope.countries, $scope.userInfo.country);
-            }
         });
 
     /**

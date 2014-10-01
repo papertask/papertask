@@ -1,7 +1,7 @@
 <h1>Basic Information</h1>
-<fieldset>
+<fieldset ng-controller="BasicUserInfoUpdateController" data-angular="controller">
     <div class="panel panel-primary">
-        <div class="panel-body">
+        <div class="panel-body" ng-init="init('#FreelancerResourceUpdateController')" id="BasicUserInfoUpdateController">
             <?php include __DIR__ . "/../../user/basic-info.phtml" ?>
         </div>
     </div>
