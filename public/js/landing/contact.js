@@ -39,7 +39,7 @@ angularApp.controller('contactController', function($scope, $http) {
                     complete: function(){
                         $scope.submitted = true;
                         console.log("Submitted ", $scope.submitted);
-                        var messageClass = ($scope.response.result) ? 'success' : 'error';
+                        var messageClass = ($scope.response.result) ? 'success' : 'danger';
                         var messageContent = $scope.response.message
                         var message = '<div role="alert" class="alert alert-' + messageClass + '">' + messageContent + '</div>';
                         // hacks on create message
