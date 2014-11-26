@@ -20,10 +20,6 @@ $this->headScript()
 </div>
 <div ng-app="contact" ng-controller="contactController" id="features" class="features">
     <div class="container">
-        <!-- Message response from form -->
-        <div ng-hide="submitted == false" class="alert alert-{{(response.result) ? 'success' : 'error'}}">
-            {{response.message}}
-        </div>
         <div class="row">
             <form name="contactForm" action="" class="form-horizontal" role="form">
                 <div class="col-sm-6">
