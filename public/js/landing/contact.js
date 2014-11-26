@@ -28,11 +28,9 @@ angularApp.controller('contactController', function($scope, $http) {
                     success: function($data){
                         $scope.submitted = true;
                         console.log($data);
-                        $scope.form = $data['data'];
-                        $scope.response.result = $data['result'];
-                        $scope.response.message = $data['message'];
-                        $scope.submitted = true;
-                        console.log("Submitted ", $scope.submitted);
+                        $scope.form = $data.data;
+                        $scope.response.result = $data.result;
+                        $scope.response.message = $data.message;
                     },
                     error: function($error){
                         $scope.response.result = false;
@@ -41,6 +39,15 @@ angularApp.controller('contactController', function($scope, $http) {
                     complete: function(){
                         $scope.submitted = true;
                         console.log("Submitted ", $scope.submitted);
+                        var messageClass = ($scope.response.result) ? 'success' : 'error';
+                        var messageContent = $scope.response.message
+                        var message = '
+                                <div class="alert alert-' + messageClass + '">
+                                    ' + messageContent + '
+                                </div>
+                                ';
+                        // hacks on create message
+                        jQuery('#features > container').prepend(message);        
                     }
                 })
             }

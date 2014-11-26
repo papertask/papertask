@@ -21,7 +21,7 @@ $this->headScript()
 <div ng-app="contact" ng-controller="contactController" id="features" class="features">
     <div class="container">
         <!-- Message response from form -->
-        <div ng-show="submitted" class="alert alert-{{(response.result) ? 'success' : 'error'}}">
+        <div ng-hide="submitted == false" class="alert alert-{{(response.result) ? 'success' : 'error'}}">
             {{response.message}}
         </div>
         <div class="row">
