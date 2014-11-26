@@ -41,11 +41,7 @@ angularApp.controller('contactController', function($scope, $http) {
                         console.log("Submitted ", $scope.submitted);
                         var messageClass = ($scope.response.result) ? 'success' : 'error';
                         var messageContent = $scope.response.message
-                        var message = '
-                                <div class="alert alert-' + messageClass + '">
-                                    ' + messageContent + '
-                                </div>
-                                ';
+                        var message = '<div class="alert alert-' + messageClass + '">' + messageContent + '</div>';
                         // hacks on create message
                         jQuery('#features > container').prepend(message);        
                     }
