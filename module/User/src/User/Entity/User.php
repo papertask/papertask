@@ -80,7 +80,7 @@ class User extends Entity implements InputFilterAwareInterface{
     protected $gender = 0;
 
     /** @ORM\Column(type="string") */
-    protected $currency = 'CNY';
+    protected $currency = 'cny';
 
     /**
      * @var \User\Entity\Freelancer
@@ -93,6 +93,9 @@ class User extends Entity implements InputFilterAwareInterface{
      * @ORM\OneToOne(targetEntity="Employer")
      */
     protected $employer;
+    
+     /** @ORM\Column(type="string") */
+    protected $comments;
 
     /**
      * @var \User\Entity\Staff
@@ -102,7 +105,6 @@ class User extends Entity implements InputFilterAwareInterface{
 
 
     // class variables
-
     protected $inputFilter;
 
     /**
@@ -141,6 +143,9 @@ class User extends Entity implements InputFilterAwareInterface{
             'lastName',
             'password',
             'phone',
+            'comments',
+            'isActive',
+            'profileUpdated'
         );
         foreach($keys as $key){
             if(isset($arr[$key])){
@@ -165,9 +170,10 @@ class User extends Entity implements InputFilterAwareInterface{
             'lastName',
             'phone',
             'profileUpdated',
+            'comments'
         );
 
-        if(isset($arr['currency']) and !in_array($arr['currency'], ['USD', 'CNY'])){
+        if(isset($arr['currency']) and !in_array($arr['currency'], ['usd', 'cny'])){
             throw new \Exception("Invalid currency '{$arr['currency']}'");
         }
 
@@ -414,7 +420,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function getData(){
         return array(
             "city" => $this->city,
-            "country" => $this->country->getData(),
+            "country" => $this->country,
             'currency' => $this->currency,
             "createdTime" => $this->createdTime,
             "email" => $this->email,
@@ -426,8 +432,8 @@ class User extends Entity implements InputFilterAwareInterface{
             "lastLogin" => $this->lastLogin,
             "lastName" => $this->lastName,
             "phone" => $this->phone,
-            'freelancer' => $this->freelancer,
             "profileUpdated" => $this->profileUpdated,
+            'comments'=>$this->comments
         );
     }
 
@@ -514,4 +520,3 @@ class User extends Entity implements InputFilterAwareInterface{
         $controller->redirect()->toUrl('/user/dashboard');
     }
 }
-
