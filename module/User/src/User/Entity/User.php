@@ -97,6 +97,12 @@ class User extends Entity implements InputFilterAwareInterface{
      /** @ORM\Column(type="string") */
     protected $comments;
 
+    /**
+     * @var \User\Entity\Staff
+     * @ORM\OneToOne(targetEntity="Staff")
+     */
+    protected $staff;
+
 
     // class variables
     protected $inputFilter;
