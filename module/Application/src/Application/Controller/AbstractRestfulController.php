@@ -17,11 +17,7 @@ class AbstractRestfulController extends ZendAbstractRestfulController{
     public function getDataList($array){
         $data = [];
         foreach($array as $member){
-            if(is_callable(array($member, 'getListData'))){
-                $data[] = $member->getListData();
-            } else {
-                $data[] = $member->getData();
-            }
+            $data[] = $member->getData();
         }
         return $data;
     }

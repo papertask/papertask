@@ -34,7 +34,9 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="m-b-md">
-                <a data-toggle="collapse" href="#edit_project" class="btn btn-danger btn-xs pull-right"><i class="fa fa-edit"></i><?php echo $this->translate('Edit Project') ?></a>
+                <button class="btn btn-danger btn-xs pull-right" ng-click="showEdit()">
+                    <i class="fa fa-edit"></i><?php echo $this->translate('Edit Project') ?>
+                </button>
                 <h2><span class="text-info">{{ project.id }}</span> - <?php echo $this->translate('Project Reference') ?>
                     {{ project.reference }}</h2>
             </div>
@@ -89,12 +91,12 @@
         <div id="edit_project" class="panel-collapse collapse faq-answer">
             <form method="" class="form-horizontal">
                 <div class="row form-horizontal">
-
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Reference *</label>
                             <div class="col-sm-9">
-                                <input id="" name="" value="Project reference" type="text" class="form-control">
+                                <input name="reference" ng-model="tempProject.reference" type="text"
+                                       class="form-control required">
                             </div>
                         </div>
                         <div class="form-group" id="ordered_date">
@@ -110,22 +112,20 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Field *</label>
                             <div class="col-sm-9">
-                                <select class="form-control required valid" id="" name="" value="" aria-required="true">
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
+                                <select class="form-control required valid" name="field" aria-required="true"
+                                        ng-model="tempProject.field"
+                                        ng-options="field.name for field in fields">
+                                    <option value=""></option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Sales </label>
                             <div class="col-sm-9">
-                                <select class="form-control required valid" id="country" name="country" value="" aria-required="true">
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
+                                 <select class="form-control required valid" name="sale" aria-required="true"
+                                         ng-model="tempProject.sale"
+                                         ng-options="sale.name for sale in sales">
+                                     <option value=""></option>
                                 </select>
                             </div>
                         </div>
@@ -159,11 +159,10 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Client *</label>
                             <div class="col-sm-9">
-                                <select class="form-control required valid" id="" name="" value="" aria-required="true">
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
+                                <select class="form-control required valid" name="client" aria-required="true"
+                                        ng-model="tempProject.client"
+                                        ng-options="client.name for client in clients">
+                                    <option value=""></option>
                                 </select>
                             </div>
                         </div>
@@ -171,11 +170,10 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">PM *</label>
                             <div class="col-sm-9">
-                                <select class="form-control required valid" id="" name="" value="" aria-required="true">
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
+                                <select class="form-control required valid" name="pms" aria-required="true"
+                                        ng-model="tempProject.pm"
+                                        ng-options="pm.name for pm in pms">
+                                    <option value=""></option>
                                 </select>
                             </div>
                         </div>

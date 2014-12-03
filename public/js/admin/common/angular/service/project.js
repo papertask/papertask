@@ -249,6 +249,14 @@ angularApp.factory("StaffApi", function(API){
     return API.factory('/api/admin/staff/', 'staff', 'staffs');
 });
 
+angularApp.factory("ClientApi", function(API){
+    return API.factory('/api/admin/client/', 'client', 'clients');
+});
+
+angularApp.factory("FieldApi", function(API){
+    return API.factory('/api/admin/field/', 'field', 'fields');
+});
+
 angularApp.factory("LanguageApi", function(API){
     return API.factory('/api/admin/language/', 'language', 'languages');
 });
