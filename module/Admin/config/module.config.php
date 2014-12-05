@@ -90,6 +90,10 @@ return array(
             'admin/project/new' => __DIR__ . '/../view/admin/project/new.phtml',
             'admin/papertask/profile' => __DIR__ . '/../view/admin/papertask/profile.phtml',
             'admin/quote/detail' => __DIR__ . '/../view/admin/quote/detail.phtml',
+            'admin/employer/new' => __DIR__ . '/../view/admin/employer/new.phtml',
+            'admin/employer/list' => __DIR__ . '/../view/admin/employer/list.phtml',
+            'admin/employer/detail' => __DIR__ . '/../view/admin/employer/details.phtml',
+            'admin/employer/profile' => __DIR__ . '/../view/admin/employer/edit-profile.phtml',
         ),
         'layout' => 'layout/admin',
         'template_path_stack' => array(
