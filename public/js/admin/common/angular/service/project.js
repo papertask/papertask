@@ -227,10 +227,18 @@ angularApp.factory("API", function($http){
                 });
         }
 
+        function update($id, $data, $func){
+            return $http.put(url + $id, $data)
+                .success(function($data){
+                    $func($data[singleKey]);
+                });
+        }
+
         return {
             get: get,
             list: list,
-            delete: del
+            delete: del,
+            update: update
         }
     }
 
