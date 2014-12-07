@@ -13,37 +13,24 @@ angularApp.run(function($rootScope){
     });
 });
 
-angularApp.controller('CreateProjectController', function($scope, $http, $timeout, $q, $sce, CurrentUser, TableItemListService){
-    $scope.project = {
-        dtps: [],
-        translations: [],
-        files: []
-    };
+angularApp.controller('CreateProjectController', function($scope, $http, $timeout, $q, $sce, CurrentUser,
+                                                          TableItemListService, ProjectType){
+    $scope.ProjectType = ProjectType;
+
+    $scope.files = [];
+    $scope.interpreting = null;
     $scope.editing = true;
 
-    $scope.order = {
+    $scope.order = {};
+    $scope.project = {
+        types: []
     };
-
-    $scope.targets = {
-
-    };
-
-    function trustedHtml(){
-        var keys = ['dtps'];
-        for(var i = 0; i < keys.length; i++){
-            var key = keys[i];
-            for(var j = 0; j < $scope[key].length; j++){
-                $scope[key][j].name = $sce.trustAsHtml($scope[key][j].name)
-            }
-        }
-    }
+    $scope.targets = {};
 
     $scope.init = function(){
         $http.get("/api/data/project/")
             .success(function($data){
                 jQuery.extend(true, $scope, $data);  // copy data to scope
-                // trusted html
-                trustedHtml();
                 var shareData = ['interpretingUnits', 'engineeringUnits', 'dtpUnits'];
                 for(var i = 0; i < shareData.length; i++){
                     var key = shareData[i];
@@ -59,45 +46,31 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
     };
 
     $scope.projectType = function(){
-        if($scope.project.translations.length > 0 || $scope.project.dtps.length > 0){
+        if($scope.project.types.length > 0){
             return "normal";
-        }
-        if($scope.project.interpreting){
-            return "interpreting";
         }
         return "";
     };
 
     $scope.setInterpreting = function($interpreting){
         jQuery(".project-types .active").removeClass("active");
-        $scope.project.translations = [];
-        $scope.project.dtps = [];
-        $scope.project.interpreting = $interpreting;
+        $scope.project.types = [$interpreting];
+        $scope.interpreting = $interpreting;
     };
 
     $scope.clearInterpreting =function (){
         jQuery("#project-interpreting .active").removeClass("active");
         jQuery("#project-interpreting :checked").prop("checked", false);
-        $scope.project.interpreting = null;
+        $scope.interpreting = null;
     };
 
-    $scope.addTranslation = function($translation){
+    $scope.addType = function($translation){
         $scope.clearInterpreting();
-        var $index = $scope.project.translations.indexOf($translation);
+        var $index = $scope.project.types.indexOf($translation);
         if($index == -1){
-            $scope.project.translations.push($translation);
+            $scope.project.types.push($translation);
         } else {
-            $scope.project.translations.splice($index, 1);
-        }
-    };
-
-    $scope.addDtp = function($dtp){
-        $scope.clearInterpreting();
-        var $index = $scope.project.dtps.indexOf($dtp);
-        if($index == -1){
-            $scope.project.dtps.push($dtp);
-        } else {
-            $scope.project.dtps.splice($index, 1);
+            $scope.project.types.splice($index, 1);
         }
     };
 
@@ -146,14 +119,14 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
             }
         }
         return false;
-    };
+    }
 
     /** order information condition **/
     $scope.hasTypeTranslationNoTM = function(){
-        return existsIdInArray($scope.project.translations, 1);
+        return existsIdInArray($scope.project.types, 1);
     };
     $scope.hasTypeTranslationUseTM = function(){
-        return existsIdInArray($scope.project.translations, 2);
+        return existsIdInArray($scope.project.types, 2);
     };
     $scope.hasTypeTranslationShow = function(){
         return $scope.hasTypeTranslationUseTM() || $scope.hasTypeTranslationNoTM();
@@ -162,13 +135,13 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         return $scope.hasTypeDesktopPublishingMac() || $scope.hasTypeDesktopPublishingWin();
     };
     $scope.hasTypeDesktopPublishingMac = function(){
-        return existsIdInArray($scope.project.dtps, 1)
+        return existsIdInArray($scope.project.types, 4)
     };
     $scope.hasTypeDesktopPublishingWin = function(){
-        return existsIdInArray($scope.project.dtps, 2)
+        return existsIdInArray($scope.project.types, 5)
     };
     $scope.hasTypeDesktopPublishingEngineer = function(){
-        return existsIdInArray($scope.project.dtps, 3);
+        return existsIdInArray($scope.project.types, 6);
     };
     /** end order information condition **/
 

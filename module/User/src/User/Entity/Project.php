@@ -108,34 +108,6 @@ class Project extends Entity{
     protected $duration = 0;
 
     /**
-     * @var \User\Entity\Iterm
-     * @ORM\ManyToMany(targetEntity="Iterm")
-     * @ORM\JoinTable(name="ProjectInterpretingIterm")
-     */
-    protected $interpretingIterms;
-
-    /**
-     * @var \User\Entity\Iterm
-     * @ORM\ManyToMany(targetEntity="Iterm")
-     * @ORM\JoinTable(name="ProjectDtpPcIterm")
-     */
-    protected $dtpPcIterms;
-
-    /**
-     * @var \User\Entity\Iterm
-     * @ORM\ManyToMany(targetEntity="Iterm")
-     * @ORM\JoinTable(name="ProjectDtpMacIterm")
-     */
-    protected $dtpMacIterms;
-
-    /**
-     * @var \User\Entity\Iterm
-     * @ORM\ManyToMany(targetEntity="Iterm")
-     * @ORM\JoinTable(name="ProjectEngineeringIterm")
-     */
-    protected $engineeringIterms;
-
-    /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
@@ -147,27 +119,30 @@ class Project extends Entity{
      */
     protected $payStatus = 1;  # unpaid
 
+    /**
+     * @var int
+     * @ORM\Column(type="array", length=255)
+     */
+    protected $types;
+
     public function getData(){
         return [
-            'id' => $this->id,
-            'status' => $this->status,
-            'sourceLanguage' => $this->sourceLanguage->getData(),
-            'targetLanguages' => $this->getArrayData($this->targetLanguages),
-            'reference' => $this->reference,
-            'priority' => $this->priority,
-            'startDate' => $this->startDate,
-            'dueDate' => $this->dueDate,
-            'field' => $this->field->getData(),
             'client' => $this->client->getData(),
-            'sale' => $this->sale->getData(),
-            'pm' => $this->pm->getData(),
-            'interpretingInfo' => $this->interpretingInfo,
-            'serviceLevel' => $this->serviceLevel,
+            'dueDate' => $this->dueDate,
             'duration' => $this->duration,
-            'interpretingIterms' => $this->interpretingIterms,
-            'dtpPcIterms' => $this->dtpPcIterms,
-            'dtpMacIterms' => $this->dtpMacIterms,
-            'engineeringIterms' => $this->engineeringIterms,
+            'field' => $this->field->getData(),
+            'id' => $this->id,
+            'interpretingInfo' => $this->interpretingInfo,
+            'pm' => $this->pm->getData(),
+            'priority' => $this->priority,
+            'reference' => $this->reference,
+            'sale' => $this->sale->getData(),
+            'serviceLevel' => $this->serviceLevel,
+            'sourceLanguage' => $this->sourceLanguage->getData(),
+            'startDate' => $this->startDate,
+            'status' => $this->status,
+            'targetLanguages' => $this->getArrayData($this->targetLanguages),
+            'types' => $this->types,
         ];
     }
 }

@@ -1,6 +1,7 @@
 /**
  * Created by eastagile on 11/11/14.
  */
+var angularApp = angularApp || angular.module('project', []);
 angularApp.factory("ProjectStatus", function(){
     var statuses = [{
         'id': 1,
@@ -162,6 +163,91 @@ angularApp.factory("ProjectServiceLevel", function(){
 });
 
 
+angularApp.factory("ProjectType", function($sce){
+    var types = [{
+        "id": 1,
+        "name": "Translation (No TM)",
+        "name_short": "No TM",
+        "name_text": "Translation (No TM)"
+    }, {
+        "id": 2,
+        "name": "Translation (Use TM)",
+        "name_short": "TM",
+        "name_text": "Translation (Use TM)"
+    }, {
+        "id": 3,
+        "name": "Proofreading",
+        "name_short": "Proofreading",
+        "name_text": "Proofreading"
+    }, {
+        "id": 4,
+        "name": $sce.trustAsHtml("DTP <i class=\"fa fa-apple\"><\/i>"),
+        "name_short": "MAC",
+        "name_text": "DTP MAC"
+    }, {
+        "id": 5,
+        "name": $sce.trustAsHtml("DTP <i class=\"fa fa-windows\"><\/i>"),
+        "name_short": "WIN",
+        "name_text": "DTP Windows"
+    }, {
+        "id": 6,
+        "name": $sce.trustAsHtml("Engineering"),
+        "name_short": "ENG",
+        "name_text": "Engineering"
+    }, {
+        "id": 7,
+        "name": "Simultaneous",
+        "name_short": "SIM",
+        "name_text": "Simultaneous"
+    }, {
+        "id": 8,
+        "name": "Consecutive",
+        "name_short": "CON",
+        "name_text": "Consecutive"
+    }, {
+        "id": 9,
+        "name": "Business Escort",
+        "name_short": "BE",
+        "name_text": "Business Escort"
+    }, {
+        "id": 10,
+        "name": "Tourism Escort",
+        "name_short": "TE",
+        "name_text": "Tourism Escort"
+    }];
+
+    function get($id){
+        for(var i = 0; i < types.length; i++){
+            if(types[i].id == $id){
+                return types[i];
+            }
+        }
+    }
+
+    function find($ids){
+        var found = [];
+        for(var i = 0; i < $ids.length; i++){
+            var obj = get($ids[i]);
+            if(obj){
+                found.push(obj);
+            }
+        }
+        return found;
+    }
+
+    return {
+        get: get,
+        all: function(){
+            return types;
+        },
+        translations: find([1, 2, 3]),
+        dtps: find([4, 5, 6]),
+        interpretings: find([7, 8, 9, 10]),
+        find: find
+    }
+});
+
+
 angularApp.factory("DateFormatter", function(){
     var month_names_short = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     var month_names_full = [ "January", "February", "March", "April", "May", "June",
@@ -239,7 +325,7 @@ angularApp.factory("API", function($http){
             list: list,
             delete: del,
             update: update
-        }
+        };
     }
 
     return {

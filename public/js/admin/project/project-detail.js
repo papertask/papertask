@@ -3,11 +3,12 @@
  */
 angularApp.run(function($rootScope){
     jQuery("#edit_project form").validate();
+    jQuery("#tasks form").validate();
 });
 
 angularApp.controller('ProjectDetailController', function($scope, $location, ProjectApi, DateFormatter, ProjectStatus,
                                                           ProjectServiceLevel, ProjectPriority, StaffApi, ClientApi,
-                                                          FieldApi, $q){
+                                                          FieldApi, ProjectType, $q){
 
     $scope.DateFormatter = DateFormatter;
     $scope.ProjectStatus = ProjectStatus;
@@ -69,6 +70,7 @@ angularApp.controller('ProjectDetailController', function($scope, $location, Pro
                 $scope.project.pm = search_by_id($scope.pms, $scope.project.pm.id);
                 $scope.project.sale = search_by_id($scope.sales, $scope.project.sale.id);
                 $scope.project.client = search_by_id($scope.clients, $scope.project.client.id);
+                $scope.project.types = ProjectType.find($scope.project.types.sort())
 
                 jQuery.extend($scope.tempProject, $scope.project);
             });

@@ -50,6 +50,13 @@ class ProjectController extends AbstractRestfulJsonController
         if(isset($data['serviceLevel'])) {
             $data['serviceLevel'] = $data['serviceLevel']['id'];
         }
+        if(isset($data['types'])){
+            $arr = [];
+            foreach($data['types'] as $type){
+                $arr[] = $type['id'];
+            }
+            $data['types'] = $arr;
+        }
     }
 
     public function create($data)
@@ -66,13 +73,15 @@ class ProjectController extends AbstractRestfulJsonController
         $project->setData($data);
         $project->save($this->getEntityManager());
         $files = [];
-        foreach($data['files'] as $file){
-            $id = $file['id'];
-            $file = $this->find('\User\Entity\File', $id);
-            if($file->getProject() == null){
-                $file->setProject($project);
-                $file->save($this->getEntityManager());
-                $files[$file->getId()] = $file;
+        if(isset($data['files'])){
+            foreach($data['files'] as $file){
+                $id = $file['id'];
+                $file = $this->find('\User\Entity\File', $id);
+                if($file->getProject() == null){
+                    $file->setProject($project);
+                    $file->save($this->getEntityManager());
+                    $files[$file->getId()] = $file;
+                }
             }
         }
 

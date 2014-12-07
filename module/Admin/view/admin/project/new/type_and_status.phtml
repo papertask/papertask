@@ -10,7 +10,7 @@
             </label>
             <div data-toggle="buttons">
                 <label class="btn btn-outline btn-primary {{translation_active[translation.id]}}"
-                       ng-repeat="translation in translations" ng-click="addTranslation(translation)">
+                       ng-repeat="translation in ProjectType.translations" ng-click="addType(translation)">
                     <input type="checkbox" name="type" ng-value="translation.id"/> {{translation.name}}
                 </label>
             </div>
@@ -20,8 +20,8 @@
                 <h4><i class="fa fa-desktop"></i> &nbsp;DTP/Engineering</h4>
             </label>
             <div data-toggle="buttons">
-                <label class="btn btn-outline btn-primary {{dtp_active[dtp.id]}}" ng-repeat="dtp in dtps"
-                       ng-click="addDtp(dtp)">
+                <label class="btn btn-outline btn-primary {{dtp_active[dtp.id]}}" ng-repeat="dtp in ProjectType.dtps"
+                       ng-click="addType(dtp)">
                     <input type="checkbox" name="type" ng-value="dtp.id" /> <span ng-bind-html="dtp.name"></span>
                 </label>
             </div>
@@ -32,7 +32,7 @@
             </label>
             <div data-toggle="buttons">
                 <label class="btn btn-outline btn-primary {{interpreting == project.interpreting ? 'active': ''}}"
-                       ng-repeat="interpreting in interpretings" ng-click="setInterpreting(interpreting)">
+                       ng-repeat="interpreting in ProjectType.interpretings" ng-click="setInterpreting(interpreting)">
                     <input type="radio" name="type" ng-value="intepreting.id" /> {{interpreting.name}}
                 </label>
             </div>

@@ -79,9 +79,8 @@
                 <dt>Type:</dt>
                 <dd>
                     <div class="tooltip-demo">
-                        <span ng-repeat="type in TypeList.getProjectTypes(project)">
-                            <code {{ TypeList.getTypeAttrs(type) }}>{{ TypeList.getDisplayName(type) }}</code>&nbsp;
-                        </span>
+                        <span ng-repeat="type in project.types"><code
+                            {{ TypeList.getTypeAttrs(type) }}>{{ type.name_short }}</code>&nbsp;</span>
                     </div>
                 </dd>
                 <br>
@@ -214,23 +213,23 @@
 
 <div class="tab-content">
 <div class="tab-pane active" id="tasks">
-<form class="form-horizontal">
+<form class="form-horizontal" action="<?php echo $this->url("admin", ['controller' => 'task', 'action' => 'new']) ?>">
+    <input type="hidden" name="project_id" value="{{ project.id }}" />
     <div class="form-group">
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-md-4">
-                    <select class="form-control" name="account">
-                        <option>Select Task Type</option>
-                        <option>Translation (Use TM)</option>
-                        <option>DTP</option>
-                        <option>Proofreading</option>
+                    <select class="form-control required" name="type">
+                        <option value="">Select Task Type</option>
+                        <option value="{{ type.id }}" ng-repeat="type in project.types">{{ type.name_text }}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <select class="form-control" name="account">
-                        <option>Select Language Pair</option>
-                        <option>English to Chinese</option>
-                        <option>English to Japanese</option>
+                    <select class="form-control required" name="language">
+                        <option value="">Select Language Pair</option>
+                        <option value="{{ language.id }}" ng-repeat="language in project.targetLanguages">
+                            {{ project.sourceLanguage.name }} to {{ language.name }}
+                        </option>
                     </select>
                 </div>
                 <div class="col-md-4"><button class="btn btn-primary" type="submit">Create New Task</button></div>
@@ -238,7 +237,6 @@
         </div>
     </div>
 </form>
-
 <div class="hr-line-dashed"></div>
 <div class="project-list">
     <table class="table table-hover">

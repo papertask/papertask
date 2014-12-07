@@ -149,16 +149,6 @@ return array(
         'EN' => 'England',
     ],
     'project_create' => [
-        'translations' => [
-            ['id' => 1, 'name' => 'Translation (No TM)'],
-            ['id' => 2, 'name' => 'Translation (Use TM)'],
-            ['id' => 3, 'name' => 'Proofreading'],
-        ],
-        'dtps' => [
-            ['id' => 1, 'name' => 'DTP <i class="fa fa-apple"></i>'],
-            ['id' => 2, 'name' => 'DTP <i class="fa fa-windows"></i>'],
-            ['id' => 3, 'name' => 'Engineering'],
-        ],
         'statuses' => [
             ['id' => 1, 'name' => 'Quote', 'decorator' => 'info'],
             ['id' => 2, 'name' => 'Ordered', 'decorator' => 'danger'],

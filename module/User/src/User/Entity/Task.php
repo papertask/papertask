@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: antiprovn
- * Date: 10/6/14
- * Time: 9:59 AM
+ * Date: 9/28/14
+ * Time: 11:50 AM
  */
 
 namespace User\Entity;
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Common\Entity;
 
 /** @ORM\Entity */
-class Iterm extends Entity{
+class Task extends Entity{
 
     /**
      * @ORM\Id
@@ -21,6 +21,12 @@ class Iterm extends Entity{
      * @ORM\Column(type="integer")
      */
     protected $id;
+
+    /**
+     * @var \User\Entity\Project
+     * @ORM\ManyToOne(targetEntity="Project")
+     */
+    protected $project;
 
     /**
      * @var \User\Entity\File
@@ -51,4 +57,15 @@ class Iterm extends Entity{
      */
     protected $unit;
 
+    /**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $total;
+
+    /**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $type;
 }
