@@ -235,15 +235,32 @@ angularApp.factory("ProjectType", function($sce){
         return found;
     }
 
+    var sub = {
+        translations: find([1, 2, 3]),
+        dtps: find([4, 5, 6]),
+        interpretings: find([7, 8, 9, 10])
+    };
+
+    function is_in($typeName, $object){
+        var arr = sub[$typeName];
+        for(var i = 0; i < arr.length; i++){
+            if(arr[i].id == $object.id){
+                return true;
+            }
+        }
+        return false;
+    }
+
     return {
         get: get,
         all: function(){
             return types;
         },
-        translations: find([1, 2, 3]),
-        dtps: find([4, 5, 6]),
-        interpretings: find([7, 8, 9, 10]),
-        find: find
+        translations: sub.translations,
+        dtps: sub.dtps,
+        interpretings: sub.interpretings,
+        find: find,
+        is_in: is_in
     }
 });
 

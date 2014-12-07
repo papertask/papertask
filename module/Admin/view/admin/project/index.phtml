@@ -88,8 +88,8 @@
                                 <strong><?php echo $this->translate('Contract with') ?> {{ project.client.company.name }}</strong>
                                 <br/>
                                 <div class="tooltip-demo">
-                                    <span ng-repeat="type in TypeList.getProjectTypes(project)">
-                                        <code {{ TypeList.getTypeAttrs(type) }}>{{ TypeList.getDisplayName(type) }}</code>
+                                    <span ng-repeat="type in project.types">
+                                        <code {{ TypeList.getTypeAttrs(type) }}>{{ type.name_short }}</code>
                                     </span>
                                 </div>
                             </td>
