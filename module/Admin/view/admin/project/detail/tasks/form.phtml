@@ -4,17 +4,15 @@
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-md-4">
-                    <select class="form-control required" name="type" ng-model="newTask.type">
+                    <select class="form-control required" name="type" ng-model="newTask.type"
+                            ng-options="type.name_text for type in project.types">
                         <option value="">Select Task Type</option>
-                        <option value="{{ type.id }}" ng-repeat="type in project.types">{{ type.name_text }}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <select class="form-control required" name="language" ng-model="newTask.language">
+                    <select class="form-control required" name="language" ng-model="newTask.language"
+                            ng-options="(project.sourceLanguage.name + ' to ' + language.name) for language in project.targetLanguages">
                         <option value="">Select Language Pair</option>
-                        <option value="{{ language.id }}" ng-repeat="language in project.targetLanguages">
-                            {{ project.sourceLanguage.name }} to {{ language.name }}
-                        </option>
                     </select>
                 </div>
                 <div class="col-md-4">

@@ -52,9 +52,35 @@ class Task extends Entity{
      */
     protected $is_deleted;
 
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    protected $is_completed;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    protected $is_specialism_pool;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    protected $is_client_pool;
+
+    /**
+     * @var \User\Entity\Freelancer
+     * @ORM\ManyToOne(targetEntity="Freelancer")
+     */
+    protected $assignee;
+
     public function getData(){
         return [
             'id' => $this->id,
+            'is_completed' => $this->is_completed,
+            'is_deleted' => $this->is_deleted,
             'language' => $this->language->getData(),
             'project' => $this->project->getId(),
             'status' => $this->status,

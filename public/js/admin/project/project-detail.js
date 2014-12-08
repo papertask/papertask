@@ -141,6 +141,15 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
 
     $scope.createTask = createTask;
 
+    function sendToSpecialismPool($task){
+        TaskApi.update($task.id, {
+            is_specialism_pool: 1
+        }, function(){
+            alert(1);
+        });
+    }
+    $scope.sendToSpecialismPool = sendToSpecialismPool;
+
     $scope.$watch(function(){
         return $scope.project;
     }, function(){
