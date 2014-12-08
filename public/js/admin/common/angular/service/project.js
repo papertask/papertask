@@ -2,6 +2,8 @@
  * Created by eastagile on 11/11/14.
  */
 var angularApp = angularApp || angular.module('project', []);
+
+
 angularApp.factory("ProjectStatus", function(){
     var statuses = [{
         'id': 1,
@@ -40,6 +42,46 @@ angularApp.factory("ProjectStatus", function(){
         all: function () {
             return statuses;
         }
+    }
+});
+
+
+angularApp.factory("TaskStatus", function(){
+    var unassigned = {
+        'id': 3,
+        'name': 'Unassigned',
+        'decorator': 'danger'
+    };
+    var statuses = [{
+        'id': 1,
+        'name': 'Complete',
+        'decorator': 'default'
+    },{
+        'id': 2,
+        'name': 'Ongoing',
+        'decorator': 'primary'
+    }, unassigned,{
+        'id': 4,
+        'name': 'Pooling',
+        'decorator': 'warning'
+    },{
+        'id': 5,
+        'name': 'Evaluating',
+        'decorator': 'info'
+    }];
+
+    return {
+        get: function ($id) {
+            for (var i = 0; i < statuses.length; i++) {
+                if (statuses[i].id == $id) {
+                    return statuses[i];
+                }
+            }
+        },
+        all: function () {
+            return statuses;
+        },
+        unassigned: unassigned
     }
 });
 
@@ -337,10 +379,18 @@ angularApp.factory("API", function($http){
                 });
         }
 
+        function create($data, $func){
+            return $http.post(url, $data)
+                .success(function($data){
+                    $func($data[singleKey]);
+                });
+        }
+
         return {
+            create: create,
+            delete: del,
             get: get,
             list: list,
-            delete: del,
             update: update
         };
     }
@@ -370,4 +420,8 @@ angularApp.factory("FieldApi", function(API){
 
 angularApp.factory("LanguageApi", function(API){
     return API.factory('/api/admin/language/', 'language', 'languages');
+});
+
+angularApp.factory("TaskApi", function(API){
+    return API.factory('/api/admin/task/', 'task', 'tasks');
 });

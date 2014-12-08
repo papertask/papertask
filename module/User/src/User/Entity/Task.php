@@ -29,43 +29,36 @@ class Task extends Entity{
     protected $project;
 
     /**
-     * @var \User\Entity\File
-     * @ORM\ManyToOne(targetEntity="File")
-     */
-    protected $file;
-    /**
      * @var \User\Entity\Language
      * @ORM\ManyToOne(targetEntity="Language")
      */
     protected $language;
 
     /**
-     * @var decimal
-     * @ORM\Column(type="decimal")
-     */
-    protected $rate;
-
-    /**
-     * @var integer
-     * @ORM\Column(type="integer")
-     */
-    protected $quantity;
-
-    /**
-     * @var integer
-     * @ORM\Column(type="integer")
-     */
-    protected $unit;
-
-    /**
-     * @var integer
-     * @ORM\Column(type="integer")
-     */
-    protected $total;
-
-    /**
      * @var integer
      * @ORM\Column(type="integer")
      */
     protected $type;
+
+    /**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $status;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    protected $is_deleted;
+
+    public function getData(){
+        return [
+            'id' => $this->id,
+            'language' => $this->language->getData(),
+            'project' => $this->project->getId(),
+            'status' => $this->status,
+            'type' => $this->type,
+        ];
+    }
 }

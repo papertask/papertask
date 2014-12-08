@@ -145,4 +145,8 @@ class Project extends Entity{
             'types' => $this->types,
         ];
     }
+
+    public function getId(){
+        return $this->id;
+    }
 }

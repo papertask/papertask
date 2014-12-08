@@ -102,9 +102,9 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         $http.post("/api/admin/project/", $scope.project)
             .success(function($data){
                 if($data.success){
-                    location.href = "/admin/project/detail/#id/" + $data.project.id;
+                    location.href = "/admin/project/detail/?id=" + $data.project.id;
                 } else {
-                    location.href = "/admin/quote/detail/#id/" + $data.project.id;
+                    location.href = "/admin/quote/detail/?id=" + $data.project.id;
                 }
             })
             .error(function($data){

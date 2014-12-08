@@ -102,6 +102,7 @@ return array(
             'Api\Controller\Admin\Language' => 'Api\Controller\Admin\LanguageController',
             'Api\Controller\Admin\Project' => 'Api\Controller\Admin\ProjectController',
             'Api\Controller\Admin\Staff' => 'Api\Controller\Admin\StaffController',
+            'Api\Controller\Admin\Task' => 'Api\Controller\Admin\TaskController',
             'Api\Controller\Common\Company' => 'Api\Controller\Common\CompanyController',
             'Api\Controller\Common\Country' => 'Api\Controller\Common\CountryController',
             'Api\Controller\Common\EngineeringCategory' => 'Api\Controller\Common\EngineeringCategoryController',

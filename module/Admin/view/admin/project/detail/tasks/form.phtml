@@ -1,0 +1,29 @@
+<form class="form-horizontal" ng-submit="createTask()">
+    <input type="hidden" name="project_id" value="{{ project.id }}" />
+    <div class="form-group">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <select class="form-control required" name="type" ng-model="newTask.type">
+                        <option value="">Select Task Type</option>
+                        <option value="{{ type.id }}" ng-repeat="type in project.types">{{ type.name_text }}</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control required" name="language" ng-model="newTask.language">
+                        <option value="">Select Language Pair</option>
+                        <option value="{{ language.id }}" ng-repeat="language in project.targetLanguages">
+                            {{ project.sourceLanguage.name }} to {{ language.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary" type="submit">
+                        <?php echo $this->translate("Create New Task") ?>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="hr-line-dashed"></div>

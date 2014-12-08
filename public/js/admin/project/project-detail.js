@@ -8,7 +8,7 @@ angularApp.run(function($rootScope){
 
 angularApp.controller('ProjectDetailController', function($scope, $location, ProjectApi, DateFormatter, ProjectStatus,
                                                           ProjectServiceLevel, ProjectPriority, StaffApi, ClientApi,
-                                                          FieldApi, ProjectType, $q){
+                                                          FieldApi, ProjectType, TaskApi, TaskStatus, $q){
 
     $scope.DateFormatter = DateFormatter;
     $scope.ProjectStatus = ProjectStatus;
@@ -21,7 +21,9 @@ angularApp.controller('ProjectDetailController', function($scope, $location, Pro
     $scope.sales = [];
     $scope.pms = [];
     $scope.fields = [];
-
+    $scope.project = {
+        task: []
+    }
     function search_by_id($array, $id){
         for(var i = 0; i < $array.length; i++){
             if($array[i].id == $id){
@@ -30,14 +32,13 @@ angularApp.controller('ProjectDetailController', function($scope, $location, Pro
         }
     }
 
-    var params = $location.search();
-    var projectId = params['id'];
+    var projectId = PROJECT_ID;
     function init(){
         var project_listener = ProjectApi.get(projectId, function($project){
             $project.priority = ProjectPriority.get($project.priority);
             $project.serviceLevel = ProjectServiceLevel.get($project.serviceLevel);
             $project.status = ProjectStatus.get($project.status);
-
+            $project.tasks = [];
 
             $scope.project = $project;
 
@@ -100,9 +101,52 @@ angularApp.controller('ProjectDetailController', function($scope, $location, Pro
             });
         }
     }
-
     $scope.showEdit = showEdit;
     $scope.update = update;
 
     init();
+});
+
+
+angularApp.controller("ProjectTasksController", function($scope, TaskStatus, ProjectType, TaskApi){
+    $scope.newTask = {};
+
+    $scope.setItemApi(TaskApi);
+
+    function attachData($task){
+        $task.type = ProjectType.get($task.type);
+        $task.status = TaskStatus.get($task.status);
+    }
+
+    function createTask(){
+        if(jQuery("#tasks form").valid()){
+            var newTask = $scope.newTask;
+            newTask.project_id = $scope.project.id;
+            newTask.status = TaskStatus.unassigned;
+
+            TaskApi.create(newTask, function($newTask){
+                attachData($newTask);
+                $scope.newTask = {};
+                $scope.project.tasks.push($newTask);
+            });
+        }
+    }
+
+    function afterLoadItems($tasks){
+        for(var i = 0; i < $tasks.length; i++){
+            attachData($tasks[i]);
+        }
+    }
+    $scope.custom.afterLoadItems = afterLoadItems;
+
+    $scope.createTask = createTask;
+
+    $scope.$watch(function(){
+        return $scope.project;
+    }, function(){
+        if(typeof($scope.project.id) != 'undefined'){
+            $scope.filter.project_id = $scope.project.id;
+            $scope.refresh();
+        }
+    });
 });
