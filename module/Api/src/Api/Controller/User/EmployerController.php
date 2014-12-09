@@ -52,10 +52,10 @@ class EmployerController extends AbstractRestfulController
 	
 		} else {
 			$user = new User();
-			$user->createEmployer($data, $entityManager);
+			$user->createEmployer( $this, $data, $entityManager);
 			$employer = $user->getEmployer();
 	
-			$employer->updateData(array('position'=>$pdata['position'], 'company'=>$data['company_id'], 'defaultServiceLevel'=>$pdata['defaultServiceLevel']));
+			$employer->updateData(array('position'=>$pdata['position'], 'company'=>$data['company_id'], 'defaultServiceLevel'=>$pdata['defaultServiceLevel'], 'comments'=>$pdata['comments']));
 			$employer->save($entityManager);
 	
 			$ret_data = $employer->getData();
@@ -65,9 +65,9 @@ class EmployerController extends AbstractRestfulController
 			foreach ( $pdata['translationPrices'] as $k => $v ) {
 				$translationPrice = array(
 						'user' => $user,
-						'sourceLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v->sourceLanguage->id)),
-						'targetLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v->targetLanguage->id)),
-						'price' => $v->price
+						'sourceLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v['sourceLanguage']['id'])),
+						'targetLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v['targetLanguage']['id'])),
+						'price' => $v['price']
 				);
 				 
 				$pTranslationPrice->setData( $translationPrice );
@@ -77,14 +77,15 @@ class EmployerController extends AbstractRestfulController
 			// Set Desktop Prices
 			$pDesktopPrice = new UserDesktopPrice();
 			foreach ( $pdata['desktopPrices'] as $k => $v) {
-				$desktopPrice = array (
+				
+                $desktopPrice = array (
 						'user'=> $user,
-						'language' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id'=>$v->language->id)),
-						'software' => $entityManager->getRepository('User\Entity\DesktopSoftware')->findOneBy(array('id'=>$v->language->id)),
-						'priceMac' => $v->priceMac,
-						'pricePc' => $v->pricePc,
-						'priceHourMac' => $v->priceHourMac,
-						'priceHourPc' => $v->priceHourPc
+						'language' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id'=>$v['language']['id'])),
+						'software' => $entityManager->getRepository('User\Entity\DesktopSoftware')->findOneBy(array('id'=>$v['language']['id'])),
+						'priceMac' => $v['priceMac'],
+						'pricePc' => $v['pricePc'],
+						'priceHourMac' => $v['priceHourMac'],
+						'priceHourPc' => $v['priceHourPc']
 				);
 				 
 				$pDesktopPrice->setData( $desktopPrice );
@@ -96,11 +97,11 @@ class EmployerController extends AbstractRestfulController
 			foreach ( $pdata['interpretingPrices'] as $k=>$v) {
 				$interpretingPrice = array(
 						'user' => $user,
-						'sourceLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v->sourceLanguage->id)),
-						'targetLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v->targetLanguage->id)),
-						'service' => $entityManager->getRepository('User\Entity\InterpretingService')->findOneBy(array('id' => $v->service->id)),
-						'priceDay' => $v->priceDay,
-						'priceHalfDay' => $v->priceHalfDay
+						'sourceLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v['sourceLanguage']['id'])),
+						'targetLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v['targetLanguage']['id'])),
+						'service' => $entityManager->getRepository('User\Entity\InterpretingService')->findOneBy(array('id' => $v['service']['id'])),
+						'priceDay' => $v['priceDay'],
+						'priceHalfDay' => $v['priceHalfDay']
 				);
 				$pInterpretingPrice->setData( $interpretingPrice );
 				$pInterpretingPrice->save( $entityManager );
@@ -126,16 +127,16 @@ class EmployerController extends AbstractRestfulController
 			$pEngineeringPrices = new UserEngineeringPrice();
 			foreach ( $pdata['engineeringPrices'] as $k=>$v ) {
 				$engineeringPrice = array(
-						'engineeringcategory'=> $entityManager->getRepository('Common\Entity\EngineeringCategory')->findOneBy(array('id' => $v->engineeringCategory->id)),
-						'unit'=> $entityManager->getRepository('Common\Entity\Unit')->findOneBy(array('id' => $v->unit->id)),
-						'price'=> $v->price,
+						'engineeringcategory'=> $entityManager->getRepository('Common\Entity\EngineeringCategory')->findOneBy(array('id' => $v['engineeringCategory']['id'])),
+						'unit'=> $entityManager->getRepository('Common\Entity\Unit')->findOneBy(array('id' => $v['unit']['id'])),
+						'price'=> $v['price'],
 						'user'=> $user
 				);
 				$pEngineeringPrices->setData( $engineeringPrice );
 				$pEngineeringPrices->save( $entityManager );
 			}
 	
-			return new JsonModel($ret_data);
+			return new JsonModel(['employer'=>$ret_data]);
 		}
 		return new JsonModel([]);
 	}
@@ -156,9 +157,10 @@ class EmployerController extends AbstractRestfulController
 
         $employer = $user->getEmployer();
         $employer->updateData(array(
-                'position'=>$data['position'], 
+                'position'=>isset($data['position'])?$data['position']:'', 
                 'company'=>$entityManager->getRepository('User\Entity\Company')->findOneBy(array('id' => $data['company'])), 
-                'defaultServiceLevel'=>$data['defaultServiceLevel']));
+                'defaultServiceLevel'=>$data['defaultServiceLevel'],
+                'comments'=>$data['comments']));
         $employer->save($entityManager);
 
         return new JsonModel([]);

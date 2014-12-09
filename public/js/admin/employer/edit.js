@@ -94,6 +94,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     				company: $data.employer.company,
     				employerId: $data.employer.id
     			};
+                $(".summernote").code( $data.employer.comments );
         		$scope.translationPrices = $data.translationPrices;
         		$scope.engineeringPrices = $data.engineeringPrices;
         		$scope.desktopPrices = $data.desktopPrices;
@@ -149,6 +150,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	$http.put("/api/user/"+$scope.userId, ptr_employer)
         	.success(function($data){
 	            $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id="+$scope.userId, ptr_employer).success(function(){
+	               
 	        });	            
         });
     	if ( $scope.employer.tmRatio && $scope.employer.tmRatio.id ) {

@@ -10,7 +10,7 @@ angularApp.run( function ( $rootScope ) {
         }
     });
 }) 
-angularApp.controller('PapertaskEmployerEditController', function($scope, $http, $timeout, $q) {
+angularApp.controller('PapertaskEmployerProfileController', function($scope, $http, $timeout, $q) {
 	$scope.companies 	= [];
 	$scope.countries 	= [];
 	$scope.employer = {};
@@ -19,11 +19,10 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
 	$scope.init = function (str_uid, str_empid, str_country_select, str_company_id) {
 		$http.get("/api/common/country").success(function($data){
 	            $scope.countries = $data['countries'];
-	            console.log ( $scope.countries );
-	            console.log ( str_country_select);
+	          
 	            var i = 0;
 	            angular.forEach($scope.countries, function(v, k){
-	            	if ( v.select == str_country_select ) {
+	            	if ( v.name == str_country_select ) {
 	            		$scope.employer.country = $scope.countries[i];
 	            	}
 	            	i ++;
@@ -47,7 +46,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
 	
 	$scope.saveCompany = function(company){
         var $data = jQuery.extend(true, {}, company);
-        $data.country = $data.country.select;
+        $data.country = $data.country.name;
         $http.post("/api/common/company", $data)
             .success(function($data){
                 jQuery("#modal-company").modal("hide");
@@ -59,6 +58,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
 	}
 	$scope.submit = function(){
 		var pParam = new Array();
+        
 		pParam = {
 			firstName: $("#firstname").val(),
 			lastName: $("#lastname").val(),

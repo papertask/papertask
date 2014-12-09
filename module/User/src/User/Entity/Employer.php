@@ -47,6 +47,8 @@ class Employer extends Entity{
      */
     protected $defaultServiceLevel = 1;
 
+     /** @ORM\Column(type="string", nullable=true) */
+    protected $comments;
 
     public function getData(){
         return [
@@ -55,6 +57,7 @@ class Employer extends Entity{
             'id' => $this->id,
             'name' => $this->name,
             'position' => $this->position,
+            'comments' => $this->comments
         ];
     }
 

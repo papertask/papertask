@@ -28,7 +28,6 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     $scope.resources = [];
     $scope.softwares = [];
     $scope.companies = [];
-    $scope.isActive = 0;
     
     // For Engineering Price
     $scope.units 	 = [];
@@ -45,13 +44,13 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     $scope.editEngineering = -1;
     
     $scope.employer = {
-    	isActive: '0',
-    	profileUpdated: '0',
+    	isActive: '1',
+    	profileUpdated: '1',
 		email: '',
 		username: '',
 		firstname: '',
 		surname: '',
-		gender: '0',
+		gender: '',
 		city: '',
 		lastName: '',
 		phone: '',
@@ -148,8 +147,7 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     	
     	$http.post("/api/user/employer", ptr_employer)
         	.success(function($data){
-	            //location.href="/admin/dashboard";
-	            
+	            location.href="/admin/employer/detail?id=" + $data.employer.id;        		
         });
     };
     
@@ -175,9 +173,13 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     	$scope.editTranslation = -1;
     };
     
-    $scope.deleteTranslationPrice = function ( index ) {        
-    	$scope.translationPrices.splice(index, 1);
-    	setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
+    $scope.deleteTranslationPrice = function ( index ) {  
+        bootbox.confirm ( "Are you sure!", function ( bflag ) {
+            if ( bflag ) {
+                $scope.translationPrices.splice(index, 1);
+	            setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
+             }
+        });
     }
     
     $scope.editTranslationPrice = function ( index ) {
@@ -234,7 +236,11 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     	jQuery("#modal-dtp").modal("show");
     }
     $scope.deleteDesktopPrice = function ( ind ) {
-    	$scope.desktopPrices.splice(ind, 1);
+        bootbox.confirm ( "Are you sure!", function ( bflag ) {
+            if ( bflag ) {
+    	       $scope.desktopPrices.splice(ind, 1);
+            }
+        });
     }
     
     /**
@@ -278,7 +284,11 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     	jQuery("#modal-interpreting").modal("show");
     }
     $scope.deleteInterpretingPrice = function (ind) {
-    	$scope.interpretingPrices.splice( ind, 1 );
+        bootbox.confirm ( "Are you sure!", function ( bflag ) {
+            if ( bflag ) {
+    	       $scope.interpretingPrices.splice( ind, 1 );
+            }
+        });
     }
     
     /**
@@ -288,8 +298,9 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     	return {};
     }
     $scope.saveCompany = function(company){
+        // console.log ( company );
         var $data = jQuery.extend(true, {}, company);
-        $data.country = $data.country.select;
+        $data.country = $data.country.name;
         $http.post("/api/common/company", $data)
             .success(function($data){
                 jQuery("#modal-company").modal("hide");
@@ -325,7 +336,11 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     	$scope.editEngineering = -1;
     }
     $scope.deleteEngineeringPrice = function (ind) {
-    	$scope.engineeringPrices.splice( ind, 1 );
+        bootbox.confirm ( "Are you sure!", function ( bflag ) {
+            if ( bflag ) {
+    	       $scope.engineeringPrices.splice( ind, 1 );
+            }
+        });
     }
     $scope.editEngineeringPrice = function (ind) {
     	$scope.editEngineering = ind;

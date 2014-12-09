@@ -9,11 +9,11 @@
 				<div class="form-group">
 					<label><i class="fa fa-plug"></i>&nbsp; Status</label>
 					<div data-toggle="buttons">
-						<label class="btn btn-outline btn-primary {{active_class(isActive, '1')}}" ng-click="setActive('1')">
+						<label class="btn btn-outline btn-primary {{active_class(employer.isActive, '1')}}" ng-click="setActive('1')">
 							<input type="radio" name="active" > Active
 						</label>
 						&nbsp;
-						<label class="btn btn-outline btn-primary {{active_class(isActive, '0')}}" ng-click="setActive('0')">
+						<label class="btn btn-outline btn-primary {{active_class(employer.isActive, '0')}}" ng-click="setActive('0')">
 							<input type="radio" name="deactive"  > De-Active
 						</label>
 					</div>				
