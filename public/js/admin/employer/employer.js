@@ -79,6 +79,7 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
         setModalControllerData('languages', $scope.languages);
         setModalControllerData('services', $scope.services);
         setModalControllerData('softwares', $scope.softwares);
+        setModalControllerData('engineeringCategories', $scope.engineeringCategories);       
     }
 
     /** end mapping function **/
@@ -88,7 +89,7 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
                 $scope.languages = $data['languages'];
                 $scope.services = $data['services'];
                 $scope.softwares = $data['softwares'];
-
+                $scope.engineeringCategories = $data['engcategory'];
                 initModal();
             });
 
@@ -109,11 +110,11 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
 	            $scope.units = $data;
 	            setModalControllerData('units', $scope.units);
 	    });
-        $http.get("/api/common/engineeringCategory")
+        /* $http.get("/api/common/engineeringCategory")
 	        .success(function($data){
 	            $scope.engineeringCategories = $data;
 	            setModalControllerData('engineeringCategories', $scope.engineeringCategories);
-	    });
+	    }); */
     };
  
     /**
