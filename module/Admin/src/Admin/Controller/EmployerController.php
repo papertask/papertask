@@ -106,6 +106,7 @@ class EmployerController extends AbstractActionController {
         }
         
         return new ViewModel(array('user'=>$user->getData(), 
+                'employer' => $user->getEmployer()->getData(),
                 'interpretingPrices'=>$pInterPretingPrices,
                 'engineeringPrices'=>$pEngineeringPrices,
                 'translationPrices'=>$pTranslationPrices,

@@ -37,7 +37,7 @@ class Company extends Entity{
     /** @ORM\Column(type="string") */
     protected $city;
 
-    /** @ORM\Column(type="string",length=2) */
+    /** @ORM\Column(type="string",nullable=true) */
     protected $country = null;
 
     /** @ORM\Column(type="string") */

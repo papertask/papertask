@@ -27,10 +27,10 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 				<p><i class="fa fa-user"></i> &nbsp; <?php echo $user['lastName'].", ".$user['firstName'];?> &nbsp; <?php if ($user['gender'] == 0) { ?><i class="fa fa-male"></i><?php } else { ?><i class="fa fa-female"></i><?php }?></p>
 				<p><i class="fa fa-envelope"></i> &nbsp; <?php echo $user['email']?></p>
 				<p><i class="fa fa-phone"></i> &nbsp; <?php echo $user['phone'];?></p>
-				<p><i class="fa fa-briefcase"></i> &nbsp; Marketing Manager</p>
-				<p><i class="fa fa-building"></i> &nbsp; IBM China</p>
-				<p><i class="fa fa-map-marker"></i> &nbsp; City, United States</p>
-				<p><i class="fa fa-link"></i> &nbsp; www.ibm.com.cn</p>
+				<p><i class="fa fa-briefcase"></i> &nbsp; </p>
+				<p><i class="fa fa-building"></i> &nbsp; </p>
+				<p><i class="fa fa-map-marker"></i> &nbsp; </p>
+				<p><i class="fa fa-link"></i> &nbsp; </p>
 				<form role="form" class="form-inline">
 					<div class="form-group">
 						<input type="password" placeholder="Reset password" id="" class="form-control">
@@ -55,7 +55,7 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 				</div>
 				<div class="hr-line-dashed"></div>
 				<h4>Comments of PaperTask</h4>
-				<?php echo $user['comments'];?>
+				<?php echo $employer['comments'];?>
 
 				<a class="btn btn-primary btn-block" type="button" href="#modal-comment"><i class="fa fa-paste"></i> Edit</a>
 			</div>
