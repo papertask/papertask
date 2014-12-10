@@ -62,9 +62,15 @@ class TaskController extends AbstractRestfulJsonController
 
     public function update($id, $data){
         $task = $this->find('\User\Entity\Task', $id);
-        $task->setData([
-            'is_deleted' => true,
-        ]);
+        $updateData = [];
+        if(isset($data['is_specialism_pool'])){
+            $updateData['is_specialism_pool'] = (bool) $data['is_specialism_pool'];
+            $updateData['is_client_pool'] = !$updateData['is_specialism_pool'];
+        } else if (isset($data['is_client_pool'])){
+            $updateData['is_client_pool'] = (bool) $data['is_client_pool'];
+            $updateData['is_specialism_pool'] = !$updateData['is_client_pool'];
+        }
+        $task->setData($updateData);
         $task->save($this->getEntityManager());
 
         return new JsonModel([

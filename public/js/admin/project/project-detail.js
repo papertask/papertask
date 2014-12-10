@@ -127,7 +127,7 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
             TaskApi.create(newTask, function($newTask){
                 attachData($newTask);
                 $scope.newTask = {};
-                $scope.project.tasks.push($newTask);
+                $scope.items.push($newTask);
             });
         }
     }
@@ -141,14 +141,22 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
 
     $scope.createTask = createTask;
 
-    function sendToSpecialismPool($task){
-        TaskApi.update($task.id, {
-            is_specialism_pool: 1
-        }, function(){
-            alert(1);
+    function update($task, $data){
+        TaskApi.update($task.id, $data, function($updateTask){
+            attachData($updateTask);
+            jQuery.extend($task, $updateTask);
         });
     }
+
+    function sendToSpecialismPool($task){
+        update($task, {is_specialism_pool: 1});
+    }
     $scope.sendToSpecialismPool = sendToSpecialismPool;
+
+    function sendToClientPool($task){
+        update($task, {is_client_pool: 1});
+    }
+    $scope.sendToClientPool = sendToClientPool;
 
     $scope.$watch(function(){
         return $scope.project;

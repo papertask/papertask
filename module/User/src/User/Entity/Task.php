@@ -50,25 +50,25 @@ class Task extends Entity{
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $is_deleted;
+    protected $is_deleted = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $is_completed;
+    protected $is_completed = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $is_specialism_pool;
+    protected $is_specialism_pool = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $is_client_pool;
+    protected $is_client_pool = false;
 
     /**
      * @var \User\Entity\Freelancer
@@ -80,7 +80,9 @@ class Task extends Entity{
         return [
             'id' => $this->id,
             'is_completed' => $this->is_completed,
+            'is_client_pool' => $this->is_client_pool,
             'is_deleted' => $this->is_deleted,
+            'is_specialism_pool' => $this->is_specialism_pool,
             'language' => $this->language->getData(),
             'project' => $this->project->getId(),
             'status' => $this->status,
