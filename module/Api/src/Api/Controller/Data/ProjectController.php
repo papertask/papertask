@@ -21,9 +21,6 @@ class ProjectController extends AbstractRestfulController
 
         $data = [];
         $data['languages'] = $this->getAllData('\User\Entity\Language');
-        $data['interpretings'] = $this->getAllDataBy('\User\Entity\Resource', [
-            'group' => $this->getEntityManager()->getReference('\User\Entity\Resource', 3)
-        ]);
         $data['clients'] = $this->getAllData('\User\Entity\Employer');
         $data['fields'] = $this->getAllData('\User\Entity\Field');
         $data['pms'] = $this->getAllDataBy('\User\Entity\Staff', ['type' => Staff::STAFF_TYPE_PM]);
