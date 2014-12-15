@@ -40,7 +40,20 @@ class TmRatioController extends AbstractRestfulController
 
 		return new JsonModel([]);
 	}
-
+    public function getList ()
+    {
+        $entityManager = $this->getEntityManager();
+        $userId = $this->getRequest()->getQuery('userId');
+        $user = $this->getUserById( $userId );
+        
+        $tmpRatio = $entityManager->getRepository('\User\Entity\UserTmRatio')->findBy(array('user'=>$user));
+        $tmRatios = array();
+        foreach($tmpRatio as $k => $v)
+        {
+            $tmRatios[$k] = $v->getData();
+        }
+        return new JsonModel(['tmRatios'=>$tmRatios]);
+    }
 	public function delete($id){
 		$entityManager = $this->getEntityManager();
 		$tmRatio = $entityManager->find('\User\Entity\TmRatio', $id);

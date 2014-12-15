@@ -37,6 +37,20 @@ class DesktopPriceController extends AbstractRestfulController
             'desktopPrice' => $desktopPrice->getData(),
         ]);
     }
+    
+    public function getList() 
+    {
+        $entityManager = $this->getEntityManager();
+        $userId = $this->getRequest()->getQuery('userId');
+        $user = $entityManager->getRepository('\User\Entity\User')->find( $userId );
+        $dtpPrice = $entityManager->getRepository('\User\Entity\UserDesktopPrice')->findBy(array('user'=>$user));
+        $dtpPrices = array();
+        foreach( $dtpPrice as $k => $v ) 
+        {
+            $dtpPrices[$k] = $v->getData();
+        }
+        return new JsonModel(['desktopPrices'=>$dtpPrices]);
+    }
 
     public function delete($id){
         $entityManager = $this->getEntityManager();

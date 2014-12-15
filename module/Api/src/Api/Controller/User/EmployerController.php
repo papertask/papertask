@@ -54,12 +54,13 @@ class EmployerController extends AbstractRestfulController
 			$user = new User();
 			$user->createEmployer( $this, $data, $entityManager);
 			$employer = $user->getEmployer();
-	
+	       
 			$employer->updateData(array('position'=>$pdata['position'], 'company'=>$data['company_id'], 'defaultServiceLevel'=>$pdata['defaultServiceLevel'], 'comments'=>$pdata['comments']));
 			$employer->save($entityManager);
 	
-			$ret_data = $employer->getData();
-	
+			$ret_data = $user->getData();
+	       
+           
 			// Set Translation Price
 			$pTranslationPrice = new UserTranslationPrice();
 			foreach ( $pdata['translationPrices'] as $k => $v ) {
@@ -136,7 +137,7 @@ class EmployerController extends AbstractRestfulController
 				$pEngineeringPrices->save( $entityManager );
 			}
 	
-			return new JsonModel(['employer'=>$ret_data]);
+			return new JsonModel(['user'=>$ret_data]);
 		}
 		return new JsonModel([]);
 	}
@@ -146,6 +147,7 @@ class EmployerController extends AbstractRestfulController
         $employerData = $user->getEmployer()->getData();
 
         return new JsonModel([
+            'user' => $user->getData(),
             'employer' => $employerData,
         ]);
     }
@@ -232,6 +234,45 @@ class EmployerController extends AbstractRestfulController
         $employerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::EMPLOYER_GROUP_ID);
         $employerList = $entityManager->getRepository('User\Entity\User');
         $queryBuilder = $employerList->createQueryBuilder('user')->where("user.group = ?1")->setParameter(1, $employerGroup);
+        
+        $request = $this->getRequest();
+        if($request->getQuery('search')){
+
+            // search by name
+            if($request->getQuery('name')){
+                $arrayName = explode(' ', $request->getQuery('name'));
+                if(count($arrayName) != 2){
+                    $queryBuilder->andWhere("user.firstName like ?1 OR user.lastName like ?1")
+                        ->setParameter(1, '%' . $request->getQuery('name') . '%');
+                }else{
+                    $queryBuilder->andWhere("(user.firstName like ?1 AND user.lastName like ?2)
+                                        OR (user.lastName like ?1 AND user.firstName like ?2)")
+                        ->setParameter(1, '%' . $arrayName[0] . '%')
+                        ->setParameter(2, '%' . $arrayName[1] . '%');
+                }
+            }
+
+            // search by id
+            if($request->getQuery('idEmployer')){
+                $queryBuilder->andWhere("user.id = ?1")
+                    ->setParameter(1, (int)$request->getQuery('idEmployer'));
+            }
+
+            // search by country aa
+            if($request->getQuery('country')){
+                $queryBuilder->andWhere("user.country = ?1")
+                    ->setParameter(1, $request->getQuery('country'));
+            }
+
+            // search include inactive
+            if(!$request->getQuery('includeInactive')){
+                $queryBuilder->andWhere("user.isActive = ?1")
+                    ->setParameter(1, 1);
+            }
+        }
+
+        $queryBuilder->orderBy('user.createdTime', 'ASC');
+        
         $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
         $paginator->setDefaultItemCountPerPage(10);

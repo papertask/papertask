@@ -71,11 +71,11 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
                 initModal();
             });
 
-        $http.get("/api/user/" + $scope.userId)
+        $http.get("/api/user/" + $scope.userId + "/employer")
         	.success( function ( $data ) {
         		var ptr_user = $data.user;
         		$scope.isActive = ptr_user.isActive;
-
+              
         		$scope.employer = {
     		    	isActive: ptr_user.isActive,
     		    	profileUpdated: ptr_user.profileUpdated,
@@ -98,12 +98,21 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     				employerId: $data.employer.id
     			};
                 $(".summernote").code( $data.employer.comments );
-        		$scope.translationPrices = $data.translationPrices;
-        		$scope.engineeringPrices = $data.engineeringPrices;
-        		$scope.desktopPrices = $data.desktopPrices;
-        		$scope.interpretingPrices = $data.interpretingPrices;
         		$("#EmployerController").fadeIn();
         	});
+        $http.get('/api/user/desktopprice?userId='+$scope.userId).success(function($data) {
+            $scope.desktopPrices = $data['desktopPrices'];
+        });
+        $http.get('/api/user/translationprice?userId='+ $scope.userId).success(function($data) {
+            $scope.translationPrices = $data['translationPrices'];
+        });
+        $http.get('/api/user/engineeringprice?userId=' + $scope.userId).success(function($data) {
+            $scope.engineeringPrices = $data['engineeringPrices'];
+            console.log ( $scope.engineeringPrices );
+        });
+        $http.get('/api/user/interpretingprice?userId=' + $scope.userId).success(function($data) {
+            $scope.interpretingPrices = $data['interpretingPrices'];
+        });
         $http.get("/api/common/country")
             .success(function($data){
                 $scope.countries = $data['countries'];
@@ -383,19 +392,21 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     }
     
     $scope.saveEngineeringPrice = function( engineerPrice ) {
-    	if ( $scope.editEngineering == -1) {
+    	console.log ( $scope.engineeringPrices );
+        if ( $scope.editEngineering == -1) {
     		$http.post("/api/user/engineeringprice", {
     			userId: $scope.userId,
-    			engineeringCategory: engineerPrice.engineeringCategory,
+    			engineeringcategory: engineerPrice.engineeringCategory,
     			unit: engineerPrice.unit,
     			price: engineerPrice.price
     		}).success(function ( data ) {
+    		  console.log ( data );
     			$scope.engineeringPrices.push ( data.engineeringPrice );
     		});
     	} else {
-    		$http.put("/api/user/" + engineerPrice.id + "/engineeringPrice", {
+    		$http.put("/api/user/" + engineerPrice.id + "/engineeringprice", {
     			userId: $scope.userId,
-    			engineeringCategory: engineerPrice.engineeringCategory,
+    			engineeringcategory: engineerPrice.engineeringCategory,
     			unit: engineerPrice.unit,
     			price: engineerPrice.price
     		}).success(function( data ) { 

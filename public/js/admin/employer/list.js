@@ -10,7 +10,16 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
 	$scope.countries 	= [];
 	$scope.pages 		= [];
 	$scope.employers 	= [];
-	
+	$scope.searchParams = {
+        'search': null,
+        'name': null,
+        'idEmployer': null,
+        'email': null,
+        'country': null,
+        'includeInactive': null,
+        'currency': null,
+        'page': null
+    };
 	$scope.init = function () {
 		$http.get("/api/user/employer?page=1")
 	        .success(function($data){
@@ -46,7 +55,6 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
 		document.location.href = "/admin/employer/detail?id=" + str_empid;
 	}
 	$scope.onEditClicked = function ( str_empid ) {
-		console.log (' a ');
 		document.location.href = "/admin/employer/edit?userId=" + str_empid;
 	}
 	$scope.onDeleteClicked = function ( str_empid ) {
@@ -64,7 +72,55 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
             }
         })		
 	}
-	
+    
+    $scope.advancedSearch = function () {
+        $scope.selectPage( 1 );
+    }
+    
+    $scope.reset = function () {
+        $scope.searchParams = {
+            'search': null,
+            'name': null,
+            'idEmployer': null,
+            'email': null,
+            'country': null,
+            'includeInactive': null,
+            'currency': null,
+            'page': null
+        };
+        $scope.selectPage(1);
+    }
+	$scope.selectPage = function($page){
+        // check search
+        var search = 0;
+        for(var key in $scope.searchParams) {
+            var obj = $scope.searchParams[key];
+            if (obj != null) {
+                search++;
+            }
+        };
+        if(search > 0){
+            $scope.searchParams.page = $page;
+            $scope.searchParams.search = 1;
+            var $params = $scope.searchParams;
+            console.log('search');
+        }else{
+            var $params = {page: $page};
+            console.log('no search');
+        }
+
+        $http.get("/api/user/employer", {
+            params: $params
+        }).success(function($data){
+            $scope.employers = $data.employers;
+            $scope.pages = $data.pages;
+            if($data['pages']){
+                var N = $scope.pages.pageCount;
+                $scope.rangeCustom = Array.apply(null, {length: N}).map(Number.call, Number);
+            }
+            console.log($data);
+        });
+    }
 	$scope.onBtnPreviousClicked = function () {
 		$http.get("/api/user/employer?page="+ $scope.pages.previous)
 	        .success(function($data){

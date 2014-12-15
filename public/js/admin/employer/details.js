@@ -35,10 +35,10 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
 	}
 	
 	$scope.onViewClicked = function ( str_empid ) {
-		console.log ( str_empid );
+		// console.log ( str_empid );
 	}
 	$scope.onEditClicked = function ( str_empid ) {
-		console.log ( str_empid );
+		// console.log ( str_empid );
 	}
 	$scope.onDeleteClicked = function ( str_empid ) {
 		var delEmp = $http.delete("/api/user/" + str_empid + "/employer", {id: str_empid});
