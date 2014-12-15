@@ -213,7 +213,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
         $scope.cvfiles.push( fileItem.cvFile );
         
         sharedInstance.addcvfile( fileItem.cvFile );
-        $http.put('/api/user/'+USER_ID+'/cv-files', new Array({id: fileItem.cvFile.id, userid: USER_ID})).success(function(){alert('a')});
+        $http.put('/api/user/'+USER_ID+'/cv-files', new Array({id: fileItem.cvFile.id, userid: USER_ID})).success(function(){ });
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
         //console.info('onErrorItem', fileItem, response, status, headers);
