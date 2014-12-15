@@ -15,18 +15,53 @@ use User\Entity\UserGroup;
 
 class ProjectController extends AbstractRestfulJsonController
 {
+    /**
+     * Clean data from angular
+     * @param $data
+     */
+    protected function cleanData(&$data){
+        if(isset($data['field'])){
+            $data['field'] = $this->getReference('User\Entity\Field', $data['field']['id']);
+        }
+        if(isset($data['sale'])){
+            $data['sale'] = $this->getReference('User\Entity\Staff', $data['sale']['id']);
+        }
+        if(isset($data['pm'])){
+            $data['pm'] = $this->getReference('User\Entity\Staff', $data['pm']['id']);
+        }
+        if(isset($data['client'])){
+            $data['client'] = $this->getReference('\User\Entity\Employer', $data['client']['id']);
+        }
+        if(isset($data['sourceLanguage'])){
+            $data['sourceLanguage'] = $this->getReference('\User\Entity\Language', $data['sourceLanguage']['id']);
+        }
+        if(isset($data['startDate'])){
+            $data['startDate'] = new \DateTime($data['startDate']);
+        }
+        if(isset($data['dueDate'])){
+            $data['dueDate'] = new \DateTime($data['dueDate']);
+        }
+        if(isset($data['status'])){
+            $data['status'] = $data['status']['id'];
+        }
+        if(isset($data['priority'])){
+            $data['priority'] = $data['priority']['id'];
+        }
+        if(isset($data['serviceLevel'])) {
+            $data['serviceLevel'] = $data['serviceLevel']['id'];
+        }
+        if(isset($data['types'])){
+            $arr = [];
+            foreach($data['types'] as $type){
+                $arr[] = $type['id'];
+            }
+            $data['types'] = $arr;
+        }
+    }
+
     public function create($data)
     {
-        $data['field'] = $this->getReference('User\Entity\Field', $data['field']['id']);
-        $data['sale'] = $this->getReference('User\Entity\Staff', $data['sale']['id']);
-        $data['pm'] = $this->getReference('User\Entity\Staff', $data['pm']['id']);
-        $data['client'] = $this->getReference('\User\Entity\Employer', $data['client']['id']);
-        $data['sourceLanguage'] = $this->getReference('\User\Entity\Language', $data['sourceLanguage']['id']);
-        $data['startDate'] = new \DateTime($data['startDate']);
-        $data['dueDate'] = new \DateTime($data['dueDate']);
-        $data['status'] = $data['status']['id'];
-        $data['priority'] = $data['priority']['id'];
-        $data['serviceLevel'] = $data['serviceLevel']['id'];
+        $this->cleanData($data);
 
         $targetLanguages = [];
         foreach($data['targetLanguages'] as $targetLanguage){
@@ -38,13 +73,15 @@ class ProjectController extends AbstractRestfulJsonController
         $project->setData($data);
         $project->save($this->getEntityManager());
         $files = [];
-        foreach($data['files'] as $file){
-            $id = $file['id'];
-            $file = $this->find('\User\Entity\File', $id);
-            if($file->getProject() == null){
-                $file->setProject($project);
-                $file->save($this->getEntityManager());
-                $files[$file->getId()] = $file;
+        if(isset($data['files'])){
+            foreach($data['files'] as $file){
+                $id = $file['id'];
+                $file = $this->find('\User\Entity\File', $id);
+                if($file->getProject() == null){
+                    $file->setProject($project);
+                    $file->save($this->getEntityManager());
+                    $files[$file->getId()] = $file;
+                }
             }
         }
 
@@ -177,6 +214,18 @@ class ProjectController extends AbstractRestfulJsonController
         $project->setData([
             'is_deleted' => true
         ]);
+        $project->save($this->getEntityManager());
+        return new JsonModel([
+            'project' => $project->getData(),
+        ]);
+    }
+
+    public function update($id, $data){
+        $this->cleanData($data);
+
+        /** @var \User\Entity\Project $project */
+        $project = $this->find('\User\Entity\Project', $id);
+        $project->setData($data);
         $project->save($this->getEntityManager());
         return new JsonModel([
             'project' => $project->getData(),

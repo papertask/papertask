@@ -63,6 +63,9 @@ class ProjectController extends AbstractActionController
 
 
     public function detailAction(){
-        return new ViewModel(array());
+        $id = $this->params()->fromQuery('id');
+        return new ViewModel([
+            'id' => $id,
+        ]);
     }
 }

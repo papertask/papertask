@@ -102,6 +102,7 @@ return array(
             'Api\Controller\Admin\Language' => 'Api\Controller\Admin\LanguageController',
             'Api\Controller\Admin\Project' => 'Api\Controller\Admin\ProjectController',
             'Api\Controller\Admin\Staff' => 'Api\Controller\Admin\StaffController',
+            'Api\Controller\Admin\Task' => 'Api\Controller\Admin\TaskController',
             'Api\Controller\Common\Company' => 'Api\Controller\Common\CompanyController',
             'Api\Controller\Common\Country' => 'Api\Controller\Common\CountryController',
             'Api\Controller\Common\EngineeringCategory' => 'Api\Controller\Common\EngineeringCategoryController',
@@ -149,16 +150,6 @@ return array(
         'EN' => 'England',
     ],
     'project_create' => [
-        'translations' => [
-            ['id' => 1, 'name' => 'Translation (No TM)'],
-            ['id' => 2, 'name' => 'Translation (Use TM)'],
-            ['id' => 3, 'name' => 'Proofreading'],
-        ],
-        'dtps' => [
-            ['id' => 1, 'name' => 'DTP <i class="fa fa-apple"></i>'],
-            ['id' => 2, 'name' => 'DTP <i class="fa fa-windows"></i>'],
-            ['id' => 3, 'name' => 'Engineering'],
-        ],
         'statuses' => [
             ['id' => 1, 'name' => 'Quote', 'decorator' => 'info'],
             ['id' => 2, 'name' => 'Ordered', 'decorator' => 'danger'],

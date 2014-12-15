@@ -27,8 +27,8 @@ class AbstractRestfulController extends ZendAbstractRestfulController{
         return $this->getDataList($rows);
     }
 
-    function getAllDataBy($entityPath, $criteria){
-        $rows = $this->getEntityManager()->getRepository($entityPath)->findBy($criteria);
+    function getAllDataBy($entityPath, $criteria=null, $orderBy=null){
+        $rows = $this->getEntityManager()->getRepository($entityPath)->findBy($criteria, $orderBy);
         return $this->getDataList($rows);
     }
 
