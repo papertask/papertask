@@ -11,12 +11,10 @@ namespace User\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Common\Entity;
+use User\Entity\Roles;
 
 /** @ORM\Entity */
 class Staff extends Entity{
-
-    const STAFF_TYPE_PM = 2;
-    const STAFF_TYPE_SALE = 1;
 
     /**
      * @ORM\Id
@@ -27,21 +25,30 @@ class Staff extends Entity{
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $name;
 
     /**
-     * @var integer
-     * @ORM\Column(type="integer")
+     * @var \User\Entity\Roles
+     * @ORM\OneToOne(targetEntity="Roles")
      */
     protected $type;
-
+    
     public function getData(){
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'type' => $this->type,
+            'type' => $this->type->getData(),
         ];
+    }
+    
+    public function setType( $type ) 
+    {
+    	$this->type = $type;
+    }
+    
+    public function getId() {
+        return $this->id;
     }
 }

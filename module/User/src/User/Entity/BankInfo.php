@@ -83,7 +83,7 @@ class BankInfo extends Entity {
     public function getData(){
         return [
             'id' => $this->id,
-            'user' => $this->user,
+            'user' => $this->user->getData(),
             'paypal' => $this->paypal,
             'alipay' => $this->alipay,
             'account' => $this->account,
@@ -105,12 +105,13 @@ class BankInfo extends Entity {
     public function setData(array $arr){
         $keys = array(
             'id',
-            'user',
             'paypal',
             'alipay',
             'account',
             'address',
             'city',
+            'user',
+            'country',
             'name',
             'accountNo',
             'swift',

@@ -1,13 +1,20 @@
 angularApp.run( function ($rootScope) {    
     $(".summernote").summernote();
-    $("form[name='editProfileForm']").validate({
+    $("form[name='newStaffForm']").validate({
         errorPlacement: function (error, element) {
             element.before(error);
         },
         rules: {
+            confirmpwd: {
+                equalTo: "#password"
+            },
+            email: {
+                required: true,
+                email: true
+            }
         },
         submitHandler: function( form ) {
-            angular.element('#editProfile').scope().editProfile();
+            angular.element('#StaffController').scope().submit();
         }
     });
 }); 
@@ -16,9 +23,6 @@ angularApp.service('sharedInstance', function() {
 	var cvfiles = new Array();
     var stafftypes = new Array();
 	return {
-        setCvFiles: function ( cvfileList ) {
-            cvfiles = cvfileList;
-        },
 		addcvfile: function ( fileItem ) {
 			cvfiles.push( fileItem );
 		},
@@ -35,114 +39,57 @@ angularApp.service('sharedInstance', function() {
 		}
 	};
 });
-angularApp.controller('editProfileController', function($scope, $http, $timeout, $q, sharedInstance){
-    $scope.userInfo = {};
-    $scope.cvfiles = [];
-    $scope.staff = {};
-    $scope.resume = {
-        'user_id': USER_ID
+
+angularApp.controller('newStaffController', function($scope, $http, $timeout, $q, sharedInstance){
+    $scope.userInfo = {
+        gender: ''
     };
+    $scope.resume = {};
+    $scope.bankInfo = {};
     $scope.countries = [];
-
-    $scope.getBankInfo = function(){
-        $http.get('/api/user/' + USER_ID + '/bank-info').success(function($data){
-            if($data['bankInfo']){
-                $scope.bankInfo = $data['bankInfo'];
-                console.log ( $scope.bankInfo );
-            }
-        });
-    }
+    $scope.types = [];
     
-    $scope.getStaff = function () {
-        $http.get('/api/user/' + USER_ID + 'staff').success( function ( $data ) {
-            if ( $data['staff']) {
-                $scope.staff = $data['staff'];
-                $scope.userInfo.type = $scope.staff.id;
-                $scope.loadStaffType();
-            }
-        });
+    $scope.init = function () {
+        $scope.getCountriesList();
     }
 
-    $scope.getCountriesList = function(){
+    $scope.getCountriesList = function() {
         $http.get('/api/common/country').success(function($data){
             $scope.countries = $data['countries'];
         });
-    }
-
-    // get user
-    $scope.getUser = function(){
-        $http.get('/api/user/' + USER_ID).success(function($data){
-            $scope.userInfo = $data['user'];
-        });
-    }
-
-    $scope.getStaffResume = function(){
-        $http.get('/api/user/' + USER_ID + '/resume').success(function($data){
-            if($data['resume']){
-                $scope.resume = $data['resume'];
-                console.log ( $scope.resume );
-            }
-        });
-    }
-    
-    
-    $scope.init = function () {
-        $scope.getUser();     
-        $scope.getStaff();
-        $scope.getCountriesList();
-        $scope.getStaffResume();
-        $scope.getBankInfo();
-    }
-    // submit
-    $scope.editProfile = function(){
-        $('form[name=editProfileForm]').validate();
-        var validate = $('form[name=editProfileForm]').valid();
-        if(validate == true){
-            // update user info
-            $http.put('/api/user/'+USER_ID+'', $scope.userInfo).success(function($data){
-                console.log('Updated user', $data);
-            });
-            $http.put('/api/user/'+USER_ID+'/staff', $scope.userInfo).success(function($data){
-                console.log('Updated staff', $data);
-            });
-            $http.put('/api/user/'+USER_ID+'/bank-info', $scope.bankInfo).success(function($data){
-                console.log('Updated bank');
-            });
-            // update resume
-            if($scope.resume.user_id){
-                // create
-                $http.post('/api/user/'+USER_ID+'/resume', $scope.resume).success(function($data){
-                    console.log("Created resume");
-                });
-            }else{
-                // Update
-                $http.put('/api/user/'+USER_ID+'/resume', $scope.resume).success(function($data){
-                    console.log("Updated resume");
-                });
-            }
-            
-        }
-    }   
-    
-    $scope.loadStaffType = function () {
-        if ( $scope.staff.type ) {
-            $("label.staffrole").removeClass('active');
-            $("label.staffrole").each(function () {
-                if ($(this).attr('rid') * 1 == $scope.staff.type.id * 1 ) {
-                    $(this).addClass('active');
-                }
-            });
-        }
-    } 
-    
-    $scope.setStaffType = function ( rid ) {
-        $scope.userInfo.type = rid;
     }
     
     $scope.openFileDialog = function () {
         $("#objFile").click();
     }
+    
+    $scope.submit = function () {
+        $http.post("/api/user/staff", $scope.userInfo).success( function( $data ){
+            if ( $data.length == 0 ) {
+                bootbox.alert('Failed to save');
+                return;
+            }
+            var strUserId = $data.id;
+        	$scope.bankInfo.user_id = $data.id;
+            $scope.resume.user_id = $data.id;
+            $scope.resume.cvfiles = sharedInstance.getcvfiles();
+        	var ajaxPaymentInfo = $http.post( "/api/user/bankinfo", $scope.bankInfo );
+        	var ajaxResume = $http.post( "/api/user/resume", $scope.resume );
+        	
+        	$q.all([ajaxPaymentInfo, ajaxResume])
+            	.then(function(){
+            	   location.href="/admin/staff/view?id=" + strUserId;
+            		// bootbox.alert("Saved successfully!" );
+            });
+        });
+    }
+    
+    $scope.setStaffType = function ( rid ) {
+        $scope.userInfo.type = rid;
+        console.log ( rid );
+    }
 });
+
 angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$timeout', 'sharedInstance', function($scope, FileUploader, $http, $timeout, sharedInstance) {
     var uploader = $scope.uploader = new FileUploader({
         url: '/admin/staff/uploadFile'
@@ -155,28 +102,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
             return this.queue.length < 10;
         }
     });
-    $scope.getStaffCVFiles = function() {
-        $http.get('/api/user/' + USER_ID + '/cv-files').success(function ($data) {
-            if ( $data['cvfiles'] ) {
-                for ( var i = 0; i < $data['cvfiles'].length; i ++ ) {
-                    $scope.cvfiles.push({
-                        id: $data['cvfiles'][i].id,
-                        name: $data['cvfiles'][i].name,
-                        path: $data['cvfiles'][i].path
-                    });
-                    sharedInstance.addcvfile ( {
-                        id: $data['cvfiles'][i].id,
-                        name: $data['cvfiles'][i].name,
-                        path: $data['cvfiles'][i].path
-                    });
-                }
-                
-            }
-        });
-    }
-    $scope.init = function () {
-        $scope.getStaffCVFiles();
-    }
+    $scope.init = function () {}
     // CALLBACKS
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
         
@@ -186,16 +112,16 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
         fileItem.upload();
     };
     uploader.onAfterAddingAll = function(addedFileItems) {
-        console.info('onAfterAddingAll', addedFileItems);
+        // console.info('onAfterAddingAll', addedFileItems);
     };
     uploader.onBeforeUploadItem = function(item) {
-        console.info('onBeforeUploadItem', item);
+        // console.info('onBeforeUploadItem', item);
     };
     uploader.onProgressItem = function(fileItem, progress) {
-        console.info('onProgressItem', fileItem, progress);
+        // console.info('onProgressItem', fileItem, progress);
     };
     uploader.onProgressAll = function(progress) {
-        console.info('onProgressAll', progress);
+        // console.info('onProgressAll', progress);
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
         if(!response.success){
@@ -211,9 +137,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
             path: fileItem.file.path
         };
         $scope.cvfiles.push( fileItem.cvFile );
-        
         sharedInstance.addcvfile( fileItem.cvFile );
-        $http.put('/api/user/'+USER_ID+'/cv-files', new Array({id: fileItem.cvFile.id, userid: USER_ID})).success(function(){alert('a')});
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
         //console.info('onErrorItem', fileItem, response, status, headers);
@@ -311,8 +235,6 @@ angularApp.directive('stafftype', function($http, $compile){
                 element.bind('mousedown', function(e) {
                     scope.setStaffType( $(e.target).attr('rid') );
                 });
-                
-                scope.loadStaffType();
             });
         }
     }

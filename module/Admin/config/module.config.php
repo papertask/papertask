@@ -83,7 +83,7 @@ return array(
             'admin/staff/index' => __DIR__ . '/../view/admin/staff/index.phtml',
             'admin/staff/edit-payment-info' => __DIR__ . '/../view/admin/freelancer/edit-payment-info.phtml',
             'admin/staff/edit-profile' => __DIR__ . '/../view/admin/staff/edit-profile.phtml',
-            'admin/staff/new' => __DIR__ . '/../view/admin/staff/edit-profile.phtml',
+            'admin/staff/new' => __DIR__ . '/../view/admin/staff/new.phtml',
             'admin/staff/view' => __DIR__ . '/../view/admin/staff/view.phtml',
             'admin/project/detail' => __DIR__ . '/../view/admin/project/detail.phtml',
             'admin/project/index' => __DIR__ . '/../view/admin/project/index.phtml',

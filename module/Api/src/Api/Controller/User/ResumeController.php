@@ -43,7 +43,15 @@ class ResumeController extends AbstractRestfulController
 
         $resume->setData($data);
         $resume->save($entityManager);
-
+        
+        // save cvfiles
+        foreach ( $data['cvfiles'] as $k => $v )
+        {
+            $cvfile = $entityManager->getRepository('User\Entity\CvFile')->findOneBy(array('id' => $v['id']));
+            $cvfile->setUser( $user );
+            $cvfile->save($entityManager);            
+        }     
+        
         return new JsonModel([]);
     }
 }

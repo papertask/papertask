@@ -1,10 +1,10 @@
-<?php $this->headTitle($this->translate('Edit Profile')) ?>
+<?php $this->headTitle($this->translate('Create Staff')) ?>
 <?php
 $this->headLink()
     ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
     ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css');
 $this->headScript()
-    ->prependFile($this->basePath() . '/js/admin/staff/edit-profile.js')
+    ->prependFile($this->basePath() . '/js/admin/staff/new.js')
     ->prependFile($this->basePath() . '/js/common.js')
     ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
     ->prependFile($this->basePath() . '/js/plugins/angular-file-upload/angular-file-upload.js')
@@ -13,54 +13,56 @@ $this->headScript()
     ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
     ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
     ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js');
+
+$this->inlineScript()
+    ->prependScript("
+        $(document).ready(function(){
+            $('.summernote').summernote();
+        });        
+        ");
 ?>
 <Script>
-    var USER_ID = '<?php echo $user['id']; ?>';
+    var USER_ID = '<?php echo ($this->user) ? $this->user['id'] : '' ?>';
 </Script>
-<div ng-controller="editProfileController" class="ibox float-e-margins" id="editProfile" ng-init="init()">
+<div ng-controller="newStaffController" class="ibox float-e-margins" id="StaffController" ng-init="init();">
     <div class="ibox-title">
-        <h4><i class="fa fa-edit"></i> <?php echo $this->translate('Edit Profile') ?></h4>
+        <h4><i class="fa fa-edit"></i> <?php echo $this->translate('Create Staff Account') ?></h4>
     </div>
 
     <div class="ibox-content">
-        <form name="editProfileForm" method="">
+        <form name="newStaffForm" method="">
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h4><i class="fa fa-info-circle"></i> <?php echo $this->translate('Basic Information') ?></h4>
                     <div class="hr-line-dashed"></div>
-
-                    <?php include __DIR__ . "/../user/basic-info.phtml" ?>
+                    <?php include __DIR__ . "/../staff/profile/basic-info.phtml" ?>
                 </div>
             </div>
-
-            <?php if($user['group']['id']*1 == 3): ?>
+            
             <div class="panel panel-primary staff-type">
                 <div class="panel-body">
-
                     <?php include __DIR__ . "/staff-type.phtml" ?>
                 </div>
             </div>
-            <?php endif; ?>
 
-            <?php if($user['group']['id']*1 == 3): ?>
             <div class="panel panel-primary staff-type">
                 <div class="panel-body">
 
-                    <?php include __DIR__ . "/profile/bank-info.phtml" ?>
+                    <?php include __DIR__ . "/../staff/profile/bank-info.phtml" ?>
                 </div>
             </div>
-            <?php endif; ?>
+            
 
             <div class="panel panel-primary">
                 <div class="panel-body">
 
-                    <?php include __DIR__ . "/profile/resume.phtml" ?>
+                    <?php include __DIR__ . "/../staff/profile/resume.phtml" ?>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-4">
-                    <button class="btn btn-primary btn-block" type="submit">
+                    <button ng-click="save()" class="btn btn-primary btn-block" type="submit">
                         <?php echo $this->translate('Save') ?></button>
                 </div>
             </div>

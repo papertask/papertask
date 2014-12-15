@@ -13,29 +13,84 @@ use Application\Controller\AbstractRestfulController;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator;
+use User\Entity\User;
 use User\Entity\UserGroup;
 use Admin\Model\Helper;
 use Doctrine\Common\Collections\Criteria;
+use User\Entity\CvFile;
+use User\Entity\Roles;
 
 class StaffController extends AbstractRestfulController
 {
-    public function get($id){
-        $user = $this->getUserById($id);
-        $freelancerData = $user->getFreelancer()->getData();
-
+	public function create ( $data ) 
+	{
+		$entityManager = $this->getEntityManager();
+		$pdata = array(
+				'isActive' => '0',
+				'profileUpdated' => '0',
+				'city' => $data['city'],
+				'createdTime' => new \DateTime( 'now' ),
+				'lastLogin' => new \DateTime( 'now' ),
+				'email' => $data['email'],
+				'firstName' => $data['firstName'],
+				'lastName' => $data['lastName'],
+				'name' => $data['lastName']." ".$data['firstName'],
+				'password' => $data['password'],
+				'phone' => $data['phone'],
+				'gender' => $data['gender'],
+				'country' => $entityManager->getRepository('User\Entity\Country')->findOneBy(array('id' => $data['country']))
+		);
+		$userExist = $entityManager->getRepository('User\Entity\User')->findOneBy(array('email'=>$data['email']));
+		
+		if ( $userExist ) 
+		{
+			
+		}
+		else
+		{
+			$user = new User();
+			$user->createStaff( $this, $pdata );
+			$staff = $user->getStaff();
+			$staff->setType( $entityManager->getRepository('User\Entity\Roles')->findOneBy(array('id' => $data['type'])) );
+			$staff->save($entityManager);
+			
+			$staffData = $staff->getData();
+			
+			return new JsonModel( $user->getData() );
+		}
+		return new JsonModel( [] );
+	}
+	
+    public function get( $id ){
+        $user = $this->getUserById( $id );        
+        $staffData = $user->getStaff()->getData();
+        $entityManager = $this->getEntityManager();
+        $bankInfo = $entityManager->getRepository('\User\Entity\BankInfo')
+            ->findOneBy(['user' => $user]);
+        $resume = $entityManager->getRepository('\User\Entity\Resume')
+            ->findOneBy(['user' => $user]);
+        $cvfile = $entityManager->getRepository('\User\Entity\CvFile')
+            ->findBy(['user' => $user]);
+        $cvfiles = array();
+        foreach ( $cvfile as $k => $v ) {
+            $cvfiles[$k] = $v->getData();
+        }   
         return new JsonModel([
-            'freelancer' => $freelancerData,
+            'staff' => $staffData,
+            'bankInfo' => $bankInfo->getData(),
+            'resume' => $resume->getData(),
+            'cvfiles' => $cvfiles
         ]);
     }
 
     public function update($id, $data){
-        $userId = $this->getEvent()->getRouteMatch()->getParam('user_id');
+        // $userId = $this->getEvent()->getRouteMatch()->getParam('user_id');
         $entityManager = $this->getEntityManager();
-        $user = $this->getUserById($userId);
-        $freelancer = $user->getFreelancer();
-
-        $freelancer->updateData($data, $entityManager);
-        $freelancer->save($entityManager);
+        $user = $this->getUserById($id);
+        $staff = $user->getStaff();
+        $staff->setType = $entityManager->getRepository('\User\Entity\Roles')->find($data['type']);
+        // $staff->updateData($data, $entityManager);
+        $staff->save($entityManager);
 
         return new JsonModel([]);
     }
@@ -43,23 +98,21 @@ class StaffController extends AbstractRestfulController
     public function getList(){
         $entityManager = $this->getEntityManager();
 
-        // Get freelancer group
-        $staffGroup = $entityManager->find('User\Entity\Staff', 1);
-        $freelancerList = $entityManager->getRepository('User\Entity\User');
+        // Get staff group
+        $staffGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::ADMIN_GROUP_ID);
+        $staffList = $entityManager->getRepository('User\Entity\User');
                                 //->findBy(array('group' => $freelancerGroup));
-        $queryBuilder = $entityManager->createQueryBuilder()
-                ->select('user')
-                ->from('User\Entity\User', 'user')
-                ->where('user.staff > ?1')
-                ->setParameter(1, 0);
+        $queryBuilder = $staffList->createQueryBuilder('user')
+                ->where("user.group = ?1")->setParameter(1, $staffGroup);
 
         // check search condition
         $request = $this->getRequest();
         if($request->getQuery('search')){
-
+            
             // search by name
             if($request->getQuery('name')){
                 $arrayName = explode(' ', $request->getQuery('name'));
+                echo $arrayName[0];
                 if(count($arrayName) != 2){
                     $queryBuilder->andWhere("user.firstName like ?1 OR user.lastName like ?1")
                         ->setParameter(1, '%' . $request->getQuery('name') . '%');
@@ -72,20 +125,20 @@ class StaffController extends AbstractRestfulController
             }
 
             // search by id
-            if($request->getQuery('idFreelancer')){
-                $queryBuilder->addWhere("user.id = ?1")
-                    ->setParameter(1, (int)$request->getQuery('idFreelancer'));
+            if($request->getQuery('idStaff')){
+                $queryBuilder->andWhere("user.id = ?1")
+                    ->setParameter(1, (int)$request->getQuery('idStaff'));
             }
 
             // search by country aa
             if($request->getQuery('country')){
-                $queryBuilder->addWhere("user.country = ?1")
+                $queryBuilder->andWhere("user.country = ?1")
                     ->setParameter(1, $request->getQuery('country'));
             }
 
             // search include inactive
             if(!$request->getQuery('includeInactive')){
-                $queryBuilder->addWhere("user.isActive = ?1")
+                $queryBuilder->andWhere("user.isActive = ?1")
                     ->setParameter(1, 1);
             }
         }
@@ -106,21 +159,24 @@ class StaffController extends AbstractRestfulController
                 $data[] = $userData;
             }
             return new JsonModel(array(
-                'freelancerList' => $data,
+                'staffList' => $data,
                 'pages' => $paginator->getPages()
             ));
         }
         return new JsonModel([
-            'freelancerList' => []
+            'staffList' => []
         ]);
     }
 
     public function delete($id){
         $entityManager = $this->getEntityManager();
         $user = $entityManager->find('\User\Entity\User', (int)$id);
-        $entityManager->remove($user);
+        $staff = $user->getStaff();
+        $entityManager->remove( $user );
         $entityManager->flush();
-
+        $entityManager->remove( $staff );
+        $entityManager->flush();
+        
         return new JsonModel([]);
     }
 }

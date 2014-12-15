@@ -18,6 +18,7 @@ use User\Model\Password;
 use Common\Mail;
 use Common\Func;
 use Common\Entity;
+use User\Entity\UserGroup;
 
 /** @ORM\Entity */
 class User extends Entity implements InputFilterAwareInterface{
@@ -94,7 +95,7 @@ class User extends Entity implements InputFilterAwareInterface{
      */
     protected $employer;
     
-     /** @ORM\Column(type="string") */
+     /** @ORM\Column(type="string", nullable=true) */
     protected $comments;
 
     /**
@@ -491,6 +492,12 @@ class User extends Entity implements InputFilterAwareInterface{
             $employer->setData(['name' => $this->firstName . ' ' . $this->lastName]);
             $employer->save($entityManager);
             $this->employer = $employer;
+        } else if ( $name == 'staff' ) {
+        	$this->setGroup( $entityManager->getReference('\User\Entity\UserGroup', UserGroup::ADMIN_GROUP_ID));
+        	$staff = new Staff();
+        	$staff->setData(['name' => $this->firstName . ' ' . $this->lastName]);
+        	$staff->save($entityManager);
+        	$this->staff = $staff;
         }
     }
 
@@ -518,5 +525,15 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager->persist($this);
         $entityManager->flush();
         $controller->redirect()->toUrl('/user/dashboard');
+    }
+    
+    public function createStaff( $controller, $data ) 
+    {
+    	$entityManager = $controller->getEntityManager();
+    	$this->setData( $data );
+    	$this->setGroupByName( 'staff', $entityManager );
+    	$entityManager->persist( $this );
+    	$entityManager->flush();
+    	$this->sendConfirmationEmail($controller);
     }
 }
