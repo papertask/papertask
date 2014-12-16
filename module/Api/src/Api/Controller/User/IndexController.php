@@ -17,8 +17,29 @@ class IndexController extends AbstractRestfulController
         $user = $this->getUserById($id);
         $userData = $user->getData();
 
+        $desktopPriceData = $this->getAllDataBy('\User\Entity\UserDesktopPrice', [
+            'user' => $user,
+        ]);
+        $interpretingPriceData = $this->getAllDataBy('\User\Entity\UserInterpretingPrice', [
+            'user' => $user,
+        ]);
+        $translationPriceData = $this->getAllDataBy('\User\Entity\UserTranslationPrice', [
+            'user' => $user,
+        ]);
+        $engineeringPirceData = $this->getAllDataBy('\User\Entity\UserEngineeringPrice', [
+            'user' => $user,
+        ]);
+        $entityManager = $this->getEntityManager();
+        $repository = $entityManager->getRepository('User\Entity\UserTmRatio');
+        $tmRatio = $repository->findOneBy(array('user'=>$user));
+        
         return new JsonModel([
-            'user' => $userData
+            'user'               => $userData,
+            'desktopPrices'      => $desktopPriceData,
+            'interpretingPrices' => $interpretingPriceData,
+            'translationPrices'  => $translationPriceData,
+            'engineeringPrices'  => $engineeringPirceData,
+            'tmRatios'           => isset($tmRatio)?$tmRatio->getData():null
         ]);
     }
 

@@ -1,84 +1,84 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<i class="fa fa-info-circle"> <strong>Basic Information</strong></i>
+		<i class="fa fa-info-circle"> <strong><?php echo $this->translate('Basic Information') ?></strong></i>
 	</div>
 	<div class="panel-body">
 			
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label><i class="fa fa-plug"></i>&nbsp; Status</label>
+					<label><i class="fa fa-plug"></i>&nbsp; <?php echo $this->translate('Status') ?></label>
 					<div data-toggle="buttons">
 						<label class="btn btn-outline btn-primary {{active_class(isActive, '1')}}" ng-click="setActive('1')">
-							<input type="radio" name="active" > Active
+							<input type="radio" name="active" > <?php echo $this->translate('Active') ?>
 						</label>
 						&nbsp;
 						<label class="btn btn-outline btn-primary {{active_class(isActive, '0')}}" ng-click="setActive('0')">
-							<input type="radio" name="deactive"  > De-Active
+							<input type="radio" name="deactive"  > <?php echo $this->translate('De-Active') ?>
 						</label>
 					</div>				
 				</div>
 				<div class="hr-line-dashed"></div>	
 				
 				<div class="form-group">
-					<label>Email *</label> <input id="email" name="email" ng-model="employer.email" type="text" class="form-control disabled" value="{{employer.email}}">
+					<label><?php echo $this->translate('Email') ?> *</label> <input id="email" name="email" ng-model="employer.email" type="text" class="form-control disabled" value="{{employer.email}}">
 				</div>
 				<div class="hr-line-dashed"></div>
 				<div class="hr-line-dashed"></div>
 				<div class="form-group">
-					<label>First name *</label> 
+					<label><?php echo $this->translate('First name') ?> *</label> 
 					<input id="firstname" name="firstname" type="text" ng-model="employer.firstname" class="form-control required" value="{{employer.firstname}}">
 				</div>
 				<div class="hr-line-dashed"></div>
 				<div class="form-group">
-					<label>Gender *</label>
+					<label><?php echo $this->translate('Gender') ?> *</label>
 					<div data-toggle="buttons">
 						<label class="btn btn-outline btn-primary btn-sm {{active_class(employer.gender, '0')}}"  ng-click="setGender('0')" > 
-							<input type="radio" name="gender" > Male
+							<input type="radio" name="gender" > <?php echo $this->translate('Male') ?>
 						</label> &nbsp; <label
 							class="btn btn-outline btn-primary btn-sm {{active_class(employer.gender, '1')}}"  ng-click="setGender('1')"> 
-							<input type="radio" name="gender"> Female
+							<input type="radio" name="gender"> <?php echo $this->translate('Female') ?>
 						</label>
 					</div>
 				</div>
 				<div class="hr-line-dashed"></div>
 				<div class="form-group">
-					<label>City *</label> 
+					<label><?php echo $this->translate('City') ?> *</label> 
 					<input id="city" name="city" type="text" ng-model="employer.city" class="form-control required" value="{{employer.city}}">
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label><i class="fa fa-legal"></i>&nbsp; Client Type</label>
+					<label><i class="fa fa-legal"></i>&nbsp; <?php echo $this->translate('Client Type') ?></label>
 					<div data-toggle="buttons">
 						<label class="btn btn-outline btn-primary {{active_class(employer.profileUpdated, '1')}}" ng-click="setProfileUploaded('1')">
-							<input type="radio" name="contracted" > Contracted
+							<input type="radio" name="contracted" > <?php echo $this->translate('Contracted') ?>
 						</label>
 						&nbsp;
 						<label class="btn btn-outline btn-primary {{active_class(employer.profileUpdated, '0')}}" ng-click="setProfileUploaded('0')">
-							<input type="radio" name="uncontracted"> Un-Contracted
+							<input type="radio" name="uncontracted"> <?php echo $this->translate('Un-Contracted') ?>
 						</label>
 					</div>
 				</div>
 				<div class="hr-line-dashed"></div>
 				<div class="form-group">
-					<label>Username *</label> 
+					<label><?php echo $this->translate('Username') ?> *</label> 
 					<input id="userName" name="userName" type="text" ng-model="employer.username" class="form-control required" value="{{employer.username}}">
 				</div>
 				<div class="hr-line-dashed"></div>
 				<div class="hr-line-dashed"></div>
 				<div class="form-group">
-					<label>Last name *</label> 
+					<label><?php echo $this->translate('Last name') ?> *</label> 
 					<input id="surname" name="surname" type="text" ng-model="employer.surname" class="form-control required" value="{{employer.surname}}">
 				</div>
 				<div class="hr-line-dashed"></div>
 				<div class="form-group">
-					<label>Phone *</label> 
+					<label><?php echo $this->translate('Phone') ?> *</label> 
 					<input id="phone" name="phone" type="phone" ng-model="employer.phone" class="form-control required" value="{{employer.phone}}">
 				</div>
 				<div class="hr-line-dashed"></div>
 				<div class="form-group">
-					<label>Country *</label> 
+					<label><?php echo $this->translate('Country') ?> *</label> 
 					<select class="form-control required" id="country" name="country" ng-model="employer.country" ng-options="country.name for country in countries">						
 					</select>
 				</div>

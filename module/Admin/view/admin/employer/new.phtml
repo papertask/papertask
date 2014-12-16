@@ -7,7 +7,6 @@ $this->headLink ()->prependStylesheet ( $this->basePath () . '/css/plugins/summe
 
 <!-- Scripts -->
 <?php
-
 $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/employer.js' )
 					->prependFile ( $this->basePath () . '/js/admin/bootstrap-modal.js' )
 					->prependScript ( "angularApp = angular.module('project', []);" )
@@ -16,7 +15,14 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/emp
 					->prependFile ( $this->basePath () . '/js/plugins/steps/jquery.steps.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/pace/pace.min.js' )
                     ->prependFile ( $this->basePath () . '/js/plugins/bootbox/bootbox.min.js' )
-					->prependFile ( $this->basePath () . '/js/inspinia.js' )?>
+					->prependFile ( $this->basePath () . '/js/inspinia.js' );
+?>
+<?php
+$this->inlineScript()
+    ->prependScript("
+        var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+    ");
+?>
 <style type="text/css">
 .wizard-big.wizard>.content {
 	min-height: 1200px;

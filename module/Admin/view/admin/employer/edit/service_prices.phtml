@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<i class="fa fa-cogs"> <strong>Service Prices</strong></i>
+		<i class="fa fa-cogs"> <strong><?php echo $this->translate('Service Prices') ?></strong></i>
 	</div>
 	<div class="panel-body">
 		<div class="row">
@@ -29,7 +29,7 @@
 		</div>
 		<div class="hr-line-dashed"></div>
 		<h4>
-			<i class="fa fa-tags"></i>&nbsp; Currency
+			<i class="fa fa-tags"></i>&nbsp; <?php echo $this->translate('Currency') ?>
 		</h4>
 		<div data-toggle="buttons">
 			<label class="btn btn-outline btn-primary {{active_class(employer.currency, 'cny')}}" ng-click="setCurrency('cny')" > 
@@ -64,13 +64,13 @@
 				<thead>
 					<tr>
 						<th>TM</th>
-						<th>Repetitions</th>
+						<th><?php echo $this->translate('Repetitions') ?></th>
 						<th>100%</th>
 						<th>95% - 99%</th>
 						<th>85% - 94%</th>
 						<th>75% - 84%</th>
 						<th>50% - 74%</th>
-						<th>No Match</th>
+						<th><?php echo $this->translate('No Match') ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -106,9 +106,9 @@
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Source Language</th>
-						<th>Target Language</th>
-						<th>Translation Price</th>
+						<th><?php echo $this->translate('Source Language') ?></th>
+						<th><?php echo $this->translate('Target Language') ?></th>
+						<th><?php echo $this->translate('Translation Pric') ?></th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -137,19 +137,19 @@
 		<div class="hr-line-dashed"></div>
 
 		<h4>
-			<i class="fa fa-desktop"></i>&nbsp; Desktop Publishing
+			<i class="fa fa-desktop"></i>&nbsp; <?php echo $this->translate('Desktop Publishing') ?>
 		</h4>
 		<div class="table-responsive">
 			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Languages</th>
-						<th>DTP software</th>
-						<th>Price/Page <i class="fa fa-apple"></th>
-						<th>Price/Page <i class="fa fa-windows"></i></th>
-						<th>Price/Hour <i class="fa fa-apple"></th>
-						<th>Price/Hour <i class="fa fa-windows"></i></th>
+						<th><?php echo $this->translate('Languages') ?></th>
+						<th>DTP <?php echo $this->translate('software') ?></th>
+						<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Page') ?> <i class="fa fa-apple"></th>
+						<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Page') ?> <i class="fa fa-windows"></i></th>
+						<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Hour') ?> <i class="fa fa-apple"></th>
+						<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Hour') ?> <i class="fa fa-windows"></i></th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -172,20 +172,20 @@
 		</div>
 		<div class="text-center">
 			<a data-toggle="modal" class="btn btn-outline btn-info"
-				href="#modal-dtp">Add DTP prices</a>
+				href="#modal-dtp"><?php echo $this->translate('Add DTP prices') ?></a>
 		</div>
 		<div class="hr-line-dashed"></div>
 
-		<h4><i class="fa fa-desktop"></i>&nbsp; Engineering</h4>
+		<h4><i class="fa fa-desktop"></i>&nbsp; <?php echo $this->translate('Engineering') ?></h4>
        	<div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Category </th>
-                        <th>Unit </th>
-                        <th>Price</th>
-                    	<th>Action</th>
+                        <th><?php echo $this->translate('Category') ?> </th>
+                        <th><?php echo $this->translate('Unit') ?>  </th>
+                        <th><?php echo $this->translate('Price') ?></th>
+                    	<th><?php echo $this->translate('Action') ?></th>
                 	</tr>
                 </thead>
                 <tbody>
@@ -203,23 +203,23 @@
         	</table>
         </div>
         <div class="text-center">
-        	<a data-toggle="modal" class="btn btn-outline btn-info" href="#modal-eng">Add Engineering prices</a>
+        	<a data-toggle="modal" class="btn btn-outline btn-info" href="#modal-eng"><?php echo $this->translate('Add Engineering prices') ?></a>
         </div>
         <div class="hr-line-dashed"></div>                                
 		<h4>
-			<i class="fa fa-comments-o"></i>&nbsp; Interpreting
+			<i class="fa fa-comments-o"></i>&nbsp; <?php echo $this->translate('Interpreting') ?>
 		</h4>
 		<div class="table-responsive">
 			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Source Language</th>
-						<th>Target Language</th>
-						<th>Interpreting Service</th>
-						<th>Price/Day</th>
-						<th>Price/half-Day</th>
-						<th>Action</th>
+						<th><?php echo $this->translate('Source Language') ?></th>
+						<th><?php echo $this->translate('Target Language') ?></th>
+						<th><?php echo $this->translate('Interpreting Service') ?></th>
+						<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Day') ?></th>
+						<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('half-Day') ?></th>
+						<th><?php echo $this->translate('Action') ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -242,7 +242,7 @@
 		</div>
 		<div class="text-center">
 			<a data-toggle="modal" class="btn btn-outline btn-success"
-				href="#modal-interpreting">Add Interpreting prices</a>
+				href="#modal-interpreting"><?php echo $this->translate('Add Interpreting prices') ?></a>
 		</div>
 	</div>
 </div>

@@ -3,9 +3,6 @@ angularApp.run( function ( $rootScope ) {
 }) 
 
 angularApp.controller('PapertaskEmployerListController', function($scope, $http, $timeout, $q) {
-	/**
-	 * 
-	 */
 	$scope.companies 	= [];
 	$scope.countries 	= [];
 	$scope.pages 		= [];
@@ -58,7 +55,7 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
 		document.location.href = "/admin/employer/edit?userId=" + str_empid;
 	}
 	$scope.onDeleteClicked = function ( str_empid ) {
-        bootbox.confirm ( "Are you sure!", function ( bflag ) {
+        bootbox.confirm ( DELETE_CONFIRM_TEXT, function ( bflag ) {
             if ( bflag ) {
                 var delEmp = $http.delete("/api/user/" + str_empid + "/employer", {id: str_empid});
                 $q.all([delEmp])

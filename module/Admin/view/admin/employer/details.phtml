@@ -7,7 +7,14 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 					->prependFile ( $this->basePath () . '/js/plugins/validate/jquery.validate.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/steps/jquery.steps.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/pace/pace.min.js' )
-					->prependFile ( $this->basePath () . '/js/inspinia.js' )?>
+					->prependFile ( $this->basePath () . '/js/inspinia.js' );
+?>
+<?php
+$this->inlineScript()
+    ->prependScript("
+        var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+    ");
+?>
 					
 <div class="row animated fadeInRight" ng-controller="PapertaskEmployerDetailController" ng-init="init(<?php echo $user['id'];?>)">
 	<div class="col-md-4">
@@ -24,40 +31,53 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 			</div>
 
 			<div class="ibox-content profile-content">
-				<p><i class="fa fa-user"></i> &nbsp; <?php echo $user['lastName'].", ".$user['firstName'];?> &nbsp; <?php if ($user['gender'] == 0) { ?><i class="fa fa-male"></i><?php } else { ?><i class="fa fa-female"></i><?php }?></p>
+				<p><i class="fa fa-user"></i> &nbsp; 
+                <?php echo $user['lastName'].", ".$user['firstName'];?> &nbsp; 
+                <?php if ($user['gender'] == 0) { ?>
+                <i class="fa fa-male"></i>
+                <?php } else { ?>
+                <i class="fa fa-female"></i>
+                <?php }?>
+                </p>
 				<p><i class="fa fa-envelope"></i> &nbsp; <?php echo $user['email']?></p>
 				<p><i class="fa fa-phone"></i> &nbsp; <?php echo $user['phone'];?></p>
-				<p><i class="fa fa-briefcase"></i> &nbsp; </p>
-				<p><i class="fa fa-building"></i> &nbsp; </p>
-				<p><i class="fa fa-map-marker"></i> &nbsp; </p>
-				<p><i class="fa fa-link"></i> &nbsp; </p>
+				<p><i class="fa fa-briefcase"></i> &nbsp; Marketing Manager</p>
+				<p><i class="fa fa-building"></i> &nbsp; IBM China</p>
+				<p><i class="fa fa-map-marker"></i> &nbsp; City, United States</p>
+				<p><i class="fa fa-link"></i> &nbsp; www.ibm.com.cn</p>
 				<form role="form" class="form-inline">
 					<div class="form-group">
 						<input type="password" placeholder="Reset password" id="" class="form-control">
 					</div>
-					<button class="btn btn-danger" type="submit">Reset</button>
+					<button class="btn btn-danger" type="submit"><?php echo $this->translate('Reset') ?></button>
 				</form>
 				<div class="hr-line-dashed"></div>
 				<p><span class="label label-info">PM</span> Yang, Michael &nbsp;<span class="label label-info">Sales</span> Jiang, Kevin</p>
 				<div class="hr-line-dashed"></div>
-				<h4>Client Type </h4>
+				<h4><?php echo $this->translate('Client Type') ?> </h4>
 				<div class="row file-manager">
 					<ul class="tag-list" style="padding: 0">
-						<li><?php if ($user['profileUpdated']) {?><a>Contracted</a><?php } else {?><a>UnContracted</a><?php }?></li>
+						<li>
+                            <?php if ($user['profileUpdated']) {?>
+                            <a><?php echo $this->translate('Contracted') ?></a>
+                            <?php } else {?>
+                            <a><?php echo $this->translate('UnContracted') ?></a>
+                            <?php }?>
+                        </li>
 					</ul>
 				</div>
 				<div class="hr-line-dashed"></div>
-				<h4>Default Service Level </h4>
+				<h4><?php echo $this->translate('Default Service Level') ?> </h4>
 				<div class="row file-manager">
 					<ul class="tag-list" style="padding: 0">
 						<li><a>Professional</a></li>
 					</ul>
 				</div>
 				<div class="hr-line-dashed"></div>
-				<h4>Comments of PaperTask</h4>
+				<h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
 				<?php echo $employer['comments'];?>
 
-				<a class="btn btn-primary btn-block" type="button" href="#modal-comment"><i class="fa fa-paste"></i> Edit</a>
+				<a class="btn btn-primary btn-block" type="button" href="#modal-comment"><i class="fa fa-paste"></i> <?php echo $this->translate('Edit') ?></a>
 			</div>
 		</div>
 	</div>
@@ -66,9 +86,9 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 			<div class="panel-heading">
 				<div class="panel-options">
 					<ul class="nav nav-tabs">
-						<li class="active"><a data-toggle="tab" href="#tab-1">Service Prices</a></li>
-						<li class=""><a data-toggle="tab" href="#tab-2">Resource Pool</a></li>
-						<li class=""><a data-toggle="tab" href="#tab-3">Projects</a></li>
+						<li class="active"><a data-toggle="tab" href="#tab-1"><?php echo $this->translate('Service Prices') ?></a></li>
+						<li class=""><a data-toggle="tab" href="#tab-2"><?php echo $this->translate('Resource Pool') ?></a></li>
+						<li class=""><a data-toggle="tab" href="#tab-3"><?php echo $this->translate('Projects') ?></a></li>
 					</ul>
 				</div>
 			</div>
@@ -78,22 +98,22 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 					<div id="tab-1" class="tab-pane active">
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
-								<h3><i class="fa fa-coffee"></i> Translation</h3>
+								<h3><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></h3>
 							</div>
 							<div class="ibox-content">
-								<h4>Languages and Price </h4>
+								<h4><?php echo $this->translate('Languages and Price') ?> </h4>
 								<div class="table-responsive">
 									<table class="table table-striped">
 										<thead>
 										  <tr>
-											<th>TM Template</th>
-											<th>Repetitions</th>
+											<th><?php echo $this->translate('TM Template') ?></th>
+											<th><?php echo $this->translate('Repetitions') ?></th>
 											<th>100%</th>
 											<th>95% - 99%</th>
 											<th>85% - 94%</th>
 											<th>75% - 84%</th>
 											<th>50% - 74%</th>
-											<th>No Match</th>
+											<th><?php echo $this->translate('No Match') ?></th>
 										  </tr>
 										</thead>
 										<tbody>
@@ -118,9 +138,9 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Source Language </th>
-												<th>Target Language </th>
-												<th>Translation Price</th>
+												<th><?php echo $this->translate('Source Language') ?> </th>
+												<th><?php echo $this->translate('Target Language') ?> </th>
+												<th><?php echo $this->translate('Translation Price') ?></th>
 											</tr>
 											</thead>
 											<tbody>
@@ -139,21 +159,21 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 						</div>
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
-								<h3><i class="fa fa-desktop"></i> Desktop Publishing</h3>
+								<h3><i class="fa fa-desktop"></i> <?php echo $this->translate('Desktop Publishing') ?></h3>
 							</div>
 							<div class="ibox-content">
-								<h4>Softwares and Price </h4>
+								<h4><?php echo $this->translate('Softwares and Price') ?> </h4>
 								<div class="table-responsive">
 									<table class="table table-striped">
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Languages </th>
-												<th>Software </th>
-												<th>Page <i class="fa fa-apple"></th>
-												<th>Page <i class="fa fa-windows"></i></th>
-												<th>Hour <i class="fa fa-apple"></th>
-												<th>Hour <i class="fa fa-windows"></i></th>
+												<th><?php echo $this->translate('Languages') ?> </th>
+												<th><?php echo $this->translate('Software') ?> </th>
+												<th><?php echo $this->translate('Page') ?> <i class="fa fa-apple"></th>
+												<th><?php echo $this->translate('Page') ?> <i class="fa fa-windows"></i></th>
+												<th><?php echo $this->translate('Hour') ?> <i class="fa fa-apple"></th>
+												<th><?php echo $this->translate('Hour') ?> <i class="fa fa-windows"></i></th>
 											</tr>
 											</thead>
 											<tbody>
@@ -175,10 +195,10 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 						</div>
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
-								<h3><i class="fa fa-gears"></i> Engineering</h3>
+								<h3><i class="fa fa-gears"></i> <?php echo $this->translate('Engineering') ?></h3>
 							</div>
 							<div class="ibox-content">
-								<h4>Categories and Price </h4>
+								<h4><?php echo $this->translate('Categories and Price') ?> </h4>
 								<div class="table-responsive">
 									<table class="table table-striped">
 										<thead>
@@ -205,7 +225,7 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 						</div>
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
-								<h3><i class="fa fa-comments-o"></i> Interpreting</h3>
+								<h3><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></h3>
 							</div>
 							<div class="ibox-content">
 								<h4>Languages and Price </h4>
@@ -215,11 +235,11 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Source Language </th>
-												<th>Target Language </th>
-												<th>Interpreting Service</th>
-												<th>Price/Day</th>
-												<th>Price/half-Day</th>
+												<th><?php echo $this->translate('Source Language') ?> </th>
+												<th><?php echo $this->translate('Target Language') ?> </th>
+												<th><?php echo $this->translate('Interpreting Service') ?></th>
+												<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Day') ?></th>
+												<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('half-Day') ?></th>
 											</tr>
 											</thead>
 											<tbody>
@@ -242,16 +262,16 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 					<div id="tab-2" class="tab-pane">
 						<div class="ibox">
 							<div class="ibox-title">
-								<h5>Translators Pool</h5>
+								<h5><?php echo $this->translate('Translators Pool') ?></h5>
 							</div>
 							<div class="ibox-content">
 								<table class="table">
 									<thead>
 									<tr>
 										<th>#</th>
-										<th>Name</th>
-										<th>Type</th>
-										<th>Task Done</th>
+										<th><?php echo $this->translate('Name') ?></th>
+										<th><?php echo $this->translate('Type') ?></th>
+										<th><?php echo $this->translate('Task Done') ?></th>
 										<th></th>
 									</tr>
 									</thead>

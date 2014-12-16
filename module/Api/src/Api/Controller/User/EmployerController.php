@@ -147,7 +147,6 @@ class EmployerController extends AbstractRestfulController
         $employerData = $user->getEmployer()->getData();
 
         return new JsonModel([
-            'user' => $user->getData(),
             'employer' => $employerData,
         ]);
     }

@@ -175,7 +175,7 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     };
     
     $scope.deleteTranslationPrice = function ( index ) {  
-        bootbox.confirm ( "Are you sure!", function ( bflag ) {
+        bootbox.confirm ( DELETE_CONFIRM_TEXT, function ( bflag ) {
             if ( bflag ) {
                 $scope.translationPrices.splice(index, 1);
 	            setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
@@ -237,7 +237,7 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     	jQuery("#modal-dtp").modal("show");
     }
     $scope.deleteDesktopPrice = function ( ind ) {
-        bootbox.confirm ( "Are you sure!", function ( bflag ) {
+        bootbox.confirm ( DELETE_CONFIRM_TEXT, function ( bflag ) {
             if ( bflag ) {
     	       $scope.desktopPrices.splice(ind, 1);
             }
@@ -285,7 +285,7 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     	jQuery("#modal-interpreting").modal("show");
     }
     $scope.deleteInterpretingPrice = function (ind) {
-        bootbox.confirm ( "Are you sure!", function ( bflag ) {
+        bootbox.confirm ( DELETE_CONFIRM_TEXT, function ( bflag ) {
             if ( bflag ) {
     	       $scope.interpretingPrices.splice( ind, 1 );
             }
@@ -337,7 +337,7 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     	$scope.editEngineering = -1;
     }
     $scope.deleteEngineeringPrice = function (ind) {
-        bootbox.confirm ( "Are you sure!", function ( bflag ) {
+        bootbox.confirm ( DELETE_CONFIRM_TEXT, function ( bflag ) {
             if ( bflag ) {
     	       $scope.engineeringPrices.splice( ind, 1 );
             }

@@ -34,23 +34,21 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
 		return str_label;
 	}
 	
-	$scope.onViewClicked = function ( str_empid ) {
-		// console.log ( str_empid );
-	}
-	$scope.onEditClicked = function ( str_empid ) {
-		// console.log ( str_empid );
-	}
 	$scope.onDeleteClicked = function ( str_empid ) {
-		var delEmp = $http.delete("/api/user/" + str_empid + "/employer", {id: str_empid});
-		$q.all([delEmp])
-        .then(function(result){
-        	$http.get("/api/user/employer?page=1")
-		        .success(function($data){
-		            $scope.pages = $data.pages;
-		            $scope.employers = $data.employers;
-		    });
-        });
-	}
+	   bootbox.confirm( DELETE_CONFIRM_TEXT, function( bflag ) {
+            if ( bflag == true ) {
+        		var delEmp = $http.delete("/api/user/" + str_empid + "/employer", {id: str_empid});
+        		$q.all([delEmp])
+                    .then(function(result){
+                    	$http.get("/api/user/employer?page=1")
+            		        .success(function($data){
+            		            $scope.pages = $data.pages;
+            		            $scope.employers = $data.employers;
+            		    });
+                    });
+           }
+        }
+	} 
 	
 	$scope.onBtnPreviousClicked = function () {
 		$http.get("/api/user/employer?page="+ $scope.pages.previous)

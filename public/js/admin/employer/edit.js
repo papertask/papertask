@@ -231,7 +231,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     };
     
     $scope.deleteTranslationPrice = function ( index, tid ) {    	
-        bootbox.confirm("Are you sure", function( bflag ) {
+        bootbox.confirm( DELETE_CONFIRM_TEXT, function( bflag ) {
             if ( bflag == true ) {
                 $http.delete("/api/user/" + tid + "/translationprice", {
                     userId: $scope.userId            
@@ -298,7 +298,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	jQuery("#modal-dtp").modal("show");
     }
     $scope.deleteDesktopPrice = function ( ind, did ) {
-        bootbox.confirm("Are you sure!", function (bflag) {
+        bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
             if ( bflag )
                 $http.delete("/api/user/" + did + "/desktopprice", {
                     userId: $scope.userId            
@@ -357,7 +357,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	jQuery("#modal-interpreting").modal("show");
     }
     $scope.deleteInterpretingPrice = function (ind, iid) {
-        bootbox.confirm( "Are you sure!", function ( bflag ) {
+        bootbox.confirm( DELETE_CONFIRM_TEXT, function ( bflag ) {
             if ( bflag ) 
                $http.delete("/api/user/" + iid + "/interpretingprice", {
                     userId: $scope.userId            
@@ -419,7 +419,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	$scope.editEngineering = -1;
     }
     $scope.deleteEngineeringPrice = function (ind, eid) {
-        bootbox.confirm( "Are you sure!", function ( bflag ) {
+        bootbox.confirm( DELETE_CONFIRM_TEXT, function ( bflag ) {
             if ( bflag ) {
                 $http.delete("/api/user/" + eid + "/engineeringprice", {
                     userId: $scope.userId
@@ -431,7 +431,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     }
     $scope.editEngineeringPrice = function (ind) {
     	$scope.editEngineering = ind;
-    	setModalControllerData('engineerPrice', $scope.engineeringPrices[ind]);
+    	setModalControllerData( 'engineerPrice', $scope.engineeringPrices[ind]);
     	jQuery("#modal-eng").modal("show");
     }
 

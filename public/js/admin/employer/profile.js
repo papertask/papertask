@@ -15,6 +15,7 @@ angularApp.controller('PapertaskEmployerProfileController', function($scope, $ht
 	$scope.countries 	= [];
 	$scope.employer = {};
 	$scope.userId = '';
+    $scope.userInfo = {};
 	$scope.employerId = '';
 	$scope.init = function (str_uid, str_empid, str_country_select, str_company_id) {
 		$http.get("/api/common/country").success(function($data){
@@ -41,7 +42,13 @@ angularApp.controller('PapertaskEmployerProfileController', function($scope, $ht
 	            	i ++;
 	            });
 	    });
-		
+		$http.get('/api/user/' + str_uid + "").success( function ( $data ) {
+		  $scope.userInfo = $data['user'];
+		});
+        
+        $http.get('/api/user/' + str_uid + "/employer").success( function ( $data ) {
+            $scope.employer = $data['employer'];
+        });
 	}
 	
 	$scope.saveCompany = function(company){
@@ -60,14 +67,14 @@ angularApp.controller('PapertaskEmployerProfileController', function($scope, $ht
 		var pParam = new Array();
         
 		pParam = {
-			firstName: $("#firstname").val(),
-			lastName: $("#lastname").val(),
-			name: $("#username").val(),
-			city: $("#city").val(),
-			position: $("#position").val(),
+			firstName: $scope.userInfo.firstName,
+			lastName: $scope.userInfo.lastName,
+			name: $scope.employer.name,
+			city: $scope.userInfo.city,
+			position: $scope.uerInfo.position,
 			country: $scope.employer.country,
 			company: $scope.employer.company.id,
-			phone: $("#phone").val(),
+			phone: $scope.userInfo.phone,
 			user_id: $scope.userId,
 			defaultServiceLevel: $("#defaultServiceLevel").val(),
 			gender: $scope.employer.gender

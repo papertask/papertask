@@ -1,7 +1,6 @@
-
+<?php $this->headTitle($this->translate('Client')) ?>
 <!-- Scripts -->
 <?php
-
 $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/list.js' )
 					->prependFile ( $this->basePath () . '/js/admin/bootstrap-modal.js' )
 					->prependScript ( "angularApp = angular.module('project', []);" )
@@ -10,17 +9,22 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/lis
 					->prependFile ( $this->basePath () . '/js/plugins/steps/jquery.steps.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/pace/pace.min.js' )
                     ->prependFile ( $this->basePath () . '/js/plugins/bootbox/bootbox.min.js' )
-					->prependFile ( $this->basePath () . '/js/inspinia.js' )?>
+					->prependFile ( $this->basePath () . '/js/inspinia.js' );
+
+$this->inlineScript()
+    ->prependScript("
+        var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+    ");
+?>
 					
 <div class="row" ng-controller="PapertaskEmployerListController" ng-init="init()">
 	<div class="col-lg-12">
 		<div class="wrapper wrapper-content animated fadeInUp">
-
 			<div class="ibox">
 				<div class="ibox-title">
 					<h5>Clients</h5>
 					<div class="ibox-tools">
-						<a data-toggle="collapse" href="#search_employer" class="btn btn-primary btn-xs"><i class="fa fa-search"></i> Search</a>
+						<a data-toggle="collapse" href="#search_employer" class="btn btn-primary btn-xs"><i class="fa fa-search"></i><?php echo $this->translate('Search') ?></a>
 					</div>
 				</div>
 
@@ -32,29 +36,29 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/lis
 									<div class="row">
 										<div class="col-lg-4">
 											<div class="form-group">
-												<label class="col-sm-3 control-label">Name</label>
+												<label class="col-sm-3 control-label"><?php echo $this->translate('Name') ?></label>
 												<div class="col-sm-9"><input type="text" class="form-control" ng-model="searchParams.name" ></div>
 											</div>
 											<div class="form-group">
-												<label class="col-sm-3 control-label">Company</label>
+												<label class="col-sm-3 control-label"><?php echo $this->translate('Company') ?></label>
 												<div class="col-sm-9"><input type="text" class="form-control" ></div>
 											</div>
 											<div class="form-group">
 												<label class="col-sm-2 control-label"></label>
 												<div class="col-sm-10">
 													<label class="checkbox-inline"> 
-														<input ng-model="searchParams.includeInactive"  type="checkbox" value="1" id="unactive"> &nbsp;&nbsp;&nbsp;<strong>Include unactive account </strong>
+														<input ng-model="searchParams.includeInactive"  type="checkbox" value="1" id="unactive"> &nbsp;&nbsp;&nbsp;<strong><?php echo $this->translate('Include unactive account') ?> </strong>
 													</label> 
 												</div>
 											</div>
 										</div>
 										<div class="col-lg-4">
 											<div class="form-group">
-												<label class="col-sm-3 control-label">ID</label>
+												<label class="col-sm-3 control-label"><?php echo $this->translate('ID') ?></label>
 												<div class="col-sm-9"><input ng-model="searchParams.idEmployer" type="text" class="form-control" ></div>
 											</div>
 											<div class="form-group">
-												<label class="col-sm-3 control-label">Country</label>
+												<label class="col-sm-3 control-label"><?php echo $this->translate('Country') ?></label>
 												<div class="col-sm-9">
 													<select class="form-control" name="" ng-model="searchParams.country" >
 														<option value=""></option>
@@ -65,11 +69,11 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/lis
 										</div>
 										<div class="col-lg-4">
 											<div class="form-group">
-												<label class="col-sm-3 control-label">Email</label>
+												<label class="col-sm-3 control-label"><?php echo $this->translate('Email') ?></label>
 												<div class="col-sm-9"><input type="text" class="form-control" ng-model="searchParams.email"></div>
 											</div>
 											<div class="form-group">
-												<label class="col-sm-3 control-label">Currency</label>
+												<label class="col-sm-3 control-label"><?php echo $this->translate('Currency') ?></label>
 												<div class="col-sm-9">
 													<select class="form-control" name="" ng-model="searchParams.currency" >
 													  <option></option>
@@ -81,8 +85,8 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/lis
 										</div>
 									</div>
 									<div class="text-right tooltip-demo">
-										<a href="#" class="btn btn-sm btn-primary" ng-click="advancedSearch()"><i class="fa fa-search"></i> Search</a>
-										<a href="#" class="btn btn-white btn-sm" type="reset"><i class="fa fa-times"></i> Reset</a>
+										<a href="#" class="btn btn-sm btn-primary" ng-click="advancedSearch()"><i class="fa fa-search"></i> <?php echo $this->translate('Search') ?></a>
+										<a href="#" class="btn btn-white btn-sm" type="reset"><i class="fa fa-times"></i> <?php echo $this->translate('Reset') ?></a>
 									</div>
 								</form>
 							</div>
@@ -94,13 +98,13 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/lis
 							<tbody>
 								<tr ng-repeat="employer in employers">
 									<td class="project-status" width="1%">
-										<span ng-if="employer.isActive=='1'" class="label label-primary">Active</span>
-										<span  ng-if="employer.isActive=='0'" class="label label-default">Unactive</span>
+										<span ng-if="employer.isActive=='1'" class="label label-primary"><?php echo $this->translate('Active') ?></span>
+										<span  ng-if="employer.isActive=='0'" class="label label-default"><?php echo $this->translate('Unactive') ?></span>
 									</td>
 									<td class="project-title">
 										<strong><i class="fa fa-user"></i> {{employer.lastName}}&nbsp;{{employer.firstName}}</strong>
 										<br/>
-										<small>Created {{employer.createdTime}}</small>
+										<small><?php echo $this->translate('Created') ?> {{employer.createdTime}}</small>
 									</td>
 									<td class="project-title">
 										<strong><i class="fa fa-envelope"></i> {{employer.email}}</strong>
@@ -118,9 +122,9 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/lis
 										<small>Currency: <i class="fa fa-{{employer.currency}}"></i></small>
 									</td>
 									<td class="project-actions">
-										<span class="btn btn-white btn-sm" ng-click="onViewClicked(employer.id)"><i class="fa fa-folder"></i> View </span>
-										<span class="btn btn-white btn-sm" ng-click="onEditClicked(employer.id)"><i class="fa fa-pencil"></i> Edit </span>
-										<span class="btn btn-danger btn-sm" ng-click="onDeleteClicked(employer.id)"><i class="fa fa-trash"></i> Delete </span> <!-- only admin has right to show the delete button -->
+										<span class="btn btn-white btn-sm" ng-click="onViewClicked(employer.id)"><i class="fa fa-folder"></i> <?php echo $this->translate('View') ?> </span>
+										<span class="btn btn-white btn-sm" ng-click="onEditClicked(employer.id)"><i class="fa fa-pencil"></i> <?php echo $this->translate('Edit') ?> </span>
+										<span class="btn btn-danger btn-sm" ng-click="onDeleteClicked(employer.id)"><i class="fa fa-trash"></i> <?php echo $this->translate('Delete') ?> </span> <!-- only admin has right to show the delete button -->
 									</td>
 								</tr>
 							</tbody>
