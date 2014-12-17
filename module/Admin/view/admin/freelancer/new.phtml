@@ -1,0 +1,24 @@
+<?php $this->headTitle($this->translate('Create New Freelancer')) ?>
+
+<!-- Scripts -->
+<?php $this->headScript()
+    ->prependFile($this->basePath() . '/js/admin/freelancer/new.js')
+    ->prependScript("angularApp = angular.module('project', []);")
+    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
+    ->prependFile($this->basePath() . '/js/inspinia.js')
+?>
+<div class="row" ng-controller="NewFreelancerController">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <form id="form" action="#">
+                <div class="ibox-content" id="mainController">
+                    <?php include __DIR__ . "/finish-registration/basic-info.phtml" ?>
+                    <div class="row text-center">
+                        <button ng-click="submit()" type="submit" class="btn btn-primary"><?php echo $this->translate('Next') ?></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

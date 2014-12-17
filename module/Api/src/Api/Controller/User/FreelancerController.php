@@ -14,11 +14,20 @@ use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator;
 use User\Entity\UserGroup;
+use User\Entity\User;
 use Admin\Model\Helper;
 use Doctrine\Common\Collections\Criteria;
 
 class FreelancerController extends AbstractRestfulController
 {
+    public function create($data) {
+        $user = new User();
+        $user->createUser($this, $data, UserGroup::FREELANCER_GROUP_ID);
+        return new JsonModel([
+            'user' => $user
+        ]);
+    }
+
     public function get($id){
         $user = $this->getUserById($id);
         $freelancerData = $user->getFreelancer()->getData();

@@ -23,12 +23,12 @@ use Common\Entity;
 class User extends Entity implements InputFilterAwareInterface{
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+ * @var integer
+ *
+ * @ORM\Column(type="integer", nullable=false)
+ * @ORM\Id
+ * @ORM\GeneratedValue(strategy="IDENTITY")
+ */
     protected $id;
 
     /** @ORM\Column(type="string") */
@@ -518,5 +518,33 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager->persist($this);
         $entityManager->flush();
         $controller->redirect()->toUrl('/user/dashboard');
+    }
+
+    /**
+     * Create user based on group ID
+     * @param $controller
+     * @param $data
+     * @param $groupId
+     */
+    public function createUser($controller, $data, $groupId){
+        $entityManager = $controller->getEntityManager();
+        $data = array(
+            'email' => $data['email'],
+            'lastName' => $data['lastName'],
+            'firstName' => $data['firstName'],
+            'gender' => $data['gender'],
+            'city' => $data['city'],
+            'country' => $entityManager->find('\User\Entity\Country', (int)$data['country']),
+            'lastLogin' => new \DateTime('now'),
+            'createdTime' => new \DateTime('now'),
+            'phone' => $data['phone']
+        );
+        $this->setData($data);
+        $this->encodePassword($this->generateRandomString());
+        $group = $entityManager->find('\User\Entity\Group', (int)$groupId);
+        $this->setGroup($group);
+        $entityManager->persist($this);
+        $entityManager->flush();
+        $this->sendConfirmationEmail($controller);
     }
 }

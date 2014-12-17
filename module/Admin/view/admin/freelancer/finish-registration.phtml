@@ -1,4 +1,4 @@
-
+<?php $this->headTitle($this->translate('Finish Registration')) ?>
 <!-- Le styles -->
 <?php $this->headLink()
         ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
@@ -52,10 +52,10 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content" id="mainController" ng-controller="UpdateInfoController">
                     <h2 ng-show="!userInfo.profileUpdated">
-                        Please finish your account information
+                        <?php echo $this->translate('Please finish your account information') ?>
                     </h2>
                     <h2 ng-show="userInfo.profileUpdated">
-                        Update your account information
+                        <?php echo $this->translate('Update your account information') ?>'
                     </h2>
 
                     <form id="form" action="#" class="wizard-big">

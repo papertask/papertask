@@ -82,7 +82,7 @@ return array(
             'admin/freelancer/edit-profile' => __DIR__ . '/../view/admin/freelancer/edit-profile.phtml',
             'admin/freelancer/finish-registration' => __DIR__ . '/../view/admin/freelancer/finish-registration.phtml',
             'admin/freelancer/index' => __DIR__ . '/../view/admin/freelancer/index.phtml',
-            'admin/freelancer/new' => __DIR__ . '/../view/admin/freelancer/finish-registration.phtml',
+            'admin/freelancer/new' => __DIR__ . '/../view/admin/freelancer/new.phtml',
             'admin/freelancer/update-info' => __DIR__ . '/../view/admin/freelancer/finish-registration.phtml',
             'admin/freelancer/view' => __DIR__ . '/../view/admin/freelancer/view.phtml',
             'admin/papertask/profile' => __DIR__ . '/../view/admin/papertask/profile.phtml',
