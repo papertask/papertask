@@ -13,10 +13,17 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/pro
 					->prependScript ( "angularApp = angular.module('project', []);" )
 					->prependFile ( $this->basePath () . '/js/plugins/summernote/summernote.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/validate/jquery.validate.min.js' )
-					->prependFile ( $this->basePath () . '/js/plugins/steps/jquery.steps.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/pace/pace.min.js' )
-                    ->prependFile ( $this->basePath () . '/js/plugins/bootbox/bootbox.min.js' )
-					->prependFile ( $this->basePath () . '/js/inspinia.js' )?>
+					->prependFile ( $this->basePath () . '/js/inspinia.js' );
+?>
+<?php
+$this->inlineScript()
+    ->prependScript("
+        var USER_ID = '" . $user['id'] . "';
+        var EMPLOYER_ID = '';
+        var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+    ");
+?>
 <style type="text/css">
 .wizard-big.wizard>.content {
 	min-height: 1200px;
@@ -38,12 +45,13 @@ h3 {
 	height: 150px;
 }
 </style>
-<div class="row" ng-controller="PapertaskEmployerEditController" ng-init="init('<?=$user["id"]; ?>','<?=$employer["id"]; ?>','<?= $user['country']?>', '<?= $employer['company']['id'];?>')" id="EmployerController">
+
+<div class="row" ng-controller="PapertaskEmployerProfileController" ng-init="init()" id="EmployerController">
 	<div class="col-lg-12">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
 				<h3>
-					<i class="fa fa-edit"></i> Edit Client Profile
+					<i class="fa fa-edit"></i> <?php echo $this->translate('Edit Client Profile') ?>
 				</h3>
 			</div>
 			<div class="ibox-content">
@@ -51,57 +59,57 @@ h3 {
 					<!-- Basic Information -->
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<i class="fa fa-info-circle"> <strong>Basic Information</strong></i>
+							<i class="fa fa-info-circle"> <strong><?php echo $this->translate('Basic Information') ?></strong></i>
 						</div>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label>Email *</label>
-										<input type="text" class="form-control " value="<?php echo $user['email'];?>" disabled>
+										<label><?php echo $this->translate('Email') ?> *</label>
+										<input type="text" class="form-control " ng-model="userInfo.email" disabled>
 									</div>
 									<div class="hr-line-dashed"></div>
 									<div class="form-group">
-										<label>First name *</label> 
-										<input id="firstname" name="firstname" type="text" class="form-control required" value="<?php echo $user['firstName'];?>">
+										<label><?php echo $this->translate('First name') ?> *</label> 
+										<input id="firstname" name="firstname" type="text" ng-model="userInfo.firstName" class="form-control required">
 									</div>
 									<div class="hr-line-dashed"></div>
 									<div class="form-group">
-										<label>Gender *</label>
+										<label><?php echo $this->translate('Gender') ?> *</label>
 										<div data-toggle="buttons">
-											<label class="btn btn-outline btn-primary btn-sm <?php if ($user['gender'] == '0') {echo 'active';}?>"  ng-click="setGender('0')" > 
-												<input type="radio" name="gender" > Male
+											<label class="btn btn-outline btn-primary btn-sm" ng-class="userInfo.gender == '0'?'active':''"  ng-click="setGender('0')" >
+												<input type="radio" name="gender" > <?php echo $this->translate('Male') ?>
 											</label> &nbsp; <label
-												class="btn btn-outline btn-primary btn-sm <?php if ($user['gender'] == '1') {echo 'active';}?>"  ng-click="setGender('1')"> 
-												<input type="radio" name="gender"> Female
+												class="btn btn-outline btn-primary btn-sm"  ng-class="userInfo.gender == '1'?'active':''"   ng-click="setGender('1')">
+												<input type="radio" name="gender"> <?php echo $this->translate('Female') ?>
 											</label>
 										</div>
 									</div>
 									<div class="hr-line-dashed"></div>
 									<div class="form-group">
-										<label>City *</label> 
-										<input id="city" name="city" type="text" class="form-control required" value="<?php echo $user['city'];?>">
+										<label><?php echo $this->translate('City') ?> *</label> 
+										<input id="city" name="city" type="text" class="form-control required" ng-model="userInfo.city">
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label>Username *</label> 
-										<input id="username" name="userName" type="text" class="form-control " value="<?php echo $employer['name'];?>" disabled>
+										<label><?php echo $this->translate('Username') ?> *</label> 
+										<input id="username" name="userName" type="text" class="form-control " ng-model="employer.name" disabled>
 									</div>
 									<div class="hr-line-dashed"></div>
 									<div class="form-group">
-										<label>Last name *</label> 
-										<input id="lastname" name="surname" type="text" class="form-control required" value="<?php echo $user['lastName'];?>">
+										<label><?php echo $this->translate('Last name') ?> *</label> 
+										<input id="lastname" name="surname" type="text" class="form-control required" ng-model="userInfo.lastName">
 									</div>
 									<div class="hr-line-dashed"></div>
 									<div class="form-group">
-										<label>Phone *</label> 
-										<input id="phone" name="phone" type="phone" class="form-control required" value="<?php echo $user['phone'];?>">
+										<label><?php echo $this->translate('Phone') ?> *</label> 
+										<input id="phone" name="phone" type="phone" class="form-control required" ng-model="userInfo.phone">
 									</div>
 									<div class="hr-line-dashed"></div>
 									<div class="form-group">
-										<label>Country *</label> 
-										<select class="form-control required" id="country" name="country" ng-model="employer.country" ng-options="country.label for country in countries">																						
+										<label><?php echo $this->translate('Country') ?> *</label> 
+										<select class="form-control required" id="country" name="country" ng-model="userInfo.country" ng-options="country.name for country in countries">
 										</select>
 									</div>
 								</div>
@@ -111,14 +119,14 @@ h3 {
 					<!-- Company Information -->
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<i class="fa fa-building"> <strong>Company Information</strong></i>
+							<i class="fa fa-building"> <strong><?php echo $this->translate('Company Information') ?></strong></i>
 						</div>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label>Position </label> 
-										<input id="position" name="position" type="text" class="form-control" value="<?php echo $employer['position']?>">
+										<label><?php echo $this->translate('Position') ?> </label> 
+										<input id="position" name="position" type="text" class="form-control" ng-model="employer.position">
 									</div>
 					
 								</div>
@@ -128,18 +136,18 @@ h3 {
 										<select class="form-control required" id="company" name="company" ng-model="employer.company" ng-options="company.name for company in companies">											
 										</select> <span class="help-block m-b-none"> &nbsp;Not in the
 											list? Please <a data-toggle="modal" class="text-info"
-											href="#modal-company">create a new company</a>.
+											href="#modal-company"><?php echo $this->translate('create a new company') ?></a>.
 										</span>
 									</div>
 								</div>
-								<input type="hidden" id="defaultServiceLevel" value="<?php echo $employer['defaultServiceLevel'];?>">
+								<input type="hidden" id="defaultServiceLevel" ng-model="employer.defaultServiceLevel">
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-sm-4 col-sm-offset-4">
-							<button class="btn btn-primary btn-block" type="submit" >Save</button>
+							<button class="btn btn-primary btn-block" type="submit" ng-click="submit()" ><?php echo $this->translate('Save') ?></button>
 						</div>
 					</div>
 				</form>

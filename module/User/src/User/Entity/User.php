@@ -94,9 +94,6 @@ class User extends Entity implements InputFilterAwareInterface{
      */
     protected $employer;
     
-     /** @ORM\Column(type="string") */
-    protected $comments;
-
     /**
      * @var \User\Entity\Staff
      * @ORM\OneToOne(targetEntity="Staff")
@@ -142,8 +139,7 @@ class User extends Entity implements InputFilterAwareInterface{
             'lastLogin',
             'lastName',
             'password',
-            'phone',
-            'comments',
+            'phone',            
             'isActive',
             'profileUpdated'
         );
@@ -169,8 +165,7 @@ class User extends Entity implements InputFilterAwareInterface{
             'gender',
             'lastName',
             'phone',
-            'profileUpdated',
-            'comments'
+            'profileUpdated'
         );
 
         if(isset($arr['currency']) and !in_array($arr['currency'], ['usd', 'cny'])){
@@ -420,7 +415,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function getData(){
         return array(
             "city" => $this->city,
-            "country" => $this->country,
+            "country" => $this->country ? $this->country->getData() : null,
             'currency' => $this->currency,
             "createdTime" => $this->createdTime,
             "email" => $this->email,
@@ -432,8 +427,7 @@ class User extends Entity implements InputFilterAwareInterface{
             "lastLogin" => $this->lastLogin,
             "lastName" => $this->lastName,
             "phone" => $this->phone,
-            "profileUpdated" => $this->profileUpdated,
-            'comments'=>$this->comments
+            "profileUpdated" => $this->profileUpdated
         );
     }
 
@@ -518,5 +512,23 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager->persist($this);
         $entityManager->flush();
         $controller->redirect()->toUrl('/user/dashboard');
+    }
+    
+    public function createEmployer( $controller, $data, $entityManager ) 
+    {
+        $data = array(
+            'email' => $data['email'],
+            'lastName' => $data['lastName'],
+            'firstName' => $data['firstName'],
+            'lastLogin' => new \DateTime('now'),
+            'createdTime' => new \DateTime('now'),
+        );
+        $this->setData($data);
+        $this->encodePassword($this->generateRandomString());
+        $this->setGroupByName('employer', $entityManager);
+        $entityManager->persist($this);
+        $entityManager->flush();
+        
+        $this->sendConfirmationEmail( $controller );
     }
 }

@@ -27,13 +27,15 @@ use User\Entity\UserEngineeringPrice;
 use Zend\View\Model\JsonModel;
 use User\Entity\Company;
 
-
 class EmployerController extends AbstractActionController {
     protected $requiredLogin = true;
     public function editAction() {
         $userId = $this->getRequest()->getQuery('userId');
+        $user = $this->getUserById($userId);
+        $employer = $user->getEmployer();
         return new ViewModel( array (
-                "user" => $this->getUserById($userId)->getData()
+                "user" => $user->getData(),
+                'employer'=> $employer->getData()
         ));
     }
     
@@ -106,6 +108,7 @@ class EmployerController extends AbstractActionController {
         }
         
         return new ViewModel(array('user'=>$user->getData(), 
+                'employer' => $user->getEmployer()->getData(),
                 'interpretingPrices'=>$pInterPretingPrices,
                 'engineeringPrices'=>$pEngineeringPrices,
                 'translationPrices'=>$pTranslationPrices,

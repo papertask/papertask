@@ -11,6 +11,15 @@ function findOption(options, value){
     return value;
 }
 
+function findOptionByName( options, value ) {
+    for ( var i = 0; i < options.length; i ++ ) {
+        if (options[i].name == value.name) {
+            return options[i];
+        }
+    }
+    return value;
+}
+
 function findOptions(options, ids){
     var values = [];
     for(var i = 0; i < options.length; i++){
