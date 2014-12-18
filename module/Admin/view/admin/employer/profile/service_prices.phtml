@@ -1,0 +1,248 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<i class="fa fa-cogs"> <strong><?php echo $this->translate('Service Prices') ?></strong></i>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label><?php echo $this->translate('Sales') ?> </label> <select class="form-control required"
+						id="sales" name="sales" value="">
+						<option>option 1</option>
+						<option>option 2</option>
+						<option>option 3</option>
+						<option>option 4</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label><?php echo $this->translate('PM') ?> </label> <select class="form-control required"
+						id="pm" name="pm" value="">
+						<option>option 1</option>
+						<option>option 2</option>
+						<option>option 3</option>
+						<option>option 4</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="hr-line-dashed"></div>
+		<h4>
+			<i class="fa fa-tags"></i>&nbsp; <?php echo $this->translate('Currency') ?>
+		</h4>
+		<div data-toggle="buttons">
+			<label class="btn btn-outline btn-primary {{active_class(userInfo.currency, 'cny')}}" ng-click="setCurrency('cny')" > 
+				<input type="radio" name="cny" > 
+				<i class="fa fa-cny"> CNY</i>
+			</label> &nbsp; 
+			<label class="btn btn-outline btn-primary {{active_class(userInfo.currency, 'usd')}}" ng-click="setCurrency('usd')" > 
+				<input type="radio" name="usd"> 
+				<i class="fa fa-usd"> USD</i>
+			</label>
+		</div>
+		<div class="hr-line-dashed"></div>
+		<h4>
+			<i class="fa fa-sitemap"></i>&nbsp; Service Level <small>Project
+				default service level</small>
+		</h4>
+		<div data-toggle="buttons">
+			<label class="btn btn-outline btn-primary {{active_class(employer.serviceLevel, 1)}}" ng-click="setServiceLevel('1')" > 
+			<input type="radio" name="professional"> Professional
+			</label> &nbsp; <label class="btn btn-outline btn-primary {{active_class(employer.serviceLevel, 2)}}" ng-click="setServiceLevel('2')"> <input
+				type="radio" name="business"> Business
+			</label> &nbsp; <label class="btn btn-outline btn-primary {{active_class(employer.serviceLevel, 3)}}" ng-click="setServiceLevel('3')" > <input
+				type="radio" name="premium"> Premium
+			</label>
+		</div>
+		<div class="hr-line-dashed"></div>
+		<h4>
+			<i class="fa fa-coffee"></i>&nbsp; Translation
+		</h4>
+		<div class="table-responsive">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>TM</th>
+						<th><?php echo $this->translate('Repetitions') ?></th>
+						<th>100%</th>
+						<th>95% - 99%</th>
+						<th>85% - 94%</th>
+						<th>75% - 84%</th>
+						<th>50% - 74%</th>
+						<th><?php echo $this->translate('No Match') ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>TM Rate</td>
+						<td>
+							<input id="repetition" name="repetition" type="number" ng-model="userInfo.tmRatios.repetitions" class="form-control required" value="{{userInfo.tmRatios.repetitions}}">
+						</td>
+						<td>
+							<input id="tm_100" name="tm_100" type="number" ng-model="userInfo.tmRatios.yibai" class="form-control required" value="{{userInfo.tmRatios.yibai}}">
+						</td>
+						<td>
+							<input id="tm_95-99" name="tm_95-99" type="number" ng-model="userInfo.tmRatios.jiuwu" class="form-control required" value="{{userInfo.tmRatios.jiuwu}}">
+						</td>
+						<td>
+							<input id="tm_85-94" name="tm_85-94" type="number" ng-model="userInfo.tmRatios.bawu" class="form-control required" value="{{userInfo.tmRatios.bawu}}">
+						</td>
+						<td>
+							<input id="tm_75-84" name="tm_75-84" type="number" ng-model="userInfo.tmRatios.qiwu" class="form-control required" value="{{userInfo.tmRatios.qiwu}}">
+						</td>
+						<td>
+							<input id="tm_50-74" name="tm_50-74" type="number" ng-model="userInfo.tmRatios.wushi" class="form-control required" value="{{userInfo.tmRatios.wushi}}">
+						</td>
+						<td>
+							<input id="tm_no_match" name="tm_no_match" type="number" ng-model="userInfo.tmRatios.nomatch" class="form-control required" value="{{userInfo.tmRatios.nomatch}}">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th><?php echo $this->translate('Source Language') ?></th>
+						<th><?php echo $this->translate('Target Language') ?></th>
+						<th><?php echo $this->translate('Translation Pric') ?></th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="tp in translationPrices">
+						<td>{{$index + 1}}</td>
+			            <td>{{tp.sourceLanguage.name}}</td>
+			            <td>{{tp.targetLanguage.name}}</td>
+			            <td>{{tp.price}}</td>
+			            <td>
+			            	<a href="#" ng-click="editTranslationPrice($index, tp.id)" onclick="return false;">
+			                	<i class="fa fa-edit"></i>
+			                </a>
+			            	<a href="#" ng-click="deleteTranslationPrice($index, tp.id)" onclick="return false;">
+			                	<i class="fa fa-trash-o text-danger"></i>
+			                </a>
+			            </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="text-center">
+			<a data-toggle="modal" class="btn btn-outline btn-primary"
+				href="#modal-translation">Add Language pairs and prices</a>
+		</div>
+		<div class="hr-line-dashed"></div>
+
+		<h4>
+			<i class="fa fa-desktop"></i>&nbsp; <?php echo $this->translate('Desktop Publishing') ?>
+		</h4>
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th><?php echo $this->translate('Languages') ?></th>
+						<th>DTP <?php echo $this->translate('software') ?></th>
+						<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Page') ?> <i class="fa fa-apple"></th>
+						<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Page') ?> <i class="fa fa-windows"></i></th>
+						<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Hour') ?> <i class="fa fa-apple"></th>
+						<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Hour') ?> <i class="fa fa-windows"></i></th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="desktopPrice in desktopPrices">
+			            <td>{{$index + 1}}</td>
+			            <td>{{desktopPrice.language.name}}</td>
+			            <td>{{desktopPrice.software.name}}</td>
+			            <td>{{desktopPrice.priceMac}}</td>
+			            <td>{{desktopPrice.pricePc}}</td>
+			            <td>{{desktopPrice.priceHourMac}}</td>
+			            <td>{{desktopPrice.priceHourPc}}</td>
+			            <td>
+			            	<a data-toggle="modal" href="#modal-dtp" ng-click="editDesktopPrice($index)" onclick="return false;"><i class="fa fa-edit"></i></a>
+			            	<a href="#" ng-click="deleteDesktopPrice($index, desktopPrice.id)" onClick="return false;"><i class="fa fa-trash-o text-danger"></i></a>
+			            </td>
+			        </tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="text-center">
+			<a data-toggle="modal" class="btn btn-outline btn-info"
+				href="#modal-dtp"><?php echo $this->translate('Add DTP prices') ?></a>
+		</div>
+		<div class="hr-line-dashed"></div>
+
+		<h4><i class="fa fa-desktop"></i>&nbsp; <?php echo $this->translate('Engineering') ?></h4>
+       	<div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th><?php echo $this->translate('Category') ?> </th>
+                        <th><?php echo $this->translate('Unit') ?>  </th>
+                        <th><?php echo $this->translate('Price') ?></th>
+                    	<th><?php echo $this->translate('Action') ?></th>
+                	</tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="engineeringPrice in engineeringPrices">
+                        <td>{{$index + 1}}</td>
+                        <td>{{engineeringPrice.engineeringcategory.category}}</td>
+                        <td>{{engineeringPrice.unit.name}}</td>
+                        <td>{{engineeringPrice.price}}</td>
+                        <td>
+                            <a data-toggle="modal" href="#modal-eng" ng-click="editEngineeringPrice($index)" onclick="return false;"><i class="fa fa-edit"></i></a>
+                        	<a href="#" ng-click="deleteEngineeringPrice($index, engineeringPrice.id)" onclick="return false;"><i class="fa fa-trash-o text-danger"></i></a>
+                    	</td>
+                	</tr>
+            	</tbody>
+        	</table>
+        </div>
+        <div class="text-center">
+        	<a data-toggle="modal" class="btn btn-outline btn-info" href="#modal-eng"><?php echo $this->translate('Add Engineering prices') ?></a>
+        </div>
+        <div class="hr-line-dashed"></div>                                
+		<h4>
+			<i class="fa fa-comments-o"></i>&nbsp; <?php echo $this->translate('Interpreting') ?>
+		</h4>
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th><?php echo $this->translate('Source Language') ?></th>
+						<th><?php echo $this->translate('Target Language') ?></th>
+						<th><?php echo $this->translate('Interpreting Service') ?></th>
+						<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Day') ?></th>
+						<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('half-Day') ?></th>
+						<th><?php echo $this->translate('Action') ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="interpretingPrice in interpretingPrices">
+			            <td>{{$index + 1}}</td>
+			            <td>{{interpretingPrice.sourceLanguage.name}}</td>
+			            <td>{{interpretingPrice.targetLanguage.name}}</td>
+			            <td>{{interpretingPrice.service.name}}</td>
+			            <td>{{interpretingPrice.priceDay}}</td>
+			            <td>{{interpretingPrice.priceHalfDay}}</td>
+			            <td>
+			            	<a data-toggle="modal" href="#modal-interpreting" ng-click="editInterpretingPrice($index);" onclick="return false;">
+								<i class="fa fa-edit"></i>
+							</a>
+			            	<a href="#" ng-click="deleteInterpretingPrice($index, interpretingPrice.id)" onClick="return false;"><i class="fa fa-trash-o text-danger"></i></a>
+			            </td>
+			        </tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="text-center">
+			<a data-toggle="modal" class="btn btn-outline btn-success"
+				href="#modal-interpreting"><?php echo $this->translate('Add Interpreting prices') ?></a>
+		</div>
+	</div>
+</div>

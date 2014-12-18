@@ -1,77 +1,99 @@
 angularApp.run( function ( $rootScope ) {
-	
+
 }) 
 
 angularApp.controller('PapertaskEmployerDetailController', function($scope, $http, $timeout, $q) {
-	/**
-	 * 
-	 */
-	$scope.userId 	= "";
+    $scope.pagetype = 'detail';
 	$scope.countries 	= [];
 	$scope.pages 		= [];
-	$scope.employers 	= [];
+    $scope.dtpPrices    = [];
+    $scope.translationPices = [];
+    $scope.interpretingPrices = [];
+    $scope.engineeringPrices = [];
+    $scope.tmRatios = {};
+    
+    $scope.password = null;
+    $scope.passwordChanged = 0;
+    
+	$scope.userInfo = {
+        isActive: null,
+        profileUpdated: null,
+        email: null,
+        firstName: null,
+        lastName: null,
+        gender: null,
+        city: null,
+        phone: null,
+        country: null,
+        company: null,
+        currency: null,
+        tmRatios: null
+    };
+    $scope.employer = {
+		username: null,
+		defaultServiceLevel: null,
+        comments: null,
+		company: null,
+		employerId: null,
+        position: null
+	};
+    $scope.priceType    = 'CNY';
 	
 	$scope.init = function (str_uid) {
-		$scope.userId = str_uid;
-		console.log ( $scope.userId );
+		$scope.getUserInfo();
+        $scope.getEmployerInfo();
 	}
-	
-	/**
-	 * Get country from country id
-	 */
-	$scope.getCountry = function ( str_countryid ) {
-		if ( $scope.countries.length == 0 || str_countryid == null)
-			return '';
-		
-		var str_label = '';
-		
-		angular.forEach($scope.countries, function ( v, k ) {
-			if ( v.select == str_countryid ) {
-				str_label = v.label;
-			}
-		});
-		
-		return str_label;
-	}
-	
-	$scope.onDeleteClicked = function ( str_empid ) {
-	   bootbox.confirm( DELETE_CONFIRM_TEXT, function( bflag ) {
-            if ( bflag == true ) {
-        		var delEmp = $http.delete("/api/user/" + str_empid + "/employer", {id: str_empid});
-        		$q.all([delEmp])
-                    .then(function(result){
-                    	$http.get("/api/user/employer?page=1")
-            		        .success(function($data){
-            		            $scope.pages = $data.pages;
-            		            $scope.employers = $data.employers;
-            		    });
-                    });
-           }
-        }
-	} 
-	
-	$scope.onBtnPreviousClicked = function () {
-		$http.get("/api/user/employer?page="+ $scope.pages.previous)
-	        .success(function($data){
-	            $scope.pages = $data.pages;
-	            $scope.employers = $data.employers;
-	    });
-	}
-	
-	$scope.onBtnGoto = function ( int_index ) {
-		$http.get("/api/user/employer?page="+ (int_index*1 + 1))
-	        .success(function($data){
-	            $scope.pages = $data.pages;
-	            $scope.employers = $data.employers;
-	    });
-	}
-	
-	$scope.onBtnNextClicked = function () {
-		$http.get("/api/user/employer?page="+ $scope.pages.next)
-	        .success(function($data){
-	            $scope.pages = $data.pages;
-	            $scope.employers = $data.employers;
-	    });
-	}
+    
+    $scope.getUserInfo = function() {
+        $http.get("/api/user/" + USER_ID + "")
+            .success(function ( $data ) {
+                $scope.userInfo = {
+                    isActive: $data.user.isActive,
+                    profileUpdated: $data.user.profileUpdated,
+                    email: $data.user.email,
+                    firstName: $data.user.firstName,
+                    lastName: $data.user.lastName,
+                    gender: $data.user.gender,
+                    city: $data.user.city,
+                    phone: $data.user.phone,
+                    country: $data.user.country,
+                    currency: $data.user.currency,
+                    tmRatios: $data.tmRatios
+                };
+                $scope.tmRatios = $data.tmRatios;
+                $scope.translationPrices = $data.translationPrices;
+                $scope.interpretingPrices = $data.interpretingPrices;
+                $scope.dptPrices = $data.desktopPrices;
+                $scope.engineeringPices = $data.engineeringPrices;
+                
+                if ( $scope.userInfo.currency == 'cny') 
+                    $scope.priceType = 'CNY';
+                else
+                    $scope.priceType = 'USD';
+            });
+    }
+    
+    $scope.getEmployerInfo = function () {
+        $http.get("/api/user/" + USER_ID + "/employer")
+        	.success( function ( $data ) {
+        		$scope.employer = {
+    				username: $data.employer.name,
+    				defaultServiceLevel: $data.employer.defaultServiceLevel,
+		            comments: $data.employer.comments,
+    				company: $data.employer.company,
+    				employerId: $data.employer.id,
+                    position: $data.employer.position
+    			};
+        	});
+    }
+    
+    $scope.resetPassword = function () {
+        $http.put('/api/user/' + USER_ID, {'password': $scope.password}).success(function($data){
+            if($data.success == 1){
+                $scope.password = null;
+                $scope.passwordChanged = 1;
+            }
+        });
+    }
 	
 });

@@ -415,7 +415,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function getData(){
         return array(
             "city" => $this->city,
-            "country" => $this->country,
+            "country" => $this->country ? $this->country->getData() : null,
             'currency' => $this->currency,
             "createdTime" => $this->createdTime,
             "email" => $this->email,

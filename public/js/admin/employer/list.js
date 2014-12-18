@@ -41,7 +41,7 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
 		
 		angular.forEach($scope.countries, function ( v, k ) {
 			if ( v.select == str_countryid ) {
-				str_label = v.label;
+				str_label = v.name;
 			}
 		});
 		
@@ -100,10 +100,8 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
             $scope.searchParams.page = $page;
             $scope.searchParams.search = 1;
             var $params = $scope.searchParams;
-            console.log('search');
         }else{
             var $params = {page: $page};
-            console.log('no search');
         }
 
         $http.get("/api/user/employer", {

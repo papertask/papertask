@@ -12,7 +12,7 @@ use Zend\View\Model\JsonModel;
 use Application\Controller\AbstractRestfulController;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
+use Zend\Paginator\Paginator as ZendPaginator;
 use User\Entity\User; 
 use User\Entity\UserGroup;
 use Admin\Model\Helper;
@@ -33,6 +33,7 @@ class EmployerController extends AbstractRestfulController
 		
 		$data['currency'] = $pdata['currency'];
 		$data['createdTime'] = new \DateTime('now');
+        $data['lastLogin'] = new \DateTime('now');
 		$data['email'] = $pdata['email'];
 		$data['firstName'] = $pdata['firstname'];
 		$data['lastName'] = $pdata['surname'];
@@ -49,9 +50,11 @@ class EmployerController extends AbstractRestfulController
 		$userExist = $entityManager->getRepository('User\Entity\User')->findOneBy(array('email'=>$pdata['email']));
 		 
 		if ( $userExist ) {
-	
+
 		} else {
 			$user = new User();
+            $user->setData( $data );
+            $user->save($entityManager);
 			$user->createEmployer( $this, $data, $entityManager);
 			$employer = $user->getEmployer();
 	       
@@ -111,7 +114,7 @@ class EmployerController extends AbstractRestfulController
 			// Set TM Ratio
 			$pTmRatio = new UserTmRatio();
 			$tmRatio = array(
-					'repetitions'    => $pdata['tmRatio']['repetition'],
+					'repetitions'    => $pdata['tmRatio']['repetitions'],
 					'yibai'            => $pdata['tmRatio']['yibai'],
 					'jiuwu'            => $pdata['tmRatio']['jiuwu'],
 					'bawu'            => $pdata['tmRatio']['bawu'],
@@ -238,47 +241,61 @@ class EmployerController extends AbstractRestfulController
         if($request->getQuery('search')){
 
             // search by name
-            if($request->getQuery('name')){
-                $arrayName = explode(' ', $request->getQuery('name'));
+            if($arrayNames = $this->params()->fromQuery('name')){
+                $arrayName = explode(' ', $arrayNames);
                 if(count($arrayName) != 2){
-                    $queryBuilder->andWhere("user.firstName like ?1 OR user.lastName like ?1")
-                        ->setParameter(1, '%' . $request->getQuery('name') . '%');
-                }else{
-                    $queryBuilder->andWhere("(user.firstName like ?1 AND user.lastName like ?2)
-                                        OR (user.lastName like ?1 AND user.firstName like ?2)")
-                        ->setParameter(1, '%' . $arrayName[0] . '%')
-                        ->setParameter(2, '%' . $arrayName[1] . '%');
+                    $queryBuilder->andWhere(
+                        $queryBuilder->expr()->like('user.firstName', "'%". $arrayName[0] . "%'"));
+                    
+                } else {
+                    $queryBuilder->andWhere(
+                        $queryBuilder->expr()->like('user.firstName', "'%". $arrayName[0] . "%'"));
+                    $queryBuilder->andWhere(
+                        $queryBuilder->expr()->like('user.lastName', "'%". $arrayName[1] ."%'"));
                 }
             }
-
+            
             // search by id
             if($request->getQuery('idEmployer')){
-                $queryBuilder->andWhere("user.id = ?1")
-                    ->setParameter(1, (int)$request->getQuery('idEmployer'));
+                $queryBuilder->andWhere(
+                        $queryBuilder->expr()->eq("user.id", (int)$request->getQuery('idEmployer')));
+            }
+            
+            // search by email
+            if ( $request->getQuery('email') ) {
+                $queryBuilder->andWhere(
+                    $queryBuilder->expr()->like('user.email',
+                        "'%" . $request->getQuery('email') ."%'" ));
+            }
+            
+            // search by Currency
+            if ( $request->getQuery('currency')) {
+                $queryBuilder->andWhere(
+                        $queryBuilder->expr()->eq("user.currency", 
+                        $queryBuilder->expr()->literal($request->getQuery('currency'))));
             }
 
-            // search by country aa
+            // search by country
             if($request->getQuery('country')){
-                $queryBuilder->andWhere("user.country = ?1")
-                    ->setParameter(1, $request->getQuery('country'));
+                $queryBuilder->andWhere(
+                        $queryBuilder->expr()->eq("user.country", (int)($request->getQuery('country'))));
             }
 
             // search include inactive
-            if(!$request->getQuery('includeInactive')){
-                $queryBuilder->andWhere("user.isActive = ?1")
-                    ->setParameter(1, 1);
+            if($request->getQuery('includeInactive')){
+                $queryBuilder->andWhere(
+                        $queryBuilder->expr()->eq("user.isActive", $request->getQuery('includeInactive')));
             }
         }
-
         $queryBuilder->orderBy('user.createdTime', 'ASC');
-        
         $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
-        $paginator = new Paginator($adapter);
+        $paginator = new ZendPaginator($adapter);
         $paginator->setDefaultItemCountPerPage(10);
         $page = (int)$this->getRequest()->getQuery('page');
         if($page) $paginator->setCurrentPageNumber($page);
         $data = array();
         $helper = new Helper();
+        
         foreach($paginator as $user){
             $userData = $user->getData();
             $userData['createdTime'] = $helper->formatDate($userData['createdTime']);
