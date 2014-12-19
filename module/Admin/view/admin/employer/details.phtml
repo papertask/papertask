@@ -36,10 +36,10 @@ $this->inlineScript()
                 </p>
 				<p><i class="fa fa-envelope"></i> &nbsp; {{userInfo.email}}</p>
 				<p><i class="fa fa-phone"></i> &nbsp; {{userInfo.phone}}</p>
-				<p><i class="fa fa-briefcase"></i> &nbsp; Marketing Manager</p>
-				<p><i class="fa fa-building"></i> &nbsp; IBM China</p>
-				<p><i class="fa fa-map-marker"></i> &nbsp; City, United States</p>
-				<p><i class="fa fa-link"></i> &nbsp; www.ibm.com.cn</p>
+				<p><i class="fa fa-briefcase"></i> &nbsp; {{employer.position}}</p>
+				<p><i class="fa fa-building"></i> &nbsp; {{employer.company.name}}</p>
+				<p><i class="fa fa-map-marker"></i> &nbsp; {{userInfo.city}}, {{userInfo.country.name}}</p>
+				<p><i class="fa fa-link"></i> &nbsp; </p>
 				<form role="form" class="form-inline">
                     <div class="form-group">
                         <input ng-model="password" type="password"
