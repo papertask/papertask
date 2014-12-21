@@ -50,7 +50,7 @@ class EmployerController extends AbstractRestfulController
 		$userExist = $entityManager->getRepository('User\Entity\User')->findOneBy(array('email'=>$pdata['email']));
 		 
 		if ( $userExist ) {
-
+            return new JsonModel(['success'=>'failed', 'msg'=>'']);
 		} else {
 			$user = new User();
             $user->setData( $data );
@@ -140,9 +140,9 @@ class EmployerController extends AbstractRestfulController
 				$pEngineeringPrices->save( $entityManager );
 			}
 	
-			return new JsonModel(['user'=>$ret_data]);
+			return new JsonModel(['user'=>$ret_data, 'success'=>'success']);
 		}
-		return new JsonModel([]);
+		return new JsonModel(['success'=>'failed', 'msg'=>'Unknown Error']);
 	}
 	
     public function get($id){

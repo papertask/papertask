@@ -130,9 +130,12 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     			comments: $('.summernote').code(),
     			engineeringPrices: $scope.engineeringPrices
     	};
-        console.info ( ptr_employer );
     	$http.post("/api/user/employer", ptr_employer)
         	.success(function($data){
+                if ( $data.success == 'failed') {
+                    bootbox.alert("User already exited. Please check your email address.");
+                    return ;
+                }
 	            location.href="/admin/employer/detail?id=" + $data.user.id;
         });
     };
@@ -305,13 +308,13 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     $scope.saveEngineeringPrice = function( engineerPrice ) {
     	if ( $scope.editEngineering == -1) {
     		$scope.engineeringPrices.push ({
-    			engineeringCategory: engineerPrice.engineeringCategory,
+    			engineeringcategory: engineerPrice.engineeringCategory,
     			unit: engineerPrice.unit,
     			price: engineerPrice.price
         	});
     	} else {
     		$scope.engineeringPrices[$scope.editEngineering] = {
-    				engineeringCategory: engineerPrice.engineeringCategory,
+    				engineeringcategory: engineerPrice.engineeringCategory,
         			unit: engineerPrice.unit,
         			price: engineerPrice.price
         	};
