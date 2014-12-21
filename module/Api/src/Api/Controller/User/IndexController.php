@@ -54,7 +54,8 @@ class IndexController extends AbstractRestfulController
         $data['country'] = $this->getEntityManager()->find('\User\Entity\Country', (int)$data['country']['id']);
 
         $data['profileUpdated'] = true;
-        $user = $this->getCurrentUser();
+        // $user = $this->getCurrentUser();
+        $user = $this->getUserById( (int) $id );
         $user->updateData($data);
 
         $entityManager = $this->getEntityManager();

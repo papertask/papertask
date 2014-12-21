@@ -160,12 +160,6 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     $scope.submit = function(){
     	$scope.employer.comments = $('.summernote').code();
 
-    	$http.put("/api/user/" + USER_ID, $scope.userInfo)
-        	.success(function($data){
-	            $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id=" + USER_ID, $scope.employer).success(function(){
-	               
-	        });	            
-        });
     	if ( $scope.userInfo.tmRatios && $scope.userInfo.tmRatios.id ) {
     		$http.put("/api/user/" + $scope.userInfo.tmRatios.id + "/tmratio", {
     			userId: USER_ID,
@@ -176,7 +170,14 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     			qiwu: $scope.userInfo.tmRatios.qiwu,
     			wushi: $scope.userInfo.tmRatios.wushi,
     			nomatch: $scope.userInfo.tmRatios.nomatch
-    		});
+    		}).success( function($data) {
+                $http.put("/api/user/" + USER_ID, $scope.userInfo)
+                    .success(function($data){
+                        $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id=" + USER_ID, $scope.employer).success(function(){
+                            location.href="/admin/employer/detail?id=" + USER_ID;
+                        });
+                    });
+            } ) ;
     	} else {
     		$http.post("/api/user/tmratio", {
     			userId: USER_ID,
@@ -187,7 +188,14 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     			qiwu: $scope.userInfo.tmRatios.qiwu,
     			wushi: $scope.userInfo.tmRatios.wushi,
     			nomatch: $scope.userInfo.tmRatios.nomatch
-    		});
+    		}).success( function($data) {
+                $http.put("/api/user/" + USER_ID, $scope.userInfo)
+                    .success(function($data){
+                        $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id=" + USER_ID, $scope.employer).success(function(){
+                            location.href="/admin/employer/detail?id=" + USER_ID;
+                        });
+                    });
+            } ) ;
     	}
     	
     };

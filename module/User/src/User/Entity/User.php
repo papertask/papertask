@@ -165,7 +165,8 @@ class User extends Entity implements InputFilterAwareInterface{
             'gender',
             'lastName',
             'phone',
-            'profileUpdated'
+            'profileUpdated',
+            'isActive'
         );
 
         if(isset($arr['currency']) and !in_array($arr['currency'], ['usd', 'cny'])){

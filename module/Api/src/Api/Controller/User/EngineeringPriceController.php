@@ -21,7 +21,7 @@ class EngineeringPriceController extends AbstractRestfulController
         $engineeringPrice = new UserEngineeringPrice();
         $engineeringPrice->setData([
             'user' => $user,
-            'engineeringcategory' => $entityManager->getReference('\Common\Entity\EngineeringCategory', $data['engineeringCategory']['id']),
+            'engineeringcategory' => $entityManager->getReference('\Common\Entity\EngineeringCategory', $data['engineeringcategory']['id']),
             'unit' => $entityManager->getReference('\Common\Entity\Unit', $data['unit']['id']),
             'price' => $data['price']
         ]);

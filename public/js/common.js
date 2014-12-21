@@ -12,6 +12,9 @@ function findOption(options, value){
 }
 
 function findOptionByName( options, value ) {
+    if ( value == null)
+        return null;
+
     for ( var i = 0; i < options.length; i ++ ) {
         if (options[i].name == value.name) {
             return options[i];

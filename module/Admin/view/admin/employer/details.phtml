@@ -74,7 +74,7 @@ $this->inlineScript()
 				<h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
 				{{employer.comments}}
 
-				<a class="btn btn-primary btn-block" type="button" href="#modal-comment"><i class="fa fa-paste"></i> <?php echo $this->translate('Edit') ?></a>
+				<a class="btn btn-primary btn-block" type="button" href="/admin/employer/edit?userId=<?php echo $user['id']; ?>"><i class="fa fa-paste"></i> <?php echo $this->translate('Edit') ?></a>
 			</div>
 		</div>
 	</div>
@@ -363,4 +363,4 @@ $this->inlineScript()
 	</div>
 </div>
  
-<?php include "new/modal.phtml" ?>
+<?php include "profile/modal.phtml" ?>
