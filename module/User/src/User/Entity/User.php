@@ -94,8 +94,8 @@ class User extends Entity implements InputFilterAwareInterface{
      */
     protected $employer;
     
-     /** @ORM\Column(type="string") */
-    protected $comments;
+     /** @ORM\Column(type="string", nullable=true) */
+    protected $comments  = null;
 
     /**
      * @var \User\Entity\Staff
