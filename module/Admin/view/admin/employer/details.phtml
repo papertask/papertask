@@ -39,7 +39,7 @@ $this->inlineScript()
 				<p><i class="fa fa-briefcase"></i> &nbsp; {{employer.position}}</p>
 				<p><i class="fa fa-building"></i> &nbsp; {{employer.company.name}}</p>
 				<p><i class="fa fa-map-marker"></i> &nbsp; {{userInfo.city}}, {{userInfo.country.name}}</p>
-				<p><i class="fa fa-link"></i> &nbsp; </p>
+				<p><i class="fa fa-link"></i> &nbsp; {{employer.company.website}}</p>
 				<form role="form" class="form-inline">
                     <div class="form-group">
                         <input ng-model="password" type="password"
@@ -74,7 +74,7 @@ $this->inlineScript()
 				</div>
 				<div class="hr-line-dashed"></div>
 				<h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
-				{{employer.comments}}
+				<div id="objNote"></div>
 
 				<a class="btn btn-primary btn-block" type="button" href="/admin/employer/edit?userId=<?php echo $user['id']; ?>"><i class="fa fa-paste"></i> <?php echo $this->translate('Edit') ?></a>
 			</div>

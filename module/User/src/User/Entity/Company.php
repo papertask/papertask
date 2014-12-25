@@ -47,6 +47,7 @@ class Company extends Entity{
         return array(
             'id' => $this->id,
             'name' => $this->name,
+            'website' => $this->website
         );
     }
 

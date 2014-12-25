@@ -84,6 +84,7 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
     				employerId: $data.employer.id,
                     position: $data.employer.position
     			};
+                $("#objNote").html($scope.employer.comments);
         	});
     }
     
