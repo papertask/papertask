@@ -14,6 +14,7 @@ use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator;
 use User\Entity\UserGroup;
+use User\Entity\User;
 use Admin\Model\Helper;
 use Doctrine\Common\Collections\Criteria;
 
@@ -48,7 +49,7 @@ class FreelancerController extends AbstractRestfulController
         $freelancerList = $entityManager->getRepository('User\Entity\User');
                                 //->findBy(array('group' => $freelancerGroup));
         $queryBuilder = $freelancerList->createQueryBuilder('user')
-            ->where("user.group = ?1")->setParameter(1, $freelancerGroup);
+            ->where("user.group = :group1")->setParameter('group1', $freelancerGroup);
 
         // check search condition
         $request = $this->getRequest();
@@ -58,31 +59,31 @@ class FreelancerController extends AbstractRestfulController
             if($request->getQuery('name')){
                 $arrayName = explode(' ', $request->getQuery('name'));
                 if(count($arrayName) != 2){
-                    $queryBuilder->addWhere("user.firstName like ?1 OR user.lastName like ?1")
-                        ->setParameter(1, '%' . $request->getQuery('name') . '%');
+                    $queryBuilder->andWhere("user.firstName like :name1 OR user.lastName like :name1")
+                        ->setParameter('name1', '%' . $request->getQuery('name') . '%');
                 }else{
-                    $queryBuilder->addWhere("(user.firstName like ?1 AND user.lastName like ?2)
-                                        OR (user.lastName like ?1 AND user.firstName like ?2)")
-                        ->setParameter(1, '%' . $arrayName[0] . '%')
-                        ->setParameter(2, '%' . $arrayName[1] . '%');
+                    $queryBuilder->andWhere("(user.firstName like :name1 AND user.lastName like :name2)
+                                        OR (user.lastName like :name1 AND user.firstName like :name2)")
+                        ->setParameter('name1', '%' . $arrayName[0] . '%')
+                        ->setParameter('name2', '%' . $arrayName[1] . '%');
                 }
             }
 
             // search by id
             if($request->getQuery('idFreelancer')){
-                $queryBuilder->addWhere("user.id = ?1")
+                $queryBuilder->andWhere("user.id = ?1")
                     ->setParameter(1, (int)$request->getQuery('idFreelancer'));
             }
 
             // search by country aa
             if($request->getQuery('country')){
-                $queryBuilder->addWhere("user.country = ?1")
-                    ->setParameter(1, $request->getQuery('country'));
+                $queryBuilder->andWhere("user.country = :counttry1")
+                    ->setParameter('counttry1', $request->getQuery('country'));
             }
 
             // search include inactive
             if(!$request->getQuery('includeInactive')){
-                $queryBuilder->addWhere("user.isActive = ?1")
+                $queryBuilder->andWhere("user.isActive = ?1")
                     ->setParameter(1, 1);
             }
         }
