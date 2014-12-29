@@ -1,0 +1,76 @@
+
+<!-- Le styles -->
+<?php $this->headLink()
+        ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
+        ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+?>
+
+<!-- Scripts -->
+<?php $this->headScript()
+    ->prependFile($this->basePath() . '/js/admin/freelancer/freelancer.js')
+    ->prependFile($this->basePath() . '/js/admin/angular-steps.js')
+    ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
+    ->prependScript("angularApp = angular.module('project', []);")
+	->prependFile ( $this->basePath () . '/js/plugins/summernote/summernote.min.js' )
+    ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
+    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
+    ->prependFile($this->basePath() . '/js/inspinia.js')
+?>
+<!-- Add custom style -->
+<style type="text/css">
+
+    .label {
+        font-size: 15px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    .float-e-margins .btn {
+        margin-bottom: 0px;
+    }
+
+    .resource-types .panel-body label{
+        margin-right: 0.5em;
+    }
+
+    .multiselect-container{
+        max-height: 250px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+</style>
+<!-- End custom style -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content" id="FreelancerController" ng-init="init()" ng-controller="FreelancertController">
+                    <h3>
+						<i class="fa fa-user"></i> Create Freelancer Account
+					</h3>
+
+                    <form id="form" action="#" class="wizard-big">
+                        <?php include __DIR__ . "/new/basic-info.phtml" ?>
+                        <?php include __DIR__ . "/new/resource-type.phtml" ?>
+                        <?php include __DIR__ . "/new/language-skill-price.phtml" ?>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- close the container div -->
+<div ng-controller="ModalController" id="modalContainer"> <!-- open new temporary container -->
+    <?php include __DIR__ . "/new/modal.phtml" ?>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.multiselect').multiselect({
+                numberDisplayed: 1
+            });
+        });
+    </script>
