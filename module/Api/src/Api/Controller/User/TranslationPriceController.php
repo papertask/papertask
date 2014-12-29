@@ -33,6 +33,20 @@ class TranslationPriceController extends AbstractRestfulController
             'translationPrice' => $translationPrice->getData(),
         ]);
     }
+    
+    public function getList() 
+    {
+        $entityManager = $this->getEntityManager();
+        $userId = $this->getRequest()->getQuery('userId');
+        $user = $entityManager->getRepository('\User\Entity\User')->find( $userId );
+        $transPrice = $entityManager->getRepository('\User\Entity\UserTranslationPrice')->findBy(array('user'=>$user));
+        $transPrices = array();
+        foreach( $transPrice as $k => $v ) 
+        {
+            $transPrices[$k] = $v->getData();
+        }
+        return new JsonModel(['translationPrices'=>$transPrices]);
+    }
 
     public function delete($id){
         $entityManager = $this->getEntityManager();

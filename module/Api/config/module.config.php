@@ -130,6 +130,7 @@ return array(
             'Api\Controller\User\Resume' => 'Api\Controller\User\ResumeController',
             'Api\Controller\User\Staff' => 'Api\Controller\User\StaffController',
             'Api\Controller\User\TranslationPrice' => 'Api\Controller\User\TranslationPriceController',
+            'Api\Controller\User\EngineeringPrice' => 'Api\Controller\User\EngineeringPriceController',
             'Api\Controller\User\TmRatio' => 'Api\Controller\User\TmRatioController',
             'Api\Controller\Papertask\DesktopPublishing' => 'Api\Controller\Papertask\DesktopPublishingController',
             'Api\Controller\Papertask\Engineering' => 'Api\Controller\Papertask\EngineeringController',

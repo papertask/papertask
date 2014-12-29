@@ -36,6 +36,21 @@ class InterpretingPriceController extends AbstractRestfulController
             'interpretingPrice' => $interpretingPrice->getData(),
         ]);
     }
+    
+    public function getList()
+    {
+        $entityManager = $this->getEntityManager();
+        $userId = $this->getRequest()->getQuery('userId');
+        $user = $this->getUserById( $userId );
+        $interpretingPrice = $entityManager->getRepository('\User\Entity\UserInterpretingPrice')->findBy(array('user'=>$user));
+        $interpretingPrices = array();
+        foreach ( $interpretingPrice as $k => $v)
+        {
+            $interpretingPrices[$k] = $v->getData();
+        }
+        
+        return new JsonModel(['interpretingPrices'=>$interpretingPrices]);
+    }
 
     public function delete($id){
         $entityManager = $this->getEntityManager();

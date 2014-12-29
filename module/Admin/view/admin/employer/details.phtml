@@ -7,57 +7,76 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 					->prependFile ( $this->basePath () . '/js/plugins/validate/jquery.validate.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/steps/jquery.steps.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/pace/pace.min.js' )
-					->prependFile ( $this->basePath () . '/js/inspinia.js' )?>
+					->prependFile ( $this->basePath () . '/js/inspinia.js' );
+?>
+<?php
+$this->inlineScript()
+    ->prependScript("
+        var USER_ID = '" . $user['id'] . "';
+        var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+    ");
+?>
 					
-<div class="row animated fadeInRight" ng-controller="PapertaskEmployerDetailController" ng-init="init(<?php echo $user['id'];?>)">
+<div class="row animated fadeInRight" ng-controller="PapertaskEmployerDetailController" ng-init="init()">
 	<div class="col-md-4">
 		<div class="ibox">
 			<div class="ibox-title">
-				<h5><?php echo $user['lastName'].", ".$user['firstName'];?></h5>
-				<div class="ibox-tools">
-				<?php if ($user['isActive']) {?>
-					<span class="label label-primary">Active</span>
-				<?php } else {?> 
-					<span class="label label-default">Unactive</span>
-				<?php } ?>
+				<h5>{{userInfo.lastName}}, {{userInfo.firstName}}</h5>
+				<div class="ibox-tools">				
+					<span ng-show="userInfo.isActive == '1'" class="label label-primary"><?php echo $this->translate('Active') ?></span>
+					<span ng-show="userInfo.isActive == '0'" class="label label-default"><?php echo $this->translate('Unactive') ?></span>
 				</div>
 			</div>
 
 			<div class="ibox-content profile-content">
-				<p><i class="fa fa-user"></i> &nbsp; <?php echo $user['lastName'].", ".$user['firstName'];?> &nbsp; <?php if ($user['gender'] == 0) { ?><i class="fa fa-male"></i><?php } else { ?><i class="fa fa-female"></i><?php }?></p>
-				<p><i class="fa fa-envelope"></i> &nbsp; <?php echo $user['email']?></p>
-				<p><i class="fa fa-phone"></i> &nbsp; <?php echo $user['phone'];?></p>
-				<p><i class="fa fa-briefcase"></i> &nbsp; Marketing Manager</p>
-				<p><i class="fa fa-building"></i> &nbsp; IBM China</p>
-				<p><i class="fa fa-map-marker"></i> &nbsp; City, United States</p>
-				<p><i class="fa fa-link"></i> &nbsp; www.ibm.com.cn</p>
+				<p><i class="fa fa-user"></i> &nbsp; 
+                {{userInfo.lastName}}, {{userInfo.firstName}} &nbsp; 
+                <i ng-show="userInfo.gender == '0'" class="fa fa-male"></i>
+                <i ng-show="userInfo.gender == '1'" class="fa fa-female"></i>
+                </p>
+				<p><i class="fa fa-envelope"></i> &nbsp; {{userInfo.email}}</p>
+				<p><i class="fa fa-phone"></i> &nbsp; {{userInfo.phone}}</p>
+				<p><i class="fa fa-briefcase"></i> &nbsp; {{employer.position}}</p>
+				<p><i class="fa fa-building"></i> &nbsp; {{employer.company.name}}</p>
+				<p><i class="fa fa-map-marker"></i> &nbsp; {{userInfo.city}}, {{userInfo.country.name}}</p>
+				<p><i class="fa fa-link"></i> &nbsp; {{employer.company.website}}</p>
 				<form role="form" class="form-inline">
-					<div class="form-group">
-						<input type="password" placeholder="Reset password" id="" class="form-control">
-					</div>
-					<button class="btn btn-danger" type="submit">Reset</button>
-				</form>
+                    <div class="form-group">
+                        <input ng-model="password" type="password"
+                               placeholder="<?php echo $this->translate('Reset password') ?>"
+                               class="form-control required" required>
+                    </div>
+                    <button ng-click="resetPassword()" class="btn btn-danger" type="submit">
+                        <?php echo $this->translate('Reset') ?></button>
+                    <p ng-show="passwordChanged==1" class="text-success">
+                        <?php echo $this->translate('Password changed.') ?></p>
+                </form>
 				<div class="hr-line-dashed"></div>
 				<p><span class="label label-info">PM</span> Yang, Michael &nbsp;<span class="label label-info">Sales</span> Jiang, Kevin</p>
 				<div class="hr-line-dashed"></div>
-				<h4>Client Type </h4>
+				<h4><?php echo $this->translate('Client Type') ?> </h4>
 				<div class="row file-manager">
 					<ul class="tag-list" style="padding: 0">
-						<li><?php if ($user['profileUpdated']) {?><a>Contracted</a><?php } else {?><a>UnContracted</a><?php }?></li>
+						<li>
+                            <a ng-show="userInfo.profileUpdated == '1'"><?php echo $this->translate('Contracted') ?></a>
+                            <a ng-show="userInfo.profileUpdated == '0'"><?php echo $this->translate('UnContracted') ?></a>
+                        </li>
 					</ul>
 				</div>
 				<div class="hr-line-dashed"></div>
-				<h4>Default Service Level </h4>
+				<h4><?php echo $this->translate('Default Service Level') ?> </h4>
 				<div class="row file-manager">
 					<ul class="tag-list" style="padding: 0">
-						<li><a>Professional</a></li>
+						<li ng-show="employer.defaultServiceLevel == '1'"><a>Professional</a></li>
+                        <li ng-show="employer.defaultServiceLevel == '2'"><a>Business</a></li>
+                        <li ng-show="employer.defaultServiceLevel == '3'"><a>Premium</a></li>
 					</ul>
 				</div>
 				<div class="hr-line-dashed"></div>
-				<h4>Comments of PaperTask</h4>
-				<?php echo $user['comments'];?>
+				<h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
+				<div id="objNote"></div>
 
-				<a class="btn btn-primary btn-block" type="button" href="#modal-comment"><i class="fa fa-paste"></i> Edit</a>
+				<a class="btn btn-primary btn-block" type="button" href="/admin/employer/edit?userId=<?php echo $user['id']; ?>"><i class="fa fa-paste"></i> <?php echo $this->translate('Edit') ?></a>
 			</div>
 		</div>
 	</div>
@@ -66,9 +85,9 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 			<div class="panel-heading">
 				<div class="panel-options">
 					<ul class="nav nav-tabs">
-						<li class="active"><a data-toggle="tab" href="#tab-1">Service Prices</a></li>
-						<li class=""><a data-toggle="tab" href="#tab-2">Resource Pool</a></li>
-						<li class=""><a data-toggle="tab" href="#tab-3">Projects</a></li>
+						<li class="active"><a data-toggle="tab" href="#tab-1"><?php echo $this->translate('Service Prices') ?></a></li>
+						<li class=""><a data-toggle="tab" href="#tab-2"><?php echo $this->translate('Resource Pool') ?></a></li>
+						<li class=""><a data-toggle="tab" href="#tab-3"><?php echo $this->translate('Projects') ?></a></li>
 					</ul>
 				</div>
 			</div>
@@ -78,37 +97,35 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 					<div id="tab-1" class="tab-pane active">
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
-								<h3><i class="fa fa-coffee"></i> Translation</h3>
+								<h3><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></h3>
 							</div>
 							<div class="ibox-content">
-								<h4>Languages and Price </h4>
+								<h4><?php echo $this->translate('Languages and Price') ?> </h4>
 								<div class="table-responsive">
 									<table class="table table-striped">
 										<thead>
 										  <tr>
-											<th>TM Template</th>
-											<th>Repetitions</th>
+											<th><?php echo $this->translate('TM Template') ?></th>
+											<th><?php echo $this->translate('Repetitions') ?></th>
 											<th>100%</th>
 											<th>95% - 99%</th>
 											<th>85% - 94%</th>
 											<th>75% - 84%</th>
 											<th>50% - 74%</th>
-											<th>No Match</th>
+											<th><?php echo $this->translate('No Match') ?></th>
 										  </tr>
 										</thead>
 										<tbody>
-										<?php foreach ($tmRatios as $k=>$v) {?>
 										  <tr>
 											<td>TM Rate</td>
-											<td><?php echo $v['repetitions'];?>%</td>
-											<td><?php echo $v['yibai'];?>%</td>
-											<td><?php echo $v['jiuwu'];?>%</td>
-											<td><?php echo $v['bawu'];?>%</td>
-											<td><?php echo $v['qiwu'];?>%</td>
-											<td><?php echo $v['wushi'];?>%</td>
-											<td><?php echo $v['nomatch'];?>%</td>
+											<td>{{tmRatios.repetitions}}%</td>
+											<td>{{tmRatios.yibai}}%</td>
+											<td>{{tmRatios.jiuwu}}%</td>
+											<td>{{tmRatios.bawu}}%</td>
+											<td>{{tmRatios.qiwu}}%</td>
+											<td>{{tmRatios.wushi}}%</td>
+											<td>{{tmRatios.nomatch}}%</td>
 										  </tr>
-										  <?php }?>
 										</tbody>
 									  </table>
 								  </div>
@@ -118,20 +135,20 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Source Language </th>
-												<th>Target Language </th>
-												<th>Translation Price</th>
+												<th><?php echo $this->translate('Source Language') ?> </th>
+												<th><?php echo $this->translate('Target Language') ?> </th>
+												<th><?php echo $this->translate('Translation Price') ?></th>
 											</tr>
 											</thead>
 											<tbody>
-											<?php foreach ( $translationPrices as $k => $v ) {?>
-												<tr >
-													<td><?php echo ($k + 1);?></td>
-													<td><?php echo $v['sourceLanguage']['name'];?></td>
-													<td><?php echo $v['targetLanguage']['name'];?></td>
-													<td class="text-info"><strong><?php echo $user['currency']=='cny'?'CNY':'USD';?> <?php echo $v['price'];?></strong></td>
+												<tr ng-repeat="translationPrice in translationPrices">
+													<td>{{$index + 1}}</td>
+													<td>{{translationPrice.sourceLanguage.name}}</td>
+													<td>{{translationPrice.targetLanguage.name}}</td>
+													<td class="text-info">
+                                                        <strong > {{priceType}} {{translationPrice.price}} </strong>
+                                                    </td>
 												</tr>
-											<?php } ?>
 										</tbody>
 									</table>
 								</div>
@@ -139,35 +156,41 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 						</div>
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
-								<h3><i class="fa fa-desktop"></i> Desktop Publishing</h3>
+								<h3><i class="fa fa-desktop"></i> <?php echo $this->translate('Desktop Publishing') ?></h3>
 							</div>
 							<div class="ibox-content">
-								<h4>Softwares and Price </h4>
+								<h4><?php echo $this->translate('Softwares and Price') ?> </h4>
 								<div class="table-responsive">
 									<table class="table table-striped">
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Languages </th>
-												<th>Software </th>
-												<th>Page <i class="fa fa-apple"></th>
-												<th>Page <i class="fa fa-windows"></i></th>
-												<th>Hour <i class="fa fa-apple"></th>
-												<th>Hour <i class="fa fa-windows"></i></th>
+												<th><?php echo $this->translate('Languages') ?> </th>
+												<th><?php echo $this->translate('Software') ?> </th>
+												<th><?php echo $this->translate('Page') ?> <i class="fa fa-apple"></th>
+												<th><?php echo $this->translate('Page') ?> <i class="fa fa-windows"></i></th>
+												<th><?php echo $this->translate('Hour') ?> <i class="fa fa-apple"></th>
+												<th><?php echo $this->translate('Hour') ?> <i class="fa fa-windows"></i></th>
 											</tr>
 											</thead>
 											<tbody>
-											<?php foreach ( $dptPrices as $k=>$v ) {?>
-												<tr>
-													<td>1</td>
-													<td><?php echo $v['language']['name'];?></td>
-													<td><?php echo $v['software']['name'];?></td>
-													<td class="text-info"><strong><?php echo $user['currency']=='cny'?'CNY':'USD';?> <?php echo $v['priceMac']?></strong></td>
-													<td class="text-info"><strong><?php echo $user['currency']=='cny'?'CNY':'USD';?> <?php echo $v['pricePc']?></strong></td>
-													<td class="text-info"><strong><?php echo $user['currency']=='cny'?'CNY':'USD';?> <?php echo $v['priceHourMac']?></strong></td>
-													<td class="text-info"><strong><?php echo $user['currency']=='cny'?'CNY':'USD';?> <?php echo $v['priceHourPc']?></strong></td>
+												<tr ng-repeat="dptPrice in dptPrices">
+													<td>{{$index+1}}</td>
+													<td>{{dptPrice.language.name}}</td>
+													<td>{{dptPrice.software.name}}</td>
+													<td class="text-info">
+                                                        <strong><strong > {{priceType}} {{dptPrice.priceMac}} </strong>
+                                                    </td>
+													<td class="text-info">
+                                                        <strong><strong> {{priceType}} {{dptPrice.pricePc}} </strong>
+                                                    </td>
+                                                    <td class="text-info">
+                                                        <strong><strong> {{priceType}} {{dptPrice.priceHourMac}} </strong>
+                                                    </td>
+                                                    <td class="text-info">
+                                                        <strong><strong> {{priceType}} {{dptPrice.priceHourPc}} </strong>
+                                                    </td>
 												</tr>
-											<?php } ?>
 										</tbody>
 									</table>
 								</div>
@@ -175,10 +198,10 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 						</div>
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
-								<h3><i class="fa fa-gears"></i> Engineering</h3>
+								<h3><i class="fa fa-gears"></i> <?php echo $this->translate('Engineering') ?></h3>
 							</div>
 							<div class="ibox-content">
-								<h4>Categories and Price </h4>
+								<h4><?php echo $this->translate('Categories and Price') ?> </h4>
 								<div class="table-responsive">
 									<table class="table table-striped">
 										<thead>
@@ -190,14 +213,14 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 											</tr>
 											</thead>
 											<tbody>
-											<?php foreach ( $engineeringPrices as $k => $v ) {?>
-											<tr>
-												<td><?php echo $k + 1;?></td>
-												<td><?php echo $v['engineeringcategory']['category']?></td>
-												<td><?php echo $v['unit']['name'];?></td>
-												<td class="text-info"><strong><?php echo $user['currency']=='cny'?'CNY':'USD';?> <?php echo $v['price'];?></strong></td>
+											<tr ng-repeat="engineeringPrice in engineeringPices">
+												<td>{{$index + 1}}</td>
+												<td>{{engineeringPrice.engineeringcategory.category}}</td>
+												<td>{{engineeringPrice.unit.name}}</td>
+												<td class="text-info">
+                                                    <strong>{{priceType}} {{engineeringPrice.price}}</strong>
+                                                </td>
 											</tr>
-											<?php } ?>
 										</tbody>
 									</table>
 								</div>
@@ -205,7 +228,7 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 						</div>
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
-								<h3><i class="fa fa-comments-o"></i> Interpreting</h3>
+								<h3><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></h3>
 							</div>
 							<div class="ibox-content">
 								<h4>Languages and Price </h4>
@@ -215,24 +238,22 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Source Language </th>
-												<th>Target Language </th>
-												<th>Interpreting Service</th>
-												<th>Price/Day</th>
-												<th>Price/half-Day</th>
+												<th><?php echo $this->translate('Source Language') ?> </th>
+												<th><?php echo $this->translate('Target Language') ?> </th>
+												<th><?php echo $this->translate('Interpreting Service') ?></th>
+												<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Day') ?></th>
+												<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('half-Day') ?></th>
 											</tr>
 											</thead>
 											<tbody>
-											<?php foreach ( $interpretingPrices as $k => $v ) { ?>
-												<tr>
-													<td><?php echo $k + 1;?></td>
-													<td><?php echo $v['sourceLanguage']['name'];?></td>
-													<td><?php echo $v['targetLanguage']['name'];?></td>
-													<td><?php echo $v['service']['name'];?></td>
-													<td class="text-info"><strong><?php echo $user['currency']=='cny'?'CNY':'USD';?> <?php echo $v['priceDay'];?></strong></td>
-													<td class="text-info"><strong><?php echo $user['currency']=='cny'?'CNY':'USD';?> <?php echo $v['priceHalfDay'];?></strong></td>
+												<tr ng-repeat="interpretingPrice in interpretingPrices">
+													<td>{{$index + 1}}</td>
+													<td>{{interpretingPrice.sourceLanguage.name}}</td>
+													<td>{{interpretingPrice.targetLanguage.name}}</td>
+													<td>{{interpretingPrice.service.name}}</td>
+													<td class="text-info"><strong>{{priceType}} {{interpretingPrice.priceDay}}</strong></td>
+													<td class="text-info"><strong>{{priceType}} {{interpretingPrice.priceHalfDay}}</strong></td>
 												</tr>
-											<?php } ?>
 										</tbody>
 									</table>
 								</div>
@@ -242,16 +263,16 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 					<div id="tab-2" class="tab-pane">
 						<div class="ibox">
 							<div class="ibox-title">
-								<h5>Translators Pool</h5>
+								<h5><?php echo $this->translate('Translators Pool') ?></h5>
 							</div>
 							<div class="ibox-content">
 								<table class="table">
 									<thead>
 									<tr>
 										<th>#</th>
-										<th>Name</th>
-										<th>Type</th>
-										<th>Task Done</th>
+										<th><?php echo $this->translate('Name') ?></th>
+										<th><?php echo $this->translate('Type') ?></th>
+										<th><?php echo $this->translate('Task Done') ?></th>
 										<th></th>
 									</tr>
 									</thead>
@@ -344,4 +365,4 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/det
 	</div>
 </div>
  
-<?php include "new/modal.phtml" ?>
+<?php include "profile/modal.phtml" ?>

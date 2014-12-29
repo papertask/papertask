@@ -32,15 +32,14 @@ class IndexController extends AbstractRestfulController
         $entityManager = $this->getEntityManager();
         $repository = $entityManager->getRepository('User\Entity\UserTmRatio');
         $tmRatio = $repository->findOneBy(array('user'=>$user));
-
+        
         return new JsonModel([
-            'user' => $userData,
-            'employer' => $user->getEmployer()->getData(),
-            'desktopPrices' => $desktopPriceData,
+            'user'               => $userData,
+            'desktopPrices'      => $desktopPriceData,
             'interpretingPrices' => $interpretingPriceData,
-            'translationPrices' => $translationPriceData,
-            'engineeringPrices' => $engineeringPirceData,
-            'tmRatios'            => $tmRatio?$tmRatio->getData():null
+            'translationPrices'  => $translationPriceData,
+            'engineeringPrices'  => $engineeringPirceData,
+            'tmRatios'           => isset($tmRatio)?$tmRatio->getData():null
         ]);
     }
 
@@ -55,7 +54,8 @@ class IndexController extends AbstractRestfulController
         $data['country'] = $this->getEntityManager()->find('\User\Entity\Country', (int)$data['country']['id']);
 
         $data['profileUpdated'] = true;
-        $user = $this->getCurrentUser();
+        // $user = $this->getCurrentUser();
+        $user = $this->getUserById( (int) $id );
         $user->updateData($data);
 
         $entityManager = $this->getEntityManager();

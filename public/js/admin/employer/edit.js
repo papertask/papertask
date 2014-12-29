@@ -23,15 +23,35 @@ angularApp.run( function ($rootScope) {
     });
 });
 angularApp.controller('PapertaskEmployerEditController', function($scope, $http, $timeout, $q) {
+    $scope.pagetype = 'edit';
     $scope.countries = [];
     $scope.languages = [];
     $scope.resources = [];
     $scope.softwares = [];
     $scope.companies = [];
-    $scope.isActive = 0;
     
-    $scope.userId = '';
-    
+    $scope.userInfo = {
+        isActive: null,
+        profileUpdated: null,
+        email: null,
+        firstName: null,
+        lastName: null,
+        gender: null,
+        city: null,
+        phone: null,
+        country: null,
+        company: null,
+        currency: null,
+        tmRatios: null
+    };
+    $scope.employer = {
+		username: null,
+		defaultServiceLevel: null,
+        comments: null,
+		company: null,
+		employerId: null,
+        position: null
+	};
     // For Engineering Price
     $scope.units 	 = [];
     $scope.engineeringCategories = [];
@@ -46,7 +66,6 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     $scope.editInterpreting = -1;
     $scope.editEngineering = -1;
     
-    $scope.employer = { };
 
     /**
      * Mark resource active params
@@ -55,72 +74,83 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
         setModalControllerData('languages', $scope.languages);
         setModalControllerData('services', $scope.services);
         setModalControllerData('softwares', $scope.softwares);
+        setModalControllerData('engineeringCategories', $scope.engineeringCategories);       
     }
 
     /** end mapping function **/
-    $scope.init = function( str_uid ){
-    	$scope.userId = str_uid;
+    $scope.init = function( ){
         var priceDataRequest = $http.get("/api/user/priceData")
             .success(function($data){
                 $scope.languages = $data['languages'];
                 $scope.services = $data['services'];
                 $scope.softwares = $data['softwares'];
+                $scope.engineeringCategories = $data['engcategory'];
+                
                 initModal();
             });
-
-        $http.get("/api/user/" + $scope.userId)
+        
+        var ajaxEmployerInfo = $http.get("/api/user/" + USER_ID + "/employer")
         	.success( function ( $data ) {
-        		var ptr_user = $data.user;
-        		$scope.isActive = ptr_user.isActive;
-
         		$scope.employer = {
-    		    	isActive: ptr_user.isActive,
-    		    	profileUpdated: ptr_user.profileUpdated,
-    				email: ptr_user.email,
     				username: $data.employer.name,
-    				firstname: ptr_user.firstName,
-    				surname: ptr_user.lastName,
-    				gender: ptr_user.gender,
-    				city: ptr_user.city,
-    				lastName: ptr_user.lastName,
-    				phone: ptr_user.phone,
-    				country: ptr_user.country,
-    				position: ptr_user.position,
-    				company: ptr_user.company,
-    				currency:ptr_user.currency,
     				defaultServiceLevel: $data.employer.defaultServiceLevel,
-    				tmRatio: $data.tmRatios,
-    				comments: ptr_user.comments,
+		            comments: $data.employer.comments,
     				company: $data.employer.company,
-    				employerId: $data.employer.id
+    				employerId: $data.employer.id,
+                    position: $data.employer.position
     			};
-        		$scope.translationPrices = $data.translationPrices;
-        		$scope.engineeringPrices = $data.engineeringPrices;
-        		$scope.desktopPrices = $data.desktopPrices;
-        		$scope.interpretingPrices = $data.interpretingPrices;
+                $(".summernote").code( $data.employer.comments );
         		$("#EmployerController").fadeIn();
         	});
-        $http.get("/api/common/country")
+        var ajaxUserInfo = $http.get("/api/user/" + USER_ID + "")
+            .success ( function ( $data ) {
+                $scope.userInfo = {
+                    isActive: $data.user.isActive,
+                    profileUpdated: $data.user.profileUpdated,
+                    email: $data.user.email,
+                    firstName: $data.user.firstName,
+                    lastName: $data.user.lastName,
+                    gender: $data.user.gender,
+                    city: $data.user.city,
+                    phone: $data.user.phone,
+                    country: $data.user.country,
+                    currency: $data.user.currency,
+                    tmRatios: $data.tmRatios
+                };
+            });
+        var ajaxCountryInfo = $http.get("/api/common/country")
             .success(function($data){
                 $scope.countries = $data['countries'];
                 setModalControllerData('countries', $scope.countries);
-                if($scope.employer.country){
-                    $scope.employer.country = findOption($scope.countries, $scope.employer.country);
-                }
-        });
-        $http.get("/api/common/company")
+        });  
+        var ajaxCompanyInfo = $http.get("/api/common/company")
 	        .success(function($data){
 	            $scope.companies = $data['companies'];
+        });      
+        $q.all([ajaxUserInfo, ajaxCountryInfo])
+            .then(function(){
+                $scope.userInfo.country = findOptionByName($scope.countries, $scope.userInfo.country);
+            });
+        $q.all([ajaxEmployerInfo, ajaxCompanyInfo])
+            .then ( function () {
+                $scope.employer.company = findOptionByName($scope.companies, $scope.employer.company);
+            });
+        $http.get('/api/user/desktopprice?userId='+USER_ID).success(function($data) {
+            $scope.desktopPrices = $data['desktopPrices'];
+        });
+        $http.get('/api/user/translationprice?userId='+ USER_ID).success(function($data) {
+            $scope.translationPrices = $data['translationPrices'];
+        });
+        $http.get('/api/user/engineeringprice?userId=' + USER_ID).success(function($data) {
+            $scope.engineeringPrices = $data['engineeringPrices'];
+        });
+        $http.get('/api/user/interpretingprice?userId=' + USER_ID).success(function($data) {
+            $scope.interpretingPrices = $data['interpretingPrices'];
         });
         $http.get("/api/common/unit")
 	        .success(function($data){
 	            $scope.units = $data;
 	            setModalControllerData('units', $scope.units);
-	    });
-        $http.get("/api/common/engineeringCategory")
-	        .success(function($data){
-	            $scope.engineeringCategories = $data;
-	            setModalControllerData('engineeringCategories', $scope.engineeringCategories);
 	    });
     };
  
@@ -130,49 +160,42 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     $scope.submit = function(){
     	$scope.employer.comments = $('.summernote').code();
 
-    	var ptr_employer = {
-    			isActive: $scope.employer.isActive,
-    			profileUpdated: $scope.employer.profileUpdated,
-    			lastName: $scope.employer.surname,
-    			firstName: $scope.employer.firstname,
-    			defaultServiceLevel: $scope.employer.defaultServiceLevel,
-    			email: $scope.employer.email, 
-    			city: $scope.employer.city,
-    			country: $scope.employer.country,
-    			currency: $scope.employer.currency,
-    			phone: $scope.employer.phone,
-    			gender: $scope.employer.gender,
-    			position: $scope.employer.position,
-    			company: $scope.employer.company,
-    			comments: $('.summernote').code(),
-    	};
-    	$http.put("/api/user/"+$scope.userId, ptr_employer)
-        	.success(function($data){
-	            $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id="+$scope.userId, ptr_employer).success(function(){
-	        });	            
-        });
-    	if ( $scope.employer.tmRatio && $scope.employer.tmRatio.id ) {
-    		$http.put("/api/user/" + $scope.employer.tmRatio.id + "/tmratio", {
-    			userId: $scope.userId,
-    			repetitions: $scope.employer.tmRatio.repetitions,
-    			yibai: $scope.employer.tmRatio.yibai,
-    			jiuwu: $scope.employer.tmRatio.jiuwu,
-    			bawu: $scope.employer.tmRatio.bawu,
-    			qiwu: $scope.employer.tmRatio.qiwu,
-    			wushi: $scope.employer.tmRatio.wushi,
-    			nomatch: $scope.employer.tmRatio.nomatch
-    		});
+    	if ( $scope.userInfo.tmRatios && $scope.userInfo.tmRatios.id ) {
+    		$http.put("/api/user/" + $scope.userInfo.tmRatios.id + "/tmratio", {
+    			userId: USER_ID,
+    			repetitions: $scope.userInfo.tmRatios.repetitions,
+    			yibai: $scope.userInfo.tmRatios.yibai,
+    			jiuwu: $scope.userInfo.tmRatios.jiuwu,
+    			bawu: $scope.userInfo.tmRatios.bawu,
+    			qiwu: $scope.userInfo.tmRatios.qiwu,
+    			wushi: $scope.userInfo.tmRatios.wushi,
+    			nomatch: $scope.userInfo.tmRatios.nomatch
+    		}).success( function($data) {
+                $http.put("/api/user/" + USER_ID, $scope.userInfo)
+                    .success(function($data){
+                        $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id=" + USER_ID, $scope.employer).success(function(){
+                            location.href="/admin/employer/detail?id=" + USER_ID;
+                        });
+                    });
+            } ) ;
     	} else {
     		$http.post("/api/user/tmratio", {
-    			userId: $scope.userId,
-    			repetitions: $scope.employer.tmRatio.repetitions,
-    			yibai: $scope.employer.tmRatio.yibai,
-    			jiuwu: $scope.employer.tmRatio.jiuwu,
-    			bawu: $scope.employer.tmRatio.bawu,
-    			qiwu: $scope.employer.tmRatio.qiwu,
-    			wushi: $scope.employer.tmRatio.wushi,
-    			nomatch: $scope.employer.tmRatio.nomatch
-    		});
+    			userId: USER_ID,
+    			repetitions: $scope.userInfo.tmRatios.repetitions,
+    			yibai: $scope.userInfo.tmRatios.yibai,
+    			jiuwu: $scope.userInfo.tmRatios.jiuwu,
+    			bawu: $scope.userInfo.tmRatios.bawu,
+    			qiwu: $scope.userInfo.tmRatios.qiwu,
+    			wushi: $scope.userInfo.tmRatios.wushi,
+    			nomatch: $scope.userInfo.tmRatios.nomatch
+    		}).success( function($data) {
+                $http.put("/api/user/" + USER_ID, $scope.userInfo)
+                    .success(function($data){
+                        $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id=" + USER_ID, $scope.employer).success(function(){
+                            location.href="/admin/employer/detail?id=" + USER_ID;
+                        });
+                    });
+            } ) ;
     	}
     	
     };
@@ -192,7 +215,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	if ( $scope.editTranslation == -1 ) {
     		$http.post("/api/user/translationprice", 
 				{
-    				userId: $scope.userId,
+    				userId: USER_ID,
 					sourceLanguageId: translationPrice.sourceLanguage.id, 
 					targetLanguageId: translationPrice.targetLanguage.id, 
 					price: translationPrice.price
@@ -202,7 +225,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	} else {
     		$http.put("/api/user/" + translationPrice.id + "/translationprice", 
 				{
-    				userId: $scope.userId,
+    				userId: USER_ID,
 					sourceLanguageId: translationPrice.sourceLanguage.id, 
 					targetLanguageId: translationPrice.targetLanguage.id, 
 					price: translationPrice.price
@@ -217,10 +240,10 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     };
     
     $scope.deleteTranslationPrice = function ( index, tid ) {    	
-        bootbox.confirm("Are you sure", function( bflag ) {
+        bootbox.confirm( DELETE_CONFIRM_TEXT, function( bflag ) {
             if ( bflag == true ) {
                 $http.delete("/api/user/" + tid + "/translationprice", {
-                    userId: $scope.userId            
+                    userId: USER_ID            
                 }).success(function( data ) {                
                     $scope.translationPrices.splice(index, 1);
                 });                
@@ -250,7 +273,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     $scope.saveDesktopPrice = function (desktopPrice ) {
     	if ( $scope.editDtp == -1) {
     		$http.post("/api/user/desktopprice", {
-    			userId: $scope.userId,
+    			userId: USER_ID,
     			languageId: desktopPrice.language.id,
     			softwareId: desktopPrice.software.id,
     			priceHourMac: desktopPrice.priceHourMac,
@@ -262,7 +285,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     		});
     	} else {
     		$http.put("/api/user/" + desktopPrice.id + "/desktopprice", {
-    			userId: $scope.userId,
+    			userId: USER_ID,
     			languageId: desktopPrice.language.id,
     			softwareId: desktopPrice.software.id,
     			priceHourMac: desktopPrice.priceHourMac,
@@ -284,10 +307,10 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	jQuery("#modal-dtp").modal("show");
     }
     $scope.deleteDesktopPrice = function ( ind, did ) {
-        bootbox.confirm("Are you sure!", function (bflag) {
+        bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
             if ( bflag )
                 $http.delete("/api/user/" + did + "/desktopprice", {
-                    userId: $scope.userId            
+                    userId: USER_ID            
                 }).success(function( data ) {                
                     $scope.desktopPrices.splice( ind, 1 );
                 });    
@@ -311,7 +334,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	console.log ( interpretingPrice);
     	if ( $scope.editInterpreting == -1) {
     		$http.post("/api/user/interpretingprice", {
-    			userId: $scope.userId,
+    			userId: USER_ID,
     			priceDay: interpretingPrice.priceDay,
     			priceHalfDay: interpretingPrice.priceHalfDay,
     			sourceLanguageId: interpretingPrice.sourceLanguage.id,
@@ -322,7 +345,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     		});
     	} else {
     		$http.put("/api/user/" + interpretingPrice.id + "/interpretingprice", {
-    			userId: $scope.userId,
+    			userId: USER_ID,
     			priceDay: interpretingPrice.priceDay,
     			priceHalfDay: interpretingPrice.priceHalfDay,
     			sourceLanguageId: interpretingPrice.sourceLanguage.id,
@@ -343,10 +366,10 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	jQuery("#modal-interpreting").modal("show");
     }
     $scope.deleteInterpretingPrice = function (ind, iid) {
-        bootbox.confirm( "Are you sure!", function ( bflag ) {
+        bootbox.confirm( DELETE_CONFIRM_TEXT, function ( bflag ) {
             if ( bflag ) 
                $http.delete("/api/user/" + iid + "/interpretingprice", {
-                    userId: $scope.userId            
+                    userId: USER_ID            
                 }).success(function( data ) {                
                     $scope.interpretingPrices.splice( ind, 1 );
                 }); 
@@ -378,19 +401,21 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     }
     
     $scope.saveEngineeringPrice = function( engineerPrice ) {
-    	if ( $scope.editEngineering == -1) {
+    	console.log ( $scope.engineeringPrices );
+        if ( $scope.editEngineering == -1) {
     		$http.post("/api/user/engineeringprice", {
-    			userId: $scope.userId,
-    			engineeringCategory: engineerPrice.engineeringCategory,
+    			userId: USER_ID,
+    			engineeringcategory: engineerPrice.engineeringCategory,
     			unit: engineerPrice.unit,
     			price: engineerPrice.price
     		}).success(function ( data ) {
+    		  console.log ( data );
     			$scope.engineeringPrices.push ( data.engineeringPrice );
     		});
     	} else {
-    		$http.put("/api/user/" + engineerPrice.id + "/engineeringPrice", {
-    			userId: $scope.userId,
-    			engineeringCategory: engineerPrice.engineeringCategory,
+    		$http.put("/api/user/" + engineerPrice.id + "/engineeringprice", {
+    			userId: USER_ID,
+    			engineeringcategory: engineerPrice.engineeringCategory,
     			unit: engineerPrice.unit,
     			price: engineerPrice.price
     		}).success(function( data ) { 
@@ -403,10 +428,10 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	$scope.editEngineering = -1;
     }
     $scope.deleteEngineeringPrice = function (ind, eid) {
-        bootbox.confirm( "Are you sure!", function ( bflag ) {
+        bootbox.confirm( DELETE_CONFIRM_TEXT, function ( bflag ) {
             if ( bflag ) {
                 $http.delete("/api/user/" + eid + "/engineeringprice", {
-                    userId: $scope.userId
+                    userId: USER_ID
                 }).success(function (data ){
                     $scope.engineeringPrices.splice( ind, 1 );
                 });        
@@ -415,7 +440,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     }
     $scope.editEngineeringPrice = function (ind) {
     	$scope.editEngineering = ind;
-    	setModalControllerData('engineerPrice', $scope.engineeringPrices[ind]);
+    	setModalControllerData( 'engineerPrice', $scope.engineeringPrices[ind]);
     	jQuery("#modal-eng").modal("show");
     }
 
@@ -427,16 +452,16 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     };
     
     $scope.setActive = function ( str_flag ) {
-    	$scope.employer.isActive = str_flag;
+    	$scope.userInfo.isActive = str_flag;
     }
     $scope.setGender = function ( str_gender ) {
-    	$scope.employer.gender = str_gender;
+    	$scope.userInfo.gender = str_gender;
     }
     $scope.setCurrency = function ( str_currency ) {
-    	$scope.employer.currency = str_currency;
+    	$scope.userInfo.currency = str_currency;
     } 
     $scope.setProfileUploaded = function ( str_flag ) {
-    	$scope.employer.profileUploaded = str_flag;
+    	$scope.userInfo.profileUploaded = str_flag;
     }
     $scope.setServiceLevel = function ( str_servicelevel ) {
     	$scope.employer.defaultServiceLevel = str_servicelevel;

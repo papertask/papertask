@@ -12,7 +12,7 @@ use Zend\View\Model\JsonModel;
 use Application\Controller\AbstractRestfulController;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
+use Zend\Paginator\Paginator as ZendPaginator;
 use User\Entity\User; 
 use User\Entity\UserGroup;
 use Admin\Model\Helper;
@@ -33,6 +33,7 @@ class EmployerController extends AbstractRestfulController
 		
 		$data['currency'] = $pdata['currency'];
 		$data['createdTime'] = new \DateTime('now');
+        $data['lastLogin'] = new \DateTime('now');
 		$data['email'] = $pdata['email'];
 		$data['firstName'] = $pdata['firstname'];
 		$data['lastName'] = $pdata['surname'];
@@ -49,25 +50,28 @@ class EmployerController extends AbstractRestfulController
 		$userExist = $entityManager->getRepository('User\Entity\User')->findOneBy(array('email'=>$pdata['email']));
 		 
 		if ( $userExist ) {
-	
+            return new JsonModel(['success'=>'failed', 'msg'=>'']);
 		} else {
 			$user = new User();
-			$user->createEmployer($data, $entityManager);
+            $user->setData( $data );
+            $user->save($entityManager);
+			$user->createEmployer( $this, $data, $entityManager);
 			$employer = $user->getEmployer();
-	
-			$employer->updateData(array('position'=>$pdata['position'], 'company'=>$data['company_id'], 'defaultServiceLevel'=>$pdata['defaultServiceLevel']));
+	       
+			$employer->updateData(array('position'=>$pdata['position'], 'company'=>$data['company_id'], 'defaultServiceLevel'=>$pdata['defaultServiceLevel'], 'comments'=>$pdata['comments']));
 			$employer->save($entityManager);
 	
-			$ret_data = $employer->getData();
-	
+			$ret_data = $user->getData();
+	       
+           
 			// Set Translation Price
 			$pTranslationPrice = new UserTranslationPrice();
 			foreach ( $pdata['translationPrices'] as $k => $v ) {
 				$translationPrice = array(
 						'user' => $user,
-						'sourceLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v->sourceLanguage->id)),
-						'targetLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v->targetLanguage->id)),
-						'price' => $v->price
+						'sourceLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v['sourceLanguage']['id'])),
+						'targetLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v['targetLanguage']['id'])),
+						'price' => $v['price']
 				);
 				 
 				$pTranslationPrice->setData( $translationPrice );
@@ -77,14 +81,15 @@ class EmployerController extends AbstractRestfulController
 			// Set Desktop Prices
 			$pDesktopPrice = new UserDesktopPrice();
 			foreach ( $pdata['desktopPrices'] as $k => $v) {
-				$desktopPrice = array (
+				
+                $desktopPrice = array (
 						'user'=> $user,
-						'language' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id'=>$v->language->id)),
-						'software' => $entityManager->getRepository('User\Entity\DesktopSoftware')->findOneBy(array('id'=>$v->language->id)),
-						'priceMac' => $v->priceMac,
-						'pricePc' => $v->pricePc,
-						'priceHourMac' => $v->priceHourMac,
-						'priceHourPc' => $v->priceHourPc
+						'language' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id'=>$v['language']['id'])),
+						'software' => $entityManager->getRepository('User\Entity\DesktopSoftware')->findOneBy(array('id'=>$v['language']['id'])),
+						'priceMac' => $v['priceMac'],
+						'pricePc' => $v['pricePc'],
+						'priceHourMac' => $v['priceHourMac'],
+						'priceHourPc' => $v['priceHourPc']
 				);
 				 
 				$pDesktopPrice->setData( $desktopPrice );
@@ -96,11 +101,11 @@ class EmployerController extends AbstractRestfulController
 			foreach ( $pdata['interpretingPrices'] as $k=>$v) {
 				$interpretingPrice = array(
 						'user' => $user,
-						'sourceLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v->sourceLanguage->id)),
-						'targetLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v->targetLanguage->id)),
-						'service' => $entityManager->getRepository('User\Entity\InterpretingService')->findOneBy(array('id' => $v->service->id)),
-						'priceDay' => $v->priceDay,
-						'priceHalfDay' => $v->priceHalfDay
+						'sourceLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v['sourceLanguage']['id'])),
+						'targetLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v['targetLanguage']['id'])),
+						'service' => $entityManager->getRepository('User\Entity\InterpretingService')->findOneBy(array('id' => $v['service']['id'])),
+						'priceDay' => $v['priceDay'],
+						'priceHalfDay' => $v['priceHalfDay']
 				);
 				$pInterpretingPrice->setData( $interpretingPrice );
 				$pInterpretingPrice->save( $entityManager );
@@ -109,7 +114,7 @@ class EmployerController extends AbstractRestfulController
 			// Set TM Ratio
 			$pTmRatio = new UserTmRatio();
 			$tmRatio = array(
-					'repetitions'    => $pdata['tmRatio']['repetition'],
+					'repetitions'    => $pdata['tmRatio']['repetitions'],
 					'yibai'            => $pdata['tmRatio']['yibai'],
 					'jiuwu'            => $pdata['tmRatio']['jiuwu'],
 					'bawu'            => $pdata['tmRatio']['bawu'],
@@ -126,18 +131,18 @@ class EmployerController extends AbstractRestfulController
 			$pEngineeringPrices = new UserEngineeringPrice();
 			foreach ( $pdata['engineeringPrices'] as $k=>$v ) {
 				$engineeringPrice = array(
-						'engineeringcategory'=> $entityManager->getRepository('Common\Entity\EngineeringCategory')->findOneBy(array('id' => $v->engineeringCategory->id)),
-						'unit'=> $entityManager->getRepository('Common\Entity\Unit')->findOneBy(array('id' => $v->unit->id)),
-						'price'=> $v->price,
+						'engineeringcategory'=> $entityManager->getRepository('Common\Entity\EngineeringCategory')->findOneBy(array('id' => $v['engineeringCategory']['id'])),
+						'unit'=> $entityManager->getRepository('Common\Entity\Unit')->findOneBy(array('id' => $v['unit']['id'])),
+						'price'=> $v['price'],
 						'user'=> $user
 				);
 				$pEngineeringPrices->setData( $engineeringPrice );
 				$pEngineeringPrices->save( $entityManager );
 			}
 	
-			return new JsonModel($ret_data);
+			return new JsonModel(['user'=>$ret_data, 'success'=>'success']);
 		}
-		return new JsonModel([]);
+		return new JsonModel(['success'=>'failed', 'msg'=>'Unknown Error']);
 	}
 	
     public function get($id){
@@ -156,9 +161,10 @@ class EmployerController extends AbstractRestfulController
 
         $employer = $user->getEmployer();
         $employer->updateData(array(
-                'position'=>$data['position'], 
+                'position'=>isset($data['position'])?$data['position']:'', 
                 'company'=>$entityManager->getRepository('User\Entity\Company')->findOneBy(array('id' => $data['company'])), 
-                'defaultServiceLevel'=>$data['defaultServiceLevel']));
+                'defaultServiceLevel'=>$data['defaultServiceLevel'],
+                'comments'=>$data['comments']));
         $employer->save($entityManager);
 
         return new JsonModel([]);
@@ -230,13 +236,66 @@ class EmployerController extends AbstractRestfulController
         $employerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::EMPLOYER_GROUP_ID);
         $employerList = $entityManager->getRepository('User\Entity\User');
         $queryBuilder = $employerList->createQueryBuilder('user')->where("user.group = ?1")->setParameter(1, $employerGroup);
+        
+        $request = $this->getRequest();
+        if($request->getQuery('search')){
+
+            // search by name
+            if($arrayNames = $this->params()->fromQuery('name')){
+                $arrayName = explode(' ', $arrayNames);
+                if(count($arrayName) != 2){
+                    $queryBuilder->andWhere(
+                        $queryBuilder->expr()->like('user.firstName', "'%". $arrayName[0] . "%'"));
+                    
+                } else {
+                    $queryBuilder->andWhere(
+                        $queryBuilder->expr()->like('user.firstName', "'%". $arrayName[0] . "%'"));
+                    $queryBuilder->andWhere(
+                        $queryBuilder->expr()->like('user.lastName', "'%". $arrayName[1] ."%'"));
+                }
+            }
+            
+            // search by id
+            if($request->getQuery('idEmployer')){
+                $queryBuilder->andWhere(
+                        $queryBuilder->expr()->eq("user.id", (int)$request->getQuery('idEmployer')));
+            }
+            
+            // search by email
+            if ( $request->getQuery('email') ) {
+                $queryBuilder->andWhere(
+                    $queryBuilder->expr()->like('user.email',
+                        "'%" . $request->getQuery('email') ."%'" ));
+            }
+            
+            // search by Currency
+            if ( $request->getQuery('currency')) {
+                $queryBuilder->andWhere(
+                        $queryBuilder->expr()->eq("user.currency", 
+                        $queryBuilder->expr()->literal($request->getQuery('currency'))));
+            }
+
+            // search by country
+            if($request->getQuery('country')){
+                $queryBuilder->andWhere(
+                        $queryBuilder->expr()->eq("user.country", (int)($request->getQuery('country'))));
+            }
+
+            // search include inactive
+            if($request->getQuery('includeInactive')){
+                $queryBuilder->andWhere(
+                        $queryBuilder->expr()->eq("user.isActive", $request->getQuery('includeInactive')));
+            }
+        }
+        $queryBuilder->orderBy('user.createdTime', 'ASC');
         $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
-        $paginator = new Paginator($adapter);
+        $paginator = new ZendPaginator($adapter);
         $paginator->setDefaultItemCountPerPage(10);
         $page = (int)$this->getRequest()->getQuery('page');
         if($page) $paginator->setCurrentPageNumber($page);
         $data = array();
         $helper = new Helper();
+        
         foreach($paginator as $user){
             $userData = $user->getData();
             $userData['createdTime'] = $helper->formatDate($userData['createdTime']);

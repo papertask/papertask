@@ -1,0 +1,20 @@
+[1mdiff --cc module/User/src/User/Entity/User.php[m
+[1mindex 5a8b599,8fb1bb7..0000000[m
+mode 100755,100755..100644[m
+[1m--- a/module/User/src/User/Entity/User.php[m
+[1m+++ b/module/User/src/User/Entity/User.php[m
+[36m@@@ -94,9 -94,6 +94,12 @@@[m [mclass User extends Entity implements In[m
+       */[m
+      protected $employer;[m
+      [m
+[32m++<<<<<<< HEAD[m
+[32m +     /** @ORM\Column(type="string", nullable=true) */[m
+[32m +    protected $comments  = null;[m
+[32m +[m
+[32m++=======[m
+[32m++>>>>>>> fixemployer[m
+      /**[m
+       * @var \User\Entity\Staff[m
+       * @ORM\OneToOne(targetEntity="Staff")[m
+warning: LF will be replaced by CRLF in data/DoctrineORMModule/Proxy/__CG__UserEntityUserGroup.php.
+The file will have its original line endings in your working directory.

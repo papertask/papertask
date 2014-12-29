@@ -3,14 +3,20 @@ angularApp.run( function ( $rootScope ) {
 }) 
 
 angularApp.controller('PapertaskEmployerListController', function($scope, $http, $timeout, $q) {
-	/**
-	 * 
-	 */
 	$scope.companies 	= [];
 	$scope.countries 	= [];
 	$scope.pages 		= [];
 	$scope.employers 	= [];
-	
+	$scope.searchParams = {
+        'search': null,
+        'name': null,
+        'idEmployer': null,
+        'email': null,
+        'country': null,
+        'includeInactive': null,
+        'currency': null,
+        'page': null
+    };
 	$scope.init = function () {
 		$http.get("/api/user/employer?page=1")
 	        .success(function($data){
@@ -35,7 +41,7 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
 		
 		angular.forEach($scope.countries, function ( v, k ) {
 			if ( v.select == str_countryid ) {
-				str_label = v.label;
+				str_label = v.name;
 			}
 		});
 		
@@ -46,11 +52,10 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
 		document.location.href = "/admin/employer/detail?id=" + str_empid;
 	}
 	$scope.onEditClicked = function ( str_empid ) {
-		console.log (' a ');
 		document.location.href = "/admin/employer/edit?userId=" + str_empid;
 	}
 	$scope.onDeleteClicked = function ( str_empid ) {
-        bootbox.confirm ( "Are you sure!", function ( bflag ) {
+        bootbox.confirm ( DELETE_CONFIRM_TEXT, function ( bflag ) {
             if ( bflag ) {
                 var delEmp = $http.delete("/api/user/" + str_empid + "/employer", {id: str_empid});
                 $q.all([delEmp])
@@ -64,7 +69,53 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
             }
         })		
 	}
-	
+    
+    $scope.advancedSearch = function () {
+        $scope.selectPage( 1 );
+    }
+    
+    $scope.reset = function () {
+        $scope.searchParams = {
+            'search': null,
+            'name': null,
+            'idEmployer': null,
+            'email': null,
+            'country': null,
+            'includeInactive': null,
+            'currency': null,
+            'page': null
+        };
+        $scope.selectPage(1);
+    }
+	$scope.selectPage = function($page){
+        // check search
+        var search = 0;
+        for(var key in $scope.searchParams) {
+            var obj = $scope.searchParams[key];
+            if (obj != null) {
+                search++;
+            }
+        };
+        if(search > 0){
+            $scope.searchParams.page = $page;
+            $scope.searchParams.search = 1;
+            var $params = $scope.searchParams;
+        }else{
+            var $params = {page: $page};
+        }
+
+        $http.get("/api/user/employer", {
+            params: $params
+        }).success(function($data){
+            $scope.employers = $data.employers;
+            $scope.pages = $data.pages;
+            if($data['pages']){
+                var N = $scope.pages.pageCount;
+                $scope.rangeCustom = Array.apply(null, {length: N}).map(Number.call, Number);
+            }
+            console.log($data);
+        });
+    }
 	$scope.onBtnPreviousClicked = function () {
 		$http.get("/api/user/employer?page="+ $scope.pages.previous)
 	        .success(function($data){
