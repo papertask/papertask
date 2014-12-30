@@ -470,4 +470,22 @@ class User extends Entity implements InputFilterAwareInterface{
         
         $this->sendConfirmationEmail( $controller );
     }
+	
+	public function createFreelancer( $controller, $data, $entityManager ) 
+    {
+        $data = array(
+            'email' => $data['email'],
+            'lastName' => $data['lastName'],
+            'firstName' => $data['firstName'],
+            'lastLogin' => new \DateTime('now'),
+            'createdTime' => new \DateTime('now'),
+        );
+        $this->setData($data);
+        $this->encodePassword($this->generateRandomString());
+        $this->setGroupByName('freelancer', $entityManager);
+        $entityManager->persist($this);
+        $entityManager->flush();
+        
+        $this->sendConfirmationEmail( $controller );
+    }
 }

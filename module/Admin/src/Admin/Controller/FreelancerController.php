@@ -42,6 +42,61 @@ class FreelancerController extends AbstractActionController
             ]);
         }
     }
+	public function detailAction() {
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+        $userId = (int)$this->getRequest()->getQuery('id');
+        $entityManager = $this->getEntityManager();
+        $user = $this->getUserById($userId);
+        
+        // Get Interpreting Price
+        $repository = $entityManager->getRepository('User\Entity\UserInterpretingPrice');
+        $interPretingPrices = $repository->findBy( array('user'=>$user) );
+        $pInterPretingPrices = array();
+        foreach ( $interPretingPrices as $k => $v ) {
+            $pInterPretingPrices[$k] = $v->getData();
+        }         
+        // Get EngeeringPrice
+        $repository = $entityManager->getRepository('User\Entity\UserEngineeringPrice');
+        $engineeringPrices = $repository->findBy(array('user'=>$user));
+        $pEngineeringPrices = array();
+        foreach ($engineeringPrices as $k => $v ) {
+            $pEngineeringPrices[$k] = $v->getData();
+        }
+         
+        // Get Translation Price
+        $repository = $entityManager->getRepository('User\Entity\UserTranslationPrice');
+        $translationPrices = $repository->findBy(array('user'=>$user));
+        $pTranslationPrices = array();
+        foreach ( $translationPrices as $k => $v ) {
+            $pTranslationPrices[$k] = $v->getData();
+        }
+         
+        // Get DesktopPrices
+        $repository = $entityManager->getRepository('User\Entity\UserDesktopPrice');
+        $dtpPrices = $repository->findBy(array('user'=>$user));
+        $pDtpPrices = array();
+        foreach ( $dtpPrices as $k => $v) {
+            $pDtpPrices[$k]=$v->getData();
+        }
+         
+        // Get Translation Ratio
+        $repository = $entityManager->getRepository('User\Entity\UserTmRatio');
+        $tmRatios = $repository->findBy(array('user'=>$user));
+        $pTmRatios = array();
+        foreach ( $tmRatios as $k => $v) {
+            $pTmRatios[$k] = $v->getData();
+        }
+        
+        return new ViewModel(array('user'=>$user->getData(), 
+                'freelancer' => $user->getFreelancer()->getData(),
+                'interpretingPrices'=>$pInterPretingPrices,
+                'engineeringPrices'=>$pEngineeringPrices,
+                'translationPrices'=>$pTranslationPrices,
+                'dptPrices'=>$pDtpPrices,
+                'tmRatios'=>$pTmRatios
+        ));
+    }
 
     public function newAction(){
         return new ViewModel(array(

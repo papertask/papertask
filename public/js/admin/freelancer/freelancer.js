@@ -18,7 +18,7 @@ angularApp.run( function ( $rootScope ) {
             }
         },
         submitHandler: function( form ) {
-            angular.element('#freelancerController').scope().submit();
+            angular.element('#FreelancerController').scope().submit();
         }
     });
 }) 
@@ -47,8 +47,8 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     	isActive: '0',
     	profileUpdated: '0',
 		email: '',
-		username: '',
-		firstname: '',
+		userName: '',
+		firstName: '',
 		surname: '',
 		gender: '0',
 		city: '',
@@ -57,7 +57,13 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
 		country: '',
 		currency:'cny',
 		serviceLevel: 1,
-		defaultServiceLevel: '1'
+		defaultServiceLevel: '1',
+		Resources:[],
+		TranslationSpecialisms: [],
+		TranslationCatTools: [],
+		DesktopOperatingSystems: [],
+		DesktopCatTools: [],
+		InterpretingSpecialisms: []
 
 	};
 
@@ -123,12 +129,24 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
      * Submit the form
      */
     $scope.submit = function(){
-        
+        $scope.resorce_tmp = getIds($scope.freelancer.Resources);
+		$scope.TranslationSpecialisms_tmp = getIds($scope.freelancer.TranslationSpecialisms);
+		$scope.TranslationCatTools_tmp = getIds($scope.freelancer.TranslationCatTools);
+		$scope.DesktopOperatingSystems_tmp = getIds($scope.freelancer.DesktopOperatingSystems);
+		$scope.DesktopCatTools_tmp = getIds($scope.freelancer.DesktopCatTools);
+		$scope.InterpretingSpecialisms_tmp = getIds($scope.freelancer.InterpretingSpecialisms);
+		
+		console.log($scope.resorce_tmp);
+		console.log($scope.TranslationSpecialisms_tmp);
+		console.log($scope.TranslationCatTools_tmp);
+		console.log($scope.DesktopOperatingSystems_tmp);
+		console.log($scope.DesktopCatTools_tmp);
+		console.log($scope.InterpretingSpecialisms_tmp);
     	var ptr_freelancer = {
     			isActive: $scope.freelancer.isActive,
     			profileUpdated: $scope.freelancer.profileUpdated,
-    			surname: $scope.freelancer.surname,
-    			firstname: $scope.freelancer.firstname,
+    			lastname: $scope.freelancer.lastName,
+    			firstname: $scope.freelancer.firstName,
     			defaultServiceLevel: $scope.freelancer.defaultServiceLevel,
     			email: $scope.freelancer.email, 
     			password: $scope.freelancer.password,
@@ -137,6 +155,13 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     			currency: $scope.freelancer.currency,
     			phone: $scope.freelancer.phone,
     			gender: $scope.freelancer.gender,
+				resources: $scope.resorce_tmp,
+				translationspecialisms : $scope.TranslationSpecialisms_tmp,
+				translationcattools : $scope.TranslationCatTools_tmp,
+				desktopoperatingsystems : $scope.DesktopOperatingSystems_tmp,
+				desktopcattools : $scope.DesktopCatTools_tmp,
+				interpretingspecialisms : $scope.InterpretingSpecialisms_tmp,
+				
     			translationPrices: $scope.translationPrices,
     			desktopPrices: $scope.desktopPrices,
     			interpretingPrices: $scope.interpretingPrices,
@@ -145,8 +170,12 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     	
     	$http.post("/api/user/freelancer", ptr_freelancer)
         	.success(function($data){
+				if ( $data.success == 'failed') {
+                    bootbox.alert("User already exited. Please check your email address.");
+                    return ;
+                }
+	            location.href="/admin/freelancer/detail?id=" + $data.user.id;
 	            //location.href="/admin/dashboard";
-	            
         });
     };
     
@@ -352,4 +381,17 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     $scope.setServiceLevel = function ( str_servicelevel ) {
     	$scope.freelancer.defaultServiceLevel = str_servicelevel;
     }
+	/**
+     * Toggle resource
+     */
+    $scope.toggleResource = function($id){
+        console.log($scope.freelancer.Resources);
+        var $index = $scope.freelancer.Resources.indexOf($id);
+        if($index == -1){
+            $scope.freelancer.Resources.push($id);
+        } else {
+            $scope.freelancer.Resources.splice($index, 1);
+        }
+        console.log($scope.freelancer.Resources);
+    };
 });

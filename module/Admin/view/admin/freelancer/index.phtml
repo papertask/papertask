@@ -84,7 +84,7 @@ $this->inlineScript()
                                 <div class="col-sm-9">
                                     <select ng-model="searchParams.source" class="form-control" name="source">
                                         <option value=""></option>
-                                        <option ng-repeat="source in sources" value="source.id">
+                                        <option ng-repeat="source in sources" value="{{source.id}}">
                                             {{source.name}}
                                         </option>
                                     </select>

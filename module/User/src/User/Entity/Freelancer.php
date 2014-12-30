@@ -9,7 +9,7 @@
 namespace User\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
 use Common\Entity;
 use Common\Func;
 
@@ -28,6 +28,7 @@ class Freelancer extends Entity{
      * @ORM\ManyToMany(targetEntity="Resource")
      */
     protected $Resources = null;
+	
 
     /**
      * @var \Doctrine\ORM\PersistentCollection
@@ -35,7 +36,7 @@ class Freelancer extends Entity{
      * @ORM\JoinTable(name="UserDesktopCatTools")
      */
     protected $DesktopCatTools = null;
-
+	
     /**
      * @var \Doctrine\ORM\PersistentCollection
      * @ORM\ManyToMany(targetEntity="OperatingSystem")
@@ -75,6 +76,16 @@ class Freelancer extends Entity{
      * @ORM\Column(type="boolean")
      */
     protected $isSenior = false;
+	
+	public function __construct() {
+		$this->DesktopCatTools = new ArrayCollection();
+		$this->Resources = new ArrayCollection();
+		$this->DesktopOperatingSystems = new ArrayCollection();
+		$this->InterpretingSpecialisms = new ArrayCollection();
+		$this->TranslationCatTools = new ArrayCollection();
+		$this->TranslationSpecialisms = new ArrayCollection();
+		$this->Rating = new ArrayCollection();
+	}
 
     public function getData(){
         return array(

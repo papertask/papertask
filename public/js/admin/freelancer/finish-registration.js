@@ -67,6 +67,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
     function updateFreelancerSkillData(){
         var $info = $scope.freelancer;
         $info.TranslationCatTools = findOptions($scope.catTools, $info.TranslationCatTools);
+		console.log($info.TranslationCatTools);
         $info.TranslationSpecialisms = findOptions($scope.specialisms, $info.TranslationSpecialisms);
         $info.DesktopCatTools = findOptions($scope.catTools, $info.DesktopCatTools);
         $info.Resources = findResources($scope.resources, $info.Resources);
@@ -193,6 +194,8 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
     init(USER_ID);
 
     function updateFreelancer(){
+	
+		console.log($scope.freelancer.DesktopCatTools);
         return $http.put("/api/user/" + $scope.user.id + "/freelancer/" + $scope.freelancer.id, {
             'DesktopCatTools': getIds($scope.freelancer.DesktopCatTools),
             'DesktopOperatingSystems': getIds($scope.freelancer.DesktopOperatingSystems),
@@ -228,7 +231,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
         // wait all done
         $q.all([requestGroup, requestInfo])
             .then(function(result){
-                location.href = "/admin/dashboard";
+                //location.href = "/admin/dashboard";
             });
     };
 

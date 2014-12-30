@@ -1,0 +1,385 @@
+<!-- Scripts -->
+<?php
+$this->headScript ()->prependFile ( $this->basePath () . '/js/admin/freelancer/details.js' )
+					->prependFile ( $this->basePath () . '/js/admin/bootstrap-modal.js' )
+					->prependScript ( "angularApp = angular.module('project', []);" )
+					->prependFile ( $this->basePath () . '/js/plugins/summernote/summernote.min.js' )
+					->prependFile ( $this->basePath () . '/js/plugins/validate/jquery.validate.min.js' )
+					->prependFile ( $this->basePath () . '/js/plugins/steps/jquery.steps.min.js' )
+					->prependFile ( $this->basePath () . '/js/plugins/pace/pace.min.js' )
+					->prependFile ( $this->basePath () . '/js/inspinia.js' );
+?>
+<?php
+$this->inlineScript()
+    ->prependScript("
+        var USER_ID = '" . $user['id'] . "';
+        var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+    ");
+?>
+					
+<div class="row animated fadeInRight" ng-controller="FreelancerController" ng-init="init()">
+	<div class="col-md-4">
+		<div class="ibox">
+			<div class="ibox-title">
+				<h5>{{userInfo.lastName}}, {{userInfo.firstName}}</h5>
+				<div class="ibox-tools">				
+					<span ng-show="userInfo.isActive == '1'" class="label label-primary"><?php echo $this->translate('Active') ?></span>
+					<span ng-show="userInfo.isActive == '0'" class="label label-default"><?php echo $this->translate('Unactive') ?></span>
+				</div>
+			</div>
+
+			<div class="ibox-content profile-content">
+				<p><i class="fa fa-user"></i> &nbsp; 
+                {{userInfo.lastName}}, {{userInfo.firstName}} &nbsp; 
+                <i ng-show="userInfo.gender == '0'" class="fa fa-male"></i>
+                <i ng-show="userInfo.gender == '1'" class="fa fa-female"></i>
+                </p>
+				<p><i class="fa fa-envelope"></i> &nbsp; {{userInfo.email}}</p>
+				<p><i class="fa fa-tag"></i> &nbsp; {{userInfo.tag}}</p>
+				
+				<p><i class="fa fa-phone"></i> &nbsp; {{userInfo.phone}}</p>
+				<p><i class="fa fa-map-marker"></i> &nbsp; {{userInfo.city}}, {{userInfo.country.name}}</p>
+				<p class="small font-bold">
+					<span ng-show="userInfo.isSenior == '1'" class="fa fa-circle text-danger"><?php echo $this->translate('Senior Freelancer') ?></span>
+					<span ng-show="userInfo.isSenior == '0'" class="fa fa-circle text-danger"><?php echo $this->translate('Freelancer') ?></span>
+                </p>
+				<p class="small font-bold">
+                                <span><i class="fa fa-thumbs-up text-danger"></i> &nbsp; 
+                                    <span>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star text-warning"></i>
+                                        <i class="fa fa-star-o text-warning"></i>
+                                        <i class="fa fa-star-o text-warning"></i>
+                                    </span>
+                                </span>
+                </p>
+				<p><i class="fa fa-file-text"></i><a href="" class="text-info"> &nbsp; John.docx</a></p>
+				
+				<form role="form" class="form-inline">
+                    <div class="form-group">
+                        <input ng-model="password" type="password"
+                               placeholder="<?php echo $this->translate('Reset password') ?>"
+                               class="form-control required" required>
+                    </div>
+                    <button ng-click="resetPassword()" class="btn btn-danger" type="submit">
+                        <?php echo $this->translate('Reset') ?></button>
+                    <p ng-show="passwordChanged==1" class="text-success">
+                        <?php echo $this->translate('Password changed.') ?></p>
+                </form>
+				<div class="hr-line-dashed"></div>
+				<h4><?php echo $this->translate('Freelancer Type') ?> </h4>
+				<div class="row file-manager">
+					<ul class="tag-list" style="padding: 0">
+						<li>
+                            <a ng-show="userInfo.profileUpdated == '1'"><?php echo $this->translate('Contracted') ?></a>
+                            <a ng-show="userInfo.profileUpdated == '0'"><?php echo $this->translate('UnContracted') ?></a>
+                        </li>
+					</ul>
+				</div>
+				<div class="hr-line-dashed"></div>
+				<h4><?php echo $this->translate('Default Service Level') ?> </h4>
+				<div class="row file-manager">
+					<ul class="tag-list" style="padding: 0">
+						<li ng-show="freelancer.defaultServiceLevel == '1'"><a>Professional</a></li>
+                        <li ng-show="freelancer.defaultServiceLevel == '2'"><a>Business</a></li>
+                        <li ng-show="freelancer.defaultServiceLevel == '3'"><a>Premium</a></li>
+					</ul>
+				</div>
+				<div class="hr-line-dashed"></div>
+				<h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
+				<div id="objNote"></div>
+
+				<a class="btn btn-primary btn-block" type="button" href="/admin/freelancer/edit?userId=<?php echo $user['id']; ?>"><i class="fa fa-paste"></i> <?php echo $this->translate('Edit') ?></a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8">
+		<div class="panel blank-panel">
+			<div class="panel-heading">
+				<div class="panel-options">
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#tab-1"><?php echo $this->translate('Skills and Price (PaperTask)') ?></a></li>
+						<li class=""><a data-toggle="tab" href="#tab-2"><?php echo $this->translate('Skills and Price (Personal)') ?></a></li>
+						<li class=""><a data-toggle="tab" href="#tab-3"><?php echo $this->translate('Task') ?></a></li>
+						<li class=""><a data-toggle="tab" href="#tab-3"><?php echo $this->translate('Test') ?></a></li>
+						<li class=""><a data-toggle="tab" href="#tab-3"><?php echo $this->translate('Resume') ?></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="panel-body">
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane active">
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h3><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></h3>
+							</div>
+							<div class="ibox-content">
+								<h4><?php echo $this->translate('Languages and Price') ?> </h4>
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+										  <tr>
+											<th><?php echo $this->translate('TM Template') ?></th>
+											<th><?php echo $this->translate('Repetitions') ?></th>
+											<th>100%</th>
+											<th>95% - 99%</th>
+											<th>85% - 94%</th>
+											<th>75% - 84%</th>
+											<th>50% - 74%</th>
+											<th><?php echo $this->translate('No Match') ?></th>
+										  </tr>
+										</thead>
+										<tbody>
+										  <tr>
+											<td>TM Rate</td>
+											<td>{{tmRatios.repetitions}}%</td>
+											<td>{{tmRatios.yibai}}%</td>
+											<td>{{tmRatios.jiuwu}}%</td>
+											<td>{{tmRatios.bawu}}%</td>
+											<td>{{tmRatios.qiwu}}%</td>
+											<td>{{tmRatios.wushi}}%</td>
+											<td>{{tmRatios.nomatch}}%</td>
+										  </tr>
+										</tbody>
+									  </table>
+								  </div>
+
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th><?php echo $this->translate('Source Language') ?> </th>
+												<th><?php echo $this->translate('Target Language') ?> </th>
+												<th><?php echo $this->translate('Translation Price') ?></th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="translationPrice in translationPrices">
+													<td>{{$index + 1}}</td>
+													<td>{{translationPrice.sourceLanguage.name}}</td>
+													<td>{{translationPrice.targetLanguage.name}}</td>
+													<td class="text-info">
+                                                        <strong > {{priceType}} {{translationPrice.price}} </strong>
+                                                    </td>
+												</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h3><i class="fa fa-desktop"></i> <?php echo $this->translate('Desktop Publishing') ?></h3>
+							</div>
+							<div class="ibox-content">
+								<h4><?php echo $this->translate('Softwares and Price') ?> </h4>
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th><?php echo $this->translate('Languages') ?> </th>
+												<th><?php echo $this->translate('Software') ?> </th>
+												<th><?php echo $this->translate('Page') ?> <i class="fa fa-apple"></th>
+												<th><?php echo $this->translate('Page') ?> <i class="fa fa-windows"></i></th>
+												<th><?php echo $this->translate('Hour') ?> <i class="fa fa-apple"></th>
+												<th><?php echo $this->translate('Hour') ?> <i class="fa fa-windows"></i></th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="dptPrice in dptPrices">
+													<td>{{$index+1}}</td>
+													<td>{{dptPrice.language.name}}</td>
+													<td>{{dptPrice.software.name}}</td>
+													<td class="text-info">
+                                                        <strong><strong > {{priceType}} {{dptPrice.priceMac}} </strong>
+                                                    </td>
+													<td class="text-info">
+                                                        <strong><strong> {{priceType}} {{dptPrice.pricePc}} </strong>
+                                                    </td>
+                                                    <td class="text-info">
+                                                        <strong><strong> {{priceType}} {{dptPrice.priceHourMac}} </strong>
+                                                    </td>
+                                                    <td class="text-info">
+                                                        <strong><strong> {{priceType}} {{dptPrice.priceHourPc}} </strong>
+                                                    </td>
+												</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h3><i class="fa fa-gears"></i> <?php echo $this->translate('Engineering') ?></h3>
+							</div>
+							<div class="ibox-content">
+								<h4><?php echo $this->translate('Categories and Price') ?> </h4>
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Category </th>
+												<th>Unit </th>
+												<th>Price </th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr ng-repeat="engineeringPrice in engineeringPices">
+												<td>{{$index + 1}}</td>
+												<td>{{engineeringPrice.engineeringcategory.category}}</td>
+												<td>{{engineeringPrice.unit.name}}</td>
+												<td class="text-info">
+                                                    <strong>{{priceType}} {{engineeringPrice.price}}</strong>
+                                                </td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h3><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></h3>
+							</div>
+							<div class="ibox-content">
+								<h4>Languages and Price </h4>
+
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th><?php echo $this->translate('Source Language') ?> </th>
+												<th><?php echo $this->translate('Target Language') ?> </th>
+												<th><?php echo $this->translate('Interpreting Service') ?></th>
+												<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Day') ?></th>
+												<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('half-Day') ?></th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="interpretingPrice in interpretingPrices">
+													<td>{{$index + 1}}</td>
+													<td>{{interpretingPrice.sourceLanguage.name}}</td>
+													<td>{{interpretingPrice.targetLanguage.name}}</td>
+													<td>{{interpretingPrice.service.name}}</td>
+													<td class="text-info"><strong>{{priceType}} {{interpretingPrice.priceDay}}</strong></td>
+													<td class="text-info"><strong>{{priceType}} {{interpretingPrice.priceHalfDay}}</strong></td>
+												</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="tab-2" class="tab-pane">
+						<div class="ibox">
+							<div class="ibox-title">
+								<h5><?php echo $this->translate('Translators Pool') ?></h5>
+							</div>
+							<div class="ibox-content">
+								<table class="table">
+									<thead>
+									<tr>
+										<th>#</th>
+										<th><?php echo $this->translate('Name') ?></th>
+										<th><?php echo $this->translate('Type') ?></th>
+										<th><?php echo $this->translate('Task Done') ?></th>
+										<th></th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>1</td>
+										<td><a href="">Doe, John</a></td>
+										<td><i class="fa fa-coffee"> Translation</i></td>
+										<td>88</td>
+										<td><a href=""><i class="fa fa-trash-o text-danger"></i></a></td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td><a href="">Leo, Jacob</a></td>
+										<td><i class="fa fa-desktop"> Desktop Publishing</i></td>
+										<td>68</td>
+										<td><a href=""><i class="fa fa-trash-o text-danger"></i></a></td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td><a href="">Leo, Jacob</a></td>
+										<td><i class="fa fa-comments-o"> Interpreting</i></td>
+										<td>68</td>
+										<td><a href=""><i class="fa fa-trash-o text-danger"></i></a></td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div id="tab-3" class="tab-pane">
+						<div class="ibox">
+							<div class="ibox-content">
+								<div class="project-list">
+									<table class="table table-hover">
+										<tbody>
+											<tr>
+												<td class="project-status" width="1%">
+													<span class="label label-default">Completed</span>
+												</td>
+												<td class="project-title">
+													<a href="#">88888888</a>
+												</td>
+
+												</td>
+												<td class="project-title">
+													<strong>Project Name dfadsfja;kfja;dkfja;dfadsfja;kfja;dkfja;</strong>
+													<br />
+													<small>2014.Sep.08 -  2014.Oct.28</small>
+												</td>
+												<td class="project-title text-info">
+													<strong>CNY 868.88</strong>
+												</td>
+											</tr>
+											<tr>
+												<td class="project-status" width="1%">
+													<span class="label label-primary">Ongoing</span>
+												</td>
+												<td class="project-title">
+													<a href="#">88887366</a>
+												</td>
+												<td class="project-title">
+													<strong>Project Name</strong>
+													<br />
+													<small>2014.Sep.08 -  2014.Oct.28</small>
+												</td>
+												<td class="project-title text-info">
+													<strong>CNY 1868.88</strong>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="btn-group text-right">
+									<button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i></button>
+									<button class="btn btn-white">1</button>
+									<button class="btn btn-white  active">2</button>
+									<button class="btn btn-white">3</button>
+									<button class="btn btn-white">4</button>
+									<button type="button" class="btn btn-white"><i class="fa fa-chevron-right"></i> </button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>
+ 
+<?php include "profile/modal.phtml" ?>
