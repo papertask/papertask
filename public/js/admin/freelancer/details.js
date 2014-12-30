@@ -10,6 +10,7 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
     $scope.translationPices = [];
     $scope.interpretingPrices = [];
     $scope.engineeringPrices = [];
+	$scope.resources = [];
     
     $scope.password = null;
     $scope.passwordChanged = 0;
@@ -70,21 +71,43 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
     }
     
     $scope.getFreelancer = function () {
-        $http.get("/api/user/" + USER_ID + "/freelancer")
-        	.success( function ( $data ) {
-        		$scope.freelancer = {
-					isSenior : $data.freelancer.isSenior,
-    				username: $data.freelancer.name,
-    				defaultServiceLevel: $data.freelancer.defaultServiceLevel,
-		            comments: $data.freelancer.comments,
-    				company: $data.freelancer.company,
-    				freelancerId: $data.freelancer.id,
-                    position: $data.freelancer.position
-    			};
-                $("#objNote").html($scope.freelancer.comments);
-        	});
+		$http.get("/api/user/" + USER_ID + "/freelancer")
+            .success(function($data){
+                $scope.freelancer = $data['freelancer'];
+                var priceDataRequest = $http.get("/api/user/freelancerData")
+                    .success(function($data){
+                        /** map data **/
+                        $scope.catTools = $data['catTools'];
+                        $scope.operatingSystems = $data['operatingSystems'];
+                        $scope.specialisms = $data['specialisms'];
+                        $scope.resources = $data['resources'];
+						console.log($scope.resources);
+						console.log($scope.freelancer.Resources);
+						$scope.freelancer.ResourcesGroup = findResourcesGroup($scope.resources, $scope.freelancer.Resources);
+						
+                    });
+				
+            });
+			
     }
-    
+    function findResourcesGroup($resourceGroups, $ids){
+        var resourcesgroup = [];
+        for(var i = 0; i < $resourceGroups.length; i++){
+            for(var j = 0; j < $resourceGroups[i].resources.length; j++){
+                var resource = $resourceGroups[i].resources[j];
+                if($ids.indexOf(resource.id) != -1  ){
+                    if( resourcesgroup.length > 0 && resourcesgroup.indexOf($resourceGroups[i]) != -1){
+						//console.log(resourcesgroup);
+						//resourcesgroup.push($resourceGroups[i]);
+					}	
+					else 	resourcesgroup.push($resourceGroups[i]);
+                }
+            }
+        }
+		console.log(resourcesgroup);
+        return resourcesgroup;
+    }
+
     $scope.resetPassword = function () {
         $http.put('/api/user/' + USER_ID, {'password': $scope.password}).success(function($data){
             if($data.success == 1){

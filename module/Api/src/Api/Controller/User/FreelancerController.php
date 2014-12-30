@@ -109,7 +109,6 @@ class FreelancerController extends AbstractRestfulController
     public function get($id){
         $user = $this->getUserById($id);
         $freelancerData = $user->getFreelancer()->getData();
-		
         return new JsonModel([
             'freelancer' => $freelancerData,
         ]);

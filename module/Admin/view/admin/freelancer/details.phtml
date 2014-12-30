@@ -72,26 +72,42 @@ $this->inlineScript()
 				<h4><?php echo $this->translate('Freelancer Type') ?> </h4>
 				<div class="row file-manager">
 					<ul class="tag-list" style="padding: 0">
-						<li>
-                            <a ng-show="userInfo.profileUpdated == '1'"><?php echo $this->translate('Contracted') ?></a>
-                            <a ng-show="userInfo.profileUpdated == '0'"><?php echo $this->translate('UnContracted') ?></a>
-                        </li>
+						<li ng-show="freelancer.ResourcesGroup[0].group.name == 'Translation'">
+							<a href=""><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></a></li>
+						<li ng-show="freelancer.ResourcesGroup[1].group.name == 'Desktop Publishing'">
+							<a href=""><i class="fa fa-desktop"></i> <?php echo $this->translate('Desktop Publishing') ?>
+							</a></li>
+						<li ng-show="freelancer.ResourcesGroup[2].group.name == 'Interpreting'">
+							<a href=""><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></a></li>
 					</ul>
 				</div>
 				<div class="hr-line-dashed"></div>
-				<h4><?php echo $this->translate('Default Service Level') ?> </h4>
-				<div class="row file-manager">
-					<ul class="tag-list" style="padding: 0">
-						<li ng-show="freelancer.defaultServiceLevel == '1'"><a>Professional</a></li>
-                        <li ng-show="freelancer.defaultServiceLevel == '2'"><a>Business</a></li>
-                        <li ng-show="freelancer.defaultServiceLevel == '3'"><a>Premium</a></li>
-					</ul>
-				</div>
-				<div class="hr-line-dashed"></div>
-				<h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
-				<div id="objNote"></div>
+				  <h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
 
-				<a class="btn btn-primary btn-block" type="button" href="/admin/freelancer/edit?userId=<?php echo $user['id']; ?>"><i class="fa fa-paste"></i> <?php echo $this->translate('Edit') ?></a>
+            <p>
+                {{resume.papertaskComments}}
+            </p>
+
+            <div class="hr-line-dashed"></div>
+            <h4><?php echo $this->translate('Payment information') ?></h4>
+
+            <p><strong><?php echo $this->translate('Paypal') ?></strong>: {{bankInfo.paypal}}</p>
+
+            <p><strong><?php echo $this->translate('Alipay') ?></strong>: {{bankInfo.alipay}}</p>
+
+            <p><strong><?php echo $this->translate('Bank Info') ?></strong>: </p>
+            <address class="well">
+                <strong><?php echo $this->translate('Bank Name') ?></strong><br>
+                {{bankInfo.address}}<br>
+                {{bankInfo.city}}, {{bankInfo.country}}<br>
+                <strong><?php echo $this->translate('Beneficiary Name') ?></strong>: {{bankInfo.name}}<br>
+                <strong><?php echo $this->translate('Account No./IBAN') ?></strong>: {{bankInfo.accountNo}}<br>
+                <strong><?php echo $this->translate('Swift Code') ?></strong>: {{bankInfo.swift}}<br>
+                <strong><?php echo $this->translate('ABA Routing Number') ?></strong>: {{bankInfo.routingNumber}}
+            </address>
+
+            <a href="<?php echo $this->url('admin', ['controller'=>'freelancer', 'action'=>'edit-payment-info']) ?>?id={{user.user.id}}"
+               class="btn btn-primary btn-block"><i class="fa fa-paste"></i> Edit</a>
 			</div>
 		</div>
 	</div>
@@ -277,46 +293,158 @@ $this->inlineScript()
 							</div>
 						</div>
 					</div>
+					
 					<div id="tab-2" class="tab-pane">
-						<div class="ibox">
+						<div class="ibox float-e-margins">
 							<div class="ibox-title">
-								<h5><?php echo $this->translate('Translators Pool') ?></h5>
+								<h3><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></h3>
 							</div>
 							<div class="ibox-content">
-								<table class="table">
-									<thead>
-									<tr>
-										<th>#</th>
-										<th><?php echo $this->translate('Name') ?></th>
-										<th><?php echo $this->translate('Type') ?></th>
-										<th><?php echo $this->translate('Task Done') ?></th>
-										<th></th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr>
-										<td>1</td>
-										<td><a href="">Doe, John</a></td>
-										<td><i class="fa fa-coffee"> Translation</i></td>
-										<td>88</td>
-										<td><a href=""><i class="fa fa-trash-o text-danger"></i></a></td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td><a href="">Leo, Jacob</a></td>
-										<td><i class="fa fa-desktop"> Desktop Publishing</i></td>
-										<td>68</td>
-										<td><a href=""><i class="fa fa-trash-o text-danger"></i></a></td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td><a href="">Leo, Jacob</a></td>
-										<td><i class="fa fa-comments-o"> Interpreting</i></td>
-										<td>68</td>
-										<td><a href=""><i class="fa fa-trash-o text-danger"></i></a></td>
-									</tr>
-									</tbody>
-								</table>
+								<h4>
+									<?php echo $this->translate('Specialism  <small>- with <i class="fa fa-check"></i> means field tested and pass.</small>') ?>
+								</h4>
+
+								<div class="row file-manager">
+									<ul class="tag-list" style="padding: 0">
+										<!-- TODO: check specialism is tested or not -->
+										<li ng-repeat="specialism in TranslationSpecialisms">
+											<a href=""><i ng-show="specialism.tested==1" class="fa fa-check"></i>
+												{{specialism.name}}</a>
+										</li>
+									</ul>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<h4>Cat tools </h4>
+
+								<div class="row file-manager">
+									<ul class="tag-list" style="padding: 0">
+										<li ng-repeat="tool in TranslationCatTools">
+											<a href="">{{tool.name}}</a>
+										</li>
+									</ul>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<h4>Languages and Price </h4>
+
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+										<tr>
+											<th>#</th>
+											<th>Source Language</th>
+											<th>Target Language</th>
+											<th>Translation Price</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="price in user.translationPrices">
+											<td>{{$index+1}}</td>
+											<td>{{price.sourceLanguage.name}}</td>
+											<td>{{price.targetLanguage.name}}</td>
+											<td class="text-info"><strong>CNY {{price.price}}</strong></td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h3><i class="fa fa-desktop"></i> Desktop Publishing</h3>
+							</div>
+							<div class="ibox-content">
+								<h4>Operating System </h4>
+
+								<div class="row file-manager">
+									<ul class="tag-list" style="padding: 0">
+										<li ng-repeat="system in operatingSystems">
+											<a href=""><i class="fa {{(this.id==1) ? 'fa-apple' : 'fa-windows'}}"></i>
+												{{system.name}}</a></li>
+									</ul>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<h4><?php echo $this->translate('Cat tools') ?></h4>
+
+								<div class="row file-manager">
+									<ul class="tag-list" style="padding: 0">
+										<li ng-repeat="tool in DesktopCatTools"><a href="">{{tool.name}}</a></li>
+									</ul>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<h4><?php echo $this->translate('Softwares and Price') ?></h4>
+
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+										<tr>
+											<th>#</th>
+											<th><?php echo $this->translate('Languages') ?></th>
+											<th><?php echo $this->translate('Software') ?></th>
+											<th><?php echo $this->translate('Page') ?> <i class="fa fa-apple"></th>
+											<th><?php echo $this->translate('Page') ?> <i class="fa fa-windows"></i></th>
+											<th><?php echo $this->translate('Hour') ?> <i class="fa fa-apple"></th>
+											<th><?php echo $this->translate('Hour') ?> <i class="fa fa-windows"></i></th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="price in user.desktopPrices">
+											<td>{{$index+1}}</td>
+											<td>{{price.language.name}}</td>
+											<td>{{price.software.name}}</td>
+											<td class="text-info"><strong>CNY {{price.priceMac}}</strong></td>
+											<td class="text-info"><strong>CNY {{price.pricePc}}</strong></td>
+											<td class="text-info"><strong>CNY {{price.priceHourMac}}</strong></td>
+											<td class="text-info"><strong>CNY {{price.priceHourPc}}</strong></td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h3><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></h3>
+							</div>
+							<div class="ibox-content">
+								<h4><?php echo $this->translate('Specialism') ?></h4>
+
+								<div class="row file-manager">
+									<ul class="tag-list" style="padding: 0">
+
+										<!-- TODO: check specialism is tested or not -->
+										<li ng-repeat="specialism in InterpretingSpecialisms">
+											<a href=""><i ng-show="specialism.tested==1" class="fa fa-check"></i>
+												{{specialism.name}}</a>
+										</li>
+									</ul>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<h4><?php echo $this->translate('Languages and Price') ?></h4>
+
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+										<tr>
+											<th>#</th>
+											<th><?php echo $this->translate('Source Language') ?></th>
+											<th><?php echo $this->translate('Target Language') ?></th>
+											<th><?php echo $this->translate('Interpreting Service') ?></th>
+											<th><?php echo $this->translate('Price/Day') ?></th>
+											<th><?php echo $this->translate('Price/half-Day') ?></th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="price in user.interpretingPrices">
+											<td>{{$index+1}}</td>
+											<td>{{price.sourceLanguage.name}}</td>
+											<td>{{price.targetLanguage.name}}</td>
+											<td>{{price.service.name}}</td>
+											<td class="text-info"><strong>CNY {{price.priceDay}}</strong></td>
+											<td class="text-info"><strong>CNY {{price.priceHalfDay}}</strong></td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -382,4 +510,4 @@ $this->inlineScript()
 	</div>
 </div>
  
-<?php include "profile/modal.phtml" ?>
+<?php //include "profile/modal.phtml" ?>

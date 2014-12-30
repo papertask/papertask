@@ -57,6 +57,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
             for(var j = 0; j < $resourceGroups[i].resources.length; j++){
                 var resource = $resourceGroups[i].resources[j];
                 if($ids.indexOf(resource.id) != -1){
+					console.log($resourceGroups[i]);
                     resources.push(resource);
                 }
             }
@@ -67,10 +68,10 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
     function updateFreelancerSkillData(){
         var $info = $scope.freelancer;
         $info.TranslationCatTools = findOptions($scope.catTools, $info.TranslationCatTools);
-		console.log($info.TranslationCatTools);
         $info.TranslationSpecialisms = findOptions($scope.specialisms, $info.TranslationSpecialisms);
         $info.DesktopCatTools = findOptions($scope.catTools, $info.DesktopCatTools);
         $info.Resources = findResources($scope.resources, $info.Resources);
+		
         $info.DesktopOperatingSystems = findOptions($scope.operatingSystems, $info.DesktopOperatingSystems);
         $info.InterpretingSpecialisms = findOptions($scope.specialisms, $info.InterpretingSpecialisms);
     }
@@ -134,6 +135,9 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
         $http.get("/api/user/" + $scope.user.id + "/freelancer")
             .success(function($data){
                 $scope.freelancer = $data['freelancer'];
+				console.log($scope.freelancer.Resources);
+				console.log($scope.user.id);
+
                 generateActiveResources();
 
                 var priceDataRequest = $http.get("/api/user/freelancerData")
