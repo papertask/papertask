@@ -11,6 +11,16 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
     $scope.interpretingPrices = [];
     $scope.engineeringPrices = [];
 	$scope.resources = [];
+	
+	$scope.resume = {};
+
+    $scope.TranslationSpecialisms = [];
+    $scope.TranslationCatTools = [];
+    $scope.operatingSystems = [];
+    $scope.DesktopCatTools = [];
+    $scope.InterpretingSpecialisms = [];
+    $scope.InterpretingCatTools = [];
+
     
     $scope.password = null;
     $scope.passwordChanged = 0;
@@ -74,21 +84,28 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
 		$http.get("/api/user/" + USER_ID + "/freelancer")
             .success(function($data){
                 $scope.freelancer = $data['freelancer'];
-                var priceDataRequest = $http.get("/api/user/freelancerData")
-                    .success(function($data){
-                        /** map data **/
-                        $scope.catTools = $data['catTools'];
-                        $scope.operatingSystems = $data['operatingSystems'];
-                        $scope.specialisms = $data['specialisms'];
-                        $scope.resources = $data['resources'];
-						console.log($scope.resources);
-						console.log($scope.freelancer.Resources);
-						$scope.freelancer.ResourcesGroup = findResourcesGroup($scope.resources, $scope.freelancer.Resources);
-						
-                    });
+                console.log($scope.freelancer);
+				// get data after freelancer was loaded
+				getFreelancerData();
+				getFreelancerResume();
+				getBankInfo();
 				
             });
 			
+    }
+	function getFreelancerResume(){
+        $http.get('/api/user/' + USER_ID + '/resume').success(function($data){
+            $scope.resume = $data['resume'];
+            console.log($scope.resume);
+        });
+    }
+	function getBankInfo(){
+        $http.get('/api/user/' + USER_ID + '/bank-info').success(function($data){
+            if($data['bankInfo']){
+                $scope.bankInfo = $data['bankInfo'];
+                console.log($scope.bankInfo);
+            }
+        });
     }
     function findResourcesGroup($resourceGroups, $ids){
         var resourcesgroup = [];
@@ -107,7 +124,42 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
 		console.log(resourcesgroup);
         return resourcesgroup;
     }
+	
+	function getFreelancerData(){
+        $http.get('/api/user/freelancer-data').success(function($data){
+            $scope.freelancerData = $data;
+            console.log($scope.freelancerData);
+            // get resource group
+			$scope.resources = $data['resources'];
+			$scope.freelancer.ResourcesGroup = findResourcesGroup($scope.resources, $scope.freelancer.Resources);
+			
+            /*$.each($scope.freelancerData.resources, function(){
+                var that = this;
+                $.each(this.resources, function(){
+                    if($scope.freelancer.Resources.indexOf(this.id) >= 0){
+                        $scope.resourcesType[that.group.name] = 1;
+                    }
+                });
+            });*/
+            // get translation specialism
+            $scope.TranslationSpecialisms = findOptions($scope.freelancerData.specialisms,
+                $scope.freelancer.TranslationSpecialisms);
+            // get desktop translation cat tools
+            $scope.TranslationCatTools = findOptions($scope.freelancerData.catTools,
+                $scope.freelancer.TranslationCatTools);
+            // get operating systems
+            $scope.operatingSystems = findOptions($scope.freelancerData.operatingSystems,
+                $scope.freelancer.DesktopOperatingSystems);
+            // get desktop cat tools
+            $scope.DesktopCatTools = findOptions($scope.freelancerData.catTools,
+                $scope.freelancer.DesktopCatTools);
+            // get interpreting specialism
+            $scope.InterpretingSpecialisms = findOptions($scope.freelancerData.specialisms,
+                $scope.freelancer.InterpretingSpecialisms);
 
+            //console.log($scope.InterpretingSpecialisms);
+        });
+    }
     $scope.resetPassword = function () {
         $http.put('/api/user/' + USER_ID, {'password': $scope.password}).success(function($data){
             if($data.success == 1){

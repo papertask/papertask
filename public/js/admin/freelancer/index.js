@@ -91,6 +91,99 @@ angularApp.controller('listFreelancerController', function($scope, $http, $timeo
             console.log($data);
         });
     }
+	
+	$scope.onBtnPreviousClicked = function () {
+		// check search
+        var search = 0;
+        for(var key in $scope.searchParams) {
+            var obj = $scope.searchParams[key];
+            if (obj != null) {
+                search++;
+            }
+        };
+		if(search > 0){
+            $scope.searchParams.page = $scope.pages.previous;
+            $scope.searchParams.search = 1;
+            var $params = $scope.searchParams;
+            console.log('search');
+			$http.get("/api/user/freelancer",{
+				params: $params
+			}).success(function($data){
+					$scope.pages = $data['pages'];
+					$scope.list = $data['freelancerList'];
+			});	
+        }
+		else {
+			$http.get("/api/user/freelancer?page="+ $scope.pages.previous)
+	        .success(function($data){
+	            $scope.pages = $data['pages'];
+	            $scope.list = $data['freelancerList'];
+			});
+		}
+		
+		
+	}
+	
+	$scope.onBtnGoto = function ( int_index ) {
+		// check search
+        var search = 0;
+        for(var key in $scope.searchParams) {
+            var obj = $scope.searchParams[key];
+            if (obj != null) {
+                search++;
+            }
+        };
+		if(search > 0){
+            $scope.searchParams.page = int_index*1 + 1;
+            $scope.searchParams.search = 1;
+            var $params = $scope.searchParams;
+            console.log('search');
+			$http.get("/api/user/freelancer",{
+            params: $params
+			}).success(function($data){
+	            $scope.pages = $data['pages'];
+	            $scope.list = $data['freelancerList'];
+			});
+        }
+		else {
+			$http.get("/api/user/freelancer?page="+ (int_index*1 + 1))
+	        .success(function($data){
+	            $scope.pages = $data['pages'];
+	            $scope.list = $data['freelancerList'];
+			});
+		}
+		
+	}
+	
+	$scope.onBtnNextClicked = function () {
+		// check search
+        var search = 0;
+        for(var key in $scope.searchParams) {
+            var obj = $scope.searchParams[key];
+            if (obj != null) {
+                search++;
+            }
+        };
+		if(search > 0){
+			$scope.searchParams.page = $scope.pages.next;
+            $scope.searchParams.search = 1;
+            var $params = $scope.searchParams;
+            console.log('search');
+			$http.get("/api/user/freelancer",{
+            params: $params
+			}).success(function($data){
+	            $scope.pages = $data['pages'];
+	            $scope.list = $data['freelancerList'];
+			});
+		}
+		else{
+			$http.get("/api/user/freelancer?page="+ $scope.pages.next)
+				.success(function($data){
+					$scope.pages = $data['pages'];
+					$scope.list = $data['freelancerList'];
+			});
+		}	
+	}
 
     function getFreelancerData(){
         $http.get('/api/user/freelancer-data').success(function($data){

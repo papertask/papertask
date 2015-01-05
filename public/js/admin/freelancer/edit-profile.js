@@ -37,7 +37,41 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
             }
         });
     }
+	function getFreelancerData(){
+        $http.get('/api/user/freelancer-data').success(function($data){
+            $scope.freelancerData = $data;
+            console.log($scope.freelancerData);
+            // get resource group
+            $.each($scope.freelancerData.resources, function(){
+                var that = this;
+                $.each(this.resources, function(){
+                    if($scope.freelancer.Resources.indexOf(this.id) >= 0){
+                        $scope.resourcesType[that.group.name] = 1;
+                    }
+                });
+            });
+            // get translation specialism
+            $scope.TranslationSpecialisms = findOptions($scope.freelancerData.specialisms,
+                $scope.freelancer.TranslationSpecialisms);
+            // get desktop translation cat tools
+            $scope.TranslationCatTools = findOptions($scope.freelancerData.catTools,
+                $scope.freelancer.TranslationCatTools);
+            // get operating systems
+            $scope.operatingSystems = findOptions($scope.freelancerData.operatingSystems,
+                $scope.freelancer.DesktopOperatingSystems);
+            // get desktop cat tools
+            $scope.DesktopCatTools = findOptions($scope.freelancerData.catTools,
+                $scope.freelancer.DesktopCatTools);
+            // get interpreting specialism
+            $scope.InterpretingSpecialisms = findOptions($scope.freelancerData.specialisms,
+                $scope.freelancer.InterpretingSpecialisms);
+			// get rating
+            $scope.Ratings = findOptions($scope.freelancerData.ratings,
+                $scope.freelancer.Ratings);	
 
+            console.log($scope.InterpretingSpecialisms);
+        });
+    }
     function init(){
         // submit
         $scope.editProfile = function(){
@@ -68,6 +102,26 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
         getUser();
         getFreelancerResume();
         getCountriesList();
+		getFreelancerData();
+    }
+	/**
+     * Display activate class
+     */
+    $scope.active_class = function(a, b){
+        return a == b ? 'active' : '';
+    };
+    
+    $scope.setActive = function ( str_flag ) {
+    	$scope.userInfo.isActive = str_flag;
+    }
+    $scope.setGender = function ( str_gender ) {
+    	$scope.userInfo.gender = str_gender;
+    }
+    $scope.setCurrency = function ( str_currency ) {
+    	$scope.userInfo.currency = str_currency;
+    } 
+    $scope.setProfileUploaded = function ( str_flag ) {
+    	$scope.userInfo.profileUploaded = str_flag;
     }
     init();
 });
