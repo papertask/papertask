@@ -48,7 +48,6 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
         $http.get('/api/user/' + USER_ID + '/bank-info').success(function($data){
             if($data['bankInfo']){
                 $scope.bankInfo = $data['bankInfo'];
-                console.log ( $scope.bankInfo );
             }
         });
     }
@@ -80,7 +79,6 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
         $http.get('/api/user/' + USER_ID + '/resume').success(function($data){
             if($data['resume']){
                 $scope.resume = $data['resume'];
-                console.log ( $scope.resume );
             }
         });
     }
@@ -100,24 +98,19 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
         if(validate == true){
             // update user info
             $http.put('/api/user/'+USER_ID+'', $scope.userInfo).success(function($data){
-                console.log('Updated user', $data);
             });
             $http.put('/api/user/'+USER_ID+'/staff', $scope.userInfo).success(function($data){
-                console.log('Updated staff', $data);
             });
             $http.put('/api/user/'+USER_ID+'/bank-info', $scope.bankInfo).success(function($data){
-                console.log('Updated bank');
             });
             // update resume
             if($scope.resume.user_id){
                 // create
                 $http.post('/api/user/'+USER_ID+'/resume', $scope.resume).success(function($data){
-                    console.log("Created resume");
                 });
             }else{
                 // Update
                 $http.put('/api/user/'+USER_ID+'/resume', $scope.resume).success(function($data){
-                    console.log("Updated resume");
                 });
             }
             
@@ -241,8 +234,8 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
                             break;
                         }
                     }
-                    
-                    $http.delete("/api/user/" + cid + "/cv-files");
+                    $http.get("/admin/staff/deleteFile?fid=" + cid);
+                    // $http.delete("/api/user/" + cid + "/cv-files");
                 }, 100);                    
             }
         });

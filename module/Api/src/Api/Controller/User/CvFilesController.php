@@ -29,11 +29,11 @@ class CvFilesController extends AbstractRestfulController
     
     public function delete( $id ) 
     {
-        $entityManager = $this->getEneityManager();
+        $entityManager = $this->getEneityManager( );
         $cvFile = $entityManager->getRepository('\User\Entity\CvFile')->find($id);
         $entityManager->remove( $cvFile );
         $entityManager->flush();
-        
+
         return new JsonModel([]);
     }
     
