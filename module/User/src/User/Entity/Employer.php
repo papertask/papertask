@@ -50,6 +50,11 @@ class Employer extends Entity{
      /** @ORM\Column(type="string", nullable=true) */
     protected $comments;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $contracted;
+
     public function getData(){
         return [
             'company' => $this->company ? $this->company->getData() : null,
@@ -57,7 +62,8 @@ class Employer extends Entity{
             'id' => $this->id,
             'name' => $this->name ? $this->name : '',
             'position' => $this->position,
-            'comments' => $this->comments
+            'comments' => $this->comments,
+            'contracted'=> $this->contracted
         ];
     }
 

@@ -50,7 +50,8 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
         comments: null,
 		company: null,
 		employerId: null,
-        position: null
+        position: null,
+        contracted: null
 	};
     // For Engineering Price
     $scope.units 	 = [];
@@ -97,7 +98,8 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
 		            comments: $data.employer.comments,
     				company: $data.employer.company,
     				employerId: $data.employer.id,
-                    position: $data.employer.position
+                    position: $data.employer.position,
+                    contracted: $data.employer.contracted
     			};
                 $(".summernote").code( $data.employer.comments );
         		$("#EmployerController").fadeIn();
@@ -465,5 +467,9 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     }
     $scope.setServiceLevel = function ( str_servicelevel ) {
     	$scope.employer.defaultServiceLevel = str_servicelevel;
+    }
+
+    $scope.setEmployerContracted = function ( str_flag ) {
+        $scope.employer.contracted = str_flag;
     }
 });
