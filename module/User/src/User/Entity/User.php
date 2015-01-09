@@ -94,13 +94,6 @@ class User extends Entity implements InputFilterAwareInterface{
      * @ORM\OneToOne(targetEntity="Employer")
      */
     protected $employer;
-    
-<<<<<<< HEAD
-     /** @ORM\Column(type="string", nullable=true) */
-    protected $comments;
-
-=======
->>>>>>> origin/fixemployer
     /**
      * @var \User\Entity\Staff
      * @ORM\OneToOne(targetEntity="Staff")
@@ -527,17 +520,17 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager->flush();
         $controller->redirect()->toUrl('/user/dashboard');
     }
-    
-<<<<<<< HEAD
-    public function createStaff( $controller, $data ) 
+
+    public function createStaff( $controller, $data )
     {
-    	$entityManager = $controller->getEntityManager();
-    	$this->setData( $data );
-    	$this->setGroupByName( 'staff', $entityManager );
-    	$entityManager->persist( $this );
-    	$entityManager->flush();
-    	$this->sendConfirmationEmail($controller);
-=======
+        $entityManager = $controller->getEntityManager();
+        $this->setData($data);
+        $this->setGroupByName('staff', $entityManager);
+        $entityManager->persist($this);
+        $entityManager->flush();
+        $this->sendConfirmationEmail($controller);
+    }
+
     public function createEmployer( $controller, $data, $entityManager ) 
     {
         $data = array(
@@ -554,6 +547,5 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager->flush();
         
         $this->sendConfirmationEmail( $controller );
->>>>>>> origin/fixemployer
     }
 }

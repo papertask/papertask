@@ -16,10 +16,6 @@ class IndexController extends AbstractRestfulController
     public function get($id){
         $user = $this->getUserById($id);
         $userData = $user->getData();
-<<<<<<< HEAD
-        return new JsonModel([
-            'user' => $userData
-=======
 
         $desktopPriceData = $this->getAllDataBy('\User\Entity\UserDesktopPrice', [
             'user' => $user,
@@ -44,7 +40,6 @@ class IndexController extends AbstractRestfulController
             'translationPrices'  => $translationPriceData,
             'engineeringPrices'  => $engineeringPirceData,
             'tmRatios'           => isset($tmRatio)?$tmRatio->getData():null
->>>>>>> origin/fixemployer
         ]);
     }
 

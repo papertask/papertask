@@ -101,12 +101,9 @@ return array(
             'Api\Controller\Admin\Field' => 'Api\Controller\Admin\FieldController',
             'Api\Controller\Admin\Language' => 'Api\Controller\Admin\LanguageController',
             'Api\Controller\Admin\Project' => 'Api\Controller\Admin\ProjectController',
-<<<<<<< HEAD
             'Api\Controller\Admin\Roles' => 'Api\Controller\Admin\RolesController',
-=======
             'Api\Controller\Admin\Staff' => 'Api\Controller\Admin\StaffController',
             'Api\Controller\Admin\Task' => 'Api\Controller\Admin\TaskController',
->>>>>>> origin/fixemployer
             'Api\Controller\Common\Company' => 'Api\Controller\Common\CompanyController',
             'Api\Controller\Common\Country' => 'Api\Controller\Common\CountryController',
             'Api\Controller\Common\EngineeringCategory' => 'Api\Controller\Common\EngineeringCategoryController',
@@ -137,11 +134,6 @@ return array(
             'Api\Controller\User\TranslationPrice' => 'Api\Controller\User\TranslationPriceController',
             'Api\Controller\User\EngineeringPrice' => 'Api\Controller\User\EngineeringPriceController',
             'Api\Controller\User\TmRatio' => 'Api\Controller\User\TmRatioController',
-            'Api\Controller\Papertask\DesktopPublishing' => 'Api\Controller\Papertask\DesktopPublishingController',
-            'Api\Controller\Papertask\Engineering' => 'Api\Controller\Papertask\EngineeringController',
-            'Api\Controller\Papertask\Interpreting' => 'Api\Controller\Papertask\InterpretingController',
-            'Api\Controller\Papertask\Translation' => 'Api\Controller\Papertask\TranslationController',
-            'Api\Controller\Papertask\Translationtm' => 'Api\Controller\Papertask\TranslationtmController',
         ),
     ),
     'view_manager' => array(

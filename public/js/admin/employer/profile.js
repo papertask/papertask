@@ -61,7 +61,8 @@ angularApp.controller('PapertaskEmployerProfileController', function($scope, $ht
 
         $q.all( [ajaxCountryInfo, ajaxUserInfo] )
             .then( function () {
-                $scope.userInfo.country = findOptionByName( $scope.countries, $scope.userInfo.country );
+                if ( $scope.userInfo )
+                    $scope.userInfo.country = findOptionByName( $scope.countries, $scope.userInfo.country );
             })
 	}
 	
