@@ -16,7 +16,15 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/edi
 					->prependFile ( $this->basePath () . '/js/plugins/steps/jquery.steps.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/pace/pace.min.js' )
                     ->prependFile ( $this->basePath () . '/js/plugins/bootbox/bootbox.min.js' )
-					->prependFile ( $this->basePath () . '/js/inspinia.js' )?>
+					->prependFile ( $this->basePath () . '/js/inspinia.js' );
+?>
+<?php
+$this->inlineScript()
+    ->prependScript("
+        var USER_ID = '" . $user['id'] . "';
+        var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+    ");
+?>
 <style type="text/css">
 .wizard-big.wizard>.content {
 	min-height: 1200px;
@@ -38,22 +46,22 @@ h3 {
 	height: 150px;
 }
 </style>
-<div class="row" style="display: none" ng-controller="PapertaskEmployerEditController" ng-init="init('<?php echo $user['id'];?>')" id="EmployerController">
+<div class="row" style="display: none" ng-controller="PapertaskEmployerEditController" ng-init="init()" id="EmployerController">
 	<div class="col-lg-12">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
 				<h3>
-					<i class="fa fa-edit"></i> Edit Client Profile
+					<i class="fa fa-edit"></i> <?php echo $this->translate('Edit Client Profile') ?>
 				</h3>
 			</div>
 			<div class="ibox-content">
 				<form id="form">
 					<!-- Basic Information -->
-					<?php include "edit/basic_information.phtml" ?>
+					<?php include "profile/basic_information.phtml" ?>
 					<!-- Company Information -->
-					<?php include 'edit/company_information.phtml' ?>
+					<?php include 'profile/company_information.phtml' ?>
 					<!-- Service prices -->
-					<?php include 'edit/service_prices.phtml' ?>
+					<?php include 'profile/service_prices.phtml' ?>
 					<!-- Comments -->
 					<div class="panel panel-primary">
 						<div class="panel-heading">
@@ -74,4 +82,4 @@ h3 {
 		</div>
 	</div>
 </div>
-<?php include "edit/modal.phtml" ?>   
+<?php include "profile/modal.phtml" ?>

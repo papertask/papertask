@@ -7,7 +7,6 @@ $this->headLink ()->prependStylesheet ( $this->basePath () . '/css/plugins/summe
 
 <!-- Scripts -->
 <?php
-
 $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/employer.js' )
 					->prependFile ( $this->basePath () . '/js/admin/bootstrap-modal.js' )
 					->prependScript ( "angularApp = angular.module('project', []);" )
@@ -15,7 +14,15 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/emp
 					->prependFile ( $this->basePath () . '/js/plugins/validate/jquery.validate.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/steps/jquery.steps.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/pace/pace.min.js' )
-					->prependFile ( $this->basePath () . '/js/inspinia.js' )?>
+                    ->prependFile ( $this->basePath () . '/js/plugins/bootbox/bootbox.min.js' )
+					->prependFile ( $this->basePath () . '/js/inspinia.js' );
+?>
+<?php
+$this->inlineScript()
+    ->prependScript("
+        var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+    ");
+?>
 <style type="text/css">
 .wizard-big.wizard>.content {
 	min-height: 1200px;
@@ -42,21 +49,21 @@ h3 {
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
 				<h3>
-					<i class="fa fa-user"></i> Create Client Account
+					<i class="fa fa-user"></i> <?php echo $this->translate('Create Client Account') ?>
 				</h3>
 			</div>
 			<div class="ibox-content">
 				<form id="form">
 					<!-- Basic Information -->
-					<?php include "new/basic_information.phtml" ?>
+					<?php include "profile/basic_information.phtml" ?>
 					<!-- Company Information -->
-					<?php include 'new/company_information.phtml' ?>
+					<?php include 'profile/company_information.phtml' ?>
 					<!-- Service prices -->
-					<?php include 'new/service_prices.phtml' ?>
+					<?php include 'profile/service_prices.phtml' ?>
 					<!-- Comments -->
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<i class="fa fa-file-text"> <strong>Comments from PaperTask</strong></i>
+							<i class="fa fa-file-text"> <strong><?php echo $this->translate('Comments from PaperTask') ?></strong></i>
 						</div>
 						<div class="panel-body">
 							<div class="summernote"></div>
@@ -65,7 +72,7 @@ h3 {
 
 					<div class="row">
 						<div class="col-sm-4 col-sm-offset-4">
-							<button class="btn btn-primary btn-block" type="submit" >Save</button>
+							<button class="btn btn-primary btn-block" type="submit" ><?php echo $this->translate('Save') ?></button>
 						</div>
 					</div>
 				</form>
@@ -73,4 +80,4 @@ h3 {
 		</div>
 	</div>
 </div>
-<?php include "new/modal.phtml" ?>
+<?php include "profile/modal.phtml" ?>

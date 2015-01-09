@@ -47,14 +47,23 @@ class Employer extends Entity{
      */
     protected $defaultServiceLevel = 1;
 
+     /** @ORM\Column(type="string", nullable=true) */
+    protected $comments;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $contracted;
 
     public function getData(){
         return [
             'company' => $this->company ? $this->company->getData() : null,
             'defaultServiceLevel' => $this->defaultServiceLevel,
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => $this->name ? $this->name : '',
             'position' => $this->position,
+            'comments' => $this->comments,
+            'contracted'=> $this->contracted
         ];
     }
 

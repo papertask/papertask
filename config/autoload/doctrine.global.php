@@ -8,7 +8,7 @@
 
 $dbParams = array(
     'hostname' => 'localhost',
-    'port'     => 3006,
+    'port'     => 3306,
     'username' => 'root',
     'password' => '',
     'database' => 'papertask',

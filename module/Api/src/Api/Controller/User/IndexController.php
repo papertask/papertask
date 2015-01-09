@@ -16,8 +16,35 @@ class IndexController extends AbstractRestfulController
     public function get($id){
         $user = $this->getUserById($id);
         $userData = $user->getData();
+<<<<<<< HEAD
         return new JsonModel([
             'user' => $userData
+=======
+
+        $desktopPriceData = $this->getAllDataBy('\User\Entity\UserDesktopPrice', [
+            'user' => $user,
+        ]);
+        $interpretingPriceData = $this->getAllDataBy('\User\Entity\UserInterpretingPrice', [
+            'user' => $user,
+        ]);
+        $translationPriceData = $this->getAllDataBy('\User\Entity\UserTranslationPrice', [
+            'user' => $user,
+        ]);
+        $engineeringPirceData = $this->getAllDataBy('\User\Entity\UserEngineeringPrice', [
+            'user' => $user,
+        ]);
+        $entityManager = $this->getEntityManager();
+        $repository = $entityManager->getRepository('User\Entity\UserTmRatio');
+        $tmRatio = $repository->findOneBy(array('user'=>$user));
+        
+        return new JsonModel([
+            'user'               => $userData,
+            'desktopPrices'      => $desktopPriceData,
+            'interpretingPrices' => $interpretingPriceData,
+            'translationPrices'  => $translationPriceData,
+            'engineeringPrices'  => $engineeringPirceData,
+            'tmRatios'           => isset($tmRatio)?$tmRatio->getData():null
+>>>>>>> origin/fixemployer
         ]);
     }
 
@@ -33,7 +60,8 @@ class IndexController extends AbstractRestfulController
         $data['country'] = $this->getEntityManager()->find('\User\Entity\Country', (int)$data['country']['id']);
 
         $data['profileUpdated'] = true;
-        $user = $this->getCurrentUser();
+        // $user = $this->getCurrentUser();
+        $user = $this->getUserById( (int) $id );
         $user->updateData($data);
 
         $entityManager = $this->getEntityManager();

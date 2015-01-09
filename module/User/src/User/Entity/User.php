@@ -95,9 +95,12 @@ class User extends Entity implements InputFilterAwareInterface{
      */
     protected $employer;
     
+<<<<<<< HEAD
      /** @ORM\Column(type="string", nullable=true) */
     protected $comments;
 
+=======
+>>>>>>> origin/fixemployer
     /**
      * @var \User\Entity\Staff
      * @ORM\OneToOne(targetEntity="Staff")
@@ -143,8 +146,7 @@ class User extends Entity implements InputFilterAwareInterface{
             'lastLogin',
             'lastName',
             'password',
-            'phone',
-            'comments',
+            'phone',            
             'isActive',
             'profileUpdated'
         );
@@ -171,7 +173,7 @@ class User extends Entity implements InputFilterAwareInterface{
             'lastName',
             'phone',
             'profileUpdated',
-            'comments'
+            'isActive'
         );
 
         if(isset($arr['currency']) and !in_array($arr['currency'], ['usd', 'cny'])){
@@ -421,7 +423,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function getData(){
         return array(
             "city" => $this->city,
-            "country" => $this->country,
+            "country" => $this->country ? $this->country->getData() : null,
             'currency' => $this->currency,
             "createdTime" => $this->createdTime,
             "email" => $this->email,
@@ -433,8 +435,7 @@ class User extends Entity implements InputFilterAwareInterface{
             "lastLogin" => $this->lastLogin,
             "lastName" => $this->lastName,
             "phone" => $this->phone,
-            "profileUpdated" => $this->profileUpdated,
-            'comments'=>$this->comments
+            "profileUpdated" => $this->profileUpdated
         );
     }
 
@@ -527,6 +528,7 @@ class User extends Entity implements InputFilterAwareInterface{
         $controller->redirect()->toUrl('/user/dashboard');
     }
     
+<<<<<<< HEAD
     public function createStaff( $controller, $data ) 
     {
     	$entityManager = $controller->getEntityManager();
@@ -535,5 +537,23 @@ class User extends Entity implements InputFilterAwareInterface{
     	$entityManager->persist( $this );
     	$entityManager->flush();
     	$this->sendConfirmationEmail($controller);
+=======
+    public function createEmployer( $controller, $data, $entityManager ) 
+    {
+        $data = array(
+            'email' => $data['email'],
+            'lastName' => $data['lastName'],
+            'firstName' => $data['firstName'],
+            'lastLogin' => new \DateTime('now'),
+            'createdTime' => new \DateTime('now'),
+        );
+        $this->setData($data);
+        $this->encodePassword($this->generateRandomString());
+        $this->setGroupByName('employer', $entityManager);
+        $entityManager->persist($this);
+        $entityManager->flush();
+        
+        $this->sendConfirmationEmail( $controller );
+>>>>>>> origin/fixemployer
     }
 }

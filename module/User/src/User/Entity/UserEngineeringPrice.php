@@ -52,6 +52,22 @@ class UserEngineeringPrice extends Entity {
         	'price'=>$this->price
         );
     }
+    
+    public function setData( array $arr ) 
+    {
+        $keys = array(
+            'user',
+            'engineeringcategory',
+            'unit',
+            'price'
+        );
+        foreach($keys as $key){
+            if(isset($arr[$key])){
+                $this->$key = $arr[$key];
+            }
+        }
+        return $this;
+    }
 
     public function getId(){
         return $this->id;

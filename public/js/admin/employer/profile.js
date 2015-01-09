@@ -10,44 +10,64 @@ angularApp.run( function ( $rootScope ) {
         }
     });
 }) 
-angularApp.controller('PapertaskEmployerEditController', function($scope, $http, $timeout, $q) {
+angularApp.controller('PapertaskEmployerProfileController', function($scope, $http, $timeout, $q) {
+    $scope.pagetype = "edit-profile";
 	$scope.companies 	= [];
 	$scope.countries 	= [];
-	$scope.employer = {};
-	$scope.userId = '';
-	$scope.employerId = '';
-	$scope.init = function (str_uid, str_empid, str_country_select, str_company_id) {
-		$http.get("/api/common/country").success(function($data){
+    $scope.userInfo = {
+        isActive: null,
+        profileUpdated: null,
+        email: null,
+        firstName: null,
+        lastName: null,
+        gender: null,
+        city: null,
+        phone: null,
+        country: null,
+        company: null,
+        currency: null,
+        tmRatios: null
+    };
+    $scope.employer = {
+        username: null,
+        defaultServiceLevel: null,
+        comments: null,
+        company: null,
+        employerId: null,
+        position: null
+    };
+	$scope.init = function () {
+		var ajaxCountryInfo = $http.get("/api/common/country").success(function($data){
 	            $scope.countries = $data['countries'];
-	            console.log ( $scope.countries );
-	            console.log ( str_country_select);
-	            var i = 0;
-	            angular.forEach($scope.countries, function(v, k){
-	            	if ( v.select == str_country_select ) {
-	            		$scope.employer.country = $scope.countries[i];
-	            	}
-	            	i ++;
-	            });
 	            setModalControllerData('countries', $scope.countries);
 	    });
-		$scope.userId = str_uid;
-		$scope.employerId = str_empid;
-		$http.get("/api/common/company").success(function($data){
+
+		var ajaxCompanyInfo = $http.get("/api/common/company").success(function($data){
 	            $scope.companies = $data['companies'];
-	            var i = 0;
-	            angular.forEach($scope.companies, function(v, k){
-	            	if ( v.id == str_company_id ) {
-	            		$scope.employer.company = $scope.companies[i];
-	            	}
-	            	i ++;
-	            });
 	    });
-		
+		var ajaxUserInfo = $http.get('/api/user/' + USER_ID + "").success( function ( $data ) {
+		    $scope.userInfo = $data['user'];
+		});
+        
+        var ajaxEmployerInfo = $http.get('/api/user/' + USER_ID + "/employer").success( function ( $data ) {
+            $scope.employer = $data['employer'];
+            EMPLOYER_ID = $scope.employer.id;
+        });
+
+        $q.all( [ajaxCompanyInfo, ajaxEmployerInfo] )
+            .then(function() {
+                $scope.employer.company = findOptionByName( $scope.companies, $scope.employer.company);
+            });
+
+        $q.all( [ajaxCountryInfo, ajaxUserInfo] )
+            .then( function () {
+                $scope.userInfo.country = findOptionByName( $scope.countries, $scope.userInfo.country );
+            })
 	}
 	
 	$scope.saveCompany = function(company){
         var $data = jQuery.extend(true, {}, company);
-        $data.country = $data.country.select;
+        $data.country = $data.country.name;
         $http.post("/api/common/company", $data)
             .success(function($data){
                 jQuery("#modal-company").modal("hide");
@@ -55,27 +75,28 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
             });
     }
 	$scope.setGender = function( bGender ) {
-		$scope.employer.gender = bGender;
+		$scope.userInfo.gender = bGender;
 	}
 	$scope.submit = function(){
 		var pParam = new Array();
+        
 		pParam = {
-			firstName: $("#firstname").val(),
-			lastName: $("#lastname").val(),
-			name: $("#username").val(),
-			city: $("#city").val(),
-			position: $("#position").val(),
-			country: $scope.employer.country,
+			firstName: $scope.userInfo.firstName,
+			lastName: $scope.userInfo.lastName,
+			name: $scope.employer.name,
+			city: $scope.userInfo.city,
+			position: $scope.employer.position,
+			country: $scope.userInfo.country,
 			company: $scope.employer.company.id,
-			phone: $("#phone").val(),
-			user_id: $scope.userId,
-			defaultServiceLevel: $("#defaultServiceLevel").val(),
-			gender: $scope.employer.gender
+			phone: $scope.userInfo.phone,
+			user_id: USER_ID,
+			defaultServiceLevel: $scope.employer.defaultServiceLevel,
+			gender: $scope.userInfo.gender
 		}                     
         
-		$http.put("/api/user/"+$scope.userId,pParam).success(function(){
+		$http.put("/api/user/"+USER_ID, pParam).success(function(){
 			
 		});
-		$http.put("/api/user/" + $scope.employerId + "/employer?user_id="+$scope.userId, pParam).success(function(){});
+		$http.put("/api/user/" + EMPLOYER_ID + "/employer?user_id="+USER_ID, pParam).success(function(){});
 	}
 });

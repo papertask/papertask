@@ -1,0 +1,101 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div id="edit_project" class="panel-collapse collapse faq-answer">
+            <form method="" class="form-horizontal">
+                <div class="row form-horizontal">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Reference *</label>
+                            <div class="col-sm-9">
+                                <input name="reference" ng-model="tempProject.reference" type="text"
+                                       class="form-control required">
+                            </div>
+                        </div>
+                        <div class="form-group" id="ordered_date">
+                            <label class="col-sm-3 control-label">Start Date *</label>
+                            <div class="col-sm-9">
+                                <div class="input-append date form_datetime" >
+                                    <input class="form-control" type="text"
+                                           value="{{ DateFormatter.format(project.startDate) }}" readonly>
+                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                    <span class="add-on"><i class="icon-th"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Field *</label>
+                            <div class="col-sm-9">
+                                <select class="form-control required valid" name="field" aria-required="true"
+                                        ng-model="tempProject.field"
+                                        ng-options="field.name for field in fields">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Sales </label>
+                            <div class="col-sm-9">
+                                <select class="form-control required valid" name="sale" aria-required="true"
+                                        ng-model="tempProject.sale"
+                                        ng-options="sale.name for sale in sales">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Priority *</label>
+                            <div class="col-sm-9">
+                                <div data-toggle="buttons" class="label_check">
+                                    <label class="btn btn-outline btn-{{ priority.decorator }} btn-sm
+                                                      {{ tempProject.priority == priority ? 'active' : '' }}"
+                                           ng-repeat="priority in ProjectPriority.all()"
+                                           ng-click="tempProject.priority = priority">
+                                        <input type="radio" name="priority" value="{{ priority.id }}"> {{ priority.name }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="due_date">
+                            <label class="col-sm-3 control-label">Due Date *</label>
+                            <div class="col-sm-9">
+                                <div class="input-append date form_datetime" >
+                                    <input class="form-control" type="text"
+                                           value="{{ DateFormatter.format(project.dueDate) }}" readonly>
+                                    <span class="add-on"><i class="icon-remove"></i></span>
+                                    <span class="add-on"><i class="icon-th"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Client *</label>
+                            <div class="col-sm-9">
+                                <select class="form-control required valid" name="client" aria-required="true"
+                                        ng-model="tempProject.client"
+                                        ng-options="client.name for client in clients">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">PM *</label>
+                            <div class="col-sm-9">
+                                <select class="form-control required valid" name="pms" aria-required="true"
+                                        ng-model="tempProject.pm"
+                                        ng-options="pm.name for pm in pms">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right tooltip-demo">
+                    <button ng-click="update()" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

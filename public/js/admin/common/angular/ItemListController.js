@@ -6,6 +6,12 @@ angularApp.controller('ItemListController', function($scope, $location, $timeout
     $scope.maxSize = 7;
     $scope.page = 1;
     $scope.filter = {};
+    $scope.custom = {};
+
+    function setItemApi($Api){
+        $scope.ItemApi = $Api;
+    }
+    $scope.setItemApi = setItemApi;
 
     function remove($index){
         var item = $scope.items[$index];
@@ -29,6 +35,9 @@ angularApp.controller('ItemListController', function($scope, $location, $timeout
             $scope.pages =$pages;
             if(typeof(func) == 'function'){
                 func();
+            }
+            if(typeof($scope.custom.afterLoadItems) == 'function'){
+                $scope.custom.afterLoadItems($items, $pages);
             }
         });
     }
@@ -67,6 +76,11 @@ angularApp.controller('ItemListController', function($scope, $location, $timeout
     $scope.loadItems = loadItems;
     $scope.refresh = refresh;
 
-    $scope.loadItems($scope.page);
-
+    $scope.$watch(function(){
+        return $scope.ItemApi;
+    }, function(){
+        if(typeof($scope.ItemApi) != 'undefined'){
+            $scope.loadItems($scope.page);
+        }
+    });
 });
