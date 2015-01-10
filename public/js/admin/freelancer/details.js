@@ -108,16 +108,39 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
         });
     }
     function findResourcesGroup($resourceGroups, $ids){
+		console.log($ids);
         var resourcesgroup = [];
+		resourcesgroup.translation = 0;
+		resourcesgroup.deesktop = 0;
+		resourcesgroup.interpreting = 0;
         for(var i = 0; i < $resourceGroups.length; i++){
             for(var j = 0; j < $resourceGroups[i].resources.length; j++){
                 var resource = $resourceGroups[i].resources[j];
                 if($ids.indexOf(resource.id) != -1  ){
-                    if( resourcesgroup.length > 0 && resourcesgroup.indexOf($resourceGroups[i]) != -1){
+					console.log(resource);
+					console.log(resource);
+					if(resource.name == "Translation")
+							resourcesgroup.translation = 1;
+                    if(resource.name == "Desktop Publishing")
+							resourcesgroup.deesktop = 1;
+					if(resource.name == "Interpreting")
+							resourcesgroup.interpreting = 1;
+							
+                    i/*f( resourcesgroup.length > 0 && resourcesgroup.indexOf($resourceGroups[i]) != -1){
 						//console.log(resourcesgroup);
-						//resourcesgroup.push($resourceGroups[i]);
+						resourcesgroup.push($resourceGroups[i]);
 					}	
-					else 	resourcesgroup.push($resourceGroups[i]);
+					else 	{
+						console.log(resourcesgroup);
+						$resourcesgroup[$resourceGroups[i].id - 1] = $resourceGroups[i]; 
+						//if $resourceGroups[i].id = "Specialism";
+						
+						//if $resourceGroups[i].id = "Desktop Publishing";
+						
+						//if $resourceGroups[i].id = "Desktop Publishing";Interpreting
+						resourcesgroup.push($tmp[$resourceGroups[i].id]);
+					}*/
+					
                 }
             }
         }

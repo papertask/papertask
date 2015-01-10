@@ -72,12 +72,12 @@ $this->inlineScript()
 				<h4><?php echo $this->translate('Freelancer Type') ?> </h4>
 				<div class="row file-manager">
 					<ul class="tag-list" style="padding: 0">
-						<li ng-show="freelancer.ResourcesGroup[0].group.name == 'Translation'">
+						<li ng-show="freelancer.ResourcesGroup['translation'] == 1">
 							<a href=""><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></a></li>
-						<li ng-show="freelancer.ResourcesGroup[1].group.name == 'Desktop Publishing'">
+						<li ng-show="freelancer.ResourcesGroup['deesktop'] == 1">
 							<a href=""><i class="fa fa-desktop"></i> <?php echo $this->translate('Desktop Publishing') ?>
 							</a></li>
-						<li ng-show="freelancer.ResourcesGroup[2].group.name == 'Interpreting'">
+						<li ng-show="freelancer.ResourcesGroup['interpreting'] == 1">
 							<a href=""><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></a></li>
 					</ul>
 					

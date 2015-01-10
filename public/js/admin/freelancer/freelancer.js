@@ -23,6 +23,10 @@ angularApp.run( function ( $rootScope ) {
     });
 }) 
 angularApp.controller('FreelancertController', function($scope, $http, $timeout, $q) {
+	$scope.translation = 0;
+	$scope.desktop_publish = 0;
+	$scope.interpreting = 0;
+	
     $scope.countries = [];
     $scope.languages = [];
     $scope.resources = [];
@@ -156,16 +160,21 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     			phone: $scope.freelancer.phone,
     			gender: $scope.freelancer.gender,
 				resources: $scope.resorce_tmp,
-				translationspecialisms : $scope.TranslationSpecialisms_tmp,
-				translationcattools : $scope.TranslationCatTools_tmp,
-				desktopoperatingsystems : $scope.DesktopOperatingSystems_tmp,
-				desktopcattools : $scope.DesktopCatTools_tmp,
-				interpretingspecialisms : $scope.InterpretingSpecialisms_tmp,
 				
-    			translationPrices: $scope.translationPrices,
-    			desktopPrices: $scope.desktopPrices,
-    			interpretingPrices: $scope.interpretingPrices,
-    			engineeringPrices: $scope.engineeringPrices
+				translationspecialisms : ($scope.translation == 1)?$scope.TranslationSpecialisms_tmp:null,
+				translationcattools : ($scope.translation == 1)?$scope.TranslationCatTools_tmp:null,
+				desktopoperatingsystems : ($scope.desktop_publish == 1)?$scope.DesktopOperatingSystems_tmp:null,
+				desktopcattools : ($scope.desktop_publish == 1)?$scope.DesktopCatTools_tmp:null,
+				interpretingspecialisms : ($scope.interpreting == 1)?$scope.InterpretingSpecialisms_tmp:null,
+				
+				//$scope.translation = 0;
+	            //$scope.desktop_publish = 0;
+	            //$scope.interpreting = 0;
+
+    			translationPrices: ($scope.translation == 1)?$scope.translationPrices:[],
+    			desktopPrices: ($scope.desktop_publish == 1)?$scope.desktopPrices:[],
+    			interpretingPrices: ($scope.interpreting == 1)?$scope.interpretingPrices:[],
+    			//engineeringPrices: $scope.engineeringPrices
     	};
     	
     	$http.post("/api/user/freelancer", ptr_freelancer)
@@ -386,12 +395,37 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
      */
     $scope.toggleResource = function($id){
         console.log($scope.freelancer.Resources);
+		console.log($scope.resources);
         var $index = $scope.freelancer.Resources.indexOf($id);
         if($index == -1){
             $scope.freelancer.Resources.push($id);
         } else {
             $scope.freelancer.Resources.splice($index, 1);
         }
-        console.log($scope.freelancer.Resources);
+		//check hide some part 
+		$scope.translation = 0;
+		$scope.desktop_publish = 0;
+		$scope.interpreting = 0;
+		for(var i = 0; i < $scope.freelancer.Resources.length; i++){
+			for(var j = 0; j < $scope.resources.length; j++){
+				for (var k = 0; k < $scope.resources[j].resources.length; k++)
+				{
+					console.log($scope.resources[j].resources[k]);
+				
+					if($scope.freelancer.Resources[i].id == $scope.resources[j].resources[k].id )
+					{
+						if($scope.resources[j].group.id == 1)
+							$scope.translation = 1;
+						else if ($scope.resources[j].group.id == 2) 
+							$scope.desktop_publish = 1;
+						else if ($scope.resources[j].group.id == 3)	
+							$scope.interpreting = 1;
+						break;	
+					}
+						
+				}	
+			}
+		}
+		console.log($scope.freelancer.Resources);
     };
 });
