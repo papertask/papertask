@@ -122,7 +122,7 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
 					if(resource.name == "Translation")
 							resourcesgroup.translation = 1;
                     if(resource.name == "Desktop Publishing")
-							resourcesgroup.deesktop = 1;
+							resourcesgroup.desktop = 1;
 					if(resource.name == "Interpreting")
 							resourcesgroup.interpreting = 1;
 							

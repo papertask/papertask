@@ -74,7 +74,7 @@ $this->inlineScript()
 					<ul class="tag-list" style="padding: 0">
 						<li ng-show="freelancer.ResourcesGroup['translation'] == 1">
 							<a href=""><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></a></li>
-						<li ng-show="freelancer.ResourcesGroup['deesktop'] == 1">
+						<li ng-show="freelancer.ResourcesGroup['desktop'] == 1">
 							<a href=""><i class="fa fa-desktop"></i> <?php echo $this->translate('Desktop Publishing') ?>
 							</a></li>
 						<li ng-show="freelancer.ResourcesGroup['interpreting'] == 1">
@@ -139,7 +139,7 @@ $this->inlineScript()
 			<div class="panel-body">
 				<div class="tab-content">
 					<div id="tab-1" class="tab-pane active">
-						<div class="ibox float-e-margins">
+						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['translation'] == 1" >
 							<div class="ibox-title">
 								<h3><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></h3>
 							</div>
@@ -222,7 +222,7 @@ $this->inlineScript()
 								</div>
 							</div>
 						</div>
-						<div class="ibox float-e-margins">
+						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['desktop'] == 1" >
 							<div class="ibox-title">
 								<h3><i class="fa fa-desktop"></i> <?php echo $this->translate('Desktop Publishing') ?></h3>
 							</div>
@@ -312,7 +312,7 @@ $this->inlineScript()
 								</div>
 							</div>
 						</div>-->
-						<div class="ibox float-e-margins">
+						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['interpreting'] == 1" >
 							<div class="ibox-title">
 								<h3><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></h3>
 							</div>
