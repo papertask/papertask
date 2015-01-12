@@ -98,22 +98,32 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
         $('form[name=editProfileForm]').validate();
         var validate = $('form[name=editProfileForm]').valid();
         if(validate == true){
+            $scope.userInfo.type = $scope.staff.type.id;
             // update user info
-            $http.put('/api/user/'+USER_ID+'', $scope.userInfo).success(function($data){
+            var ajaxUpdateUser = $http.put('/api/user/'+USER_ID+'', $scope.userInfo).success(function($data){
             });
-            console.log ( $scope.userInfo );
-            $http.put('/api/user/'+USER_ID+'/staff', $scope.userInfo).success(function($data){
+
+            var ajaxUpdateStaff = $http.put('/api/user/'+USER_ID+'/staff', $scope.userInfo).success(function($data){
             });
-            $http.put('/api/user/'+USER_ID+'/bank-info', $scope.bankInfo).success(function($data){
+            var ajaxUpdateBank = $http.put('/api/user/'+USER_ID+'/bank-info', $scope.bankInfo).success(function($data){
             });
+           
             // update resume
             if($scope.resume.user_id){
                 // create
                 $http.post('/api/user/'+USER_ID+'/resume', $scope.resume).success(function($data){
+                    $q.all([ajaxUpdateUser, ajaxUpdateStaff, ajaxUpdateBank])
+                        .then ( function () {
+                        location.href = "/admin/staff/view/?id=" + USER_ID;
+                    });
                 });
             }else{
                 // Update
                 $http.put('/api/user/'+USER_ID+'/resume', $scope.resume).success(function($data){
+                    $q.all([ajaxUpdateUser, ajaxUpdateStaff, ajaxUpdateBank])
+                        .then ( function () {
+                        location.href = "/admin/staff/view/?id=" + USER_ID;
+                    });
                 });
             }
             
@@ -281,8 +291,8 @@ angularApp.directive('stafftype', function($http, $compile){
         var strHtml = "";
         
         for ( var i = 0; i < arrTypes.length; i ++) {
-            strLabel =  "<label class='btn btn-sm btn-outline btn-primary staffrole' rid='"+arrTypes[i].id+"'>" +
-                            "<input type='radio' name='translator' style='width: 0px'> " + arrTypes[i].type +
+            strLabel =  "<label class='btn btn-sm btn-outline btn-primary staffrole' rid='"+arrTypes[i].id+"' required>" +
+                            "<input type='radio' name='translator' style='width: 0px' > " + arrTypes[i].type +
                         "</label>";
             //strHtml +=  strLabel;
             if ( nSubtype != arrTypes[i].subtype ) {

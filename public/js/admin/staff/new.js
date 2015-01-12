@@ -213,7 +213,7 @@ angularApp.directive('stafftype', function($http, $compile){
         
         for ( var i = 0; i < arrTypes.length; i ++) {
             strLabel =  "<label class='btn btn-sm btn-outline btn-primary staffrole' rid='"+arrTypes[i].id+"'>" +
-                            "<input type='radio' name='translator' style='width: 0px'> " + arrTypes[i].type +
+                            "<input type='radio' class='required' name='translator' style='width: 0px'> " + arrTypes[i].type +
                         "</label>";
             //strHtml +=  strLabel;
             if ( nSubtype != arrTypes[i].subtype ) {

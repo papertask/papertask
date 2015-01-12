@@ -27,7 +27,8 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
         country: null,
         company: null,
         currency: null,
-        tmRatios: null
+        tmRatios: null,
+        alias: null
     };
     $scope.employer = {
 		username: null,
@@ -60,7 +61,8 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
                     phone: $data.user.phone,
                     country: $data.user.country,
                     currency: $data.user.currency,
-                    tmRatios: $data.tmRatios
+                    tmRatios: $data.tmRatios,
+                    alias: $data.user.alias
                 };
                 $scope.tmRatios = $data.tmRatios;
                 $scope.translationPrices = $data.translationPrices;
