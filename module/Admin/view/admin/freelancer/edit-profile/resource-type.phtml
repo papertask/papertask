@@ -1,0 +1,16 @@
+
+    <div class="form-group" ng-repeat="resourceGroup in resources">
+			<label class="col-sm-3 control-label">
+                <h4><i class="fa fa-coffee"></i>&nbsp; {{resourceGroup.group.name}}</h4>
+            </label>
+			<div data-toggle="buttons">
+				
+				<label class="btn btn-outline btn-primary {{resource_active[resource.id]}}" 
+				ng-repeat="resource in resourceGroup.resources" ng-click="toggleResource(resource)">
+					
+					<input type="checkbox" name="resource_{{resource.id}}"
+                           ng-value=""/> {{resource.name}}
+                </label>
+                
+            </div>
+    </div>

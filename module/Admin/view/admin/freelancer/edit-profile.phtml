@@ -28,10 +28,12 @@ $this->inlineScript()
             var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
             $('.click2edit').destroy();
         };
+		var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
         ");
 ?>
 
-<div ng-controller="editProfileController" class="ibox float-e-margins">
+
+<div ng-controller="EditProfileFreelancerController" ng-init="init()" id="EditProfileFreelancerController" class="ibox float-e-margins">
     <div class="ibox-title">
         <h4><i class="fa fa-edit"></i> <?php echo $this->translate('Edit Profile') ?></h4>
     </div>
@@ -77,6 +79,7 @@ $this->inlineScript()
                                                     </div>
                                                 </div>
                                             </div>
+											
                                         </div>
                                         <div class="hr-line-dashed"></div>
                                         <div class="row">
@@ -91,10 +94,28 @@ $this->inlineScript()
                     <h4><i class="fa fa-info-circle"></i> <?php echo $this->translate('Basic Information') ?></h4>
                     <div class="hr-line-dashed"></div>
 					
-                    <?php include __DIR__ . "/../user/basic-info.phtml" ?>
+                    <?php include __DIR__ . "/edit-profile/basic-info.phtml" ?>
                 </div>
             </div>
-
+			<div class="panel panel-primary">
+                <div class="panel-body">
+                    <h4><i class="fa fa-puzzle-piece"></i> <?php echo $this->translate('Resource Type') ?></h4>
+                    <div class="hr-line-dashed"></div>
+					
+                    <?php include __DIR__ . "/edit-profile/resource-type.phtml" ?>
+                </div>
+            </div>
+			
+			<div class="panel panel-primary">
+                <div class="panel-body">
+                    <h4><i class="fa fa-usd"></i> <?php echo $this->translate('Price for PaperTask') ?></h4>
+                    <div class="hr-line-dashed"></div>
+					
+                    <?php include __DIR__ . "/edit-profile/language-skill-price.phtml" ?>
+                </div>
+            </div>
+			
+			
             <div class="panel panel-primary">
                 <div class="panel-body">
 
@@ -112,3 +133,4 @@ $this->inlineScript()
         </form>
     </div>
 </div>
+<?php include "/edit-profile/modal.phtml" ?>
