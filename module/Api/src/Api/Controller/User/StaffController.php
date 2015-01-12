@@ -78,8 +78,8 @@ class StaffController extends AbstractRestfulController
         }   
         return new JsonModel([
             'staff' => $staffData,
-            'bankInfo' => $bankInfo->getData(),
-            'resume' => $resume->getData(),
+            'bankInfo' => $bankInfo ? $bankInfo->getData() : null,
+            'resume' => $resume ? $resume->getData():null,
             'cvfiles' => $cvfiles
         ]);
     }
@@ -106,47 +106,50 @@ class StaffController extends AbstractRestfulController
 
                                 //->findBy(array('group' => $freelancerGroup));
         $queryBuilder = $staffList->createQueryBuilder('user');
-
-        $queryBuilder->innerJoin('user.staff', 'staff')->where('staff.client=?1')->setParameter(1, $user);
-        $queryBuilder->andWhere("user.group = 3");
         // check search condition
         $request = $this->getRequest();
+        if($request->getQuery('search') && $request->getQuery('type')) {
+            $role = $entityManager->getRepository('User\Entity\Roles')->findBy(array('id' => $request->getQuery('type')));
+            $queryBuilder->leftJoin('user.staff', 'staff')->where('staff.client=?1 and staff.type=?2')->setParameter(1, $user)->setParameter(2, $role);
+        } else {
+            $queryBuilder->leftJoin('user.staff', 'staff')->where('staff.client=?1')->setParameter(1, $user);
+        }
+
+        $queryBuilder->andWhere("user.group = 3");
+
         if($request->getQuery('search')){
-            
+            // search by country aa
+            if($request->getQuery('country')){
+                $country = $entityManager->getRepository('User\Entity\Country')->findBy(array('id'=>(int)$request->getQuery('country')));
+                $queryBuilder->andWhere("user.country=?3")->setParameter(3, $country);
+            }
             // search by name
             if($request->getQuery('name')){
                 $arrayName = explode(' ', $request->getQuery('name'));
-                echo $arrayName[0];
                 if(count($arrayName) != 2){
-                    $queryBuilder->andWhere("user.firstName like ?1 OR user.lastName like ?1")
-                        ->setParameter(1, '%' . $request->getQuery('name') . '%');
+                    $queryBuilder->andWhere("user.firstName like '%".$request->getQuery('name')."%' OR user.lastName like '%".$request->getQuery('name')."%'");
+
                 }else{
-                    $queryBuilder->andWhere("(user.firstName like ?1 AND user.lastName like ?2)
-                                        OR (user.lastName like ?1 AND user.firstName like ?2)")
-                        ->setParameter(1, '%' . $arrayName[0] . '%')
-                        ->setParameter(2, '%' . $arrayName[1] . '%');
+                    $queryBuilder->andWhere("user.firstName like '%".$arrayName[0]."%' OR user.lastName like '%".$arrayName[1]."%'");
                 }
+            }
+            if ( $request->getQuery('email') ) {
+                $queryBuilder->andWhere("user.email='". $request->getQuery('email')."'");
+            }
+            if ( $request->getQuery('alias') ) {
+                $queryBuilder->andWhere("user.alias like '%".$request->getQuery('alias')."%'");
             }
 
             // search by id
             if($request->getQuery('idStaff')){
-                $queryBuilder->andWhere("user.id = ?1")
-                    ->setParameter(1, (int)$request->getQuery('idStaff'));
-            }
-
-            // search by country aa
-            if($request->getQuery('country')){
-                $queryBuilder->andWhere("user.country = ?1")
-                    ->setParameter(1, $request->getQuery('country'));
+                $queryBuilder->andWhere("user.id=$request->getQuery('idStaff')");
             }
 
             // search include inactive
-            if(!$request->getQuery('includeInactive')){
-                $queryBuilder->andWhere("user.isActive = ?1")
-                    ->setParameter(1, 1);
+            if($request->getQuery('includeInactive')){
+                $queryBuilder->andWhere("user.isActive='1'");
             }
         }
-
         $queryBuilder->orderBy('user.createdTime', 'ASC');
         $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
@@ -159,9 +162,11 @@ class StaffController extends AbstractRestfulController
         if(count($paginator) > 0){
             foreach($paginator as $user){
                 $userData = $user->getData();
+                $userData['staff'] = $user->getStaff()->getData();
                 $userData['createdTime'] = $helper->formatDate($userData['createdTime']);
                 $data[] = $userData;
             }
+
             return new JsonModel(array(
                 'staffList' => $data,
                 'pages' => $paginator->getPages()

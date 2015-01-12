@@ -7,13 +7,13 @@
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label><?php echo $this->translate('Sales') ?> </label>
-                    <select class="form-control required" id="sales" name="sales" ng-model="employer.sales" ng-options="saler.name for saler in saleslist"></select>
+                    <select class="form-control required" id="sales" name="sales" ng-model="employer.sales" ng-options="saler.name for saler in saleslist" required></select>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label><?php echo $this->translate('PM') ?> </label>
-                    <select class="form-control required" id="pm" name="pm" ng-model="employer.pm" ng-options="pmanager.name for pmanager in pmlist"></select>
+                    <select class="form-control required" id="pm" name="pm" ng-model="employer.pm" ng-options="pmanager.name for pmanager in pmlist" required></select>
 				</div>
 			</div>
 		</div>
