@@ -55,6 +55,18 @@ class Employer extends Entity{
      */
     protected $contracted;
 
+    /**
+     * @var \User\Entity\Staff
+     * @ORM\ManyToOne(targetEntity="Staff")
+     */
+    protected $pm;
+
+    /**
+     * @var \User\Entity\Staff
+     * @ORM\ManyToOne(targetEntity="Staff")
+     */
+    protected $sales;
+
     public function getData(){
         return [
             'company' => $this->company ? $this->company->getData() : null,
@@ -63,7 +75,9 @@ class Employer extends Entity{
             'name' => $this->name ? $this->name : '',
             'position' => $this->position,
             'comments' => $this->comments,
-            'contracted'=> $this->contracted
+            'contracted'=> $this->contracted,
+            'pm' => $this->pm ? $this->pm->getData() : null,
+            'sales' => $this->sales ? $this->sales->getData() : null
         ];
     }
 

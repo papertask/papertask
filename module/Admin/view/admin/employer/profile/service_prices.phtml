@@ -6,24 +6,14 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label><?php echo $this->translate('Sales') ?> </label> <select class="form-control required"
-						id="sales" name="sales" value="">
-						<option>option 1</option>
-						<option>option 2</option>
-						<option>option 3</option>
-						<option>option 4</option>
-					</select>
+					<label><?php echo $this->translate('Sales') ?> </label>
+                    <select class="form-control required" id="sales" name="sales" ng-model="employer.sales" ng-options="saler.name for saler in saleslist"></select>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label><?php echo $this->translate('PM') ?> </label> <select class="form-control required"
-						id="pm" name="pm" value="">
-						<option>option 1</option>
-						<option>option 2</option>
-						<option>option 3</option>
-						<option>option 4</option>
-					</select>
+					<label><?php echo $this->translate('PM') ?> </label>
+                    <select class="form-control required" id="pm" name="pm" ng-model="employer.pm" ng-options="pmanager.name for pmanager in pmlist"></select>
 				</div>
 			</div>
 		</div>

@@ -48,6 +48,8 @@ class EmployerController extends AbstractRestfulController
 		$entityManager = $this->getEntityManager();
 		$data['company_id'] = $entityManager->getRepository('User\Entity\Company')->findOneBy(array('id' => $pdata['company']));
         $data['country'] = $entityManager->getRepository('User\Entity\Country')->findOneBy(array('id' => $pdata['country']));
+        $data['pm'] = $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $pdata['pm']['id']));
+        $data['sales'] = $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $pdata['sales']['id']));
 		$userExist = $entityManager->getRepository('User\Entity\User')->findOneBy(array('email'=>$pdata['email']));
 		 
 		if ( $userExist ) {
@@ -58,14 +60,14 @@ class EmployerController extends AbstractRestfulController
             $user->save($entityManager);
 			$user->createEmployer( $this, $data, $entityManager);
 			$employer = $user->getEmployer();
-	       
 			$employer->updateData(array(
                 'position'=>$pdata['position'],
                 'company'=>$data['company_id'],
                 'defaultServiceLevel'=>$pdata['defaultServiceLevel'],
                 'comments'=>$pdata['comments'],
-                'contracted'=> $pdata['contracted'])
-            );
+                'contracted'=> $pdata['contracted'],
+                'pm' => $data['pm'] ,
+                'sales' => $data['sales']));
 			$employer->save($entityManager);
 	
 			$ret_data = $user->getData();
@@ -170,8 +172,10 @@ class EmployerController extends AbstractRestfulController
                 'company'=>$entityManager->getRepository('User\Entity\Company')->findOneBy(array('id' => $data['company'])), 
                 'defaultServiceLevel'=>$data['defaultServiceLevel'],
                 'comments'=>$data['comments'],
-                'contracted' => $data['contracted'])
-            );
+                'contracted' => $data['contracted'],
+                'pm' => $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $data['pm']['id'])),
+                'sales' => $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $data['sales']['id']))
+            ));
         $employer->save($entityManager);
 
         return new JsonModel([]);

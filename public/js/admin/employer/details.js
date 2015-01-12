@@ -36,7 +36,9 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
 		company: null,
 		employerId: null,
         position: null,
-        contracted: null
+        contracted: null,
+        pm: null,
+        sales: null
 	};
     $scope.priceType    = 'CNY';
 	
@@ -86,7 +88,9 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
     				company: $data.employer.company,
     				employerId: $data.employer.id,
                     position: $data.employer.position,
-                    contracted: $data.employer.contracted
+                    contracted: $data.employer.contracted,
+                    pm: $data.employer.pm,
+                    sales: $data.employer.sales
     			};
                 $("#objNote").html($scope.employer.comments);
         	});

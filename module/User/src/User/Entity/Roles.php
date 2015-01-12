@@ -14,6 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
 /** @ORM\Entity */
 class Roles {
 
+    const PM_ROLE_ID        = 7;
+    const SALES_ROLE_ID     = 5;
+
     /**
      * @var integer
      *

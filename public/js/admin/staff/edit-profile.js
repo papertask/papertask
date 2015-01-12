@@ -36,7 +36,9 @@ angularApp.service('sharedInstance', function() {
 	};
 });
 angularApp.controller('editProfileController', function($scope, $http, $timeout, $q, sharedInstance){
-    $scope.userInfo = {};
+    $scope.userInfo = {
+        'type': null
+    };
     $scope.cvfiles = [];
     $scope.staff = {};
     $scope.resume = {
@@ -56,7 +58,7 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
         $http.get('/api/user/' + USER_ID + 'staff').success( function ( $data ) {
             if ( $data['staff']) {
                 $scope.staff = $data['staff'];
-                $scope.userInfo.type = $scope.staff.id;
+                $scope.userInfo.type = $scope.staff.type.id;
                 $scope.loadStaffType();
             }
         });
@@ -99,6 +101,7 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
             // update user info
             $http.put('/api/user/'+USER_ID+'', $scope.userInfo).success(function($data){
             });
+            console.log ( $scope.userInfo );
             $http.put('/api/user/'+USER_ID+'/staff', $scope.userInfo).success(function($data){
             });
             $http.put('/api/user/'+USER_ID+'/bank-info', $scope.bankInfo).success(function($data){

@@ -12,10 +12,10 @@ $this->headScript()
 $this->inlineScript()
     ->prependScript("
         var USER_ID = '" . $this->user['id'] . "';
-        var STAFF_ID = '" . $this->staff['id'] . "';
+        var STAFF_ID = '" . $staff . "';
     ");
 ?>
-<div ng-controller="viewStaffController" class="row animated fadeInRight">
+<div ng-controller="viewStaffController" class="row animated fadeInRight" ng-init="init()">
 <div class="col-md-4">
     <div class="ibox">
         <div class="ibox-title">
@@ -74,7 +74,7 @@ $this->inlineScript()
 
             <div class="row file-manager">
                 <ul class="tag-list" style="padding: 0">
-                    <li><a href=""><?php echo $staff['type']['type'];?></a></li>
+                    <li><a href="">{{staff.type.type}}</a></li>
                 </ul>
             </div>
 
@@ -96,7 +96,7 @@ $this->inlineScript()
                 <strong>ABA Routing Number</strong>: <?php echo $bankInfo['routingNumber']; ?>
             </address>
 
-            <a href="<?php echo $this->url('admin', ['controller'=>'staff', 'action'=>'edit-payment-info']) ?>?id=<?php echo $user['id'];?>"
+            <a href="<?php echo $this->url('admin', ['controller'=>'staff', 'action'=>'edit-profile']) ?>?id=<?php echo $user['id'];?>"
                class="btn btn-primary btn-block"><i class="fa fa-paste"></i> Edit</a>
         </div>
     </div>

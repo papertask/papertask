@@ -24,6 +24,14 @@ class Staff extends Entity{
     protected $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\User\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+     * })
+     */
+    protected $client;
+
+    /**
      * @var string
      * @ORM\Column(type="string", nullable=true)
      */
@@ -31,21 +39,26 @@ class Staff extends Entity{
 
     /**
      * @var \User\Entity\Roles
-     * @ORM\OneToOne(targetEntity="Roles")
+     * @ORM\ManyToOne(targetEntity="Roles")
      */
     protected $type;
     
     public function getData(){
         return [
             'id' => $this->id,
+            'client' => $this->client->getData(),
             'name' => $this->name,
-            'type' => $this->type->getData(),
+            'type' => $this->type->getData()
         ];
     }
     
     public function setType( $type ) 
     {
     	$this->type = $type;
+    }
+
+    public function setClient( $client ) {
+        $this->client = $client;
     }
     
     public function getId() {

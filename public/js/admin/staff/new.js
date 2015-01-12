@@ -42,7 +42,8 @@ angularApp.service('sharedInstance', function() {
 
 angularApp.controller('newStaffController', function($scope, $http, $timeout, $q, sharedInstance){
     $scope.userInfo = {
-        gender: ''
+        gender: '',
+        type: null
     };
     $scope.resume = {};
     $scope.bankInfo = {};
@@ -81,12 +82,15 @@ angularApp.controller('newStaffController', function($scope, $http, $timeout, $q
             	   location.href="/admin/staff/view?id=" + strUserId;
             		// bootbox.alert("Saved successfully!" );
             });
-        });
+        })
+            .onerror(function(err) {
+                bootbox.alert('Failed to save');
+                return;
+            });
     }
     
     $scope.setStaffType = function ( rid ) {
         $scope.userInfo.type = rid;
-        console.log ( rid );
     }
 });
 
@@ -230,7 +234,6 @@ angularApp.directive('stafftype', function($http, $compile){
         link: function (scope, element, attributes) {
             $http.get('/api/admin/roles').success(function( $data ) {
                 element.html( getTemplateUrl($data['types']) );
-                
                 element.bind('mousedown', function(e) {
                     scope.setStaffType( $(e.target).attr('rid') );
                 });

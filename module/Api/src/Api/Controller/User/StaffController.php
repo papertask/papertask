@@ -52,6 +52,7 @@ class StaffController extends AbstractRestfulController
 			$user->createStaff( $this, $pdata );
 			$staff = $user->getStaff();
 			$staff->setType( $entityManager->getRepository('User\Entity\Roles')->findOneBy(array('id' => $data['type'])) );
+            $staff->setClient( $this->getCurrentUser() );
 			$staff->save($entityManager);
 			
 			$staffData = $staff->getData();
@@ -97,14 +98,17 @@ class StaffController extends AbstractRestfulController
 
     public function getList(){
         $entityManager = $this->getEntityManager();
+        $user = $this->getCurrentUser();
 
         // Get staff group
         $staffGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::ADMIN_GROUP_ID);
         $staffList = $entityManager->getRepository('User\Entity\User');
-                                //->findBy(array('group' => $freelancerGroup));
-        $queryBuilder = $staffList->createQueryBuilder('user')
-                ->where("user.group = ?1")->setParameter(1, $staffGroup);
 
+                                //->findBy(array('group' => $freelancerGroup));
+        $queryBuilder = $staffList->createQueryBuilder('user');
+
+        $queryBuilder->innerJoin('user.staff', 'staff')->where('staff.client=?1')->setParameter(1, $user);
+        $queryBuilder->andWhere("user.group = 3");
         // check search condition
         $request = $this->getRequest();
         if($request->getQuery('search')){

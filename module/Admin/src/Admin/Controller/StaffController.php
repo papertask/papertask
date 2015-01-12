@@ -9,6 +9,8 @@
 
 namespace Admin\Controller;
 
+use User\Entity\Roles;
+use Zend\Permissions\Rbac\Role;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 
@@ -38,10 +40,10 @@ class StaffController extends AbstractActionController
             foreach ( $cvfile as $k => $v ) {
                 $cvfiles[$k] = $v->getData();
             }
-            
+
             return new ViewModel(array(
                 "user" => $user->getData(),
-                'staff' => $user->getStaff()->getData(),
+                'staff' => $user->getStaff()->getId(),
                 'bankInfo' => $bankInfo->getData(),
                 'resume' => $resume->getData(),
                 'cvfiles' => $cvfiles
@@ -114,5 +116,54 @@ class StaffController extends AbstractActionController
         $answer = ["success" => true];
         
         return new JsonModel( $answer );
+    }
+
+    public function getPmListAction() {
+        $entityManager = $this->getEntityManager();
+
+        // Get staff group
+        $staffList = $entityManager->getRepository('User\Entity\Staff');
+        //->findBy(array('group' => $freelancerGroup));
+        $queryBuilder = $staffList->createQueryBuilder('staff')
+            ->where("staff.type = ".Roles::PM_ROLE_ID);
+
+        // check search condition
+        $request = $this->getRequest();
+        // if($request->getQuery('clientid')){
+            $client = $this->getCurrentUser();
+            $queryBuilder->andWhere("staff.client = ?1")
+                ->setParameter(1, $client);
+        // }
+
+        $query = $queryBuilder->getQuery();
+        $result = $query->getArrayResult();
+        return new JsonModel([
+            'pmlist' => $result
+        ]);
+    }
+
+    public function getSalesListAction() {
+        $entityManager = $this->getEntityManager();
+
+        // Get staff group
+        $staffGroup = $entityManager->find('User\Entity\Roles', Roles::SALES_ROLE_ID);
+        $staffList = $entityManager->getRepository('User\Entity\Staff');
+        //->findBy(array('group' => $freelancerGroup));
+        $queryBuilder = $staffList->createQueryBuilder('staff')
+            ->where("staff.type = ".Roles::SALES_ROLE_ID);
+
+        // check search condition
+        $request = $this->getRequest();
+        $client = $this->getCurrentUser();
+        // if($request->getQuery('clientid')){
+            $queryBuilder->andWhere("staff.client = ?1")
+                ->setParameter(1, $client);
+       //  }
+
+        $query = $queryBuilder->getQuery();
+        $result = $query->getArrayResult();
+        return new JsonModel([
+            'saleslist' => $result
+        ]);
     }
 }

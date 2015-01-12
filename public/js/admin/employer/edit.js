@@ -29,6 +29,8 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     $scope.resources = [];
     $scope.softwares = [];
     $scope.companies = [];
+    $scope.pmlist    = [];
+    $scope.saleslist = [];
     
     $scope.userInfo = {
         isActive: null,
@@ -51,7 +53,9 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
 		company: null,
 		employerId: null,
         position: null,
-        contracted: null
+        contracted: null,
+        pm: null,
+        sales: null
 	};
     // For Engineering Price
     $scope.units 	 = [];
@@ -89,21 +93,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
                 
                 initModal();
             });
-        
-        var ajaxEmployerInfo = $http.get("/api/user/" + USER_ID + "/employer")
-        	.success( function ( $data ) {
-        		$scope.employer = {
-    				username: $data.employer.name,
-    				defaultServiceLevel: $data.employer.defaultServiceLevel,
-		            comments: $data.employer.comments,
-    				company: $data.employer.company,
-    				employerId: $data.employer.id,
-                    position: $data.employer.position,
-                    contracted: $data.employer.contracted
-    			};
-                $(".summernote").code( $data.employer.comments );
-        		$("#EmployerController").fadeIn();
-        	});
+
         var ajaxUserInfo = $http.get("/api/user/" + USER_ID + "")
             .success ( function ( $data ) {
                 $scope.userInfo = {
@@ -119,6 +109,31 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
                     currency: $data.user.currency,
                     tmRatios: $data.tmRatios
                 };
+                var ajaxEmployerInfo = $http.get("/api/user/" + USER_ID + "/employer")
+                    .success( function ( $data ) {
+                        $scope.employer = {
+                            username: $data.employer.name,
+                            defaultServiceLevel: $data.employer.defaultServiceLevel,
+                            comments: $data.employer.comments,
+                            company: $data.employer.company,
+                            employerId: $data.employer.id,
+                            position: $data.employer.position,
+                            contracted: $data.employer.contracted,
+                            pm: $data.employer.pm,
+                            sales: $data.employer.sales
+                        };
+                        $(".summernote").code( $data.employer.comments );
+                        $("#EmployerController").fadeIn();
+                    });
+                $q.all([ajaxEmployerInfo, ajaxCompanyInfo])
+                    .then ( function () {
+                    $scope.employer.company = findOptionByName($scope.companies, $scope.employer.company);
+                });
+                $q.all([ajaxPmInfo, ajaxSalesInfo, ajaxEmployerInfo])
+                    .then ( function() {
+                    $scope.employer.pm = findOptionByName( $scope.pmlist, $scope.employer.pm);
+                    $scope.employer.sales = findOptionByName( $scope.saleslist, $scope.employer.sales);
+                });
             });
         var ajaxCountryInfo = $http.get("/api/common/country")
             .success(function($data){
@@ -128,15 +143,18 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
         var ajaxCompanyInfo = $http.get("/api/common/company")
 	        .success(function($data){
 	            $scope.companies = $data['companies'];
-        });      
+        });
+        var ajaxPmInfo = $http.get("/admin/staff/getPmList").success(function($data) {
+            $scope.pmlist = $data.pmlist;
+        });
+        var ajaxSalesInfo = $http.get("/admin/staff/getSalesList").success(function($data) {
+            $scope.saleslist = $data.saleslist;
+        });
         $q.all([ajaxUserInfo, ajaxCountryInfo])
             .then(function(){
                 $scope.userInfo.country = findOptionByName($scope.countries, $scope.userInfo.country);
             });
-        $q.all([ajaxEmployerInfo, ajaxCompanyInfo])
-            .then ( function () {
-                $scope.employer.company = findOptionByName($scope.companies, $scope.employer.company);
-            });
+
         $http.get('/api/user/desktopprice?userId='+USER_ID).success(function($data) {
             $scope.desktopPrices = $data['desktopPrices'];
         });
@@ -161,7 +179,6 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
      */
     $scope.submit = function(){
     	$scope.employer.comments = $('.summernote').code();
-
     	if ( $scope.userInfo.tmRatios && $scope.userInfo.tmRatios.id ) {
     		$http.put("/api/user/" + $scope.userInfo.tmRatios.id + "/tmratio", {
     			userId: USER_ID,

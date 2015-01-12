@@ -30,6 +30,8 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     $scope.softwares = [];
     $scope.companies = [];
     $scope.units 	 = [];
+    $scope.pmlist    = [];
+    $scope.saleslist = [];
     $scope.engineeringCategories = [];
 
     $scope.translationPrices = [];
@@ -63,7 +65,9 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
         company: null,
         employerId: null,
         position: null,
-        contracted: null
+        contracted: null,
+        pm: null,
+        sales: null
     };
 
     /**
@@ -85,6 +89,16 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
                 $scope.softwares = $data['softwares'];
                 $scope.engineeringCategories = $data['engcategory'];
                 initModal();
+            });
+
+        var ajaxPmlist = $http.get("/admin/staff/getPmList")
+            .success( function ( $data ) {
+                $scope.pmlist = $data.pmlist;
+            });
+
+        var ajaxSalesList = $http.get("/admin/staff/getSalesList")
+            .success( function ( $data ) {
+                $scope.saleslist = $data.saleslist;
             });
 
         $http.get("/api/common/country")
@@ -130,7 +144,9 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     			tmRatio: $scope.userInfo.tmRatios,
     			comments: $('.summernote').code(),
     			engineeringPrices: $scope.engineeringPrices,
-                contracted: $scope.employer.contracted
+                contracted: $scope.employer.contracted,
+                pm: $scope.employer.pm,
+                sales: $scope.employer.sales
     	};
 
     	$http.post("/api/user/employer", ptr_employer)
