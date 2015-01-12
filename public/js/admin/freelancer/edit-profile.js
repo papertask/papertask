@@ -31,6 +31,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     $scope.companies = [];
 	
     $scope.userInfo = {};
+	$scope.bankInfo = {};
 	
 	$scope.translationPrices = [];
 	$scope.desktopPrices = [];
@@ -391,6 +392,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
         }
         getUser();
 		loadFreelancerData();
+		getBankInfo();
 		$http.get('/api/user/translationprice?userId='+ USER_ID).success(function($data) {
             $scope.translationPrices = $data['translationPrices'];
         });
