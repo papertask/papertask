@@ -100,10 +100,6 @@ class User extends Entity implements InputFilterAwareInterface{
      */
     protected $staff;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $alias;
 
     // class variables
     protected $inputFilter;
@@ -145,8 +141,7 @@ class User extends Entity implements InputFilterAwareInterface{
             'password',
             'phone',            
             'isActive',
-            'profileUpdated',
-            'alias'
+            'profileUpdated'
         );
         foreach($keys as $key){
             if(isset($arr[$key])){
@@ -433,8 +428,7 @@ class User extends Entity implements InputFilterAwareInterface{
             "lastLogin" => $this->lastLogin,
             "lastName" => $this->lastName,
             "phone" => $this->phone,
-            "profileUpdated" => $this->profileUpdated,
-            "alias" => $this->alias
+            "profileUpdated" => $this->profileUpdated
         );
     }
 
@@ -510,15 +504,6 @@ class User extends Entity implements InputFilterAwareInterface{
         return $randomString;
     }
 
-    public function generateRandomNumber ( $length = 8 ) {
-        $characters = '01234567890';
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, strlen($characters) - 1)];
-        }
-        return $randomString;
-    }
-
     public function createUserBySocialProfile($controller, $profile, $group){
         $entityManager = $controller->getEntityManager();
         $data = array(
@@ -539,8 +524,6 @@ class User extends Entity implements InputFilterAwareInterface{
     public function createStaff( $controller, $data )
     {
         $entityManager = $controller->getEntityManager();
-        $strAlias = $this->getAlias( $entityManager, UserGroup::ADMIN_GROUP_ID );
-        $data['alias'] = $strAlias;
         $this->setData($data);
         $this->setGroupByName('staff', $entityManager);
         $entityManager->persist($this);
@@ -548,55 +531,14 @@ class User extends Entity implements InputFilterAwareInterface{
         $this->sendConfirmationEmail($controller);
     }
 
-    public function getAlias( $entityManager, $group ) {
-        $strAlias = '';
-
-
-        switch ( $group ) {
-            case UserGroup::ADMIN_GROUP_ID:
-                $strAlias = "PT". $this->generateRandomNumber();
-                $userList = $entityManager->getRepository('User\Entity\User');
-                $queryBuilder = $userList->createQueryBuilder('user');
-                $queryBuilder->where('user.alias=?1')->setParameter(1, $strAlias);
-                $testStaffList = $queryBuilder->getQuery()->getArrayResult();
-                while ( $testStaffList != null ) {
-                    $strAlias = "PT". $this->generateRandomNumber();
-                    $queryBuilder = $userList->createQueryBuilder('user');
-                    $queryBuilder->where('user.alias=?1')->setParameter(1, $strAlias);
-                    $testStaffList = $queryBuilder->getQuery()->getArrayResult();
-                    sleep( 1 );
-                }
-                break;
-            case UserGroup::EMPLOYER_GROUP_ID:
-                $strAlias = "CL" . $this->generateRandomNumber();
-                $userList = $entityManager->getRepository('User\Entity\User');
-                $queryBuilder = $userList->createQueryBuilder('user');
-                $queryBuilder->where('user.alias=?1')->setParameter(1, $strAlias);
-                $testClientList = $queryBuilder->getQuery()->getArrayResult();
-                while ( $testClientList != null ) {
-                    $strAlias = "CL" . $this->generateRandomNumber();
-                    $queryBuilder = $userList->createQueryBuilder('user');
-                    $queryBuilder->where('user.alias=?1')->setParameter(1, $strAlias);
-                    $testClientList = $queryBuilder->getQuery()->getArrayResult();
-                    sleep( 1 );
-                }
-                break;
-            default:
-                break;
-        }
-        return $strAlias;
-    }
-
     public function createEmployer( $controller, $data, $entityManager ) 
     {
-        $strAlias = $this->getAlias( $controller->getEntityManager(), UserGroup::EMPLOYER_GROUP_ID);
         $data = array(
             'email' => $data['email'],
             'lastName' => $data['lastName'],
             'firstName' => $data['firstName'],
             'lastLogin' => new \DateTime('now'),
             'createdTime' => new \DateTime('now'),
-            'alias' => $strAlias,
         );
         $this->setData($data);
         $this->encodePassword($this->generateRandomString());

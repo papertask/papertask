@@ -20,9 +20,14 @@ angularApp.controller('listStaffController', function($scope, $http, $timeout, $
         'idStaff': null,
         'email': null,
         'type': null,
+        'source': null,
+        'target': null,
+        'rate': null,
+        'specialism': null,
         'country': null,
-        'alias': null,
         'includeInactive': null,
+        'specialismTested': null,
+        'senior': null,
         'page': null
     };
     
@@ -31,39 +36,17 @@ angularApp.controller('listStaffController', function($scope, $http, $timeout, $
         bootbox.confirm(DELETE_CONFIRM_TEXT, function(result) {
             if(result == true){
                 $http.delete('/api/user/'+$id+'/staff').success(function($data){
+                    console.log('Deleted user with id %s', $id);
                     selectPage($scope.pages.current);
                 });
             }
         });
     };
-
-    $scope.setSearchParamInactive = function () {
-        $scope.searchParams.includeInactive = $scope.searchParams.includeInactive == '1' ? null : '1';
-    };
     $scope.init = function(){
-        var ajaxGetCountry = $http.get("/api/common/country")
-            .success(function($data){
-                $scope.countries = $data['countries'];
-            });
         $scope.selectPage( 1 );
     }
     
     $scope.advancedSearch = function() {
-        $scope.selectPage( 1 );
-    }
-
-    $scope.resetSearch = function () {
-        $scope.searchParams = {
-            'search': null,
-            'name': null,
-            'idStaff': null,
-            'email': null,
-            'type': null,
-            'country': null,
-            'alias': null,
-            'includeInactive': null,
-            'page': null
-        };
         $scope.selectPage( 1 );
     }
 
@@ -80,19 +63,23 @@ angularApp.controller('listStaffController', function($scope, $http, $timeout, $
             $scope.searchParams.page = $page;
             $scope.searchParams.search = 1;
             var $params = $scope.searchParams;
+            console.log('search');
         }else{
             var $params = {page: $page};
+            console.log('no search');
         }
 
         $http.get("/api/user/staff", {
             params: $params
         }).success(function($data){
+            console.log ( $data );
             $scope.list = $data['staffList'];
             $scope.pages = $data['pages'];
             if($data['pages']){
                 var N = $scope.pages.pageCount;
                 $scope.rangeCustom = Array.apply(null, {length: N}).map(Number.call, Number);
             }
+            console.log($data);
         });
     }
 });
