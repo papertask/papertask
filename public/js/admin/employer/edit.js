@@ -44,7 +44,8 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
         country: null,
         company: null,
         currency: null,
-        tmRatios: null
+        tmRatios: null,
+        cellphone: null
     };
     $scope.employer = {
 		username: null,
@@ -107,7 +108,8 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
                     phone: $data.user.phone,
                     country: $data.user.country,
                     currency: $data.user.currency,
-                    tmRatios: $data.tmRatios
+                    tmRatios: $data.tmRatios,
+                    cellphone: $data.user.cellphone
                 };
                 var ajaxEmployerInfo = $http.get("/api/user/" + USER_ID + "/employer")
                     .success( function ( $data ) {
@@ -179,43 +181,50 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
      */
     $scope.submit = function(){
     	$scope.employer.comments = $('.summernote').code();
-    	if ( $scope.userInfo.tmRatios && $scope.userInfo.tmRatios.id ) {
-    		$http.put("/api/user/" + $scope.userInfo.tmRatios.id + "/tmratio", {
-    			userId: USER_ID,
-    			repetitions: $scope.userInfo.tmRatios.repetitions,
-    			yibai: $scope.userInfo.tmRatios.yibai,
-    			jiuwu: $scope.userInfo.tmRatios.jiuwu,
-    			bawu: $scope.userInfo.tmRatios.bawu,
-    			qiwu: $scope.userInfo.tmRatios.qiwu,
-    			wushi: $scope.userInfo.tmRatios.wushi,
-    			nomatch: $scope.userInfo.tmRatios.nomatch
-    		}).success( function($data) {
-                $http.put("/api/user/" + USER_ID, $scope.userInfo)
-                    .success(function($data){
-                        $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id=" + USER_ID, $scope.employer).success(function(){
-                            location.href="/admin/employer/detail?id=" + USER_ID;
-                        });
-                    });
-            } ) ;
-    	} else {
-    		$http.post("/api/user/tmratio", {
-    			userId: USER_ID,
-    			repetitions: $scope.userInfo.tmRatios.repetitions,
-    			yibai: $scope.userInfo.tmRatios.yibai,
-    			jiuwu: $scope.userInfo.tmRatios.jiuwu,
-    			bawu: $scope.userInfo.tmRatios.bawu,
-    			qiwu: $scope.userInfo.tmRatios.qiwu,
-    			wushi: $scope.userInfo.tmRatios.wushi,
-    			nomatch: $scope.userInfo.tmRatios.nomatch
-    		}).success( function($data) {
-                $http.put("/api/user/" + USER_ID, $scope.userInfo)
-                    .success(function($data){
-                        $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id=" + USER_ID, $scope.employer).success(function(){
-                            location.href="/admin/employer/detail?id=" + USER_ID;
-                        });
-                    });
-            } ) ;
-    	}
+        $http.put("/api/user/" + USER_ID, $scope.userInfo)
+            .success(function($data){
+                $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id=" + USER_ID, $scope.employer).success(function(){
+                    if ( $scope.userInfo.tmRatios && $scope.userInfo.tmRatios.id ) {
+                        $http.put("/api/user/" + $scope.userInfo.tmRatios.id + "/tmratio", {
+                            userId: USER_ID,
+                            repetitions: $scope.userInfo.tmRatios.repetitions ? $scope.userInfo.tmRatios.repetitions : null,
+                            yibai: $scope.userInfo.tmRatios.yibai ? $scope.userInfo.tmRatios.yibai : null,
+                            jiuwu: $scope.userInfo.tmRatios.jiuwu ? $scope.userInfo.tmRatios.jiuwu : null,
+                            bawu: $scope.userInfo.tmRatios.bawu ? $scope.userInfo.tmRatios.bawu : null,
+                            qiwu: $scope.userInfo.tmRatios.qiwu ? $scope.userInfo.tmRatios.qiwu : null,
+                            wushi: $scope.userInfo.tmRatios.wushi ? $scope.userInfo.tmRatios.wushi : null,
+                            nomatch: $scope.userInfo.tmRatios.nomatch ? $scope.userInfo.tmRatios.nomatch : null
+                        }).success( function($data) {
+                            location.href = "/admin/employer/detail?id=" + USER_ID;
+                            return;
+                        } ) ;
+                    } else {
+
+                        if ( !$scope.userInfo.tmRatios ) {
+                            location.href = "/admin/employer/detail?id=" + USER_ID;
+                            return;
+                        }
+                        $http.post("/api/user/tmratio", {
+                            userId: USER_ID,
+                            repetitions: $scope.userInfo.tmRatios.repetitions,
+                            yibai: $scope.userInfo.tmRatios.yibai,
+                            jiuwu: $scope.userInfo.tmRatios.jiuwu,
+                            bawu: $scope.userInfo.tmRatios.bawu,
+                            qiwu: $scope.userInfo.tmRatios.qiwu,
+                            wushi: $scope.userInfo.tmRatios.wushi,
+                            nomatch: $scope.userInfo.tmRatios.nomatch
+                        }).success( function($data) {
+                            $http.put("/api/user/" + USER_ID, $scope.userInfo)
+                                .success(function($data){
+                                    $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id=" + USER_ID, $scope.employer).success(function(){
+                                        location.href="/admin/employer/detail?id=" + USER_ID;
+                                    });
+                                });
+                        } ) ;
+                    }
+                });
+            });
+
     	
     };
     
@@ -251,7 +260,6 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
 				}).success(function( data ) {
 					$scope.translationPrices[$scope.editTranslation] = {sourceLanguage: data.sourceLanguage, targetLanguage: data.targetLanguage, price: data.price, id: data.id}
     			});
-    		
     	}
     	jQuery("#modal-translation").modal("hide");
     	setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
@@ -334,7 +342,6 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
                     $scope.desktopPrices.splice( ind, 1 );
                 });    
         });
-    	
     }
     
     /**

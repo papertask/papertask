@@ -128,12 +128,11 @@ h3 {
 										<label><?php echo $this->translate('Position') ?> </label> 
 										<input id="position" name="position" type="text" class="form-control" ng-model="employer.position">
 									</div>
-					
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
-										<label>Company </label> 
-										<select class="form-control required" id="company" name="company" ng-model="employer.company" ng-options="company.name for company in companies">											
+										<label>Company </label>
+										<select class="form-control required" id="company" name="company" ng-model="employer.company" ng-options="company.name for company in companies">
 										</select> <span class="help-block m-b-none"> &nbsp;Not in the
 											list? Please <a data-toggle="modal" class="text-info"
 											href="#modal-company"><?php echo $this->translate('create a new company') ?></a>.

@@ -31,7 +31,7 @@ angularApp.controller('listStaffController', function($scope, $http, $timeout, $
         bootbox.confirm(DELETE_CONFIRM_TEXT, function(result) {
             if(result == true){
                 $http.delete('/api/user/'+$id+'/staff').success(function($data){
-                    selectPage($scope.pages.current);
+                    $scope.selectPage($scope.pages.current);
                 });
             }
         });

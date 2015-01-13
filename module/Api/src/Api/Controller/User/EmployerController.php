@@ -39,6 +39,7 @@ class EmployerController extends AbstractRestfulController
 		$data['lastName'] = $pdata['surname'];
 		$data['password'] = $pdata['password'];
 		$data['phone'] = $pdata['phone'];
+        $data['cellphone'] = $pdata['cellphone'];
 		$data['gender'] = $pdata['gender'];
 		$data['comments'] = $pdata['comments'];
 		$data['position'] = $pdata['position'];
@@ -246,11 +247,18 @@ class EmployerController extends AbstractRestfulController
         // Get employer group
         $employerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::EMPLOYER_GROUP_ID);
         $employerList = $entityManager->getRepository('User\Entity\User');
-        $queryBuilder = $employerList->createQueryBuilder('user')->where("user.group = ?1")->setParameter(1, $employerGroup);
-        
+        $queryBuilder = $employerList->createQueryBuilder('user');
         $request = $this->getRequest();
-        if($request->getQuery('search')){
 
+        if($request->getQuery('search') && $request->getQuery('company')){
+            $company = $entityManager->getRepository('User\Entity\Company')->findBy(array('id'=>$request->getQuery('company')));
+            $queryBuilder->leftJoin('user.employer', 'employer')->where('employer.company=?1')->setParameter(1, $company);
+            $queryBuilder->andWhere("user.group=?2")->setParameter(2, $employerGroup);
+        } else {
+            $queryBuilder->where("user.group=?1")->setParameter(1, $employerGroup);
+        }
+
+        if($request->getQuery('search')){
             // search by name
             if($arrayNames = $this->params()->fromQuery('name')){
                 $arrayName = explode(' ', $arrayNames);
@@ -278,7 +286,7 @@ class EmployerController extends AbstractRestfulController
                     $queryBuilder->expr()->like('user.email',
                         "'%" . $request->getQuery('email') ."%'" ));
             }
-            
+
             // search by Currency
             if ( $request->getQuery('currency')) {
                 $queryBuilder->andWhere(
@@ -309,6 +317,7 @@ class EmployerController extends AbstractRestfulController
         
         foreach($paginator as $user){
             $userData = $user->getData();
+            $userData['employer'] = $user->getEmployer()->getData();
             $userData['createdTime'] = $helper->formatDate($userData['createdTime']);
             $data[] = $userData;
         }

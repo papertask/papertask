@@ -14,8 +14,9 @@
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label><?php echo $this->translate('Company') ?> </label> 
-					<select class="form-control required" id="company" name="company" ng-model="employer.company" ng-options="company.name for company in companies">
-					</select> 
+					<select class="form-control" id="company" name="company" ng-model="employer.company" ng-options="company.name for company in companies" >
+                        <option value=""></option>
+					</select>
                     <span class="help-block m-b-none"> &nbsp;Not in the list? Please <a data-toggle="modal" class="text-info"
 						href="#modal-company">create a new company</a>.
 					</span>

@@ -26,7 +26,7 @@ class Staff extends Entity{
     /**
      * @ORM\ManyToOne(targetEntity="\User\Entity\User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="client_id", referencedColumnName="id", onDelete="cascade")
      * })
      */
     protected $client;

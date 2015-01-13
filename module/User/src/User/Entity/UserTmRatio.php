@@ -24,49 +24,52 @@ class UserTmRatio extends Entity {
 
     /**
      * @var \User\Entity\User
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", cascade={"remove"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="cascade")
+     * })
      */
     protected $user;
 
     /**
      * @var string
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $repetitions;
     
     /**
      * @var string
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $yibai;
     
     /**
      * @var string
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $jiuwu;
     
     /**
      * @var string
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $bawu;
     
     /**
      * @var string
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $qiwu;
     
     /**
      * @var string
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $wushi;
     
     /**
      * @var string
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $nomatch;
 

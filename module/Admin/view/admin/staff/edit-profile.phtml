@@ -24,12 +24,28 @@ $this->headScript()
 
     <div class="ibox-content">
         <form name="editProfileForm" method="">
+            <div class="row">
+                <div class="col-lg-2">
+                    <h4><i class="fa fa-plug"></i>&nbsp; <?php echo $this->translate('Status'); ?></h4>
+                </div>
+                <div class="col-lg-8">
+                    <div data-toggle="buttons">
+                        <label class="btn btn-outline btn-primary {{active_class(userInfo.isActive, '1')}} " ng-click="setActive('1')">
+                            <input type="radio" name="active" > <?php echo $this->translate('Active'); ?>
+                        </label>
+                        &nbsp;
+                        <label class="btn btn-outline btn-primary {{active_class(userInfo.isActive, '0')}} " ng-click="setActive('0')">
+                            <input type="radio" name="deactive" value=""> <?php echo $this->translate('De-Active'); ?>
+                        </label>
+                    </div>
+                </div>
+            </div>
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h4><i class="fa fa-info-circle"></i> <?php echo $this->translate('Basic Information') ?></h4>
                     <div class="hr-line-dashed"></div>
 
-                    <?php include __DIR__ . "/../user/basic-info.phtml" ?>
+                    <?php include __DIR__ . "/profile/basic-info.phtml" ?>
                 </div>
             </div>
 

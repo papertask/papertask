@@ -43,7 +43,10 @@ angularApp.service('sharedInstance', function() {
 angularApp.controller('newStaffController', function($scope, $http, $timeout, $q, sharedInstance){
     $scope.userInfo = {
         gender: '',
-        type: null
+        type: null,
+        isActive: null,
+        cellphone: null,
+        phone: null
     };
     $scope.resume = {};
     $scope.bankInfo = {};
@@ -82,11 +85,7 @@ angularApp.controller('newStaffController', function($scope, $http, $timeout, $q
             	   location.href="/admin/staff/view?id=" + strUserId;
             		// bootbox.alert("Saved successfully!" );
             });
-        })
-            .onerror(function(err) {
-                bootbox.alert('Failed to save');
-                return;
-            });
+        });
     }
     
     $scope.setStaffType = function ( rid ) {

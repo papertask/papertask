@@ -16,6 +16,7 @@ function findOptionByName( options, value ) {
         return null;
 
     for ( var i = 0; i < options.length; i ++ ) {
+        if ( options[i].value == "" ) continue;
         if (options[i].name == value.name) {
             return options[i];
         }

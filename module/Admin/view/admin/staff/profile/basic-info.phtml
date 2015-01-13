@@ -22,7 +22,7 @@
                     <input type="radio" name="gender" value="1" > Male
                 </label>
                 &nbsp;
-                <label class="btn btn-outline btn-primary btn-sm {{!userInfo.gender == '0' ? 'active' : ''}}" ng-click="userInfo.gender='0'">
+                <label class="btn btn-outline btn-primary btn-sm {{userInfo.gender == '0' ? 'active' : ''}}" ng-click="userInfo.gender='0'">
                     <input type="radio" name="gender" value="0" > Female
                 </label>
             </div>
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="col-lg-6">
-    	<div class="form-group">
+        <div class="form-group">
             <label>First name *</label>
             <input id="name" name="name" type="text" ng-model="userInfo.firstName" class="form-control required" >
         </div>
@@ -49,11 +49,11 @@
             <input id="phone" name="phone" type="phone" ng-model="userInfo.phone" class="form-control required" >
         </div>
         <div class="hr-line-dashed"></div>
-        <!-- <div class="form-group">
+        <div class="form-group">
             <label>Cell Phone *</label>
             <input id="cellphone" name="cellphone" type="phone" ng-model="userInfo.cellphone" class="form-control required" >
         </div>
-        <div class="hr-line-dashed"></div> -->
+        <div class="hr-line-dashed"></div>
         <div class="form-group">
             <label>Country *</label>
             <select class="form-control required" id="country" name="country" required ng-model="userInfo.country" ng-options="country.name for country in countries track by country.id" required>

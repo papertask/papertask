@@ -26,7 +26,7 @@ class Resume extends Entity {
     /**
      * @var \User\Entity\User
      * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="cascade")
      */
     protected $user;
 

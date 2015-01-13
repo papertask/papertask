@@ -26,7 +26,7 @@ class StaffController extends AbstractRestfulController
 	{
 		$entityManager = $this->getEntityManager();
 		$pdata = array(
-				'isActive' => '0',
+				'isActive' => $data['isActive'],
 				'profileUpdated' => '0',
 				'city' => $data['city'],
 				'createdTime' => new \DateTime( 'now' ),
@@ -37,6 +37,7 @@ class StaffController extends AbstractRestfulController
 				'name' => $data['lastName']." ".$data['firstName'],
 				'password' => $data['password'],
 				'phone' => $data['phone'],
+                'cellphone' => $data['cellphone'],
 				'gender' => $data['gender'],
 				'country' => $entityManager->getRepository('User\Entity\Country')->findOneBy(array('id' => $data['country']))
 		);

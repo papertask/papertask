@@ -107,7 +107,7 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
             });
             var ajaxUpdateBank = $http.put('/api/user/'+USER_ID+'/bank-info', $scope.bankInfo).success(function($data){
             });
-           
+
             // update resume
             if($scope.resume.user_id){
                 // create
@@ -147,6 +147,14 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
     
     $scope.openFileDialog = function () {
         $("#objFile").click();
+    }
+
+    $scope.active_class = function(a, b){
+        return a == b ? 'active' : '';
+    };
+
+    $scope.setActive = function ( str_flag ) {
+        $scope.userInfo.isActive = str_flag;
     }
 });
 angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$timeout', 'sharedInstance', function($scope, FileUploader, $http, $timeout, sharedInstance) {
@@ -291,7 +299,7 @@ angularApp.directive('stafftype', function($http, $compile){
         var strHtml = "";
         
         for ( var i = 0; i < arrTypes.length; i ++) {
-            strLabel =  "<label class='btn btn-sm btn-outline btn-primary staffrole' rid='"+arrTypes[i].id+"' required>" +
+            strLabel =  "<label class='btn btn-sm btn-outline btn-primary staffrole required' rid='"+arrTypes[i].id+"' required>" +
                             "<input type='radio' name='translator' style='width: 0px' > " + arrTypes[i].type +
                         "</label>";
             //strHtml +=  strLabel;

@@ -57,13 +57,19 @@ class Employer extends Entity{
 
     /**
      * @var \User\Entity\Staff
-     * @ORM\ManyToOne(targetEntity="Staff")
+     * @ORM\ManyToOne(targetEntity="Staff", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="pm", referencedColumnName="id", onDelete="Set Null")
+     * })
      */
     protected $pm;
 
     /**
      * @var \User\Entity\Staff
-     * @ORM\ManyToOne(targetEntity="Staff")
+     * @ORM\ManyToOne(targetEntity="Staff", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sales", referencedColumnName="id", onDelete="Set Null")
+     * })
      */
     protected $sales;
 

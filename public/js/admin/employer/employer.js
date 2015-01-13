@@ -56,7 +56,8 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
         country: null,
         company: null,
         currency: null,
-        tmRatios: null
+        tmRatios: null,
+        cellphone: null
     };
     $scope.employer = {
         username: null,
@@ -146,7 +147,8 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     			engineeringPrices: $scope.engineeringPrices,
                 contracted: $scope.employer.contracted,
                 pm: $scope.employer.pm,
-                sales: $scope.employer.sales
+                sales: $scope.employer.sales,
+                cellphone: $scope.userInfo.cellphone
     	};
 
     	$http.post("/api/user/employer", ptr_employer)

@@ -48,7 +48,7 @@ class CvFile extends Entity{
     /**
      * @var \User\Entity\User
      * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="cascade")
      */
     protected $user;
 

@@ -33,7 +33,7 @@ $this->inlineScript()
         <div class="ibox-content profile-content">
             <p><i class="fa fa-envelope"></i> &nbsp; <?php echo $this->user['email'] ?>
                 &nbsp;
-                <?php if (!$this->user['gender']): ?>
+                <?php if ($this->user['gender'] == '1'): ?>
                     <i class="fa fa-male"></i>
                 <?php else: ?>
                     <i class="fa fa-female"></i>
@@ -43,7 +43,7 @@ $this->inlineScript()
             <p><i class="fa fa-tag"></i> &nbsp; <?php echo $this->user['alias'] ?></p>
             <!-- Freelancer Alias generate by system automaticly -->
             <p><i class="fa fa-phone"></i> &nbsp; <?php echo $user['phone']; ?></p>
-            <p><i class="fa fa-mobile"></i> &nbsp; </p>
+            <p><i class="fa fa-mobile"></i> &nbsp; <?php echo $user['cellphone'];?></p>
 
             <p><i class="fa fa-map-marker"></i> &nbsp; <?php echo $user['city'] ?>,
                 {{user.user.country.name}}</p>

@@ -91,12 +91,17 @@ class User extends Entity implements InputFilterAwareInterface{
 
     /**
      * @var \User\Entity\Employer
-     * @ORM\OneToOne(targetEntity="Employer")
+     * @ORM\OneToOne(targetEntity="Employer", cascade="remove")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="employer_id", referencedColumnName="id", onDelete="cascade")
+     * })
      */
     protected $employer;
     /**
-     * @var \User\Entity\Staff
-     * @ORM\OneToOne(targetEntity="Staff")
+     * @ORM\OneToOne(targetEntity="\User\Entity\Staff", cascade={"remove"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="staff_id", referencedColumnName="id", onDelete="cascade")
+     * })
      */
     protected $staff;
 
@@ -104,6 +109,11 @@ class User extends Entity implements InputFilterAwareInterface{
      * @ORM\Column(type="string", nullable=true)
      */
     protected $alias;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $cellphone;
 
     // class variables
     protected $inputFilter;
@@ -146,7 +156,8 @@ class User extends Entity implements InputFilterAwareInterface{
             'phone',            
             'isActive',
             'profileUpdated',
-            'alias'
+            'alias',
+            'cellphone'
         );
         foreach($keys as $key){
             if(isset($arr[$key])){
@@ -171,7 +182,8 @@ class User extends Entity implements InputFilterAwareInterface{
             'lastName',
             'phone',
             'profileUpdated',
-            'isActive'
+            'isActive',
+            'cellphone'
         );
 
         if(isset($arr['currency']) and !in_array($arr['currency'], ['usd', 'cny'])){
@@ -434,7 +446,8 @@ class User extends Entity implements InputFilterAwareInterface{
             "lastName" => $this->lastName,
             "phone" => $this->phone,
             "profileUpdated" => $this->profileUpdated,
-            "alias" => $this->alias
+            "alias" => $this->alias,
+            "cellphone" => $this->cellphone
         );
     }
 
@@ -542,6 +555,7 @@ class User extends Entity implements InputFilterAwareInterface{
         $strAlias = $this->getAlias( $entityManager, UserGroup::ADMIN_GROUP_ID );
         $data['alias'] = $strAlias;
         $this->setData($data);
+        $this->encodePassword(isset($data['password'])? $data['password'] : $this->generateRandomString());
         $this->setGroupByName('staff', $entityManager);
         $entityManager->persist($this);
         $entityManager->flush();

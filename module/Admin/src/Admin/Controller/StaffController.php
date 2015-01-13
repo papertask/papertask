@@ -125,7 +125,7 @@ class StaffController extends AbstractActionController
         $staffList = $entityManager->getRepository('User\Entity\Staff');
         //->findBy(array('group' => $freelancerGroup));
         $queryBuilder = $staffList->createQueryBuilder('staff')
-            ->where("staff.type = ".Roles::PM_ROLE_ID);
+            ->where("staff.type in (6,7)");
 
         // check search condition
         $request = $this->getRequest();
@@ -150,7 +150,7 @@ class StaffController extends AbstractActionController
         $staffList = $entityManager->getRepository('User\Entity\Staff');
         //->findBy(array('group' => $freelancerGroup));
         $queryBuilder = $staffList->createQueryBuilder('staff')
-            ->where("staff.type = ".Roles::SALES_ROLE_ID);
+            ->where("staff.type in (4,5)");
 
         // check search condition
         $request = $this->getRequest();
