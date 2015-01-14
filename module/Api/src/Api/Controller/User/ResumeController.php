@@ -15,9 +15,11 @@ use User\Entity\Resume;
 class ResumeController extends AbstractRestfulController
 {
     public function get($id){
+	
         $user = $this->getUserById($id);
+		//var_dump($user);
         $resume = $this->getEntityManager()->getRepository('\User\Entity\Resume')->findOneBy(['user' => $user]);
-
+		//var_dump($resume);exit;
         return new JsonModel([
             'resume' => $resume->getData(),
         ]);

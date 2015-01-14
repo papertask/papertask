@@ -105,6 +105,7 @@ return array(
             'Api\Controller\Admin\Task' => 'Api\Controller\Admin\TaskController',
             'Api\Controller\Common\Company' => 'Api\Controller\Common\CompanyController',
             'Api\Controller\Common\Country' => 'Api\Controller\Common\CountryController',
+			'Api\Controller\Common\Rating' => 'Api\Controller\Common\RatingController',
             'Api\Controller\Common\EngineeringCategory' => 'Api\Controller\Common\EngineeringCategoryController',
             'Api\Controller\Common\Language' => 'Api\Controller\Common\LanguageController',
             'Api\Controller\Common\LanguageGroup' => 'Api\Controller\Common\LanguageGroupController',

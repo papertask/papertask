@@ -123,9 +123,7 @@ class FreelancerController extends AbstractRestfulController
         $freelancer->updateData($data, $entityManager);
 		
         $freelancer->save($entityManager);
-		var_dump($freelancer);
-		var_dump($data);
-		exit;
+		
         return new JsonModel([]);
     }
 

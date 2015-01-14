@@ -23,7 +23,8 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 
     $scope.order = {};
     $scope.project = {
-        types: []
+        types: [],
+		files: []	
     };
     $scope.targets = {};
 

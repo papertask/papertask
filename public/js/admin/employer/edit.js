@@ -199,7 +199,19 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	}
     	
     };
-    
+    /**
+     * Toggle resource
+     */
+    $scope.toggleResource = function($id){
+        console.log($scope.freelancer.Resources);
+        var $index = $scope.freelancer.Resources.indexOf($id);
+        if($index == -1){
+            $scope.freelancer.Resources.push($id);
+        } else {
+            $scope.freelancer.Resources.splice($index, 1);
+        }
+        console.log($scope.freelancer.Resources);
+    };
     /**
      * Translation Prices
      */

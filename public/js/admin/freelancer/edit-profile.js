@@ -24,18 +24,38 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 
 	$scope.pagetype = 'edit';
     $scope.countries = [];
+    $scope.ratings = [];
     $scope.languages = [];
     $scope.resources = [];
 	$scope.resource_active = {};
     $scope.softwares = [];
     $scope.companies = [];
 	
-    $scope.userInfo = {};
+    $scope.userInfo = {
+		isActive: null,
+        profileUpdated: null,
+        email: null,
+        firstName: null,
+        lastName: null,
+        gender: null,
+        city: null,
+        phone: null,
+        country: null,
+        company: null,
+        currency: null,
+		tmRatios: null
+	};
+	$scope.freelancer ={
+	
+	};
 	$scope.bankInfo = {};
 	
 	$scope.translationPrices = [];
 	$scope.desktopPrices = [];
 	$scope.interpretingPrices = [];
+
+	$scope.resume = {};
+	$scope.bankInfo = {};
 	
 	$scope.editTranslation = -1;
     $scope.editDtp = -1;
@@ -46,14 +66,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
         'user_id': USER_ID
     };
 
-    function getBankInfo(){
-        $http.get('/api/user/' + USER_ID + '/bank-info').success(function($data){
-            if($data['bankInfo']){
-                $scope.bankInfo = $data['bankInfo'];
-                console.log($scope.bankInfo);
-            }
-        });
-    }
+    
 
     function getCountriesList(){
         $http.get('/api/common/country').success(function($data){
@@ -61,36 +74,10 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
             console.log($scope.countries)
         });
     }
-	
-	
-    // get user
-    function getUser(){
-        $http.get('/api/user/' + USER_ID).success(function($data){
-            $scope.userInfo = $data['user'];
-            console.log($scope.userInfo);
-        });
-		
-		var ajaxEmployerInfo = $http.get("/api/user/" + USER_ID + "/employer")
-        	.success( function ( $data ) {
-        		$scope.employer = {
-    				username: $data.employer.name,
-    				defaultServiceLevel: $data.employer.defaultServiceLevel,
-		            comments: $data.employer.comments,
-    				company: $data.employer.company,
-    				employerId: $data.employer.id,
-                    position: $data.employer.position
-    			};
-                $(".summernote").code( $data.employer.comments );
-        		$("#editFrelancerController").fadeIn();
-        });
-    }
-
-    function getFreelancerResume(){
-        $http.get('/api/user/' + USER_ID + '/resume').success(function($data){
-            if($data['resume']){
-                $scope.resume = $data['resume'];
-                console.log($scope.resume);
-            }
+	function getRatingsList(){
+        $http.get('/api/common/rating').success(function($data){
+            $scope.ratings = $data['ratings'];
+            console.log($scope.ratings)
         });
     }
 	
@@ -135,7 +122,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     $scope.submit = function(){
     	$scope.freelancer.comments = $('.summernote').code();
 
-    	/*if ( $scope.userInfo.tmRatios && $scope.userInfo.tmRatios.id ) {
+    	if ( $scope.userInfo.tmRatios && $scope.userInfo.tmRatios.id ) {
     		$http.put("/api/user/" + $scope.userInfo.tmRatios.id + "/tmratio", {
     			userId: USER_ID,
     			repetitions: $scope.userInfo.tmRatios.repetitions,
@@ -148,8 +135,8 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     		}).success( function($data) {
                 $http.put("/api/user/" + USER_ID, $scope.userInfo)
                     .success(function($data){
-                        $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id=" + USER_ID, $scope.employer).success(function(){
-                            location.href="/admin/employer/detail?id=" + USER_ID;
+                        $http.put("/api/user/"+$scope.freelancer.freelancerId+"/freelancer?user_id=" + USER_ID, $scope.freelancer).success(function(){
+                            location.href="/admin/freelancer/detail?id=" + USER_ID;
                         });
                     });
             } ) ;
@@ -166,12 +153,12 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     		}).success( function($data) {
                 $http.put("/api/user/" + USER_ID, $scope.userInfo)
                     .success(function($data){
-                        $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id=" + USER_ID, $scope.employer).success(function(){
-                            location.href="/admin/employer/detail?id=" + USER_ID;
+                        $http.put("/api/user/"+$scope.freelancer.freelancerId+"/employer?user_id=" + USER_ID, $scope.freelancer).success(function(){
+                            location.href="/admin/freelancer/detail?id=" + USER_ID;
                         });
                     });
             } ) ;
-    	}*/
+    	}
     	
     };
 	/**
@@ -390,9 +377,9 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
                 console.log('Resume', $scope.resume);
             }
         }
-        getUser();
-		loadFreelancerData();
-		getBankInfo();
+        //getUser();
+		//loadFreelancerData();
+		//getBankInfo();
 		$http.get('/api/user/translationprice?userId='+ USER_ID).success(function($data) {
             $scope.translationPrices = $data['translationPrices'];
         });
@@ -402,9 +389,112 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 		$http.get('/api/user/interpretingprice?userId=' + USER_ID).success(function($data) {
             $scope.interpretingPrices = $data['interpretingPrices'];
         });
-        //getFreelancerResume();
-        //getCountriesList();
+		$http.get('/api/user/' + USER_ID + '/resume').success(function($data){
+            if($data['resume']){
+                $scope.resume = $data['resume'];
+                console.log($scope.resume);
+            }
+        });
+        $http.get('/api/user/' + USER_ID + '/bank-info').success(function($data){
+            if($data['bankInfo']){
+                $scope.bankInfo = $data['bankInfo'];
+                console.log($scope.bankInfo);
+            }
+        });
+		var ajaxFreelancerInfo = $http.get("/api/user/" + USER_ID + "/freelancer")
+        	.success( function ( $data ) {
+				//$scope.freelancer = $data['freelancer'];
+				//console.log($data['freelancer']);
+			
+        		$scope.freelancer = {
+    				username: $data.freelancer.name,
+		            comments: $data.freelancer.comments,
+					Resources : $data.freelancer.Resources,
+    				freelancerId: $data.freelancer.id,
+					rating : $data.freelancer.Rating,
+    			};
+				generateActiveResources();
+
+                var priceDataRequest = $http.get("/api/user/freelancerData")
+                    .success(function($data){
+                        /** map data **/
+                        $scope.catTools = $data['catTools'];
+                        $scope.operatingSystems = $data['operatingSystems'];
+                        $scope.specialisms = $data['specialisms'];
+                        $scope.resources = $data['resources'];
+						console.log($scope.resources);
+                        rebuildMultiSelect();
+                        updateFreelancerSkillData();
+                    });
+					
+                $(".summernote").code( $data.employer.comments );
+        		$("#editFrelancerController").fadeIn();
+        	});
+		var ajaxUserInfo = $http.get("/api/user/" + USER_ID + "")
+            .success ( function ( $data ) {
+                $scope.userInfo = {
+                    isActive: $data.user.isActive,
+                    profileUpdated: $data.user.profileUpdated,
+                    email: $data.user.email,
+                    firstName: $data.user.firstName,
+                    lastName: $data.user.lastName,
+                    gender: $data.user.gender,
+                    city: $data.user.city,
+                    phone: $data.user.phone,
+                    country: $data.user.country,
+                    currency: $data.user.currency,
+                    tmRatios: $data.tmRatios
+                };
+            });
+			
+		var ajaxCountryInfo = $http.get("/api/common/country")
+            .success(function($data){
+                $scope.countries = $data['countries'];
+                setModalControllerData('countries', $scope.countries);
+        });
+		
+		$q.all([ajaxUserInfo, ajaxCountryInfo])
+            .then(function(){
+                $scope.userInfo.country = findOptionByName($scope.countries, $scope.userInfo.country);
+            });
+        
+        getCountriesList();
+		getRatingsList();
 		//getFreelancerData();
+    }
+	function getFreelancerResume(){
+        $http.get('/api/user/' + USER_ID + '/resume').success(function($data){
+            if($data['resume']){
+                $scope.resume = $data['resume'];
+                console.log($scope.resume);
+            }
+        });
+    }
+	function getBankInfo(){
+        $http.get('/api/user/' + USER_ID + '/bank-info').success(function($data){
+            if($data['bankInfo']){
+                $scope.bankInfo = $data['bankInfo'];
+                console.log($scope.bankInfo);
+            }
+        });
+    }
+	// get user
+    function getUser(){
+        $http.get('/api/user/' + USER_ID).success(function($data){
+            $scope.userInfo = $data['user'];
+            console.log($scope.userInfo);
+        });
+		
+		var ajaxEmployerInfo = $http.get("/api/user/" + USER_ID + "/freelancer")
+        	.success( function ( $data ) {
+        		$scope.freelancer = {
+    				username: $data.freelancer.name,
+		            comments: $data.freelancer.comments,
+    				freelancerId: $data.freelancer.id,
+    			};
+                $(".summernote").code( $data.freelancer.comments );
+        		$("#editFrelancerController").fadeIn();
+        });
     }
 	function loadFreelancerData(){
 
