@@ -90,11 +90,11 @@ class StaffController extends AbstractRestfulController
         $entityManager = $this->getEntityManager();
         $user = $this->getUserById($id);
         $staff = $user->getStaff();
-        $staff->setType = $entityManager->getRepository('\User\Entity\Roles')->find($data['type']);
-        // $staff->updateData($data, $entityManager);
+        $staff->setType ( $entityManager->getRepository('\User\Entity\Roles')->find( $data['type'] ) );
+        // $staff->updateData( $data );
         $staff->save($entityManager);
 
-        return new JsonModel([]);
+        return new JsonModel([$data['type']]);
     }
 
     public function getList(){
