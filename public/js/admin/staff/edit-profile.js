@@ -120,7 +120,7 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
         $('form[name=editProfileForm]').validate();
         var validate = $('form[name=editProfileForm]').valid();
         if(validate == true){
-            $scope.userInfo.type = $scope.staff.type.id;
+            // $scope.userInfo.type = $scope.staff.type.id;
             // update user info
             var ajaxUpdateUser = $http.put('/api/user/'+USER_ID+'', $scope.userInfo).success(function($data){
             });
