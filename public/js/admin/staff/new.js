@@ -48,6 +48,7 @@ angularApp.controller('newStaffController', function($scope, $http, $timeout, $q
         cellphone: null,
         phone: null
     };
+    $scope.pagetype='new';
     $scope.resume = {};
     $scope.bankInfo = {};
     $scope.countries = [];
@@ -213,7 +214,7 @@ angularApp.directive('stafftype', function($http, $compile){
         for ( var i = 0; i < arrTypes.length; i ++) {
             strLabel =  "<label class='btn btn-sm btn-outline btn-primary staffrole' rid='"+arrTypes[i].id+"'>" +
                             "<input type='radio' class='required' name='translator' style='width: 0px'> " + arrTypes[i].type +
-                        "</label>";
+                        "&nbsp;<i class='fa fa-circle'></i></label>";
             //strHtml +=  strLabel;
             if ( nSubtype != arrTypes[i].subtype ) {
                 nSubtype = arrTypes[i].subtype;

@@ -265,11 +265,11 @@ INSERT INTO `papertask`.`Country`(id,name) VALUES (192,'Angola');
 # Roles
 INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (1,'Admin',0);
 INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (2,'General Manager',0);
-INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (3,'Financial Manager',1);
-INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (4,'Sales Director',2);
-INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (5,'Sales',2);
-INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (6,'Operation Manager',3);
-INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (7,'Project Manager',3);
+INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (3,'Sales Director',1);
+INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (4,'Sales',1);
+INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (5,'Operation Manager',2);
+INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (6,'Project Manager',2);
+INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (7,'Financial Manager',3);
 INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (8,'In-house Translator',4);
 INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (9,'In-house DTP',4);
 INSERT INTO `papertask`.`Roles`(`id`,`type`,`subtype`) VALUES (10,'In-house Engineering',4);

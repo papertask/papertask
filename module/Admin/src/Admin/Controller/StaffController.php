@@ -44,8 +44,8 @@ class StaffController extends AbstractActionController
             return new ViewModel(array(
                 "user" => $user->getData(),
                 'staff' => $user->getStaff()->getId(),
-                'bankInfo' => $bankInfo->getData(),
-                'resume' => $resume->getData(),
+                'bankInfo' => $bankInfo ? $bankInfo->getData():null,
+                'resume' => $resume?$resume->getData():null,
                 'cvfiles' => $cvfiles
             ));
         }
@@ -125,7 +125,7 @@ class StaffController extends AbstractActionController
         $staffList = $entityManager->getRepository('User\Entity\Staff');
         //->findBy(array('group' => $freelancerGroup));
         $queryBuilder = $staffList->createQueryBuilder('staff')
-            ->where("staff.type in (6,7)");
+            ->where("staff.type in (5,6)");
 
         // check search condition
         $request = $this->getRequest();
@@ -150,7 +150,7 @@ class StaffController extends AbstractActionController
         $staffList = $entityManager->getRepository('User\Entity\Staff');
         //->findBy(array('group' => $freelancerGroup));
         $queryBuilder = $staffList->createQueryBuilder('staff')
-            ->where("staff.type in (4,5)");
+            ->where("staff.type in (3,4)");
 
         // check search condition
         $request = $this->getRequest();

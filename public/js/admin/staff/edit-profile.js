@@ -5,6 +5,14 @@ angularApp.run( function ($rootScope) {
             element.before(error);
         },
         rules: {
+            country: {valueNotEquals: "?"},
+            confirmpwd: {
+                equalTo: "#password"
+            },
+            email: {
+                required: true,
+                email: true
+            }
         },
         submitHandler: function( form ) {
             angular.element('#editProfile').scope().editProfile();
@@ -37,7 +45,9 @@ angularApp.service('sharedInstance', function() {
 });
 angularApp.controller('editProfileController', function($scope, $http, $timeout, $q, sharedInstance){
     $scope.userInfo = {
-        'type': null
+        'type': null,
+        'isActive': null,
+        'country': null
     };
     $scope.cvfiles = [];
     $scope.staff = {};
@@ -67,6 +77,7 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
     $scope.getCountriesList = function(){
         $http.get('/api/common/country').success(function($data){
             $scope.countries = $data['countries'];
+
         });
     }
 
@@ -74,6 +85,7 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
     $scope.getUser = function(){
         $http.get('/api/user/' + USER_ID).success(function($data){
             $scope.userInfo = $data['user'];
+            $scope.getStaff();
         });
     }
 
@@ -87,11 +99,21 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
     
     
     $scope.init = function () {
-        $scope.getUser();     
-        $scope.getStaff();
-        $scope.getCountriesList();
         $scope.getStaffResume();
         $scope.getBankInfo();
+        var ajaxUserInfo = $http.get('/api/user/' + USER_ID).success(function($data){
+            $scope.userInfo = $data['user'];
+            $scope.getStaff();
+        });
+
+        var ajaxCountryInfo = $http.get('/api/common/country').success(function($data){
+            $scope.countries = $data['countries'];
+
+        });
+        $q.all([ajaxUserInfo, ajaxCountryInfo])
+            .then(function(){
+                $scope.userInfo.country = findOptionByName($scope.countries, $scope.userInfo.country);
+            });
     }
     // submit
     $scope.editProfile = function(){
@@ -299,7 +321,7 @@ angularApp.directive('stafftype', function($http, $compile){
         var strHtml = "";
         
         for ( var i = 0; i < arrTypes.length; i ++) {
-            strLabel =  "<label class='btn btn-sm btn-outline btn-primary staffrole required' rid='"+arrTypes[i].id+"' required>" +
+            strLabel =  "<label class='btn btn-sm btn-outline btn-primary staffrole required' rid='"+arrTypes[i].id+"' required><i class='fa fa-circle'></i>" +
                             "<input type='radio' name='translator' style='width: 0px' > " + arrTypes[i].type +
                         "</label>";
             //strHtml +=  strLabel;
