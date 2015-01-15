@@ -54,11 +54,11 @@ class StaffController extends AbstractRestfulController
 			$staff = $user->getStaff();
 			$staff->setType( $entityManager->getRepository('User\Entity\Roles')->findOneBy(array('id' => $data['type'])) );
             $staff->setClient( $this->getCurrentUser() );
+            $staff->setName( $data['name'] );
 			$staff->save($entityManager);
-			
 			$staffData = $staff->getData();
-			
-			return new JsonModel( $user->getData() );
+
+			return new JsonModel( $staffData );
 		}
 		return new JsonModel( [] );
 	}
@@ -92,6 +92,7 @@ class StaffController extends AbstractRestfulController
         $staff = $user->getStaff();
         $staff->setType ( $entityManager->getRepository('\User\Entity\Roles')->find( $data['type'] ) );
         // $staff->updateData( $data );
+        $staff->setName( $data['name'] );
         $staff->save($entityManager);
 
         return new JsonModel([$data['type']]);
@@ -135,7 +136,7 @@ class StaffController extends AbstractRestfulController
                 }
             }
             if ( $request->getQuery('email') ) {
-                $queryBuilder->andWhere("user.email='". $request->getQuery('email')."'");
+                $queryBuilder->andWhere("user.email like '%". $request->getQuery('email')."%'");
             }
             if ( $request->getQuery('alias') ) {
                 $queryBuilder->andWhere("user.alias like '%".$request->getQuery('alias')."%'");
@@ -147,7 +148,7 @@ class StaffController extends AbstractRestfulController
             }
 
             // search include inactive
-            if($request->getQuery('includeInactive')){
+            if(!$request->getQuery('includeInactive') || ($request->getQuery('includeInactive') && $request->getQuery('includeInactive') == 'false')){
                 $queryBuilder->andWhere("user.isActive='1'");
             }
         }

@@ -83,9 +83,9 @@ class StaffController extends AbstractActionController
             $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
             $name = $_FILES[ 'file' ][ 'name' ];
 
-            $uploadPath = 'public/uploads' . DIRECTORY_SEPARATOR . $name;
+            $uploadPath = 'uploads' . DIRECTORY_SEPARATOR . $name;
 
-            move_uploaded_file( $tempPath, $uploadPath );
+            move_uploaded_file( $tempPath, 'public/'.$uploadPath );
             $file = new CvFile();
            
             $file->setData([

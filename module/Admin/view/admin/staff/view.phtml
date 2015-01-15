@@ -52,7 +52,7 @@ $this->inlineScript()
                 <?php
                     foreach ( $cvfiles as $k => $v ) {                        
                         ?>
-                        <i class="fa fa-file-text"></i><a href="" class="text-info"> &nbsp; <?php echo $v['name'];?></a>
+                        <i class="fa fa-file-text"></i><a href="<?php echo '../../../'.$v['path'];?>" class="text-info"> &nbsp; <?php echo $v['name'];?></a>
                         <?php
                     } 
                 ?>                

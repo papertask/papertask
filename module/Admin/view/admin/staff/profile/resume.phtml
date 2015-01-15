@@ -13,7 +13,7 @@
                     <tr>
                         <td class="project-title" >
                             <div ng-repeat="cvfile in cvfiles track by $index" style="display: inline-block; margin:  5px;" ng-model="cvfiles" class="cvfiles">
-                                <i class="fa fa-file-text"></i>&nbsp; <a href="{{cvfile.path}}">{{cvfile.name}}</a> &nbsp;&nbsp;
+                                <i class="fa fa-file-text"></i>&nbsp; <a href="<?php echo '../../../';?>{{cvfile.path}}">{{cvfile.name}}</a> &nbsp;&nbsp;
                                 <span ng-click="deleteFile(cvfile.id);"><i class="fa fa-times-circle" style="cursor: pointer;"></i></span>
                             </div>
                         </td>

@@ -58,13 +58,14 @@ $this->inlineScript()
                                         <option value="1">Admin</option>
                                         <option value="2">General Manager</option>
                                         <option></option>
-                                        <option value="3">Financial Manager</option>
+                                        <option value="3">Sales Director</option>
+                                        <option value="4">Sales</option>
                                         <option></option>
-                                        <option value="4">Sales Director</option>
-                                        <option value="5">Sales</option>
+                                        <option value="5">Operation Manager</option>
+                                        <option value="6">Project Manager</option>
                                         <option></option>
-                                        <option value="6">Operation Manager</option>
-                                        <option value="7">Project Manager</option>
+                                        <option value="7">Financial Manager</option>
+                                        <option></option>
                                         <option value="8">In-house Translator</option>
                                         <option value="9">In-house DTP</option>
                                         <option value="10">In-house Engineering</option>
@@ -122,6 +123,11 @@ $this->inlineScript()
                     <strong><i class="fa fa-smile-o"></i> {{user.staff.type.type}}</strong> <!-- here put alias -->
                     <br>
                     <small><i class="fa fa-tag"></i> {{user.alias}}</small>
+                </td>
+                <td class="project-completion">
+                    <strong><i class="fa fa-mobile"></i> {{user.cellphone}}</strong>
+                    <br />
+                    <small> Tasks done: 88</small>
                 </td>
                 <td class="project-actions">
                     <a href="<?php echo $this->url('admin', ['controller'=>'staff', 'action'=>'view']) ?>?id={{user.id}}"

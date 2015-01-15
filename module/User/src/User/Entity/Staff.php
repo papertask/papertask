@@ -57,6 +57,10 @@ class Staff extends Entity{
     	$this->type = $type;
     }
 
+    public function setName ( $data ) {
+        $this->name = $data;
+    }
+
     public function setClient( $client ) {
         $this->client = $client;
     }
