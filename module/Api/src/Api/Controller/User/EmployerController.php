@@ -299,11 +299,10 @@ class EmployerController extends AbstractRestfulController
                 $queryBuilder->andWhere(
                         $queryBuilder->expr()->eq("user.country", (int)($request->getQuery('country'))));
             }
-
             // search include inactive
-            if($request->getQuery('includeInactive')){
+            if(!$request->getQuery('includeInactive') || ($request->getQuery('includeInactive') && $request->getQuery('includeInactive') == 'false')){
                 $queryBuilder->andWhere(
-                        $queryBuilder->expr()->eq("user.isActive", $request->getQuery('includeInactive')));
+                        $queryBuilder->expr()->eq("user.isActive", 1));
             }
         }
         $queryBuilder->orderBy('user.createdTime', 'ASC');
