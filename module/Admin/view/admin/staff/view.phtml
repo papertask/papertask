@@ -46,7 +46,7 @@ $this->inlineScript()
             <p><i class="fa fa-mobile"></i> &nbsp; <?php echo $user['cellphone'];?></p>
 
             <p><i class="fa fa-map-marker"></i> &nbsp; <?php echo $user['city'] ?>,
-                {{user.user.country.name}}</p>
+                <?php echo $user['country']['name']; ?></p>
 
             <p>
                 <?php
