@@ -108,6 +108,8 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
         });
     }
     function findResourcesGroup($resourceGroups, $ids){
+		console.log("resourceGroups");
+		console.log($resourceGroups);
 		console.log($ids);
         var resourcesgroup = [];
 		resourcesgroup.translation = 0;
@@ -118,12 +120,11 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
                 var resource = $resourceGroups[i].resources[j];
                 if($ids.indexOf(resource.id) != -1  ){
 					console.log(resource);
-					console.log(resource);
-					if(resource.name == "Translation")
+					if($resourceGroups[i].group.name == "Translation")
 							resourcesgroup.translation = 1;
-                    if(resource.name == "Desktop Publishing")
+                    if($resourceGroups[i].group.name == "Desktop Publishing")
 							resourcesgroup.desktop = 1;
-					if(resource.name == "Interpreting")
+					if($resourceGroups[i].group.name == "Interpreting")
 							resourcesgroup.interpreting = 1;
 							
                     i/*f( resourcesgroup.length > 0 && resourcesgroup.indexOf($resourceGroups[i]) != -1){
@@ -144,6 +145,7 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
                 }
             }
         }
+		console.log("resource");
 		console.log(resourcesgroup);
         return resourcesgroup;
     }
