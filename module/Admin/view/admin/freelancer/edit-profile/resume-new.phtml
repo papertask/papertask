@@ -2,21 +2,21 @@
 <div class="hr-line-dashed"></div>
 <div class="row">
     <div class="col-lg-12">
-        <div ng-controller="AppController" ng-file-drop="" uploader="uploader" class="form-group">
+        <div class="form-group">
             <label><?php echo $this->translate('CV upload') ?> </label>
             <!-- TODO: file upload not working here -->
             <table class="table">
                 <tbody>
                 <tr>
                     <td class="project-title">
-                        <i class="fa fa-file-text"></i>&nbsp; <a href="#">cv.docx</a> &nbsp;&nbsp;
-                        <a href="#"><i class="fa fa-times-circle"></i></a>
+                        <i class="fa fa-file-text"></i>&nbsp; <a href="#">{{resume.cvUploaded}}</a> &nbsp;&nbsp;
+                        <a href="#"><i class="fa fa-times-circle" ng-click="remove()></i></a>
                     </td>
                     <td class="project-title" width="10%">
-                        <button ng-click="uploader.uploadAll()" type="button" class="btn btn-w-m btn-white btn-xs">
+                        <button ng-click="upload()" type="button" class="btn btn-w-m btn-white btn-xs">
                             <i class="fa fa-cloud-upload">
                                 <?php echo $this->translate('Upload') ?></i></button>
-                        <input type="file" ng-file-select="" uploader="uploader" />
+                        <input type="file" />
                     </td>
                 </tr>
                 </tbody>

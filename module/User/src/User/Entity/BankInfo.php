@@ -111,6 +111,7 @@ class BankInfo extends Entity {
             'account',
             'address',
             'city',
+			'country',
             'name',
             'accountNo',
             'swift',

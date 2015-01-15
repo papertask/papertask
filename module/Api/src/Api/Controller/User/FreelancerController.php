@@ -115,6 +115,7 @@ class FreelancerController extends AbstractRestfulController
     }
 
     public function update($id, $data){
+		//
         $userId = $this->getEvent()->getRouteMatch()->getParam('user_id');
         $entityManager = $this->getEntityManager();
         $user = $this->getUserById($userId);
@@ -123,7 +124,6 @@ class FreelancerController extends AbstractRestfulController
         $freelancer->updateData($data, $entityManager);
 		
         $freelancer->save($entityManager);
-		
         return new JsonModel([]);
     }
 

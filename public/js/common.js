@@ -22,6 +22,17 @@ function findOptionByName( options, value ) {
     }
     return value;
 }
+function findOptionById( options, value ) {
+    if ( value == null)
+        return null;
+
+    for ( var i = 0; i < options.length; i ++ ) {
+        if (options[i].id == value) {
+            return options[i];
+        }
+    }
+    return value;
+}
 
 function findOptions(options, ids){
     var values = [];

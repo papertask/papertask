@@ -13,6 +13,8 @@ use Zend\View\Model\ViewModel;
 
 use Application\Controller\AbstractActionController;
 
+use User\Entity\Resume;
+
 class FreelancerController extends AbstractActionController
 {
     protected $requiredLogin = true;
@@ -27,7 +29,51 @@ class FreelancerController extends AbstractActionController
             "user" => $this->getCurrentUser(),
         ));
     }
+	public function removeFileAction(){
+		
+	}
+	public function uploadFileAction(){
+	
+	var_dump($_FILES);exit;
+        if ( !empty( $_FILES ) ) {
 
+            $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
+            $name = $_FILES[ 'file' ][ 'name' ];
+
+            $uploadPath = 'public/uploads' . DIRECTORY_SEPARATOR . $name;
+
+            move_uploaded_file( $tempPath, $uploadPath );
+            
+			/*$entityManager = $this->getEntityManager();
+			$id = $this->getRequest()->getQuery('id');
+			$resume = $entityManager->find('\User\Entity\User', (int)$id);
+			$freelancer = $user->getFreelancer();
+			
+			$resume = new Resume();
+			
+            $resume->setData([
+                'name' => $_FILES[ 'file' ][ 'name' ],
+                'path' => $uploadPath,
+                'size' => $_FILES['file']['size'],
+                'time' => time(),
+            ]);
+            $file->save($this->getEntityManager());*/
+            $answer = [
+                'file' => $name,
+                'success' => true,
+            ];
+            $json = json_encode( $answer );
+
+            echo $json;
+            die;
+
+        } else {
+            $answer = ['success' => false];
+            $json = json_encode( $answer );
+            die($json);
+        }
+    }
+	
     public function updateInfoAction(){
         return $this->finishRegistrationAction();
     }
@@ -43,12 +89,11 @@ class FreelancerController extends AbstractActionController
         }
     }
 	public function detailAction() {
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
         $userId = (int)$this->getRequest()->getQuery('id');
         $entityManager = $this->getEntityManager();
         $user = $this->getUserById($userId);
-        
         // Get Interpreting Price
         $repository = $entityManager->getRepository('User\Entity\UserInterpretingPrice');
         $interPretingPrices = $repository->findBy( array('user'=>$user) );
