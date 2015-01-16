@@ -137,7 +137,7 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
                 $http.post('/api/user/'+USER_ID+'/resume', $scope.resume).success(function($data){
                     $q.all([ajaxUpdateUser, ajaxUpdateStaff, ajaxUpdateBank])
                         .then ( function () {
-                        //location.href = "/admin/staff/view/?id=" + USER_ID;
+                        location.href = "/admin/staff/view/?id=" + USER_ID;
                     });
                 });
             }else{
@@ -145,7 +145,7 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
                 $http.put('/api/user/'+USER_ID+'/resume', $scope.resume).success(function($data){
                     $q.all([ajaxUpdateUser, ajaxUpdateStaff, ajaxUpdateBank])
                         .then ( function () {
-                        //location.href = "/admin/staff/view/?id=" + USER_ID;
+                        location.href = "/admin/staff/view/?id=" + USER_ID;
                     });
                 });
             }

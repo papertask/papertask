@@ -502,13 +502,13 @@ class User extends Entity implements InputFilterAwareInterface{
         }else if($name == 'employer'){
             $this->setGroup($entityManager->getReference('\User\Entity\UserGroup', UserGroup::EMPLOYER_GROUP_ID));
             $employer = new Employer();
-            $employer->setData(['name' => $this->firstName . ' ' . $this->lastName, 'alias'=>$this->getAlias( $entityManager, UserGroup::EMPLOYER_GROUP_ID)]);
+            $employer->setData(['name' => $this->firstName . ', ' . $this->lastName, 'alias'=>$this->getAlias( $entityManager, UserGroup::EMPLOYER_GROUP_ID)]);
             $employer->save($entityManager);
             $this->employer = $employer;
         } else if ( $name == 'staff' ) {
         	$this->setGroup( $entityManager->getReference('\User\Entity\UserGroup', UserGroup::ADMIN_GROUP_ID));
         	$staff = new Staff();
-        	$staff->setData(['alias'=>$this->getAlias( $entityManager, UserGroup::EMPLOYER_GROUP_ID)]);
+        	$staff->setData(['name' => $this->firstName . ', ' . $this->lastName, 'alias'=>$this->getAlias( $entityManager, UserGroup::EMPLOYER_GROUP_ID)]);
         	$staff->save($entityManager);
         	$this->staff = $staff;
         }
@@ -554,6 +554,7 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager = $controller->getEntityManager();
         // $strAlias = $this->getAlias( $entityManager, UserGroup::ADMIN_GROUP_ID );
         // $data['alias'] = $strAlias;
+		
         $this->setData($data);
         $this->encodePassword(isset($data['password'])? $data['password'] : $this->generateRandomString());
         $this->setGroupByName('staff', $entityManager);
