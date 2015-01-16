@@ -19,8 +19,7 @@ $this->inlineScript()
 <div class="col-md-4">
     <div class="ibox">
         <div class="ibox-title">
-            <h5><?php echo $this->user['lastName'] ?>, <?php echo $this->user['firstName'] ?></h5>
-
+            <h5>{{staff.name}}</h5>
             <div class="ibox-tools">
                 <?php if ($this->user['isActive']): ?>
                     <span class="label label-primary"><?php echo $this->translate('Active') ?></span>
@@ -31,13 +30,17 @@ $this->inlineScript()
         </div>
 
         <div class="ibox-content profile-content">
-            <p><i class="fa fa-envelope"></i> &nbsp; <?php echo $this->user['email'] ?>
+            <p><i class="fa fa-user"></i> &nbsp;
+                <?php echo $this->user['lastName'] ?>, <?php echo $this->user['firstName'] ?> &nbsp;
                 &nbsp;
                 <?php if ($this->user['gender'] == '1'): ?>
                     <i class="fa fa-male"></i>
                 <?php else: ?>
                     <i class="fa fa-female"></i>
                 <?php endif; ?>
+            </p>
+            <p><i class="fa fa-envelope"></i> &nbsp; <?php echo $this->user['email'] ?>
+
             </p>
 
             <p><i class="fa fa-tag"></i> &nbsp; <?php echo $this->user['alias'] ?></p>

@@ -21,7 +21,7 @@ $this->inlineScript()
 	<div class="col-md-4">
 		<div class="ibox">
 			<div class="ibox-title">
-				<h5>{{userInfo.lastName}}, {{userInfo.firstName}}</h5>
+				<h5>{{employer.username}}</h5>
 				<div class="ibox-tools">				
 					<span ng-show="userInfo.isActive == '1'" class="label label-primary"><?php echo $this->translate('Active') ?></span>
 					<span ng-show="userInfo.isActive == '0'" class="label label-default"><?php echo $this->translate('Unactive') ?></span>
@@ -30,7 +30,7 @@ $this->inlineScript()
 
 			<div class="ibox-content profile-content">
 				<p><i class="fa fa-user"></i> &nbsp; 
-                {{userInfo.lastName}}, {{userInfo.firstName}} &nbsp; 
+                {{userInfo.lastName}}, {{userInfo.firstName}} &nbsp;
                 <i ng-show="userInfo.gender == '0'" class="fa fa-male"></i>
                 <i ng-show="userInfo.gender == '1'" class="fa fa-female"></i>
                 </p>

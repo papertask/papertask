@@ -34,7 +34,7 @@ class StaffController extends AbstractRestfulController
 				'email' => $data['email'],
 				'firstName' => $data['firstName'],
 				'lastName' => $data['lastName'],
-				'name' => $data['lastName']." ".$data['firstName'],
+				'name' => $data['name'],
 				'password' => $data['password'],
 				'phone' => $data['phone'],
                 'cellphone' => $data['cellphone'],

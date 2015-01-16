@@ -44,8 +44,7 @@ class EmployerController extends AbstractRestfulController
 		$data['comments'] = $pdata['comments'];
 		$data['position'] = $pdata['position'];
         $data['contracted'] = $pdata['contracted'];
-		 
-		 
+        $data['name'] = $pdata['name'];
 		$entityManager = $this->getEntityManager();
 		$data['company_id'] = $entityManager->getRepository('User\Entity\Company')->findOneBy(array('id' => $pdata['company']));
         $data['country'] = $entityManager->getRepository('User\Entity\Country')->findOneBy(array('id' => $pdata['country']));
@@ -68,6 +67,7 @@ class EmployerController extends AbstractRestfulController
                 'comments'=>$pdata['comments'],
                 'contracted'=> $pdata['contracted'],
                 'pm' => $data['pm'] ,
+                'name' => $pdata['name'],
                 'sales' => $data['sales']));
 			$employer->save($entityManager);
 	
@@ -173,6 +173,7 @@ class EmployerController extends AbstractRestfulController
                 'company'=>$entityManager->getRepository('User\Entity\Company')->findOneBy(array('id' => $data['company'])), 
                 'defaultServiceLevel'=>$data['defaultServiceLevel'],
                 'comments'=>$data['comments'],
+                'name' => $data['username'],
                 'contracted' => $data['contracted'],
                 'pm' => $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $data['pm']['id'])),
                 'sales' => $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $data['sales']['id']))
