@@ -13,6 +13,7 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/freelancer/d
 $this->inlineScript()
     ->prependScript("
         var USER_ID = '" . $user['id'] . "';
+		var LANG_CODE = '" . $this->lang_code . "';
         var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
     ");
 ?>
@@ -35,27 +36,41 @@ $this->inlineScript()
                 <i ng-show="userInfo.gender == '1'" class="fa fa-female"></i>
                 </p>
 				<p><i class="fa fa-envelope"></i> &nbsp; {{userInfo.email}}</p>
-				<p><i class="fa fa-tag"></i> &nbsp; {{userInfo.tag}}</p>
+				<p><i class="fa fa-tag"></i> &nbsp; {{userInfo.alias}}</p>
 				
 				<p><i class="fa fa-phone"></i> &nbsp; {{userInfo.phone}}</p>
 				<p><i class="fa fa-map-marker"></i> &nbsp; {{userInfo.city}}, {{userInfo.country.name}}</p>
 				<p class="small font-bold">
-					<span ng-show="userInfo.isSenior == '1'" class="fa fa-circle text-danger"><?php echo $this->translate('Senior Freelancer') ?></span>
-					<span ng-show="userInfo.isSenior == '0'" class="fa fa-circle text-danger"><?php echo $this->translate('Freelancer') ?></span>
+					<?php if ($freelancer['isSenior']) {?>	
+						<span class="fa fa-circle text-danger"> &nbsp; <?php echo $this->translate('Senior Freelancer') ?></span>
+					<?php } else {?>
+						<span class="fa fa-circle text-danger"> &nbsp; <?php echo $this->translate('Freelancer') ?></span>
+					<?php }?>
+					
                 </p>
 				<p class="small font-bold">
                                 <span><i class="fa fa-thumbs-up text-danger"></i> &nbsp; 
                                     <span>
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star-o text-warning"></i>
-                                        <i class="fa fa-star-o text-warning"></i>
+										<?php 
+										//var_dump($freelancer['Rating'][0]);
+										for ($i = 0; $i < 6; $i++)  {  
+											if($i < $freelancer['Rating'][0]) {?>
+											<i class="fa fa-star text-warning"></i>
+											<?php } else { ?>
+											<i class="fa fa-star-o text-warning"></i>
+										<?php } }?>
                                     </span>
                                 </span>
                 </p>
-				<p><i class="fa fa-file-text"></i><a href="" class="text-info"> &nbsp; John.docx</a></p>
+				 <p>
+                <?php
+                    foreach ( $cvfiles as $k => $v ) {                        
+                        ?>
+                        <i class="fa fa-file-text"></i><a href="<?php echo '../../../'.$v['path'];?>" class="text-info"> &nbsp; <?php echo $v['name'];?></a>
+                        <?php
+                    } 
+                ?>                
+				</p>
 				
 				<form role="form" class="form-inline">
                     <div class="form-group">
@@ -117,7 +132,7 @@ $this->inlineScript()
                 <strong><?php echo $this->translate('ABA Routing Number') ?></strong>: {{bankInfo.routingNumber}}
             </address>
 
-            <a href="<?php echo $this->url('admin', ['controller'=>'freelancer', 'action'=>'edit-payment-info']) ?>?id={{user.user.id}}"
+            <a href="<?php echo $this->url('admin', ['controller'=>'freelancer', 'action'=>'edit-profile']) ?>?id=<?php echo $user['id'];?>"
                class="btn btn-primary btn-block"><i class="fa fa-paste"></i> Edit</a>
 			</div>
 		</div>
@@ -422,6 +437,35 @@ $this->inlineScript()
 							</div>
 						</div>
 					</div>
+					<div id="tab-5" class="tab-pane">
+
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-title">
+                                            <h3><i class="fa fa-cog"></i> Working Experiences</h3>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <p><?php echo $resume['workingExperiences'];?></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-title">
+                                            <h3><i class="fa fa-graduation-cap"></i> Education</h3>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <p><?php echo $resume['education'];?></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-title">
+                                            <h3><i class="fa fa-comment-o"></i> Recommended</h3>
+                                        </div>
+                                        <div class="ibox-content">
+                                           
+                                        </div>
+                                    </div>
+                    </div>
 				</div>
 			</div>
 

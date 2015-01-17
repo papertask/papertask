@@ -1,0 +1,73 @@
+<?php $this->headTitle($this->translate('Create Staff')) ?>
+<?php
+$this->headLink()
+    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
+    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css');
+$this->headScript()
+    ->prependFile($this->basePath() . '/js/admin/staff/new.js')
+    ->prependFile($this->basePath() . '/js/common.js')
+    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/angular-file-upload/angular-file-upload.js')
+    ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload']);")
+    ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
+    ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js');
+
+$this->inlineScript()
+    ->prependScript("
+        $(document).ready(function(){
+            $('.summernote').summernote();
+        });        
+        var LANG_CODE = '" . $this->lang_code . "';
+        ");
+?>
+<Script>
+    var USER_ID = '<?php echo ($this->user) ? $this->user['id'] : '' ?>';
+</Script>
+<div ng-controller="newStaffController" class="ibox float-e-margins" id="StaffController" ng-init="init();">
+    <div class="ibox-title">
+        <h4><i class="fa fa-edit"></i> <?php echo $this->translate('Create Staff Account') ?></h4>
+    </div>
+
+    <div class="ibox-content">
+        <form name="newStaffForm" method="">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <h4><i class="fa fa-info-circle"></i> <?php echo $this->translate('Basic Information') ?></h4>
+                    <div class="hr-line-dashed"></div>
+                    <?php include __DIR__ . "/../staff/profile/basic-info.phtml" ?>
+                </div>
+            </div>
+            
+            <div class="panel panel-primary staff-type">
+                <div class="panel-body">
+                    <?php include __DIR__ . "/staff-type.phtml" ?>
+                </div>
+            </div>
+
+            <div class="panel panel-primary staff-type">
+                <div class="panel-body">
+
+                    <?php include __DIR__ . "/../staff/profile/bank-info.phtml" ?>
+                </div>
+            </div>
+            
+
+            <div class="panel panel-primary">
+                <div class="panel-body">
+
+                    <?php include __DIR__ . "/../staff/profile/resume.phtml" ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <button ng-click="save()" class="btn btn-primary btn-block" type="submit">
+                        <?php echo $this->translate('Save') ?></button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

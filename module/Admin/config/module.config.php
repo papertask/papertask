@@ -17,11 +17,12 @@ return array(
             'admin' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/admin/[:controller[/[:action[/]]]]',
+                    'route'    => '/:lang/admin/[:controller[/[:action[/]]]]',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Admin\Controller',
                         'controller'    => 'Dashboard',
                         'action'        => 'index',
+                        'lang'=>'en-US'
                     ),
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -41,12 +42,12 @@ return array(
         ),
     ),
     'translator' => array(
-        'locale' => 'en_US',
+        'locale' => 'zh_CN',
         'translation_file_patterns' => array(
             array(
-                'type'     => 'gettext',
+                'type'     => 'PhpArray',
                 'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
+                'pattern'  => '%s.php',
             ),
         ),
     ),
@@ -93,7 +94,7 @@ return array(
             'admin/staff/edit-payment-info' => __DIR__ . '/../view/admin/freelancer/edit-payment-info.phtml',
             'admin/staff/edit-profile' => __DIR__ . '/../view/admin/staff/edit-profile.phtml',
             'admin/staff/index' => __DIR__ . '/../view/admin/staff/index.phtml',
-            'admin/staff/new' => __DIR__ . '/../view/admin/staff/edit-profile.phtml',
+            'admin/staff/new' => __DIR__ . '/../view/admin/staff/new.phtml',
             'admin/staff/view' => __DIR__ . '/../view/admin/staff/view.phtml',
             'admin/task/new' => __DIR__ . '/../view/admin/task/new.phtml',
         ),

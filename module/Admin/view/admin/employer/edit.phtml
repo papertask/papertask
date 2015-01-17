@@ -23,6 +23,8 @@ $this->inlineScript()
     ->prependScript("
         var USER_ID = '" . $user['id'] . "';
         var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+		var LANG_CODE = '" . $this->lang_code . "';
+		
     ");
 ?>
 <style type="text/css">

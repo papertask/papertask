@@ -62,7 +62,8 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
         comments: null,
         company: null,
         employerId: null,
-        position: null
+        position: null,
+        contracted: null
     };
 
     /**
@@ -128,15 +129,17 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     			interpretingPrices: $scope.interpretingPrices,
     			tmRatio: $scope.userInfo.tmRatios,
     			comments: $('.summernote').code(),
-    			engineeringPrices: $scope.engineeringPrices
+    			engineeringPrices: $scope.engineeringPrices,
+                contracted: $scope.employer.contracted
     	};
+
     	$http.post("/api/user/employer", ptr_employer)
         	.success(function($data){
                 if ( $data.success == 'failed') {
                     bootbox.alert("User already exited. Please check your email address.");
                     return ;
                 }
-	            location.href="/admin/employer/detail?id=" + $data.user.id;
+	            location.href="/" + LANG_CODE + "/admin/employer/detail?id=" + $data.user.id;
         });
     };
     
@@ -355,6 +358,10 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     } 
     $scope.setProfileUploaded = function ( str_flag ) {
     	$scope.userInfo.profileUpdated = str_flag;
+    }
+
+    $scope.setEmployerContracted = function ( str_flag ) {
+        $scope.employer.contracted = str_flag;
     }
     $scope.setServiceLevel = function ( str_servicelevel ) {
     	$scope.employer.defaultServiceLevel = str_servicelevel;

@@ -49,10 +49,10 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
 	}
 	
 	$scope.onViewClicked = function ( str_empid ) {
-		document.location.href = "/admin/employer/detail?id=" + str_empid;
+		document.location.href = "/" + LANG_CODE + "/admin/employer/detail?id=" + str_empid;
 	}
 	$scope.onEditClicked = function ( str_empid ) {
-		document.location.href = "/admin/employer/edit?userId=" + str_empid;
+		document.location.href = "/" + LANG_CODE + "/admin/employer/edit?userId=" + str_empid;
 	}
 	$scope.onDeleteClicked = function ( str_empid ) {
         bootbox.confirm ( DELETE_CONFIRM_TEXT, function ( bflag ) {

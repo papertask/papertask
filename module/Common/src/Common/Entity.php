@@ -25,6 +25,7 @@ class Entity {
      * @param \Doctrine\ORM\EntityManager $entityManager
      */
     public function updateManyToOne($data, $keys, $entityManager){
+		error_reporting(E_ERROR | E_PARSE);
         foreach($keys as $key){
 		if($key){
 				$ids = $data[$key];

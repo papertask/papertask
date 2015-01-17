@@ -15,12 +15,20 @@ use Application\Controller\AbstractActionController;
 
 use User\Entity\Resume;
 
+use User\Entity\CvFile;
+
+
+use Zend\View\Model\JsonModel;
+
 class FreelancerController extends AbstractActionController
 {
     protected $requiredLogin = true;
-
+	
     public function indexAction(){
-        return new ViewModel();
+        $lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code,
+        ));
     }
 
     public function finishRegistrationAction()
@@ -29,12 +37,8 @@ class FreelancerController extends AbstractActionController
             "user" => $this->getCurrentUser(),
         ));
     }
-	public function removeFileAction(){
-		
-	}
-	public function uploadFileAction(){
 	
-	var_dump($_FILES);exit;
+	public function uploadFileAction() {
         if ( !empty( $_FILES ) ) {
 
             $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
@@ -43,35 +47,36 @@ class FreelancerController extends AbstractActionController
             $uploadPath = 'public/uploads' . DIRECTORY_SEPARATOR . $name;
 
             move_uploaded_file( $tempPath, $uploadPath );
-            
-			/*$entityManager = $this->getEntityManager();
-			$id = $this->getRequest()->getQuery('id');
-			$resume = $entityManager->find('\User\Entity\User', (int)$id);
-			$freelancer = $user->getFreelancer();
-			
-			$resume = new Resume();
-			
-            $resume->setData([
+            $file = new CvFile();
+           
+            $file->setData([
                 'name' => $_FILES[ 'file' ][ 'name' ],
                 'path' => $uploadPath,
                 'size' => $_FILES['file']['size'],
                 'time' => time(),
             ]);
-            $file->save($this->getEntityManager());*/
+            $file->save( $this->getEntityManager() );
             $answer = [
-                'file' => $name,
+                'file' => $file->getData(),
                 'success' => true,
             ];
-            $json = json_encode( $answer );
-
-            echo $json;
-            die;
+            return new JsonModel( $answer );
 
         } else {
             $answer = ['success' => false];
-            $json = json_encode( $answer );
-            die($json);
+            return new JsonModel( $answer );
         }
+    }
+    
+    public function deleteFileAction( ) {
+        $entityManager = $this->getEntityManager();
+        $fid = $this->getRequest()->getQuery('fid');
+        $cvfile = $entityManager->find('\User\Entity\CvFile', (int)$fid);
+        $entityManager->remove( $cvfile );
+        $entityManager->flush();
+        $answer = ["success" => true];
+        
+        return new JsonModel( $answer );
     }
 	
     public function updateInfoAction(){
@@ -82,9 +87,11 @@ class FreelancerController extends AbstractActionController
         $entityManager = $this->getEntityManager();
         $id = $this->getRequest()->getQuery('id');
         $user = $entityManager->find('\User\Entity\User', (int)$id);
+		$lang_code = $this->params()->fromRoute('lang');
         if($entityManager->find('\User\Entity\Freelancer', $user->getFreelancer())){
             return new ViewModel([
-                "user" => $user->getData()
+                "user" => $user->getData(),
+				"lang_code" => $lang_code,
             ]);
         }
     }
@@ -132,21 +139,39 @@ class FreelancerController extends AbstractActionController
         foreach ( $tmRatios as $k => $v) {
             $pTmRatios[$k] = $v->getData();
         }
-        
-        return new ViewModel(array('user'=>$user->getData(), 
+        $cvfile = $entityManager->getRepository('\User\Entity\CvFile')
+                        ->findBy(['user' => $user]);
+        $cvfiles = array();
+        foreach ( $cvfile as $k => $v ) {
+            $cvfiles[$k] = $v->getData();
+        }
+		
+		//Get resume
+		$resume = $entityManager->getRepository('\User\Entity\Resume')
+                        ->findOneBy(['user' => $user]);
+						
+		//var_dump($user->getFreelancer()->getData());exit;
+			
+        $lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array('user'=>$user->getData(), 
                 'freelancer' => $user->getFreelancer()->getData(),
                 'interpretingPrices'=>$pInterPretingPrices,
                 'engineeringPrices'=>$pEngineeringPrices,
                 'translationPrices'=>$pTranslationPrices,
                 'dptPrices'=>$pDtpPrices,
-                'tmRatios'=>$pTmRatios
+                'tmRatios'=>$pTmRatios,
+				'lang_code' => $lang_code,
+				'cvfiles' => $cvfiles,
+				'resume' => $resume?$resume->getData():null,
         ));
     }
 
     public function newAction(){
-        return new ViewModel(array(
-            "user" => '',
+        $lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code
         ));
+
     }
 
     public function editPaymentInfoAction(){
@@ -164,9 +189,11 @@ class FreelancerController extends AbstractActionController
         $entityManager = $this->getEntityManager();
         $id = $this->getRequest()->getQuery('id');
         $user = $entityManager->find('\User\Entity\User', (int)$id);
+		$lang_code = $this->params()->fromRoute('lang');
         if($entityManager->find('\User\Entity\Freelancer', $user->getFreelancer())){
             return new ViewModel([
-                "user" => $user->getData()
+                "user" => $user->getData(),
+				"lang_code" => $lang_code
             ]);
         }
     }

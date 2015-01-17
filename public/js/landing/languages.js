@@ -10,7 +10,6 @@ angularApp.controller('languagesController', function($scope, $http, $timeout, $
         currency: 'CNY'
     };
     $scope.price = [];
-
     function init(){
         $('form').validate();
 

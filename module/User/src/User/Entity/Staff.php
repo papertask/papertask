@@ -11,12 +11,10 @@ namespace User\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Common\Entity;
+use User\Entity\Roles;
 
 /** @ORM\Entity */
 class Staff extends Entity{
-
-    const STAFF_TYPE_PM = 2;
-    const STAFF_TYPE_SALE = 1;
 
     /**
      * @ORM\Id
@@ -26,22 +24,48 @@ class Staff extends Entity{
     protected $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\User\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="client_id", referencedColumnName="id", onDelete="cascade")
+     * })
+     */
+    protected $client;
+
+    /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $name;
 
     /**
-     * @var integer
-     * @ORM\Column(type="integer")
+     * @var \User\Entity\Roles
+     * @ORM\ManyToOne(targetEntity="Roles")
      */
     protected $type;
-
+    
     public function getData(){
         return [
             'id' => $this->id,
+            'client' => $this->client->getData(),
             'name' => $this->name,
-            'type' => $this->type,
+            'type' => $this->type->getData()
         ];
+    }
+    
+    public function setType( $type ) 
+    {
+    	$this->type = $type;
+    }
+
+    public function setName ( $data ) {
+        $this->name = $data;
+    }
+
+    public function setClient( $client ) {
+        $this->client = $client;
+    }
+    
+    public function getId() {
+        return $this->id;
     }
 }

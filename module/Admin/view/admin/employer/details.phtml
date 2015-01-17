@@ -14,6 +14,8 @@ $this->inlineScript()
     ->prependScript("
         var USER_ID = '" . $user['id'] . "';
         var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+		var LANG_CODE = '" . $this->lang_code . "';
+		
     ");
 ?>
 					
@@ -58,8 +60,8 @@ $this->inlineScript()
 				<div class="row file-manager">
 					<ul class="tag-list" style="padding: 0">
 						<li>
-                            <a ng-show="userInfo.profileUpdated == '1'"><?php echo $this->translate('Contracted') ?></a>
-                            <a ng-show="userInfo.profileUpdated == '0'"><?php echo $this->translate('UnContracted') ?></a>
+                            <a ng-show="employer.contracted == '1'"><?php echo $this->translate('Contracted') ?></a>
+                            <a ng-show="employer.contracted == '0'"><?php echo $this->translate('UnContracted') ?></a>
                         </li>
 					</ul>
 				</div>
@@ -75,8 +77,8 @@ $this->inlineScript()
 				<div class="hr-line-dashed"></div>
 				<h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
 				<div id="objNote"></div>
-
-				<a class="btn btn-primary btn-block" type="button" href="/admin/employer/edit?userId=<?php echo $user['id']; ?>"><i class="fa fa-paste"></i> <?php echo $this->translate('Edit') ?></a>
+				<a href="<?php echo $this->url('admin', ['controller'=>'employer', 'action'=>'edit']) ?>?userId=<?php echo $user['id'];?>"
+               class="btn btn-primary btn-block"><i class="fa fa-paste"></i> <?php echo $this->translate('Edit') ?></a>
 			</div>
 		</div>
 	</div>

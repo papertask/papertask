@@ -113,11 +113,24 @@ class Freelancer extends Entity{
             'Resources',
             'TranslationCatTools',
             'TranslationSpecialisms',
-            'Rating'
+            'Rating',
         );
         return $this->updateManyToOne($data, $keys, $entityManager);
     }
+	
+	 public function updateSenior(array $arr){
+        $keys = array(
+            'isSenior'
+        );
 
+        foreach($keys as $key){
+            if(isset($arr[$key])){
+                $this->$key = $arr[$key];
+            }
+        }
+
+        return $this;
+    }
     public function getId(){
         return $this->id;
     }

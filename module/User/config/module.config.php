@@ -15,13 +15,14 @@ return array(
             // module. Simply drop new controllers in, and you can access them
             // using the path /user/:controller/:action
             'user' => array(
-                'type'    => 'Literal',
+                'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/user',
+                    'route'    => '/:lang/user',
                     'defaults' => array(
                         '__NAMESPACE__' => 'User\Controller',
                         'controller'    => 'Index',
                         'action'        => 'index',
+                        'lang'=>'en-US'
                     ),
                 ),
                 'may_terminate' => true,
@@ -33,6 +34,7 @@ return array(
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                
                             ),
                             'defaults' => array(
                             ),

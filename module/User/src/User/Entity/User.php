@@ -6,18 +6,23 @@
  * Time: 12:14 AM
  */
 namespace User\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Session\Container;
+
 use User\Model\Password;
 use Common\Mail;
 use Common\Func;
 use Common\Entity;
+use User\Entity\UserGroup;
+
 /** @ORM\Entity */
 class User extends Entity implements InputFilterAwareInterface{
+
     /**
      * @var integer
      *
@@ -26,60 +31,93 @@ class User extends Entity implements InputFilterAwareInterface{
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
+
     /** @ORM\Column(type="string") */
     protected $firstName;
+
     /** @ORM\Column(type="string") */
     protected $lastName;
+
     /**
      * @var \User\Entity\UserGroup
      * @ORM\ManyToOne(targetEntity="UserGroup")
      */
     protected $group;
+
     /** @ORM\Column(type="string", unique=true) */
     protected $email;
+
     /** @ORM\Column(type="string") */
     protected $password;
+
     /** @ORM\Column(type="string", nullable=true) */
     protected $phone;
+
     /** @ORM\Column(type="datetime") */
     protected $lastLogin;
+
     /** @ORM\Column(type="datetime") */
     protected $createdTime;
+
     /** @ORM\Column(type="boolean") */
     protected $isActive = 0;
+
     /** @ORM\Column(type="boolean") */
     protected $profileUpdated = false;
+
     /** @ORM\Column(type="string", nullable=true) */
     protected $token = Null;
+
     /**
      * @var \User\Entity\Country
      * @ORM\ManyToOne(targetEntity="Country")
      */
     protected $country = null;
+
     /** @ORM\Column(type="string", nullable=true) */
     protected $city = null;
+
     /** @ORM\Column(type="boolean") */
     protected $gender = 0;
+
     /** @ORM\Column(type="string") */
     protected $currency = 'cny';
+
     /**
      * @var \User\Entity\Freelancer
      * @ORM\OneToOne(targetEntity="Freelancer")
      */
     protected $freelancer;
+
     /**
      * @var \User\Entity\Employer
-     * @ORM\OneToOne(targetEntity="Employer")
+     * @ORM\OneToOne(targetEntity="Employer", cascade="remove")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="employer_id", referencedColumnName="id", onDelete="cascade")
+     * })
      */
     protected $employer;
-    
     /**
-     * @var \User\Entity\Staff
-     * @ORM\OneToOne(targetEntity="Staff")
+     * @ORM\OneToOne(targetEntity="\User\Entity\Staff", cascade={"remove"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="staff_id", referencedColumnName="id", onDelete="cascade")
+     * })
      */
     protected $staff;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $alias;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $cellphone;
+
     // class variables
     protected $inputFilter;
+
     /**
      * Get id
      *
@@ -88,6 +126,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function getId(){
         return $this->id;
     }
+
     /**
      *
      * Set group Id
@@ -96,6 +135,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function setGroup(UserGroup $group){
         $this->group = $group;
     }
+
     /**
      * Set data
      * @param array $arr
@@ -115,7 +155,9 @@ class User extends Entity implements InputFilterAwareInterface{
             'password',
             'phone',            
             'isActive',
-            'profileUpdated'
+            'profileUpdated',
+            'alias',
+            'cellphone'
         );
         foreach($keys as $key){
             if(isset($arr[$key])){
@@ -124,6 +166,7 @@ class User extends Entity implements InputFilterAwareInterface{
         }
         return $this;
     }
+
     /**
      * update data
      * @param array $arr
@@ -139,31 +182,40 @@ class User extends Entity implements InputFilterAwareInterface{
             'lastName',
             'phone',
             'profileUpdated',
-            'isActive'
+            'isActive',
+            'cellphone'
         );
+
         if(isset($arr['currency']) and !in_array($arr['currency'], ['usd', 'cny'])){
             throw new \Exception("Invalid currency '{$arr['currency']}'");
         }
+
         foreach($keys as $key){
             if(isset($arr[$key])){
                 $this->$key = $arr[$key];
             }
         }
+
         return $this;
     }
+
     public function getArrayCopy()
     {
         return get_object_vars($this);
     }
+
     function exchangeArray($data){
         return $this->setData($data);
     }
+
     // TODO: Add content to this method:
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used");
     }
+
     public function getInputFilter(){
+
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
             $factory     = new InputFactory();
@@ -217,8 +269,10 @@ class User extends Entity implements InputFilterAwareInterface{
             )));
             $this->inputFilter = $inputFilter;
         }
+
         return $this->inputFilter;
     }
+
     public function encodePassword($newPassword = null){
         if($newPassword){
             $this->password = $newPassword;
@@ -227,6 +281,7 @@ class User extends Entity implements InputFilterAwareInterface{
         $this->password = $passClass->create_hash($this->password);
         return $this;
     }
+
     /**
      * Get password hash
      * @return string
@@ -234,6 +289,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function getPasswordHash(){
         return $this->password;
     }
+
     /**
      * Check user is active or not
      * @return boolean
@@ -241,6 +297,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function isActivated(){
         return ($this->isActive == True);
     }
+
     /**
      * Check if user profile is updated
      * @return bool
@@ -248,6 +305,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function isProfileUpdated(){
         return $this->profileUpdated;
     }
+
     /**
      * Get email of user
      * @return mixed
@@ -255,12 +313,14 @@ class User extends Entity implements InputFilterAwareInterface{
     public function getEmail(){
         return $this->email;
     }
+
     /**
      * @return UserGroup
      */
     function getGroup(){
         return $this->group;
     }
+
     /**
      * @param $token
      * @return bool
@@ -268,6 +328,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function isTokenValid($token){
         return $this->token === $token && strlen($token) == 32;
     }
+
     /**
      * @param string $token
      * @param \Doctrine\ORM\EntityManager $entityManager
@@ -283,6 +344,7 @@ class User extends Entity implements InputFilterAwareInterface{
         }
         return false;
     }
+
     /**
      * @param string $token
      * @param string $newPassword
@@ -299,6 +361,7 @@ class User extends Entity implements InputFilterAwareInterface{
         }
         return false;
     }
+
     public function generateToken(){
         $tokenLength = 16;
         $token = time();
@@ -307,10 +370,12 @@ class User extends Entity implements InputFilterAwareInterface{
         }
         $this->token = md5($token);
     }
+
     public function authenticate(){
         $sessionContainer = new Container('user');
         $sessionContainer->user_id = $this->id;
     }
+
     /**
      * Get current login user id
      * @return int
@@ -319,10 +384,12 @@ class User extends Entity implements InputFilterAwareInterface{
         $sessionContainer = new Container('user');
         return $sessionContainer->user_id;
     }
+
     public function checkPassword($password){
         $passClass = new Password();
         return $passClass->validate_password($password, $this->password);
     }
+
     /**
      * @param \Application\Controller\AbstractActionController $controller
      */
@@ -336,6 +403,7 @@ class User extends Entity implements InputFilterAwareInterface{
         );
         Mail::sendMail($controller, "USER_CONFIRM", $this->email, $data);
     }
+
     /**
      * @param \Application\Controller\AbstractActionController $controller
      */
@@ -347,6 +415,7 @@ class User extends Entity implements InputFilterAwareInterface{
         );
         Mail::sendMail($controller, "USER_WELCOME", $this->email, $data);
     }
+
     /**
      * @param \Application\Controller\AbstractActionController $controller
      */
@@ -360,6 +429,7 @@ class User extends Entity implements InputFilterAwareInterface{
         );
         Mail::sendMail($controller, "USER_RESET", $this->email, $data);
     }
+
     public function getData(){
         return array(
             "city" => $this->city,
@@ -375,45 +445,54 @@ class User extends Entity implements InputFilterAwareInterface{
             "lastLogin" => $this->lastLogin,
             "lastName" => $this->lastName,
             "phone" => $this->phone,
-            "profileUpdated" => $this->profileUpdated
+            "profileUpdated" => $this->profileUpdated,
+            "alias" => $this->alias,
+            "cellphone" => $this->cellphone
         );
     }
+
     /**
      * @return Freelancer
      */
     public function getFreelancer(){
         return $this->freelancer;
     }
+
     /**
      * @return Employer
      */
     public function getEmployer(){
         return $this->employer;
     }
+
     /**
      * @return Staff
      */
     public function getStaff(){
         return $this->staff;
     }
+
     /**
      * @return bool
      */
     public function isEmployer(){
         return $this->getGroup()->isEmployer();
     }
+
     /**
      * @return bool
      */
     public function isFreelancer(){
         return $this->getGroup()->isFreelancer();
     }
+
     /**
      * @return bool
      */
     public function isAdmin(){
         return $this->getGroup()->isAdmin();
     }
+
     public function setGroupByName($name, $entityManager){
         if($name == 'freelancer'){
             $this->setGroup($entityManager->getReference('\User\Entity\UserGroup', UserGroup::FREELANCER_GROUP_ID));
@@ -423,11 +502,18 @@ class User extends Entity implements InputFilterAwareInterface{
         }else if($name == 'employer'){
             $this->setGroup($entityManager->getReference('\User\Entity\UserGroup', UserGroup::EMPLOYER_GROUP_ID));
             $employer = new Employer();
-            $employer->setData(['name' => $this->firstName . ' ' . $this->lastName]);
+            $employer->setData(['name' => $this->firstName . ', ' . $this->lastName, 'alias'=>$this->getAlias( $entityManager, UserGroup::EMPLOYER_GROUP_ID)]);
             $employer->save($entityManager);
             $this->employer = $employer;
+        } else if ( $name == 'staff' ) {
+        	$this->setGroup( $entityManager->getReference('\User\Entity\UserGroup', UserGroup::ADMIN_GROUP_ID));
+        	$staff = new Staff();
+        	$staff->setData(['name' => $this->firstName . ', ' . $this->lastName, 'alias'=>$this->getAlias( $entityManager, UserGroup::EMPLOYER_GROUP_ID)]);
+        	$staff->save($entityManager);
+        	$this->staff = $staff;
         }
     }
+
     protected function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
@@ -436,6 +522,16 @@ class User extends Entity implements InputFilterAwareInterface{
         }
         return $randomString;
     }
+
+    public function generateRandomNumber ( $length = 8 ) {
+        $characters = '01234567890';
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $randomString;
+    }
+
     public function createUserBySocialProfile($controller, $profile, $group){
         $entityManager = $controller->getEntityManager();
         $data = array(
@@ -452,15 +548,84 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager->flush();
         $controller->redirect()->toUrl('/user/dashboard');
     }
-    
+
+    public function createStaff( $controller, $data )
+    {
+        $entityManager = $controller->getEntityManager();
+        $strAlias = $this->getAlias( $entityManager, UserGroup::ADMIN_GROUP_ID );
+        $data['alias'] = $strAlias;
+		
+        $this->setData($data);
+        $this->encodePassword(isset($data['password'])? $data['password'] : $this->generateRandomString());
+        $this->setGroupByName('staff', $entityManager);
+        $entityManager->persist($this);
+        $entityManager->flush();
+        $this->sendConfirmationEmail($controller);
+    }
+
+    public function getAlias( $entityManager, $group ) {
+        $strAlias = '';
+
+
+        switch ( $group ) {
+            case UserGroup::ADMIN_GROUP_ID:
+                $strAlias = "PT". $this->generateRandomNumber();
+                $userList = $entityManager->getRepository('User\Entity\User');
+                $queryBuilder = $userList->createQueryBuilder('user');
+                $queryBuilder->where('user.alias=?1')->setParameter(1, $strAlias);
+                $testStaffList = $queryBuilder->getQuery()->getArrayResult();
+                while ( $testStaffList != null ) {
+                    $strAlias = "PT". $this->generateRandomNumber();
+                    $queryBuilder = $userList->createQueryBuilder('user');
+                    $queryBuilder->where('user.alias=?1')->setParameter(1, $strAlias);
+                    $testStaffList = $queryBuilder->getQuery()->getArrayResult();
+                    sleep( 1 );
+                }
+                break;
+            case UserGroup::EMPLOYER_GROUP_ID:
+                $strAlias = "CL" . $this->generateRandomNumber();
+                $userList = $entityManager->getRepository('User\Entity\User');
+                $queryBuilder = $userList->createQueryBuilder('user');
+                $queryBuilder->where('user.alias=?1')->setParameter(1, $strAlias);
+                $testClientList = $queryBuilder->getQuery()->getArrayResult();
+                while ( $testClientList != null ) {
+                    $strAlias = "CL" . $this->generateRandomNumber();
+                    $queryBuilder = $userList->createQueryBuilder('user');
+                    $queryBuilder->where('user.alias=?1')->setParameter(1, $strAlias);
+                    $testClientList = $queryBuilder->getQuery()->getArrayResult();
+                    sleep( 1 );
+                }
+                break;
+			case UserGroup::FREELANCER_GROUP_ID:
+                $strAlias = "FR" . $this->generateRandomNumber();
+                $userList = $entityManager->getRepository('User\Entity\User');
+                $queryBuilder = $userList->createQueryBuilder('user');
+                $queryBuilder->where('user.alias=?1')->setParameter(1, $strAlias);
+                $testClientList = $queryBuilder->getQuery()->getArrayResult();
+                while ( $testClientList != null ) {
+                    $strAlias = "FR" . $this->generateRandomNumber();
+                    $queryBuilder = $userList->createQueryBuilder('user');
+                    $queryBuilder->where('user.alias=?1')->setParameter(1, $strAlias);
+                    $testClientList = $queryBuilder->getQuery()->getArrayResult();
+                    sleep( 1 );
+                }
+                break;	
+            default:
+                break;
+        }
+        return $strAlias;
+    }
+
     public function createEmployer( $controller, $data, $entityManager ) 
     {
+        $strAlias = $this->getAlias( $controller->getEntityManager(), UserGroup::EMPLOYER_GROUP_ID);
         $data = array(
             'email' => $data['email'],
             'lastName' => $data['lastName'],
             'firstName' => $data['firstName'],
             'lastLogin' => new \DateTime('now'),
             'createdTime' => new \DateTime('now'),
+            'alias' => $strAlias,
         );
         $this->setData($data);
         $this->encodePassword($this->generateRandomString());
@@ -470,15 +635,16 @@ class User extends Entity implements InputFilterAwareInterface{
         
         $this->sendConfirmationEmail( $controller );
     }
-	
 	public function createFreelancer( $controller, $data, $entityManager ) 
     {
+        $strAlias = $this->getAlias( $controller->getEntityManager(), UserGroup::FREELANCER_GROUP_ID);
         $data = array(
             'email' => $data['email'],
             'lastName' => $data['lastName'],
             'firstName' => $data['firstName'],
             'lastLogin' => new \DateTime('now'),
             'createdTime' => new \DateTime('now'),
+			'alias' => $strAlias,
         );
         $this->setData($data);
         $this->encodePassword($this->generateRandomString());

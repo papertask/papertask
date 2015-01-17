@@ -183,7 +183,7 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
                     bootbox.alert("User already exited. Please check your email address.");
                     return ;
                 }
-	            location.href="/admin/freelancer/detail?id=" + $data.user.id;
+	            location.href=   "/" + LANG_CODE + "/admin/freelancer/detail?id=" + $data.user.id;
 	            //location.href="/admin/dashboard";
         });
     };

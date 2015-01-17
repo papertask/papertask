@@ -20,6 +20,7 @@ use User\Entity\UserDesktopPrice;
 use User\Entity\UserTranslationPrice;
 use User\Entity\UserInterpretingPrice;
 use Doctrine\Common\Collections\Criteria;
+use User\Entity\CvFile;
 
 class FreelancerController extends AbstractRestfulController
 {
@@ -107,7 +108,7 @@ class FreelancerController extends AbstractRestfulController
 	}
 	
     public function get($id){
-        $user = $this->getUserById($id);
+		$user = $this->getUserById($id);
         $freelancerData = $user->getFreelancer()->getData();
         return new JsonModel([
             'freelancer' => $freelancerData,
@@ -122,6 +123,7 @@ class FreelancerController extends AbstractRestfulController
         $freelancer = $user->getFreelancer();
 		
         $freelancer->updateData($data, $entityManager);
+		$freelancer->updateSenior($data, $entityManager);
 		
         $freelancer->save($entityManager);
         return new JsonModel([]);

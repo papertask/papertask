@@ -33,7 +33,6 @@ function findOptionById( options, value ) {
     }
     return value;
 }
-
 function findOptions(options, ids){
     var values = [];
     for(var i = 0; i < options.length; i++){

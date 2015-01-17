@@ -54,11 +54,11 @@
 				<div class="form-group">
 					<label><i class="fa fa-legal"></i>&nbsp; <?php echo $this->translate('Client Type') ?></label>
 					<div data-toggle="buttons">
-						<label class="btn btn-outline btn-primary {{active_class(userInfo.profileUpdated, '1')}}" ng-click="setProfileUploaded('1')">
+						<label class="btn btn-outline btn-primary {{active_class(employer.contracted, '1')}}" ng-click="setEmployerContracted('1')">
 							<input type="radio" name="contracted" > <?php echo $this->translate('Contracted') ?>
 						</label>
 						&nbsp;
-						<label class="btn btn-outline btn-primary {{active_class(userInfo.profileUpdated, '0')}}" ng-click="setProfileUploaded('0')">
+						<label class="btn btn-outline btn-primary {{active_class(employer.contracted, '0')}}" ng-click="setEmployerContracted('0')">
 							<input type="radio" name="uncontracted"> <?php echo $this->translate('Un-Contracted') ?>
 						</label>
 					</div>

@@ -4,51 +4,55 @@ $this->headLink()
     ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
     ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css');
 $this->headScript()
-    ->prependFile($this->basePath() . '/js/admin/freelancer/edit-profile.js')
+    ->prependFile($this->basePath() . '/js/admin/staff/edit-profile.js')
     ->prependFile($this->basePath() . '/js/common.js')
     ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
-    ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
     ->prependFile($this->basePath() . '/js/plugins/angular-file-upload/angular-file-upload.js')
     ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload']);")
     ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
     ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
     ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
     ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js');
-
-$this->inlineScript()
-    ->prependScript("
-        $(document).ready(function(){
-            //$('.summernote').summernote();
-        });
-        var edit = function() {
-            $('.click2edit').summernote({focus: true});
-        };
-        var save = function() {
-            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
-            $('.click2edit').destroy();
-        };
-        ");
 ?>
 <Script>
-    var USER_ID = '<?php echo ($this->user) ? $this->user['id'] : '' ?>';
+    var USER_ID = '<?php echo $user['id']; ?>';
+	var LANG_CODE = '<?php echo $this->lang_code; ?>';
 </Script>
-<div ng-controller="editProfileController" class="ibox float-e-margins">
+<div ng-controller="editProfileController" class="ibox float-e-margins" id="editProfile" ng-init="init()">
     <div class="ibox-title">
         <h4><i class="fa fa-edit"></i> <?php echo $this->translate('Edit Profile') ?></h4>
     </div>
 
     <div class="ibox-content">
         <form name="editProfileForm" method="">
+            <div class="row">
+                <div class="col-lg-2">
+                    <h4><i class="fa fa-plug"></i>&nbsp; <?php echo $this->translate('Status'); ?></h4>
+                </div>
+                <div class="col-lg-8">
+                    <div data-toggle="buttons">
+                        <label class="btn btn-outline btn-primary {{active_class(userInfo.isActive, '1')}} " ng-click="setActive('1')">
+                            <input type="radio" name="active" > <?php echo $this->translate('Active'); ?>
+                        </label>
+                        &nbsp;
+                        <label class="btn btn-outline btn-primary {{active_class(userInfo.isActive, '0')}} " ng-click="setActive('0')">
+                            <input type="radio" name="deactive" value=""> <?php echo $this->translate('De-Active'); ?>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="hr-line-dashed"></div>
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h4><i class="fa fa-info-circle"></i> <?php echo $this->translate('Basic Information') ?></h4>
                     <div class="hr-line-dashed"></div>
 
-                    <?php include __DIR__ . "/../user/basic-info.phtml" ?>
+                    <?php include __DIR__ . "/profile/basic-info.phtml" ?>
                 </div>
             </div>
 
-            <?php if($this->user && $this->user['group']->getId()==3): ?>
+            <?php if($user['group']['id']*1 == 3): ?>
             <div class="panel panel-primary staff-type">
                 <div class="panel-body">
 
@@ -57,11 +61,11 @@ $this->inlineScript()
             </div>
             <?php endif; ?>
 
-            <?php if($this->user && $this->user['group']->getId()==3): ?>
-            <div ng-show="{{userInfo.group.id==3}}" class="panel panel-primary staff-type">
+            <?php if($user['group']['id']*1 == 3): ?>
+            <div class="panel panel-primary staff-type">
                 <div class="panel-body">
 
-                    <?php include __DIR__ . "/../user/bank-info.phtml" ?>
+                    <?php include __DIR__ . "/profile/bank-info.phtml" ?>
                 </div>
             </div>
             <?php endif; ?>
@@ -69,13 +73,13 @@ $this->inlineScript()
             <div class="panel panel-primary">
                 <div class="panel-body">
 
-                    <?php include __DIR__ . "/../user/resume.phtml" ?>
+                    <?php include __DIR__ . "/profile/resume.phtml" ?>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-4">
-                    <button ng-click="editProfile()" class="btn btn-primary btn-block" type="submit">
+                    <button class="btn btn-primary btn-block" type="submit">
                         <?php echo $this->translate('Save') ?></button>
                 </div>
             </div>

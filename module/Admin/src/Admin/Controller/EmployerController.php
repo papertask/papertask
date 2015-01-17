@@ -30,12 +30,15 @@ use User\Entity\Company;
 class EmployerController extends AbstractActionController {
     protected $requiredLogin = true;
     public function editAction() {
+        $lang_code = $this->params()->fromRoute('lang');
         $userId = $this->getRequest()->getQuery('userId');
         $user = $this->getUserById($userId);
         $employer = $user->getEmployer();
+		
         return new ViewModel( array (
                 "user" => $user->getData(),
-                'employer'=> $employer->getData()
+                'employer'=> $employer->getData(),
+				"lang_code" => $lang_code
         ));
     }
     
@@ -56,11 +59,18 @@ class EmployerController extends AbstractActionController {
     }
     
     public function newAction() {
-        return new ViewModel ( array () );
+        $lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code
+        ));
+
     } 
    
     public function listAction() {
-        return new ViewModel(array());
+        $lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code
+        ));
     }
     
     public function detailAction() {
@@ -106,14 +116,15 @@ class EmployerController extends AbstractActionController {
         foreach ( $tmRatios as $k => $v) {
             $pTmRatios[$k] = $v->getData();
         }
-        
+		$lang_code = $this->params()->fromRoute('lang');
         return new ViewModel(array('user'=>$user->getData(), 
                 'employer' => $user->getEmployer()->getData(),
                 'interpretingPrices'=>$pInterPretingPrices,
                 'engineeringPrices'=>$pEngineeringPrices,
                 'translationPrices'=>$pTranslationPrices,
                 'dptPrices'=>$pDtpPrices,
-                'tmRatios'=>$pTmRatios
+                'tmRatios'=>$pTmRatios,
+				"lang_code" => $lang_code
         ));
     }
 }

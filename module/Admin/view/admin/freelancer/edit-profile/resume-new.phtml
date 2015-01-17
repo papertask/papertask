@@ -9,14 +9,15 @@
                 <tbody>
                 <tr>
                     <td class="project-title">
-                        <i class="fa fa-file-text"></i>&nbsp; <a href="#">{{resume.cvUploaded}}</a> &nbsp;&nbsp;
-                        <a href="#"><i class="fa fa-times-circle" ng-click="remove()></i></a>
+                        <i class="fa fa-file-text"></i>&nbsp; <a href="#">cv.docx</a> &nbsp;&nbsp;
+                        <a href="#"><i class="fa fa-times-circle" ng-click="remove()"></i></a>
                     </td>
-                    <td class="project-title" width="10%">
-                        <button ng-click="upload()" type="button" class="btn btn-w-m btn-white btn-xs">
-                            <i class="fa fa-cloud-upload">
-                                <?php echo $this->translate('Upload') ?></i></button>
-                        <input type="file" />
+                    
+					<td class="project-title" width="10%">
+							<button ng-click="upload()" type="button" class="btn btn-w-m btn-white btn-xs">
+								<i class="fa fa-cloud-upload">
+									<?php echo $this->translate('Upload') ?></i></button>
+							<input type="file" name="file" id="file"/>
                     </td>
                 </tr>
                 </tbody>

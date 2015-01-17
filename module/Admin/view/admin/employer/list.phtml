@@ -13,6 +13,7 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/lis
 
 $this->inlineScript()
     ->prependScript("
+		var LANG_CODE = '" . $this->lang_code . "';
         var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
     ");
 ?>

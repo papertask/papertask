@@ -13,11 +13,12 @@ return array(
             'landding' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/landing/[:controller[/[:action[/]]]]',
+                    'route'    => '/[:lang]/landing/[:controller[/[:action[/]]]]',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Landing\Controller',
                         'controller'    => 'Index',
                         'action'        => 'index',
+                        'lang'=>'en-US'
                     ),
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -26,72 +27,86 @@ return array(
                 ),
             ),
             'home' => array(
-                'type' => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route'    => '/',
+                    'route'    => '/[:lang]',
                     'defaults' => array(
-                        'controller' => 'Landing\Controller\Index',
+                        '__NAMESPACE__' => 'Landing\Controller',
+                        'controller' => 'Index',
                         'action'     => 'index',
+                        'lang'=>'en-US'
                     ),
                 ),
             ),
             'freelancer' => array(
-                'type' => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route'    => '/freelancer/',
+                    'route'    => '/:lang/freelancer/',
                     'defaults' => array(
-                        'controller' => 'Landing\Controller\Index',
+                        '__NAMESPACE__' => 'Landing\Controller',
+                        'controller' => 'Index',
                         'action'     => 'freelancer',
+                        'lang'=>'en-US'
                     ),
                 ),
             ),
             'languages' => array(
-                'type' => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route'    => '/languages/',
+                    'route'    => '/:lang/languages/',
                     'defaults' => array(
-                        'controller' => 'Landing\Controller\Index',
+                        '__NAMESPACE__' => 'Landing\Controller',
+                        'controller' => 'Index',
                         'action'     => 'languages',
+                        'lang'=>'en-US'
                     ),
                 ),
             ),
             'contact' => array(
-                'type' => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route'    => '/contact/',
+                    'route'    => '/:lang/contact/',
                     'defaults' => array(
-                        'controller' => 'Landing\Controller\Index',
+                        '__NAMESPACE__' => 'Landing\Controller',
+                        'controller' => 'Index',
                         'action'     => 'contact',
+                        'lang'=>'en-US'
                     ),
                 ),
             ),
             'order' => array(
-                'type' => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route'    => '/order/',
+                    'route'    => '/:lang/order/',
                     'defaults' => array(
-                        'controller' => 'Landing\Controller\Index',
+                        '__NAMESPACE__' => 'Landing\Controller',
+                        'controller' => 'Index',
                         'action'     => 'order',
+                        'lang'=>'en-US'
                     ),
                 ),
             ),
             'terms' => array(
-                'type' => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route'    => '/terms/',
+                    'route'    => '/:lang/terms/',
                     'defaults' => array(
-                        'controller' => 'Landing\Controller\Index',
+                        '__NAMESPACE__' => 'Landing\Controller',
+                        'controller' => 'Index',
                         'action'     => 'terms',
+                        'lang'=>'en-US'
                     ),
                 ),
             ),
             'privacy' => array(
-                'type' => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route'    => '/privacy/',
+                    'route'    => '/:lang/privacy/',
                     'defaults' => array(
-                        'controller' => 'Landing\Controller\Index',
+                        '__NAMESPACE__' => 'Landing\Controller',
+                        'controller' => 'Index',
                         'action'     => 'privacy',
+                        'lang'=>'en-US'
                     ),
                 ),
             ),
@@ -133,12 +148,12 @@ return array(
         ),
     ),
     'translator' => array(
-        'locale' => 'en_US',
+        'locale' => 'zh_CN',
         'translation_file_patterns' => array(
             array(
-                'type'     => 'gettext',
+                'type'     => 'PhpArray',
                 'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
+                'pattern'  => '%s.php',
             ),
         ),
     ),

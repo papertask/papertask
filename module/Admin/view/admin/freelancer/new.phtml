@@ -6,7 +6,9 @@
 ?>
 
 <!-- Scripts -->
-<?php $this->headScript()
+<?php 
+
+$this->headScript()
     ->prependFile($this->basePath() . '/js/admin/freelancer/freelancer.js')
     ->prependFile($this->basePath() . '/js/admin/angular-steps.js')
     ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
@@ -17,7 +19,13 @@
     ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
     ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
 	->prependFile ( $this->basePath () . '/js/plugins/bootbox/bootbox.min.js' )
-    ->prependFile($this->basePath() . '/js/inspinia.js')
+    ->prependFile($this->basePath() . '/js/inspinia.js');
+	
+$this->inlineScript()
+    ->prependScript("
+        var LANG_CODE = '" . $this->lang_code . "';
+        ");	
+		
 ?>
 <!-- Add custom style -->
 <style type="text/css">

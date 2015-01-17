@@ -50,7 +50,8 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
         comments: null,
 		company: null,
 		employerId: null,
-        position: null
+        position: null,
+        contracted: null
 	};
     // For Engineering Price
     $scope.units 	 = [];
@@ -97,7 +98,8 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
 		            comments: $data.employer.comments,
     				company: $data.employer.company,
     				employerId: $data.employer.id,
-                    position: $data.employer.position
+                    position: $data.employer.position,
+                    contracted: $data.employer.contracted
     			};
                 $(".summernote").code( $data.employer.comments );
         		$("#EmployerController").fadeIn();
@@ -174,7 +176,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
                 $http.put("/api/user/" + USER_ID, $scope.userInfo)
                     .success(function($data){
                         $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id=" + USER_ID, $scope.employer).success(function(){
-                            location.href="/admin/employer/detail?id=" + USER_ID;
+                            location.href="/" + LANG_CODE + "/admin/employer/detail?id=" + USER_ID;
                         });
                     });
             } ) ;
@@ -192,26 +194,14 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
                 $http.put("/api/user/" + USER_ID, $scope.userInfo)
                     .success(function($data){
                         $http.put("/api/user/"+$scope.employer.employerId+"/employer?user_id=" + USER_ID, $scope.employer).success(function(){
-                            location.href="/admin/employer/detail?id=" + USER_ID;
+                            location.href="/" + LANG_CODE + "/admin/employer/detail?id=" + USER_ID;
                         });
                     });
             } ) ;
     	}
     	
     };
-    /**
-     * Toggle resource
-     */
-    $scope.toggleResource = function($id){
-        console.log($scope.freelancer.Resources);
-        var $index = $scope.freelancer.Resources.indexOf($id);
-        if($index == -1){
-            $scope.freelancer.Resources.push($id);
-        } else {
-            $scope.freelancer.Resources.splice($index, 1);
-        }
-        console.log($scope.freelancer.Resources);
-    };
+    
     /**
      * Translation Prices
      */
@@ -477,5 +467,9 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     }
     $scope.setServiceLevel = function ( str_servicelevel ) {
     	$scope.employer.defaultServiceLevel = str_servicelevel;
+    }
+
+    $scope.setEmployerContracted = function ( str_flag ) {
+        $scope.employer.contracted = str_flag;
     }
 });

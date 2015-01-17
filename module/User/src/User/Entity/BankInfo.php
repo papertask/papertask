@@ -26,7 +26,7 @@ class BankInfo extends Entity {
     /**
      * @var \User\Entity\User
      * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="cascade")
      */
     protected $user;
 
@@ -83,7 +83,7 @@ class BankInfo extends Entity {
     public function getData(){
         return [
             'id' => $this->id,
-            'user' => $this->user,
+            'user' => $this->user->getData(),
             'paypal' => $this->paypal,
             'alipay' => $this->alipay,
             'account' => $this->account,
@@ -105,13 +105,13 @@ class BankInfo extends Entity {
     public function setData(array $arr){
         $keys = array(
             'id',
-            'user',
             'paypal',
             'alipay',
             'account',
             'address',
             'city',
-			'country',
+            'user',
+            'country',
             'name',
             'accountNo',
             'swift',

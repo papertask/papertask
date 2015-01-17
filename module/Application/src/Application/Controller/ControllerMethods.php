@@ -116,6 +116,7 @@ trait ControllerMethods{
     }
 
     public function getTranslator(){
+
         return $this->getServiceLocator()->get('translator');
     }
 

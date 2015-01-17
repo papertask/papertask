@@ -18,7 +18,26 @@ angularApp.run( function ($rootScope) {
         }
     });
 });
-
+angularApp.service('sharedInstance', function() {
+	var cvfiles = new Array();
+    var stafftypes = new Array();
+	return {
+		addcvfile: function ( fileItem ) {
+			cvfiles.push( fileItem );
+		},
+		removecvfile: function ( id ) {
+			for ( var i = 0; i < cvfiles.length; i ++ ) {
+				if ( cvfiles[i].id == id) {
+					cvfiles.splice( i, 1 );
+					break;
+				}
+			}
+		},        
+		getcvfiles: function () {
+			return cvfiles;
+		}
+	};
+});
 
 angularApp.controller('EditProfileFreelancerController', function($scope, $http, $timeout, $q){
 
@@ -34,6 +53,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 	
     $scope.userInfo = {
 		isActive: null,
+		alias: null,
         profileUpdated: null,
         email: null,
         firstName: null,
@@ -57,6 +77,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 	$scope.interpretingPrices = [];
 
 	$scope.resume = {};
+	$scope.cvfiles = [];
 	$scope.bankInfo = {};
 	
 	$scope.editTranslation = -1;
@@ -346,31 +367,36 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 			//update freelancer 
 			// update bank info
                 if($scope.bankInfo.id){
-                    // Update
-                    var requestBankinfo = $http.put('/api/user/'+USER_ID+'/bankinfo', $scope.bankInfo).success(function($data){
+                    
+					var requestBankinfo = $http.put('/api/user/'+USER_ID+'/bankinfo', $scope.bankInfo).success(function($data){
                         console.log("Updated bankinfo");
                     });
                 }else{
 					// create
+                    // Update
+					$scope.bankInfo.user_id = USER_ID;
                     var requestBankinfo =  $http.post('/api/user/bankinfo', $scope.bankInfo).success(function($data){
                         console.log("Created bankinfo");
                     });
-                    
                 }
 				// update resume
                 if($scope.resume.id){
-                    // Update
-                    var requestResume =  $http.put('/api/user/'+USER_ID+'/resume', $scope.resume).success(function($data){
+                     // Update
+					var requestResume =  $http.put('/api/user/'+USER_ID+'/resume', $scope.resume).success(function($data){
                         console.log("Updated resume");
                     });
+					
                 }else{
                     // create
+                   $scope.resume.user_id = USER_ID;
                     var requestResume =  $http.post('/api/user/resume', $scope.resume).success(function($data){
                         console.log("Created resume");
                     });
                 }
 				var rt = [$scope.freelancer.rating];
-				/*if($scope.newrating){
+				
+				/*console.log($scope.newrating);
+				if($scope.newrating){
 				var requestRating = $http.post("/api/user/" + USER_ID + "/freelancer/" + $scope.freelancer.freelancerId, {
 					'Rating': getIds(rt),
 					});	
@@ -392,14 +418,15 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 				 var requestResources = $http.put("/api/user/" + USER_ID + "/freelancer/" + $scope.freelancer.freelancerId, {
 					'Resources': getIds($scope.freelancer.Resources),
 					'Rating': getIds(rt),
+					'isSenior' :$scope.freelancer.isSenior
 				}).success(function($data){
 					console.log("Update Resources");
                  });
 			
 				// wait all done
-				$q.all([requesttm, requestResources, requestResume, requestBankinfo])
+				$q.all([ requestResources, requestResume, requestBankinfo])
 				.then(function(result){
-					//location.href = "/admin/freelancer";
+					location.href = "/" + LANG_CODE + "/admin/freelancer/detail?id=" + USER_ID;
 				});
 			}
 		}
@@ -468,6 +495,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
             .success ( function ( $data ) {
                 $scope.userInfo = {
                     isActive: $data.user.isActive,
+					alias : $data.user.alias,
                     profileUpdated: $data.user.profileUpdated,
                     email: $data.user.email,
                     firstName: $data.user.firstName,
@@ -511,6 +539,9 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 				console.log($scope.ratings);
 				console.log($scope.freelancer.rating);
             });	
+    }
+	$scope.openFileDialog = function () {
+        $("#objFile").click();
     }
 	/**
      * Toggle resource
@@ -639,26 +670,45 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     init();
 });
 
-angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', function($scope, FileUploader, $timeout) {
+angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$timeout', 'sharedInstance', function($scope, FileUploader, $http, $timeout, sharedInstance) {
     var uploader = $scope.uploader = new FileUploader({
-        url: '/admin/freelancer/uploadFile'
+        url: "/" + LANG_CODE + '/admin/freelancer/uploadFile'
     });
-
+    $scope.cvfiles = new Array();
     // FILTERS
-
     uploader.filters.push({
         name: 'customFilter',
         fn: function(item /*{File|FileLikeObject}*/, options) {
             return this.queue.length < 10;
         }
     });
-
-
+    $scope.getStaffCVFiles = function() {
+        $http.get('/api/user/' + USER_ID + '/cv-files').success(function ($data) {
+            if ( $data['cvfiles'] ) {
+                for ( var i = 0; i < $data['cvfiles'].length; i ++ ) {
+                    $scope.cvfiles.push({
+                        id: $data['cvfiles'][i].id,
+                        name: $data['cvfiles'][i].name,
+                        path: $data['cvfiles'][i].path
+                    });
+                    sharedInstance.addcvfile ( {
+                        id: $data['cvfiles'][i].id,
+                        name: $data['cvfiles'][i].name,
+                        path: $data['cvfiles'][i].path
+                    });
+                }
+                
+            }
+        });
+    }
+    $scope.init = function () {
+        $scope.getStaffCVFiles();
+    }
     // CALLBACKS
-
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-        console.info('onWhenAddingFileFailed', item, filter, options);
+        
     };
+    
     uploader.onAfterAddingFile = function(fileItem) {
         fileItem.upload();
     };
@@ -682,34 +732,60 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
             }, 1000);
             return;
         }
-        fileItem.projectFile = {
+        fileItem.cvFile = {
             name: fileItem.file.name,
-            id: response.file.id
+            id: response.file.id,
+            path: fileItem.file.path
         };
-        $scope.project.files.push(fileItem.projectFile);
+        $scope.cvfiles.push( fileItem.cvFile );
+        
+        sharedInstance.addcvfile( fileItem.cvFile );
+        $http.put('/api/user/'+USER_ID+'/cv-files', new Array({id: fileItem.cvFile.id, userid: USER_ID})).success(function(){ });
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
-        console.info('onErrorItem', fileItem, response, status, headers);
+        //console.info('onErrorItem', fileItem, response, status, headers);
     };
     uploader.onCancelItem = function(fileItem, response, status, headers) {
-        console.info('onCancelItem', fileItem, response, status, headers);
+        //console.info('onCancelItem', fileItem, response, status, headers);
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
     };
     uploader.onCompleteAll = function() {
-        console.info('onCompleteAll');
+        //console.info($scope.cvfiles);
+    };
+    
+    $scope.deleteFile = function ( cid ) 
+    {
+        bootbox.confirm('Are you sure!', function ( bFlag ) {
+            if ( bFlag ) {
+                $timeout(function(){                
+                    sharedInstance.removecvfile( cid );       
+                    for ( var i = 0; i < $scope.cvfiles.length; i ++ ) 
+                    {
+                        if ( $scope.cvfiles[i].id == cid) 
+                        {
+                            $scope.cvfiles.splice(i, 1);                        
+                            break;
+                        }
+                    }
+                    $http.get("/admin/staff/deleteFile?fid=" + cid);
+                    // $http.delete("/api/user/" + cid + "/cv-files");
+                }, 100);                    
+            }
+        });
+            
     };
 
-    console.info('uploader', uploader);
-
-
     // -------------------------------
-
 
     var controller = $scope.controller = {
         isImage: function(item) {
             var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+            return '|png|jpg|jpeg|gif|'.indexOf(type) !== -1;
+        },
+        isDocument: function ( item ) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|doc|docx|odt|pdf|'.indexOf(type) !== -1;
         }
     };
 
@@ -724,10 +800,5 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
             }
         };
         item.remove();
-    };
-	$scope.upload = function(){
-        //$http.post('/admin/freelancer/uploadFile').success(function($data){
-        //    console.log("Post OK");
-        //});
     };
 }]);

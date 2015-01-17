@@ -42,6 +42,7 @@ class EmployerController extends AbstractRestfulController
 		$data['gender'] = $pdata['gender'];
 		$data['comments'] = $pdata['comments'];
 		$data['position'] = $pdata['position'];
+        $data['contracted'] = $pdata['contracted'];
 		 
 		 
 		$entityManager = $this->getEntityManager();
@@ -58,12 +59,17 @@ class EmployerController extends AbstractRestfulController
 			$user->createEmployer( $this, $data, $entityManager);
 			$employer = $user->getEmployer();
 	       
-			$employer->updateData(array('position'=>$pdata['position'], 'company'=>$data['company_id'], 'defaultServiceLevel'=>$pdata['defaultServiceLevel'], 'comments'=>$pdata['comments']));
+			$employer->updateData(array(
+                'position'=>$pdata['position'],
+                'company'=>$data['company_id'],
+                'defaultServiceLevel'=>$pdata['defaultServiceLevel'],
+                'comments'=>$pdata['comments'],
+                'contracted'=> $pdata['contracted'])
+            );
 			$employer->save($entityManager);
 	
 			$ret_data = $user->getData();
-	       
-           
+
 			// Set Translation Price
 			$pTranslationPrice = new UserTranslationPrice();
 			foreach ( $pdata['translationPrices'] as $k => $v ) {
@@ -142,7 +148,6 @@ class EmployerController extends AbstractRestfulController
 	
 			return new JsonModel(['user'=>$ret_data, 'success'=>'success']);
 		}
-		return new JsonModel(['success'=>'failed', 'msg'=>'Unknown Error']);
 	}
 	
     public function get($id){
@@ -164,7 +169,9 @@ class EmployerController extends AbstractRestfulController
                 'position'=>isset($data['position'])?$data['position']:'', 
                 'company'=>$entityManager->getRepository('User\Entity\Company')->findOneBy(array('id' => $data['company'])), 
                 'defaultServiceLevel'=>$data['defaultServiceLevel'],
-                'comments'=>$data['comments']));
+                'comments'=>$data['comments'],
+                'contracted' => $data['contracted'])
+            );
         $employer->save($entityManager);
 
         return new JsonModel([]);

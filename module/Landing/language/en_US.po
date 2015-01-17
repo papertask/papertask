@@ -34,7 +34,7 @@ msgstr ""
 
 #: module/Landing/view/landing/index/index.phtml:9
 msgid "The new mode of translation services"
-msgstr ""
+msgstr "huhuhuhhu"
 
 #: module/Landing/view/landing/index/index.phtml:12
 msgid "High quality human translation"

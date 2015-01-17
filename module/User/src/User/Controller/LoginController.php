@@ -28,6 +28,7 @@ class LoginController extends AbstractActionController
     }
 
     public function indexAction(){
+        $lang = $this->params()->fromRoute('lang');
         if($this->getCurrentUser()){
             return $this->redirect()->toUrl('/admin/dashboard');
         }
@@ -37,11 +38,11 @@ class LoginController extends AbstractActionController
             $form->setData($request->getPost());
             if($form->isValid()){
                 if($form->validate($this)){
-                    $next = '/admin/dashboard';
+                    $next ='/admin/dashboard';
                     if($request->getQuery('next')){
                         $next = $request->getQuery('next');
                     }
-                    return $this->redirect()->toUrl($next);
+                    return $this->redirect()->toUrl("/".$lang.$next);
                 }
             }
         }

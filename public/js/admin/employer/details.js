@@ -35,13 +35,13 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
         comments: null,
 		company: null,
 		employerId: null,
-        position: null
+        position: null,
+        contracted: null
 	};
     $scope.priceType    = 'CNY';
 	
 	$scope.init = function (str_uid) {
 		$scope.getUserInfo();
-        $scope.getEmployerInfo();
 	}
     
     $scope.getUserInfo = function() {
@@ -70,6 +70,9 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
                     $scope.priceType = 'CNY';
                 else
                     $scope.priceType = 'USD';
+
+                // Get Employer Information
+                $scope.getEmployerInfo();
             });
     }
     
@@ -82,7 +85,8 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
 		            comments: $data.employer.comments,
     				company: $data.employer.company,
     				employerId: $data.employer.id,
-                    position: $data.employer.position
+                    position: $data.employer.position,
+                    contracted: $data.employer.contracted
     			};
                 $("#objNote").html($scope.employer.comments);
         	});

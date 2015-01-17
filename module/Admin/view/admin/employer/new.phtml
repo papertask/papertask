@@ -21,6 +21,7 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/emp
 $this->inlineScript()
     ->prependScript("
         var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+		var LANG_CODE = '" . $this->lang_code . "';
     ");
 ?>
 <style type="text/css">

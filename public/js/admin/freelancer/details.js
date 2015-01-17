@@ -13,8 +13,8 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
 	$scope.resources = [];
 	
 	$scope.resume = {};
-
-    $scope.TranslationSpecialisms = [];
+	
+	$scope.TranslationSpecialisms = [];
     $scope.TranslationCatTools = [];
     $scope.operatingSystems = [];
     $scope.DesktopCatTools = [];
@@ -27,6 +27,7 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
     
 	$scope.userInfo = {
         isActive: null,
+		alias: null,
         profileUpdated: null,
         email: null,
         firstName: null,
@@ -40,7 +41,6 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
     };
     $scope.freelancer = {
 		username: null,
-		defaultServiceLevel: null,
         comments: null,
 		company: null,
 		freelancerId: null,
@@ -56,8 +56,12 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
     $scope.getUserInfo = function() {
         $http.get("/api/user/" + USER_ID + "")
             .success(function ( $data ) {
+						console.log("getUserInfo");
+
+			console.log($data);
                 $scope.userInfo = {
                     isActive: $data.user.isActive,
+					alias : $data.user.alias,
                     profileUpdated: $data.user.profileUpdated,
                     email: $data.user.email,
                     firstName: $data.user.firstName,
@@ -79,16 +83,19 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
                     $scope.priceType = 'USD';
             });
     }
-    
+
     $scope.getFreelancer = function () {
 		$http.get("/api/user/" + USER_ID + "/freelancer")
             .success(function($data){
                 $scope.freelancer = $data['freelancer'];
-                console.log($scope.freelancer);
+				$scope.rating = $scope.freelancer.Rating;
+                console.log("rating");
+				console.log($scope.rating);
 				// get data after freelancer was loaded
 				getFreelancerData();
 				getFreelancerResume();
 				getBankInfo();
+				
 				
             });
 			
@@ -153,6 +160,7 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
 	function getFreelancerData(){
         $http.get('/api/user/freelancer-data').success(function($data){
             $scope.freelancerData = $data;
+			console.log("freelancerData");
             console.log($scope.freelancerData);
             // get resource group
 			$scope.resources = $data['resources'];

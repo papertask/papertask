@@ -29,7 +29,7 @@ return array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
+                            'route'    => '/:lang/[:controller[/:action]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -52,12 +52,12 @@ return array(
         ),
     ),
     'translator' => array(
-        'locale' => 'en_US',
+        'locale' => 'zh_CN',
         'translation_file_patterns' => array(
             array(
-                'type'     => 'gettext',
+                'type'     => 'PhpArray',
                 'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
+                'pattern'  => '%s.php',
             ),
         ),
     ),

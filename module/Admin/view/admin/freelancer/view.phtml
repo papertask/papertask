@@ -60,7 +60,15 @@ $this->inlineScript()
                                 </span>
             </p>
 
-            <p><i class="fa fa-file-text"></i><a href="" class="text-info"> &nbsp; John.docx</a></p>
+            <p>
+                <?php
+                    foreach ( $cvfiles as $k => $v ) {                        
+                        ?>
+                        <i class="fa fa-file-text"></i><a href="<?php echo '../../../'.$v['path'];?>" class="text-info"> &nbsp; <?php echo $v['name'];?></a>
+                        <?php
+                    } 
+                ?>                
+            </p>
 
             <form role="form" class="form-inline">
                 <div class="form-group">

@@ -6,7 +6,7 @@
             <h1 class="text-center" style="font-size: 80px;"><strong>
                     <?php echo $this->translate('WORK FREE!') ?></strong></h1>
             <br><br>
-            <a href="<?php echo $this->url('user') ?>/register/freelancer/"
+            <a href="<?php echo $this->url('user',array('lang'=>$this->translate('lang'))) ?>/register/freelancer/"
                target="_blank" class="btn btn-download btn-lg">
                 <?php echo $this->translate('Register As a Freelancer, Now!') ?></a>
             <br><br><br>
@@ -54,7 +54,7 @@
         </div>
         <br>
         <div class="row text-center">
-            <a href="<?php echo $this->url('user') ?>/register/freelancer/" target="_blank" class="btn btn-primary btn-lg">
+            <a href="<?php echo $this->url('user',array('lang'=>$this->translate('lang'))) ?>/register/freelancer/" target="_blank" class="btn btn-primary btn-lg">
                 <?php echo $this->translate('Register As a Freelancer, Now!') ?></a>
         </div>
         <br><br><br>

@@ -2,23 +2,27 @@
 <div class="hr-line-dashed"></div>
 <div class="row">
     <div class="col-lg-12">
-        <div ng-controller="AppController" ng-file-drop="" uploader="uploader" class="form-group">
+        <div ng-controller="AppController" ng-file-drop="" uploader="uploader" ng-init="init()" class="form-group">
             <label><?php echo $this->translate('CV upload') ?> </label>
             <!-- TODO: file upload not working here -->
-            <table class="table">
+             <table class="table">
                 <tbody>
-                <tr>
-                    <td class="project-title">
-                        <i class="fa fa-file-text"></i>&nbsp; <a href="#">cv.docx</a> &nbsp;&nbsp;
-                        <a href="#"><i class="fa fa-times-circle"></i></a>
-                    </td>
-                    <td class="project-title" width="10%">
-                        <button ng-click="uploader.uploadAll()" type="button" class="btn btn-w-m btn-white btn-xs">
-                            <i class="fa fa-cloud-upload">
-                                <?php echo $this->translate('Upload') ?></i></button>
-                        <input type="file" ng-file-select="" uploader="uploader" />
-                    </td>
-                </tr>
+                    <tr>
+                        <td class="project-title" >
+                            <div ng-repeat="cvfile in cvfiles track by $index" style="display: inline-block; margin:  5px;" ng-model="cvfiles" class="cvfiles">
+                                <i class="fa fa-file-text"></i>&nbsp; <a href="{{cvfile.path}}">{{cvfile.name}}</a> &nbsp;&nbsp;
+                                <span ng-click="deleteFile(cvfile.id);"><i class="fa fa-times-circle" style="cursor: pointer;"></i></span>
+                            </div>
+                        </td>
+                        <td class="project-title" width="10%">
+                            <button type="button" class="btn btn-w-m btn-white btn-xs" ng-click="openFileDialog()">
+                                <i class="fa fa-cloud-upload">
+                                    <?php echo $this->translate('Upload') ?>
+                                </i>
+                            </button>
+                            <input type="file" id="objFile" nv-file-select="" uploader="uploader" style="display: none;"  />
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

@@ -262,3 +262,8 @@ INSERT INTO `papertask`.`Country`(id,name) VALUES (189,'Algeria');
 INSERT INTO `papertask`.`Country`(id,name) VALUES (190,'Albania');
 INSERT INTO `papertask`.`Country`(id,name) VALUES (191,'Afghanistan');
 INSERT INTO `papertask`.`Country`(id,name) VALUES (192,'Angola');
+
+INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('1', 'Admin', NULL), ('2', 'General Manager', '1');
+INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('3', 'Financial Manager', NULL);
+INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('4', 'Sales Director', NULL), ('5', 'Sales', '4');
+INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('6', 'Operation Manager', NULL), ('7', 'Project Manager', '6');
