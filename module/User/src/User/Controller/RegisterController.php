@@ -39,6 +39,7 @@ class RegisterController extends AbstractActionController
 
     public function process($userType){
         $form = $this->getForm();
+		$lang_code = $this->params()->fromRoute('lang');
         $request = $this->getRequest();
         if($request->isPost()){
             $form->setData($request->getPost());
@@ -54,7 +55,7 @@ class RegisterController extends AbstractActionController
                     $this->flashMessenger()->addErrorMessage($translator->translate('This email has been registered already.'));
                 } else {
                     $form->save($this, $userType);
-                    return $this->redirect()->toUrl('/user/register/confirm?email=' . $request->getPost('email'));
+                    return $this->redirect()->toUrl('/'.$lang_code.'/user/register/confirm?email=' . $request->getPost('email'));
                 }
 
             }
@@ -70,7 +71,7 @@ class RegisterController extends AbstractActionController
         $request = $this->getRequest();
         $token = $request->getQuery('token');
         $email = $request->getQuery('email');
-
+		$lang_code = $this->params()->fromRoute('lang');
         if($token){
             $entityManager = $this->getEntityManager();
             /**
@@ -84,13 +85,13 @@ class RegisterController extends AbstractActionController
             if(!$user){
                 $translator = $this->getTranslator();
                 $this->flashMessenger()->addErrorMessage($translator->translate('Your token has expired.'));
-                return $this->redirect()->toUrl('/user/login');
+                return $this->redirect()->toUrl('/'.$lang_code.'/user/login');
             }
 
             if($user && $user->activate($token, $entityManager)){
                 $user->authenticate();
                 $user->sendWelcomeEmail($this);
-                return $this->redirect()->toUrl("/admin/dashboard");
+                return $this->redirect()->toUrl('/'.$lang_code."/admin/dashboard");
             }
         }
 
@@ -132,7 +133,7 @@ class RegisterController extends AbstractActionController
                     $newUser = new User();
                     $newUser->createUserBySocialProfile($this, $profile, $userType);
                 }
-                $this->redirect()->toUrl('/user/dashboard');
+                $this->redirect()->toUrl('/'.$lang_code.'/user/dashboard');
             }
             catch( Exception $e ){
                 // Display the recived error,
