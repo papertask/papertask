@@ -51,6 +51,7 @@ angularApp.controller('listStaffController', function($scope, $http, $timeout, $
                 $scope.roles = $data['roles'];
             });	
 			
+			
         $scope.selectPage( 1 );
     }
     
