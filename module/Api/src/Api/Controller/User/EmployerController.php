@@ -245,12 +245,11 @@ class EmployerController extends AbstractRestfulController
     public function getList( ) {
         $entityManager = $this->getEntityManager();
         
-        // Get employer group
         $employerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::EMPLOYER_GROUP_ID);
         $employerList = $entityManager->getRepository('User\Entity\User');
         $queryBuilder = $employerList->createQueryBuilder('user');
         $request = $this->getRequest();
-
+		
         if($request->getQuery('search') && $request->getQuery('company')){
             $company = $entityManager->getRepository('User\Entity\Company')->findBy(array('id'=>$request->getQuery('company')));
             $queryBuilder->leftJoin('user.employer', 'employer')->where('employer.company=?1')->setParameter(1, $company);
@@ -260,7 +259,6 @@ class EmployerController extends AbstractRestfulController
         }
 
         if($request->getQuery('search')){
-            // search by name
             if($arrayNames = $this->params()->fromQuery('name')){
                 $arrayName = explode(' ', $arrayNames);
                 if(count($arrayName) != 2){
@@ -275,32 +273,27 @@ class EmployerController extends AbstractRestfulController
                 }
             }
             
-            // search by id
             if($request->getQuery('idEmployer')){
                 $queryBuilder->andWhere(
                         $queryBuilder->expr()->eq("user.id", (int)$request->getQuery('idEmployer')));
             }
             
-            // search by email
             if ( $request->getQuery('email') ) {
                 $queryBuilder->andWhere(
                     $queryBuilder->expr()->like('user.email',
                         "'%" . $request->getQuery('email') ."%'" ));
             }
             
-            // search by Currency
             if ( $request->getQuery('currency')) {
                 $queryBuilder->andWhere(
                         $queryBuilder->expr()->eq("user.currency", 
                         $queryBuilder->expr()->literal($request->getQuery('currency'))));
             }
 
-            // search by country
             if($request->getQuery('country')){
                 $queryBuilder->andWhere(
                         $queryBuilder->expr()->eq("user.country", (int)($request->getQuery('country'))));
             }
-            // search include inactive
             if(!$request->getQuery('includeInactive') || ($request->getQuery('includeInactive') && $request->getQuery('includeInactive') == 'false')){
                 $queryBuilder->andWhere(
                         $queryBuilder->expr()->eq("user.isActive", 1));
