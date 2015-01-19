@@ -49,8 +49,6 @@ class StaffController extends AbstractRestfulController
 		}
 		else
 		{
-			error_reporting(E_ALL);
-			ini_set('display_errors', 1);
 			$user = new User();
 			$user->createStaff( $this, $pdata );
 			$staff = $user->getStaff();

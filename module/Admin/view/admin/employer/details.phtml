@@ -23,7 +23,7 @@ $this->inlineScript()
 	<div class="col-md-4">
 		<div class="ibox">
 			<div class="ibox-title">
-				<h5>{{userInfo.lastName}}, {{userInfo.firstName}}</h5>
+				<h5>{{employer.username}}</h5>
 				<div class="ibox-tools">				
 					<span ng-show="userInfo.isActive == '1'" class="label label-primary"><?php echo $this->translate('Active') ?></span>
 					<span ng-show="userInfo.isActive == '0'" class="label label-default"><?php echo $this->translate('Unactive') ?></span>
@@ -37,6 +37,7 @@ $this->inlineScript()
                 <i ng-show="userInfo.gender == '1'" class="fa fa-female"></i>
                 </p>
 				<p><i class="fa fa-envelope"></i> &nbsp; {{userInfo.email}}</p>
+                <p><i class="fa fa-tag"></i> &nbsp; {{userInfo.alias}} (Alias or resource No.)</p>
 				<p><i class="fa fa-phone"></i> &nbsp; {{userInfo.phone}}</p>
 				<p><i class="fa fa-briefcase"></i> &nbsp; {{employer.position}}</p>
 				<p><i class="fa fa-building"></i> &nbsp; {{employer.company.name}}</p>
@@ -54,7 +55,7 @@ $this->inlineScript()
                         <?php echo $this->translate('Password changed.') ?></p>
                 </form>
 				<div class="hr-line-dashed"></div>
-				<p><span class="label label-info">PM</span> Yang, Michael &nbsp;<span class="label label-info">Sales</span> Jiang, Kevin</p>
+				<p><span class="label label-info">PM</span> {{employer.pm.name}} &nbsp;<span class="label label-info">Sales</span> {{employer.sales.name}}</p>
 				<div class="hr-line-dashed"></div>
 				<h4><?php echo $this->translate('Client Type') ?> </h4>
 				<div class="row file-manager">
@@ -77,8 +78,8 @@ $this->inlineScript()
 				<div class="hr-line-dashed"></div>
 				<h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
 				<div id="objNote"></div>
-				<a href="<?php echo $this->url('admin', ['controller'=>'employer', 'action'=>'edit']) ?>?userId=<?php echo $user['id'];?>"
-               class="btn btn-primary btn-block"><i class="fa fa-paste"></i> <?php echo $this->translate('Edit') ?></a>
+
+				<a class="btn btn-primary btn-block" type="button" href="/admin/employer/edit?userId=<?php echo $user['id']; ?>"><i class="fa fa-paste"></i> <?php echo $this->translate('Edit') ?></a>
 			</div>
 		</div>
 	</div>

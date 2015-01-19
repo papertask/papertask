@@ -49,6 +49,12 @@
 					<label><?php echo $this->translate('City') ?> *</label> 
 					<input id="city" name="city" type="text" ng-model="userInfo.city" class="form-control required" value="{{userInfo.city}}">
 				</div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label><?php echo $this->translate('Country') ?> *</label>
+                    <select class="form-control required" id="country" name="country" ng-model="userInfo.country" ng-options="country.name for country in countries">
+                    </select>
+                </div>
 			</div>
 			<div class="col-lg-6">
 				<div class="form-group">
@@ -84,11 +90,10 @@
 					<input id="phone" name="phone" type="phone" ng-model="userInfo.phone" class="form-control required" value="{{userInfo.phone}}">
 				</div>
 				<div class="hr-line-dashed"></div>
-				<div class="form-group">
-					<label><?php echo $this->translate('Country') ?> *</label> 
-					<select class="form-control required" id="country" name="country" ng-model="userInfo.country" ng-options="country.name for country in countries">						
-					</select>
-				</div>
+                <div class="form-group">
+                    <label><?php echo $this->translate('Cell Phone') ?> *</label>
+                    <input id="cellphone" name="cellphone" type="phone" ng-model="userInfo.cellphone" class="form-control required" value="{{userInfo.cellphone}}">
+                </div>
 			</div>
 		</div>
 	</div>

@@ -42,7 +42,12 @@ $this->inlineScript()
 											</div>
 											<div class="form-group">
 												<label class="col-sm-3 control-label"><?php echo $this->translate('Company') ?></label>
-												<div class="col-sm-9"><input type="text" class="form-control" ></div>
+												<div class="col-sm-9">
+                                                    <select class="form-control" id="company" name="company" ng-model="searchParams.company" >
+                                                        <option value=""></option>
+                                                        <option ng-repeat="company in companies" ng-value="company.id">{{company.name}}</option>
+                                                    </select>
+                                                </div>
 											</div>
 											<div class="form-group">
 												<label class="col-sm-2 control-label"></label>
@@ -87,7 +92,7 @@ $this->inlineScript()
 									</div>
 									<div class="text-right tooltip-demo">
 										<a href="#" class="btn btn-sm btn-primary" ng-click="advancedSearch()"><i class="fa fa-search"></i> <?php echo $this->translate('Search') ?></a>
-										<a href="#" class="btn btn-white btn-sm" type="reset"><i class="fa fa-times"></i> <?php echo $this->translate('Reset') ?></a>
+										<a href="#" class="btn btn-white btn-sm" type="reset" ng-click="reset()"><i class="fa fa-times"></i> <?php echo $this->translate('Reset') ?></a>
 									</div>
 								</form>
 							</div>
@@ -110,12 +115,12 @@ $this->inlineScript()
 									<td class="project-title">
 										<strong><i class="fa fa-envelope"></i> {{employer.email}}</strong>
 										<br/>
-										<small>Marketing Manager</small>
+										<small>{{employer.employer.position}}</small>
 									</td>
 									<td class="project-title">
-										<strong><i class="fa fa-building"></i> IBM</strong>
+										<strong><i class="fa fa-building"></i> {{employer.employer.company.name}}</strong>
 										<br/>
-										<small>{{getCountry(employer.country)}}</small>
+										<small>{{employer.country.name}}</small>
 									</td>
 									<td class="project-completion">
 										<strong><i class="fa fa-tasks"></i> Tasks done: 88</strong>

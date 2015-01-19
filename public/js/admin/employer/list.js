@@ -15,7 +15,8 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
         'country': null,
         'includeInactive': null,
         'currency': null,
-        'page': null
+        'page': null,
+        'company': null
     };
 	$scope.init = function () {
 		$http.get("/api/user/employer?page=1")
@@ -28,6 +29,10 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
 	        .success(function($data){
 	            $scope.countries = $data['countries'];
 	    });
+        var ajaxCompanyInfo = $http.get("/api/common/company")
+            .success(function($data){
+                $scope.companies = $data['companies'];
+            });
 	}
 	
 	/**
@@ -83,7 +88,8 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
             'country': null,
             'includeInactive': null,
             'currency': null,
-            'page': null
+            'page': null,
+            'company': null
         };
         $scope.selectPage(1);
     }
@@ -113,7 +119,6 @@ angularApp.controller('PapertaskEmployerListController', function($scope, $http,
                 var N = $scope.pages.pageCount;
                 $scope.rangeCustom = Array.apply(null, {length: N}).map(Number.call, Number);
             }
-            console.log($data);
         });
     }
 	$scope.onBtnPreviousClicked = function () {

@@ -27,7 +27,8 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
         country: null,
         company: null,
         currency: null,
-        tmRatios: null
+        tmRatios: null,
+        alias: null
     };
     $scope.employer = {
 		username: null,
@@ -36,7 +37,9 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
 		company: null,
 		employerId: null,
         position: null,
-        contracted: null
+        contracted: null,
+        pm: null,
+        sales: null
 	};
     $scope.priceType    = 'CNY';
 	
@@ -58,7 +61,8 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
                     phone: $data.user.phone,
                     country: $data.user.country,
                     currency: $data.user.currency,
-                    tmRatios: $data.tmRatios
+                    tmRatios: $data.tmRatios,
+                    alias: $data.user.alias
                 };
                 $scope.tmRatios = $data.tmRatios;
                 $scope.translationPrices = $data.translationPrices;
@@ -86,7 +90,9 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
     				company: $data.employer.company,
     				employerId: $data.employer.id,
                     position: $data.employer.position,
-                    contracted: $data.employer.contracted
+                    contracted: $data.employer.contracted,
+                    pm: $data.employer.pm,
+                    sales: $data.employer.sales
     			};
                 $("#objNote").html($scope.employer.comments);
         	});

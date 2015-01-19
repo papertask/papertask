@@ -39,15 +39,17 @@ class EmployerController extends AbstractRestfulController
 		$data['lastName'] = $pdata['surname'];
 		$data['password'] = $pdata['password'];
 		$data['phone'] = $pdata['phone'];
+        $data['cellphone'] = $pdata['cellphone'];
 		$data['gender'] = $pdata['gender'];
 		$data['comments'] = $pdata['comments'];
 		$data['position'] = $pdata['position'];
         $data['contracted'] = $pdata['contracted'];
-		 
-		 
+        $data['name'] = $pdata['name'];
 		$entityManager = $this->getEntityManager();
 		$data['company_id'] = $entityManager->getRepository('User\Entity\Company')->findOneBy(array('id' => $pdata['company']));
-        $data['country'] = $entityManager->getRepository('User\Entity\Country')->findOneBy(array('id' => $pdata['country']));;
+        $data['country'] = $entityManager->getRepository('User\Entity\Country')->findOneBy(array('id' => $pdata['country']));
+        $data['pm'] = $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $pdata['pm']['id']));
+        $data['sales'] = $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $pdata['sales']['id']));
 		$userExist = $entityManager->getRepository('User\Entity\User')->findOneBy(array('email'=>$pdata['email']));
 		 
 		if ( $userExist ) {
@@ -58,14 +60,15 @@ class EmployerController extends AbstractRestfulController
             $user->save($entityManager);
 			$user->createEmployer( $this, $data, $entityManager);
 			$employer = $user->getEmployer();
-	       
 			$employer->updateData(array(
                 'position'=>$pdata['position'],
                 'company'=>$data['company_id'],
                 'defaultServiceLevel'=>$pdata['defaultServiceLevel'],
                 'comments'=>$pdata['comments'],
-                'contracted'=> $pdata['contracted'])
-            );
+                'contracted'=> $pdata['contracted'],
+                'pm' => $data['pm'] ,
+                'name' => $pdata['name'],
+                'sales' => $data['sales']));
 			$employer->save($entityManager);
 	
 			$ret_data = $user->getData();
@@ -170,8 +173,11 @@ class EmployerController extends AbstractRestfulController
                 'company'=>$entityManager->getRepository('User\Entity\Company')->findOneBy(array('id' => $data['company'])), 
                 'defaultServiceLevel'=>$data['defaultServiceLevel'],
                 'comments'=>$data['comments'],
-                'contracted' => $data['contracted'])
-            );
+                'name' => $data['username'],
+                'contracted' => $data['contracted'],
+                'pm' => $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $data['pm']['id'])),
+                'sales' => $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $data['sales']['id']))
+            ));
         $employer->save($entityManager);
 
         return new JsonModel([]);
@@ -242,11 +248,18 @@ class EmployerController extends AbstractRestfulController
         // Get employer group
         $employerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::EMPLOYER_GROUP_ID);
         $employerList = $entityManager->getRepository('User\Entity\User');
-        $queryBuilder = $employerList->createQueryBuilder('user')->where("user.group = ?1")->setParameter(1, $employerGroup);
-        
+        $queryBuilder = $employerList->createQueryBuilder('user');
         $request = $this->getRequest();
-        if($request->getQuery('search')){
 
+        if($request->getQuery('search') && $request->getQuery('company')){
+            $company = $entityManager->getRepository('User\Entity\Company')->findBy(array('id'=>$request->getQuery('company')));
+            $queryBuilder->leftJoin('user.employer', 'employer')->where('employer.company=?1')->setParameter(1, $company);
+            $queryBuilder->andWhere("user.group=?2")->setParameter(2, $employerGroup);
+        } else {
+            $queryBuilder->where("user.group=?1")->setParameter(1, $employerGroup);
+        }
+
+        if($request->getQuery('search')){
             // search by name
             if($arrayNames = $this->params()->fromQuery('name')){
                 $arrayName = explode(' ', $arrayNames);
@@ -287,11 +300,10 @@ class EmployerController extends AbstractRestfulController
                 $queryBuilder->andWhere(
                         $queryBuilder->expr()->eq("user.country", (int)($request->getQuery('country'))));
             }
-
             // search include inactive
-            if($request->getQuery('includeInactive')){
+            if(!$request->getQuery('includeInactive') || ($request->getQuery('includeInactive') && $request->getQuery('includeInactive') == 'false')){
                 $queryBuilder->andWhere(
-                        $queryBuilder->expr()->eq("user.isActive", $request->getQuery('includeInactive')));
+                        $queryBuilder->expr()->eq("user.isActive", 1));
             }
         }
         $queryBuilder->orderBy('user.createdTime', 'ASC');
@@ -305,6 +317,7 @@ class EmployerController extends AbstractRestfulController
         
         foreach($paginator as $user){
             $userData = $user->getData();
+            $userData['employer'] = $user->getEmployer()->getData();
             $userData['createdTime'] = $helper->formatDate($userData['createdTime']);
             $data[] = $userData;
         }

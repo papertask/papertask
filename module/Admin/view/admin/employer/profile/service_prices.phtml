@@ -6,24 +6,18 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label><?php echo $this->translate('Sales') ?> </label> <select class="form-control required"
-						id="sales" name="sales" value="">
-						<option>option 1</option>
-						<option>option 2</option>
-						<option>option 3</option>
-						<option>option 4</option>
-					</select>
+					<label><?php echo $this->translate('Sales') ?> </label>
+                    <select class="form-control" id="sales" name="sales" ng-model="employer.sales" ng-options="saler.name for saler in saleslist">
+                        <option value=""></option>
+                    </select>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<div class="form-group">
-					<label><?php echo $this->translate('PM') ?> </label> <select class="form-control required"
-						id="pm" name="pm" value="">
-						<option>option 1</option>
-						<option>option 2</option>
-						<option>option 3</option>
-						<option>option 4</option>
-					</select>
+					<label><?php echo $this->translate('PM') ?> </label>
+                    <select class="form-control" id="pm" name="pm" ng-model="employer.pm" ng-options="pmanager.name for pmanager in pmlist">
+                        <option value=""></option>
+                    </select>
 				</div>
 			</div>
 		</div>
@@ -77,25 +71,25 @@
 					<tr>
 						<td>TM Rate</td>
 						<td>
-							<input id="repetition" name="repetition" type="number" ng-model="userInfo.tmRatios.repetitions" class="form-control required" value="{{userInfo.tmRatios.repetitions}}">
+							<input id="repetition" name="repetition" type="number" ng-model="userInfo.tmRatios.repetitions" class="form-control " value="{{userInfo.tmRatios.repetitions}}">
 						</td>
 						<td>
-							<input id="tm_100" name="tm_100" type="number" ng-model="userInfo.tmRatios.yibai" class="form-control required" value="{{userInfo.tmRatios.yibai}}">
+							<input id="tm_100" name="tm_100" type="number" ng-model="userInfo.tmRatios.yibai" class="form-control " value="{{userInfo.tmRatios.yibai}}">
 						</td>
 						<td>
-							<input id="tm_95-99" name="tm_95-99" type="number" ng-model="userInfo.tmRatios.jiuwu" class="form-control required" value="{{userInfo.tmRatios.jiuwu}}">
+							<input id="tm_95-99" name="tm_95-99" type="number" ng-model="userInfo.tmRatios.jiuwu" class="form-control " value="{{userInfo.tmRatios.jiuwu}}">
 						</td>
 						<td>
-							<input id="tm_85-94" name="tm_85-94" type="number" ng-model="userInfo.tmRatios.bawu" class="form-control required" value="{{userInfo.tmRatios.bawu}}">
+							<input id="tm_85-94" name="tm_85-94" type="number" ng-model="userInfo.tmRatios.bawu" class="form-control " value="{{userInfo.tmRatios.bawu}}">
 						</td>
 						<td>
-							<input id="tm_75-84" name="tm_75-84" type="number" ng-model="userInfo.tmRatios.qiwu" class="form-control required" value="{{userInfo.tmRatios.qiwu}}">
+							<input id="tm_75-84" name="tm_75-84" type="number" ng-model="userInfo.tmRatios.qiwu" class="form-control " value="{{userInfo.tmRatios.qiwu}}">
 						</td>
 						<td>
-							<input id="tm_50-74" name="tm_50-74" type="number" ng-model="userInfo.tmRatios.wushi" class="form-control required" value="{{userInfo.tmRatios.wushi}}">
+							<input id="tm_50-74" name="tm_50-74" type="number" ng-model="userInfo.tmRatios.wushi" class="form-control " value="{{userInfo.tmRatios.wushi}}">
 						</td>
 						<td>
-							<input id="tm_no_match" name="tm_no_match" type="number" ng-model="userInfo.tmRatios.nomatch" class="form-control required" value="{{userInfo.tmRatios.nomatch}}">
+							<input id="tm_no_match" name="tm_no_match" type="number" ng-model="userInfo.tmRatios.nomatch" class="form-control " value="{{userInfo.tmRatios.nomatch}}">
 						</td>
 					</tr>
 				</tbody>
