@@ -220,9 +220,9 @@ angularApp.directive('stafftype', function($http, $compile){
             //strHtml +=  strLabel;
             if ( nSubtype != arrTypes[i].subtype ) {
                 nSubtype = arrTypes[i].subtype;
-                strHtml += strBr + strBr + strLabel;
+                strHtml += strBr + strBr + strLabel +  strNbsp +  strNbsp +  strNbsp;
             } else {
-                strHtml += strNbsp + strNbsp + strLabel;
+                strHtml += strLabel +  strNbsp +  strNbsp +  strNbsp;
             }
             
         }
