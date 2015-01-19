@@ -45,6 +45,12 @@ angularApp.controller('listStaffController', function($scope, $http, $timeout, $
             .success(function($data){
                 $scope.countries = $data['countries'];
             });
+			
+		var ajaxGetRole = $http.get("/api/common/role")
+            .success(function($data){
+                $scope.roles = $data['roles'];
+            });	
+			
         $scope.selectPage( 1 );
     }
     

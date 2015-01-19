@@ -54,7 +54,7 @@ $this->inlineScript()
                                 <label class="col-sm-3 control-label">Type</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="" ng-model="searchParams.type">
-                                        <option></option>
+                                        <!--<option></option>
                                         <option value="1">Admin</option>
                                         <option value="2">General Manager</option>
                                         <option></option>
@@ -68,7 +68,8 @@ $this->inlineScript()
                                         <option></option>
                                         <option value="8">In-house Translator</option>
                                         <option value="9">In-house DTP</option>
-                                        <option value="10">In-house Engineering</option>
+                                        <option value="10">In-house Engineering</option>-->
+                                        <option ng-repeat="role in roles" ng-value="role.id">{{role.type}}</option>
                                     </select>
                                 </div>
                             </div>
