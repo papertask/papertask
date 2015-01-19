@@ -12,7 +12,7 @@ return array(
         'hostname'  => 'localhost',
         'database'  => 'papertask',
         'username'  => 'root',
-        'password'  => '',
+        'password'  => '8huysd&*6hn$FB',
     ),
     'service_manager' => array(
         'factories' => array(
