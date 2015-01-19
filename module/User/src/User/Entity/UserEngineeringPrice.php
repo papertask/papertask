@@ -31,6 +31,7 @@ class UserEngineeringPrice extends Entity {
     /**
      * @ORM\ManyToOne(targetEntity="\Common\Entity\EngineeringCategory")
      */
+	 
     protected $engineeringcategory;
 
     /**
@@ -45,9 +46,10 @@ class UserEngineeringPrice extends Entity {
     protected $price;
 
     public function getData(){
+		//var_dump($this->engineeringcategory);
         return array(
             'id' => $this->id,
-            'engineeringcategory' => $this->engineeringcategory->getData(),
+            'engineeringcategory' => ($this->engineeringcategory)?$this->engineeringcategory->getData():null,
        		'unit'=>$this->unit->getData(),
         	'price'=>$this->price
         );

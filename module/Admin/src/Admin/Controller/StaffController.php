@@ -133,7 +133,7 @@ class StaffController extends AbstractActionController
         $entityManager = $this->getEntityManager();
 
         // Get staff group
-        //$staffList = $entityManager->getRepository('User\Entity\Staff');
+        $staffList = $entityManager->getRepository('User\Entity\Staff');
         //->findBy(array('group' => $freelancerGroup));
         //$queryBuilder = $staffList->createQueryBuilder('staff')
         //    ->where("staff.type in (6,7)");
@@ -149,6 +149,7 @@ class StaffController extends AbstractActionController
 		$staffList = $entityManager->getRepository('User\Entity\User');
         //->findBy(array('group' => $freelancerGroup));
         $queryBuilder = $staffList->createQueryBuilder('user');
+		$queryBuilder->select(array('staff.name','staff.id'));
 		$queryBuilder->leftJoin('user.staff', 'staff')->where('staff.type in (6,7)');
 		$queryBuilder->andWhere("user.group = 3");
 		$queryBuilder->andWhere("user.isActive='1'");
@@ -180,6 +181,7 @@ class StaffController extends AbstractActionController
 		$staffList = $entityManager->getRepository('User\Entity\User');
         //->findBy(array('group' => $freelancerGroup));
         $queryBuilder = $staffList->createQueryBuilder('user');
+		$queryBuilder->select(array('staff.name','staff.id' ));
 		$queryBuilder->leftJoin('user.staff', 'staff')->where('staff.type in (4,5)');
 		$queryBuilder->andWhere("user.group = 3");
 		$queryBuilder->andWhere("user.isActive='1'");

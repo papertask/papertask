@@ -14,6 +14,8 @@ use Application\Controller\AbstractRestfulController;
 class IndexController extends AbstractRestfulController
 {
     public function get($id){
+		error_reporting(E_ALL);
+ini_set('display_errors', 1);
         $user = $this->getUserById($id);
         $userData = $user->getData();
 

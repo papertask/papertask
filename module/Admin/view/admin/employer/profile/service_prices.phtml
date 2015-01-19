@@ -7,7 +7,7 @@
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label><?php echo $this->translate('Sales') ?> </label>
-                    <select class="form-control" id="sales" name="sales" ng-model="employer.sales" ng-options="saler.firstName for saler in saleslist">
+                    <select class="form-control" id="sales" name="sales" ng-model="employer.sales" ng-options="saler.name for saler in saleslist track by saler.id">
                         <option value=""></option>
                     </select>
 				</div>
@@ -15,7 +15,7 @@
 			<div class="col-lg-6">
 				<div class="form-group">
 					<label><?php echo $this->translate('PM') ?> </label>
-                    <select class="form-control" id="pm" name="pm" ng-model="employer.pm" ng-options="pmanager.firstName for pmanager in pmlist">
+                    <select class="form-control" id="pm" name="pm" ng-model="employer.pm" ng-options="pmanager.name for pmanager in pmlist track by pmanager.id">
                         <option value=""></option>
                     </select>
 				</div>

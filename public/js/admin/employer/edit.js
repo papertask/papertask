@@ -133,8 +133,10 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
                 });
                 $q.all([ajaxPmInfo, ajaxSalesInfo, ajaxEmployerInfo])
                     .then ( function() {
-                    $scope.employer.pm = findOptionByName( $scope.pmlist, $scope.employer.pm);
-                    $scope.employer.sales = findOptionByName( $scope.saleslist, $scope.employer.sales);
+					console.log("employer.pm");
+					console.log($scope.employer.pm);
+                    $scope.employer.pm = findOptionById( $scope.pmlist, $scope.employer.pm);
+                    $scope.employer.sales = findOptionById( $scope.saleslist, $scope.employer.sales);
                 });
             });
         var ajaxCountryInfo = $http.get("/api/common/country")
