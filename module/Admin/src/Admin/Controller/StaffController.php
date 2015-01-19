@@ -133,19 +133,26 @@ class StaffController extends AbstractActionController
         $entityManager = $this->getEntityManager();
 
         // Get staff group
-        $staffList = $entityManager->getRepository('User\Entity\Staff');
+        //$staffList = $entityManager->getRepository('User\Entity\Staff');
         //->findBy(array('group' => $freelancerGroup));
-        $queryBuilder = $staffList->createQueryBuilder('staff')
-            ->where("staff.type in (5,6)");
-
+        //$queryBuilder = $staffList->createQueryBuilder('staff')
+        //    ->where("staff.type in (6,7)");
+		//$queryBuilder->leftJoin('staff.client', 'user')->andWhere('user.isActive=1');
         // check search condition
-        $request = $this->getRequest();
+        //$request = $this->getRequest();
         // if($request->getQuery('clientid')){
-            $client = $this->getCurrentUser();
-            $queryBuilder->andWhere("staff.client = ?1")
-                ->setParameter(1, $client);
+        //    $client = $this->getCurrentUser();
+        //    $queryBuilder->andWhere("staff.client = ?1")
+        //        ->setParameter(1, $client);
         // }
-
+		
+		$staffList = $entityManager->getRepository('User\Entity\User');
+        //->findBy(array('group' => $freelancerGroup));
+        $queryBuilder = $staffList->createQueryBuilder('user');
+		$queryBuilder->leftJoin('user.staff', 'staff')->where('staff.type in (6,7)');
+		$queryBuilder->andWhere("user.group = 3");
+		$queryBuilder->andWhere("user.isActive='1'");
+		
         $query = $queryBuilder->getQuery();
         $result = $query->getArrayResult();
         return new JsonModel([
@@ -157,20 +164,26 @@ class StaffController extends AbstractActionController
         $entityManager = $this->getEntityManager();
 
         // Get staff group
-        $staffGroup = $entityManager->find('User\Entity\Roles', Roles::SALES_ROLE_ID);
-        $staffList = $entityManager->getRepository('User\Entity\Staff');
+        //$staffGroup = $entityManager->find('User\Entity\Roles', Roles::SALES_ROLE_ID);
+        //$staffList = $entityManager->getRepository('User\Entity\Staff');
         //->findBy(array('group' => $freelancerGroup));
-        $queryBuilder = $staffList->createQueryBuilder('staff')
-            ->where("staff.type in (3,4)");
-
+        //$queryBuilder = $staffList->createQueryBuilder('staff')
+        //    ->where("staff.type in (4,5)");
+		//$queryBuilder->leftJoin('user')->andWhere('user.isActive=1');
         // check search condition
-        $request = $this->getRequest();
-        $client = $this->getCurrentUser();
+        //$request = $this->getRequest();
+        //$client = $this->getCurrentUser();
         // if($request->getQuery('clientid')){
-            $queryBuilder->andWhere("staff.client = ?1")
-                ->setParameter(1, $client);
+        //    $queryBuilder->andWhere("staff.client = ?1")
+        //        ->setParameter(1, $client);
        //  }
-
+		$staffList = $entityManager->getRepository('User\Entity\User');
+        //->findBy(array('group' => $freelancerGroup));
+        $queryBuilder = $staffList->createQueryBuilder('user');
+		$queryBuilder->leftJoin('user.staff', 'staff')->where('staff.type in (4,5)');
+		$queryBuilder->andWhere("user.group = 3");
+		$queryBuilder->andWhere("user.isActive='1'");
+		
         $query = $queryBuilder->getQuery();
         $result = $query->getArrayResult();
         return new JsonModel([
