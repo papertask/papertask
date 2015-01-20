@@ -45,11 +45,13 @@ class Module
 			//forward to localized url if not called with language parameter
 			
             if($fromRoute !== true) {
-				if(strpos($e->getRouteMatch()->getMatchedRouteName(), 'api') >= 0)
+			//var_dump(strpos($e->getRouteMatch()->getMatchedRouteName(), 'api'));exit;
+				if(strpos($e->getRouteMatch()->getMatchedRouteName(), 'api') !== false)
 				{
 				}
 				else{
-					var_dump(strpos($e->getRouteMatch()->getMatchedRouteName(), 'api'));
+				
+					//var_dump(strpos($e->getRouteMatch()->getMatchedRouteName(), 'api'));exit;
 					$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 					$newUrl = $actual_link.$language;
 					header("Location: $newUrl");
