@@ -72,7 +72,7 @@ class UserForm extends Form
      * @param \Application\Controller\AbstractActionController $controller
      * @param $userType
      */
-    public function save($controller, $userType){
+    public function save($controller, $userType, $lang_code = ''){
         /**
          * @var $user \User\Entity\User
          */
@@ -90,9 +90,9 @@ class UserForm extends Form
         $user->encodePassword();
         $user->generateToken();
         $user->save($entityManager);
-		if($userType=='freelancer')
-			$user->createFreelancer( $controller, $data, $entityManager);
-		else 	$user->createEmployer( $controller, $data, $entityManager);
+		if($userType == 'freelancer')
+			$user->createFreelancer( $controller, $data, $entityManager, $lang_code);
+		else 	$user->createEmployer( $controller, $data, $entityManager, $lang_code);
 
         //$user->sendConfirmationEmail($controller);
     }

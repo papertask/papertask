@@ -393,9 +393,9 @@ class User extends Entity implements InputFilterAwareInterface{
     /**
      * @param \Application\Controller\AbstractActionController $controller
      */
-    public function sendConfirmationEmail($controller){
+    public function sendConfirmationEmail($controller,$lang_code=''){
         // initial data for email template
-        $confirmLink = $controller->getBaseUrl() . '/user/register/confirm?token=' . $this->token;
+        $confirmLink = $controller->getBaseUrl(). $lang_code . '/user/register/confirm?token=' . $this->token;
         $data = array(
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
@@ -549,7 +549,7 @@ class User extends Entity implements InputFilterAwareInterface{
         $controller->redirect()->toUrl('/user/dashboard');
     }
 
-    public function createStaff( $controller, $data )
+    public function createStaff( $controller, $data , $lang_code = '')
     {
         $entityManager = $controller->getEntityManager();
         $strAlias = $this->getAlias( $entityManager, UserGroup::ADMIN_GROUP_ID );
@@ -560,7 +560,7 @@ class User extends Entity implements InputFilterAwareInterface{
         $this->setGroupByName('staff', $entityManager);
         $entityManager->persist($this);
         $entityManager->flush();
-        $this->sendConfirmationEmail($controller);
+        $this->sendConfirmationEmail($controller,$lang_code);
     }
 
     public function getAlias( $entityManager, $group ) {
@@ -616,7 +616,7 @@ class User extends Entity implements InputFilterAwareInterface{
         return $strAlias;
     }
 
-    public function createEmployer( $controller, $data, $entityManager ) 
+    public function createEmployer( $controller, $data, $entityManager, $lang_code='' ) 
     {
         $strAlias = $this->getAlias( $controller->getEntityManager(), UserGroup::EMPLOYER_GROUP_ID);
         $data = array(
@@ -633,9 +633,9 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager->persist($this);
         $entityManager->flush();
         
-        $this->sendConfirmationEmail( $controller );
+        $this->sendConfirmationEmail( $controller,$lang_code );
     }
-	public function createFreelancer( $controller, $data, $entityManager ) 
+	public function createFreelancer( $controller, $data, $entityManager,$lang_code='' ) 
     {
         $strAlias = $this->getAlias( $controller->getEntityManager(), UserGroup::FREELANCER_GROUP_ID);
         $data = array(
@@ -652,6 +652,6 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager->persist($this);
         $entityManager->flush();
         
-        $this->sendConfirmationEmail( $controller );
+        $this->sendConfirmationEmail( $controller,$lang_code );
     }
 }
