@@ -14,7 +14,7 @@
                 <p>
                     <?php echo $this->translate('I have translation requirements, need to translate documents from one language to other languages.') ?>
                 </p>
-                <a href="<?php echo $this->url('user') ?>/register/employer" role="button"><i class="fa fa-sign-in" style="font-size: 80px;"></i></a>
+                <a href="<?php echo $this->url('user',array("lang"=>$this->translate('lang'))) ?>/register/employer" role="button"><i class="fa fa-sign-in" style="font-size: 80px;"></i></a>
             </div>
         </div>
         <div class="col-lg-5">
@@ -24,7 +24,7 @@
                 <p>
                     <?php echo $this->translate('I am a professional translator, hope to find a job, make money at here, and grow my career.') ?>
                 </p>
-                <a href="<?php echo $this->url('user') ?>/register/freelancer" role="button"><i class="fa fa-sign-in" style="font-size: 80px;"></i></a>
+                <a href="<?php echo $this->url('user',array("lang"=>$this->translate('lang'))) ?>/register/freelancer" role="button"><i class="fa fa-sign-in" style="font-size: 80px;"></i></a>
             </div>
         </div>
     </div>

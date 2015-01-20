@@ -21,22 +21,22 @@
 
             </li>
             <li> <!-- different roles have different dashboard, a little bit different, can do at last -->
-                <a href="<?php echo $this->url('admin') ?>"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
+                <a href="<?php echo $this->url('admin',array("lang"=>$this->translate('lang'))) ?>"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
             </li>
 
             <li> <!-- admin, operation manager can see all info, pm can only see tasks belong to the clients who assigned to the pm, sales dir and sales manager can not see this -->
                 <a href="<?php echo $this->url('admin', array('controller' => 'task',
-                    'action' => 'index')) ?>"><i class="fa fa-tasks"></i> <span class="nav-label">Tasks</span></a>
+                    'action' => 'index',"lang"=>$this->translate('lang'))) ?>"><i class="fa fa-tasks"></i> <span class="nav-label">Tasks</span></a>
             </li>
 
             <li>
                 <a href="<?php echo $this->url('admin', array('controller' => 'project',
-                    'action' => 'quote')) ?>"><i class="fa fa-files-o"></i> <span class="nav-label">Quotes</span></a>
+                    'action' => 'quote',"lang"=>$this->translate('lang'))) ?>"><i class="fa fa-files-o"></i> <span class="nav-label">Quotes</span></a>
             </li>
 
             <li> <!-- admin, sales director, operation manager can see full info, sales manager and pm can only see clients belong to them -->
                 <a href="<?php echo $this->url('admin', array('controller' => 'project',
-                    'action' => 'index')) ?>"><i class="fa fa-archive"></i> <span class="nav-label">Projects</span> <span class="label label-warning pull-right">16</span></a>
+                    'action' => 'index',"lang"=>$this->translate('lang'))) ?>"><i class="fa fa-archive"></i> <span class="nav-label">Projects</span> <span class="label label-warning pull-right">16</span></a>
             </li>
 
             <li>
@@ -50,17 +50,17 @@
                 </ul>
             </li>
             <li>
-                <a href="<?php echo $this->url('admin', array('controller' => 'project')); ?>">
+                <a href="<?php echo $this->url('admin', array('controller' => 'project',"lang"=>$this->translate('lang'))); ?>">
                     <i class="fa fa-envelope"></i>
                     <span class="nav-label"><?php echo $this->translate("Projects") ?></span>
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level">
                     <li><a href="<?php
-                        echo $this->url('admin', array('controller' => 'project'))
+                        echo $this->url('admin', array('controller' => 'project',"lang"=>$this->translate('lang')))
                         ?>"><?php echo $this->translate("List projects") ?></a></li>
                     <li><a href="<?php
-                        echo $this->url('admin', array('controller' => 'project', 'action' => 'new'))
+                        echo $this->url('admin', array('controller' => 'project', 'action' => 'new',"lang"=>$this->translate('lang')))
                         ?>"><?php echo $this->translate("Create project") ?></a></li>
                 </ul>
             </li>
@@ -69,9 +69,9 @@
                 <a href="#"><i class="fa fa-globe"></i> <span class="nav-lable">Freelancers</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="<?php echo $this->url('admin', array('controller' => 'freelancer',
-                            'action' => 'index')) ?>">Freelancer List</a></li>
+                            'action' => 'index',"lang"=>$this->translate('lang'))) ?>">Freelancer List</a></li>
                     <li><a href="<?php echo $this->url('admin', array('controller' => 'freelancer',
-                            'action' => 'new')) ?>">New Freelancer</a></li>
+                            'action' => 'new',"lang"=>$this->translate('lang'))) ?>">New Freelancer</a></li>
                 </ul>
             </li>
 
@@ -79,21 +79,21 @@
                 <a href="#"><i class="fa fa-briefcase"></i> <span class="nav-lable">Clients</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="<?php echo $this->url('admin', array('controller' => 'employer',
-                            'action' => 'list')) ?>">Client List</a></li>
+                            'action' => 'list',"lang"=>$this->translate('lang'))) ?>">Client List</a></li>
                     <li><a href="<?php echo $this->url('admin', array('controller' => 'employer',
-                            'action' => 'new')) ?>">New Client</a></li>
+                            'action' => 'new',"lang"=>$this->translate('lang'))) ?>">New Client</a></li>
                     <li><a href="<?php echo $this->url('admin', array('controller' => 'employer',
-                            'action' => 'profile')) ?>">Edit Client (Admin)</a></li>
+                            'action' => 'profile',"lang"=>$this->translate('lang'))) ?>">Edit Client (Admin)</a></li>
                 </ul>
             </li>
 
             <li> <!-- admin, operation manager, sales manager can see -->
                 <a href="#"><i class="fa fa-group"></i> <span class="nav-lable">Staffs</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="<?php echo $this->url('admin', array('controller' => 'staff', 'action' => 'index')) ?>">
+                    <li><a href="<?php echo $this->url('admin', array('controller' => 'staff', 'action' => 'index',"lang"=>$this->translate('lang'))) ?>">
                             Staff List</a></li>
                     <li><a href="<?php echo $this->url('admin', array('controller' => 'staff',
-                            'action' => 'new')) ?>">New Staff</a></li>
+                            'action' => 'new',"lang"=>$this->translate('lang'))) ?>">New Staff</a></li>
                     <!-- operation manager sales director can not create new, only admin can do-->
                 </ul>
             </li>
@@ -101,14 +101,14 @@
             <li> <!-- only admin can see the mail system -->
                 <a href="#"><i class="fa fa-envelope"></i> <span class="nav-lable">Mail System</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="<?php echo $this->url('admin', array('controller' => 'email')) ?>">Email Templates</a></li>
-                    <li><a href="<?php echo $this->url('admin', array('controller' => 'email', 'action'=>'new', )) ?>">
+                    <li><a href="<?php echo $this->url('admin', array('controller' => 'email',"lang"=>$this->translate('lang'))) ?>">Email Templates</a></li>
+                    <li><a href="<?php echo $this->url('admin', array('controller' => 'email', 'action'=>'new',"lang"=>$this->translate('lang') )) ?>">
                             New Template</a></li>
                 </ul>
             </li>
 
             <li> <!-- only admin can see the mail system -->
-                <a href="<?php echo $this->url('admin', array('controller' => 'papertask', 'action' => 'profile')) ?>">
+                <a href="<?php echo $this->url('admin', array('controller' => 'papertask', 'action' => 'profile',"lang"=>$this->translate('lang'))) ?>">
                     <i class="fa fa-random"></i> <span class="nav-lable">PaperTask Profile</span></a>
             </li>
 
