@@ -78,8 +78,9 @@ $this->inlineScript()
 				<div class="hr-line-dashed"></div>
 				<h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
 				<div id="objNote"></div>
-
-				<a class="btn btn-primary btn-block" type="button" href="/admin/employer/edit?userId=<?php echo $user['id']; ?>"><i class="fa fa-paste"></i> <?php echo $this->translate('Edit') ?></a>
+				<a href="<?php echo $this->url('admin', ['controller'=>'employer', 'action'=>'edit']) ?>?id=<?php echo $user['id'];?>"
+               class="btn btn-primary btn-block"><i class="fa fa-paste"></i> <?php echo $this->translate('Edit') ?></a>
+			   
 			</div>
 		</div>
 	</div>
