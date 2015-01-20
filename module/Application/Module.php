@@ -43,12 +43,18 @@ class Module
             }
             $e->getApplication()->getServiceManager()->get('translator')->setLocale($language);
 			//forward to localized url if not called with language parameter
+			
             if($fromRoute !== true) {
-				$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-                $newUrl = $actual_link.$language;
-                header("Location: $newUrl");
-                exit;
-                 
+				if(strpos($e->getRouteMatch()->getMatchedRouteName(), 'api') >= 0)
+				{
+				}
+				else{
+					var_dump(strpos($e->getRouteMatch()->getMatchedRouteName(), 'api'));
+					$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+					$newUrl = $actual_link.$language;
+					header("Location: $newUrl");
+					exit;
+				}
             }
 
         };
