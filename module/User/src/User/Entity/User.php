@@ -397,8 +397,7 @@ class User extends Entity implements InputFilterAwareInterface{
         // initial data for email template
 		
         $confirmLink = $controller->getBaseUrl(). $lang_code . '/user/register/confirm?token=' . $this->token;
-		var_dump($confirmLink);exit;
-        $data = array(
+		$data = array(
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
             'link' => $confirmLink,
