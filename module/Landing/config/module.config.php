@@ -34,7 +34,6 @@ return array(
                         '__NAMESPACE__' => 'Landing\Controller',
                         'controller' => 'Index',
                         'action'     => 'index',
-                        'lang'=>'en-US'
                     ),
                 ),
             ),

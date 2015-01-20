@@ -395,7 +395,9 @@ class User extends Entity implements InputFilterAwareInterface{
      */
     public function sendConfirmationEmail($controller,$lang_code=''){
         // initial data for email template
+		
         $confirmLink = $controller->getBaseUrl(). $lang_code . '/user/register/confirm?token=' . $this->token;
+		var_dump($confirmLink);exit;
         $data = array(
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
@@ -633,7 +635,7 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager->persist($this);
         $entityManager->flush();
         
-        $this->sendConfirmationEmail( $controller,$lang_code );
+        $this->sendConfirmationEmail( $controller, $lang_code );
     }
 	public function createFreelancer( $controller, $data, $entityManager,$lang_code='' ) 
     {
@@ -652,6 +654,6 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager->persist($this);
         $entityManager->flush();
         
-        $this->sendConfirmationEmail( $controller,$lang_code );
+        $this->sendConfirmationEmail( $controller, $lang_code );
     }
 }
