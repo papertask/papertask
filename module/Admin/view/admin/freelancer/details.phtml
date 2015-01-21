@@ -15,6 +15,7 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/freelancer/d
 					->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
 					->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
 					->prependFile ( $this->basePath () . '/js/inspinia.js' );
+					
 ?>
 <?php
 $this->inlineScript()
@@ -115,14 +116,9 @@ $this->inlineScript()
 				
 				</div>
 				<div class="hr-line-dashed"></div>
-				  <h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
-
-            <p class="comments">
-			<summernote height="50" ng-model="resume.papertaskComments" class="summernote">
-
-            </summernote>
-			
-            </p>
+				<h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
+				<div id="objComment"></div>
+            
 
             <div class="hr-line-dashed"></div>
             <h4><?php echo $this->translate('Payment information') ?></h4>
@@ -472,7 +468,7 @@ $this->inlineScript()
                                             <h3><i class="fa fa-comment-o"></i> Recommended</h3>
                                         </div>
                                         <div class="ibox-content">
-                                           
+                                           <p><?php echo $resume['recommended'];?></p>
                                         </div>
                                     </div>
                     </div>
@@ -483,9 +479,5 @@ $this->inlineScript()
 
 	</div>
 </div>
- <style>
- p.comments{
- max-height: 80px;
- }
- </style>
+
  <?php //include "profile/modal.phtml" ?>

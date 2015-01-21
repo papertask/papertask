@@ -125,7 +125,7 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
                         $scope.specialisms = $data['specialisms'];
                         $scope.resources = $data['resources'];
                         rebuildMultiSelect();
-                        updateFreelancerSkillData();
+                        //updateFreelancerSkillData();
                     });
     };
  
@@ -212,7 +212,11 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     		$scope.translationPrices[$scope.editTranslation] = {sourceLanguage: translationPrice.sourceLanguage, targetLanguage: translationPrice.targetLanguage, price: translationPrice.price}
     	}
     	jQuery("#modal-translation").modal("hide");
+		console.log("translationPricePlaceholder");
+    	console.log($scope.translationPricePlaceholder);
+		console.log($scope.languages[0]);
     	setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
+		console.log(translationPrice);
     	$scope.editTranslation = -1;
     };
     

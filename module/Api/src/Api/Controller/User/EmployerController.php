@@ -74,7 +74,6 @@ class EmployerController extends AbstractRestfulController
 			$ret_data = $user->getData();
 
 			// Set Translation Price
-			$pTranslationPrice = new UserTranslationPrice();
 			foreach ( $pdata['translationPrices'] as $k => $v ) {
 				$translationPrice = array(
 						'user' => $user,
@@ -82,13 +81,12 @@ class EmployerController extends AbstractRestfulController
 						'targetLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v['targetLanguage']['id'])),
 						'price' => $v['price']
 				);
-				 
+				$pTranslationPrice = new UserTranslationPrice();
 				$pTranslationPrice->setData( $translationPrice );
 				$pTranslationPrice->save( $entityManager );
 			}
 	
 			// Set Desktop Prices
-			$pDesktopPrice = new UserDesktopPrice();
 			foreach ( $pdata['desktopPrices'] as $k => $v) {
 				
                 $desktopPrice = array (
@@ -100,13 +98,12 @@ class EmployerController extends AbstractRestfulController
 						'priceHourMac' => $v['priceHourMac'],
 						'priceHourPc' => $v['priceHourPc']
 				);
-				 
+				$pDesktopPrice = new UserDesktopPrice();
 				$pDesktopPrice->setData( $desktopPrice );
 				$pDesktopPrice->save( $entityManager );
 			}
 	
 			// Set Interpreting Price
-			$pInterpretingPrice = new UserInterpretingPrice();
 			foreach ( $pdata['interpretingPrices'] as $k=>$v) {
 				$interpretingPrice = array(
 						'user' => $user,
@@ -116,6 +113,7 @@ class EmployerController extends AbstractRestfulController
 						'priceDay' => $v['priceDay'],
 						'priceHalfDay' => $v['priceHalfDay']
 				);
+				$pInterpretingPrice = new UserInterpretingPrice();
 				$pInterpretingPrice->setData( $interpretingPrice );
 				$pInterpretingPrice->save( $entityManager );
 			}
@@ -137,7 +135,6 @@ class EmployerController extends AbstractRestfulController
 			$pTmRatio->save( $entityManager );
 	
 			// Set Engineering Price
-			$pEngineeringPrices = new UserEngineeringPrice();
 			foreach ( $pdata['engineeringPrices'] as $k=>$v ) {
 				$engineeringPrice = array(
 						'engineeringcategory'=> $entityManager->getRepository('Common\Entity\EngineeringCategory')->findOneBy(array('id' => $v['engineeringCategory']['id'])),
@@ -145,6 +142,7 @@ class EmployerController extends AbstractRestfulController
 						'price'=> $v['price'],
 						'user'=> $user
 				);
+				$pEngineeringPrices = new UserEngineeringPrice();
 				$pEngineeringPrices->setData( $engineeringPrice );
 				$pEngineeringPrices->save( $entityManager );
 			}

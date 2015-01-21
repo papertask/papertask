@@ -53,9 +53,15 @@
 						<td>{{translationPrice.sourceLanguage.name}}</td>
 						<td>{{translationPrice.targetLanguage.name}}</td>
 						<td>{{translationPrice.price}}</td>
-						<td><a href="#" ng-click="deleteTranslationPrice($index)" onClick="return false;">
-							<i class="fa fa-trash-o text-danger"></i>
-							</a>
+						<td>							
+							<a href="#" ng-click="editTranslationPrice($index, tp.id)" onclick="return false;">
+			                	<i class="fa fa-edit"></i>
+			                </a>
+			            	<a href="#" ng-click="deleteTranslationPrice($index, tp.id)" onclick="return false;">
+			                	<i class="fa fa-trash-o text-danger"></i>
+			                </a>
+							
+							
 						</td>
 					</tr>
 					</tbody>
@@ -120,8 +126,11 @@
 						<td>{{desktopPrice.pricePc}}</td>
 						<td>{{desktopPrice.priceHourMac}}</td>
 						<td>{{desktopPrice.priceHourPc}}</td>
-						<td><a href="#" ng-click="deleteDesktopPrice($index)" onClick="return false;">
-								<i class="fa fa-trash-o text-danger"></i></a></td>
+						<td>
+						
+						<a data-toggle="modal" href="#modal-dtp" ng-click="editDesktopPrice($index)" onclick="return false;"><i class="fa fa-edit"></i></a>
+			            <a href="#" ng-click="deleteDesktopPrice($index, desktopPrice.id)" onClick="return false;"><i class="fa fa-trash-o text-danger"></i></a>
+						</td>
 					</tr>
 					</tbody>
 				</table>
@@ -173,8 +182,13 @@
 						<td>{{interpretingPrice.service.name}}</td>
 						<td>{{interpretingPrice.priceDay}}</td>
 						<td>{{interpretingPrice.priceHalfDay}}</td>
-						<td><a href="#" ng-click="deleteInterpretingPrice($index)" onClick="return false;">
-								<i class="fa fa-trash-o text-danger"></i></a></td>
+						<td>
+			            	<a data-toggle="modal" href="#modal-interpreting" ng-click="editInterpretingPrice($index);" onclick="return false;">
+								<i class="fa fa-edit"></i>
+							</a>
+			            	<a href="#" ng-click="deleteInterpretingPrice($index, interpretingPrice.id)" onClick="return false;"><i class="fa fa-trash-o text-danger"></i></a>
+
+						</td>
 					</tr>
 					</tbody>
 				</table>

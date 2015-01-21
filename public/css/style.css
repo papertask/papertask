@@ -92,6 +92,8 @@ h5 {
   top: 100%;
   z-index: 1000;
   border-radius: 2px;
+  height: 200px;
+  overflow-x: hidden;
 }
 .dropdown-menu > li > a {
   border-radius: 3px;

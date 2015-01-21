@@ -38,7 +38,7 @@ class User extends Entity implements InputFilterAwareInterface{
     /** @ORM\Column(type="string") */
     protected $lastName;
 	
-	 /** @ORM\Column(type="string") */
+	 /** @ORM\Column(type="string", nullable=true) */
     protected $username;
 
     /**

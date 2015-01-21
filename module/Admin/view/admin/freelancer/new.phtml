@@ -55,13 +55,16 @@ $this->inlineScript()
 </style>
 <!-- End custom style -->
 
-    <div class="row">
+    <div class="row" id="FreelancerController" ng-init="init()" ng-controller="FreelancertController">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
-                <div class="ibox-content" id="FreelancerController" ng-init="init()" ng-controller="FreelancertController">
-                    <h3>
-						<i class="fa fa-user"></i> Create Freelancer Account
+				<div class="ibox-title">
+					<h3>
+						<i class="fa fa-user"></i> <?php echo $this->translate('Create Freelancer Account') ?>
 					</h3>
+				</div>
+                <div class="ibox-content">
+                    
 
                     <form id="form" action="#" class="wizard-big">
                         <?php include __DIR__ . "/new/basic-info.phtml" ?>
@@ -72,14 +75,4 @@ $this->inlineScript()
             </div>
         </div>
     </div>
-</div> <!-- close the container div -->
-<div ng-controller="ModalController" id="modalContainer"> <!-- open new temporary container -->
-    <?php include __DIR__ . "/new/modal.phtml" ?>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.multiselect').multiselect({
-                numberDisplayed: 1
-            });
-        });
-    </script>
+<?php include "new/modal.phtml" ?>

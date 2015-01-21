@@ -179,8 +179,12 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     	} else {
     		$scope.translationPrices[$scope.editTranslation] = {sourceLanguage: translationPrice.sourceLanguage, targetLanguage: translationPrice.targetLanguage, price: translationPrice.price}
     	}
+		
     	jQuery("#modal-translation").modal("hide");
-    	setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
+    	console.log("translationPricePlaceholder");
+    	console.log($scope.translationPricePlaceholder);
+		setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
+		console.log(translationPrice);
     	$scope.editTranslation = -1;
     };
     

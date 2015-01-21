@@ -108,6 +108,7 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
 	function getFreelancerResume(){
         $http.get('/api/user/' + USER_ID + '/resume').success(function($data){
             $scope.resume = $data['resume'];
+			 $("#objComment").html($scope.resume.papertaskComments);
             console.log($scope.resume);
         });
     }
