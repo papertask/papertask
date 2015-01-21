@@ -16,7 +16,7 @@ class RatingController extends AbstractRestfulController
     public function getList()
     {
         $ratings = $this->getEntityManager()->getRepository('\User\Entity\Rating')
-            ->findBy(array(),array('name'=>'ASC'));
+            ->findBy(array(),array('id'=>'DESC'));
         $ratings = $this->getDataList($ratings);
 
         return new JsonModel(['ratings' => $ratings]);

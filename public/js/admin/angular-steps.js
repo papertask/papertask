@@ -58,17 +58,16 @@ angularApp.run(function($rootScope){
         }
     }).validate({
         errorPlacement: function (error, element) {
-            console.log(element.data("errorPlace"));
-            if(errorPlace = element.data("errorplace")){
-                eval(errorPlace);
-            } else {
-                element.before(error);
-            }
+            element.before(error);
         },
         rules: {
-            confirm: {
+            confirmpwd: {
                 equalTo: "#password"
+            },
+            email: {
+                required: true,
+                email: true
             }
-        }
+        },
     });
 });

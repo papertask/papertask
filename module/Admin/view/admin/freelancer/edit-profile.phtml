@@ -1,4 +1,7 @@
 <?php $this->headTitle($this->translate('Edit Profile')) ?>
+<?php $this->headLink()
+        ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
+?>
 <?php
 $this->headLink()
     ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
@@ -11,6 +14,7 @@ $this->headScript()
     ->prependFile($this->basePath() . '/js/plugins/angular-file-upload/angular-file-upload.js')
     ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload']);")
     ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
     ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
     ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
     ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js');

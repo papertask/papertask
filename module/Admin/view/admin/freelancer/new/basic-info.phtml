@@ -47,7 +47,7 @@
 				<div class="col-lg-6">
 					<div class="form-group">
 						<label>User name *</label>
-						<input id="username" name="username" type="text"
+						<input id="username" name="username" type="text" ng-model="freelancer.userName"
 							   class="form-control required" />
 					</div>
 					<div class="hr-line-dashed"></div>
@@ -71,8 +71,8 @@
 					<div class="form-group">
 						<label>Country *</label>
 						<select class="form-control required" id="country" name="country" 
-								ng-model="freelancer.country" ng-options="country.name for country in countries">
-								
+								ng-model="freelancer.country" ng-options="country.name for country in countries track by country.id">
+								<option value ng-selected="selected"></option> 
 						</select>
 					</div>
 				</div>

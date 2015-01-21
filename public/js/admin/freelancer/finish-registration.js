@@ -71,7 +71,6 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
         $info.TranslationSpecialisms = findOptions($scope.specialisms, $info.TranslationSpecialisms);
         $info.DesktopCatTools = findOptions($scope.catTools, $info.DesktopCatTools);
         $info.Resources = findResources($scope.resources, $info.Resources);
-		
         $info.DesktopOperatingSystems = findOptions($scope.operatingSystems, $info.DesktopOperatingSystems);
         $info.InterpretingSpecialisms = findOptions($scope.specialisms, $info.InterpretingSpecialisms);
     }

@@ -58,7 +58,8 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
         email: null,
         firstName: null,
         lastName: null,
-        gender: null,
+		username: null,
+		gender: null,
         city: null,
         phone: null,
         country: null,
@@ -90,7 +91,14 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     };
 
     
-
+	function rebuildMultiSelect(){
+        $timeout(function(){
+            $(".multiselect").multiselect("destroy");
+        }).then(function(){
+            $(".multiselect").multiselect();
+        });
+    }
+	
     function getCountriesList(){
         $http.get('/api/common/country').success(function($data){
             $scope.countries = $data['countries'];
@@ -337,6 +345,8 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 					wushi: $scope.userInfo.tmRatios.wushi,
 					nomatch: $scope.userInfo.tmRatios.nomatch
 				}).success( function($data) {
+				console.log("userInfo");
+				console.log($scope.userInfo);
 					var requestUser = $http.put("/api/user/" + USER_ID, $scope.userInfo)
 						.success(function($data){
 						
@@ -417,6 +427,11 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
                  });*/
 				 var requestResources = $http.put("/api/user/" + USER_ID + "/freelancer/" + $scope.freelancer.freelancerId, {
 					'Resources': getIds($scope.freelancer.Resources),
+					'DesktopCatTools': getIds($scope.freelancer.DesktopCatTools),
+					'DesktopOperatingSystems': getIds($scope.freelancer.DesktopOperatingSystems),
+					'InterpretingSpecialisms': getIds($scope.freelancer.InterpretingSpecialisms),
+					'TranslationCatTools': getIds($scope.freelancer.TranslationCatTools),
+					'TranslationSpecialisms': getIds($scope.freelancer.TranslationSpecialisms),	
 					'Rating': getIds(rt),
 					'isSenior' :$scope.freelancer.isSenior
 				}).success(function($data){
@@ -469,6 +484,12 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 				console.log($scope.freelancer);
         		$scope.freelancer = {
 					Resources : $data.freelancer.Resources,
+					TranslationCatTools : $data.freelancer.TranslationCatTools,
+					TranslationSpecialisms : $data.freelancer.TranslationSpecialisms,
+					DesktopCatTools: $data.freelancer.DesktopCatTools,
+					DesktopOperatingSystems: $data.freelancer.DesktopOperatingSystems,
+					InterpretingSpecialisms: $data.freelancer.InterpretingSpecialisms,
+					
     				freelancerId: $data.freelancer.id,
 					rating : $data.freelancer.Rating,
 					isSenior : $data.freelancer.isSenior
@@ -486,8 +507,8 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
                         $scope.specialisms = $data['specialisms'];
                         $scope.resources = $data['resources'];
 						$scope.freelancer.Resources = findResources($scope.resources, $scope.freelancer.Resources);
-						//rebuildMultiSelect();
-                        //updateFreelancerSkillData();
+						rebuildMultiSelect();
+                        updateFreelancerSkillData();
                     });
         		$("#editFrelancerController").fadeIn();
         	});
@@ -500,6 +521,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
                     email: $data.user.email,
                     firstName: $data.user.firstName,
                     lastName: $data.user.lastName,
+					username: $data.user.username,
                     gender: $data.user.gender,
                     city: $data.user.city,
                     phone: $data.user.phone,
@@ -539,6 +561,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 				console.log($scope.ratings);
 				console.log($scope.freelancer.rating);
             });	
+		
     }
 	$scope.openFileDialog = function () {
         $("#objFile").click();
@@ -623,10 +646,10 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
         $info.TranslationCatTools = findOptions($scope.catTools, $info.TranslationCatTools);
         $info.TranslationSpecialisms = findOptions($scope.specialisms, $info.TranslationSpecialisms);
         $info.DesktopCatTools = findOptions($scope.catTools, $info.DesktopCatTools);
-        $info.Resources = findResources($scope.resources, $info.Resources);
-		
         $info.DesktopOperatingSystems = findOptions($scope.operatingSystems, $info.DesktopOperatingSystems);
         $info.InterpretingSpecialisms = findOptions($scope.specialisms, $info.InterpretingSpecialisms);
+		console.log("freelancer");
+		console.log($scope.freelancer);
     }
 	function findResources($resourceGroups, $ids){
         var resources = [];

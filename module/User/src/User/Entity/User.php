@@ -37,6 +37,9 @@ class User extends Entity implements InputFilterAwareInterface{
 
     /** @ORM\Column(type="string") */
     protected $lastName;
+	
+	 /** @ORM\Column(type="string") */
+    protected $username;
 
     /**
      * @var \User\Entity\UserGroup
@@ -152,6 +155,7 @@ class User extends Entity implements InputFilterAwareInterface{
             'gender',
             'lastLogin',
             'lastName',
+			'username',
             'password',
             'phone',            
             'isActive',
@@ -180,6 +184,7 @@ class User extends Entity implements InputFilterAwareInterface{
             'firstName',
             'gender',
             'lastName',
+			'username',
             'phone',
             'profileUpdated',
             'isActive',
@@ -445,6 +450,7 @@ class User extends Entity implements InputFilterAwareInterface{
             "isActive" => $this->isActive,
             "lastLogin" => $this->lastLogin,
             "lastName" => $this->lastName,
+			"username" => $this->username,
             "phone" => $this->phone,
             "profileUpdated" => $this->profileUpdated,
             "alias" => $this->alias,

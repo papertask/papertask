@@ -20,7 +20,7 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
     $scope.DesktopCatTools = [];
     $scope.InterpretingSpecialisms = [];
     $scope.InterpretingCatTools = [];
-
+	$scope.tmRatios = {};
     
     $scope.password = null;
     $scope.passwordChanged = 0;
@@ -32,15 +32,16 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
         email: null,
         firstName: null,
         lastName: null,
+		username:null,
         gender: null,
         city: null,
         phone: null,
         country: null,
         company: null,
+		tmRatios: null,
         currency: null
     };
     $scope.freelancer = {
-		username: null,
         comments: null,
 		company: null,
 		freelancerId: null,
@@ -66,12 +67,15 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
                     email: $data.user.email,
                     firstName: $data.user.firstName,
                     lastName: $data.user.lastName,
+					username: $data.user.username,
                     gender: $data.user.gender,
                     city: $data.user.city,
                     phone: $data.user.phone,
                     country: $data.user.country,
-                    currency: $data.user.currency
+                    currency: $data.user.currency,
+					tmRatios: $data.tmRatios
                 };
+				$scope.tmRatios = $data.tmRatios;
                 $scope.translationPrices = $data.translationPrices;
                 $scope.interpretingPrices = $data.interpretingPrices;
                 $scope.dptPrices = $data.desktopPrices;
@@ -178,6 +182,7 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
             $scope.TranslationSpecialisms = findOptions($scope.freelancerData.specialisms,
                 $scope.freelancer.TranslationSpecialisms);
             // get desktop translation cat tools
+			//con
             $scope.TranslationCatTools = findOptions($scope.freelancerData.catTools,
                 $scope.freelancer.TranslationCatTools);
             // get operating systems

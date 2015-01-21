@@ -36,6 +36,7 @@ class FreelancerController extends AbstractRestfulController
 		$data['email'] = $pdata['email'];
 		$data['firstName'] = $pdata['firstname'];
 		$data['lastName'] = $pdata['lastname'];
+		$data['username'] = $pdata['username'];
 		$data['password'] = $pdata['password'];
 		$data['phone'] = $pdata['phone'];
 		$data['gender'] = $pdata['gender'];

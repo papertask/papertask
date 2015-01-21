@@ -2,7 +2,8 @@
 <?php
 $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/freelancer/details.js' )
 					->prependFile ( $this->basePath () . '/js/admin/bootstrap-modal.js' )
-					->prependScript ( "angularApp = angular.module('project', []);" )
+					->prependFile($this->basePath() . '/js/angular-filter.js')
+					->prependScript ( "angularApp = angular.module('project', ['angular.filter']);" )
 					->prependFile ( $this->basePath () . '/js/plugins/summernote/summernote.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/validate/jquery.validate.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/steps/jquery.steps.min.js' )
@@ -22,7 +23,7 @@ $this->inlineScript()
 	<div class="col-md-4">
 		<div class="ibox">
 			<div class="ibox-title">
-				<h5>{{userInfo.lastName}}, {{userInfo.firstName}}</h5>
+				<h5>{{userInfo.username}}</h5>
 				<div class="ibox-tools">				
 					<span ng-show="userInfo.isActive == '1'" class="label label-primary"><?php echo $this->translate('Active') ?></span>
 					<span ng-show="userInfo.isActive == '0'" class="label label-default"><?php echo $this->translate('Unactive') ?></span>
@@ -42,7 +43,7 @@ $this->inlineScript()
 				<p><i class="fa fa-map-marker"></i> &nbsp; {{userInfo.city}}, {{userInfo.country.name}}</p>
 				<p class="small font-bold">
 					<?php if ($freelancer['isSenior']) {?>	
-						<span class="fa fa-circle text-danger"> &nbsp; <?php echo $this->translate('Senior Freelancer') ?></span>
+						<span class="fa fa-circle "> &nbsp; <?php echo $this->translate('Senior Freelancer') ?></span>
 					<?php } else {?>
 						<span class="fa fa-circle text-danger"> &nbsp; <?php echo $this->translate('Freelancer') ?></span>
 					<?php }?>
@@ -111,7 +112,7 @@ $this->inlineScript()
 				  <h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
 
             <p>
-                {{resume.papertaskComments}}
+                {{resume.papertaskComments | stripTags}}
             </p>
 
             <div class="hr-line-dashed"></div>
