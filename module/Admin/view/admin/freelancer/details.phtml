@@ -45,7 +45,7 @@ $this->inlineScript()
 					<?php if ($freelancer['isSenior']) {?>	
 						<span class="fa fa-circle "> &nbsp; <?php echo $this->translate('Senior Freelancer') ?></span>
 					<?php } else {?>
-						<span class="fa fa-circle text-danger"> &nbsp; <?php echo $this->translate('Freelancer') ?></span>
+						<span class="fa fa-circle"> &nbsp; <?php echo $this->translate('Freelancer') ?></span>
 					<?php }?>
 					
                 </p>
@@ -124,9 +124,7 @@ $this->inlineScript()
 
             <p><strong><?php echo $this->translate('Bank Info') ?></strong>: </p>
             <address class="well">
-                <strong><?php echo $this->translate('Bank Name') ?></strong><br>
-                {{bankInfo.address}}<br>
-                {{bankInfo.city}}, {{bankInfo.country}}<br>
+                <strong><?php echo $this->translate('Bank Account') ?></strong> {{bankInfo.account}}<br>
                 <strong><?php echo $this->translate('Beneficiary Name') ?></strong>: {{bankInfo.name}}<br>
                 <strong><?php echo $this->translate('Account No./IBAN') ?></strong>: {{bankInfo.accountNo}}<br>
                 <strong><?php echo $this->translate('Swift Code') ?></strong>: {{bankInfo.swift}}<br>
