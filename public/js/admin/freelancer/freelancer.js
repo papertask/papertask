@@ -171,14 +171,19 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
 				//$scope.translation = 0;
 	            //$scope.desktop_publish = 0;
 	            //$scope.interpreting = 0;
-
+				
+				
     			translationPrices: ($scope.translation == 1)?$scope.translationPrices:[],
     			desktopPrices: ($scope.desktop_publish == 1)?$scope.desktopPrices:[],
     			interpretingPrices: ($scope.interpreting == 1)?$scope.interpretingPrices:[],
     			//engineeringPrices: $scope.engineeringPrices
     	};
+    	console.log('translationPrices');
+		console.log($scope.translationPrices);
+		console.log($scope.desktopPrices);
+		console.log($scope.interpretingPrices);
     	
-    	$http.post("/api/user/freelancer", ptr_freelancer)
+		$http.post("/api/user/freelancer", ptr_freelancer)
         	.success(function($data){
 				if ( $data.success == 'failed') {
                     bootbox.alert("User already exited. Please check your email address.");

@@ -1,5 +1,6 @@
 angularApp.run( function ( $rootScope ) {
-
+$(".summernote").summernote();
+$('.note-toolbar.btn-toolbar').remove();
 }) 
 
 angularApp.controller('FreelancerController', function($scope, $http, $timeout, $q) {

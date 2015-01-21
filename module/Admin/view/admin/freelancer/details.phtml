@@ -1,13 +1,19 @@
 <!-- Scripts -->
 <?php
+$this->headLink()
+    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
+    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css');
+	
 $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/freelancer/details.js' )
 					->prependFile ( $this->basePath () . '/js/admin/bootstrap-modal.js' )
 					->prependFile($this->basePath() . '/js/angular-filter.js')
-					->prependScript ( "angularApp = angular.module('project', ['angular.filter']);" )
+					->prependScript ( "angularApp = angular.module('project', ['summernote','angular.filter']);" )
 					->prependFile ( $this->basePath () . '/js/plugins/summernote/summernote.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/validate/jquery.validate.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/steps/jquery.steps.min.js' )
 					->prependFile ( $this->basePath () . '/js/plugins/pace/pace.min.js' )
+					->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
+					->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
 					->prependFile ( $this->basePath () . '/js/inspinia.js' );
 ?>
 <?php
@@ -111,8 +117,11 @@ $this->inlineScript()
 				<div class="hr-line-dashed"></div>
 				  <h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
 
-            <p>
-                {{resume.papertaskComments}}
+            <p class="comments">
+			<summernote height="50" ng-model="resume.papertaskComments" class="summernote">
+
+            </summernote>
+			
             </p>
 
             <div class="hr-line-dashed"></div>
@@ -124,7 +133,9 @@ $this->inlineScript()
 
             <p><strong><?php echo $this->translate('Bank Info') ?></strong>: </p>
             <address class="well">
-                <strong><?php echo $this->translate('Bank Account') ?></strong> {{bankInfo.account}}<br>
+                <strong><?php echo $this->translate('Bank Name') ?></strong>:  {{bankInfo.account}}<br>
+                {{bankInfo.address}}<br>
+                {{bankInfo.city}}, {{bankInfo.country}}<br>
                 <strong><?php echo $this->translate('Beneficiary Name') ?></strong>: {{bankInfo.name}}<br>
                 <strong><?php echo $this->translate('Account No./IBAN') ?></strong>: {{bankInfo.accountNo}}<br>
                 <strong><?php echo $this->translate('Swift Code') ?></strong>: {{bankInfo.swift}}<br>
@@ -472,5 +483,9 @@ $this->inlineScript()
 
 	</div>
 </div>
- 
-<?php //include "profile/modal.phtml" ?>
+ <style>
+ p.comments{
+ max-height: 80px;
+ }
+ </style>
+ <?php //include "profile/modal.phtml" ?>
