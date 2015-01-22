@@ -3,16 +3,7 @@
 return array(
     'guest'=> array(
         // Static pages
-		'home',
-		'languages',
-		'freelancer',
-		'contact',
-		'order',
-		'privacy',
-		'terms',
-    ),
-    'admin'=> array(
-		// Static pages
+		'index\index',
 		'home',
 		'languages',
 		'freelancer',
@@ -21,10 +12,32 @@ return array(
 		'privacy',
 		'terms',
 		
-		// Login
+		// Login & Register
 		'login\index',
 		'forgotpassword\index',
 		'login\social',
+		'register\index',
+		'register\employer',
+		'register\freelancer',
+    ),
+    'admin'=> array(
+		// Static pages
+		'index\index',
+		'home',
+		'languages',
+		'freelancer',
+		'contact',
+		'order',
+		'privacy',
+		'terms',
+		
+		// Login & Register
+		'login\index',
+		'forgotpassword\index',
+		'login\social',
+		'register\index',
+		'register\employer',
+		'register\freelancer',
 		
         // Dashboard Panel
 		'dashboard\index',

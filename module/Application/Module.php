@@ -11,6 +11,7 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\ServiceManager\ServiceManager;
 
 class Module
 {
@@ -90,10 +91,10 @@ class Module
 		$route = strtolower($route);
 		//set role here
 		$userRole = 'admin';
-		
-		var_dump($route);
+
+		/*var_dump($route);
 		var_dump($e->getRouteMatch()->getParams());
-		var_dump($route);
+		var_dump($e->getRouter());*/
 		// Allow all undefined routes
 		//if ($e -> getViewModel() -> acl ->hasResource($route) && !$e -> getViewModel() -> acl -> isAllowed($userRole, $route)) 
 		if (!$e -> getViewModel() -> acl ->hasResource($route) || !$e -> getViewModel() -> acl -> isAllowed($userRole, $route)) 
