@@ -14,6 +14,11 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
 
+#: ../view/layout/landing.phtml:86 
+#: ../view/layout/landing.phtml:89
+msgid "lang"
+msgstr "zh-CN"
+
 #: ../view/layout/layout.phtml:6 ../view/layout/layout.phtml:33
 msgid "Skeleton Application"
 msgstr "框架应用"
