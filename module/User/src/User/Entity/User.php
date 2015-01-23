@@ -374,6 +374,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function authenticate(){
         $sessionContainer = new Container('user');
         $sessionContainer->user_id = $this->id;
+		$sessionContainer->user_group = $this->group ? $this->group->getData() : null;
     }
 
     /**

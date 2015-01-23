@@ -13,6 +13,8 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceManager;
 
+use Zend\Session\Container;
+
 class Module
 {
     public function onBootstrap(MvcEvent $e)
@@ -26,9 +28,7 @@ class Module
         });
 		
 		// Init ACL 
-		//var_dump("initAcl started ACL setup");
 		$this -> initAcl($e);
-		//var_dump("initAcl finished ACL setup");
 		$eventManager -> attach('route', array($this, 'checkAcl'));
     }
 
@@ -71,9 +71,6 @@ class Module
 				$acl -> allow($role, strtolower($resource));
 			}
 		}
-		//test
-		//var_dump($acl->isAllowed('admin','home'));
-		//true
 	 
 		//setting to view
 		$e -> getViewModel() -> acl = $acl;
@@ -89,14 +86,11 @@ class Module
 		else
 			$route = $e->getRouteMatch()->getMatchedRouteName();
 		$route = strtolower($route);
+		
 		//set role here
-		$userRole = 'admin';
-
-		/*var_dump($route);
-		var_dump($e->getRouteMatch()->getParams());
-		var_dump($e->getRouter());*/
-		// Allow all undefined routes
-		//if ($e -> getViewModel() -> acl ->hasResource($route) && !$e -> getViewModel() -> acl -> isAllowed($userRole, $route)) 
+		$userSession = new Container('user');
+		$userRole = $userSession->user_group['name'] == null ? 'Guest' : $userSession->user_group['name'];
+		
 		if (!$e -> getViewModel() -> acl ->hasResource($route) || !$e -> getViewModel() -> acl -> isAllowed($userRole, $route)) 
 		{
 			$response = $e -> getResponse();
