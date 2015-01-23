@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Papertask\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 14:16+0800\n"
-"PO-Revision-Date: 2015-01-22 14:50+0700\n"
+"PO-Revision-Date: 2015-01-23 11:25+0800\n"
 "Last-Translator: \n"
 "Language-Team: Hat Dao <enjoy3013@gmail.com>\n"
 "Language: en_US\n"
@@ -38,7 +38,7 @@ msgstr ""
 
 #: module/Landing/view/landing/index/index.phtml:9
 msgid "The new mode of translation services"
-msgstr "huhuhuhhu"
+msgstr ""
 
 #: module/Landing/view/landing/index/index.phtml:12
 msgid "High quality human translation"

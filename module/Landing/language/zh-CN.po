@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2015-01-22 22:28+0700\n"
+"PO-Revision-Date: 2015-01-23 11:21+0800\n"
 "Last-Translator: Evan Coury <me@evancoury.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -18,10 +18,10 @@ msgstr ""
 #: module/Application/view/layout/landing.phtml:86
 #: module/Application/view/layout/landing.phtml:89
 msgid "The new mode of translation services"
-msgstr "翻譯服務新模式"
+msgstr "翻译服务新模式"
 
 msgid "High quality human translation"
-msgstr "高品質的人力翻"
+msgstr "高品质专业人工翻译"
 
 #: ../view/layout/layout.phtml:6 ../view/layout/layout.phtml:33
 msgid "Skeleton Application"
