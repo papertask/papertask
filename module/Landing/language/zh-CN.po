@@ -1,183 +1,2573 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: ZendSkeletonApplication\n"
+"Project-Id-Version: Papertask\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2015-01-23 11:21+0800\n"
-"Last-Translator: Evan Coury <me@evancoury.com>\n"
-"Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
+"POT-Creation-Date: 2014-11-26 14:16+0800\n"
+"PO-Revision-Date: 2015-01-23 13:57+0800\n"
+"Last-Translator: \n"
+"Language-Team: Hat Dao <enjoy3013@gmail.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: translate\n"
-"X-Poedit-Basepath: .\n"
+"X-Poedit-Basepath: /home/hat/Projects/papertask/\n"
 "X-Generator: Poedit 1.7.3\n"
-"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ./module/Landing\n"
 
-#: module/Application/view/layout/landing.phtml:86
-#: module/Application/view/layout/landing.phtml:89
+#: ../view/layout/landing.phtml:86 ../view/layout/landing.phtml:89
+msgid "lang"
+msgstr "en_US"
+
+#: module/Landing/src/Landing/Controller/IndexController.php:40
+msgid "There is some error, please try again later."
+msgstr "有错误，请稍后再试。"
+
+#: module/Landing/src/Landing/Controller/IndexController.php:51
+msgid "Your contact has been sent."
+msgstr "您的信息已经发送，我们会尽快回复您，谢谢。"
+
+#: module/Landing/src/Landing/Controller/IndexController.php:53
+msgid "Your email is not correct."
+msgstr "您的电子邮箱不正确。"
+
+#: module/Landing/view/landing/index/index.phtml:1
+msgid "Professional Cloud Translation and Localization Service By PaperTask"
+msgstr "PaperTask提供专业的翻译和本地化云服务"
+
+#: module/Landing/view/landing/index/index.phtml:9
 msgid "The new mode of translation services"
-msgstr "翻译服务新模式"
+msgstr "翻译服务行业新模式"
 
+#: module/Landing/view/landing/index/index.phtml:12
 msgid "High quality human translation"
 msgstr "高品质专业人工翻译"
 
-#: ../view/layout/layout.phtml:6 ../view/layout/layout.phtml:33
-msgid "Skeleton Application"
-msgstr "框架应用"
+#: module/Landing/view/landing/index/index.phtml:15
+msgid "20,000+ professional translators worldwide"
+msgstr "全球 20,000 多专业翻译人员"
 
-#: ../view/layout/layout.phtml:36
-msgid "Home"
-msgstr "主页"
+#: module/Landing/view/landing/index/index.phtml:18
+msgid "Support more than 70 languages"
+msgstr "支持50多种语言"
 
-#: ../view/layout/layout.phtml:50
-msgid "All rights reserved."
-msgstr "All rights reserved."
+#: module/Landing/view/landing/index/index.phtml:21
+msgid "New smart quotation system, without human intervention"
+msgstr "全新智能报价系统，不需人工干预"
 
-#: ../view/application/index/index.phtml:2
-#, php-format
-msgid "Welcome to %sZend Framework 2%s"
-msgstr "欢迎使用%sZend Framework 2%s"
+#: module/Landing/view/landing/index/index.phtml:24
+msgid "Guaranteed high quality and lowest price in the market"
+msgstr "在保持高质量的同时确保价格在市场中有绝对的竞争力"
 
-#: ../view/application/index/index.phtml:3
+#: module/Landing/view/landing/index/index.phtml:32
+#: module/Landing/view/landing/index/index.phtml:145
+msgid "Instant Quote / Order Translation"
+msgstr "即时报价/订购服务"
+
+#: module/Landing/view/landing/index/index.phtml:38
+msgid "Globalization people-powered translation cloud platform"
+msgstr "全球化人工翻译的云平台"
+
+#: module/Landing/view/landing/index/index.phtml:44
+msgid ""
+"You can easily order files or text which need to be translated through our "
+"website. Our platform will instantly at your service. In the first task, "
+"experienced PaperTask project manager will assign it the job to the "
+"qualified translator(s) based on the field of your job, and add the "
+"translators to your resource group, so they will take over in a few minutes, "
+"and complete the translation. For your subsequent jobs, the platform will "
+"automatically assign it to the translators in your resource group."
+msgstr ""
+"您可以很容易的通过我们的平台在线定否我们的翻译服务。我们的平台将立即为您服"
+"务。您做了第一个任务后，我们具有多年经验的项目经理会根据您的行业将高质量并通"
+"过认证的翻译人员分配到您的资源组，专业翻译会在很短时间内接受您的任务并完成翻"
+"译任务。在后续的任务中，平台会自动将您的任务分配给您的资源组中的翻译。"
+
+#: module/Landing/view/landing/index/index.phtml:56
+msgid "Language Quality Assurance"
+msgstr "语言质量保证"
+
+#: module/Landing/view/landing/index/index.phtml:59
+#: module/Landing/view/landing/index/index.phtml:115
+msgid ""
+"While Ensuring the Translation Speed, Our Language Quality Assurance "
+"benefits you by"
+msgstr "在保证翻译速度的同时，我们的语言质量保证体系可以"
+
+#: module/Landing/view/landing/index/index.phtml:62
+msgid "Delivering translation quality"
+msgstr "确保提交任务的翻译质量"
+
+#: module/Landing/view/landing/index/index.phtml:64
+msgid "Facilitating formal feedback between your organization and the linguist"
+msgstr "提供并促进您或者您的企业与翻译专家之间的反馈与交流"
+
+#: module/Landing/view/landing/index/index.phtml:66
+msgid ""
+"Providing consistent linguistic quality management across multiple languages"
+msgstr "在多语种任务中提供持语言质量管理并确保语言质量的一致性"
+
+#: module/Landing/view/landing/index/index.phtml:68
+msgid "Offering measurable and independent linguistic quality assessments"
+msgstr "提供可衡量和独立的语言质量评估"
+
+#: module/Landing/view/landing/index/index.phtml:90
+msgid "Reliable, consistent Quality in large Volume translation"
+msgstr "在大的翻译项目中确保翻译的可靠性和一致性"
+
+#: module/Landing/view/landing/index/index.phtml:93
+msgid "Quality Control for Large Scale Translation Project"
+msgstr "大型翻译项目的质量控制"
+
+#: module/Landing/view/landing/index/index.phtml:96
+msgid ""
+"Rigorous and meticulous review, both technical and editorial, confirms "
+"complete accuracy, appropriateness, and consistency of all translations."
+msgstr ""
+"在所有的翻译项目中，对于技术和编辑，我们提供严谨细致的校审，确保翻译任务 "
+"“信”、“雅”、“达”。"
+
+#: module/Landing/view/landing/index/index.phtml:98
+msgid ""
+"PaperTask maintains access to current and specific industry-related "
+"terminology and lexicons."
+msgstr "PaperTask 保持当前特定行业相关的专业术语和词汇。"
+
+#: module/Landing/view/landing/index/index.phtml:100
+msgid ""
+"Memory technology is utilized by PaperTask platform, allowing the company to "
+"use previously translated material."
+msgstr ""
+"PaperTask 平台利用翻译记忆库技术，可以使企业或者个人客户重复使用以前的翻译资"
+"料，降低成本。"
+
+#: module/Landing/view/landing/index/index.phtml:112
+msgid "Feature-rich Localisation/Translation Management Platform"
+msgstr "功能丰富的本地化/翻译项目管理平台"
+
+#: module/Landing/view/landing/index/index.phtml:118
 #, php-format
 msgid ""
-"Congratulations! You have successfully installed the %sZF2 Skeleton "
-"Application%s. You are currently running Zend Framework version %s. This "
-"skeleton can serve as a simple starting point for you to begin building your "
-"application on ZF2."
+"Collaborative translation shortens the translation cycle, improving delivery "
+"times by 50% or better!"
 msgstr ""
-"恭喜！您已经成功安装了%sZF2 Skeleton Application%s。您现在运行的Zend "
-"Framework的版本为%s。这个框架应用可以用作您创建自己的ZF2应用的起点。"
+"协同翻译缩短了翻译周期，将交稿时间缩短了一半以上！"
 
-#: ../view/application/index/index.phtml:4
-msgid "Fork Zend Framework 2 on GitHub"
-msgstr "在GitHub中获取Zend Framework 2到您的应用"
-
-#: ../view/application/index/index.phtml:10
-msgid "Follow Development"
-msgstr "关注开发"
-
-#: ../view/application/index/index.phtml:11
-#, php-format
+#: module/Landing/view/landing/index/index.phtml:120
 msgid ""
-"Zend Framework 2 is under active development. If you are interested in "
-"following the development of ZF2, there is a special ZF2 portal on the "
-"official Zend Framework website which provides links to the ZF2 %swiki%s, "
-"%sdev blog%s, %sissue tracker%s, and much more. This is a great resource for "
-"staying up to date with the latest developments!"
+"The delivery phase, as well as other factors like cost tracking and "
+"invoicing, are all largely automated in PaperTask."
 msgstr ""
-"Zend Framework 2正在开发中。如果您有兴趣关注ZF2的开发，Zend Framework的官方网"
-"站有一个专门的ZF2入口，从这个入口可以进入ZF2的%swiki%s, %sdev blog%s, "
-"%sissue tracker%s等。这些是关注我们最新开发的好资源！"
+"PaperTask将翻译任务、交稿日期、成本跟踪、开具发票等在很大程度上实现自动化完"
+"成。"
 
-#: ../view/application/index/index.phtml:12
-msgid "ZF2 Development Portal"
-msgstr "ZF2 开发入口"
-
-#: ../view/application/index/index.phtml:16
-msgid "Discover Modules"
-msgstr "探索模块"
-
-#: ../view/application/index/index.phtml:17
-#, php-format
+#: module/Landing/view/landing/index/index.phtml:122
 msgid ""
-"The community is working on developing a community site to serve as a "
-"repository and gallery for ZF2 modules. The project is available %son GitHub"
-"%s. The site is currently live and currently contains a list of some of the "
-"modules already available for ZF2."
+"Continuous Dynamic Translation by PaperTask is one of the most advanced "
+"solution on the market today. Project setup, deadline calculations, "
+"translator assignments, document revisions, and job kick-offs are all "
+"automated."
 msgstr ""
-"社区正在开发一个能够存储和展示ZF2模块的功能。这个项目可以在%son GitHub%s找"
-"到。这个网站现在已经包含了许多ZF2可用的模块。"
+"PaperTask 的连续动态翻译在翻译行业是一种最先进的翻译任务解决方案之一。项目设"
+"定、任务期限计算、专业翻译的分配、翻译文件的修改、以及任务开始在很大程度上都"
+"是自动完成的。"
 
-#: ../view/application/index/index.phtml:18
-msgid "Explore ZF2 Modules"
-msgstr "浏览ZF2模块"
-
-#: ../view/application/index/index.phtml:22
-msgid "Help &amp; Support"
-msgstr "帮助 &amp; 支持"
-
-#: ../view/application/index/index.phtml:23
-#, php-format
+#: module/Landing/view/landing/index/index.phtml:124
 msgid ""
-"If you need any help or support while developing with ZF2, you may reach us "
-"via IRC: %s#zftalk on Freenode%s. We'd love to hear any questions or "
-"feedback you may have regarding the beta releases. Alternatively, you may "
-"subscribe and post questions to the %smailing lists%s."
+"PaperTask helps clients manage their translators, keep track of their "
+"specialty domains, and keep records about performance."
 msgstr ""
-"如果您需要一些关于ZF2开发的帮助和支持，可以通过IRC: %s#zftalk on Freenode%s。"
-"我们非常乐意收到您对于发布的公测版提问和反馈。或者，您也可以通过%smailing "
-"lists%s订阅并发布问题。"
+"PaperTask 帮助客户管理其翻译资源，并跟踪管理翻译资源的专业领域、以及翻译质量"
+"记录。"
 
-#: ../view/application/index/index.phtml:24
-msgid "Ping us on IRC"
-msgstr "在IRC上ping我们"
-
-#: ../view/error/index.phtml:1
-msgid "An error occurred"
-msgstr "发生错误"
-
-#: ../view/error/index.phtml:8
-msgid "Additional information"
-msgstr "附加信息"
-
-#: ../view/error/index.phtml:11 ../view/error/index.phtml:35
-msgid "File"
-msgstr "文件"
-
-#: ../view/error/index.phtml:15 ../view/error/index.phtml:39
-msgid "Message"
-msgstr "消息"
-
-#: ../view/error/index.phtml:19 ../view/error/index.phtml:43
-#: ../view/error/404.phtml:55
-msgid "Stack trace"
-msgstr "Stack trace"
-
-#: ../view/error/index.phtml:29
-msgid "Previous exceptions"
-msgstr "上一个异常"
-
-#: ../view/error/index.phtml:58
-msgid "No Exception available"
-msgstr "没有可用的Exception"
-
-#: ../view/error/404.phtml:1
-msgid "A 404 error occurred"
-msgstr "404 缺少目标文件"
-
-#: ../view/error/404.phtml:10
-msgid "The requested controller was unable to dispatch the request."
-msgstr "所请求的控制器不能分发该请求"
-
-#: ../view/error/404.phtml:13
+#: module/Landing/view/landing/index/index.phtml:126
 msgid ""
-"The requested controller could not be mapped to an existing controller class."
-msgstr "所请求的控制器不能映射到已存在的控制器类"
+"Client invoices are generated automatically. Customers can always view "
+"projects payment status, spending reports, download invoices directly."
+msgstr ""
+"PaperTask 平台自动生成客户收据，客户可以随时查看项目的付款情况，开至报告，并"
+"直接下载收据。"
 
-#: ../view/error/404.phtml:16
-msgid "The requested controller was not dispatchable."
+#: module/Landing/view/landing/index/order.phtml:1
+#: module/Landing/view/landing/index/order.phtml:6
+msgid "ORDER YOUR TRANSLATION"
+msgstr "订购翻译服务"
+
+#: module/Landing/view/landing/index/order.phtml:8
+msgid "PLEASE FOLLOW THE STEPS TO PLACE AN ORDER"
+msgstr "请您按照提示步骤订购翻译服务"
+
+#: module/Landing/view/landing/index/order.phtml:25
+msgid "Step 1"
+msgstr "第一步"
+
+#: module/Landing/view/landing/index/order.phtml:27
+msgid "Upload the file(s)"
+msgstr "上传文件（可同时上传多个文件）"
+
+#: module/Landing/view/landing/index/order.phtml:31
+msgid "Step 2"
+msgstr "第二步"
+
+#: module/Landing/view/landing/index/order.phtml:33
+msgid "Select Languages and Quality"
+msgstr "选择语言和质量级别"
+
+#: module/Landing/view/landing/index/order.phtml:37
+msgid "Step 3"
+msgstr "第三步"
+
+#: module/Landing/view/landing/index/order.phtml:39
+msgid "Confirm Your Information"
+msgstr "确认您的联系信息"
+
+#: module/Landing/view/landing/index/order.phtml:49
+msgid ""
+"We accept the following files, under <span class=\"text-danger\">50MB</span> "
+"size"
+msgstr ""
+"我们接受以下类型的文件，文件不超过<span class=\"text-danger\">50MB</span>"
+
+#: module/Landing/view/landing/index/order.phtml:55
+msgid "Select files"
+msgstr "选择文件"
+
+#: module/Landing/view/landing/index/order.phtml:77
+#: module/Landing/view/landing/index/order.phtml:90
+msgid "words"
+msgstr "字数"
+
+#: module/Landing/view/landing/index/order.phtml:81
+#: module/Landing/view/landing/index/order.phtml:94
+#: module/Landing/view/landing/index/order.phtml:193
+#: module/Landing/view/landing/index/order.phtml:205
+msgid "Delete"
+msgstr "删除"
+
+#: module/Landing/view/landing/index/order.phtml:103
+#: module/Landing/view/landing/index/order.phtml:216
+msgid "Next"
+msgstr "下一步"
+
+#: module/Landing/view/landing/index/order.phtml:112
+msgid "Select Currency"
+msgstr "选择币种"
+
+#: module/Landing/view/landing/index/order.phtml:124
+msgid "Select Quality Level"
+msgstr "选择质量界别"
+
+#: module/Landing/view/landing/index/order.phtml:128
+#: module/Landing/view/landing/index/languages.phtml:93
+msgid "Professional"
+msgstr "专业级"
+
+#: module/Landing/view/landing/index/order.phtml:132
+#: module/Landing/view/landing/index/languages.phtml:116
+msgid "Business"
+msgstr "商务级"
+
+#: module/Landing/view/landing/index/order.phtml:136
+#: module/Landing/view/landing/index/languages.phtml:139
+msgid "Premium"
+msgstr "旗舰级"
+
+#: module/Landing/view/landing/index/order.phtml:142
+msgid "Translate Graphics"
+msgstr "翻译图片"
+
+#: module/Landing/view/landing/index/order.phtml:145
+msgid "YES"
+msgstr "是"
+
+#: module/Landing/view/landing/index/order.phtml:148
+msgid "NO"
+msgstr "否"
+
+#: module/Landing/view/landing/index/order.phtml:159
+msgid "Translate From"
+msgstr "翻译自"
+
+#: module/Landing/view/landing/index/order.phtml:162
+msgid "Select Source Language"
+msgstr "选择源语言"
+
+#: module/Landing/view/landing/index/order.phtml:172
+msgid "Add Target Languages"
+msgstr "添加目标语言"
+
+#: module/Landing/view/landing/index/order.phtml:186
+msgid "Japanese"
 msgstr ""
 
-#: ../view/error/404.phtml:19
-msgid "The requested URL could not be matched by routing."
-msgstr "所请求的URL不能与路由对应"
+#: module/Landing/view/landing/index/order.phtml:214
+msgid "Previous"
+msgstr "上一步"
 
-#: ../view/error/404.phtml:22
-msgid "We cannot determine at this time why a 404 was generated."
-msgstr "我们不能确定为什么这次会出现404"
+#: module/Landing/view/landing/index/order.phtml:228
+msgid "Email"
+msgstr "电子邮件"
 
-#: ../view/error/404.phtml:34
-msgid "Controller"
-msgstr "控制器"
+#: module/Landing/view/landing/index/order.phtml:231
+#: module/Landing/view/landing/index/contact.phtml:55
+msgid "Email Address"
+msgstr "电子邮箱地址"
 
-#: ../view/error/404.phtml:41
-#, php-format
-msgid "resolves to %s"
-msgstr "解决： %s"
+#: module/Landing/view/landing/index/order.phtml:238
+msgid "Need Fapiao"
+msgstr "需要发票"
 
-#: ../view/error/404.phtml:51
-msgid "Exception"
-msgstr "异常"
+#: module/Landing/view/landing/index/order.phtml:256
+msgid "Title"
+msgstr "抬头"
+
+#: module/Landing/view/landing/index/order.phtml:259
+msgid "Your Chinese Company Title for Issue FAPIAO"
+msgstr "发票抬头"
+
+#: module/Landing/view/landing/index/order.phtml:266
+msgid "Address"
+msgstr "地址"
+
+#: module/Landing/view/landing/index/order.phtml:269
+msgid "Your Mailing Address"
+msgstr "您的通信地址"
+
+#: module/Landing/view/landing/index/order.phtml:279
+#: module/Landing/view/landing/index/order.phtml:282
+#: module/Landing/view/landing/index/contact.phtml:37
+msgid "Last Name"
+msgstr "姓"
+
+#: module/Landing/view/landing/index/order.phtml:289
+#: module/Landing/view/landing/index/order.phtml:292
+#: module/Landing/view/landing/index/contact.phtml:28
+msgid "First Name"
+msgstr "名"
+
+#: module/Landing/view/landing/index/order.phtml:299
+msgid "Password"
+msgstr "密码"
+
+#: module/Landing/view/landing/index/order.phtml:302
+msgid "Type Your Password"
+msgstr "请输入密码"
+
+#: module/Landing/view/landing/index/order.phtml:309
+msgid "Cellphone"
+msgstr "手机"
+
+#: module/Landing/view/landing/index/order.phtml:312
+msgid "Your Cellphone/Landline"
+msgstr "您的手机/座机"
+
+#: module/Landing/view/landing/index/order.phtml:319
+#: module/Landing/view/landing/index/contact.phtml:65
+msgid "Company"
+msgstr "公司"
+
+#: module/Landing/view/landing/index/order.phtml:322
+msgid "Your Company Full Name"
+msgstr "您的公司全称"
+
+#: module/Landing/view/landing/index/order.phtml:329
+msgid "Country"
+msgstr "国家"
+
+#: module/Landing/view/landing/index/order.phtml:343
+msgid "Pay and Start to Translate"
+msgstr "支付并开始翻译任务"
+
+#: module/Landing/view/landing/index/order.phtml:347
+msgid "Request a Quote"
+msgstr "询价"
+
+#: module/Landing/view/landing/index/order.phtml:357
+msgid "Order Information"
+msgstr "订单信息"
+
+#: module/Landing/view/landing/index/order.phtml:366
+msgid "Languages"
+msgstr "语言"
+
+#: module/Landing/view/landing/index/order.phtml:370
+msgid "Quality Level"
+msgstr "质量级别"
+
+#: module/Landing/view/landing/index/order.phtml:379
+msgid "Iterms Total"
+msgstr "订单金额"
+
+#: module/Landing/view/landing/index/order.phtml:383
+msgid "Tax"
+msgstr "税"
+
+#: module/Landing/view/landing/index/order.phtml:387
+msgid "Total"
+msgstr "总金额"
+
+#: module/Landing/view/landing/index/order.phtml:392
+msgid "Estimated delivery <strong>34 hours.</strong>"
+msgstr "预计工期<strong>34 小时.</strong>"
+
+#: module/Landing/view/landing/index/privacy.phtml:1
+#: module/Landing/view/landing/index/privacy.phtml:7
+msgid "PAPERTASK PRIVACY POLICY"
+msgstr "PAPERTASK 隐私政策"
+
+#: module/Landing/view/landing/index/privacy.phtml:16
+#: module/Landing/view/landing/index/terms.phtml:15
+msgid "Last Updated"
+msgstr "最后更新"
+
+#: module/Landing/view/landing/index/privacy.phtml:18
+msgid ""
+"This privacy policy (this \"<b>Policy</b>\") describes the collection of "
+"personal information by AccessPath Limited, a Delaware corporation "
+"(\"<b>PaperTask</b>,\" \"<b>we</b>,\" or \"<b>us</b>\") from users of our "
+"Web site at www.PaperTask.com (the \"<b>Website</b>\"), as well as all "
+"related applications, widgets, software, tools, and other services provided "
+"by us and on which a link to this Policy is displayed (collectively, "
+"together with the Website, our \"<b>Service</b>\"). This Policy also "
+"describes our use and disclosure of such information. By using our Service, "
+"you consent to the collection, use, and disclosure of personal information "
+"in accordance with this Policy. This Policy is incorporated by reference "
+"into the PaperTask Terms of Use and subject to the provisions of the Terms "
+"of Use."
+msgstr ""
+"This privacy policy (this \"<b>Policy</b>\") describes the collection of "
+"personal information by AccessPath Limited, a Delaware corporation "
+"(\"<b>PaperTask</b>,\" \"<b>we</b>,\" or \"<b>us</b>\") from users of our "
+"Web site at www.PaperTask.com (the \"<b>Website</b>\"), as well as all "
+"related applications, widgets, software, tools, and other services provided "
+"by us and on which a link to this Policy is displayed (collectively, "
+"together with the Website, our \"<b>Service</b>\"). This Policy also "
+"describes our use and disclosure of such information. By using our Service, "
+"you consent to the collection, use, and disclosure of personal information "
+"in accordance with this Policy. This Policy is incorporated by reference "
+"into the PaperTask Terms of Use and subject to the provisions of the Terms "
+"of Use."
+
+#: module/Landing/view/landing/index/privacy.phtml:20
+msgid "Personal Information"
+msgstr "确认您的联系信息"
+
+#: module/Landing/view/landing/index/privacy.phtml:21
+msgid ""
+"\"Personal Information\" as used in this Policy, is information that "
+"specifically identifies an individual, such as an individual's name, "
+"address, telephone number, or e-mail address. Personal Information also "
+"includes information about an individual's activities, such as information "
+"about his or her activity on our Service, and demographic information, such "
+"as gender, geographic area, and preferences, when any of this information is "
+"linked to Personal Information that identifies that individual."
+msgstr ""
+"\"Personal Information\" as used in this Policy, is information that "
+"specifically identifies an individual, such as an individual's name, "
+"address, telephone number, or e-mail address. Personal Information also "
+"includes information about an individual's activities, such as information "
+"about his or her activity on our Service, and demographic information, such "
+"as gender, geographic area, and preferences, when any of this information is "
+"linked to Personal Information that identifies that individual."
+
+#: module/Landing/view/landing/index/privacy.phtml:23
+msgid ""
+"Personal Information does not include \"aggregate\" or other non-personal "
+"information. Aggregate information is information that we collect about a "
+"group or category of products, services, or users that is not personally "
+"identifiable or from which individual identities are removed. We may use and "
+"disclose aggregate information, and other non-personal information, for "
+"various purposes."
+msgstr ""
+"Personal Information does not include \"aggregate\" or other non-personal "
+"information. Aggregate information is information that we collect about a "
+"group or category of products, services, or users that is not personally "
+"identifiable or from which individual identities are removed. We may use and "
+"disclose aggregate information, and other non-personal information, for "
+"various purposes."
+
+#: module/Landing/view/landing/index/privacy.phtml:25
+msgid ""
+"Although information uploaded to the Service by a PaperTask enterprise "
+"customer for processing (\"Customer Data\") may include information that "
+"specifically identifies an individual (e.g., a PaperTask customer could "
+"upload to the Service information about its employees or other users of the "
+"Service in order to make use of the Service, including information that "
+"specifically identifies individuals such as name and email address), that "
+"information is not Personal Information for the purposes of this Policy. "
+"Please see the \"Customer Data and Security\" section below for information "
+"regarding PaperTask's handling of Customer Data."
+msgstr ""
+"Although information uploaded to the Service by a PaperTask enterprise "
+"customer for processing (\"Customer Data\") may include information that "
+"specifically identifies an individual (e.g., a PaperTask customer could "
+"upload to the Service information about its employees or other users of the "
+"Service in order to make use of the Service, including information that "
+"specifically identifies individuals such as name and email address), that "
+"information is not Personal Information for the purposes of this Policy. "
+"Please see the \"Customer Data and Security\" section below for information "
+"regarding PaperTask's handling of Customer Data."
+
+#: module/Landing/view/landing/index/privacy.phtml:27
+msgid "Collection of Information"
+msgstr "Collection of Information"
+
+#: module/Landing/view/landing/index/privacy.phtml:28
+msgid "Collection of Voluntarily-Provided Information"
+msgstr "Collection of Voluntarily-Provided Information"
+
+#: module/Landing/view/landing/index/privacy.phtml:29
+msgid ""
+"We collect Personal Information that our users provide to us in a variety of "
+"ways on our Service. These include the following:"
+msgstr ""
+"We collect Personal Information that our users provide to us in a variety of "
+"ways on our Service. These include the following:"
+
+#: module/Landing/view/landing/index/privacy.phtml:32
+msgid "E-mail Newsletters"
+msgstr "E-mail Newsletters"
+
+#: module/Landing/view/landing/index/privacy.phtml:32
+msgid ""
+"We may offer e-mail newsletters from time to time on our Service. If you "
+"sign up to receive a newsletter from us, we collect your e-mail address."
+msgstr ""
+"We may offer e-mail newsletters from time to time on our Service. If you "
+"sign up to receive a newsletter from us, we collect your e-mail address."
+
+#: module/Landing/view/landing/index/privacy.phtml:33
+msgid "User Accounts and Profiles"
+msgstr "User Accounts and Profiles"
+
+#: module/Landing/view/landing/index/privacy.phtml:33
+msgid ""
+"Our Service may give you the ability to register for a PaperTask account or "
+"to create and update a user profile on the applicable Service. If we offer "
+"user account or profile functionality on the Service, we will collect the "
+"Personal Information that you provide to us in the course of registering for "
+"an account or creating or updating a user profile. This information may "
+"include, for example, name, postal address, telephone number, e-mail "
+"address, and related demographic information about you. We may indicate that "
+"some Personal Information is required for you to register for the account or "
+"to create the profile, while some is optional."
+msgstr ""
+"Our Service may give you the ability to register for a PaperTask account or "
+"to create and update a user profile on the applicable Service. If we offer "
+"user account or profile functionality on the Service, we will collect the "
+"Personal Information that you provide to us in the course of registering for "
+"an account or creating or updating a user profile. This information may "
+"include, for example, name, postal address, telephone number, e-mail "
+"address, and related demographic information about you. We may indicate that "
+"some Personal Information is required for you to register for the account or "
+"to create the profile, while some is optional."
+
+#: module/Landing/view/landing/index/privacy.phtml:35
+msgid "Interactive Features"
+msgstr "Interactive Features"
+
+#: module/Landing/view/landing/index/privacy.phtml:35
+msgid ""
+"Our Service may contain interactive functionality that allows you to engage "
+"with other users on the Service, post comments to forums, to upload "
+"photographs and other content (the \"User Materials\"), participate in "
+"surveys, and otherwise to interact with the Service and with other users. If "
+"you use any interactive functionality on our Service that request or permit "
+"you to provide us with Personal Information (including, for example, any "
+"services that allow you to post User Materials on any of our Service), we "
+"collect the Personal Information that you provide to us in the course of "
+"using these interactive features."
+msgstr ""
+"Our Service may contain interactive functionality that allows you to engage "
+"with other users on the Service, post comments to forums, to upload "
+"photographs and other content (the \"User Materials\"), participate in "
+"surveys, and otherwise to interact with the Service and with other users. If "
+"you use any interactive functionality on our Service that request or permit "
+"you to provide us with Personal Information (including, for example, any "
+"services that allow you to post User Materials on any of our Service), we "
+"collect the Personal Information that you provide to us in the course of "
+"using these interactive features."
+
+#: module/Landing/view/landing/index/privacy.phtml:36
+msgid "Correspondence"
+msgstr "Correspondence"
+
+#: module/Landing/view/landing/index/privacy.phtml:36
+msgid ""
+"If you contact us by e-mail, using a contact form on the Service, or by "
+"mail, fax, or other means, we collect the Personal Information contained "
+"within, and associated with, your correspondence."
+msgstr ""
+"If you contact us by e-mail, using a contact form on the Service, or by "
+"mail, fax, or other means, we collect the Personal Information contained "
+"within, and associated with, your correspondence."
+
+#: module/Landing/view/landing/index/privacy.phtml:38
+msgid "Contests and Sweepstakes"
+msgstr "Contests and Sweepstakes"
+
+#: module/Landing/view/landing/index/privacy.phtml:38
+msgid ""
+"We or our advertisers and other business partners may conduct or sponsor "
+"special contests, sweepstakes, and other promotions that users may enter or "
+"otherwise participate in on our Service. Certain of these promotions may be "
+"co-branded with one of our advertisers or other business partners. In these "
+"instances, the collection of your Personal Information may occur directly by "
+"the third-party partner on its website or other online service and may be "
+"shared with us. The promotion will state the privacy policy or policies "
+"governing the collection of such Personal Information."
+msgstr ""
+"We or our advertisers and other business partners may conduct or sponsor "
+"special contests, sweepstakes, and other promotions that users may enter or "
+"otherwise participate in on our Service. Certain of these promotions may be "
+"co-branded with one of our advertisers or other business partners. In these "
+"instances, the collection of your Personal Information may occur directly by "
+"the third-party partner on its website or other online service and may be "
+"shared with us. The promotion will state the privacy policy or policies "
+"governing the collection of such Personal Information."
+
+#: module/Landing/view/landing/index/privacy.phtml:41
+msgid "Passive Information Collection"
+msgstr "Passive Information Collection"
+
+#: module/Landing/view/landing/index/privacy.phtml:43
+msgid ""
+"When you visit our Service, some information is collected automatically. For "
+"example, when you access our Service, we may automatically collect your "
+"browser's Internet Protocol (IP) address, your browser type, the nature of "
+"the device from which you are visiting the Service (e.g., a personal "
+"computer or a mobile device), the identifier for any handheld or mobile "
+"device that you may be using, the Web site that you visited immediately "
+"prior to accessing any Web-based Service, the actions you take on our "
+"Service, and the content, features, and activities that you access and "
+"participate in on our Service. We also may collect information regarding "
+"your interaction with e-mail messages, such as whether you opened, clicked "
+"on, or forwarded a message."
+msgstr ""
+"When you visit our Service, some information is collected automatically. For "
+"example, when you access our Service, we may automatically collect your "
+"browser's Internet Protocol (IP) address, your browser type, the nature of "
+"the device from which you are visiting the Service (e.g., a personal "
+"computer or a mobile device), the identifier for any handheld or mobile "
+"device that you may be using, the Web site that you visited immediately "
+"prior to accessing any Web-based Service, the actions you take on our "
+"Service, and the content, features, and activities that you access and "
+"participate in on our Service. We also may collect information regarding "
+"your interaction with e-mail messages, such as whether you opened, clicked "
+"on, or forwarded a message."
+
+#: module/Landing/view/landing/index/privacy.phtml:45
+msgid ""
+"We may collect this information passively using technologies such as "
+"standard server logs, cookies, and clear GIFs (also known as \"Web beacons"
+"\"). We use passively-collected information to administer, operate, and "
+"improve the Website and our other services and systems, to improve the "
+"effectiveness of advertising on our Service, and to provide advertisements "
+"and other content that is tailored to you."
+msgstr ""
+"We may collect this information passively using technologies such as "
+"standard server logs, cookies, and clear GIFs (also known as \"Web beacons"
+"\"). We use passively-collected information to administer, operate, and "
+"improve the Website and our other services and systems, to improve the "
+"effectiveness of advertising on our Service, and to provide advertisements "
+"and other content that is tailored to you."
+
+#: module/Landing/view/landing/index/privacy.phtml:47
+msgid ""
+"If we link or associate any information gathered through passive means with "
+"Personal Information, or if applicable laws require us to treat any "
+"information gathered through passive means as Personal Information, we treat "
+"the combined information as Personal Information under this Policy. "
+"Otherwise, we use and disclose information collected by passive means in "
+"aggregate form or otherwise in a non-personally identifiable form."
+msgstr ""
+"If we link or associate any information gathered through passive means with "
+"Personal Information, or if applicable laws require us to treat any "
+"information gathered through passive means as Personal Information, we treat "
+"the combined information as Personal Information under this Policy. "
+"Otherwise, we use and disclose information collected by passive means in "
+"aggregate form or otherwise in a non-personally identifiable form."
+
+#: module/Landing/view/landing/index/privacy.phtml:49
+msgid ""
+"Please be aware that in the course of your use of the Service, websites or "
+"other services provided by third parties (\"Third-Party Services\"), "
+"including, for example, Google Analytics, may set cookies on your hard drive "
+"or use other means of passively collecting information about your use of the "
+"Service, Third-Party Services or other services or content. To do this, they "
+"may use first-party cookies (which are set by the same domain your browser "
+"is receiving data from) or third-party cookies (which are set by a different "
+"domain). PaperTask also may make non-personal information available to Third-"
+"Party Services, and these Third-Party Services may collect such information, "
+"to assist such parties in understanding our users' activities and usage "
+"patterns on the Services."
+msgstr ""
+"Please be aware that in the course of your use of the Service, websites or "
+"other services provided by third parties (\"Third-Party Services\"), "
+"including, for example, Google Analytics, may set cookies on your hard drive "
+"or use other means of passively collecting information about your use of the "
+"Service, Third-Party Services or other services or content. To do this, they "
+"may use first-party cookies (which are set by the same domain your browser "
+"is receiving data from) or third-party cookies (which are set by a different "
+"domain). PaperTask also may make non-personal information available to Third-"
+"Party Services, and these Third-Party Services may collect such information, "
+"to assist such parties in understanding our users' activities and usage "
+"patterns on the Services."
+
+#: module/Landing/view/landing/index/privacy.phtml:51
+msgid ""
+"We do not have access to, or control over, the actions of Third-Party "
+"Services. Each provider of Third-Party Services uses information that it "
+"collects in accordance with its own privacy and security policies."
+msgstr ""
+"We do not have access to, or control over, the actions of Third-Party "
+"Services. Each provider of Third-Party Services uses information that it "
+"collects in accordance with its own privacy and security policies."
+
+#: module/Landing/view/landing/index/privacy.phtml:53
+msgid ""
+"With respect to Google, please be aware that we may use Google Analytics. "
+"Google, in the course of providing services or placing advertisements, may "
+"place or recognize one or more unique cookies on your computer, and may "
+"record information to these cookies based upon your activities on our "
+"Services and on third-party websites and other Third-Party Services. Google "
+"may use information about those activities to inform, optimize, and serve "
+"advertisements. Google may, for example, customize and serve advertisements "
+"on a Third-Party Service based on content you viewed on our Services. If you "
+"wish to not have this information used for the purpose of serving you "
+"targeted ads, you may opt-out by clicking Here. Please note this does not "
+"opt you out of being served advertising. You will continue to receive "
+"generic ads."
+msgstr ""
+"With respect to Google, please be aware that we may use Google Analytics. "
+"Google, in the course of providing services or placing advertisements, may "
+"place or recognize one or more unique cookies on your computer, and may "
+"record information to these cookies based upon your activities on our "
+"Services and on third-party websites and other Third-Party Services. Google "
+"may use information about those activities to inform, optimize, and serve "
+"advertisements. Google may, for example, customize and serve advertisements "
+"on a Third-Party Service based on content you viewed on our Services. If you "
+"wish to not have this information used for the purpose of serving you "
+"targeted ads, you may opt-out by clicking Here. Please note this does not "
+"opt you out of being served advertising. You will continue to receive "
+"generic ads."
+
+#: module/Landing/view/landing/index/privacy.phtml:55
+msgid "Information from Other Sources"
+msgstr "Information from Other Sources"
+
+#: module/Landing/view/landing/index/privacy.phtml:57
+msgid ""
+"We may receive information about you, including Personal Information such as "
+"gender and previous place of work from third parties, such as to integrate "
+"your social media profile onto the PaperTask platform. We may combine this "
+"information with other Personal Information we maintain about you. If we do "
+"so, this Policy governs any combined information that we maintain in "
+"personally identifiable format."
+msgstr ""
+"We may receive information about you, including Personal Information such as "
+"gender and previous place of work from third parties, such as to integrate "
+"your social media profile onto the PaperTask platform. We may combine this "
+"information with other Personal Information we maintain about you. If we do "
+"so, this Policy governs any combined information that we maintain in "
+"personally identifiable format."
+
+#: module/Landing/view/landing/index/privacy.phtml:59
+msgid "Facebook, LinkedIn, and Google Connect or Open ID"
+msgstr "Facebook, LinkedIn, and Google Connect or Open ID"
+
+#: module/Landing/view/landing/index/privacy.phtml:61
+msgid ""
+"You can log in to our Web site using sign-in services such as Facebook, "
+"LinkedIn, and Google Connect or an Open ID provider. These services will "
+"authenticate your identity and provide you the option to share certain "
+"personal information with us such as your name and email address to pre-"
+"populate our sign up form. Services like Facebook, Google and LinkedIn "
+"Connect give you the option to post information about your activities on "
+"this Web site to your profile page to share with others within your network."
+msgstr ""
+"You can log in to our Web site using sign-in services such as Facebook, "
+"LinkedIn, and Google Connect or an Open ID provider. These services will "
+"authenticate your identity and provide you the option to share certain "
+"personal information with us such as your name and email address to pre-"
+"populate our sign up form. Services like Facebook, Google and LinkedIn "
+"Connect give you the option to post information about your activities on "
+"this Web site to your profile page to share with others within your network."
+
+#: module/Landing/view/landing/index/privacy.phtml:63
+msgid "Information Related to Data Collected through the PaperTask Platform"
+msgstr "Information Related to Data Collected through the PaperTask Platform"
+
+#: module/Landing/view/landing/index/privacy.phtml:64
+msgid ""
+"PaperTask collects information under the direction of its clients, and has "
+"no direct relationship with the individuals whose personal data it processes."
+msgstr ""
+"PaperTask collects information under the direction of its clients, and has "
+"no direct relationship with the individuals whose personal data it processes."
+
+#: module/Landing/view/landing/index/privacy.phtml:66
+#: module/Landing/view/landing/index/privacy.phtml:109
+msgid "Choice"
+msgstr "Choice"
+
+#: module/Landing/view/landing/index/privacy.phtml:67
+msgid ""
+"We collect information for our clients, if you are a customer of one of our "
+"clients and would no longer like to be contacted by one of our clients that "
+"use our service, please contact the client that you interact with directly."
+msgstr ""
+"We collect information for our clients, if you are a customer of one of our "
+"clients and would no longer like to be contacted by one of our clients that "
+"use our service, please contact the client that you interact with directly."
+
+#: module/Landing/view/landing/index/privacy.phtml:69
+msgid "Service Provider, Sub-Processors/Onward Transfer"
+msgstr "Service Provider, Sub-Processors/Onward Transfer"
+
+#: module/Landing/view/landing/index/privacy.phtml:70
+msgid ""
+"PaperTask may transfer personal information to companies that help us "
+"provide our service. Transfers to subsequent third parties are covered by "
+"the provisions in this policy regarding notice and choice and the service "
+"agreements with our clients"
+msgstr ""
+"PaperTask may transfer personal information to companies that help us "
+"provide our service. Transfers to subsequent third parties are covered by "
+"the provisions in this policy regarding notice and choice and the service "
+"agreements with our clients"
+
+#: module/Landing/view/landing/index/privacy.phtml:72
+msgid "Access to Data Controlled by our Clients"
+msgstr "Access to Data Controlled by our Clients"
+
+#: module/Landing/view/landing/index/privacy.phtml:73
+msgid ""
+"PaperTask has no direct relationship with the individuals whose personal "
+"data it processes. An individual who seeks access, or who seeks to correct, "
+"amend, or delete inaccurate data should direct his query to the PaperTask's "
+"client, the data controller. If the client requests PaperTask to remove the "
+"data, we will respond to their request within 30 business days."
+msgstr ""
+"PaperTask has no direct relationship with the individuals whose personal "
+"data it processes. An individual who seeks access, or who seeks to correct, "
+"amend, or delete inaccurate data should direct his query to the PaperTask's "
+"client, the data controller. If the client requests PaperTask to remove the "
+"data, we will respond to their request within 30 business days."
+
+#: module/Landing/view/landing/index/privacy.phtml:75
+msgid "Data Retention"
+msgstr "Data Retention"
+
+#: module/Landing/view/landing/index/privacy.phtml:76
+msgid ""
+"PaperTask will retain personal data we process on behalf of our clients for "
+"as long as needed to provide services to our client. PaperTask will retain "
+"and use this personal information as necessary to comply with our legal "
+"obligations, resolve disputes, and enforce our agreements."
+msgstr ""
+"PaperTask will retain personal data we process on behalf of our clients for "
+"as long as needed to provide services to our client. PaperTask will retain "
+"and use this personal information as necessary to comply with our legal "
+"obligations, resolve disputes, and enforce our agreements."
+
+#: module/Landing/view/landing/index/privacy.phtml:79
+msgid "Use of Personal Information"
+msgstr "Use of Personal Information"
+
+#: module/Landing/view/landing/index/privacy.phtml:81
+msgid ""
+"We use Personal Information to provide services and information that you "
+"request; to enhance, improve, operate, and maintain our Service, our "
+"programs, services, Web sites, and other systems; to prevent fraudulent use "
+"of our Service and other systems; to prevent or take action against "
+"activities that are, or may be, in violation of our Terms of Use or "
+"applicable law; to tailor advertisements, content, and other aspects of your "
+"experience on and in connection with the Service; to maintain a record of "
+"our dealings with you; for other administrative purposes; and for any other "
+"purposes that we may disclose to you at the point at which we request your "
+"Personal Information, and pursuant to your consent."
+msgstr ""
+"We use Personal Information to provide services and information that you "
+"request; to enhance, improve, operate, and maintain our Service, our "
+"programs, services, Web sites, and other systems; to prevent fraudulent use "
+"of our Service and other systems; to prevent or take action against "
+"activities that are, or may be, in violation of our Terms of Use or "
+"applicable law; to tailor advertisements, content, and other aspects of your "
+"experience on and in connection with the Service; to maintain a record of "
+"our dealings with you; for other administrative purposes; and for any other "
+"purposes that we may disclose to you at the point at which we request your "
+"Personal Information, and pursuant to your consent."
+
+#: module/Landing/view/landing/index/privacy.phtml:82
+msgid ""
+"We may also use Personal Information you provide to contact you regarding "
+"products, services, and offers, both from ourselves and from third parties, "
+"that we believe you may find of interest. We allow you to opt-out from "
+"receiving marketing communications from us as described in the \"Choice\" "
+"section below. The use of information collected through our service shall be "
+"limited to the purpose of providing the service for which the Client has "
+"engaged PaperTask"
+msgstr ""
+"We may also use Personal Information you provide to contact you regarding "
+"products, services, and offers, both from ourselves and from third parties, "
+"that we believe you may find of interest. We allow you to opt-out from "
+"receiving marketing communications from us as described in the \"Choice\" "
+"section below. The use of information collected through our service shall be "
+"limited to the purpose of providing the service for which the Client has "
+"engaged PaperTask"
+
+#: module/Landing/view/landing/index/privacy.phtml:84
+msgid "Disclosure of Personal Information"
+msgstr "Disclosure of Personal Information"
+
+#: module/Landing/view/landing/index/privacy.phtml:86
+msgid ""
+"Except as described in this Policy, we will not disclose your Personal "
+"Information that we collect on the Service to third parties without your "
+"consent. We may disclose information to third parties if you consent to us "
+"doing so, as well as in the following circumstances"
+msgstr ""
+"Except as described in this Policy, we will not disclose your Personal "
+"Information that we collect on the Service to third parties without your "
+"consent. We may disclose information to third parties if you consent to us "
+"doing so, as well as in the following circumstances"
+
+#: module/Landing/view/landing/index/privacy.phtml:88
+msgid "Enterprise Administrators"
+msgstr "Enterprise Administrators"
+
+#: module/Landing/view/landing/index/privacy.phtml:90
+msgid ""
+"The Service permits the administrator of an enterprise account to access all "
+"information submitted by the enterprise's end users, including information "
+"about contacts that you choose to upload to the Service and your Personal "
+"Information."
+msgstr ""
+"The Service permits the administrator of an enterprise account to access all "
+"information submitted by the enterprise's end users, including information "
+"about contacts that you choose to upload to the Service and your Personal "
+"Information."
+
+#: module/Landing/view/landing/index/privacy.phtml:92
+msgid "Service Providers"
+msgstr "Service Providers"
+
+#: module/Landing/view/landing/index/privacy.phtml:94
+msgid ""
+"We may disclose Personal Information to third-party service providers (e.g., "
+"payment processing and data storage and processing facilities) that assist "
+"us in our work. We limit the Personal Information provided to these service "
+"providers to that which is reasonably necessary for them to perform their "
+"functions, and we require them to agree to maintain the confidentiality of "
+"such Personal Information."
+msgstr ""
+"We may disclose Personal Information to third-party service providers (e.g., "
+"payment processing and data storage and processing facilities) that assist "
+"us in our work. We limit the Personal Information provided to these service "
+"providers to that which is reasonably necessary for them to perform their "
+"functions, and we require them to agree to maintain the confidentiality of "
+"such Personal Information."
+
+#: module/Landing/view/landing/index/privacy.phtml:96
+msgid "Public Areas"
+msgstr "Public Areas"
+
+#: module/Landing/view/landing/index/privacy.phtml:98
+msgid ""
+"Some features on our Service may allow you to upload, post, or otherwise "
+"transmit User Materials to public areas of the Service, such as content that "
+"you post in a public profile on the Service. Please be aware that any "
+"Personal Information that you include within any User Materials will be made "
+"available to other users of the Service. You include Personal Information in "
+"User Materials at your sole risk. We may allow you to select privacy options "
+"that limit access to some types of Personal Information in User Materials, "
+"but no security measures are impenetrable or perfect. Additionally, even "
+"after information posted on the Website is removed, caching and archiving "
+"services may have saved that information, and other users or third parties "
+"may have copied or stored the information available on the Service. We "
+"cannot warrant or guarantee that any Personal Information that you provide "
+"on and in connection with the Service will not be accessed, viewed, or used "
+"by unauthorized persons."
+msgstr ""
+"Some features on our Service may allow you to upload, post, or otherwise "
+"transmit User Materials to public areas of the Service, such as content that "
+"you post in a public profile on the Service. Please be aware that any "
+"Personal Information that you include within any User Materials will be made "
+"available to other users of the Service. You include Personal Information in "
+"User Materials at your sole risk. We may allow you to select privacy options "
+"that limit access to some types of Personal Information in User Materials, "
+"but no security measures are impenetrable or perfect. Additionally, even "
+"after information posted on the Website is removed, caching and archiving "
+"services may have saved that information, and other users or third parties "
+"may have copied or stored the information available on the Service. We "
+"cannot warrant or guarantee that any Personal Information that you provide "
+"on and in connection with the Service will not be accessed, viewed, or used "
+"by unauthorized persons."
+
+#: module/Landing/view/landing/index/privacy.phtml:100
+msgid "Business Transfers"
+msgstr "Business Transfers"
+
+#: module/Landing/view/landing/index/privacy.phtml:102
+msgid ""
+"Information about our users, including Personal Information, may be "
+"disclosed and otherwise transferred to an acquirer, or successor or assignee "
+"as part of any merger, acquisition, debt financing, sale of PaperTask "
+"assets, or similar transaction, as well as in the event of an insolvency, "
+"bankruptcy, or receivership in which Personal Information is transferred to "
+"one or more third parties as one of our business assets."
+msgstr ""
+"Information about our users, including Personal Information, may be "
+"disclosed and otherwise transferred to an acquirer, or successor or assignee "
+"as part of any merger, acquisition, debt financing, sale of PaperTask "
+"assets, or similar transaction, as well as in the event of an insolvency, "
+"bankruptcy, or receivership in which Personal Information is transferred to "
+"one or more third parties as one of our business assets."
+
+#: module/Landing/view/landing/index/privacy.phtml:104
+msgid "To Protect our Interests"
+msgstr "To Protect our Interests"
+
+#: module/Landing/view/landing/index/privacy.phtml:106
+msgid ""
+"We also disclose Personal Information if we believe that doing so is legally "
+"required, or is in our interest to protect our property or other legal "
+"rights (including, but not limited to, enforcement of our agreements), or "
+"the rights or property of others, or otherwise to help protect the safety or "
+"security of our Service and other users of the Service."
+msgstr ""
+"We also disclose Personal Information if we believe that doing so is legally "
+"required, or is in our interest to protect our property or other legal "
+"rights (including, but not limited to, enforcement of our agreements), or "
+"the rights or property of others, or otherwise to help protect the safety or "
+"security of our Service and other users of the Service."
+
+#: module/Landing/view/landing/index/privacy.phtml:111
+msgid ""
+"If you subscribe to our newsletter(s) or receive commercial e-mail from us, "
+"you may unsubscribe at any time by following the instructions contained "
+"within the e-mail. You may also opt-out from receiving commercial e-mail "
+"from us, and any other promotional communications that we may send to you "
+"from time to time (e.g., by postal mail) by sending your request to us by e-"
+"mail at <a href=mailto:privacy@papertask.com>privacy@papertask.com</a> or by "
+"writing to us at the address given at the end of this policy. Additionally, "
+"if we offer user account functionality on the Service, we may allow you to "
+"view and modify settings relating to the nature and frequency of promotional "
+"communications that you receive from us."
+msgstr ""
+"If you subscribe to our newsletter(s) or receive commercial e-mail from us, "
+"you may unsubscribe at any time by following the instructions contained "
+"within the e-mail. You may also opt-out from receiving commercial e-mail "
+"from us, and any other promotional communications that we may send to you "
+"from time to time (e.g., by postal mail) by sending your request to us by e-"
+"mail at <a href=mailto:privacy@papertask.com>privacy@papertask.com</a> or by "
+"writing to us at the address given at the end of this policy. Additionally, "
+"if we offer user account functionality on the Service, we may allow you to "
+"view and modify settings relating to the nature and frequency of promotional "
+"communications that you receive from us."
+
+#: module/Landing/view/landing/index/privacy.phtml:113
+msgid ""
+"Please be aware that if you opt-out of receiving commercial e-mail from us, "
+"it may take up to ten business days for us to process your opt-out request, "
+"and you may receive commercial e-mail from us during that period. "
+"Additionally, even after you opt-out from receiving commercial messages from "
+"us, you will continue to receive administrative messages from us regarding "
+"our Service."
+msgstr ""
+"Please be aware that if you opt-out of receiving commercial e-mail from us, "
+"it may take up to ten business days for us to process your opt-out request, "
+"and you may receive commercial e-mail from us during that period. "
+"Additionally, even after you opt-out from receiving commercial messages from "
+"us, you will continue to receive administrative messages from us regarding "
+"our Service."
+
+#: module/Landing/view/landing/index/privacy.phtml:115
+msgid "Access"
+msgstr "Access"
+
+#: module/Landing/view/landing/index/privacy.phtml:117
+msgid ""
+"If we offer the ability to create user accounts or profiles on our Service, "
+"you may have the ability to access and update many categories of Personal "
+"Information that you provide to us by logging in to your account and "
+"accessing your account settings. If you wish to access, delete or amend any "
+"other Personal Information we hold about you, you may contact us at"
+msgstr ""
+"If we offer the ability to create user accounts or profiles on our Service, "
+"you may have the ability to access and update many categories of Personal "
+"Information that you provide to us by logging in to your account and "
+"accessing your account settings. If you wish to access, delete or amend any "
+"other Personal Information we hold about you, you may contact us at"
+
+#: module/Landing/view/landing/index/privacy.phtml:119
+msgid ""
+"If you request that we delete your account on any of our Service (via a user "
+"settings page, by e-mail, or otherwise), we will do so within a reasonable "
+"period of time, but we may need to retain some of your Personal Information "
+"in order to satisfy our legal obligations, or where we reasonably believe "
+"that we have a legitimate reason to do so."
+msgstr ""
+"If you request that we delete your account on any of our Service (via a user "
+"settings page, by e-mail, or otherwise), we will do so within a reasonable "
+"period of time, but we may need to retain some of your Personal Information "
+"in order to satisfy our legal obligations, or where we reasonably believe "
+"that we have a legitimate reason to do so."
+
+#: module/Landing/view/landing/index/privacy.phtml:121
+msgid "Links"
+msgstr "Links"
+
+#: module/Landing/view/landing/index/privacy.phtml:123
+msgid ""
+"The Service may contain links to other Web sites, products, or services that "
+"we do not own or operate.For example, the Service may contain links to third-"
+"party merchants from which users may purchase sound recordings that are "
+"streamed through the Service. The Service also may contain links to Third-"
+"Party Sites such as social networking services. If you choose to visit or "
+"use any Third-Party Sites or products or services available on or through "
+"such Third-Party Sites, please be aware that this Policy will not apply to "
+"your activities or any information you disclose while using those Third-"
+"Party Sites or any products or services available on or through such Third-"
+"Party Sites. We are not responsible for the privacy practices of these Third-"
+"Party Sites or any products or services on or through them. Additionally, "
+"please be aware that the Service may contain links to Web sites and services "
+"that we operate but that are governed by different privacy policies. We "
+"encourage you to carefully review the privacy policies applicable to any Web "
+"site or service you visit other than the Service before providing any "
+"Personal Information on them."
+msgstr ""
+"The Service may contain links to other Web sites, products, or services that "
+"we do not own or operate.For example, the Service may contain links to third-"
+"party merchants from which users may purchase sound recordings that are "
+"streamed through the Service. The Service also may contain links to Third-"
+"Party Sites such as social networking services. If you choose to visit or "
+"use any Third-Party Sites or products or services available on or through "
+"such Third-Party Sites, please be aware that this Policy will not apply to "
+"your activities or any information you disclose while using those Third-"
+"Party Sites or any products or services available on or through such Third-"
+"Party Sites. We are not responsible for the privacy practices of these Third-"
+"Party Sites or any products or services on or through them. Additionally, "
+"please be aware that the Service may contain links to Web sites and services "
+"that we operate but that are governed by different privacy policies. We "
+"encourage you to carefully review the privacy policies applicable to any Web "
+"site or service you visit other than the Service before providing any "
+"Personal Information on them."
+
+#: module/Landing/view/landing/index/privacy.phtml:125
+msgid "Social Media Widgets"
+msgstr "Social Media Widgets"
+
+#: module/Landing/view/landing/index/privacy.phtml:127
+msgid ""
+"Our web site includes social media features, such as the Facebook and "
+"Twitters buttons and Widgets, such as the Share this button or interactive "
+"mini-programs that run on our site. These features may collect your IP "
+"address, which page you are visiting on our site, and may set a cookie to "
+"enable the Feature to function properly. Social media features and Widgets "
+"are either hosted by a third party or hosted directly on our site. Your "
+"interactions with these features are governed by the privacy policy of the "
+"company providing it."
+msgstr ""
+"Our web site includes social media features, such as the Facebook and "
+"Twitters buttons and Widgets, such as the Share this button or interactive "
+"mini-programs that run on our site. These features may collect your IP "
+"address, which page you are visiting on our site, and may set a cookie to "
+"enable the Feature to function properly. Social media features and Widgets "
+"are either hosted by a third party or hosted directly on our site. Your "
+"interactions with these features are governed by the privacy policy of the "
+"company providing it."
+
+#: module/Landing/view/landing/index/privacy.phtml:129
+msgid "Children"
+msgstr "Children"
+
+#: module/Landing/view/landing/index/privacy.phtml:131
+msgid ""
+"Children's safety is important to us, and we encourage parents and guardians "
+"to take an active interest in the online activities of their children. Our "
+"Service is not directed to children under the age of 13, and we do not "
+"knowingly collect Personal Information from children under the age of 13 "
+"without obtaining parental consent. If we learn that we have collected "
+"Personal Information from a child under the age of 13 on our Service, we "
+"will delete that information as quickly as possible. If you believe that we "
+"may have collected any such Personal Information on our Service, please "
+"notify us at"
+msgstr ""
+"Children's safety is important to us, and we encourage parents and guardians "
+"to take an active interest in the online activities of their children. Our "
+"Service is not directed to children under the age of 13, and we do not "
+"knowingly collect Personal Information from children under the age of 13 "
+"without obtaining parental consent. If we learn that we have collected "
+"Personal Information from a child under the age of 13 on our Service, we "
+"will delete that information as quickly as possible. If you believe that we "
+"may have collected any such Personal Information on our Service, please "
+"notify us at"
+
+#: module/Landing/view/landing/index/privacy.phtml:133
+msgid "International Visitors"
+msgstr "International Visitors"
+
+#: module/Landing/view/landing/index/privacy.phtml:135
+msgid ""
+"Our servers and data centers are located in the United States. If you choose "
+"to use the Service from outside the U.S., then you should know that you are "
+"transferring your Personal Information outside of your region and into the U."
+"S. for storage and processing. By providing your Personal Information to us "
+"through your use of the Service, you agree to that transfer, storage, and "
+"processing in the U.S. Also, we may transfer your data from the U.S. to "
+"other countries or regions in connection with storage and processing of "
+"data, fulfilling your requests, and operating the Service. You should know "
+"that each region can have its own privacy and data security laws, some of "
+"which may be less stringent as compared to those of your own region."
+msgstr ""
+"Our servers and data centers are located in the United States. If you choose "
+"to use the Service from outside the U.S., then you should know that you are "
+"transferring your Personal Information outside of your region and into the U."
+"S. for storage and processing. By providing your Personal Information to us "
+"through your use of the Service, you agree to that transfer, storage, and "
+"processing in the U.S. Also, we may transfer your data from the U.S. to "
+"other countries or regions in connection with storage and processing of "
+"data, fulfilling your requests, and operating the Service. You should know "
+"that each region can have its own privacy and data security laws, some of "
+"which may be less stringent as compared to those of your own region."
+
+#: module/Landing/view/landing/index/privacy.phtml:137
+msgid "Customer Data and Security"
+msgstr "Customer Data and Security"
+
+#: module/Landing/view/landing/index/privacy.phtml:139
+msgid ""
+"PaperTask enterprise customers may electronically submit Customer Data to "
+"the Service. PaperTask will not review, share, distribute, or reference any "
+"Customer Data except for providing the Service to that enterprise customer "
+"and its authorized users, preventing or addressing service or technical "
+"problems, at the enterprise customer's request in connection with customer "
+"support matters, or as may be required by law."
+msgstr ""
+"PaperTask enterprise customers may electronically submit Customer Data to "
+"the Service. PaperTask will not review, share, distribute, or reference any "
+"Customer Data except for providing the Service to that enterprise customer "
+"and its authorized users, preventing or addressing service or technical "
+"problems, at the enterprise customer's request in connection with customer "
+"support matters, or as may be required by law."
+
+#: module/Landing/view/landing/index/privacy.phtml:141
+msgid ""
+"We use reasonable security measures that are designed to protect Personal "
+"Information and Customer Data from accidental loss, disclosure, misuse, and "
+"destruction. These measures may include regular review of our data "
+"collection and storage processes, data encryption, and security software on "
+"our networks and servers. Please be aware, however, that no data security "
+"measures can be guaranteed to be completely effective. Consequently, we "
+"cannot ensure or warrant the security of any information that you, including "
+"enterprise customers, provide to us. You transmit information to us at your "
+"own risk."
+msgstr ""
+"We use reasonable security measures that are designed to protect Personal "
+"Information and Customer Data from accidental loss, disclosure, misuse, and "
+"destruction. These measures may include regular review of our data "
+"collection and storage processes, data encryption, and security software on "
+"our networks and servers. Please be aware, however, that no data security "
+"measures can be guaranteed to be completely effective. Consequently, we "
+"cannot ensure or warrant the security of any information that you, including "
+"enterprise customers, provide to us. You transmit information to us at your "
+"own risk."
+
+#: module/Landing/view/landing/index/privacy.phtml:144
+msgid "Updates to this Policy"
+msgstr "Updates to this Policy"
+
+#: module/Landing/view/landing/index/privacy.phtml:146
+msgid ""
+"We may occasionally update this Policy. When we do, we will also revise the "
+"\"last updated\" date at the beginning of the Policy. Your continued use of "
+"our Service after such changes will be subject to the then-current policy. "
+"If we change this Policy in a manner that is materially less restrictive of "
+"our use or disclosure of your Personal Information, we will use reasonable "
+"efforts to notify you of the change via email (sent to the e-mail address "
+"specified in your account) and to obtain your consent prior to applying the "
+"change to any Personal Information that we collected from you prior to the "
+"date the change becomes effective. We encourage you to periodically review "
+"this Policy to stay informed about how we collect, use, and disclose "
+"Personal Information."
+msgstr ""
+"We may occasionally update this Policy. When we do, we will also revise the "
+"\"last updated\" date at the beginning of the Policy. Your continued use of "
+"our Service after such changes will be subject to the then-current policy. "
+"If we change this Policy in a manner that is materially less restrictive of "
+"our use or disclosure of your Personal Information, we will use reasonable "
+"efforts to notify you of the change via email (sent to the e-mail address "
+"specified in your account) and to obtain your consent prior to applying the "
+"change to any Personal Information that we collected from you prior to the "
+"date the change becomes effective. We encourage you to periodically review "
+"this Policy to stay informed about how we collect, use, and disclose "
+"Personal Information."
+
+#: module/Landing/view/landing/index/privacy.phtml:148
+msgid "Contacting Us"
+msgstr "Contacting Us"
+
+#: module/Landing/view/landing/index/privacy.phtml:149
+msgid ""
+"If you have any questions or comments about this Policy, please contact us "
+"using the following contact information"
+msgstr ""
+"If you have any questions or comments about this Policy, please contact us "
+"using the following contact information"
+
+#: module/Landing/view/landing/index/freelancer.phtml:1
+msgid "FREELANCER"
+msgstr "自由翻译"
+
+#: module/Landing/view/landing/index/freelancer.phtml:7
+msgid "WORK FREE!"
+msgstr "工作 自由 ！"
+
+#: module/Landing/view/landing/index/freelancer.phtml:11
+#: module/Landing/view/landing/index/freelancer.phtml:58
+msgid "Register As a Freelancer, Now!"
+msgstr "马上注册自由翻译！"
+
+#: module/Landing/view/landing/index/freelancer.phtml:19
+msgid "Work With PaperTask"
+msgstr "与 PaperTask 一起工作"
+
+#: module/Landing/view/landing/index/freelancer.phtml:26
+msgid "Register"
+msgstr "注册"
+
+#: module/Landing/view/landing/index/freelancer.phtml:28
+msgid ""
+"Sign up PaperTask, you may work with PaperTask together for translation jobs."
+msgstr "在PaperTask注册，您可以于我们一起为客户提供翻译服务。"
+
+#: module/Landing/view/landing/index/freelancer.phtml:37
+msgid "Qualify"
+msgstr "质量"
+
+#: module/Landing/view/landing/index/freelancer.phtml:39
+msgid ""
+"If you want to get a job here, you must pass our certification, after pass "
+"the evaluation of our senior translators, you can get the translation tasks."
+msgstr ""
+"如果你想在这里工作，你必须进行我们的测试并认证，我们的资深翻译对您的测试评估"
+"后，你可以获得翻译任务。"
+
+#: module/Landing/view/landing/index/freelancer.phtml:47
+msgid "Work Free"
+msgstr "自由工作"
+
+#: module/Landing/view/landing/index/freelancer.phtml:49
+msgid ""
+"In success pass our testing, you can get the translation jobs and work with "
+"us, look forward to your joining!"
+msgstr "在通过我们的测试后，你可以获得翻译任务并同我们一起工作，期待您的加入！"
+
+#: module/Landing/view/landing/index/contact.phtml:1
+#: module/Landing/view/landing/index/contact.phtml:14
+msgid "GET IN TOUCH WITH PAPERTASK"
+msgstr "联系PAPERTASK"
+
+#: module/Landing/view/landing/index/contact.phtml:16
+msgid "PLEASE CONTACT US TO GET MORE INFORMATION ABOUT OUR SERVICES"
+msgstr "如需获得更多关于我们的翻译服务信息，请联系我们"
+
+#: module/Landing/view/landing/index/contact.phtml:46
+msgid "Phone Number"
+msgstr "电话号码"
+
+#: module/Landing/view/landing/index/contact.phtml:74
+msgid "Job Title"
+msgstr "职称"
+
+#: module/Landing/view/landing/index/contact.phtml:83
+msgid "Comments"
+msgstr "留言"
+
+#: module/Landing/view/landing/index/contact.phtml:93
+msgid "Get In Touch"
+msgstr "联系我们"
+
+#: module/Landing/view/landing/index/languages.phtml:1
+msgid "Languages and Prices"
+msgstr "语言及价格"
+
+#: module/Landing/view/landing/index/languages.phtml:22
+msgid "PLEASE CHECK OUT THE LANGUAGES WE SUPPORT."
+msgstr "请查看我们提供的翻译语言。"
+
+#: module/Landing/view/landing/index/languages.phtml:24
+msgid ""
+"WE'RE HONEST ABOUT QUALITY. AND WE OFFER ALL MAJOR LANGUAGES FOR TRANSLATION."
+msgstr "我们提供品质翻译服务。同时支持所有主要语言的翻译服务。"
+
+#: module/Landing/view/landing/index/languages.phtml:29
+msgid "Source Language"
+msgstr "源语言"
+
+#: module/Landing/view/landing/index/languages.phtml:33
+#: module/Landing/view/landing/index/languages.phtml:47
+msgid "Please select"
+msgstr "请选择"
+
+#: module/Landing/view/landing/index/languages.phtml:58
+msgid "Word Count"
+msgstr "字数"
+
+#: module/Landing/view/landing/index/languages.phtml:68
+msgid "Choose Currency"
+msgstr "选择币种"
+
+#: module/Landing/view/landing/index/languages.phtml:79
+msgid "Show Price"
+msgstr "显示价格"
+
+#: module/Landing/view/landing/index/languages.phtml:94
+msgid "Fast translation by native speakers"
+msgstr "由母语译员完成的快速翻译"
+
+#: module/Landing/view/landing/index/languages.phtml:98
+msgid "Emails, Letters"
+msgstr "电子邮件，信件"
+
+#: module/Landing/view/landing/index/languages.phtml:99
+msgid "Daily content, social media posts"
+msgstr "日常内容、社交媒体帖子"
+
+#: module/Landing/view/landing/index/languages.phtml:100
+msgid "User reviews, user generated content"
+msgstr "用户评论、用户自创内容"
+
+#: module/Landing/view/landing/index/languages.phtml:101
+msgid "Internal communication, customer support"
+msgstr "内部沟通、客户支持"
+
+#: module/Landing/view/landing/index/languages.phtml:106
+#: module/Landing/view/landing/index/languages.phtml:129
+msgid "Word"
+msgstr "字"
+
+#: module/Landing/view/landing/index/languages.phtml:109
+#: module/Landing/view/landing/index/languages.phtml:132
+#: module/Landing/view/landing/index/languages.phtml:154
+msgid "Order Now"
+msgstr "马上订购"
+
+#: module/Landing/view/landing/index/languages.phtml:117
+msgid "Professional quality translation plus proofreading"
+msgstr "专业品质翻译加校审"
+
+#: module/Landing/view/landing/index/languages.phtml:121
+msgid "Application/introduction, website localization"
+msgstr "应用程序/介绍、网站本地化、应用/网站UI"
+
+#: module/Landing/view/landing/index/languages.phtml:122
+msgid "Business presentations, reports, articles"
+msgstr "商务演示文稿、报告、文章"
+
+#: module/Landing/view/landing/index/languages.phtml:123
+msgid "Instructions, manuals, guidelines"
+msgstr "说明、手册、指南"
+
+#: module/Landing/view/landing/index/languages.phtml:124
+msgid "Points translation, product description"
+msgstr "要点翻译、产品说明"
+
+#: module/Landing/view/landing/index/languages.phtml:140
+msgid "Professional plus extra proofreading"
+msgstr "专业品质翻译加双重校审"
+
+#: module/Landing/view/landing/index/languages.phtml:144
+msgid "Posters"
+msgstr "海报"
+
+#: module/Landing/view/landing/index/languages.phtml:145
+msgid "Webpage, Webpage copy"
+msgstr "网页、网页副本"
+
+#: module/Landing/view/landing/index/languages.phtml:146
+msgid "News release"
+msgstr "新闻稿"
+
+#: module/Landing/view/landing/index/languages.phtml:147
+msgid "Promotional/marketing materials"
+msgstr "宣传/市场材料"
+
+#: module/Landing/view/landing/index/terms.phtml:1
+msgid "PAPERTASK TERMS OF SERVICE"
+msgstr "PAPERTASK TERMS OF SERVICE"
+
+#: module/Landing/view/landing/index/terms.phtml:17
+msgid ""
+"Welcome, and thank you for your interest in AccessPath Limited (\"PaperTask"
+"\", \"we,\" or \"us\") and our Web site at <a href=\"http://www.papertask.com"
+"\">www.papertask.com</a> (the \"Site\"), as well as all related web sites, "
+"networks, embeddable widgets, downloadable software (including mobile "
+"applications, tablet applications, and associated media and printed "
+"materials, the \"Software\"), and other services provided by us and on which "
+"a link to these Terms of Use is displayed (collectively, together with the "
+"Site, our \"Service\"). These Terms of Use are a legally binding contract "
+"between you and PaperTask regarding your use of the Service."
+msgstr ""
+"Welcome, and thank you for your interest in AccessPath Limited (\"PaperTask"
+"\", \"we,\" or \"us\") and our Web site at <a href=\"http://www.papertask.com"
+"\">www.papertask.com</a> (the \"Site\"), as well as all related web sites, "
+"networks, embeddable widgets, downloadable software (including mobile "
+"applications, tablet applications, and associated media and printed "
+"materials, the \"Software\"), and other services provided by us and on which "
+"a link to these Terms of Use is displayed (collectively, together with the "
+"Site, our \"Service\"). These Terms of Use are a legally binding contract "
+"between you and PaperTask regarding your use of the Service."
+
+#: module/Landing/view/landing/index/terms.phtml:19
+msgid ""
+"PLEASE READ THE FOLLOWING TERMS OF USE CAREFULLY. BY USING THE SITE OR THE "
+"SOFTWARE, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREE TO BE "
+"BOUND BY THE FOLLOWING TERMS AND CONDITIONS, INCLUDING THE PAPERTASK PRIVACY "
+"POLICY (COLLECTIVELY, THESE \"TERMS\"). If you are not eligible, or do not "
+"agree to these Terms, then please do not use the Service."
+msgstr ""
+"PLEASE READ THE FOLLOWING TERMS OF USE CAREFULLY. BY USING THE SITE OR THE "
+"SOFTWARE, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREE TO BE "
+"BOUND BY THE FOLLOWING TERMS AND CONDITIONS, INCLUDING THE PAPERTASK PRIVACY "
+"POLICY (COLLECTIVELY, THESE \"TERMS\"). If you are not eligible, or do not "
+"agree to these Terms, then please do not use the Service."
+
+#: module/Landing/view/landing/index/terms.phtml:21
+msgid ""
+"These Terms of Use provide that all disputes between you and PapetTask will "
+"be resolved by BINDING ARBITRATION. YOU AGREE TO GIVE UP YOUR RIGHT TO GO TO "
+"COURT to assert or defend your rights under this contract (except for "
+"matters that may be taken to small claims court). Your rights will be "
+"determined by a NEUTRAL ARBITRATOR and NOT a judge or jury and your claims "
+"cannot be brought as a class action. Please review the Arbitration Agreement "
+"below for the details regarding your agreement to arbitrate any disputes "
+"with PaperTask."
+msgstr ""
+"These Terms of Use provide that all disputes between you and PapetTask will "
+"be resolved by BINDING ARBITRATION. YOU AGREE TO GIVE UP YOUR RIGHT TO GO TO "
+"COURT to assert or defend your rights under this contract (except for "
+"matters that may be taken to small claims court). Your rights will be "
+"determined by a NEUTRAL ARBITRATOR and NOT a judge or jury and your claims "
+"cannot be brought as a class action. Please review the Arbitration Agreement "
+"below for the details regarding your agreement to arbitrate any disputes "
+"with PaperTask."
+
+#: module/Landing/view/landing/index/terms.phtml:23
+msgid ""
+"<b>PaperTask Service Overview</b>. The Service provides a translation/"
+"localisation project management and work collaboration platform for "
+"individuals and enterprises that enables users to manage and evaluate "
+"translation/localisation projects and tasks in a community setting."
+msgstr ""
+"<b>PaperTask Service Overview</b>. The Service provides a translation/"
+"localisation project management and work collaboration platform for "
+"individuals and enterprises that enables users to manage and evaluate "
+"translation/localisation projects and tasks in a community setting."
+
+#: module/Landing/view/landing/index/terms.phtml:25
+msgid ""
+"<b>Eligibility</b>. You must be at least eighteen (18) years of age to use "
+"the Service. By agreeing to these Terms, you represent and warrant to us: "
+"(i) that you are at least eighteen (18) years of age; (ii) that you have not "
+"previously been suspended or removed from the Service; and (iii) that your "
+"registration and your use of the Service is in compliance with any and all "
+"applicable laws and regulations. If you are using the Service on behalf of "
+"an entity, organization, or company, you represent and warrant that you have "
+"the authority to bind such organization to these Terms and you agree to be "
+"bound by these Terms on behalf of such organization."
+msgstr ""
+"<b>Eligibility</b>. You must be at least eighteen (18) years of age to use "
+"the Service. By agreeing to these Terms, you represent and warrant to us: "
+"(i) that you are at least eighteen (18) years of age; (ii) that you have not "
+"previously been suspended or removed from the Service; and (iii) that your "
+"registration and your use of the Service is in compliance with any and all "
+"applicable laws and regulations. If you are using the Service on behalf of "
+"an entity, organization, or company, you represent and warrant that you have "
+"the authority to bind such organization to these Terms and you agree to be "
+"bound by these Terms on behalf of such organization."
+
+#: module/Landing/view/landing/index/terms.phtml:27
+msgid ""
+"<b>Accounts and Registration</b>. To access most features of the Service, "
+"you must register for an account. When you register for an account, you may "
+"be required to provide us with some information about yourself (such as your "
+"name, e-mail address or other contact information). You agree that the "
+"information you provide to us is accurate and that you will keep it accurate "
+"and up-to-date at all times. When you register, you will be asked to provide "
+"a password. You are solely responsible for maintaining the confidentiality "
+"of your account and password. You agree to accept responsibility for all "
+"activities that occur under your account. If you have reason to believe that "
+"your account is no longer secure, then you must immediately notify us at <a "
+"href=mailto:support@papertask.com>support@papertask.com</a>"
+msgstr ""
+"<b>Accounts and Registration</b>. To access most features of the Service, "
+"you must register for an account. When you register for an account, you may "
+"be required to provide us with some information about yourself (such as your "
+"name, e-mail address or other contact information). You agree that the "
+"information you provide to us is accurate and that you will keep it accurate "
+"and up-to-date at all times. When you register, you will be asked to provide "
+"a password. You are solely responsible for maintaining the confidentiality "
+"of your account and password. You agree to accept responsibility for all "
+"activities that occur under your account. If you have reason to believe that "
+"your account is no longer secure, then you must immediately notify us at <a "
+"href=mailto:support@papertask.com>support@papertask.com</a>"
+
+#: module/Landing/view/landing/index/terms.phtml:29
+msgid ""
+"<b>Enterprise Accounts</b>. Enterprise accounts on the Service may include "
+"administrator functionality that permits the enterprise administrator(s) to "
+"create and view accounts for enterprise users"
+msgstr ""
+"<b>Enterprise Accounts</b>. Enterprise accounts on the Service may include "
+"administrator functionality that permits the enterprise administrator(s) to "
+"create and view accounts for enterprise users"
+
+#: module/Landing/view/landing/index/terms.phtml:32
+msgid "User Content"
+msgstr "User Content"
+
+#: module/Landing/view/landing/index/terms.phtml:34
+msgid ""
+"<b>User Content Generally</b>. Certain features of the Service may permit "
+"users to post content, including messages, reviews, photos, video, images, "
+"folders, data, text, and other types of works (collectively, \"<b>User "
+"Content</b>\") and to publish User Content on the Service. You retain "
+"copyright and any other proprietary rights that you may hold in the User "
+"Content that you post to the Service."
+msgstr ""
+"<b>User Content Generally</b>. Certain features of the Service may permit "
+"users to post content, including messages, reviews, photos, video, images, "
+"folders, data, text, and other types of works (collectively, \"<b>User "
+"Content</b>\") and to publish User Content on the Service. You retain "
+"copyright and any other proprietary rights that you may hold in the User "
+"Content that you post to the Service."
+
+#: module/Landing/view/landing/index/terms.phtml:36
+msgid ""
+"<b>Limited License Grant to PaperTask</b>. By posting or publishing User "
+"Content, you grant PaperTask a worldwide, non-exclusive, royalty-free right "
+"and license (with the right to sublicense) to host, store, transfer, "
+"display, perform, reproduce, and modify your User Content, in whole or in "
+"part, in any media formats and through any media channels (now known or "
+"hereafter developed)."
+msgstr ""
+"<b>Limited License Grant to PaperTask</b>. By posting or publishing User "
+"Content, you grant PaperTask a worldwide, non-exclusive, royalty-free right "
+"and license (with the right to sublicense) to host, store, transfer, "
+"display, perform, reproduce, and modify your User Content, in whole or in "
+"part, in any media formats and through any media channels (now known or "
+"hereafter developed)."
+
+#: module/Landing/view/landing/index/terms.phtml:38
+msgid ""
+"<b>Limited License Grant to Other Users</b>. By posting and sharing User "
+"Content with another user of the Service, you hereby grant that user a non-"
+"exclusive license to access and use such User Content as permitted by these "
+"Terms and the functionality of the Service."
+msgstr ""
+"<b>Limited License Grant to Other Users</b>. By posting and sharing User "
+"Content with another user of the Service, you hereby grant that user a non-"
+"exclusive license to access and use such User Content as permitted by these "
+"Terms and the functionality of the Service."
+
+#: module/Landing/view/landing/index/terms.phtml:40
+msgid ""
+"<b>User Content Representations and Warranties</b>. You are solely "
+"responsible for your User Content and the consequences of posting or "
+"publishing User Content. By posting and publishing User Content, you affirm, "
+"represent, and warrant that"
+msgstr ""
+"<b>User Content Representations and Warranties</b>. You are solely "
+"responsible for your User Content and the consequences of posting or "
+"publishing User Content. By posting and publishing User Content, you affirm, "
+"represent, and warrant that"
+
+#: module/Landing/view/landing/index/terms.phtml:42
+msgid ""
+"you are the creator and owner of, or have the necessary licenses, rights, "
+"consents, and permissions to use and to authorize PaperTask and users of the "
+"Service to use and distribute your User Content as necessary to exercise the "
+"licenses granted by you in this Section 6 and in the manner contemplated by "
+"PaperTask and these Terms; and"
+msgstr ""
+"you are the creator and owner of, or have the necessary licenses, rights, "
+"consents, and permissions to use and to authorize PaperTask and users of the "
+"Service to use and distribute your User Content as necessary to exercise the "
+"licenses granted by you in this Section 6 and in the manner contemplated by "
+"PaperTask and these Terms; and"
+
+#: module/Landing/view/landing/index/terms.phtml:44
+msgid ""
+"your User Content, and use of your User Content as contemplated by these "
+"Terms, does not and will not: (i) infringe, violate, or misappropriate any "
+"third-party right, including any copyright, trademark, patent, trade secret, "
+"moral right, privacy right, right of publicity, or any other intellectual "
+"property or proprietary right; or (ii) slander, defame, libel, or invade the "
+"right of privacy, publicity or other property rights of any other person."
+msgstr ""
+"your User Content, and use of your User Content as contemplated by these "
+"Terms, does not and will not: (i) infringe, violate, or misappropriate any "
+"third-party right, including any copyright, trademark, patent, trade secret, "
+"moral right, privacy right, right of publicity, or any other intellectual "
+"property or proprietary right; or (ii) slander, defame, libel, or invade the "
+"right of privacy, publicity or other property rights of any other person."
+
+#: module/Landing/view/landing/index/terms.phtml:48
+msgid ""
+"<b>User Content Disclaimer</b>. We are under no obligation to edit or "
+"control User Content that you or other users post or publish, and will not "
+"be in any way responsible or liable for User Content. PaperTask may, "
+"however, at any time and without prior notice, screen, remove, edit, or "
+"block any User Content that in our sole judgment violates these Terms or is "
+"otherwise objectionable. You understand that when using the Service you will "
+"be exposed to User Content from a variety of sources and acknowledge that "
+"User Content may be inaccurate, offensive, indecent or objectionable. You "
+"agree to waive, and hereby do waive, any legal or equitable rights or "
+"remedies you have or may have against PaperTask with respect to User "
+"Content. We expressly disclaim any and all liability in connection with User "
+"Content. If notified by a user or content owner that User Content allegedly "
+"does not conform to these Terms, we may investigate the allegation and "
+"determine in our sole discretion whether to remove the User Content, which "
+"we reserve the right to do at any time and without notice. For clarity, "
+"PaperTask does not permit copyright-infringing activities on the Service."
+msgstr ""
+"<b>User Content Disclaimer</b>. We are under no obligation to edit or "
+"control User Content that you or other users post or publish, and will not "
+"be in any way responsible or liable for User Content. PaperTask may, "
+"however, at any time and without prior notice, screen, remove, edit, or "
+"block any User Content that in our sole judgment violates these Terms or is "
+"otherwise objectionable. You understand that when using the Service you will "
+"be exposed to User Content from a variety of sources and acknowledge that "
+"User Content may be inaccurate, offensive, indecent or objectionable. You "
+"agree to waive, and hereby do waive, any legal or equitable rights or "
+"remedies you have or may have against PaperTask with respect to User "
+"Content. We expressly disclaim any and all liability in connection with User "
+"Content. If notified by a user or content owner that User Content allegedly "
+"does not conform to these Terms, we may investigate the allegation and "
+"determine in our sole discretion whether to remove the User Content, which "
+"we reserve the right to do at any time and without notice. For clarity, "
+"PaperTask does not permit copyright-infringing activities on the Service."
+
+#: module/Landing/view/landing/index/terms.phtml:53
+msgid "<b>Prohibited Conduct</b>. BY USING THE SERVICE YOU AGREE NOT TO:"
+msgstr "<b>Prohibited Conduct</b>. BY USING THE SERVICE YOU AGREE NOT TO:"
+
+#: module/Landing/view/landing/index/terms.phtml:56
+msgid ""
+"use the Service for any illegal purpose, or in violation of any local, "
+"state, national, or international law;"
+msgstr ""
+"use the Service for any illegal purpose, or in violation of any local, "
+"state, national, or international law;"
+
+#: module/Landing/view/landing/index/terms.phtml:57
+msgid ""
+"violate, or encourage others to violate, the rights of third parties, "
+"including by infringing or misappropriating third party intellectual "
+"property rights;"
+msgstr ""
+"violate, or encourage others to violate, the rights of third parties, "
+"including by infringing or misappropriating third party intellectual "
+"property rights;"
+
+#: module/Landing/view/landing/index/terms.phtml:58
+msgid ""
+"post, upload, or distribute any User Content or other content that is "
+"unlawful, defamatory, libelous, inaccurate, or that a reasonable person "
+"could deem to be objectionable, profane, indecent, pornographic, harassing, "
+"threatening, embarrassing, hateful, or otherwise inappropriate;"
+msgstr ""
+"post, upload, or distribute any User Content or other content that is "
+"unlawful, defamatory, libelous, inaccurate, or that a reasonable person "
+"could deem to be objectionable, profane, indecent, pornographic, harassing, "
+"threatening, embarrassing, hateful, or otherwise inappropriate;"
+
+#: module/Landing/view/landing/index/terms.phtml:59
+msgid ""
+"interfere with security-related features of the Service, including without "
+"limitation by (i) disabling or circumventing features that prevent or limit "
+"use or copying of any content, or (ii) reverse engineering or otherwise "
+"attempting to discover the source code of any portion of the Service except "
+"to the extent that such activity is expressly permitted by applicable law;"
+msgstr ""
+"interfere with security-related features of the Service, including without "
+"limitation by (i) disabling or circumventing features that prevent or limit "
+"use or copying of any content, or (ii) reverse engineering or otherwise "
+"attempting to discover the source code of any portion of the Service except "
+"to the extent that such activity is expressly permitted by applicable law;"
+
+#: module/Landing/view/landing/index/terms.phtml:60
+msgid ""
+"interfere with the operation of the Service or any user's enjoyment of the "
+"Service, including without limitation by (i) uploading or otherwise "
+"disseminating viruses, adware, spyware, worms, or other malicious code, (ii) "
+"making unsolicited offers or advertisements to other users of the Service, "
+"(iii) attempting to collect, personal information about users or third "
+"parties without their consent; or (iv) interfering with or disrupting any "
+"networks, equipment, or servers connected to or used to provide the Service, "
+"or violating the regulations, policies, or procedures of such networks, "
+"equipment, or servers;"
+msgstr ""
+"interfere with the operation of the Service or any user's enjoyment of the "
+"Service, including without limitation by (i) uploading or otherwise "
+"disseminating viruses, adware, spyware, worms, or other malicious code, (ii) "
+"making unsolicited offers or advertisements to other users of the Service, "
+"(iii) attempting to collect, personal information about users or third "
+"parties without their consent; or (iv) interfering with or disrupting any "
+"networks, equipment, or servers connected to or used to provide the Service, "
+"or violating the regulations, policies, or procedures of such networks, "
+"equipment, or servers;"
+
+#: module/Landing/view/landing/index/terms.phtml:61
+msgid ""
+"perform any fraudulent activity including impersonating any person or "
+"entity, claiming false affiliations, accessing the Service accounts of "
+"others without permission, or falsifying your age or date of birth;"
+msgstr ""
+"perform any fraudulent activity including impersonating any person or "
+"entity, claiming false affiliations, accessing the Service accounts of "
+"others without permission, or falsifying your age or date of birth;"
+
+#: module/Landing/view/landing/index/terms.phtml:62
+msgid ""
+"sell or otherwise transfer the access granted by these Terms or any "
+"Materials (as defined in Section 15 below) or any right or ability to view, "
+"access, or use any Materials; or"
+msgstr ""
+"sell or otherwise transfer the access granted by these Terms or any "
+"Materials (as defined in Section 15 below) or any right or ability to view, "
+"access, or use any Materials; or"
+
+#: module/Landing/view/landing/index/terms.phtml:63
+msgid ""
+"attempt to do any of the foregoing in this Section 6, or assist or permit "
+"any persons in engaging in any of the activities described in this Section 6."
+msgstr ""
+"attempt to do any of the foregoing in this Section 6, or assist or permit "
+"any persons in engaging in any of the activities described in this Section 6."
+
+#: module/Landing/view/landing/index/terms.phtml:66
+msgid ""
+"<b>Third-Party Services and Linked Websites</b>. PaperTask may provide tools "
+"through the Service that enable you to export information, including User "
+"Content, to third party services, including through features that allow you "
+"to link your account on PaperTask with an account on the third party "
+"service, such as Sinaweibo, Twitter or Facebook, or through our "
+"implementation of third party buttons (such as \"like\" or \"share\" "
+"buttons). By using these tools, you agree that we may transfer such "
+"information to the applicable third-party service. Such third party services "
+"are not under our control, and we are not responsible for their use of your "
+"exported information. The Service may also contain links to third-party "
+"websites. Such linked websites are not under our control, and we are not "
+"responsible for their content."
+msgstr ""
+"<b>Third-Party Services and Linked Websites</b>. PaperTask may provide tools "
+"through the Service that enable you to export information, including User "
+"Content, to third party services, including through features that allow you "
+"to link your account on PaperTask with an account on the third party "
+"service, such as Sinaweibo, Twitter or Facebook, or through our "
+"implementation of third party buttons (such as \"like\" or \"share\" "
+"buttons). By using these tools, you agree that we may transfer such "
+"information to the applicable third-party service. Such third party services "
+"are not under our control, and we are not responsible for their use of your "
+"exported information. The Service may also contain links to third-party "
+"websites. Such linked websites are not under our control, and we are not "
+"responsible for their content."
+
+#: module/Landing/view/landing/index/terms.phtml:68
+msgid ""
+"<b>Software</b>. The terms of this Section 8 govern your acquisition and use "
+"of Software."
+msgstr ""
+"<b>Software</b>. The terms of this Section 8 govern your acquisition and use "
+"of Software."
+
+#: module/Landing/view/landing/index/terms.phtml:70
+msgid ""
+"<b>Third Party Accounts</b>. In order to download the Software, you may be "
+"required by the third party who is distributing or providing you access to "
+"the Software (e.g., Google, Inc., Amazon, Inc., Apple, Inc.) (each, a "
+"\"Distributor\") to create an account. You are solely responsible for "
+"maintaining the security of any logins, passwords, or other credentials that "
+"you select or that are provided to you to access your account with any "
+"Distributor. Your use of any account with a Distributor is subject to any "
+"terms, conditions, and policies, including privacy policies, of that "
+"Distributor. PaperTask is not responsible for any act or omission of any "
+"Distributor."
+msgstr ""
+"<b>Third Party Accounts</b>. In order to download the Software, you may be "
+"required by the third party who is distributing or providing you access to "
+"the Software (e.g., Google, Inc., Amazon, Inc., Apple, Inc.) (each, a "
+"\"Distributor\") to create an account. You are solely responsible for "
+"maintaining the security of any logins, passwords, or other credentials that "
+"you select or that are provided to you to access your account with any "
+"Distributor. Your use of any account with a Distributor is subject to any "
+"terms, conditions, and policies, including privacy policies, of that "
+"Distributor. PaperTask is not responsible for any act or omission of any "
+"Distributor."
+
+#: module/Landing/view/landing/index/terms.phtml:71
+msgid ""
+"<b>License to the Software</b>. Subject to your compliance with all terms "
+"and conditions set forth in these Terms, PaperTask hereby grants to you a "
+"limited, non-exclusive, non-transferable, non-sublicensable, non-assignable, "
+"revocable license to download, install, and use the Software (in object code "
+"format) for its intended purpose and solely in accordance with the manuals "
+"and written instructions provided by PaperTask. This limited license does "
+"not include any right to modify, distribute, prepare derivative works of, or "
+"grant sublicenses to use the Software. Furthermore, in order to protect the "
+"trade secrets and proprietary know-how contained in the Software, you will "
+"not decompile, disassemble, or reverse engineer the Software. Users with "
+"paid subscriptions (e.g., a Professional or Enterprise subscription) may "
+"have the right to use and access premium features and functionalities of the "
+"Service that are not available to users with free subscriptions."
+msgstr ""
+"<b>License to the Software</b>. Subject to your compliance with all terms "
+"and conditions set forth in these Terms, PaperTask hereby grants to you a "
+"limited, non-exclusive, non-transferable, non-sublicensable, non-assignable, "
+"revocable license to download, install, and use the Software (in object code "
+"format) for its intended purpose and solely in accordance with the manuals "
+"and written instructions provided by PaperTask. This limited license does "
+"not include any right to modify, distribute, prepare derivative works of, or "
+"grant sublicenses to use the Software. Furthermore, in order to protect the "
+"trade secrets and proprietary know-how contained in the Software, you will "
+"not decompile, disassemble, or reverse engineer the Software. Users with "
+"paid subscriptions (e.g., a Professional or Enterprise subscription) may "
+"have the right to use and access premium features and functionalities of the "
+"Service that are not available to users with free subscriptions."
+
+#: module/Landing/view/landing/index/terms.phtml:72
+msgid ""
+"<b>Access to the Software</b>. PaperTask does not provide you with the "
+"equipment to use the Software. You are responsible for all fees charged by "
+"third parties to access and use the Software (e.g., charges by mobile "
+"carriers)."
+msgstr ""
+"<b>Access to the Software</b>. PaperTask does not provide you with the "
+"equipment to use the Software. You are responsible for all fees charged by "
+"third parties to access and use the Software (e.g., charges by mobile "
+"carriers)."
+
+#: module/Landing/view/landing/index/terms.phtml:73
+msgid ""
+"<b>Special Terms Regarding Apple</b>. If you download Software from Apple, "
+"Inc.'s App Store, your use of the Software must at all times be in "
+"accordance with the Usage Rules set forth in the Apple, Inc. App Store Terms "
+"of Service, and you acknowledge that this Agreement is entered into solely "
+"between you and PaperTask. This Agreement is not intended to provide for "
+"usage rules for Software that are less restrictive than the Usage Rules set "
+"forth for \"Licensed Applications\" in, or that otherwise conflict with, the "
+"App Store Terms of Service as of the date that you accept the App Store "
+"Terms of Service (which you acknowledge you have had the opportunity to "
+"review). You also acknowledge and agree that: (i) for any third party claim "
+"that your possession or use of a Software infringes any third party's "
+"intellectual property rights, Apple is not responsible for the "
+"investigation, defense, settlement or discharge of any such intellectual "
+"property infringement claim; (ii) Apple has no responsibility for addressing "
+"any claims relating to any Software, including but not limited to: (a) "
+"product liability claims; (b) maintenance and support; (c) any claim that "
+"the Software fails to conform to any applicable legal or regulatory "
+"requirement; and (d) any claim arising under consumer protection or similar "
+"legislation; and (iii) Apple and its subsidiaries are intended third-party "
+"beneficiaries of the terms of this Agreement that apply to any Software for "
+"the iOS, and that upon your acceptance of this Agreement, Apple and its "
+"subsidiaries will have the right (and will be deemed to have accepted the "
+"right) to enforce those terms of this Agreement against you."
+msgstr ""
+"<b>Special Terms Regarding Apple</b>. If you download Software from Apple, "
+"Inc.'s App Store, your use of the Software must at all times be in "
+"accordance with the Usage Rules set forth in the Apple, Inc. App Store Terms "
+"of Service, and you acknowledge that this Agreement is entered into solely "
+"between you and PaperTask. This Agreement is not intended to provide for "
+"usage rules for Software that are less restrictive than the Usage Rules set "
+"forth for \"Licensed Applications\" in, or that otherwise conflict with, the "
+"App Store Terms of Service as of the date that you accept the App Store "
+"Terms of Service (which you acknowledge you have had the opportunity to "
+"review). You also acknowledge and agree that: (i) for any third party claim "
+"that your possession or use of a Software infringes any third party's "
+"intellectual property rights, Apple is not responsible for the "
+"investigation, defense, settlement or discharge of any such intellectual "
+"property infringement claim; (ii) Apple has no responsibility for addressing "
+"any claims relating to any Software, including but not limited to: (a) "
+"product liability claims; (b) maintenance and support; (c) any claim that "
+"the Software fails to conform to any applicable legal or regulatory "
+"requirement; and (d) any claim arising under consumer protection or similar "
+"legislation; and (iii) Apple and its subsidiaries are intended third-party "
+"beneficiaries of the terms of this Agreement that apply to any Software for "
+"the iOS, and that upon your acceptance of this Agreement, Apple and its "
+"subsidiaries will have the right (and will be deemed to have accepted the "
+"right) to enforce those terms of this Agreement against you."
+
+#: module/Landing/view/landing/index/terms.phtml:76
+msgid ""
+"<b>Termination of Use; Discontinuation and Modification of the Service</b>. "
+"If you violate any provision of these Terms, your permission to use the "
+"Service will terminate automatically. Additionally, PaperTask, in its sole "
+"discretion may terminate your user account on the Service or suspend or "
+"terminate your access to the Service at any time, with or without notice. We "
+"also reserve the right to modify or discontinue the Service at any time "
+"(including, without limitation, by limiting or discontinuing certain "
+"features of the Service) without notice to you. We will have no liability "
+"whatsoever on account of any change to the Service or any suspension or "
+"termination of your access to or use of the Service. You may terminate your "
+"account at any time by contacting customer service at <a href=mailto:"
+"support@papertask.com>support@papertask.com</a>. If you terminate your "
+"account, you will remain obligated to pay all outstanding fees, if any, "
+"relating to your use of the Service incurred prior to termination. If you or "
+"we terminate your account, you must immediately destroy all copies of the "
+"Software and all of its component parts."
+msgstr ""
+"<b>Termination of Use; Discontinuation and Modification of the Service</b>. "
+"If you violate any provision of these Terms, your permission to use the "
+"Service will terminate automatically. Additionally, PaperTask, in its sole "
+"discretion may terminate your user account on the Service or suspend or "
+"terminate your access to the Service at any time, with or without notice. We "
+"also reserve the right to modify or discontinue the Service at any time "
+"(including, without limitation, by limiting or discontinuing certain "
+"features of the Service) without notice to you. We will have no liability "
+"whatsoever on account of any change to the Service or any suspension or "
+"termination of your access to or use of the Service. You may terminate your "
+"account at any time by contacting customer service at <a href=mailto:"
+"support@papertask.com>support@papertask.com</a>. If you terminate your "
+"account, you will remain obligated to pay all outstanding fees, if any, "
+"relating to your use of the Service incurred prior to termination. If you or "
+"we terminate your account, you must immediately destroy all copies of the "
+"Software and all of its component parts."
+
+#: module/Landing/view/landing/index/terms.phtml:77
+msgid ""
+"<b>Feedback</b>. If you provide feedback to PaperTask regarding the Service "
+"(\"Feedback\"), you acknowledge that the Feedback is not confidential and "
+"you authorize PaperTask to use that Feedback without restriction and without "
+"payment to you. Accordingly, you hereby grant to PaperTask a nonexclusive, "
+"royalty-free, fully-paid, perpetual, irrevocable, transferable, and fully "
+"sublicensable right to use the Feedback in any manner and for any purpose."
+msgstr ""
+"<b>Feedback</b>. If you provide feedback to PaperTask regarding the Service "
+"(\"Feedback\"), you acknowledge that the Feedback is not confidential and "
+"you authorize PaperTask to use that Feedback without restriction and without "
+"payment to you. Accordingly, you hereby grant to PaperTask a nonexclusive, "
+"royalty-free, fully-paid, perpetual, irrevocable, transferable, and fully "
+"sublicensable right to use the Feedback in any manner and for any purpose."
+
+#: module/Landing/view/landing/index/terms.phtml:79
+msgid "Privacy Policy; Additional Terms"
+msgstr "Privacy Policy; Additional Terms"
+
+#: module/Landing/view/landing/index/terms.phtml:81
+msgid ""
+"<b>Privacy Policy</b>. Please read the PaperTask Privacy Policy (<a href="
+"\"http://www.papertask.com/privacy\">www.papertask.com/privacy</a>) "
+"carefully for information relating to our collection, use, storage and "
+"disclosure of your personal information. The PaperTask Privacy Policy is "
+"hereby incorporated by reference into, and made a part of, these Terms."
+msgstr ""
+"<b>Privacy Policy</b>. Please read the PaperTask Privacy Policy (<a href="
+"\"http://www.papertask.com/privacy\">www.papertask.com/privacy</a>) "
+"carefully for information relating to our collection, use, storage and "
+"disclosure of your personal information. The PaperTask Privacy Policy is "
+"hereby incorporated by reference into, and made a part of, these Terms."
+
+#: module/Landing/view/landing/index/terms.phtml:82
+msgid ""
+"<b>Additional Terms</b>. Your use of the Service is subject to any and all "
+"additional terms, policies, rules, or guidelines applicable to the Service "
+"or certain features of the Service that we may post on or link to on the "
+"Service (the \"<b>Additional Terms</b>\"), such as end-user license "
+"agreements for any downloadable applications that we may offer, or rules "
+"applicable to particular features or content on the Service, subject to "
+"Section 14 below. All such Additional Terms are hereby incorporated by "
+"reference into, and made a part of, these Terms."
+msgstr ""
+"<b>Additional Terms</b>. Your use of the Service is subject to any and all "
+"additional terms, policies, rules, or guidelines applicable to the Service "
+"or certain features of the Service that we may post on or link to on the "
+"Service (the \"<b>Additional Terms</b>\"), such as end-user license "
+"agreements for any downloadable applications that we may offer, or rules "
+"applicable to particular features or content on the Service, subject to "
+"Section 14 below. All such Additional Terms are hereby incorporated by "
+"reference into, and made a part of, these Terms."
+
+#: module/Landing/view/landing/index/terms.phtml:85
+msgid ""
+"<b>Modification of these Terms</b>. We reserve the right, at our discretion, "
+"to change these Terms on a going-forward basis at any time. Please check "
+"these Terms periodically for changes. If a change to these Terms materially "
+"modifies your rights or obligations, you will be required to accept such "
+"modified terms in order to continue to use the Service. Material "
+"modifications are effective upon your acceptance of such the modified Terms. "
+"Immaterial modifications are effective upon publication. For the avoidance "
+"of doubt, disputes arising under these Terms will be resolved in accordance "
+"with these Terms in effect that the time the dispute arose."
+msgstr ""
+"<b>Modification of these Terms</b>. We reserve the right, at our discretion, "
+"to change these Terms on a going-forward basis at any time. Please check "
+"these Terms periodically for changes. If a change to these Terms materially "
+"modifies your rights or obligations, you will be required to accept such "
+"modified terms in order to continue to use the Service. Material "
+"modifications are effective upon your acceptance of such the modified Terms. "
+"Immaterial modifications are effective upon publication. For the avoidance "
+"of doubt, disputes arising under these Terms will be resolved in accordance "
+"with these Terms in effect that the time the dispute arose."
+
+#: module/Landing/view/landing/index/terms.phtml:87
+msgid ""
+"<b>Ownership; Proprietary Rights</b>. The Service is owned and operated by "
+"PaperTask. The visual interfaces, graphics, design, compilation, "
+"information, data, computer code (including source code or object code), "
+"products, Software, services, and all other elements of the Service (the "
+"\"<b>Materials</b>\") provided by PaperTask are protected by all relevant "
+"intellectual property and proprietary rights and applicable laws. All "
+"Materials contained in the Service are the property of PaperTask or our "
+"third-party licensors. Except as expressly authorized by PaperTask, you may "
+"not make use of the Materials. PaperTask reserves all rights to the "
+"Materials not granted expressly in these Terms."
+msgstr ""
+"<b>Ownership; Proprietary Rights</b>. The Service is owned and operated by "
+"PaperTask. The visual interfaces, graphics, design, compilation, "
+"information, data, computer code (including source code or object code), "
+"products, Software, services, and all other elements of the Service (the "
+"\"<b>Materials</b>\") provided by PaperTask are protected by all relevant "
+"intellectual property and proprietary rights and applicable laws. All "
+"Materials contained in the Service are the property of PaperTask or our "
+"third-party licensors. Except as expressly authorized by PaperTask, you may "
+"not make use of the Materials. PaperTask reserves all rights to the "
+"Materials not granted expressly in these Terms."
+
+#: module/Landing/view/landing/index/terms.phtml:89
+msgid ""
+"<b>Indemnity</b>. You agree that you will be responsible for your use of the "
+"Service, and you agree to defend, indemnify, and hold harmless PaperTask and "
+"its officers, directors, employees, consultants, affiliates, subsidiaries, "
+"agents, and Distributors (collectively, the \"<b>PaperTask Entities</b>\") "
+"from and against any and all claims, liabilities, damages, losses, and "
+"expenses, including reasonable attorneys' fees and costs, arising out of or "
+"in any way connected with (i) your access to, use of, or alleged use of the "
+"Service; (ii) your violation of these Terms or any representation, warranty, "
+"or agreements referenced in these Terms, or any applicable law or "
+"regulation; (iii) your violation of any third-party right, including without "
+"limitation any intellectual property right, publicity, confidentiality, "
+"property or privacy right; or (iv) any disputes or issues between you and "
+"any third party. We reserve the right, at our own expense, to assume the "
+"exclusive defense and control of any matter otherwise subject to "
+"indemnification by you (and without limiting your indemnification "
+"obligations with respect to such matter), and in such case, you agree to "
+"cooperate with our defense of such claim."
+msgstr ""
+"<b>Indemnity</b>. You agree that you will be responsible for your use of the "
+"Service, and you agree to defend, indemnify, and hold harmless PaperTask and "
+"its officers, directors, employees, consultants, affiliates, subsidiaries, "
+"agents, and Distributors (collectively, the \"<b>PaperTask Entities</b>\") "
+"from and against any and all claims, liabilities, damages, losses, and "
+"expenses, including reasonable attorneys' fees and costs, arising out of or "
+"in any way connected with (i) your access to, use of, or alleged use of the "
+"Service; (ii) your violation of these Terms or any representation, warranty, "
+"or agreements referenced in these Terms, or any applicable law or "
+"regulation; (iii) your violation of any third-party right, including without "
+"limitation any intellectual property right, publicity, confidentiality, "
+"property or privacy right; or (iv) any disputes or issues between you and "
+"any third party. We reserve the right, at our own expense, to assume the "
+"exclusive defense and control of any matter otherwise subject to "
+"indemnification by you (and without limiting your indemnification "
+"obligations with respect to such matter), and in such case, you agree to "
+"cooperate with our defense of such claim."
+
+#: module/Landing/view/landing/index/terms.phtml:91
+msgid ""
+"<b>Disclaimers; No Warranties</b>. THE SERVICE AND ALL MATERIALS AND CONTENT "
+"AVAILABLE THROUGH THE SERVICE ARE PROVIDED \"AS IS\" AND ON AN \"AS AVAILABLE"
+"\" BASIS, WITHOUT WARRANTY OR CONDITION OF ANY KIND, EITHER EXPRESS OR "
+"IMPLIED. THE PAPERTASK ENTITIES SPECIFICALLY (BUT WITHOUT LIMITATION) "
+"DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, RELATING TO "
+"THE SERVICE AND ALL MATERIALS AND CONTENT AVAILABLE THROUGH THE SERVICE, "
+"INCLUDING BUT NOT LIMITED TO (i) ANY IMPLIED WARRANTIES OF MERCHANTABILITY, "
+"FITNESS FOR A PARTICULAR PURPOSE, TITLE, QUIET ENJOYMENT, OR NON-"
+"INFRINGEMENT; AND (ii) ANY WARRANTIES ARISING OUT OF COURSE OF DEALING, "
+"USAGE, OR TRADE. THE PAPERTASK ENTITIES DO NOT WARRANT THAT THE SERVICE OR "
+"ANY PART OF THE SERVICE, OR ANY MATERIALS OR CONTENT OFFERED THROUGH THE "
+"SERVICE, WILL BE UNINTERRUPTED, SECURE, OR FREE OF ERRORS, VIRUSES, OR OTHER "
+"HARMFUL COMPONENTS, AND DO NOT WARRANT THAT ANY OF THE FOREGOING WILL BE "
+"CORRECTED."
+msgstr ""
+"<b>Disclaimers; No Warranties</b>. THE SERVICE AND ALL MATERIALS AND CONTENT "
+"AVAILABLE THROUGH THE SERVICE ARE PROVIDED \"AS IS\" AND ON AN \"AS AVAILABLE"
+"\" BASIS, WITHOUT WARRANTY OR CONDITION OF ANY KIND, EITHER EXPRESS OR "
+"IMPLIED. THE PAPERTASK ENTITIES SPECIFICALLY (BUT WITHOUT LIMITATION) "
+"DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, RELATING TO "
+"THE SERVICE AND ALL MATERIALS AND CONTENT AVAILABLE THROUGH THE SERVICE, "
+"INCLUDING BUT NOT LIMITED TO (i) ANY IMPLIED WARRANTIES OF MERCHANTABILITY, "
+"FITNESS FOR A PARTICULAR PURPOSE, TITLE, QUIET ENJOYMENT, OR NON-"
+"INFRINGEMENT; AND (ii) ANY WARRANTIES ARISING OUT OF COURSE OF DEALING, "
+"USAGE, OR TRADE. THE PAPERTASK ENTITIES DO NOT WARRANT THAT THE SERVICE OR "
+"ANY PART OF THE SERVICE, OR ANY MATERIALS OR CONTENT OFFERED THROUGH THE "
+"SERVICE, WILL BE UNINTERRUPTED, SECURE, OR FREE OF ERRORS, VIRUSES, OR OTHER "
+"HARMFUL COMPONENTS, AND DO NOT WARRANT THAT ANY OF THE FOREGOING WILL BE "
+"CORRECTED."
+
+#: module/Landing/view/landing/index/terms.phtml:93
+msgid ""
+"NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED BY YOU FROM THE "
+"SERVICE OR ANY MATERIALS OR CONTENT AVAILABLE ON OR THROUGH THE SERVICE WILL "
+"CREATE ANY WARRANTY REGARDING ANY OF THE PAPERTASK ENTITIES OR THE SERVICE "
+"THAT IS NOT EXPRESSLY STATED IN THESE TERMS. YOU ASSUME ALL RISK FOR ALL "
+"DAMAGES THAT MAY RESULT FROM YOUR USE OF OR ACCESS TO THE SERVICE, YOUR "
+"DEALINGS WITH OTHER SERVICE USERS, AND ANY MATERIALS OR CONTENT AVAILABLE "
+"THROUGH THE SERVICE. YOU UNDERSTAND AND AGREE THAT YOU USE THE SERVICE AND "
+"USE, ACCESS, DOWNLOAD, OR OTHERWISE OBTAIN MATERIALS OR CONTENT THROUGH THE "
+"SERVICE AND ANY ASSOCIATED SITES OR SERVICES AT YOUR OWN DISCRETION AND "
+"RISK, AND AS BETWEEN YOU AND PAPERTASK, YOU WILL BE SOLELY RESPONSIBLE FOR "
+"ANY DAMAGE TO YOUR PROPERTY (INCLUDING YOUR COMPUTER SYSTEM USED IN "
+"CONNECTION WITH THE SERVICE) OR LOSS OF DATA OR ANY OTHER LOSS THAT RESULTS "
+"FROM THE USE OF THE SERVICE OR THE DOWNLOAD OR USE OF SUCH MATERIALS OR "
+"CONTENT."
+msgstr ""
+"NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED BY YOU FROM THE "
+"SERVICE OR ANY MATERIALS OR CONTENT AVAILABLE ON OR THROUGH THE SERVICE WILL "
+"CREATE ANY WARRANTY REGARDING ANY OF THE PAPERTASK ENTITIES OR THE SERVICE "
+"THAT IS NOT EXPRESSLY STATED IN THESE TERMS. YOU ASSUME ALL RISK FOR ALL "
+"DAMAGES THAT MAY RESULT FROM YOUR USE OF OR ACCESS TO THE SERVICE, YOUR "
+"DEALINGS WITH OTHER SERVICE USERS, AND ANY MATERIALS OR CONTENT AVAILABLE "
+"THROUGH THE SERVICE. YOU UNDERSTAND AND AGREE THAT YOU USE THE SERVICE AND "
+"USE, ACCESS, DOWNLOAD, OR OTHERWISE OBTAIN MATERIALS OR CONTENT THROUGH THE "
+"SERVICE AND ANY ASSOCIATED SITES OR SERVICES AT YOUR OWN DISCRETION AND "
+"RISK, AND AS BETWEEN YOU AND PAPERTASK, YOU WILL BE SOLELY RESPONSIBLE FOR "
+"ANY DAMAGE TO YOUR PROPERTY (INCLUDING YOUR COMPUTER SYSTEM USED IN "
+"CONNECTION WITH THE SERVICE) OR LOSS OF DATA OR ANY OTHER LOSS THAT RESULTS "
+"FROM THE USE OF THE SERVICE OR THE DOWNLOAD OR USE OF SUCH MATERIALS OR "
+"CONTENT."
+
+#: module/Landing/view/landing/index/terms.phtml:95
+msgid ""
+"SOME JURISDICTIONS MAY PROHIBIT A DISCLAIMER OF WARRANTIES AND YOU MAY HAVE "
+"OTHER RIGHTS THAT VARY FROM JURISDICTION TO JURISDICTION."
+msgstr ""
+"SOME JURISDICTIONS MAY PROHIBIT A DISCLAIMER OF WARRANTIES AND YOU MAY HAVE "
+"OTHER RIGHTS THAT VARY FROM JURISDICTION TO JURISDICTION."
+
+#: module/Landing/view/landing/index/terms.phtml:97
+msgid ""
+"EACH PROVISION OF THESE TERMS THAT PROVIDES FOR A LIMITATION OF LIABILITY, "
+"DISCLAIMER OF WARRANTIES, OR EXCLUSION OF DAMAGES IS TO ALLOCATE THE RISKS "
+"UNDER THESE TERMS BETWEEN THE PARTIES. THIS ALLOCATION IS AN ESSENTIAL "
+"ELEMENT OF THE BASIS OF THE BARGAIN BETWEEN THE PARTIES. EACH OF THESE "
+"PROVISIONS IS SEVERABLE AND INDEPENDENT OF ALL OTHER PROVISIONS OF THESE "
+"TERMS. THE LIMITATIONS IN THIS SECTION 18 WILL APPLY EVEN IF ANY LIMITED "
+"REMEDY FAILS OF ITS ESSENTIAL PURPOSE."
+msgstr ""
+"EACH PROVISION OF THESE TERMS THAT PROVIDES FOR A LIMITATION OF LIABILITY, "
+"DISCLAIMER OF WARRANTIES, OR EXCLUSION OF DAMAGES IS TO ALLOCATE THE RISKS "
+"UNDER THESE TERMS BETWEEN THE PARTIES. THIS ALLOCATION IS AN ESSENTIAL "
+"ELEMENT OF THE BASIS OF THE BARGAIN BETWEEN THE PARTIES. EACH OF THESE "
+"PROVISIONS IS SEVERABLE AND INDEPENDENT OF ALL OTHER PROVISIONS OF THESE "
+"TERMS. THE LIMITATIONS IN THIS SECTION 18 WILL APPLY EVEN IF ANY LIMITED "
+"REMEDY FAILS OF ITS ESSENTIAL PURPOSE."
+
+#: module/Landing/view/landing/index/terms.phtml:99
+msgid ""
+"<b>Governing Law</b>. These Terms are governed by the laws of the State of "
+"New York without regard to conflict of law principles. To the extent that "
+"any lawsuit or court proceeding is permitted hereunder, you and PaperTask "
+"agree to submit to the personal and exclusive jurisdiction of the state "
+"courts and federal courts located within New York County, New York for the "
+"purpose of litigating all such disputes. We operate the Service from our "
+"offices in New York, and we make no representation that Materials included "
+"in the Service are appropriate or available for use in other locations."
+msgstr ""
+"<b>Governing Law</b>. These Terms are governed by the laws of the State of "
+"New York without regard to conflict of law principles. To the extent that "
+"any lawsuit or court proceeding is permitted hereunder, you and PaperTask "
+"agree to submit to the personal and exclusive jurisdiction of the state "
+"courts and federal courts located within New York County, New York for the "
+"purpose of litigating all such disputes. We operate the Service from our "
+"offices in New York, and we make no representation that Materials included "
+"in the Service are appropriate or available for use in other locations."
+
+#: module/Landing/view/landing/index/terms.phtml:101
+msgid ""
+"<b>General</b>. These Terms, together with the Privacy Policy and any other "
+"agreements expressly incorporated by reference, constitute the entire and "
+"exclusive understanding and agreement between you and PaperTask regarding "
+"your use of and access to the Service, and except as expressly permitted "
+"above may be amended only by a written agreement signed by authorized "
+"representatives of all parties to these Terms. You may not assign or "
+"transfer these Terms or your rights hereunder, in whole or in part, by "
+"operation of law or otherwise, without our prior written consent. We may "
+"assign these Terms at any time without notice. The failure to require "
+"performance of any provision will not affect our right to require "
+"performance at any time thereafter, nor will a waiver of any breach or "
+"default of these Terms or any provision of these Terms constitute a waiver "
+"of any subsequent breach or default or a waiver of the provision itself. Use "
+"of section headers in these Terms is for convenience only and will not have "
+"any impact on the interpretation of particular provisions. If any part of "
+"these Terms is held to be invalid or unenforceable, the unenforceable part "
+"will be given effect to the greatest extent possible and the remaining parts "
+"will remain in full force and effect. Upon termination of these Terms, any "
+"provision that by its nature or express terms should survive will survive "
+"such termination or expiration, including, but not limited to, Sections 2, "
+"and 8 through 19."
+msgstr ""
+"<b>General</b>. These Terms, together with the Privacy Policy and any other "
+"agreements expressly incorporated by reference, constitute the entire and "
+"exclusive understanding and agreement between you and PaperTask regarding "
+"your use of and access to the Service, and except as expressly permitted "
+"above may be amended only by a written agreement signed by authorized "
+"representatives of all parties to these Terms. You may not assign or "
+"transfer these Terms or your rights hereunder, in whole or in part, by "
+"operation of law or otherwise, without our prior written consent. We may "
+"assign these Terms at any time without notice. The failure to require "
+"performance of any provision will not affect our right to require "
+"performance at any time thereafter, nor will a waiver of any breach or "
+"default of these Terms or any provision of these Terms constitute a waiver "
+"of any subsequent breach or default or a waiver of the provision itself. Use "
+"of section headers in these Terms is for convenience only and will not have "
+"any impact on the interpretation of particular provisions. If any part of "
+"these Terms is held to be invalid or unenforceable, the unenforceable part "
+"will be given effect to the greatest extent possible and the remaining parts "
+"will remain in full force and effect. Upon termination of these Terms, any "
+"provision that by its nature or express terms should survive will survive "
+"such termination or expiration, including, but not limited to, Sections 2, "
+"and 8 through 19."
+
+#: module/Landing/view/landing/index/terms.phtml:104
+msgid "Dispute Resolution and Arbitration"
+msgstr "Dispute Resolution and Arbitration"
+
+#: module/Landing/view/landing/index/terms.phtml:106
+msgid ""
+"<b>Generally</b>. In the interest of resolving disputes between you and "
+"PaperTask in the most expedient and cost effective manner, you and PaperTask "
+"agree that any and all disputes arising in connection with these Terms will "
+"be resolved by binding arbitration. Arbitration is more informal than a "
+"lawsuit in court. Arbitration uses a neutral arbitrator instead of a judge "
+"or jury, may allow for more limited discovery than in court, and can be "
+"subject to very limited review by courts. Arbitrators can award the same "
+"damages and relief that a court can award. Our agreement to arbitrate "
+"disputes includes, but is not limited to all claims arising out of or "
+"relating to any aspect of these Terms, whether based in contract, tort, "
+"statute, fraud, misrepresentation or any other legal theory, and regardless "
+"of whether the claims arise during or after the termination of these Terms. "
+"YOU UNDERSTAND AND AGREE THAT, BY ENTERING INTO THESE TERMS, YOU AND "
+"PaperTask ARE EACH WAIVING THE RIGHT TO A TRIAL BY JURY OR TO PARTICIPATE IN "
+"A CLASS ACTION."
+msgstr ""
+"<b>Generally</b>. In the interest of resolving disputes between you and "
+"PaperTask in the most expedient and cost effective manner, you and PaperTask "
+"agree that any and all disputes arising in connection with these Terms will "
+"be resolved by binding arbitration. Arbitration is more informal than a "
+"lawsuit in court. Arbitration uses a neutral arbitrator instead of a judge "
+"or jury, may allow for more limited discovery than in court, and can be "
+"subject to very limited review by courts. Arbitrators can award the same "
+"damages and relief that a court can award. Our agreement to arbitrate "
+"disputes includes, but is not limited to all claims arising out of or "
+"relating to any aspect of these Terms, whether based in contract, tort, "
+"statute, fraud, misrepresentation or any other legal theory, and regardless "
+"of whether the claims arise during or after the termination of these Terms. "
+"YOU UNDERSTAND AND AGREE THAT, BY ENTERING INTO THESE TERMS, YOU AND "
+"PaperTask ARE EACH WAIVING THE RIGHT TO A TRIAL BY JURY OR TO PARTICIPATE IN "
+"A CLASS ACTION."
+
+#: module/Landing/view/landing/index/terms.phtml:108
+msgid ""
+"<b>Exceptions</b>. Notwithstanding Section 21.1, we both agree that nothing "
+"in these Terms will be deemed to waive, preclude, or otherwise limit either "
+"of our right to: (i) bring an individual action in small claims court; (ii) "
+"pursue enforcement actions through applicable federal, state, or local "
+"agencies where such actions are available; (iii) seek injunctive relief in a "
+"court of law; or (iv) to file suit in a court of law to address intellectual "
+"property infringement claims."
+msgstr ""
+"<b>Exceptions</b>. Notwithstanding Section 21.1, we both agree that nothing "
+"in these Terms will be deemed to waive, preclude, or otherwise limit either "
+"of our right to: (i) bring an individual action in small claims court; (ii) "
+"pursue enforcement actions through applicable federal, state, or local "
+"agencies where such actions are available; (iii) seek injunctive relief in a "
+"court of law; or (iv) to file suit in a court of law to address intellectual "
+"property infringement claims."
+
+#: module/Landing/view/landing/index/terms.phtml:110
+msgid ""
+"<b>Arbitrator</b>. Any arbitration between you and PaperTask will be "
+"governed by the Commercial Dispute Resolution Procedures and the "
+"Supplementary Procedures for Consumer Related Disputes (collectively, "
+"\"<b>AAA Rules</b>\") of the American Arbitration Association (\"<b>AAA</b>"
+"\"), as modified by these Terms, and will be administered by the AAA. The "
+"AAA Rules and filing forms are available online at www.adr.org, by calling "
+"the AAA at 1-800-778-7879, or by contacting PaperTask."
+msgstr ""
+"<b>Arbitrator</b>. Any arbitration between you and PaperTask will be "
+"governed by the Commercial Dispute Resolution Procedures and the "
+"Supplementary Procedures for Consumer Related Disputes (collectively, "
+"\"<b>AAA Rules</b>\") of the American Arbitration Association (\"<b>AAA</b>"
+"\"), as modified by these Terms, and will be administered by the AAA. The "
+"AAA Rules and filing forms are available online at www.adr.org, by calling "
+"the AAA at 1-800-778-7879, or by contacting PaperTask."
+
+#: module/Landing/view/landing/index/terms.phtml:112
+msgid ""
+"<b>Notice; Process</b>. A party who intends to seek arbitration must first "
+"send a written notice of the dispute to the other, by certified mail or "
+"Federal Express (signature required), or if we do not have a physical "
+"address on file for you, by electronic mail (\"<b>Notice</b>\"). PaperTask's "
+"address for Notice is: PaperTask Inc., 12 West 37th Street – Suite 502, New "
+"York, NY 10018. The Notice must: (i) describe the nature and basis of the "
+"claim or dispute; and (ii) set forth the specific relief sought "
+"(\"<b>Demand</b>\"). We agree to use good faith efforts to resolve the claim "
+"directly, but if we do not reach an agreement to do so within 30 days after "
+"the Notice is received, you or PaperTask may commence an arbitration "
+"proceeding. During the arbitration, the amount of any settlement offer made "
+"by you or PaperTask must not be disclosed to the arbitrator until after the "
+"arbitrator makes a final decision and award, if any. If our dispute is "
+"finally resolved through arbitration in your favor, PaperTask will pay you: "
+"(a) the amount awarded by the arbitrator, if any; (b) the last written "
+"settlement amount offered by PaperTask in settlement of the dispute prior to "
+"the arbitrator's award; or (c) $1,000.00, whichever is greater."
+msgstr ""
+"<b>Notice; Process</b>. A party who intends to seek arbitration must first "
+"send a written notice of the dispute to the other, by certified mail or "
+"Federal Express (signature required), or if we do not have a physical "
+"address on file for you, by electronic mail (\"<b>Notice</b>\"). PaperTask's "
+"address for Notice is: PaperTask Inc., 12 West 37th Street – Suite 502, New "
+"York, NY 10018. The Notice must: (i) describe the nature and basis of the "
+"claim or dispute; and (ii) set forth the specific relief sought "
+"(\"<b>Demand</b>\"). We agree to use good faith efforts to resolve the claim "
+"directly, but if we do not reach an agreement to do so within 30 days after "
+"the Notice is received, you or PaperTask may commence an arbitration "
+"proceeding. During the arbitration, the amount of any settlement offer made "
+"by you or PaperTask must not be disclosed to the arbitrator until after the "
+"arbitrator makes a final decision and award, if any. If our dispute is "
+"finally resolved through arbitration in your favor, PaperTask will pay you: "
+"(a) the amount awarded by the arbitrator, if any; (b) the last written "
+"settlement amount offered by PaperTask in settlement of the dispute prior to "
+"the arbitrator's award; or (c) $1,000.00, whichever is greater."
+
+#: module/Landing/view/landing/index/terms.phtml:114
+msgid ""
+"<b>Fees</b>. If you commence arbitration in accordance with these Terms, "
+"PaperTask will reimburse you for your payment of the filing fee, unless your "
+"claim is for greater than $10,000, in which case the payment of any fees "
+"will be decided by the AAA Rules. Any arbitration hearings will take place "
+"at a location to be agreed upon in New York County, New York provided that "
+"if the claim is for $10,000 or less, you may choose whether the arbitration "
+"will be conducted: (i) solely on the basis of documents submitted to the "
+"arbitrator; (ii) through a non-appearance based telephonic hearing; or (iii) "
+"by an in-person hearing as established by the AAA Rules in the county (or "
+"parish) of your billing address. If the arbitrator finds that either the "
+"substance of your claim or the relief sought in the Demand is frivolous or "
+"brought for an improper purpose (as measured by the standards set forth in "
+"Federal Rule of Civil Procedure 11(b)), then the payment of all fees will be "
+"governed by the AAA Rules. In such case, you agree to reimburse PaperTask "
+"for all monies previously disbursed by it that are otherwise your obligation "
+"to pay under the AAA Rules. Regardless of the manner in which the "
+"arbitration is conducted, the arbitrator will issue a reasoned written "
+"decision sufficient to explain the essential findings and conclusions on "
+"which the decision and award, if any, are based. The arbitrator may make "
+"rulings and resolve disputes as to the payment and reimbursement of fees or "
+"expenses at any time during the proceeding and upon request from either "
+"party made within 14 days of the arbitrator's ruling on the merits."
+msgstr ""
+"<b>Fees</b>. If you commence arbitration in accordance with these Terms, "
+"PaperTask will reimburse you for your payment of the filing fee, unless your "
+"claim is for greater than $10,000, in which case the payment of any fees "
+"will be decided by the AAA Rules. Any arbitration hearings will take place "
+"at a location to be agreed upon in New York County, New York provided that "
+"if the claim is for $10,000 or less, you may choose whether the arbitration "
+"will be conducted: (i) solely on the basis of documents submitted to the "
+"arbitrator; (ii) through a non-appearance based telephonic hearing; or (iii) "
+"by an in-person hearing as established by the AAA Rules in the county (or "
+"parish) of your billing address. If the arbitrator finds that either the "
+"substance of your claim or the relief sought in the Demand is frivolous or "
+"brought for an improper purpose (as measured by the standards set forth in "
+"Federal Rule of Civil Procedure 11(b)), then the payment of all fees will be "
+"governed by the AAA Rules. In such case, you agree to reimburse PaperTask "
+"for all monies previously disbursed by it that are otherwise your obligation "
+"to pay under the AAA Rules. Regardless of the manner in which the "
+"arbitration is conducted, the arbitrator will issue a reasoned written "
+"decision sufficient to explain the essential findings and conclusions on "
+"which the decision and award, if any, are based. The arbitrator may make "
+"rulings and resolve disputes as to the payment and reimbursement of fees or "
+"expenses at any time during the proceeding and upon request from either "
+"party made within 14 days of the arbitrator's ruling on the merits."
+
+#: module/Landing/view/landing/index/terms.phtml:116
+msgid ""
+"<b>No Class Actions</b>. YOU AND PaperTask AGREE THAT EACH MAY BRING CLAIMS "
+"AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY AND NOT AS A "
+"PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE "
+"PROCEEDING. Further, unless both you and PaperTask agree otherwise, the "
+"arbitrator may not consolidate more than one person's claims, and may not "
+"otherwise preside over any form of a representative or class proceeding."
+msgstr ""
+"<b>No Class Actions</b>. YOU AND PaperTask AGREE THAT EACH MAY BRING CLAIMS "
+"AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY AND NOT AS A "
+"PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE "
+"PROCEEDING. Further, unless both you and PaperTask agree otherwise, the "
+"arbitrator may not consolidate more than one person's claims, and may not "
+"otherwise preside over any form of a representative or class proceeding."
+
+#: module/Landing/view/landing/index/terms.phtml:118
+msgid ""
+"<b>Modifications</b>. If PaperTask makes any future change to this "
+"arbitration provision (other than a change to PaperTask's address for "
+"Notice), you may reject any such change by sending us written notice within "
+"30 days of the change to PaperTask's address for Notice, in which case your "
+"account with PaperTask will immediately be terminated and this arbitration "
+"provision, as in effect immediately prior to the amendments you reject will "
+"survive."
+msgstr ""
+"<b>Modifications</b>. If PaperTask makes any future change to this "
+"arbitration provision (other than a change to PaperTask's address for "
+"Notice), you may reject any such change by sending us written notice within "
+"30 days of the change to PaperTask's address for Notice, in which case your "
+"account with PaperTask will immediately be terminated and this arbitration "
+"provision, as in effect immediately prior to the amendments you reject will "
+"survive."
+
+#: module/Landing/view/landing/index/terms.phtml:120
+msgid ""
+"<b>Enforceability</b>. If Section 18.6 is found to be unenforceable or if "
+"the entirety of this Section 18 is found to be unenforceable, then the "
+"entirety of this Section 18 will be null and void and, in that case, the "
+"parties agree that the exclusive jurisdiction and venue described in Section "
+"17 will govern any action arising out of or related to these Terms."
+msgstr ""
+"<b>Enforceability</b>. If Section 18.6 is found to be unenforceable or if "
+"the entirety of this Section 18 is found to be unenforceable, then the "
+"entirety of this Section 18 will be null and void and, in that case, the "
+"parties agree that the exclusive jurisdiction and venue described in Section "
+"17 will govern any action arising out of or related to these Terms."
+
+#: module/Landing/view/landing/index/terms.phtml:124
+msgid ""
+"<b>Consent to Electronic Communications</b>. By using the Service, you "
+"consent to receiving certain electronic communications from us as further "
+"described in our Privacy Policy. Please read our Privacy Policy to learn "
+"more about your choices regarding our electronic communications practices. "
+"You agree that any notices, agreements, disclosures, or other communications "
+"that we send to you electronically will satisfy any legal communication "
+"requirements, including that such communications be in writing."
+msgstr ""
+"<b>Consent to Electronic Communications</b>. By using the Service, you "
+"consent to receiving certain electronic communications from us as further "
+"described in our Privacy Policy. Please read our Privacy Policy to learn "
+"more about your choices regarding our electronic communications practices. "
+"You agree that any notices, agreements, disclosures, or other communications "
+"that we send to you electronically will satisfy any legal communication "
+"requirements, including that such communications be in writing."
+
+#: module/Landing/view/landing/index/terms.phtml:126
+msgid ""
+"<b>Contact Information</b>. The services hereunder are offered AccessPath "
+"Limited, located at 1502 Inspiring Space, 25 GanluyuanNanli, Chaoyang, "
+"Beijing China. You may contact us by sending correspondence to the foregoing "
+"address or by emailing us at <a href=mailto:support@papertask."
+"com>support@papertask.com</a>."
+msgstr ""
+"<b>Contact Information</b>. The services hereunder are offered AccessPath "
+"Limited, located at 1502 Inspiring Space, 25 GanluyuanNanli, Chaoyang, "
+"Beijing China. You may contact us by sending correspondence to the foregoing "
+"address or by emailing us at <a href=mailto:support@papertask."
+"com>support@papertask.com</a>."

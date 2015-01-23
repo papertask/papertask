@@ -33,7 +33,7 @@ msgid "Your email is not correct."
 msgstr ""
 
 #: module/Landing/view/landing/index/index.phtml:1
-msgid "Solutions to Localization and Translation Management Problems"
+msgid "Professional Cloud Translation and Localization Service By PaperTask"
 msgstr ""
 
 #: module/Landing/view/landing/index/index.phtml:9
