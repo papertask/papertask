@@ -169,6 +169,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 					$scope.translationPrices.push( data.translationPrice );
     			});
     	} else {
+		
     		$http.put("/api/user/" + translationPrice.id + "/translationprice", 
 				{
     				userId: USER_ID,
