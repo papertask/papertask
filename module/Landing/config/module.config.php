@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
+namespace Landing;
 return array(
     'router' => array(
         'routes' => array(
@@ -147,12 +147,13 @@ return array(
         ),
     ),
     'translator' => array(
-        'locale' => 'zh_CN',
+        'locale' => 'en-US',
         'translation_file_patterns' => array(
             array(
-                'type'     => 'PhpArray',
+                'type'     => 'gettext',
                 'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.php',
+                'pattern'  => '%s.mo',
+				'text_domain' => __NAMESPACE__,
             ),
         ),
     ),

@@ -41,7 +41,8 @@ class Module
             if(!in_array($language, $availableLanguages) ) {
                 $language = $defaultLanguage;
             }
-            $e->getApplication()->getServiceManager()->get('translator')->setLocale($language);
+			$e->getApplication()->getServiceManager()->get('translator')->setLocale($language);
+																		//->setFallbackLocale('en_US');
 			//forward to localized url if not called with language parameter
 			
             if($fromRoute !== true) {

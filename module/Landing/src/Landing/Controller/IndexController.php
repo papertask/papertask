@@ -17,7 +17,10 @@ use Application\Controller\AbstractActionController;
 class IndexController extends AbstractActionController
 {
     public function indexAction(){
-        return new ViewModel();
+		$lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+            "lang_code" => $lang_code,
+            ));
     }
 
     public function freelancerAction(){

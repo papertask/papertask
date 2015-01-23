@@ -20,7 +20,7 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-
+		 
         $eventManager->getSharedManager()->attach(__NAMESPACE__, 'dispatch', function($e) {
             $e->getTarget()->layout('layout/landing');
         });

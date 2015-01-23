@@ -16,7 +16,11 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return new ViewModel();
+       $lang_code = $this->params()->fromRoute('lang');
+	   //var_dump($lang_code);exit;
+        return new ViewModel(array(
+            "lang_code" => $lang_code,
+            ));
         
     }
 }

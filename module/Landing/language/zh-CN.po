@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2012-09-08 13:15+0800\n"
+"PO-Revision-Date: 2015-01-22 22:28+0700\n"
 "Last-Translator: Evan Coury <me@evancoury.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -12,7 +12,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: translate\n"
 "X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.7.3\n"
 "X-Poedit-SearchPath-0: ..\n"
+
+#: module/Application/view/layout/landing.phtml:86
+#: module/Application/view/layout/landing.phtml:89
+msgid "The new mode of translation services"
+msgstr "翻譯服務新模式"
+
+msgid "High quality human translation"
+msgstr "高品質的人力翻"
 
 #: ../view/layout/layout.phtml:6 ../view/layout/layout.phtml:33
 msgid "Skeleton Application"
@@ -98,9 +107,9 @@ msgid ""
 "feedback you may have regarding the beta releases. Alternatively, you may "
 "subscribe and post questions to the %smailing lists%s."
 msgstr ""
-"如果您需要一些关于ZF2开发的帮助和支持，可以通过IRC: %s#zftalk on Freenode"
-"%s。我们非常乐意收到您对于发布的公测版提问和反馈。或者，您也可以通"
-"过%smailing lists%s订阅并发布问题。"
+"如果您需要一些关于ZF2开发的帮助和支持，可以通过IRC: %s#zftalk on Freenode%s。"
+"我们非常乐意收到您对于发布的公测版提问和反馈。或者，您也可以通过%smailing "
+"lists%s订阅并发布问题。"
 
 #: ../view/application/index/index.phtml:24
 msgid "Ping us on IRC"

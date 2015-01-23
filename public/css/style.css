@@ -5,6 +5,17 @@
  *   Copyright 2014 Webapplayers.com
  *
 */
+body {
+
+::-webkit-scrollbar { width: 2px; height: 2px;}
+::-webkit-scrollbar-button {  background-color: #666; }
+::-webkit-scrollbar-track {  background-color: #999;}
+::-webkit-scrollbar-track-piece { background-color: #ffffff;}
+::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px;}
+::-webkit-scrollbar-corner { background-color: #999;}}
+::-webkit-resizer { background-color: #666;}
+
+}
 h1,
 h2,
 h3,
@@ -94,6 +105,7 @@ h5 {
   border-radius: 2px;
   height: 200px;
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 .dropdown-menu > li > a {
   border-radius: 3px;

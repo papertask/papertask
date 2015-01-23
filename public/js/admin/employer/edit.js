@@ -282,6 +282,8 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     
     $scope.editTranslationPrice = function ( index, tid ) {
     	$scope.editTranslation = index;
+				console.log($scope.translationPrices[index]);
+
     	setModalControllerData('translationPrice', $scope.translationPrices[index]);
     	jQuery("#modal-translation").modal("show");
     }
