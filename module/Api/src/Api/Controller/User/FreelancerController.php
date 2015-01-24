@@ -112,13 +112,16 @@ class FreelancerController extends AbstractRestfulController
     }
 
     public function update($id, $data){
-		//
+		//echo $data['Resources'];
         $userId = $this->getEvent()->getRouteMatch()->getParam('user_id');
         $entityManager = $this->getEntityManager();
         $user = $this->getUserById($userId);
         $freelancer = $user->getFreelancer();
+		if(count($data['Resources']))
+			$freelancer->updateData($data, $entityManager);
+		if(count($data['ResourcesP']))
+			$freelancer->updateDataP($data, $entityManager);
 		
-        $freelancer->updateData($data, $entityManager);
 		$freelancer->updateSenior($data, $entityManager);
 		
         $freelancer->save($entityManager);

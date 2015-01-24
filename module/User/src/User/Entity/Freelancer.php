@@ -166,14 +166,23 @@ class Freelancer extends Entity{
             'TranslationCatTools',
             'TranslationSpecialisms',
 			
+            'Rating',
+        );
+        return $this->updateManyToOne($data, $keys, $entityManager);
+    }
+	
+	/**
+     * @param array $data
+     * @param \Doctrine\ORM\EntityManager $entityManager
+     */
+    public function updateDataP($data, $entityManager){
+        $keys = array(
 			'DesktopCatToolsP',
             'DesktopOperatingSystemsP',
             'InterpretingSpecialismsP',
             'ResourcesP',
             'TranslationCatToolsP',
             'TranslationSpecialismsP',
-			
-            'Rating',
         );
         return $this->updateManyToOne($data, $keys, $entityManager);
     }
