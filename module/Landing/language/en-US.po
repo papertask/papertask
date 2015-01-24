@@ -142,7 +142,7 @@ msgstr ""
 #, php-format
 msgid ""
 "Collaborative translation shortens the translation cycle, improving delivery "
-"times by 50% or better!"
+"times by 50% Or better!"
 msgstr ""
 
 #: module/Landing/view/landing/index/index.phtml:120
