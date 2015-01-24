@@ -82,6 +82,11 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
                 $scope.dptPrices = $data.desktopPrices;
                 $scope.engineeringPices = $data.engineeringPrices;
                 
+				$scope.translationPricesP = $data.translationPricesP;
+                $scope.interpretingPricesP = $data.interpretingPricesP;
+                $scope.dptPricesP = $data.desktopPricesP;
+                $scope.engineeringPicesP = $data.engineeringPricesP;
+				
                 if ( $scope.userInfo.currency == 'cny') 
                     $scope.priceType = 'CNY';
                 else
@@ -196,7 +201,25 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
             // get interpreting specialism
             $scope.InterpretingSpecialisms = findOptions($scope.freelancerData.specialisms,
                 $scope.freelancer.InterpretingSpecialisms);
-
+			//person 
+			
+			// get translation specialism
+            $scope.TranslationSpecialismsP = findOptions($scope.freelancerData.specialisms,
+                $scope.freelancer.TranslationSpecialismsP);
+            // get desktop translation cat tools
+			//con
+            $scope.TranslationCatToolsP = findOptions($scope.freelancerData.catTools,
+                $scope.freelancer.TranslationCatToolsP);
+            // get operating systems
+            $scope.operatingSystemsP = findOptions($scope.freelancerData.operatingSystems,
+                $scope.freelancer.DesktopOperatingSystemsP);
+            // get desktop cat tools
+            $scope.DesktopCatToolsP = findOptions($scope.freelancerData.catTools,
+                $scope.freelancer.DesktopCatToolsP);
+            // get interpreting specialism
+            $scope.InterpretingSpecialismsP = findOptions($scope.freelancerData.specialisms,
+                $scope.freelancer.InterpretingSpecialismsP);
+				
             //console.log($scope.InterpretingSpecialisms);
         });
     }

@@ -29,6 +29,20 @@ class IndexController extends AbstractRestfulController
         $engineeringPirceData = $this->getAllDataBy('\User\Entity\UserEngineeringPrice', [
             'user' => $user,
         ]);
+		//personal
+		$desktopPricePData = $this->getAllDataBy('\User\Entity\UserDesktopPriceP', [
+            'user' => $user,
+        ]);
+        $interpretingPricePData = $this->getAllDataBy('\User\Entity\UserInterpretingPriceP', [
+            'user' => $user,
+        ]);
+        $translationPricePData = $this->getAllDataBy('\User\Entity\UserTranslationPriceP', [
+            'user' => $user,
+        ]);
+        $engineeringPircePData = $this->getAllDataBy('\User\Entity\UserEngineeringPriceP', [
+            'user' => $user,
+        ]);
+		
         $entityManager = $this->getEntityManager();
         $repository = $entityManager->getRepository('User\Entity\UserTmRatio');
         $tmRatio = $repository->findOneBy(array('user'=>$user));
@@ -39,6 +53,12 @@ class IndexController extends AbstractRestfulController
             'interpretingPrices' => $interpretingPriceData,
             'translationPrices'  => $translationPriceData,
             'engineeringPrices'  => $engineeringPirceData,
+			
+			'desktopPricesP'      => $desktopPricePData,
+            'interpretingPricesP' => $interpretingPricePData,
+            'translationPricesP'  => $translationPricePData,
+            'engineeringPricesP'  => $engineeringPircePData,
+			
             'tmRatios'           => isset($tmRatio)?$tmRatio->getData():null
         ]);
     }

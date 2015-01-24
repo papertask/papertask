@@ -6,7 +6,8 @@
 ?>
 
 <!-- Scripts -->
-<?php $this->headScript()
+<?php 
+$this->headScript()
     ->prependFile($this->basePath() . '/js/admin/freelancer/finish-registration.js')
     ->prependFile($this->basePath() . '/js/admin/angular-steps.js')
     ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
@@ -16,6 +17,15 @@
     ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
     ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
     ->prependFile($this->basePath() . '/js/inspinia.js')
+	->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js');
+
+$this->inlineScript()
+    ->prependScript("
+        var USER_ID = '" . $this->user->getId() . "';
+		var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+		var LANG_CODE = '" . $this->lang_code . "';
+        ");	
+	
 ?>
 <!-- Add custom style -->
 <style type="text/css">
@@ -47,10 +57,10 @@
     <script>
         USER_ID = "<?php echo ($this->user) ? $this->user->getId() : '' ?>"
     </script>
-    <div class="row">
+    <div class="row" class="ibox-content" id="UpdateInfoController" ng-init="init()" ng-controller="UpdateInfoController">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
-                <div class="ibox-content" id="mainController" ng-controller="UpdateInfoController">
+                <div>
                     <h2 ng-show="!userInfo.profileUpdated">
                         Please finish your account information
                     </h2>
@@ -67,9 +77,7 @@
             </div>
         </div>
     </div>
-</div> <!-- close the container div -->
-<div ng-controller="ModalController" id="modalContainer"> <!-- open new temporary container -->
-    <?php include __DIR__ . "/../user/modal.phtml" ?>
+<?php include __DIR__ . "/finish-registration/modal.phtml" ?>
 
     <script type="text/javascript">
         $(document).ready(function () {

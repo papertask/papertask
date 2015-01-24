@@ -58,7 +58,6 @@ class FreelancerController extends AbstractRestfulController
 			$ret_data = $user->getData();
            
 			// Set Translation Price
-			
 			foreach ( $pdata['translationPrices'] as $k => $v ) {
 				$translationPrice = array(
 						'user' => $user,
@@ -70,10 +69,8 @@ class FreelancerController extends AbstractRestfulController
 				$pTranslationPrice->setData( $translationPrice );
 				$pTranslationPrice->save( $entityManager );
 			}
-	
 			// Set Desktop Prices
 			foreach ( $pdata['desktopPrices'] as $k => $v) {
-				
                 $desktopPrice = array (
 						'user'=> $user,
 						'language' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id'=>$v['language']['id'])),
@@ -87,7 +84,6 @@ class FreelancerController extends AbstractRestfulController
 				$pDesktopPrice->setData( $desktopPrice );
 				$pDesktopPrice->save( $entityManager );
 			}
-	
 			// Set Interpreting Price
 			foreach ( $pdata['interpretingPrices'] as $k=>$v) {
 				$interpretingPrice = array(

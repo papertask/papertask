@@ -164,7 +164,6 @@ class EmployerController extends AbstractRestfulController
         $userId = $this->getRequest()->getQuery('user_id');
         $entityManager = $this->getEntityManager();
         $user = $this->getUserById($userId);
-		var_dump($data['pm']['id']);
         $employer = $user->getEmployer();
         $employer->updateData(array(
                 'position'=>isset($data['position'])?$data['position']:'', 

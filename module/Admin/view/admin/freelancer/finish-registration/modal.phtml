@@ -13,29 +13,29 @@
 							<div class="col-lg-12">
 								<div class="form-group">
 									<label>Category *</label>
-									<select class="form-control required" ng-model="engineerPrice.engineeringCategory"
-										ng-options="engineerCategory.category for engineerCategory in engineeringCategories">
+									<select class="form-control required" ng-model="engineerPriceP.engineeringCategory"
+										ng-options="engineerCategory.category for engineerCategory in engineeringCategories track by engineerCategory.id">
 									</select>
 								</div>
 								<div class="form-group">
 									<label>Unit *</label>
-									<select class="form-control required" ng-model="engineerPrice.unit"
-										ng-options="unit.name for unit in units">
+									<select class="form-control required" ng-model="engineerPriceP.unit"
+										ng-options="unit.name for unit in units track by unit.id">
 									</select>
 								</div>
 								<div class="form-group">
 									<label>Rate *</label>
-									<input class="form-control required" type="number" ng-model="engineerPrice.price">
+									<input class="form-control required" type="number" ng-model="engineerPriceP.price">
 								</div>
 							</div>
 						</div>
-						<input type="hidden" ng-model="engineerPrice.id" value="{{engineerPrice.id}}">
+						<input type="hidden" ng-model="engineerPriceP.id" value="{{engineerPriceP.id}}">
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-w-m btn-white" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-w-m btn-primary" ng-click="submitTo('#modal-eng','#FreelancerController', 'saveEngineeringPrice',
-	                                       engineerPrice)">Save changes</button>
+					<button type="button" class="btn btn-w-m btn-primary" ng-click="submitTo('#modal-eng','#UpdateInfoController', 'saveEngineeringPrice',
+	                                       engineerPriceP)">Save changes</button>
 				</div>
 			</div>
 		</div>
@@ -57,32 +57,32 @@
 	                            <div class="form-group">
 	                                <label>Source Language *</label>
 	                                <select class="form-control required" name="sourceLanguage"
-	                                        ng-model="translationPrice.sourceLanguage"
-	                                        ng-options="language.name for language in languages">
+	                                        ng-model="translationPriceP.sourceLanguage"
+	                                        ng-options="language.name for language in languages track by language.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Target Language *</label>
 	                                <select class="form-control required" name="targetLanguage"
-	                                        ng-model="translationPrice.targetLanguage"
-	                                        ng-options="language.name for language in languages">
+	                                        ng-model="translationPriceP.targetLanguage"
+	                                        ng-options="language.name for language in languages track by language.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Price/word *</label>
 	                                <input name="price" type="number" class="form-control required"
-	                                       ng-model="translationPrice.price">
+	                                       ng-model="translationPriceP.price">
 	                            </div>
 	                        </div>
 	                    </div>
-						<input type="hidden" ng-model="translationPrice.id" value="{{translationPrice.id}}">
+						<input type="hidden" ng-model="translationPriceP.id" value="{{translationPriceP.id}}">
 	                </form>
 	            </div>
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal">Close</button>
 	                <button type="button" class="btn btn-w-m btn-primary"
-	                    ng-click="submitTo('#modal-translation','#FreelancerController', 'saveTranslationPrice',
-	                                       translationPrice)">Save changes</button>
+	                    ng-click="submitTo('#modal-translation','#UpdateInfoController', 'saveTranslationPrice',
+	                                       translationPriceP)">Save changes</button>
 	            </div>
 	        </div>
 	    </div>
@@ -142,7 +142,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-w-m btn-primary" ng-click="submitTo('#modal-company', '#FreelancerController', 'saveCompany', company)">
+                    <button type="button" class="btn btn-w-m btn-primary" ng-click="submitTo('#modal-company', '#UpdateInfoController', 'saveCompany', company)">
                     	Save changes
                     </button>
                 </div>
@@ -166,47 +166,47 @@
 	                            <div class="form-group">
 	                                <label>Languages *</label>
 	                                <select class="form-control required" name="language"
-	                                        ng-model="desktopPrice.language"
-	                                        ng-options="language.name for language in languages">
+	                                        ng-model="desktopPriceP.language"
+	                                        ng-options="language.name for language in languages track by language.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
 	                                <label>DTP software *</label>
 	                                <select class="form-control required" name="software"
-	                                        ng-model="desktopPrice.software"
-	                                        ng-options="software.name for software in softwares">
+	                                        ng-model="desktopPriceP.software"
+	                                        ng-options="software.name for software in softwares track by software.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Price/Page (MAC) *</label>
 	                                <input name="priceMac" type="number" value="" class="form-control required"
-	                                       ng-model="desktopPrice.priceMac">
+	                                       ng-model="desktopPriceP.priceMac">
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Price/Page (PC) *</label>
 	                                <input name="pricePc" type="number" value="" class="form-control required"
-	                                       ng-model="desktopPrice.pricePc">
+	                                       ng-model="desktopPriceP.pricePc">
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Price/Hour (MAC) *</label>
 	                                <input name="priceHourMac" type="number" value="" class="form-control required"
-	                                       ng-model="desktopPrice.priceHourMac">
+	                                       ng-model="desktopPriceP.priceHourMac">
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Price/Hour (PC) *</label>
 	                                <input name="priceHourPc" type="number" value="" class="form-control required"
-	                                       ng-model="desktopPrice.priceHourPc">
+	                                       ng-model="desktopPriceP.priceHourPc">
 	                            </div>
 	                        </div>
 	                    </div>
-						<input type="hidden" ng-model="desktopPrice.id" value="{{desktopPrice.id}}">
+						<input type="hidden" ng-model="desktopPriceP.id" value="{{desktopPriceP.id}}">
 	                </form>
 	            </div>
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal">Close</button>
 	                <button type="button" class="btn btn-w-m btn-primary"
-	                        ng-click="submitTo('#modal-dtp','#FreelancerController', 'saveDesktopPrice',
-	                                           desktopPrice)">Save changes</button>
+	                        ng-click="submitTo('#modal-dtp','#UpdateInfoController', 'saveDesktopPrice',
+	                                           desktopPriceP)">Save changes</button>
 	            </div>
 	        </div>
 	    </div>
@@ -228,44 +228,44 @@
 	                            <div class="form-group">
 	                                <label>Source Language *</label>
 	                                <select class="form-control required" name="sourceLanguage"
-	                                        ng-model="interpretingPrice.sourceLanguage"
-	                                        ng-options="language.name for language in languages">
+	                                        ng-model="interpretingPriceP.sourceLanguage"
+	                                        ng-options="language.name for language in languages track by language.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Target Language *</label>
 	                                <select class="form-control required" name="targetLanguage"
-	                                        ng-model="interpretingPrice.targetLanguage"
-	                                        ng-options="language.name for language in languages">
+	                                        ng-model="interpretingPriceP.targetLanguage"
+	                                        ng-options="language.name for language in languages track by language.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Interpreting Service *</label>
 	                                <select class="form-control required" name="service"
-	                                        ng-model="interpretingPrice.service"
-	                                        ng-options="service.name for service in services">
+	                                        ng-model="interpretingPriceP.service"
+	                                        ng-options="service.name for service in services track by service.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Price/Day *</label>
 	                                <input name="priceDay" type="number" class="form-control required"
-	                                       ng-model="interpretingPrice.priceDay">
+	                                       ng-model="interpretingPriceP.priceDay">
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Price/Half-day *</label>
 	                                <input name="priceHalfDay" type="number" class="form-control required"
-	                                       ng-model="interpretingPrice.priceHalfDay">
+	                                       ng-model="interpretingPriceP.priceHalfDay">
 	                            </div>
 	                        </div>
 	                    </div>
-						<input type="hidden" ng-model="interpretingPrice.id" value="{{interpretingPrice.id}}">
+						<input type="hidden" ng-model="interpretingPriceP.id" value="{{interpretingPriceP.id}}">
 	                </form>
 	            </div>
 	            <div class="modal-footer">
 	                <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal">Close</button>
 	                <button type="button" class="btn btn-w-m btn-primary"
-	                        ng-click="submitTo('#modal-interpreting','#FreelancerController',
-	                                           'saveInterpretingPrice', interpretingPrice)">Save changes</button>
+	                        ng-click="submitTo('#modal-interpreting','#UpdateInfoController',
+	                                           'saveInterpretingPrice', interpretingPriceP)">Save changes</button>
 	            </div>
 	        </div>
 	    </div>

@@ -33,7 +33,9 @@ class FreelancerController extends AbstractActionController
 
     public function finishRegistrationAction()
     {
+		$lang_code = $this->params()->fromRoute('lang');
         return new ViewModel(array(
+			"lang_code" => $lang_code,
             "user" => $this->getCurrentUser(),
         ));
     }
