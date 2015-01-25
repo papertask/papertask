@@ -9,7 +9,7 @@ angularApp.run( function ( $rootScope ) {
             element.before(error);
         },
         rules: {
-            confirmpwd: {
+            confirm: {
                 equalTo: "#password"
             },
             email: {
@@ -199,8 +199,8 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
      */
     $scope.translationPricePlaceholder = function () {
     	return {
-            sourceLanguage: $scope.languages[0],
-            targetLanguage: $scope.languages[0],
+            sourceLanguage: {},
+            targetLanguage: {},
             price: 0
         };
     }
@@ -216,7 +216,6 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     	console.log($scope.translationPricePlaceholder);
 		console.log($scope.languages[0]);
     	setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
-		console.log(translationPrice);
     	$scope.editTranslation = -1;
     };
     
@@ -227,15 +226,12 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     
     $scope.editTranslationPrice = function ( index ) {
     	$scope.editTranslation = index;
-    	setModalControllerData('translationPrice', {
-    		sourceLanguage: $scope.translationPrices[index].sourceLanguage,
-    		targetLanguage: $scope.translationPrices[index].targetLanguage,
-    		price: Number($scope.translationPrices[index].price)
-    	});
+    	$scope.translationPrices[index].price = Number($scope.translationPrices[index].price);
+    	setModalControllerData('translationPrice', $scope.translationPrices[index]);
     	jQuery("#modal-translation").modal("show");
     }
     $scope.addTranslationPrice = function(){
-		setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
+		setModalControllerData('translationPrice', []);
 		$scope.editTranslation = -1;
 		jQuery("#modal-translation").modal("show");
 	}
@@ -287,7 +283,8 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     	jQuery("#modal-dtp").modal("show");
     }
 	$scope.addDesktopPrice = function(){
-		setModalControllerData('desktopPrice', $scope.dtpPricePlaceholder);
+		setModalControllerData('desktopPrice', []);
+		
 		$scope.editDtp = -1;
 		jQuery("#modal-dtp").modal("show");
 	}
@@ -338,7 +335,7 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     	jQuery("#modal-interpreting").modal("show");
     }
 	$scope.addInterpretingPrice = function(){
-		setModalControllerData('interpretingPrice', $scope.interpretingPricePlaceholder);
+		setModalControllerData('interpretingPrice', []);
 		$scope.editTranslation = -1;
 		jQuery("#modal-interpreting").modal("show");
 	}

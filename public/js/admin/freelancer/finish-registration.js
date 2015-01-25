@@ -375,7 +375,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
 		
     }
     $scope.addTranslationPrice = function(){
-		setModalControllerData('translationPriceP', $scope.translationPricePlaceholder);
+		setModalControllerData('translationPriceP',[]);
 		$scope.editTranslation = -1;
 		jQuery("#modal-translation").modal("show");
 	}
@@ -469,7 +469,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
     	jQuery("#modal-dtp").modal("show");
     }
 	$scope.addDesktopPrice = function(){
-		setModalControllerData('desktopPriceP', $scope.dtpPricePlaceholder);
+		setModalControllerData('desktopPriceP', []);
 		$scope.editDtp = -1;
 		jQuery("#modal-dtp").modal("show");
 	}
@@ -554,7 +554,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
     	jQuery("#modal-interpreting").modal("show");
     }
 	$scope.addInterpretingPrice = function(){
-		setModalControllerData('interpretingPriceP', $scope.interpretingPricePlaceholder);
+		setModalControllerData('interpretingPriceP', []);
 		$scope.editTranslation = -1;
 		jQuery("#modal-interpreting").modal("show");
 	}

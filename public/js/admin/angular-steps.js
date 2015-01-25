@@ -61,7 +61,7 @@ angularApp.run(function($rootScope){
             element.before(error);
         },
         rules: {
-            confirmpwd: {
+            confirm: {
                 equalTo: "#password"
             },
             email: {

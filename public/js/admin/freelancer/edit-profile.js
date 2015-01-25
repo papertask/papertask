@@ -152,13 +152,15 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
      */
     $scope.translationPricePlaceholder = function () {
     	return {
-            sourceLanguage: $scope.languages[0],
-            targetLanguage: $scope.languages[0],
+            sourceLanguage: {},
+            targetLanguage: {},
             price: 0
         };
     }
 	$scope.saveTranslationPrice = function( translationPrice ){
     	if ( $scope.editTranslation == -1 ) {
+			console.log("translationPrice_first");
+			console.log($scope.translationPrices);
     		$http.post("/api/user/translationprice", 
 				{
     				userId: USER_ID,
@@ -166,8 +168,11 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 					targetLanguageId: translationPrice.targetLanguage.id, 
 					price: translationPrice.price
 				}).success(function( data ) {
-					$scope.translationPrices.push( data.translationPrice );
-    			});
+					
+					$scope.translationPrices.push( {sourceLanguage: data.translationPrice.sourceLanguage, targetLanguage: data.translationPrice.targetLanguage, price: data.translationPrice.price, id: data.translationPrice.id});
+					console.log("translationPrice_after");
+					console.log($scope.translationPrices);
+				});
     	} else {
 		
     		$http.put("/api/user/" + translationPrice.id + "/translationprice", 
@@ -192,7 +197,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     	jQuery("#modal-translation").modal("show");
     }
 	$scope.addTranslationPrice = function(){
-		setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
+		setModalControllerData('translationPrice', []);
 		$scope.editTranslation = -1;
 		jQuery("#modal-translation").modal("show");
 	}
@@ -263,7 +268,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     	jQuery("#modal-dtp").modal("show");
     }
 	$scope.addDesktopPrice = function(){
-		setModalControllerData('desktopPrice', $scope.dtpPricePlaceholder);
+		setModalControllerData('desktopPrice', []);
 		$scope.editDtp = -1;
 		jQuery("#modal-dtp").modal("show");
 	}
@@ -328,7 +333,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     	jQuery("#modal-interpreting").modal("show");
     }
 	$scope.addInterpretingPrice = function(){
-		setModalControllerData('interpretingPrice', $scope.interpretingPricePlaceholder);
+		setModalControllerData('interpretingPrice', []);
 		$scope.editTranslation = -1;
 		jQuery("#modal-interpreting").modal("show");
 	}
