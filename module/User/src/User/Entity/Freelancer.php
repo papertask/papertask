@@ -100,6 +100,25 @@ class Freelancer extends Entity{
      */
     protected $TranslationSpecialismsP = null;
 
+	/**
+     * @var \Doctrine\ORM\PersistentCollection
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="UserClientTranslation")
+     */
+    //protected $ClientTranslation = null;
+	/**
+     * @var \Doctrine\ORM\PersistentCollection
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="UserClientDesktop")
+     */
+    //protected $ClientDesktop = null;
+	/**
+     * @var \Doctrine\ORM\PersistentCollection
+     * @ORM\ManyToMany(targetEntity="User")
+     * @ORM\JoinTable(name="UserClientInterpreting")
+     */
+    //protected $ClientInterpreting = null;
+	
     /**
      * @var \Doctrine\ORM\PersistentCollection
      * @ORM\ManyToMany(targetEntity="Rating")
@@ -111,6 +130,7 @@ class Freelancer extends Entity{
      * @ORM\Column(type="boolean")
      */
     protected $isSenior = false;
+	
 	
 	public function __construct() {
 		//PAPERTASK
@@ -127,6 +147,10 @@ class Freelancer extends Entity{
 		$this->InterpretingSpecialismsP = new ArrayCollection();
 		$this->TranslationCatToolsP = new ArrayCollection();
 		$this->TranslationSpecialismsP = new ArrayCollection();
+		//Client
+		//$this->ClientTranslation = new ArrayCollection();
+		//$this->ClientDesktop = new ArrayCollection();
+		//$this->ClientInterpreting = new ArrayCollection();
 		//RATING
 		$this->Rating = new ArrayCollection();
 	}
@@ -147,6 +171,10 @@ class Freelancer extends Entity{
             'ResourcesP' => Func::getReferenceIds($this->ResourcesP),
             'TranslationCatToolsP' => Func::getReferenceIds($this->TranslationCatToolsP),
             'TranslationSpecialismsP' => Func::getReferenceIds($this->TranslationSpecialismsP),
+			
+			//'ClientTranslation' => Func::getReferenceIds($this->ClientTranslation),
+			//'ClientDesktop' => Func::getReferenceIds($this->ClientDesktop),
+			//'ClientInterpreting' => Func::getReferenceIds($this->ClientInterpreting),
 			
             'Rating' => Func::getReferenceIds($this->Rating),
             'isSenior' => $this->isSenior

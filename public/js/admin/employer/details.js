@@ -45,6 +45,7 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
 	
 	$scope.init = function (str_uid) {
 		$scope.getUserInfo();
+
 	}
     
     $scope.getUserInfo = function() {

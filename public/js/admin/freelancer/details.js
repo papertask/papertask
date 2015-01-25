@@ -5,9 +5,10 @@ $('.note-toolbar.btn-toolbar').remove();
 
 angularApp.controller('FreelancerController', function($scope, $http, $timeout, $q) {
     $scope.pagetype = 'detail';
-	$scope.countries 	= [];
-	$scope.pages 		= [];
-    $scope.dtpPrices    = [];
+	$scope.countries 		= [];
+	$scope.companies		= [];
+    
+	$scope.dtpPrices    = [];
     $scope.translationPices = [];
     $scope.interpretingPrices = [];
     $scope.engineeringPrices = [];
@@ -49,12 +50,433 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
         position: null
 	};
     $scope.priceType    = 'CNY';
+	//data add pool
+	$scope.pagesTranslation 		= [];
+	$scope.pagesDesktop 			= [];
+	$scope.pagesInterpreting 		= [];
+	
+	$scope.translation_employers 	= [];
+	$scope.desktop_employers 		= [];
+	$scope.interpreting_employers 	= [];
+	
+	$scope.clientsDesktop 		= [];
+	$scope.clientsTranslation	= [];
+	$scope.clientsInterpreting 	= [];
+	
+	
+	$scope.searchParamsTranslation = {
+        'search': null,
+        'name': null,
+        'idEmployer': null,
+        'email': null,
+        'country': null,
+        'includeInactive': null,
+        'currency': null,
+        'page': null,
+        'company': null
+    };
+	$scope.searchParamsDesktop = {
+        'search': null,
+        'name': null,
+        'idEmployer': null,
+        'email': null,
+        'country': null,
+        'includeInactive': null,
+        'currency': null,
+        'page': null,
+        'company': null
+    };
+	$scope.searchParamsInterpreting = {
+        'search': null,
+        'name': null,
+        'idEmployer': null,
+        'email': null,
+        'country': null,
+        'includeInactive': null,
+        'currency': null,
+        'page': null,
+        'company': null
+    };
 	
 	$scope.init = function (str_uid) {
 		$scope.getUserInfo();
         $scope.getFreelancer();
+		
+		$http.get("/api/user/employer?page=1")
+	        .success(function($data){
+	            $scope.pagesTranslation = $data.pages;
+				$scope.pagesDesktop = $data.pages;
+				$scope.pagesInterpreting = $data.pages;
+	            $scope.translation_employers = $data.employers;
+				$scope.desktop_employers = $data.employers;
+				$scope.interpreting_employers = $data.employers;
+				console.log("translation_employers");
+				console.log($scope.translation_employers);
+	    });
+
+		$http.get("/api/common/country")
+	        .success(function($data){
+	            $scope.countries = $data['countries'];
+	    });
+        var ajaxCompanyInfo = $http.get("/api/common/company")
+            .success(function($data){
+                $scope.companies = $data['companies'];
+        });
+		//get client translation
+		$http.get("/api/user/clienttranslation?userId="+ USER_ID)
+	        .success(function($data){
+	            $scope.clientsTranslation = $data['transClients'];
+				console.log("clientsTranslation");
+				console.log($scope.clientsTranslation);
+				console.log($scope.clientsTranslation[0].client);
+	    });
+		//get client desktop
+		$http.get("/api/user/clientdesktop?userId="+ USER_ID)
+	        .success(function($data){
+	            $scope.clientsDesktop = $data['desktopClients'];
+				console.log("clientsDesktop");
+				console.log($scope.clientsDesktop);
+	    });
+		//get client interpreting
+		$http.get("/api/user/clientinterpreting?userId="+ USER_ID)
+	        .success(function($data){
+	            $scope.clientsInterpreting = $data['interpretingClients'];
+				console.log("clientsinterpreting");
+				console.log($scope.clientsinterpreting);
+	    });
+		
 	}
-    
+	//translation
+	$scope.addClientTrans = function (employer, client_id) {
+		//console.log(client_id);
+		var addToArray=true;
+		for(var i=0;i<$scope.clientsTranslation.length;i++){
+			if($scope.clientsTranslation[i].client.id == employer.id){
+				addToArray=false;
+				console.log("exits");
+			}
+		}
+		if(addToArray){
+			$http.post("/api/user/clienttranslation", 
+			{
+				userclientId: client_id,
+				userfreelancerId: USER_ID, 
+			}).success(function( data ) {
+				$scope.clienttmpTranslation = data["clientTranslation"];
+				$scope.clientsTranslation.push( $scope.clienttmpTranslation );
+				console.log("data.clientTranlation");
+				console.log($scope.clienttmpTranslation);
+			});
+		}
+		else{
+			bootbox.alert( EXITS_CONFIRM_TEXT);
+		}
+        console.log($scope.clientsTranslation);
+    }
+	$scope.deleteClientTrans = function (ind , id) {
+		console.log(id);
+		console.log($scope.clientsTranslation);
+		console.log(ind);
+		bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
+            if ( bflag ){
+                $http.delete("/api/user/" + id + "/clienttranslation").success(function( data ) {       
+					var index = $scope.clientsTranslation.indexOf(ind);
+                    $scope.clientsTranslation.splice( index, 1 );
+                });    
+			}	
+        });
+		console.log($scope.clientsTranslation);
+    }
+	
+	$scope.advancedSearchTranslation = function () {
+        $scope.selectPage( 1 );
+    }
+	$scope.resetTranslation = function () {
+        $scope.searchParamsTranslation = {
+            'search': null,
+            'name': null,
+            'idEmployer': null,
+            'email': null,
+            'country': null,
+            'includeInactive': null,
+            'currency': null,
+            'page': null,
+            'company': null
+        };
+        $scope.selectPage(1);
+    }
+	
+	$scope.selectPage = function($page){
+        // check search
+        var search = 0;
+        for(var key in $scope.searchParamsTranslation) {
+            var obj = $scope.searchParamsTranslation[key];
+            if (obj != null) {
+                search++;
+            }
+        };
+        if(search > 0){
+            $scope.searchParamsTranslation.page = $page;
+            $scope.searchParamsTranslation.search = 1;
+            var $params = $scope.searchParamsTranslation;
+        }else{
+            var $params = {page: $page};
+        }
+
+        $http.get("/api/user/employer", {
+            params: $params
+        }).success(function($data){
+            $scope.translation_employers = $data.employers;
+            $scope.pagesTranslation = $data.pages;
+            if($data['pages']){
+                var N = $scope.pagesTranslation.pageCount;
+                $scope.rangeCustom = Array.apply(null, {length: N}).map(Number.call, Number);
+            }
+        });
+    }
+	$scope.onBtnPreviousTranslationClicked = function () {
+		$http.get("/api/user/employer?page="+ $scope.pagesTranslation.previous)
+	        .success(function($data){
+	            $scope.pagesTranslation = $data.pages;
+	            $scope.translation_employers = $data.employers;
+	    });
+	}
+	
+	$scope.onBtnGotoTranslation = function ( int_index ) {
+		$http.get("/api/user/employer?page="+ (int_index*1 + 1))
+	        .success(function($data){
+	            $scope.pagesTranslation = $data.pages;
+	            $scope.translation_employers = $data.employers;
+	    });
+	}
+	
+	$scope.onBtnNextTranslationClicked = function () {
+		$http.get("/api/user/employer?page="+ $scope.pages.next)
+	        .success(function($data){
+	            $scope.pagesTranslation = $data.pages;
+	            $scope.translation_employers = $data.employers;
+	    });
+	}
+	//desktop
+	$scope.addClientDesktop = function (employer , client_id) {
+		console.log(client_id);
+		console.log($scope.clientsDesktop);
+		console.log(employer);
+		var addToArray=true;
+		for(var i=0;i<$scope.clientsDesktop.length;i++){
+			if($scope.clientsDesktop[i].client.id == employer.id){
+				addToArray=false;
+				console.log("exits");
+			}
+		}
+		if(addToArray){
+			$http.post("/api/user/clientdesktop", 
+			{
+				userclientId: client_id,
+				userfreelancerId: USER_ID, 
+			}).success(function( data ) {
+				if ( $data.success == 'failed') {
+						bootbox.alert("User already exited. Please check your email address.");
+						return ;
+					}
+				else {	
+					$scope.clienttmpDesktop = data["clientDesktop"];
+					$scope.clientsDesktop.push( $scope.clienttmpDesktop );
+					console.log("data.clientsDesktop");
+					console.log($scope.clienttmpDesktop);
+				}
+			});
+		}
+		else {
+			bootbox.alert( EXITS_CONFIRM_TEXT);
+		}
+    }
+	$scope.deleteClientDesktop = function (ind , id) {
+		console.log(id);
+		 bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
+            if ( bflag )
+                $http.delete("/api/user/" + id + "/clientdesktop").success(function( data ) { 
+					var index = $scope.clientsDesktop.indexOf(ind);
+                    $scope.clientsDesktop.splice( index, 1 );
+                });    
+        });
+    }
+	
+	$scope.advancedSearchDesktop = function () {
+        $scope.selectPageDesktop( 1 );
+    }
+	$scope.resetDesktop = function () {
+        $scope.searchParamsDesktop = {
+            'search': null,
+            'name': null,
+            'idEmployer': null,
+            'email': null,
+            'country': null,
+            'includeInactive': null,
+            'currency': null,
+            'page': null,
+            'company': null
+        };
+        $scope.selectPageDesktop(1);
+    }
+	$scope.selectPageDesktop = function($page){
+        // check search
+        var search = 0;
+        for(var key in $scope.searchParamsDesktop) {
+            var obj = $scope.searchParamsDesktop[key];
+            if (obj != null) {
+                search++;
+            }
+        };
+        if(search > 0){
+            $scope.searchParamsDesktop.page = $page;
+            $scope.searchParamsDesktop.search = 1;
+            var $params = $scope.searchParamsDesktop;
+        }else{
+            var $params = {page: $page};
+        }
+
+        $http.get("/api/user/employer", {
+            params: $params
+        }).success(function($data){
+            $scope.desktop_employers = $data.employers;
+            $scope.pagesDesktop = $data.pages;
+            if($data['pages']){
+                var N = $scope.pagesDesktop.pageCount;
+                $scope.rangeCustom = Array.apply(null, {length: N}).map(Number.call, Number);
+            }
+        });
+    }
+	$scope.onBtnPreviousDesktopClicked = function () {
+		$http.get("/api/user/employer?page="+ $scope.pagesDesktop.previous)
+	        .success(function($data){
+	            $scope.pagesDesktop = $data.pages;
+	            $scope.desktop_employers = $data.employers;
+	    });
+	}
+	
+	$scope.onBtnGotoDesktop = function ( int_index ) {
+		$http.get("/api/user/employer?page="+ (int_index*1 + 1))
+	        .success(function($data){
+	            $scope.pagesDesktop = $data.pages;
+	            $scope.desktop_employers = $data.employers;
+	    });
+	}
+	
+	$scope.onBtnNextDesktopClicked = function () {
+		$http.get("/api/user/employer?page="+ $scope.pages.next)
+	        .success(function($data){
+	            $scope.pagesDesktop = $data.pages;
+	            $scope.desktop_employers = $data.employers;
+	    });
+	}
+    //interpreting
+	$scope.addClientInterpreting = function (employer, client_id) {
+		//console.log(client_id);
+		var addToArray=true;
+		for(var i=0;i<$scope.clientsInterpreting.length;i++){
+			if($scope.clientsInterpreting[i].client.id == employer.id){
+				addToArray=false;
+				console.log("exits");
+			}
+		}
+		if(addToArray){
+			$http.post("/api/user/clientinterpreting", 
+			{
+				userclientId: client_id,
+				userfreelancerId: USER_ID, 
+			}).success(function( data ) {
+				$scope.clienttmpInterpreting = data["clientInterpreting"];
+				$scope.clientsInterpreting.push( $scope.clienttmpInterpreting );
+				console.log("data.clientsInterpreting");
+				console.log($scope.clienttmpInterpreting);
+			});
+		}
+		else{
+			bootbox.alert( EXITS_CONFIRM_TEXT);
+		}	
+        console.log($scope.clientsInterpreting);
+    }
+	$scope.deleteClientInterpreting = function (ind , id) {
+		console.log(id);
+		 bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
+            if ( bflag )
+                $http.delete("/api/user/" + id + "/clientinterpreting").success(function( data ) {
+					var index = $scope.clientsInterpreting.indexOf(ind);	
+                    $scope.clientsInterpreting.splice( index, 1 );
+                });    
+        });
+    }
+	
+	$scope.advancedSearchInterpreting = function () {
+        $scope.selectPageInterpreting( 1 );
+    }
+	$scope.resetInterpreting = function () {
+        $scope.searchParamsInterpreting = {
+            'search': null,
+            'name': null,
+            'idEmployer': null,
+            'email': null,
+            'country': null,
+            'includeInactive': null,
+            'currency': null,
+            'page': null,
+            'company': null
+        };
+        $scope.selectPageInterpreting(1);
+    }
+	$scope.selectPageInterpreting = function($page){
+        // check search
+        var search = 0;
+        for(var key in $scope.searchParamsInterpreting) {
+            var obj = $scope.searchParamsInterpreting[key];
+            if (obj != null) {
+                search++;
+            }
+        };
+        if(search > 0){
+            $scope.searchParamsInterpreting.page = $page;
+            $scope.searchParamsInterpreting.search = 1;
+            var $params = $scope.searchParamsInterpreting;
+        }else{
+            var $params = {page: $page};
+        }
+
+        $http.get("/api/user/employer", {
+            params: $params
+        }).success(function($data){
+            $scope.interpreting_employers = $data.employers;
+            $scope.pagesInterpreting = $data.pages;
+            if($data['pages']){
+                var N = $scope.pagesInterpreting.pageCount;
+                $scope.rangeCustom = Array.apply(null, {length: N}).map(Number.call, Number);
+            }
+        });
+    }
+	$scope.onBtnPreviousInterpretingClicked = function () {
+		$http.get("/api/user/employer?page="+ $scope.pagesInterpreting.previous)
+	        .success(function($data){
+	            $scope.pagesInterpreting = $data.pages;
+	            $scope.interpreting_employers = $data.employers;
+	    });
+	}
+	
+	$scope.onBtnGotoInterpreting = function ( int_index ) {
+		$http.get("/api/user/employer?page="+ (int_index*1 + 1))
+	        .success(function($data){
+	            $scope.pagesInterpreting = $data.pages;
+	            $scope.interpreting_employers = $data.employers;
+	    });
+	}
+	
+	$scope.onBtnNextInterpretingClicked = function () {
+		$http.get("/api/user/employer?page="+ $scope.pages.next)
+	        .success(function($data){
+	            $scope.pagesInterpreting = $data.pages;
+	            $scope.interpreting_employers = $data.employers;
+	    });
+	}
+	//
     $scope.getUserInfo = function() {
         $http.get("/api/user/" + USER_ID + "")
             .success(function ( $data ) {

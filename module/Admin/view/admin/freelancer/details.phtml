@@ -14,6 +14,7 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/freelancer/d
 					->prependFile ( $this->basePath () . '/js/plugins/pace/pace.min.js' )
 					->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
 					->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
+					 ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
 					->prependFile ( $this->basePath () . '/js/inspinia.js' );
 					
 ?>
@@ -22,6 +23,7 @@ $this->inlineScript()
     ->prependScript("
         var USER_ID = '" . $user['id'] . "';
 		var LANG_CODE = '" . $this->lang_code . "';
+		var EXITS_CONFIRM_TEXT = '" . $this->translate('This client was existed') . "';
         var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
     ");
 ?>
@@ -162,9 +164,132 @@ $this->inlineScript()
 					<div id="tab-1" class="tab-pane active">
 						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['translation'] == 1" >
 							<div class="ibox-title">
-								<h3><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></h3>
+								<h5><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></h5>
+								<div class="ibox-tools">
+                                    <a data-toggle="collapse" href="#translation_client" class="btn btn-primary btn-xs"><i class="fa fa-search"></i><?php echo $this->translate('Search Clients') ?></a>
+                                </div>
 							</div>
 							<div class="ibox-content">
+									<div class="row">
+                                                <div class="col-lg-12">
+                                                    <div id="translation_client" class="panel-collapse collapse faq-answer">
+                                                        <form method="" class="form-horizontal">
+                                                            <div class="row">
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Name') ?></label>
+																		<div class="col-sm-8"><input type="text" class="form-control" ng-model="searchParamsTranslation.name" ></div>
+                                                                    </div>
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Company') ?></label>
+																		<div class="col-sm-8">
+																			<select class="form-control" id="company" name="company" ng-model="searchParamsTranslation.company" >
+																				<option value=""></option>
+																				<option ng-repeat="company in companies" ng-value="company.id">{{company.name}}</option>
+																			</select>
+																		</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('ID') ?></label>
+																		<div class="col-sm-8"><input ng-model="searchParamsTranslation.idEmployer" type="text" class="form-control" ></div>
+                                                                    </div>
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Country') ?></label>
+																		<div class="col-sm-8">
+																			<select class="form-control" name="" ng-model="searchParamsTranslation.country" >
+																				<option value=""></option>
+																				<option ng-repeat="country in countries" ng-value="country.id">{{country.name}}</option>													  
+																			</select>
+																		</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Email') ?></label>
+																		<div class="col-sm-8"><input type="text" class="form-control" ng-model="searchParamsTranslation.email"></div>
+                                                                    </div>
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Currency') ?></label>
+																		<div class="col-sm-8">
+																			<select class="form-control" name="" ng-model="searchParamsTranslation.currency" >
+																			  <option></option>
+																			  <option value="cny">CNY</option>
+																			  <option value="usd">USD</option>
+																			</select>
+																		</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-right tooltip-demo">
+																<a href="#" class="btn btn-sm btn-primary" ng-click="advancedSearchTranslation()"><i class="fa fa-search"></i> <?php echo $this->translate('Search') ?></a>
+																<a href="#" class="btn btn-white btn-sm" type="reset" ng-click="resetTranslation()"><i class="fa fa-times"></i> <?php echo $this->translate('Reset') ?></a>
+                                                            </div>
+                                                        </form>
+                                                        <div class="project-list">
+                                                            <table class="table table-hover">
+                                                                <tbody>
+																	<tr ng-repeat="employer in translation_employers">
+																		<td class="project-status" width="1%">
+																			<span ng-if="employer.isActive=='1'" class="label label-primary"><?php echo $this->translate('Active') ?></span>
+																			<span  ng-if="employer.isActive=='0'" class="label label-default"><?php echo $this->translate('Unactive') ?></span>
+																		</td>
+																		<td class="project-title">
+																			<strong><i class="fa fa-user"></i> {{employer.lastName}}&nbsp;{{employer.firstName}}</strong>
+																			<br/>
+																			<small><?php echo $this->translate('Created') ?> {{employer.createdTime}}</small>
+																		</td>
+																		<td class="project-title">
+																			<strong><i class="fa fa-envelope"></i> {{employer.email}}</strong>
+																			<br/>
+																			<small>{{employer.employer.position}}</small>
+																		</td>
+																		<td class="project-title">
+																			<strong><i class="fa fa-building"></i> {{employer.employer.company.name}}</strong>
+																			<br/>
+																			<small>{{employer.country.name}}</small>
+																		</td>
+																		<td class="project-actions">
+																			<a href="#" class="btn btn-white btn-sm" ng-click="addClientTrans(employer.employer,employer.id)" ><?php echo $this->translate('Add') ?></a>
+																		</td>
+																	</tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+														<div class="btn-group text-right">
+															<button type="button" class="btn btn-white" ng-class="pagesTranslation.previous?'':'disabled'" ng-click="onBtnPreviousTranslationClicked()"><i class="fa fa-chevron-left"></i></button>
+															<button ng-repeat="page in pagesTranslation.pagesInRange" class="btn btn-white" ng-class="page==pagesTranslation.current?'active':''" ng-click="onBtnGotoTranslation(page-1)">{{page}}</button>
+															<button type="button" class="btn btn-white"	ng-class="pagesTranslation.next?'':'disabled'" ng-click="onBtnNextTranslationClicked()"><i class="fa fa-chevron-right"></i></button>						
+														</div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+								<h4>Clients <small>- means freelancer can do tasks for these clients.</small></h4>
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Name</th>
+                                                    <th>Company</th>
+                                                    <th>Task Done</th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+												<tr ng-repeat="employer in clientsTranslation">
+													<td>{{$index + 1}}</td>
+													<td><a href="">{{employer.client.name}}&nbsp</a></td>
+													<td>{{employer.client.company.name}}</td>
+													<td>88</td>
+													<td><a href=""><i class="fa fa-trash-o text-danger" ng-click="deleteClientTrans(employer , employer.id)"></i></a></td>
+												</tr>
+                                                </tbody>
+                                            </table>
+
+                                            <div class="hr-line-dashed"></div>			
+
 								<h4>
 									<?php echo $this->translate('Specialism  <small>- with <i class="fa fa-check"></i> means field tested and pass.</small>') ?>
 								</h4>
@@ -245,9 +370,131 @@ $this->inlineScript()
 						</div>
 						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['desktop'] == 1" >
 							<div class="ibox-title">
-								<h3><i class="fa fa-desktop"></i> <?php echo $this->translate('Desktop Publishing') ?></h3>
+								<h5><i class="fa fa-desktop"></i> <?php echo $this->translate('Desktop Publishing') ?></h5>
+								<div class="ibox-tools">
+                                    <a data-toggle="collapse" href="#desktop_client" class="btn btn-primary btn-xs"><i class="fa fa-search"></i><?php echo $this->translate('Search Clients') ?></a>
+                                </div>
 							</div>
 							<div class="ibox-content">
+								<div class="row">
+                                                <div class="col-lg-12">
+                                                    <div id="desktop_client" class="panel-collapse collapse faq-answer">
+                                                        <form method="" class="form-horizontal">
+                                                            <div class="row">
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Name') ?></label>
+																		<div class="col-sm-8"><input type="text" class="form-control" ng-model="searchParamsDesktop.name" ></div>
+                                                                    </div>
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Company') ?></label>
+																		<div class="col-sm-8">
+																			<select class="form-control" id="company" name="company" ng-model="searchParamsDesktop.company" >
+																				<option value=""></option>
+																				<option ng-repeat="company in companies" ng-value="company.id">{{company.name}}</option>
+																			</select>
+																		</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('ID') ?></label>
+																		<div class="col-sm-8"><input ng-model="searchParamsDesktop.idEmployer" type="text" class="form-control" ></div>
+                                                                    </div>
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Country') ?></label>
+																		<div class="col-sm-8">
+																			<select class="form-control" name="" ng-model="searchParamsDesktop.country" >
+																				<option value=""></option>
+																				<option ng-repeat="country in countries" ng-value="country.id">{{country.name}}</option>													  
+																			</select>
+																		</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Email') ?></label>
+																		<div class="col-sm-8"><input type="text" class="form-control" ng-model="searchParamsDesktop.email"></div>
+                                                                    </div>
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Currency') ?></label>
+																		<div class="col-sm-8">
+																			<select class="form-control" name="" ng-model="searchParamsDesktop.currency" >
+																			  <option></option>
+																			  <option value="cny">CNY</option>
+																			  <option value="usd">USD</option>
+																			</select>
+																		</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-right tooltip-demo">
+																<a href="#" class="btn btn-sm btn-primary" ng-click="advancedSearchDesktop()"><i class="fa fa-search"></i> <?php echo $this->translate('Search') ?></a>
+																<a href="#" class="btn btn-white btn-sm" type="reset" ng-click="resetDesktop()"><i class="fa fa-times"></i> <?php echo $this->translate('Reset') ?></a>
+                                                            </div>
+                                                        </form>
+                                                        <div class="project-list">
+                                                            <table class="table table-hover">
+                                                                <tbody>
+																	<tr ng-repeat="employer in desktop_employers">
+																		<td class="project-status" width="1%">
+																			<span ng-if="employer.isActive=='1'" class="label label-primary"><?php echo $this->translate('Active') ?></span>
+																			<span  ng-if="employer.isActive=='0'" class="label label-default"><?php echo $this->translate('Unactive') ?></span>
+																		</td>
+																		<td class="project-title">
+																			<strong><i class="fa fa-user"></i> {{employer.lastName}}&nbsp;{{employer.firstName}}</strong>
+																			<br/>
+																			<small><?php echo $this->translate('Created') ?> {{employer.createdTime}}</small>
+																		</td>
+																		<td class="project-title">
+																			<strong><i class="fa fa-envelope"></i> {{employer.email}}</strong>
+																			<br/>
+																			<small>{{employer.employer.position}}</small>
+																		</td>
+																		<td class="project-title">
+																			<strong><i class="fa fa-building"></i> {{employer.employer.company.name}}</strong>
+																			<br/>
+																			<small>{{employer.country.name}}</small>
+																		</td>
+																		<td class="project-actions">
+																			<a href="#" class="btn btn-white btn-sm" ng-click="addClientDesktop(employer.employer,employer.id)" ><?php echo $this->translate('Add') ?></a>
+																		</td>
+																	</tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+														<div class="btn-group text-right">
+															<button type="button" class="btn btn-white" ng-class="pagesDesktop.previous?'':'disabled'" ng-click="onBtnPreviousDesktopClicked()"><i class="fa fa-chevron-left"></i></button>
+															<button ng-repeat="page in pagesDesktop.pagesInRange" class="btn btn-white" ng-class="page==pagesDesktop.current?'active':''" ng-click="onBtnGotoTranslation(page-1)">{{page}}</button>
+															<button type="button" class="btn btn-white"	ng-class="pagesDesktop.next?'':'disabled'" ng-click="onBtnNextDesktopClicked()"><i class="fa fa-chevron-right"></i></button>						
+														</div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+								<h4>Clients <small>- means freelancer can do tasks for these clients.</small></h4>
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Name</th>
+                                                    <th>Company</th>
+                                                    <th>Task Done</th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+												<tr ng-repeat="employer in clientsDesktop">
+													<td>{{$index + 1}}</td>
+													<td><a href="">{{employer.client.name}}&nbsp</a></td>
+													<td>{{employer.client.company.name}}</td>
+													<td>88</td>
+													<td><a href=""><i class="fa fa-trash-o text-danger" ng-click="deleteClientDesktop(employer , employer.id)"></i></a></td>
+												</tr>
+                                                </tbody>
+                                            </table>
+
+                                            <div class="hr-line-dashed"></div>			
 								<h4>Operating System </h4>
 
 								<div class="row file-manager">
@@ -335,9 +582,131 @@ $this->inlineScript()
 						</div>-->
 						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['interpreting'] == 1" >
 							<div class="ibox-title">
-								<h3><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></h3>
+								<h5><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></h5>
+								<div class="ibox-tools">
+                                    <a data-toggle="collapse" href="#interpreting_client" class="btn btn-primary btn-xs"><i class="fa fa-search"></i><?php echo $this->translate('Search Clients') ?></a>
+                                </div>
 							</div>
 							<div class="ibox-content">
+							<div class="row">
+                                                <div class="col-lg-12">
+                                                    <div id="interpreting_client" class="panel-collapse collapse faq-answer">
+                                                        <form method="" class="form-horizontal">
+                                                            <div class="row">
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Name') ?></label>
+																		<div class="col-sm-8"><input type="text" class="form-control" ng-model="searchParamsInterpreting.name" ></div>
+                                                                    </div>
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Company') ?></label>
+																		<div class="col-sm-8">
+																			<select class="form-control" id="company" name="company" ng-model="searchParamsInterpreting.company" >
+																				<option value=""></option>
+																				<option ng-repeat="company in companies" ng-value="company.id">{{company.name}}</option>
+																			</select>
+																		</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('ID') ?></label>
+																		<div class="col-sm-8"><input ng-model="searchParamsInterpreting.idEmployer" type="text" class="form-control" ></div>
+                                                                    </div>
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Country') ?></label>
+																		<div class="col-sm-8">
+																			<select class="form-control" name="" ng-model="searchParamsInterpreting.country" >
+																				<option value=""></option>
+																				<option ng-repeat="country in countries" ng-value="country.id">{{country.name}}</option>													  
+																			</select>
+																		</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Email') ?></label>
+																		<div class="col-sm-8"><input type="text" class="form-control" ng-model="searchParamsInterpreting.email"></div>
+                                                                    </div>
+                                                                    <div class="form-group">
+																		<label class="col-sm-4 control-label"><?php echo $this->translate('Currency') ?></label>
+																		<div class="col-sm-8">
+																			<select class="form-control" name="" ng-model="searchParamsInterpreting.currency" >
+																			  <option></option>
+																			  <option value="cny">CNY</option>
+																			  <option value="usd">USD</option>
+																			</select>
+																		</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-right tooltip-demo">
+																<a href="#" class="btn btn-sm btn-primary" ng-click="advancedSearchInterpreting()"><i class="fa fa-search"></i> <?php echo $this->translate('Search') ?></a>
+																<a href="#" class="btn btn-white btn-sm" type="reset" ng-click="resetInterpreting()"><i class="fa fa-times"></i> <?php echo $this->translate('Reset') ?></a>
+                                                            </div>
+                                                        </form>
+                                                        <div class="project-list">
+                                                            <table class="table table-hover">
+                                                                <tbody>
+																	<tr ng-repeat="employer in interpreting_employers">
+																		<td class="project-status" width="1%">
+																			<span ng-if="employer.isActive=='1'" class="label label-primary"><?php echo $this->translate('Active') ?></span>
+																			<span  ng-if="employer.isActive=='0'" class="label label-default"><?php echo $this->translate('Unactive') ?></span>
+																		</td>
+																		<td class="project-title">
+																			<strong><i class="fa fa-user"></i> {{employer.lastName}}&nbsp;{{employer.firstName}}</strong>
+																			<br/>
+																			<small><?php echo $this->translate('Created') ?> {{employer.createdTime}}</small>
+																		</td>
+																		<td class="project-title">
+																			<strong><i class="fa fa-envelope"></i> {{employer.email}}</strong>
+																			<br/>
+																			<small>{{employer.employer.position}}</small>
+																		</td>
+																		<td class="project-title">
+																			<strong><i class="fa fa-building"></i> {{employer.employer.company.name}}</strong>
+																			<br/>
+																			<small>{{employer.country.name}}</small>
+																		</td>
+																		<td class="project-actions">
+																			<a href="#" class="btn btn-white btn-sm" ng-click="addClientInterpreting(employer.employer , employer.id)" ><?php echo $this->translate('Add') ?></a>
+																		</td>
+																	</tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+														<div class="btn-group text-right">
+															<button type="button" class="btn btn-white" ng-class="pagesInterpreting.previous?'':'disabled'" ng-click="onBtnPreviousInterpretingClicked()"><i class="fa fa-chevron-left"></i></button>
+															<button ng-repeat="page in pagesInterpreting.pagesInRange" class="btn btn-white" ng-class="page==pagesInterpreting.current?'active':''" ng-click="onBtnGotoInterpreting(page-1)">{{page}}</button>
+															<button type="button" class="btn btn-white"	ng-class="pagesInterpreting.next?'':'disabled'" ng-click="onBtnNextInterpretingClicked()"><i class="fa fa-chevron-right"></i></button>						
+														</div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+								<h4>Clients <small>- means freelancer can do tasks for these clients.</small></h4>
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Name</th>
+                                                    <th>Company</th>
+                                                    <th>Task Done</th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+												<tr ng-repeat="employer in clientsInterpreting">
+													<td>{{$index + 1}}</td>
+													<td><a href="">{{employer.client.name}}&nbsp</a></td>
+													<td>{{employer.client.company.name}}</td>
+													<td>88</td>
+													<td><a href=""><i class="fa fa-trash-o text-danger" ng-click="deleteClientInterpreting(employer , employer.id)"></i></a></td>
+												</tr>
+                                                </tbody>
+                                            </table>
+
+                                            <div class="hr-line-dashed"></div>	
 								<h4><?php echo $this->translate('Specialism') ?></h4>
 
 								<div class="row file-manager">
