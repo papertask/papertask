@@ -61,7 +61,7 @@
 																<td>{{$index + 1}}</td>
 																<td>{{tp.sourceLanguage.name}}</td>
 																<td>{{tp.targetLanguage.name}}</td>
-																<td>{{tp.price}}</td>
+																<td>{{tp.price | number:2 }}</td>
 																<td>
 																	<a href="#" ng-click="editTranslationPrice($index, tp.id)" onclick="return false;">
 																		<i class="fa fa-edit"></i>
@@ -127,10 +127,10 @@
 																<td>{{$index + 1}}</td>
 																<td>{{desktopPrice.language.name}}</td>
 																<td>{{desktopPrice.software.name}}</td>
-																<td>{{desktopPrice.priceMac}}</td>
-																<td>{{desktopPrice.pricePc}}</td>
-																<td>{{desktopPrice.priceHourMac}}</td>
-																<td>{{desktopPrice.priceHourPc}}</td>
+																<td>{{desktopPrice.priceMac | number:2 }}</td>
+																<td>{{desktopPrice.pricePc | number:2 }}</td>
+																<td>{{desktopPrice.priceHourMac | number:2 }}</td>
+																<td>{{desktopPrice.priceHourPc | number:2 }}</td>
 																<td>
 																	<a data-toggle="modal" href="#modal-dtp" ng-click="editDesktopPrice($index)" onclick="return false;"><i class="fa fa-edit"></i></a>
 																	<a href="#" ng-click="deleteDesktopPrice($index, desktopPrice.id)" onClick="return false;"><i class="fa fa-trash-o text-danger"></i></a>
@@ -180,10 +180,10 @@
 																<td>{{interpretingPrice.sourceLanguage.name}}</td>
 																<td>{{interpretingPrice.targetLanguage.name}}</td>
 																<td>{{interpretingPrice.service.name}}</td>
-																<td>{{interpretingPrice.priceDay}}</td>
-																<td>{{interpretingPrice.priceHalfDay}}</td>
+																<td>{{interpretingPrice.priceDay | number:2 }}</td>
+																<td>{{interpretingPrice.priceHalfDay | number:2 }}</td>
 																<td>
-																	<a data-toggle="modal" href="#modal-eng" ng-click="editEngineeringPrice($index)" onclick="return false;"><i class="fa fa-edit"></i></a>
+																	<a data-toggle="modal" href="#" ng-click="editInterpretingPrice($index)" onclick="return false;"><i class="fa fa-edit"></i></a>
 																	<a href="#" ng-click="deleteEngineeringPrice($index, interpretingPrice.id)" onclick="return false;"><i class="fa fa-trash-o text-danger"></i></a>
 																</td>
 															</tr>

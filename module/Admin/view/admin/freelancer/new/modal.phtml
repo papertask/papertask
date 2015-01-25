@@ -14,13 +14,13 @@
 								<div class="form-group">
 									<label>Category *</label>
 									<select class="form-control required" ng-model="engineerPrice.engineeringCategory"
-										ng-options="engineerCategory.category for engineerCategory in engineeringCategories">
+										ng-options="engineerCategory.category for engineerCategory in engineeringCategories track by engineerCategory.id">
 									</select>
 								</div>
 								<div class="form-group">
 									<label>Unit *</label>
 									<select class="form-control required" ng-model="engineerPrice.unit"
-										ng-options="unit.name for unit in units">
+										ng-options="unit.name for unit in units track by unit.id">
 									</select>
 								</div>
 								<div class="form-group">
@@ -58,14 +58,14 @@
 	                                <label>Source Language *</label>
 	                                <select class="form-control required" name="sourceLanguage"
 	                                        ng-model="translationPrice.sourceLanguage"
-	                                        ng-options="language.name for language in languages">
+	                                        ng-options="language.name for language in languages track by language.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Target Language *</label>
 	                                <select class="form-control required" name="targetLanguage"
 	                                        ng-model="translationPrice.targetLanguage"
-	                                        ng-options="language.name for language in languages">
+	                                        ng-options="language.name for language in languages track by language.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
@@ -128,7 +128,7 @@
                                     <label>Country *</label>
                                     <select class="form-control required" id="country" name="country" value=""
                                             ng-model="company.country"
-                                            ng-options="country.name for country in countries">
+                                            ng-options="country.name for country in countries track by country.id">
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -167,14 +167,14 @@
 	                                <label>Languages *</label>
 	                                <select class="form-control required" name="language"
 	                                        ng-model="desktopPrice.language"
-	                                        ng-options="language.name for language in languages">
+	                                        ng-options="language.name for language in languages track by language.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
 	                                <label>DTP software *</label>
 	                                <select class="form-control required" name="software"
 	                                        ng-model="desktopPrice.software"
-	                                        ng-options="software.name for software in softwares">
+	                                        ng-options="software.name for software in softwares track by software.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
@@ -229,27 +229,27 @@
 	                                <label>Source Language *</label>
 	                                <select class="form-control required" name="sourceLanguage"
 	                                        ng-model="interpretingPrice.sourceLanguage"
-	                                        ng-options="language.name for language in languages">
+	                                        ng-options="language.name for language in languages track by language.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Target Language *</label>
 	                                <select class="form-control required" name="targetLanguage"
 	                                        ng-model="interpretingPrice.targetLanguage"
-	                                        ng-options="language.name for language in languages">
+	                                        ng-options="language.name for language in languages track by language.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Interpreting Service *</label>
 	                                <select class="form-control required" name="service"
 	                                        ng-model="interpretingPrice.service"
-	                                        ng-options="service.name for service in services">
+	                                        ng-options="service.name for service in services track by service.id">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Price/Day *</label>
 	                                <input name="priceDay" type="number" class="form-control required"
-	                                       ng-model="interpretingPrice.priceDay">
+	                                       ng-model="interpretingPrice.priceDay" value="{{interpretingPrice.priceDay}}">
 	                            </div>
 	                            <div class="form-group">
 	                                <label>Price/Half-day *</label>

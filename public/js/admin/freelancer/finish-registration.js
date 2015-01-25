@@ -460,12 +460,17 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
     }
     $scope.editDesktopPrice = function ( ind ) {
     	$scope.editDtp = ind;
+		$scope.desktopPricesP[ind].priceMac = Number($scope.desktopPricesP[ind].priceMac);
+		$scope.desktopPricesP[ind].pricePc = Number($scope.desktopPricesP[ind].pricePc);
+		$scope.desktopPricesP[ind].priceHourMac = Number($scope.desktopPricesP[ind].priceHourMac);
+		$scope.desktopPricesP[ind].priceHourPc = Number($scope.desktopPricesP[ind].priceHourPc);
+		
     	setModalControllerData('desktopPriceP', $scope.desktopPricesP[ind]);
     	jQuery("#modal-dtp").modal("show");
     }
 	$scope.addDesktopPrice = function(){
 		setModalControllerData('desktopPriceP', $scope.dtpPricePlaceholder);
-		$scope.editTranslation = -1;
+		$scope.editDtp = -1;
 		jQuery("#modal-dtp").modal("show");
 	}
     $scope.deleteDesktopPrice = function ( ind, did ) {
@@ -543,6 +548,8 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
     }
     $scope.editInterpretingPrice = function (ind) {
     	$scope.editInterpreting = ind;
+		$scope.interpretingPricesP[ind].priceDay = Number($scope.interpretingPricesP[ind].priceDay);
+		$scope.interpretingPricesP[ind].priceHalfDay = Number($scope.interpretingPricesP[ind].priceHalfDay);
     	setModalControllerData('interpretingPriceP', $scope.interpretingPricesP[ind]);
     	jQuery("#modal-interpreting").modal("show");
     }

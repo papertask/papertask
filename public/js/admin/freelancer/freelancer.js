@@ -230,11 +230,15 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     	setModalControllerData('translationPrice', {
     		sourceLanguage: $scope.translationPrices[index].sourceLanguage,
     		targetLanguage: $scope.translationPrices[index].targetLanguage,
-    		price: $scope.translationPrices[index].price
+    		price: Number($scope.translationPrices[index].price)
     	});
     	jQuery("#modal-translation").modal("show");
     }
-    
+    $scope.addTranslationPrice = function(){
+		setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
+		$scope.editTranslation = -1;
+		jQuery("#modal-translation").modal("show");
+	}
     /**
      * Desktop Price
      */
@@ -275,9 +279,18 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     }
     $scope.editDesktopPrice = function ( ind ) {
     	$scope.editDtp = ind;
+		$scope.desktopPrices[ind].priceMac = Number($scope.desktopPrices[ind].priceMac);
+		$scope.desktopPrices[ind].pricePc = Number($scope.desktopPrices[ind].pricePc);
+		$scope.desktopPrices[ind].priceHourMac = Number($scope.desktopPrices[ind].priceHourMac);
+		$scope.desktopPrices[ind].priceHourPc = Number($scope.desktopPrices[ind].priceHourPc);
     	setModalControllerData('desktopPrice', $scope.desktopPrices[ind]);
     	jQuery("#modal-dtp").modal("show");
     }
+	$scope.addDesktopPrice = function(){
+		setModalControllerData('desktopPrice', $scope.dtpPricePlaceholder);
+		$scope.editDtp = -1;
+		jQuery("#modal-dtp").modal("show");
+	}
     $scope.deleteDesktopPrice = function ( ind ) {
     	$scope.desktopPrices.splice(ind, 1);
     }
@@ -319,9 +332,16 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     }
     $scope.editInterpretingPrice = function (ind) {
     	$scope.editInterpreting = ind;
+		$scope.interpretingPrices[ind].priceDay = Number($scope.interpretingPrices[ind].priceDay);
+		$scope.interpretingPrices[ind].priceHalfDay = Number($scope.interpretingPrices[ind].priceHalfDay);
     	setModalControllerData('interpretingPrice', $scope.interpretingPrices[ind]);
     	jQuery("#modal-interpreting").modal("show");
     }
+	$scope.addInterpretingPrice = function(){
+		setModalControllerData('interpretingPrice', $scope.interpretingPricePlaceholder);
+		$scope.editTranslation = -1;
+		jQuery("#modal-interpreting").modal("show");
+	}
     $scope.deleteInterpretingPrice = function (ind) {
     	$scope.interpretingPrices.splice( ind, 1 );
     }
