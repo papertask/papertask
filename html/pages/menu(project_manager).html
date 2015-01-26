@@ -43,28 +43,44 @@
                         </div>
 
                     </li>
-                    <li>
+                    <li> <!-- different roles have different dashboard, a little bit different, can do at last -->
                         <a href="dashboard.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
                     </li>
 
-                    <li>
-                        <a href="tasks_pool.html"><i class="fa fa-tasks"></i> <span class="nav-label">Task Pool</span></a>
-                    </li>
-
-                    <li> <!-- tests(freelancer view).html -->
-                        <a href="tests.html"><i class="fa fa-file-text-o"></i> <span class="nav-label">My Tests</span> </a>
+                    <li> <!-- admin, operation manager can see all info, pm can only see tasks belong to the clients who assigned to the pm, sales dir and sales manager can not see this -->
+                        <a href="tasks.html"><i class="fa fa-tasks"></i> <span class="nav-label">Tasks</span></a>
                     </li>
 
                     <li>
-                        <a href="my_tasks.html"><i class="fa fa-files-o"></i> <span class="nav-label">My Tasks</span> <span class="label label-warning">1</span></a>
+                        <a href="quotes.html"><i class="fa fa-files-o"></i> <span class="nav-label">Quotes</span></a>
+                    </li>
+
+                    <li> <!-- admin, sales director, operation manager can see full info, sales manager and pm can only see clients belong to them -->
+                        <a href="projects.html"><i class="fa fa-archive"></i> <span class="nav-label">Projects</span> <span class="label label-warning pull-right">16</span></a>
                     </li>
 
                     <li>
                         <a href="#"><i class="fa fa-book"></i> <span class="nav-lable">Finance</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="payments.html">Transactions</a></li> 
-                            <li><a href="unpaid_tasks.html">Unpaid Tasks</a></li>
-                            <li><a href="edit_payment_info.html">Edit Payment Info</a></li>
+                            <li><a href="transaction.html">Transactions</a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
+                            <li><a href="client-unpaid.html">Unpaid Projects</a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
+                            <li><a href="freelancer-unpaid.html">Unpaid Tasks</a></li>  <!-- admin, operation manager can see, and PM can see, but sales and sales director can not see -->
+                        </ul>
+                    </li>
+
+                    <li> <!-- sales director, and sales manager can not see/create resources, only admin, operation manager and project manager can see and create -->
+                        <a href="#"><i class="fa fa-globe"></i> <span class="nav-lable">Freelancers</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="freelancers.html">Freelancer List</a></li>
+                            <li><a href="freelancer-new.html">New Freelancer</a></li>
+                        </ul>
+                    </li>
+
+                    <li> <!-- admin, operation manager and sales director can see this, and can create, sales manager can only see client's belong to him/her, and can create client -->
+                        <a href="#"><i class="fa fa-briefcase"></i> <span class="nav-lable">Clients</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="clients.html">CLient List</a></li>
+                            <li><a href="client-new.html">New Client</a></li>
                         </ul>
                     </li>
 
