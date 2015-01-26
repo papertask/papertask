@@ -161,18 +161,29 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     	if ( $scope.editTranslation == -1 ) {
 			console.log("translationPrice_first");
 			console.log($scope.translationPrices);
-    		$http.post("/api/user/translationprice", 
-				{
-    				userId: USER_ID,
-					sourceLanguageId: translationPrice.sourceLanguage.id, 
-					targetLanguageId: translationPrice.targetLanguage.id, 
-					price: translationPrice.price
-				}).success(function( data ) {
-					
-					$scope.translationPrices.push( {sourceLanguage: data.translationPrice.sourceLanguage, targetLanguage: data.translationPrice.targetLanguage, price: data.translationPrice.price, id: data.translationPrice.id});
-					console.log("translationPrice_after");
-					console.log($scope.translationPrices);
-				});
+			var checkexist = true;
+			for(i=0 ; i < $scope.translationPrices.length; i++)
+			{
+				if(translationPrice.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && translationPrice.targetLanguage.id == $scope.translationPrices[i].targetLanguage.id )
+					checkexist = false;
+			}
+			if(checkexist){
+				$http.post("/api/user/translationprice", 
+					{
+						userId: USER_ID,
+						sourceLanguageId: translationPrice.sourceLanguage.id, 
+						targetLanguageId: translationPrice.targetLanguage.id, 
+						price: translationPrice.price
+					}).success(function( data ) {
+						
+						$scope.translationPrices.push( {sourceLanguage: data.translationPrice.sourceLanguage, targetLanguage: data.translationPrice.targetLanguage, price: data.translationPrice.price, id: data.translationPrice.id});
+						console.log("translationPrice_after");
+						console.log($scope.translationPrices);
+					});
+			}
+			else{
+				bootbox.alert( EXITS_CONFIRM_TEXT);
+			}		
     	} else {
 		
     		$http.put("/api/user/" + translationPrice.id + "/translationprice", 
@@ -227,17 +238,28 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     }
     $scope.saveDesktopPrice = function (desktopPrice ) {
     	if ( $scope.editDtp == -1) {
-    		$http.post("/api/user/desktopprice", {
-    			userId: USER_ID,
-    			languageId: desktopPrice.language.id,
-    			softwareId: desktopPrice.software.id,
-    			priceHourMac: desktopPrice.priceHourMac,
-    			priceMac: desktopPrice.priceMac,
-    			pricePc: desktopPrice.pricePc,
-    			priceHourPc: desktopPrice.priceHourPc
-    		}).success(function (data){
-    			$scope.desktopPrices.push ( data.desktopPrice );
-    		});
+			var checkexist = true;
+			for(i=0 ; i < $scope.desktopPrices.length; i++)
+			{
+				if(desktopPrice.language.id == $scope.desktopPrices[i].language.id && desktopPrice.software.id == $scope.desktopPrices[i].software.id )
+					checkexist = false;
+			}
+			if(checkexist){
+				$http.post("/api/user/desktopprice", {
+					userId: USER_ID,
+					languageId: desktopPrice.language.id,
+					softwareId: desktopPrice.software.id,
+					priceHourMac: desktopPrice.priceHourMac,
+					priceMac: desktopPrice.priceMac,
+					pricePc: desktopPrice.pricePc,
+					priceHourPc: desktopPrice.priceHourPc
+				}).success(function (data){
+					$scope.desktopPrices.push ( data.desktopPrice );
+				});
+			}
+			else{
+				bootbox.alert( EXITS_CONFIRM_TEXT);
+			}
     	} else {
     		$http.put("/api/user/" + desktopPrice.id + "/desktopprice", {
     			userId: USER_ID,
@@ -298,16 +320,28 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     $scope.saveInterpretingPrice = function ( interpretingPrice ) {
     	console.log ( interpretingPrice);
     	if ( $scope.editInterpreting == -1) {
-    		$http.post("/api/user/interpretingprice", {
-    			userId: USER_ID,
-    			priceDay: interpretingPrice.priceDay,
-    			priceHalfDay: interpretingPrice.priceHalfDay,
-    			sourceLanguageId: interpretingPrice.sourceLanguage.id,
-    			targetLanguageId: interpretingPrice.targetLanguage.id,
-    			serviceId: interpretingPrice.service.id
-    		}).success(function( data ){
-    			$scope.interpretingPrices.push ( data.interpretingPrice );
-    		});
+			var checkexist = true;
+			for(i=0 ; i < $scope.interpretingPrices.length; i++)
+			{
+				if(interpretingPrice.sourceLanguage.id == $scope.interpretingPrices[i].sourceLanguage.id && interpretingPrice.targetLanguage.id == $scope.interpretingPrices[i].targetLanguage.id 
+				&& interpretingPrice.service.id == $scope.interpretingPrices[i].service.id)
+					checkexist = false;
+			}
+			if(checkexist){
+				$http.post("/api/user/interpretingprice", {
+					userId: USER_ID,
+					priceDay: interpretingPrice.priceDay,
+					priceHalfDay: interpretingPrice.priceHalfDay,
+					sourceLanguageId: interpretingPrice.sourceLanguage.id,
+					targetLanguageId: interpretingPrice.targetLanguage.id,
+					serviceId: interpretingPrice.service.id
+				}).success(function( data ){
+					$scope.interpretingPrices.push ( data.interpretingPrice );
+				});
+			}
+			else{
+				bootbox.alert( EXITS_CONFIRM_TEXT);
+			}			
     	} else {
     		$http.put("/api/user/" + interpretingPrice.id + "/interpretingprice", {
     			userId: USER_ID,

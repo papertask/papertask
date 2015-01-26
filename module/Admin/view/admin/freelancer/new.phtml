@@ -24,6 +24,7 @@ $this->headScript()
 $this->inlineScript()
     ->prependScript("
         var LANG_CODE = '" . $this->lang_code . "';
+		var EXITS_CONFIRM_TEXT = '" . $this->translate('This option was existed, please choose other') . "';
         ");	
 		
 ?>

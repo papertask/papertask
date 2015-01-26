@@ -264,7 +264,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     			});
     	}
     	jQuery("#modal-translation").modal("hide");
-    	setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
+    	setModalControllerData('translationPrice', []);
     	$scope.editTranslation = -1;
     };
     
@@ -329,7 +329,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	}
     	
     	jQuery("#modal-dtp").modal("hide");
-    	setModalControllerData('desktopPrice', $scope.dtpPricePlaceholder);
+    	setModalControllerData('desktopPrice', []);
     	$scope.editDtp = -1;
     }
     $scope.editDesktopPrice = function ( ind ) {
@@ -387,7 +387,7 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	}
     	
     	jQuery("#modal-interpreting").modal("hide");
-    	setModalControllerData('interpretingPrice', $scope.interpretingPricePlaceholder);
+    	setModalControllerData('interpretingPrice', []);
     	$scope.editInterpreting = -1;
     }
     $scope.editInterpretingPrice = function (ind) {

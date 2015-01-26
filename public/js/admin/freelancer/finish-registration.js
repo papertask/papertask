@@ -326,15 +326,26 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
 		console.log(translationPriceP);
 		
 		if ( $scope.editTranslation==-1 ) {
-    		$http.post("/api/user/translationpricep", 
-				{
-    				userId: USER_ID,
-					sourceLanguageId: translationPriceP.sourceLanguage.id, 
-					targetLanguageId: translationPriceP.targetLanguage.id, 
-					price: translationPriceP.price
-				}).success(function( data ) {
-					$scope.translationPricesP.push( data.translationPriceP );
-    			});
+			var checkexist = true;
+			for(i=0 ; i < $scope.translationPricesP.length; i++)
+			{
+				if(translationPriceP.sourceLanguage.id == $scope.translationPricesP[i].sourceLanguage.id && translationPriceP.targetLanguage.id == $scope.translationPricesP[i].targetLanguage.id )
+					checkexist = false;
+			}
+			if(checkexist){
+				$http.post("/api/user/translationpricep", 
+					{
+						userId: USER_ID,
+						sourceLanguageId: translationPriceP.sourceLanguage.id, 
+						targetLanguageId: translationPriceP.targetLanguage.id, 
+						price: translationPriceP.price
+					}).success(function( data ) {
+						$scope.translationPricesP.push( data.translationPriceP );
+					});
+			}
+			else{
+				bootbox.alert( EXITS_CONFIRM_OPTION_TEXT);
+			}	
     	} else {
 		
     		$http.put("/api/user/" + translationPriceP.id + "/translationpricep", 
@@ -409,17 +420,28 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
 		console.log(desktopPriceP);
     	
 		if ( $scope.editDtp == -1) {
-    		$http.post("/api/user/desktoppricep", {
-    			userId: USER_ID,
-    			languageId: desktopPriceP.language.id,
-    			softwareId: desktopPriceP.software.id,
-    			priceHourMac: desktopPriceP.priceHourMac,
-    			priceMac: desktopPriceP.priceMac,
-    			pricePc: desktopPriceP.pricePc,
-    			priceHourPc: desktopPriceP.priceHourPc
-    		}).success(function (data){
-    			$scope.desktopPricesP.push ( data.desktopPriceP );
-    		});
+			var checkexist = true;
+			for(i=0 ; i < $scope.desktopPricesP.length; i++)
+			{
+				if(desktopPriceP.language.id == $scope.desktopPricesP[i].language.id && desktopPriceP.software.id == $scope.desktopPricesP[i].software.id )
+					checkexist = false;
+			}
+			if(checkexist){
+				$http.post("/api/user/desktoppricep", {
+					userId: USER_ID,
+					languageId: desktopPriceP.language.id,
+					softwareId: desktopPriceP.software.id,
+					priceHourMac: desktopPriceP.priceHourMac,
+					priceMac: desktopPriceP.priceMac,
+					pricePc: desktopPriceP.pricePc,
+					priceHourPc: desktopPriceP.priceHourPc
+				}).success(function (data){
+					$scope.desktopPricesP.push ( data.desktopPriceP );
+				});
+			}
+			else{
+				bootbox.alert( EXITS_CONFIRM_OPTION_TEXT);
+			}	
     	} else {
     		$http.put("/api/user/" + desktopPriceP.id + "/desktoppricep", {
     			userId: USER_ID,
@@ -501,16 +523,28 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
     $scope.saveInterpretingPrice = function ( interpretingPriceP ) {
     	
 		if ( $scope.editInterpreting == -1) {
-    		$http.post("/api/user/interpretingpricep", {
-    			userId: USER_ID,
-    			priceDay: interpretingPriceP.priceDay,
-    			priceHalfDay: interpretingPriceP.priceHalfDay,
-    			sourceLanguageId: interpretingPriceP.sourceLanguage.id,
-    			targetLanguageId: interpretingPriceP.targetLanguage.id,
-    			serviceId: interpretingPriceP.service.id
-    		}).success(function( data ){
-    			$scope.interpretingPricesP.push ( data.interpretingPriceP );
-    		});
+			var checkexist = true;
+			for(i=0 ; i < $scope.interpretingPricesP.length; i++)
+			{
+				if(interpretingPriceP.sourceLanguage.id == $scope.interpretingPricesP[i].sourceLanguage.id && interpretingPriceP.targetLanguage.id == $scope.interpretingPricesP[i].targetLanguage.id 
+				&& interpretingPriceP.service.id == $scope.interpretingPricesP[i].service.id)
+					checkexist = false;
+			}
+			if(checkexist){
+				$http.post("/api/user/interpretingpricep", {
+					userId: USER_ID,
+					priceDay: interpretingPriceP.priceDay,
+					priceHalfDay: interpretingPriceP.priceHalfDay,
+					sourceLanguageId: interpretingPriceP.sourceLanguage.id,
+					targetLanguageId: interpretingPriceP.targetLanguage.id,
+					serviceId: interpretingPriceP.service.id
+				}).success(function( data ){
+					$scope.interpretingPricesP.push ( data.interpretingPriceP );
+				});
+			}
+			else{
+				bootbox.alert( EXITS_CONFIRM_OPTION_TEXT);
+			}	
     	} else {
     		$http.put("/api/user/" + interpretingPriceP.id + "/interpretingpricep", {
     			userId: USER_ID,

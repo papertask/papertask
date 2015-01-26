@@ -207,8 +207,22 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     
     $scope.saveTranslationPrice = function( translationPrice ){
     	if ( $scope.editTranslation == -1 ) {
-    		$scope.translationPrices.push({sourceLanguage: translationPrice.sourceLanguage, targetLanguage: translationPrice.targetLanguage, price: translationPrice.price});
-    	} else {
+			//check existed options
+			console.log($scope.translationPrices);
+			console.log(translationPrice);
+			
+			var checkexist = true;
+			for(i=0 ; i < $scope.translationPrices.length; i++)
+			{
+				if(translationPrice.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && translationPrice.targetLanguage.id == $scope.translationPrices[i].targetLanguage.id )
+					checkexist = false;
+			}
+			if(checkexist)
+				$scope.translationPrices.push({sourceLanguage: translationPrice.sourceLanguage, targetLanguage: translationPrice.targetLanguage, price: translationPrice.price});
+			else { 
+				bootbox.alert( EXITS_CONFIRM_TEXT);
+			}	
+		} else {
     		$scope.translationPrices[$scope.editTranslation] = {sourceLanguage: translationPrice.sourceLanguage, targetLanguage: translationPrice.targetLanguage, price: translationPrice.price}
     	}
     	jQuery("#modal-translation").modal("hide");
@@ -250,14 +264,25 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     }
     $scope.saveDesktopPrice = function (desktopPrice ) {
     	if ( $scope.editDtp == -1) {
-    		$scope.desktopPrices.push ({
-        		language: desktopPrice.language,
-        		priceHourMac: desktopPrice.priceHourMac,
-        		priceHourPc: desktopPrice.priceHourPc,
-        		priceMac: desktopPrice.priceMac,
-        		pricePc: desktopPrice.pricePc,
-        		software: desktopPrice.software
-        	});
+			var checkexist = true;
+			for(i=0 ; i < $scope.desktopPrices.length; i++)
+			{
+				if(desktopPrice.language.id == $scope.desktopPrices[i].language.id && desktopPrice.software.id == $scope.desktopPrices[i].software.id )
+					checkexist = false;
+			}
+			if(checkexist){
+				$scope.desktopPrices.push ({
+					language: desktopPrice.language,
+					priceHourMac: desktopPrice.priceHourMac,
+					priceHourPc: desktopPrice.priceHourPc,
+					priceMac: desktopPrice.priceMac,
+					pricePc: desktopPrice.pricePc,
+					software: desktopPrice.software
+				});
+			}
+			else{
+				bootbox.alert( EXITS_CONFIRM_TEXT);
+			}
     	} else {
     		$scope.desktopPrices[$scope.editDtp] = {
         		language: desktopPrice.language,
@@ -306,13 +331,25 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     }
     $scope.saveInterpretingPrice = function ( interpretingPrice ) {
     	if ( $scope.editInterpreting == -1) {
-    		$scope.interpretingPrices.push ({
-    			priceDay: interpretingPrice.priceDay,
-    			priceHalfDay: interpretingPrice.priceHalfDay,
-    			service: interpretingPrice.service,
-    			sourceLanguage: interpretingPrice.sourceLanguage,
-    			targetLanguage: interpretingPrice.targetLanguage
-        	});
+			var checkexist = true;
+			for(i=0 ; i < $scope.interpretingPrices.length; i++)
+			{
+				if(interpretingPrice.sourceLanguage.id == $scope.interpretingPrices[i].sourceLanguage.id && interpretingPrice.targetLanguage.id == $scope.interpretingPrices[i].targetLanguage.id 
+				&& interpretingPrice.service.id == $scope.interpretingPrices[i].service.id)
+					checkexist = false;
+			}
+			if(checkexist){
+				$scope.interpretingPrices.push ({
+					priceDay: interpretingPrice.priceDay,
+					priceHalfDay: interpretingPrice.priceHalfDay,
+					service: interpretingPrice.service,
+					sourceLanguage: interpretingPrice.sourceLanguage,
+					targetLanguage: interpretingPrice.targetLanguage
+				});
+			}
+			else{
+				bootbox.alert( EXITS_CONFIRM_TEXT);
+			}			
     	} else {
     		$scope.interpretingPrices[$scope.editInterpreting] = {
     				priceDay: interpretingPrice.priceDay,
