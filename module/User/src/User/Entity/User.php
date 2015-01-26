@@ -81,10 +81,10 @@ class User extends Entity implements InputFilterAwareInterface{
     protected $city = null;
 
     /** @ORM\Column(type="boolean") */
-    protected $gender = 0;
+    protected $gender = 1;
 
     /** @ORM\Column(type="string") */
-    protected $currency = 'cny';
+    protected $currency = '';
 
     /**
      * @var \User\Entity\Freelancer

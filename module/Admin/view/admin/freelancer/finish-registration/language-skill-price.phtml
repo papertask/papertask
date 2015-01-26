@@ -3,17 +3,17 @@
 
     <div class="panel panel-info">
         <div class="panel-body">
-            <h4><i class="fa fa-desktop"></i>&nbsp; Currency</h4>
+            <h4><i class="fa fa-desktop"></i>&nbsp; Currency *</h4>
             <br />
             <div data-toggle="buttons">
 				<label class="btn btn-outline btn-primary {{userInfo.currency == 'cny' ? 'active' : ''}}"
 					   ng-click="userInfo.currency = 'cny'">
-					<input type="radio" name="currency" value="CNY" /><i class="fa fa-cny"> CNY</i>
+					<input class= "required" type="radio" name="currency" value="CNY" /><i class="fa fa-cny"> CNY</i>
 				</label>
 				&nbsp;
 				<label class="btn btn-outline btn-primary {{userInfo.currency == 'usd' ? 'active' : ''}}"
 					   ng-click="userInfo.currency = 'usd'">
-					<input type="radio" name="currency" value="USD" /><i class="fa fa-usd"> USD</i>
+					<input class= "required" type="radio" name="currency" value="USD" /><i class="fa fa-usd"> USD</i>
 				</label>
 			</div>
 		</div>
@@ -191,7 +191,7 @@
                                                     </table>
                                                 </div>
                                                 <div class="text-center">
-                                                    <a data-toggle="modal" class="btn btn-outline btn-success" ng-click="addEngineeringPrice()" onclick="return false;" href="#"><?php echo $this->translate('Add Interpreting prices') ?></a>
+                                                    <a data-toggle="modal" class="btn btn-outline btn-success" ng-click="addInterpretingPrice()" onclick="return false;" href="#"><?php echo $this->translate('Add Interpreting prices') ?></a>
                                                 </div>
         </div>
     </div>

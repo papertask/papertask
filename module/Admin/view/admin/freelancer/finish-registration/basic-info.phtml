@@ -39,7 +39,7 @@
                    class="form-control required" />
         </div>
 		<div class="hr-line-dashed"></div>
-		<div class="form-group">
+		<div class="form-group"  style="display:none;">
 			<label>Alias </label>
 			<input id="alias" name="alias" ng-model="userInfo.alias" type="text"
                    class="form-control"  disabled=""/>
@@ -68,6 +68,7 @@
             <label>Country *</label>
             <select class="form-control required" id="country" name="country" required
                     ng-model="userInfo.country" ng-options="country.name for country in countries track by country.id">
+					<option value="?" selected="selected" ></option>
             </select>
         </div>
 		<div class="hr-line-dashed"></div>

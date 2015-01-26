@@ -117,6 +117,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
 				console.log("data");
 				console.log($data);
                 $scope.user = $scope.userInfo = $data['user'];
+				//if()
                 $scope.translationPricesP = $data['translationPricesP'];
 				//for(var i = 0; i < $scope.translationPricesP.length; i++){
 					//setModalControllerData('translationPriceP', $scope.translationPricesP[i]);
@@ -125,7 +126,8 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
                 $scope.interpretingPricesP = $data['interpretingPricesP'];
                 $scope.desktopPricesP = $data['desktopPricesP'];
                 if($scope.countries.length){
-                    $scope.user.country = findOption($scope.countries, $scope.user.country);
+					if($scope.user.country)
+						$scope.user.country = findOption($scope.countries, $scope.user.country);
                 }
 
                 if($scope.user.group.isFreelancer){
