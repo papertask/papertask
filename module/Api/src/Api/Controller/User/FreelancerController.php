@@ -105,8 +105,8 @@ class FreelancerController extends AbstractRestfulController
 	
     public function get($id){
 		$user = $this->getUserById($id);
-        $freelancerData = $user->getFreelancer()->getData();
-        return new JsonModel([
+	    $freelancerData = $user->getFreelancer()->getData();
+	    return new JsonModel([
             'freelancer' => $freelancerData,
         ]);
     }
@@ -117,10 +117,10 @@ class FreelancerController extends AbstractRestfulController
         $entityManager = $this->getEntityManager();
         $user = $this->getUserById($userId);
         $freelancer = $user->getFreelancer();
-		if(count($data['Resources']))
+		//if(count($data['Resources']))
 			$freelancer->updateData($data, $entityManager);
-		if(count($data['ResourcesP']))
-			$freelancer->updateDataP($data, $entityManager);
+		//if(count($data['ResourcesP']))
+		//	$freelancer->updateDataP($data, $entityManager);
 		
 		$freelancer->updateSenior($data, $entityManager);
 		

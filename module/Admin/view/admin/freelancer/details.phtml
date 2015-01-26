@@ -763,7 +763,7 @@ $this->inlineScript()
 								<div class="row file-manager">
 									<ul class="tag-list" style="padding: 0">
 										<!-- TODO: check specialism is tested or not -->
-										<li ng-repeat="specialism in TranslationSpecialismsP">
+										<li ng-repeat="specialism in TranslationSpecialisms">
 											<a href=""><i ng-show="specialism.tested==1" class="fa fa-check"></i>
 												{{specialism.name}}</a>
 										</li>
@@ -774,7 +774,7 @@ $this->inlineScript()
 
 								<div class="row file-manager">
 									<ul class="tag-list" style="padding: 0">
-										<li ng-repeat="tool in TranslationCatToolsP">
+										<li ng-repeat="tool in TranslationCatTools">
 											<a href="">{{tool.name}}</a>
 										</li>
 									</ul>
@@ -815,7 +815,7 @@ $this->inlineScript()
 
 								<div class="row file-manager">
 									<ul class="tag-list" style="padding: 0">
-										<li ng-repeat="system in operatingSystemsP">
+										<li ng-repeat="system in operatingSystems">
 											<a href=""><i class="fa {{(this.id==1) ? 'fa-apple' : 'fa-windows'}}"></i>
 												{{system.name}}</a></li>
 									</ul>
@@ -825,7 +825,7 @@ $this->inlineScript()
 
 								<div class="row file-manager">
 									<ul class="tag-list" style="padding: 0">
-										<li ng-repeat="tool in DesktopCatToolsP"><a href="">{{tool.name}}</a></li>
+										<li ng-repeat="tool in DesktopCatTools"><a href="">{{tool.name}}</a></li>
 									</ul>
 								</div>
 								<div class="hr-line-dashed"></div>
@@ -877,7 +877,7 @@ $this->inlineScript()
 									<ul class="tag-list" style="padding: 0">
 
 										<!-- TODO: check specialism is tested or not -->
-										<li ng-repeat="specialism in InterpretingSpecialismsP">
+										<li ng-repeat="specialism in InterpretingSpecialisms">
 											<a href=""><i ng-show="specialism.tested==1" class="fa fa-check"></i>
 												{{specialism.name}}</a>
 										</li>

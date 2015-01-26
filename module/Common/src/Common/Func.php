@@ -15,9 +15,11 @@ class Func {
      * @return array
      */
     static public function getReferenceIds($collection){
+		if($collection)
         return $collection->map(function($obj){
             /** @var \User\Entity\Resource $obj */
             return $obj->getId();
         })->toArray();
+		else return null;
     }
 } 

@@ -29,11 +29,6 @@ class Freelancer extends Entity{
      */
     protected $Resources = null;
 	
-	/**
-     * @var \Doctrine\ORM\PersistentCollection
-     * @ORM\ManyToMany(targetEntity="ResourceP")
-     */
-    protected $ResourcesP = null;
 
     /**
      * @var \Doctrine\ORM\PersistentCollection
@@ -41,12 +36,6 @@ class Freelancer extends Entity{
      * @ORM\JoinTable(name="UserDesktopCatTools")
      */
     protected $DesktopCatTools = null;
-	/**
-     * @var \Doctrine\ORM\PersistentCollection
-     * @ORM\ManyToMany(targetEntity="CatTool")
-     * @ORM\JoinTable(name="UserDesktopCatToolsP")
-     */
-    protected $DesktopCatToolsP = null;
 	
     /**
      * @var \Doctrine\ORM\PersistentCollection
@@ -54,76 +43,27 @@ class Freelancer extends Entity{
      * @ORM\JoinTable(name="UserOperatingSystem")
      */
     protected $DesktopOperatingSystems = null;
-	/**
-     * @var \Doctrine\ORM\PersistentCollection
-     * @ORM\ManyToMany(targetEntity="OperatingSystem")
-     * @ORM\JoinTable(name="UserOperatingSystemP")
-     */
-    protected $DesktopOperatingSystemsP = null;
-
+	
     /**
      * @var \Doctrine\ORM\PersistentCollection
      * @ORM\ManyToMany(targetEntity="Specialism")
      * @ORM\JoinTable(name="UserInterpretingSpecialisms")
      */
     protected $InterpretingSpecialisms = null;
-	/**
-     * @var \Doctrine\ORM\PersistentCollection
-     * @ORM\ManyToMany(targetEntity="Specialism")
-     * @ORM\JoinTable(name="UserInterpretingSpecialismsP")
-     */
-    protected $InterpretingSpecialismsP = null;
-
+	
     /**
      * @var \Doctrine\ORM\PersistentCollection
      * @ORM\ManyToMany(targetEntity="CatTool")
      * @ORM\JoinTable(name="UserTranslationCatTools")
      */
     protected $TranslationCatTools = null;
-	/**
-     * @var \Doctrine\ORM\PersistentCollection
-     * @ORM\ManyToMany(targetEntity="CatTool")
-     * @ORM\JoinTable(name="UserTranslationCatToolsP")
-     */
-    protected $TranslationCatToolsP = null;
-
+	
     /**
      * @var \Doctrine\ORM\PersistentCollection
      * @ORM\ManyToMany(targetEntity="Specialism")
      * @ORM\JoinTable(name="UserTranslationSpecialisms")
      */
     protected $TranslationSpecialisms = null;
-	 /**
-     * @var \Doctrine\ORM\PersistentCollection
-     * @ORM\ManyToMany(targetEntity="Specialism")
-     * @ORM\JoinTable(name="UserTranslationSpecialismsP")
-     */
-    protected $TranslationSpecialismsP = null;
-
-	/**
-     * @var \Doctrine\ORM\PersistentCollection
-     * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="UserClientTranslation")
-     */
-    //protected $ClientTranslation = null;
-	/**
-     * @var \Doctrine\ORM\PersistentCollection
-     * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="UserClientDesktop")
-     */
-    //protected $ClientDesktop = null;
-	/**
-     * @var \Doctrine\ORM\PersistentCollection
-     * @ORM\ManyToMany(targetEntity="User")
-     * @ORM\JoinTable(name="UserClientInterpreting")
-     */
-    //protected $ClientInterpreting = null;
-	
-    /**
-     * @var \Doctrine\ORM\PersistentCollection
-     * @ORM\ManyToMany(targetEntity="Rating")
-     * @ORM\JoinTable(name="UserRating")
-     */
     protected $Rating = null;
 
     /**
@@ -140,17 +80,6 @@ class Freelancer extends Entity{
 		$this->InterpretingSpecialisms = new ArrayCollection();
 		$this->TranslationCatTools = new ArrayCollection();
 		$this->TranslationSpecialisms = new ArrayCollection();
-		//PERSON
-		$this->DesktopCatToolsP = new ArrayCollection();
-		$this->ResourcesP = new ArrayCollection();
-		$this->DesktopOperatingSystemsP = new ArrayCollection();
-		$this->InterpretingSpecialismsP = new ArrayCollection();
-		$this->TranslationCatToolsP = new ArrayCollection();
-		$this->TranslationSpecialismsP = new ArrayCollection();
-		//Client
-		//$this->ClientTranslation = new ArrayCollection();
-		//$this->ClientDesktop = new ArrayCollection();
-		//$this->ClientInterpreting = new ArrayCollection();
 		//RATING
 		$this->Rating = new ArrayCollection();
 	}
@@ -164,17 +93,6 @@ class Freelancer extends Entity{
             'Resources' => Func::getReferenceIds($this->Resources),
             'TranslationCatTools' => Func::getReferenceIds($this->TranslationCatTools),
             'TranslationSpecialisms' => Func::getReferenceIds($this->TranslationSpecialisms),
-			
-			'DesktopCatToolsP' => Func::getReferenceIds($this->DesktopCatToolsP),
-            'DesktopOperatingSystemsP' => Func::getReferenceIds($this->DesktopOperatingSystemsP),
-            'InterpretingSpecialismsP' => Func::getReferenceIds($this->InterpretingSpecialismsP),
-            'ResourcesP' => Func::getReferenceIds($this->ResourcesP),
-            'TranslationCatToolsP' => Func::getReferenceIds($this->TranslationCatToolsP),
-            'TranslationSpecialismsP' => Func::getReferenceIds($this->TranslationSpecialismsP),
-			
-			//'ClientTranslation' => Func::getReferenceIds($this->ClientTranslation),
-			//'ClientDesktop' => Func::getReferenceIds($this->ClientDesktop),
-			//'ClientInterpreting' => Func::getReferenceIds($this->ClientInterpreting),
 			
             'Rating' => Func::getReferenceIds($this->Rating),
             'isSenior' => $this->isSenior
@@ -199,21 +117,6 @@ class Freelancer extends Entity{
         return $this->updateManyToOne($data, $keys, $entityManager);
     }
 	
-	/**
-     * @param array $data
-     * @param \Doctrine\ORM\EntityManager $entityManager
-     */
-    public function updateDataP($data, $entityManager){
-        $keys = array(
-			'DesktopCatToolsP',
-            'DesktopOperatingSystemsP',
-            'InterpretingSpecialismsP',
-            'ResourcesP',
-            'TranslationCatToolsP',
-            'TranslationSpecialismsP',
-        );
-        return $this->updateManyToOne($data, $keys, $entityManager);
-    }
 	
 	 public function updateSenior(array $arr){
         $keys = array(

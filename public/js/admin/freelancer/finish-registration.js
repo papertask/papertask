@@ -51,17 +51,17 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
         "TranslationSpecialisms": null
     };
     $scope.freelancer = {
-		ResourcesP:[]
+		Resources:[]
 	};
 
     /**
      * Mark resource active params
      */
     function generateActiveResources(){
-        $scope.freelancer.ResourcesP = $scope.freelancer.ResourcesP;
-        for(var i = 0; i < $scope.freelancer.ResourcesP.length; i++){
-            $scope.resource_active[$scope.freelancer.ResourcesP[i]] = 'active';
-			console.log($scope.freelancer.ResourcesP[i]);
+        $scope.freelancer.Resources = $scope.freelancer.Resources;
+        for(var i = 0; i < $scope.freelancer.Resources.length; i++){
+            $scope.resource_active[$scope.freelancer.Resources[i]] = 'active';
+			console.log($scope.freelancer.Resources[i]);
         }
 		
     }
@@ -88,12 +88,12 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
 
     function updateFreelancerSkillData(){
         var $info = $scope.freelancer;
-        $info.TranslationCatToolsP = findOptions($scope.catTools, $info.TranslationCatToolsP);
-        $info.TranslationSpecialismsP = findOptions($scope.specialisms, $info.TranslationSpecialismsP);
-        $info.DesktopCatToolsP = findOptions($scope.catTools, $info.DesktopCatToolsP);
-        $info.ResourcesP = findResources($scope.resources, $info.ResourcesP);
-        $info.DesktopOperatingSystemsP = findOptions($scope.operatingSystems, $info.DesktopOperatingSystemsP);
-        $info.InterpretingSpecialismsP = findOptions($scope.specialisms, $info.InterpretingSpecialismsP);
+        $info.TranslationCatTools = findOptions($scope.catTools, $info.TranslationCatTools);
+        $info.TranslationSpecialisms = findOptions($scope.specialisms, $info.TranslationSpecialisms);
+        $info.DesktopCatTools = findOptions($scope.catTools, $info.DesktopCatTools);
+        $info.Resources = findResources($scope.resources, $info.Resources);
+        $info.DesktopOperatingSystems = findOptions($scope.operatingSystems, $info.DesktopOperatingSystems);
+        $info.InterpretingSpecialisms = findOptions($scope.specialisms, $info.InterpretingSpecialisms);
     }
 
     function initModal(){
@@ -119,10 +119,6 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
                 $scope.user = $scope.userInfo = $data['user'];
 				//if()
                 $scope.translationPricesP = $data['translationPricesP'];
-				//for(var i = 0; i < $scope.translationPricesP.length; i++){
-					//setModalControllerData('translationPriceP', $scope.translationPricesP[i]);
-				//}
-				
                 $scope.interpretingPricesP = $data['interpretingPricesP'];
                 $scope.desktopPricesP = $data['desktopPricesP'];
                 if($scope.countries.length){
@@ -165,7 +161,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
                 $scope.freelancer = $data['freelancer'];
 				console.log("freelancer");
 				console.log($scope.freelancer);
-				console.log($scope.freelancer.ResourcesP);
+				console.log($scope.freelancer.Resources);
 				console.log($scope.user.id);
                 var priceDataRequest = $http.get("/api/user/freelancerData")
                     .success(function($data){
@@ -174,7 +170,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
                         $scope.operatingSystems = $data['operatingSystems'];
                         $scope.specialisms = $data['specialisms'];
                         $scope.resources = $data['resources'];
-						//$scope.freelancer.ResourcesP = findResources($scope.resources, $scope.freelancer.ResourcesP);
+						//$scope.freelancer.Resources = findResources($scope.resources, $scope.freelancer.Resources);
 						generateActiveResources();
                         rebuildMultiSelect();
                         updateFreelancerSkillData();
@@ -229,17 +225,17 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
     function updateFreelancer(){
 		
 	
-		console.log($scope.freelancer.ResourcesP);
-		var tmp = getIds($scope.freelancer.ResourcesP);
+		console.log($scope.freelancer.Resources);
+		var tmp = getIds($scope.freelancer.Resources);
 		console.log(tmp);
 		console.log($scope.freelancer);		 
         return $http.put("/api/user/" + $scope.user.id + "/freelancer/" + $scope.freelancer.id, {
-            'DesktopCatToolsP': getIds($scope.freelancer.DesktopCatToolsP),
-            'DesktopOperatingSystemsP': getIds($scope.freelancer.DesktopOperatingSystemsP),
-            'InterpretingSpecialismsP': getIds($scope.freelancer.InterpretingSpecialismsP),
-            'ResourcesP': getIds($scope.freelancer.ResourcesP),
-            'TranslationCatToolsP': getIds($scope.freelancer.TranslationCatToolsP),
-            'TranslationSpecialismsP': getIds($scope.freelancer.TranslationSpecialismsP)
+            'DesktopCatTools': getIds($scope.freelancer.DesktopCatTools),
+            'DesktopOperatingSystems': getIds($scope.freelancer.DesktopOperatingSystems),
+            'InterpretingSpecialisms': getIds($scope.freelancer.InterpretingSpecialisms),
+            'Resources': getIds($scope.freelancer.Resources),
+            'TranslationCatTools': getIds($scope.freelancer.TranslationCatTools),
+            'TranslationSpecialisms': getIds($scope.freelancer.TranslationSpecialisms)
         });
     }
 
@@ -278,25 +274,25 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
      * Toggle resource
      */
     $scope.toggleResource = function($id){
-        console.log($scope.freelancer.ResourcesP);
+        console.log($scope.freelancer.Resources);
 		console.log($scope.resources);
-        var $index = $scope.freelancer.ResourcesP.indexOf($id);
+        var $index = $scope.freelancer.Resources.indexOf($id);
         if($index == -1){
-            $scope.freelancer.ResourcesP.push($id);
+            $scope.freelancer.Resources.push($id);
         } else {
-            $scope.freelancer.ResourcesP.splice($index, 1);
+            $scope.freelancer.Resources.splice($index, 1);
         }
 		//check hide some part 
 		$scope.translation = 0;
 		$scope.desktop_publish = 0;
 		$scope.interpreting = 0;
-		for(var i = 0; i < $scope.freelancer.ResourcesP.length; i++){
+		for(var i = 0; i < $scope.freelancer.Resources.length; i++){
 			for(var j = 0; j < $scope.resources.length; j++){
 				for (var k = 0; k < $scope.resources[j].resources.length; k++)
 				{
 					console.log($scope.resources[j].resources[k]);
 				
-					if($scope.freelancer.ResourcesP[i].id == $scope.resources[j].resources[k].id )
+					if($scope.freelancer.Resources[i].id == $scope.resources[j].resources[k].id )
 					{
 						if($scope.resources[j].group.id == 1)
 							$scope.translation = 1;
@@ -310,7 +306,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
 				}	
 			}
 		}
-		console.log($scope.freelancer.ResourcesP);
+		console.log($scope.freelancer.Resources);
     };
 	/**
      * Translation Prices

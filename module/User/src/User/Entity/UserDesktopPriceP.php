@@ -24,7 +24,10 @@ class UserDesktopPriceP extends Entity{
 
     /**
      * @var \User\Entity\User
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", cascade={"remove"})
+	 * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="cascade")
+     * })
      */
     protected $user;
 
