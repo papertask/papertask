@@ -10,7 +10,7 @@ $allow_all = array(
 	'order',
 	'privacy',
 	'terms',
-	
+
 	// Login & Register
 	'login\index',
 	'forgotpassword\index',
@@ -18,7 +18,8 @@ $allow_all = array(
 	'register\index',
 	'register\employer',
 	'register\freelancer',
-	
+	'logout\index',
+
 	// Dashboard Panel
 	'dashboard\index',
 	// -- Task
@@ -42,6 +43,10 @@ $allow_all = array(
 	'email\new',
 	// -- Profile
 	'papertask\profile',
+
+	// -- API
+	'api/common',
+	'api/user',
 );
 
 return array(
@@ -55,11 +60,12 @@ return array(
 		'order',
 		'privacy',
 		'terms',
-		
+
 		// Login & Register
 		'login\index',
 		'forgotpassword\index',
 		'login\social',
+		'logout\index',
 		'register\index',
 		'register\employer',
 		'register\freelancer',
@@ -68,4 +74,3 @@ return array(
 	'Employer'=> $allow_all,
     'Admin'=> $allow_all,
 );
-

@@ -37,7 +37,7 @@ class User extends Entity implements InputFilterAwareInterface{
 
     /** @ORM\Column(type="string") */
     protected $lastName;
-	
+
 	 /** @ORM\Column(type="string", nullable=true) */
     protected $username;
 
@@ -157,7 +157,7 @@ class User extends Entity implements InputFilterAwareInterface{
             'lastName',
 			'username',
             'password',
-            'phone',            
+            'phone',
             'isActive',
             'profileUpdated',
             'alias',
@@ -401,7 +401,7 @@ class User extends Entity implements InputFilterAwareInterface{
      */
     public function sendConfirmationEmail($controller,$lang_code=''){
         // initial data for email template
-		
+
         $confirmLink = $controller->getBaseUrl(). $lang_code . '/user/register/confirm?token=' . $this->token;
 		$data = array(
             'firstName' => $this->firstName,
@@ -562,7 +562,7 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager = $controller->getEntityManager();
         $strAlias = $this->getAlias( $entityManager, UserGroup::ADMIN_GROUP_ID );
         $data['alias'] = $strAlias;
-		
+
         $this->setData($data);
         $this->encodePassword(isset($data['password'])? $data['password'] : $this->generateRandomString());
         $this->setGroupByName('staff', $entityManager);
@@ -617,14 +617,14 @@ class User extends Entity implements InputFilterAwareInterface{
                     $testClientList = $queryBuilder->getQuery()->getArrayResult();
                     sleep( 1 );
                 }
-                break;	
+                break;
             default:
                 break;
         }
         return $strAlias;
     }
 
-    public function createEmployer( $controller, $data, $entityManager, $lang_code='' ) 
+    public function createEmployer( $controller, $data, $entityManager, $lang_code='' )
     {
         $strAlias = $this->getAlias( $controller->getEntityManager(), UserGroup::EMPLOYER_GROUP_ID);
         $data = array(
@@ -640,10 +640,10 @@ class User extends Entity implements InputFilterAwareInterface{
         $this->setGroupByName('employer', $entityManager);
         $entityManager->persist($this);
         $entityManager->flush();
-        
+
         $this->sendConfirmationEmail( $controller, $lang_code );
     }
-	public function createFreelancer( $controller, $data, $entityManager,$lang_code='' ) 
+	public function createFreelancer( $controller, $data, $entityManager,$lang_code='' )
     {
         $strAlias = $this->getAlias( $controller->getEntityManager(), UserGroup::FREELANCER_GROUP_ID);
         $data = array(
@@ -659,7 +659,7 @@ class User extends Entity implements InputFilterAwareInterface{
         $this->setGroupByName('freelancer', $entityManager);
         $entityManager->persist($this);
         $entityManager->flush();
-        
+
         $this->sendConfirmationEmail( $controller, $lang_code );
     }
 }
