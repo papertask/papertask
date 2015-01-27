@@ -295,13 +295,9 @@ $this->inlineScript()
 								</h4>
 
 								<div class="row file-manager">
-									<ul class="tag-list" style="padding: 0">
-										<!-- TODO: check specialism is tested or not -->
-										<li ng-repeat="specialism in TranslationSpecialisms">
-											<a href=""><i ng-show="specialism.tested==1" class="fa fa-check"></i>
-												{{specialism.name}}</a>
-										</li>
-									</ul>
+									 <label class="checkbox-inline" ng-repeat="specialism in TranslationSpecialisms"> 
+										<input type="checkbox" ng-click="setTestTranslationSpecialisms(specialism)" ng-checked="checkTranslationSpecialism[{{specialism.id - 1}}] == 1" value="{{specialism.id}} " id="inlineCheckbox1"> {{specialism.name}} </label>
+										
 								</div>
 								<div class="hr-line-dashed"></div>
 								<h4>Cat tools </h4>
@@ -710,14 +706,10 @@ $this->inlineScript()
 								<h4><?php echo $this->translate('Specialism') ?></h4>
 
 								<div class="row file-manager">
-									<ul class="tag-list" style="padding: 0">
-
-										<!-- TODO: check specialism is tested or not -->
-										<li ng-repeat="specialism in InterpretingSpecialisms">
-											<a href=""><i ng-show="specialism.tested==1" class="fa fa-check"></i>
-												{{specialism.name}}</a>
-										</li>
-									</ul>
+										 <label class="checkbox-inline" ng-repeat="specialism in InterpretingSpecialisms"> 
+										<input type="checkbox" ng-click="setTestInterpretingSpecialisms(specialism)" ng-checked="checkInterpretingSpecialism[{{specialism.id - 1}}] == 1" value="{{specialism.id}} " id="inlineCheckbox1"> {{specialism.name}} </label>
+								
+									
 								</div>
 								<div class="hr-line-dashed"></div>
 								<h4>Languages and Price </h4>

@@ -15,6 +15,8 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
 	$scope.resources = [];
 	
 	$scope.resume = {};
+	$scope.checkTranslationSpecialism = [];
+	$scope.checkInterpretingSpecialism = [];
 	
 	$scope.TranslationSpecialisms = [];
     $scope.TranslationCatTools = [];
@@ -521,8 +523,8 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
             .success(function($data){
                 $scope.freelancer = $data['freelancer'];
 				$scope.rating = $scope.freelancer.Rating;
-                console.log("rating");
-				console.log($scope.rating);
+                console.log("TranslationSpecialismsP");
+				console.log($scope.freelancer.TranslationSpecialismsP);
 				// get data after freelancer was loaded
 				getFreelancerData();
 				getFreelancerResume();
@@ -609,7 +611,7 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
             });*/
             // get translation specialism
             $scope.TranslationSpecialisms = findOptions($scope.freelancerData.specialisms,
-                $scope.freelancer.TranslationSpecialisms);
+               $scope.freelancer.TranslationSpecialisms);
             // get desktop translation cat tools
 			//con
             $scope.TranslationCatTools = findOptions($scope.freelancerData.catTools,
@@ -626,22 +628,46 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
 			//person 
 			
 			// get translation specialism
-            $scope.TranslationSpecialismsP = findOptions($scope.freelancerData.specialisms,
+			for(i=0 ; i < $scope.freelancer.TranslationSpecialisms.length; i++) 
+			{
+				var tmp = 0;
+				for(j=0 ; j < $scope.freelancer.TranslationSpecialismsP.length; j++) {
+					if($scope.freelancer.TranslationSpecialisms[i] == $scope.freelancer.TranslationSpecialismsP[j])
+						tmp = 1;
+				}
+				$scope.checkTranslationSpecialism.push(tmp);
+			}
+			 
+			$scope.freelancer.TranslationSpecialismsP = findOptions($scope.freelancerData.specialisms,
                 $scope.freelancer.TranslationSpecialismsP);
-            // get desktop translation cat tools
-			//con
-            $scope.TranslationCatToolsP = findOptions($scope.freelancerData.catTools,
-                $scope.freelancer.TranslationCatToolsP);
-            // get operating systems
-            $scope.operatingSystemsP = findOptions($scope.freelancerData.operatingSystems,
-                $scope.freelancer.DesktopOperatingSystemsP);
-            // get desktop cat tools
-            $scope.DesktopCatToolsP = findOptions($scope.freelancerData.catTools,
-                $scope.freelancer.DesktopCatToolsP);
-            // get interpreting specialism
-            $scope.InterpretingSpecialismsP = findOptions($scope.freelancerData.specialisms,
+            
+			console.log("InterpretingSpecialisms");
+			console.log($scope.InterpretingSpecialisms);
+			for(i=0 ; i < $scope.freelancer.InterpretingSpecialisms.length; i++) 
+			{
+				var tmp1 = 0;
+				for(j=0 ; j < $scope.freelancer.InterpretingSpecialismsP.length; j++) {
+					if($scope.freelancer.InterpretingSpecialisms[i] == $scope.freelancer.InterpretingSpecialismsP[j])
+						tmp1 = 1;
+				}
+				$scope.checkInterpretingSpecialism.push(tmp1);
+			}
+            $scope.freelancer.InterpretingSpecialismsP = findOptions($scope.freelancerData.specialisms,
                 $scope.freelancer.InterpretingSpecialismsP);
 				
+			console.log($scope.freelancer.InterpretingSpecialismsP);	
+			// get desktop translation cat tools
+			//con
+            //$scope.TranslationCatToolsP = findOptions($scope.freelancerData.catTools,
+            //    $scope.freelancer.TranslationCatToolsP);
+            // get operating systems
+            //$scope.operatingSystemsP = findOptions($scope.freelancerData.operatingSystems,
+            //    $scope.freelancer.DesktopOperatingSystemsP);
+            // get desktop cat tools
+            //$scope.DesktopCatToolsP = findOptions($scope.freelancerData.catTools,
+            //    $scope.freelancer.DesktopCatToolsP);
+            // get interpreting specialism
+			
             //console.log($scope.InterpretingSpecialisms);
         });
     }
@@ -653,5 +679,41 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
             }
         });
     }
+	$scope.setTestTranslationSpecialisms = function($id){
+        console.log($scope.freelancer.TranslationSpecialismsP);
+        var $index = $scope.freelancer.TranslationSpecialismsP.indexOf($id);
+        if($index == -1){
+            $scope.freelancer.TranslationSpecialismsP.push($id);
+        } else {
+            $scope.freelancer.TranslationSpecialismsP.splice($index, 1);
+        }
+		console.log($scope.freelancer.TranslationSpecialismsP);
+		//update data TranslationSpecialismsP
+		 var requestResources = $http.put("/api/user/" + USER_ID + "/freelancer/" + $scope.freelancer.id, {
+					'TranslationSpecialismsP': getIds($scope.freelancer.TranslationSpecialismsP),
+					'InterpretingSpecialismsP': getIds($scope.freelancer.InterpretingSpecialismsP)
+				}).success(function($data){
+					console.log("Update Resources");
+         });
+		
+    };
+	$scope.setTestInterpretingSpecialisms = function($id){
+        console.log($scope.freelancer.InterpretingSpecialismsP);
+        var $index = $scope.freelancer.InterpretingSpecialismsP.indexOf($id);
+        if($index == -1){
+            $scope.freelancer.InterpretingSpecialismsP.push($id);
+        } else {
+            $scope.freelancer.InterpretingSpecialismsP.splice($index, 1);
+        }
+		console.log($scope.freelancer.InterpretingSpecialismsP);
+		//update data TranslationSpecialismsP
+		 var requestResources = $http.put("/api/user/" + USER_ID + "/freelancer/" + $scope.freelancer.id, {
+					'TranslationSpecialismsP': getIds($scope.freelancer.TranslationSpecialismsP),
+					'InterpretingSpecialismsP': getIds($scope.freelancer.InterpretingSpecialismsP)
+				}).success(function($data){
+					console.log("Update Resources");
+         });
+		
+    };
 	
 });

@@ -117,10 +117,13 @@ class FreelancerController extends AbstractRestfulController
         $entityManager = $this->getEntityManager();
         $user = $this->getUserById($userId);
         $freelancer = $user->getFreelancer();
-		//if(count($data['Resources']))
+		var_dump($data['Resources']);
+		var_dump($data['TranslationSpecialismsP']);
+		if(count($data['Resources']))
 			$freelancer->updateData($data, $entityManager);
-		//if(count($data['ResourcesP']))
-		//	$freelancer->updateDataP($data, $entityManager);
+		if(count($data['TranslationSpecialismsP']) || count($data['InterpretingSpecialismsP']))
+			$freelancer->updateSpecialismsPData($data, $entityManager);
+			
 		
 		$freelancer->updateSenior($data, $entityManager);
 		

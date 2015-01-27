@@ -50,6 +50,12 @@ class Freelancer extends Entity{
      * @ORM\JoinTable(name="UserInterpretingSpecialisms")
      */
     protected $InterpretingSpecialisms = null;
+	/**
+     * @var \Doctrine\ORM\PersistentCollection
+     * @ORM\ManyToMany(targetEntity="Specialism")
+     * @ORM\JoinTable(name="UserInterpretingSpecialismsP")
+     */
+    protected $InterpretingSpecialismsP = null;
 	
     /**
      * @var \Doctrine\ORM\PersistentCollection
@@ -64,6 +70,13 @@ class Freelancer extends Entity{
      * @ORM\JoinTable(name="UserTranslationSpecialisms")
      */
     protected $TranslationSpecialisms = null;
+	/**
+     * @var \Doctrine\ORM\PersistentCollection
+     * @ORM\ManyToMany(targetEntity="Specialism")
+     * @ORM\JoinTable(name="UserTranslationSpecialismsP")
+     */
+    protected $TranslationSpecialismsP = null;
+	
     protected $Rating = null;
 
     /**
@@ -80,6 +93,9 @@ class Freelancer extends Entity{
 		$this->InterpretingSpecialisms = new ArrayCollection();
 		$this->TranslationCatTools = new ArrayCollection();
 		$this->TranslationSpecialisms = new ArrayCollection();
+		//Person
+		$this->TranslationSpecialismsP = new ArrayCollection();
+		$this->InterpretingSpecialismsP = new ArrayCollection();
 		//RATING
 		$this->Rating = new ArrayCollection();
 	}
@@ -93,6 +109,10 @@ class Freelancer extends Entity{
             'Resources' => Func::getReferenceIds($this->Resources),
             'TranslationCatTools' => Func::getReferenceIds($this->TranslationCatTools),
             'TranslationSpecialisms' => Func::getReferenceIds($this->TranslationSpecialisms),
+			
+			'TranslationSpecialismsP' => Func::getReferenceIds($this->TranslationSpecialismsP),
+			'InterpretingSpecialismsP' => Func::getReferenceIds($this->InterpretingSpecialismsP),
+			
 			
             'Rating' => Func::getReferenceIds($this->Rating),
             'isSenior' => $this->isSenior
@@ -116,7 +136,15 @@ class Freelancer extends Entity{
         );
         return $this->updateManyToOne($data, $keys, $entityManager);
     }
-	
+	public function updateSpecialismsPData($data, $entityManager){
+        $keys = array(
+            'InterpretingSpecialismsP',
+			'TranslationSpecialismsP',
+        );
+        return $this->updateManyToOne($data, $keys, $entityManager);
+    }		
+		
+		
 	
 	 public function updateSenior(array $arr){
         $keys = array(
