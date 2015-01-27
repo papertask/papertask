@@ -7,6 +7,7 @@ vendor/
 config/autoload/*.local.php
 
 # Binary gettext files
+*.mo
 
 # Data
 data/logs/
@@ -15,6 +16,8 @@ data/sessions/
 data/tmp/
 temp/
 data/DoctrineORMModule/Proxy/
+*.log
+*.rar
 
 # Legacy ZF1
 demos/
@@ -25,7 +28,3 @@ extras/documentation
 .DS_Store
 
 public/uploads
-papertask.rar
-*.rar
-papertask.rar
-papertask.rar
