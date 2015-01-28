@@ -1,6 +1,6 @@
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 html {
-  font-family: sans-serif;
+  font-family: sans-serif, Microsoft YaHei;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%; }
 
@@ -880,7 +880,7 @@ html {
 body {
     width: 100%;
     overflow-x: hidden;
-  font-family: "Microsoft YaHei", "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", "Microsoft YaHei", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857;
   color: #626262;
@@ -1271,7 +1271,7 @@ code,
 kbd,
 pre,
 samp {
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace; }
+  font-family: Menlo, Monaco, Consolas, "Courier New", "Microsoft YaHei", monospace; }
 
 code {
   padding: 2px 4px;
