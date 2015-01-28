@@ -11,22 +11,26 @@ use Zend\View\Model\JsonModel;
 
 use Application\Controller\AbstractRestfulController;
 use User\Entity\Staff;
+use User\Entity\Language;
+use User\Entity\Field;
 
 class ProjectController extends AbstractRestfulController
 {
     public function getList()
     {
-        $config = $this->getServiceLocator()->get('Config');
-        $projectTypes = $config['project_create'];
-
-        $data = [];
-        $data['languages'] = $this->getAllData('\User\Entity\Language');
+        
+		$config = $this->getServiceLocator()->get('Config');
+		$projectTypes = $config['project_create'];
+		
+		$data['languages'] = $this->getAllData('\User\Entity\Language');
         $data['clients'] = $this->getAllData('\User\Entity\Employer');
         $data['fields'] = $this->getAllData('\User\Entity\Field');
-        $data['pms'] = $this->getAllDataBy('\User\Entity\Staff', ['type' => Staff::STAFF_TYPE_PM]);
-        $data['sales'] = $this->getAllDataBy('\User\Entity\Staff', ['type' => Staff::STAFF_TYPE_SALE]);
+        //$data['pms'] = $this->getAllDataBy('\User\Entity\Staff', ['type' => Staff::STAFF_TYPE_PM]);
+        //$data['sales'] = $this->getAllDataBy('\User\Entity\Staff', ['type' => Staff::STAFF_TYPE_SALE]);
         $data = array_merge($data, $projectTypes);
-
-        return new JsonModel($data);
+		
+		//var_dump($data );
+        
+		return new JsonModel($data);
     }
 }

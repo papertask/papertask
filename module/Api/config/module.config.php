@@ -112,7 +112,7 @@ return array(
             'Api\Controller\Common\Language' => 'Api\Controller\Common\LanguageController',
             'Api\Controller\Common\LanguageGroup' => 'Api\Controller\Common\LanguageGroupController',
             'Api\Controller\Common\Unit' => 'Api\Controller\Common\UnitController',
-            'Api\Controller\Data\Project' => 'Api\Controller\Data\ProjectController',
+			'Api\Controller\Data\Project' => 'Api\Controller\Data\ProjectController',
             'Api\Controller\Index' => 'Api\Controller\IndexController',
             'Api\Controller\Papertask\DesktopPublishing' => 'Api\Controller\Papertask\DesktopPublishingController',
             'Api\Controller\Papertask\Engineering' => 'Api\Controller\Papertask\EngineeringController',
@@ -148,6 +148,7 @@ return array(
             'Api\Controller\Papertask\Interpreting' => 'Api\Controller\Papertask\InterpretingController',
             'Api\Controller\Papertask\Translation' => 'Api\Controller\Papertask\TranslationController',
             'Api\Controller\Papertask\Translationtm' => 'Api\Controller\Papertask\TranslationtmController',
+			
         ),
     ),
     'view_manager' => array(

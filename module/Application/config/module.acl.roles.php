@@ -35,18 +35,24 @@ $allow_all = array(
 	'employer\list',
 	'employer\new',
 	'employer\profile',
+	'employer\edit',
 	// -- Staff
 	'staff\index',
 	'staff\new',
+	'staff\getPmList',
+	'staff\getSalesList',
 	// -- Email
 	'email\index',
 	'email\new',
 	// -- Profile
 	'papertask\profile',
-
+	
 	// -- API
 	'api/common',
 	'api/user',
+	'api/data',
+	'api/admin',
+	'api/papertask',
 );
 
 return array(
