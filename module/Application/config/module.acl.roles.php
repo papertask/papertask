@@ -3,6 +3,13 @@
 $allow_all = array(
 	// Static pages
 	'index\index',
+	'index\home',
+	'index\languages',
+	'index\freelancer',
+	'index\contact',
+	'index\order',
+	'index\privacy',
+	'index\terms',
 	'home',
 	'languages',
 	'freelancer',
@@ -53,6 +60,13 @@ return array(
     'Guest'=> array(
         // Static pages
 		'index\index',
+		'index\home',
+		'index\languages',
+		'index\freelancer',
+		'index\contact',
+		'index\order',
+		'index\privacy',
+		'index\terms',
 		'home',
 		'languages',
 		'freelancer',
