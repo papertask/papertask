@@ -38,13 +38,19 @@ $allow_all = array(
 	// -- Freelancer
 	'freelancer\index',
 	'freelancer\new',
+	'freelancer\detail',
+	'freelancer\edit-profile',
 	// -- Employer (Client)
 	'employer\list',
 	'employer\new',
 	'employer\profile',
+	'employer\detail',
+	'employer\edit',
 	// -- Staff
 	'staff\index',
 	'staff\new',
+	'staff\view',
+	'staff\edit-profile',
 	// -- Email
 	'email\index',
 	'email\new',
