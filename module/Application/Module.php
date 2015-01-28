@@ -141,7 +141,7 @@ class Module
             $response = $e -> getResponse();
             //location to page or what ever
             $response -> getHeaders() -> addHeaderLine('Location', $e -> getRequest() -> getBaseUrl() . '/404');
-            //$response -> setStatusCode(404);
+            $response -> setStatusCode(404);
 
         }
     }

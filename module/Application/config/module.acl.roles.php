@@ -20,12 +20,17 @@ $allow_all = array(
 
 	// Login & Register
 	'login\index',
+	'login\form',
 	'forgotpassword\index',
+	'forgotpassword\reset',
+	'forgotpassword\resetpassword',
 	'login\social',
+	'logout\index',
 	'register\index',
+	'register\confirm',
+	'register\social',
 	'register\employer',
 	'register\freelancer',
-	'logout\index',
 
 	// Dashboard Panel
 	'dashboard\index',
@@ -87,12 +92,20 @@ return array(
 
 		// Login & Register
 		'login\index',
+		'login\form',
 		'forgotpassword\index',
+		'forgotpassword\reset',
+		'forgotpassword\resetpassword',
 		'login\social',
 		'logout\index',
 		'register\index',
+		'register\confirm',
+		'register\social',
 		'register\employer',
 		'register\freelancer',
+
+		// API
+		'api/common',
     ),
 	'Freelancer'=> $allow_all,
 	'Employer'=> $allow_all,
