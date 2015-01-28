@@ -41,15 +41,15 @@
         <h3><?php echo $this->translate('or Login with') ?></h3>
 
         <div class="col-lg-12 well">
-            <a class="btn btn-success btn-facebook" href="<?php echo $this->url('user') ?>/login/social?provider=Facebook">
+            <a class="btn btn-success btn-facebook" href="<?php echo $this->url('user',array("lang"=>$this->translate('lang', 'Application'))) ?>/login/social?provider=Facebook">
                 <i class="fa fa-facebook"> </i> Facebook
             </a> &nbsp;&nbsp;
-            <a class="btn btn-danger btn-google" href="<?php echo $this->url('user') ?>/login/social?provider=Google">
+            <a class="btn btn-danger btn-google" href="<?php echo $this->url('user',array("lang"=>$this->translate('lang', 'Application'))) ?>/login/social?provider=Google"> 
                 <i class="fa fa-google"> </i> Google
             </a>
         </div>
 
-        <a href="<?php echo $this->url('user') ?>/forgotPassword">
+        <a href="<?php echo $this->url('user',array("lang"=>$this->translate('lang', 'Application'))) ?>/forgotPassword/">
             <small><?php echo $this->translate('Forgot password?') ?></small>
         </a>
         <hr/>
