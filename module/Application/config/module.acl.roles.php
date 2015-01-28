@@ -3,6 +3,13 @@
 $allow_all = array(
 	// Static pages
 	'index\index',
+	'index\home',
+	'index\languages',
+	'index\freelancer',
+	'index\contact',
+	'index\order',
+	'index\privacy',
+	'index\terms',
 	'home',
 	'languages',
 	'freelancer',
@@ -31,22 +38,26 @@ $allow_all = array(
 	// -- Freelancer
 	'freelancer\index',
 	'freelancer\new',
+	'freelancer\detail',
+	'freelancer\edit-profile',
 	// -- Employer (Client)
 	'employer\list',
 	'employer\new',
 	'employer\profile',
+	'employer\detail',
 	'employer\edit',
 	// -- Staff
 	'staff\index',
 	'staff\new',
 	'staff\getPmList',
 	'staff\getSalesList',
+	'staff\view',
+	'staff\edit-profile',
 	// -- Email
 	'email\index',
 	'email\new',
 	// -- Profile
 	'papertask\profile',
-	
 	// -- API
 	'api/common',
 	'api/user',
@@ -59,6 +70,13 @@ return array(
     'Guest'=> array(
         // Static pages
 		'index\index',
+		'index\home',
+		'index\languages',
+		'index\freelancer',
+		'index\contact',
+		'index\order',
+		'index\privacy',
+		'index\terms',
 		'home',
 		'languages',
 		'freelancer',
