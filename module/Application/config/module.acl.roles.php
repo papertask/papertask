@@ -61,6 +61,7 @@ $allow_all = array(
 	// -- Email
 	'email\index',
 	'email\new',
+	'email\edit',
 	// -- Profile
 	'papertask\profile',
 	// -- API
@@ -106,6 +107,7 @@ return array(
 
 		// API
 		'api/common',
+		'api/papertask',
     ),
 	'Freelancer'=> $allow_all,
 	'Employer'=> $allow_all,
