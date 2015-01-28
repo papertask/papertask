@@ -34,11 +34,12 @@
         <div>
             <div>
 
-                <a class="logo-name" href="<?php echo $this->url('home') ?>">
+                <a class="logo-name" href="<?php echo $this->url('home') ?>" style="font-size: 80px;">
                     <img src="<?php echo $this->basePath() . '/img/logo.png' ?>" alt="" width="200">
                 </a>
 
             </div>
+
             <div id="content" class="">
                 <!-- Flash Messenger -->
                 <?php
@@ -59,6 +60,8 @@
 
                 <?php echo $this->content ?>
             </div>
+
+            <br><br><br><br><br><br>
 
             <p class="m-t"> <small><?php echo date('Y') ?> &copy; <a href="<?php echo $this->url('home') ?>">
                         <?php echo $this->translate('PaperTask') ?></a> ·
