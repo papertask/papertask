@@ -31,8 +31,16 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: ../view/layout/layout.phtml:50
+#: ../view/layout/layout.phtml:104
 msgid "All rights reserved."
+msgstr ""
+
+#: ../view/layout/layout.phtml:105
+msgid "Privacy Policy"
+msgstr ""
+
+#: ../view/layout/layout.phtml:106
+msgid "Terms of Use"
 msgstr ""
 
 #: ../view/application/index/index.phtml:2

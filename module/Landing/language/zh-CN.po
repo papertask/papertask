@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Papertask\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 14:16+0800\n"
-"PO-Revision-Date: 2015-01-23 14:28+0800\n"
+"PO-Revision-Date: 2015-01-29 13:31+0800\n"
 "Last-Translator: \n"
 "Language-Team: Hat Dao <enjoy3013@gmail.com>\n"
 "Language: en_US\n"
@@ -1406,6 +1406,10 @@ msgstr "我们提供品质翻译服务。同时支持所有主要语言的翻译
 #: module/Landing/view/landing/index/languages.phtml:29
 msgid "Source Language"
 msgstr "源语言"
+
+#: module/Landing/view/landing/index/languages.phtml:43
+msgid "Target Language"
+msgstr "目标语言"
 
 #: module/Landing/view/landing/index/languages.phtml:33
 #: module/Landing/view/landing/index/languages.phtml:47
