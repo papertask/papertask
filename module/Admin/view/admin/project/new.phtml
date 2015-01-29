@@ -27,6 +27,12 @@
     ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
     ->prependFile($this->basePath() . '/js/inspinia.js')
 ?>
+<?php
+$this->inlineScript()
+    ->prependScript("
+		var LANG_CODE = '" . $this->lang_code . "';
+    ");
+?>
 <style>
     .form-group label.btn-outline {
         margin-right: 0.3em;

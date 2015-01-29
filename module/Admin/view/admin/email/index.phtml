@@ -40,10 +40,10 @@ $this->inlineScript()->appendScript("
                                 <small><?php echo $this->translate('Create/update'). ' ' .$template->getTouchTime() ?></small>
                             </td>
                             <td class="project-completion">
-                                <small><?php echo $template->getDescription() ?></small>
+                                <small><?php echo '/' . $lang_code . $template->getDescription() ?></small>
                             </td>
                             <td class="project-actions">
-                                <a href="<?php echo $template->getEditUrl() ?>" class="btn btn-white btn-sm">
+                                <a href="<?php echo '/' . $lang_code . $template->getEditUrl() ?>" class="btn btn-white btn-sm">
                                     <i class="fa fa-pencil"></i> <?php echo $this->translate('Edit') ?>
                                 </a>
                                 <?php if(!$template->getCode()): ?>

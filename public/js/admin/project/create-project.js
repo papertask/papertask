@@ -31,18 +31,30 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
     $scope.init = function(){
         $http.get("/api/data/project/")
             .success(function($data){
+				console.log($data);
                 jQuery.extend(true, $scope, $data);  // copy data to scope
                 var shareData = ['interpretingUnits', 'engineeringUnits', 'dtpUnits'];
                 for(var i = 0; i < shareData.length; i++){
                     var key = shareData[i];
                     setModalControllerData(key, $scope[key]);
                 }
+				
 
                 $scope.project.targetLanguages = [];
                 $timeout(function(){
                     jQuery("select.multiselect").multiselect("destroy").multiselect();
                 });
             });
+		var ajaxPmlist = $http.get("/" + LANG_CODE + "/admin/staff/getPmList")
+            .success( function ( $data ) {
+                $scope.pms = $data.pmlist;
+            });
+
+        var ajaxSalesList = $http.get("/" + LANG_CODE + "/admin/staff/getSalesList")
+            .success( function ( $data ) {
+                $scope.sales = $data.saleslist;
+            });
+			
         setModalControllerData('project', $scope.project);
     };
 
@@ -103,9 +115,9 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         $http.post("/api/admin/project/", $scope.project)
             .success(function($data){
                 if($data.success){
-                    location.href = "/admin/project/detail/?id=" + $data.project.id;
+                    location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
                 } else {
-                    location.href = "/admin/quote/detail/?id=" + $data.project.id;
+                    location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
                 }
             })
             .error(function($data){
@@ -266,7 +278,7 @@ angularApp.controller('TableModalController', function($scope, TableItemListServ
 
 angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', function($scope, FileUploader, $timeout) {
     var uploader = $scope.uploader = new FileUploader({
-        url: '/admin/project/uploadFile'
+        url: "/" + LANG_CODE + "/admin/project/uploadFile"
     });
 
     // FILTERS
