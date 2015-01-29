@@ -19,18 +19,18 @@ $this->inlineScript()
     <div class="container">
         <br><br>
         <div class="row">
-            <h1 class="text-center"><?php echo $this->translate('PLEASE CHECK OUT THE LANGUAGES WE SUPPORT.') ?></h1>
+            <h1 class="text-center"><?php echo $this->translate('PLEASE CHECK OUT THE LANGUAGES WE SUPPORT.','Landing') ?></h1>
             <h3 class="text-center">
-                <?php echo $this->translate('WE\'RE HONEST ABOUT QUALITY. AND WE OFFER ALL MAJOR LANGUAGES FOR TRANSLATION.') ?></h3>
+                <?php echo $this->translate('WE\'RE HONEST ABOUT QUALITY. AND WE OFFER ALL MAJOR LANGUAGES FOR TRANSLATION.','Landing') ?></h3>
             <br>
             <form name="showPriceForm" class="form-horizontal" role="form">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label"><?php echo $this->translate('Source Language') ?></label>
+                        <label class="col-sm-4 control-label"><?php echo $this->translate('Source Language','Landing') ?></label>
                         <div class="col-sm-8">
                             <select ngChange="updateTargetLanguages()" ng-model="params.sourceLanguage"
                                     required name="sourceLanguage" class="form-control required">
-                                <option value=""><?php echo $this->translate('Please select') ?></option>
+                                <option value=""><?php echo $this->translate('Please select','Landing') ?></option>
                                 <option ng-repeat="id in sourceLanguages" value="{{id}}">
                                     {{languages[id]}}
                                 </option>
@@ -40,11 +40,11 @@ $this->inlineScript()
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="inputPassword" class="col-sm-4 control-label">Target Language</label>
+                        <label for="inputPassword" class="col-sm-4 control-label"><?php echo $this->translate('Target Language','Landing') ?> </label>
                         <div class="col-sm-8">
                             <select ng-model="params.targetLanguage" required name="targetLanguage"
                                     class="form-control required">
-                                <option value=""><?php echo $this->translate('Please select') ?></option>
+                                <option value=""><?php echo $this->translate('Please select','Landing') ?></option>
                                 <option ng-repeat="id in targetLanguages" value="{{id}}">
                                     {{languages[id]}}
                                 </option>
@@ -55,7 +55,7 @@ $this->inlineScript()
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label class="col-sm-4 control-label">
-                            <?php echo $this->translate('Word Count') ?></label>
+                            <?php echo $this->translate('Word Count','Landing') ?></label>
                         <div class="col-sm-8">
                             <input name="wordCount" ng-model="params.wordCount" type="number"
                                    class="form-control required" required>
@@ -65,7 +65,7 @@ $this->inlineScript()
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="inputPassword" class="col-sm-4 control-label">
-                            <?php echo $this->translate('Choose Currency') ?></label>
+                            <?php echo $this->translate('Choose Currency','Landing') ?></label>
                         <div class="col-sm-8">
                             <select ng-model="params.currency" name="currency" required class="form-control required">
                                 <option value="USD">USD</option>
@@ -76,7 +76,7 @@ $this->inlineScript()
                 </div>
                 <br><br><br><br><br><br><br><br><br>
                 <button type="submit" ng-click="showPrice()" class="btn btn-download btn-lg">
-                    <?php echo $this->translate('Show Price') ?> </button>
+                    <?php echo $this->translate('Show Price','Landing') ?> </button>
                 <br><br><br><br>
 
             </form>
@@ -90,23 +90,23 @@ $this->inlineScript()
             <div class="feature-item col-md-4 text-center">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><?php echo $this->translate('Professional') ?></h4>
-                        <p><em><?php echo $this->translate('Fast translation by native speakers') ?></em></p>
+                        <h4><?php echo $this->translate('Professional','Landing') ?></h4>
+                        <p><em><?php echo $this->translate('Fast translation by native speakers','Landing') ?></em></p>
                     </div>
                     <div class="panel-body">
                         <div class="text-left">
-                            <li> <?php echo $this->translate('Emails, Letters') ?></li>
-                            <li> <?php echo $this->translate('Daily content, social media posts') ?></li>
-                            <li> <?php echo $this->translate('User reviews, user generated content') ?></li>
-                            <li> <?php echo $this->translate('Internal communication, customer support') ?></li>
+                            <li> <?php echo $this->translate('Emails, Letters','Landing') ?></li>
+                            <li> <?php echo $this->translate('Daily content, social media posts','Landing') ?></li>
+                            <li> <?php echo $this->translate('User reviews, user generated content','Landing') ?></li>
+                            <li> <?php echo $this->translate('Internal communication, customer support','Landing') ?></li>
                         </div>
                         <hr />
                         <p style="font-size: 35px;"> {{params.currency}} {{price.professionalPrice*params.wordCount | number:2}}</p>
                         <small>{{params.currency}} {{price.professionalPrice | number:2}} /
-                            <?php echo $this->translate('Word') ?></small>
+                            <?php echo $this->translate('Word','Landing') ?></small>
                         <hr />
                         <a href="javascript:;" target="_blank" class="btn btn-primary btn-lg">
-                            <?php echo $this->translate('Order Now') ?> </a>
+                            <?php echo $this->translate('Order Now','Landing') ?> </a>
                     </div>
                 </div>
             </div>
@@ -114,44 +114,44 @@ $this->inlineScript()
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4><?php echo $this->translate('Business') ?></h4>
-                        <p><em><?php echo $this->translate('Professional quality translation plus proofreading') ?></em></p>
+                        <p><em><?php echo $this->translate('Professional quality translation plus proofreading','Landing') ?></em></p>
                     </div>
                     <div class="panel-body">
                         <div class="text-left">
-                            <li> <?php echo $this->translate('Application/introduction, website localization') ?></li>
-                            <li> <?php echo $this->translate('Business presentations, reports, articles') ?></li>
-                            <li> <?php echo $this->translate('Instructions, manuals, guidelines') ?></li>
-                            <li> <?php echo $this->translate('Points translation, product description') ?></li>
+                            <li> <?php echo $this->translate('Application/introduction, website localization','Landing') ?></li>
+                            <li> <?php echo $this->translate('Business presentations, reports, articles','Landing') ?></li>
+                            <li> <?php echo $this->translate('Instructions, manuals, guidelines','Landing') ?></li>
+                            <li> <?php echo $this->translate('Points translation, product description','Landing') ?></li>
                         </div>
                         <hr />
                         <p style="font-size: 35px;">{{params.currency}} {{price.businessPrice*params.wordCount | number:2}}</p>
                         <small>{{params.currency}} {{price.businessPrice | number:2}} /
-                            <?php echo $this->translate('Word') ?></small>
+                            <?php echo $this->translate('Word','Landing') ?></small>
                         <hr />
                         <a href="javascript:void(0);" target="_blank" class="btn btn-primary btn-lg">
-                            <?php echo $this->translate('Order Now') ?></a>
+                            <?php echo $this->translate('Order Now','Landing') ?></a>
                     </div>
                 </div>
             </div>
             <div class="feature-item col-md-4 text-center">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><?php echo $this->translate('Premium') ?></h4>
-                        <p><em><?php echo $this->translate('Professional plus extra proofreading') ?></em></p>
+                        <h4><?php echo $this->translate('Premium','Landing') ?></h4>
+                        <p><em><?php echo $this->translate('Professional plus extra proofreading','Landing') ?></em></p>
                     </div>
                     <div class="panel-body">
                         <div class="text-left">
-                            <li> <?php echo $this->translate('Posters') ?></li>
-                            <li> <?php echo $this->translate('Webpage, Webpage copy') ?></li>
-                            <li> <?php echo $this->translate('News release') ?></li>
-                            <li> <?php echo $this->translate('Promotional/marketing materials') ?></li>
+                            <li> <?php echo $this->translate('Posters','Landing') ?></li>
+                            <li> <?php echo $this->translate('Webpage, Webpage copy','Landing') ?></li>
+                            <li> <?php echo $this->translate('News release','Landing') ?></li>
+                            <li> <?php echo $this->translate('Promotional/marketing materials','Landing') ?></li>
                         </div>
                         <hr />
                         <p style="font-size: 35px;"> {{params.currency}} {{price.premiumPrice*params.wordCount | number:2}}</p>
                         <small>{{params.currency}} {{price.premiumPrice | number:2}} / Word</small>
                         <hr />
                         <a href="javascript:;" target="_blank" class="btn btn-primary btn-lg">
-                            <?php echo $this->translate('Order Now') ?> </a>
+                            <?php echo $this->translate('Order Now','Landing') ?> </a>
                     </div>
                 </div>
             </div>
