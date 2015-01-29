@@ -32,7 +32,7 @@ $this->inlineScript()
                                     required name="sourceLanguage" class="form-control required">
                                 <option value=""><?php echo $this->translate('Please select','Landing') ?></option>
                                 <option ng-repeat="id in sourceLanguages" value="{{id}}">
-                                    {{languages[id]}}
+                                    <?php echo $this->translate('{{languages[id]}}','Landing') ?>
                                 </option>
                             </select>
                         </div>
@@ -46,7 +46,7 @@ $this->inlineScript()
                                     class="form-control required">
                                 <option value=""><?php echo $this->translate('Please select','Landing') ?></option>
                                 <option ng-repeat="id in targetLanguages" value="{{id}}">
-                                    {{languages[id]}}
+                                     <?php echo $this->translate('{{languages[id]}}','Landing') ?>
                                 </option>
                             </select>
                         </div>
