@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonUser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2015-01-30 14:56+0800\n"
+"PO-Revision-Date: 2015-01-30 15:22+0800\n"
 "Last-Translator: Evan Coury <me@evancoury.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -33,7 +33,23 @@ msgstr "登陆"
 
 #: module/User/view/user/login/form.phtml:8
 msgid "Login to PaperTask"
-msgstr "登陆到&nbsp; PaperTask"
+msgstr "登陆到&nbsp;PaperTask"
+
+#: module/User/view/user/login/form.phtml:41
+msgid "or Login with"
+msgstr "或者用下面账号登陆"
+
+#: module/User/view/user/login/form.phtml:41
+msgid "Forgot password?"
+msgstr "忘记密码？"
+
+#: module/User/view/user/login/form.phtml:41
+msgid "Do not have an account?"
+msgstr "还没有账号？"
+
+#: module/User/view/user/login/form.phtml:41
+msgid "Create an account"
+msgstr "创建账号"
 
 #: ../view/user/index/index.phtml:2
 #, php-format
