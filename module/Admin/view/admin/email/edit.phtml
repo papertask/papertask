@@ -28,7 +28,7 @@ $(document).ready(function(){
         var language = $('input[name=language]:checked').val();
         if(type && language){
             $.ajax({
-                url: '/' .LANG_CODE. '/admin/email/loadTemplate',
+                url: '/" . $this->lang_code . "/admin/email/loadTemplate',
                 type: 'post',
                 dataType: 'json',
                 data: 'type=' + type + '&language=' + language,
