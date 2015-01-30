@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonUser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2012-09-08 13:15+0800\n"
+"PO-Revision-Date: 2015-01-30 13:21+0800\n"
 "Last-Translator: Evan Coury <me@evancoury.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -12,6 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: translate\n"
 "X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.7.3\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../view/layout/layout.phtml:6 ../view/layout/layout.phtml:33
@@ -26,6 +27,10 @@ msgstr "主页"
 msgid "All rights reserved."
 msgstr "All rights reserved."
 
+#: module/User/view/user/login/form.phtml:8
+msgid "Login to PaperTask"
+msgstr "登陆到&nbsp;PaperTask"
+
 #: ../view/user/index/index.phtml:2
 #, php-format
 msgid "Welcome to %sZend Framework 2%s"
@@ -34,13 +39,12 @@ msgstr "欢迎使用%sZend Framework 2%s"
 #: ../view/user/index/index.phtml:3
 #, php-format
 msgid ""
-"Congratulations! You have successfully installed the %sZF2 Skeleton "
-"User%s. You are currently running Zend Framework version %s. This "
-"skeleton can serve as a simple starting point for you to begin building your "
-"user on ZF2."
+"Congratulations! You have successfully installed the %sZF2 Skeleton User%s. "
+"You are currently running Zend Framework version %s. This skeleton can serve "
+"as a simple starting point for you to begin building your user on ZF2."
 msgstr ""
-"恭喜！您已经成功安装了%sZF2 Skeleton User%s。您现在运行的Zend "
-"Framework的版本为%s。这个框架应用可以用作您创建自己的ZF2应用的起点。"
+"恭喜！您已经成功安装了%sZF2 Skeleton User%s。您现在运行的Zend Framework的版本"
+"为%s。这个框架应用可以用作您创建自己的ZF2应用的起点。"
 
 #: ../view/user/index/index.phtml:4
 msgid "Fork Zend Framework 2 on GitHub"
@@ -98,9 +102,9 @@ msgid ""
 "feedback you may have regarding the beta releases. Alternatively, you may "
 "subscribe and post questions to the %smailing lists%s."
 msgstr ""
-"如果您需要一些关于ZF2开发的帮助和支持，可以通过IRC: %s#zftalk on Freenode"
-"%s。我们非常乐意收到您对于发布的公测版提问和反馈。或者，您也可以通"
-"过%smailing lists%s订阅并发布问题。"
+"如果您需要一些关于ZF2开发的帮助和支持，可以通过IRC: %s#zftalk on Freenode%s。"
+"我们非常乐意收到您对于发布的公测版提问和反馈。或者，您也可以通过%smailing "
+"lists%s订阅并发布问题。"
 
 #: ../view/user/index/index.phtml:24
 msgid "Ping us on IRC"
