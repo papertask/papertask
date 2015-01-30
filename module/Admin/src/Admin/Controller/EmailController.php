@@ -20,10 +20,9 @@ class EmailController extends AbstractActionController
 
     public function indexAction()
     {
-		$lang_code = $this->params()->fromRoute('lang');
         $entityManager = $this->getEntityManager();
         $templates = $entityManager->getRepository('Admin\Entity\TemplateType')->findAll();
-        return new ViewModel(array('templates' => $templates,"lang_code" => $lang_code));
+        return new ViewModel(array('templates' => $templates));
     }
 
     protected function getForm(){
@@ -38,6 +37,7 @@ class EmailController extends AbstractActionController
         $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $request = $this->getRequest();
         $form = $this->getForm();
+		$lang_code = $this->params()->fromRoute('lang');
         if($request->isPost()){
             $form->setData($request->getPost());
             if($form->isValid()){
@@ -58,6 +58,7 @@ class EmailController extends AbstractActionController
                                             'language' => (int)$request->getQuery('language')
                                         ));
             return new ViewModel(array(
+				"lang_code" => $lang_code,
                 'form' => $form,
                 'type' => $request->getQuery('type'),
                 'language' => $request->getQuery('language'),

@@ -15,20 +15,20 @@ $(document).ready(function(){
         radioClass: 'iradio_square-green',
     });
 
-
+	
     $('.summernote').summernote({
         /*onImageUpload: function(files, editor, editable) {
             console.log('image upload:', files, editor, editable);
         },*/
     });
-
+	var LANG_CODE = '" . $this->lang_code . "';
     // Load template after select template type and languages
     $('select[name=type], input[name=language]').on('change', function(){
         var type = $('select[name=type]').val();
         var language = $('input[name=language]:checked').val();
         if(type && language){
             $.ajax({
-                url: '/admin/email/loadTemplate',
+                url: '/' .LANG_CODE. '/admin/email/loadTemplate',
                 type: 'post',
                 dataType: 'json',
                 data: 'type=' + type + '&language=' + language,
