@@ -35,6 +35,8 @@ class EmailController extends AbstractActionController
 
     public function editAction(){
         //$this->layout('layout/admin');
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
         $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $request = $this->getRequest();
         $form = $this->getForm();
@@ -47,7 +49,7 @@ class EmailController extends AbstractActionController
                 // Add success message
                 $translator = $this->getTranslator();
                 $this->flashMessenger()->addSuccessMessage($translator->translate('Your template has been saved.'));
-                return $this->redirect()->toUrl('/admin/email');
+                return $this->redirect()->toUrl('/'.$lang_code.'/admin/email');
             }
         }
         //var_dump($request);die;
