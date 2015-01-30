@@ -23,7 +23,7 @@ class EmailController extends AbstractActionController
 		$lang_code = $this->params()->fromRoute('lang');
         $entityManager = $this->getEntityManager();
         $templates = $entityManager->getRepository('Admin\Entity\TemplateType')->findAll();
-        return new ViewModel(array('templates' => $templates,"lang_code" => $lang_code);
+        return new ViewModel(array('templates' => $templates,"lang_code" => $lang_code));
     }
 
     protected function getForm(){
