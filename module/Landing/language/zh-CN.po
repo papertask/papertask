@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Papertask\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 14:16+0800\n"
-"PO-Revision-Date: 2015-01-29 13:31+0800\n"
+"PO-Revision-Date: 2015-01-29 15:20+0800\n"
 "Last-Translator: \n"
 "Language-Team: Hat Dao <enjoy3013@gmail.com>\n"
 "Language: en_US\n"
@@ -1323,7 +1323,7 @@ msgstr "自由翻译"
 
 #: module/Landing/view/landing/index/freelancer.phtml:7
 msgid "WORK FREE!"
-msgstr "工作 自由 ！"
+msgstr "工作&nbsp&nbsp自由！"
 
 #: module/Landing/view/landing/index/freelancer.phtml:11
 #: module/Landing/view/landing/index/freelancer.phtml:58
@@ -1349,11 +1349,10 @@ msgstr "质量"
 
 #: module/Landing/view/landing/index/freelancer.phtml:39
 msgid ""
-"If you want to get a job here, you must pass our certification, after pass "
-"the evaluation of our senior translators, you can get the translation tasks."
+"If you want to get a job here, you must pass our certification, after that, "
+"you can get the translation tasks."
 msgstr ""
-"如果你想在这里工作，你必须进行我们的测试并认证，我们的资深翻译对您的测试评估"
-"后，你可以获得翻译任务。"
+"如果你想在这里工作，你必须进行我们的测试并认证，之后，你可以获得翻译任务。"
 
 #: module/Landing/view/landing/index/freelancer.phtml:47
 msgid "Work Free"
@@ -1368,7 +1367,7 @@ msgstr "在通过我们的测试后，你可以获得翻译任务并同我们一
 #: module/Landing/view/landing/index/contact.phtml:1
 #: module/Landing/view/landing/index/contact.phtml:14
 msgid "GET IN TOUCH WITH PAPERTASK"
-msgstr "联系PAPERTASK"
+msgstr "联系&nbsp;PAPERTASK"
 
 #: module/Landing/view/landing/index/contact.phtml:16
 msgid "PLEASE CONTACT US TO GET MORE INFORMATION ABOUT OUR SERVICES"

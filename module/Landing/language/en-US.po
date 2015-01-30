@@ -1031,8 +1031,8 @@ msgstr ""
 
 #: module/Landing/view/landing/index/freelancer.phtml:39
 msgid ""
-"If you want to get a job here, you must pass our certification, after pass "
-"the evaluation of our senior translators, you can get the translation tasks."
+"If you want to get a job here, you must pass our certification, after that, "
+"you can get the translation tasks."
 msgstr ""
 
 #: module/Landing/view/landing/index/freelancer.phtml:47
