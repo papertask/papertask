@@ -30,7 +30,7 @@ class LoginController extends AbstractActionController
     public function indexAction(){
         $lang = $this->params()->fromRoute('lang');
         if($this->getCurrentUser()){
-            return $this->redirect()->toUrl('/admin/dashboard');
+            return $this->redirect()->toUrl("/".$lang.'/admin/dashboard');
         }
         $form = $this->getForm();
         $request = $this->getRequest();
