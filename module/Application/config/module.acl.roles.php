@@ -62,6 +62,7 @@ $allow_all = array(
 	'email\index',
 	'email\new',
 	'email\edit',
+	'email\loadTemplate',
 	// -- Profile
 	'papertask\profile',
 	// -- API
