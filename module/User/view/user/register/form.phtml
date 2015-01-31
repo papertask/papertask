@@ -1,13 +1,13 @@
-<?php $this->headTitle($this->translate(($this->u == 'freelancer') ? 'Freelancer' : 'Customer' . ' registration')) ?>
+<?php $this->headTitle($this->translate(($this->u == 'freelancer') ? 'Freelancer' : 'Customer' .' registration','User')) ?>
 <style>
     .logo-name {
         font-size: 80px;
     }
 </style>
 <div class="middle-box">
-    <h3><?php echo $this->translate(($this->u == 'freelancer') ? 'Freelancer registration' : 'Customer registration') ?></h3>
+    <h3><?php echo $this->translate(($this->u == 'freelancer') ? 'Freelancer registration' : 'Customer registration','User') ?></h3>
 
-    <p><?php echo ($this->u == 'freelancer') ? $this->translate('I want to find translation works.') : $this->translate('I need translation services.') ?></p>
+    <p><?php echo ($this->u == 'freelancer') ? $this->translate('I want to find translation works','User') : $this->translate('I need translation services','User') ?></p>
 
     <form class="m-t" method="post" role="form" action="">
         <input type="hidden" name="u" value="<?php echo $this->u ?>" />
@@ -29,15 +29,15 @@
             <div class="checkbox i-checks">
                 <label>
                     <input name="agree" type="checkbox" value="1" ><i></i> &nbsp;
-                    <?php echo sprintf($this->translate('Agree the <a href="%s" class="color-green">Terms and Conditions.</a>'), $this->url('terms')) ?>
+                    <?php echo sprintf($this->translate('Agree the <a href="%s" class="color-green">Terms and Conditions.</a>','User'), $this->url('terms')) ?>
                 </label>
             </div>
 
         </div>
         <button type="submit"
-                class="btn btn-primary block full-width m-b"><?php echo $this->translate('Register') ?></button>
+                class="btn btn-primary block full-width m-b"><?php echo $this->translate('Register','User') ?></button>
 
-        <h3><?php echo $this->translate('or Sign up with') ?></h3>
+        <h3><?php echo $this->translate('or Sign up with','User') ?></h3>
 
         <div class="col-lg-12 well">
             <a class="btn btn-success btn-facebook"
@@ -52,7 +52,7 @@
 
         <p class="text-muted text-center">
             <small><?php echo $this->translate('Already have an account?') ?></small>
-            <a href="<?php echo $this->url('user') ?>/login"><?php echo $this->translate('Login') ?></a></p>
+            <a href="<?php echo $this->url('user') ?>/login"><?php echo $this->translate('Login','User') ?></a></p>
 
     </form>
 </div>

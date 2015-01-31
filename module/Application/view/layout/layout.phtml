@@ -61,11 +61,15 @@
                 <?php echo $this->content ?>
             </div>
 
-            <br><br><br><br><br><br>
+            <br><br><br>
 
-            <p class="m-t"> <small><?php echo date('Y') ?> &copy; <a href="<?php echo $this->url('home') ?>">
-                        <?php echo $this->translate('PaperTask') ?></a> ·
-                    <?php echo $this->translate('All Rights Reserved') ?>.</small> </p>
+            <p class="m-t">
+            2015 &copy; <a href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>">PaperTask.com</a> <?php echo $this->translate('All rights reserved.', 'Application'); ?>
+            <a href="<?php echo $this->url('privacy',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Privacy Policy', 'Application'); ?></a> |
+            <a href="<?php echo $this->url('terms',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Terms of Use', 'Application'); ?></a>
+            </p>
+            <br><br>
+
         </div>
     </div>
         <?php echo $this->inlineScript() ?>
