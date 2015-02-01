@@ -119,7 +119,6 @@ class Module
 
         //setting to view
         $e -> getViewModel() -> acl = $acl;
-
     }
 
     // Check ACL
@@ -127,14 +126,15 @@ class Module
     {
         $params = $e->getRouteMatch()->getParams();
         if(isset($params['__CONTROLLER__']) && isset($params['action']))
-        $route = $params['__CONTROLLER__']."\\".$params['action'];
+            $route = $params['__CONTROLLER__']."\\".$params['action'];
         else
-        $route = $e->getRouteMatch()->getMatchedRouteName();
+            $route = $e->getRouteMatch()->getMatchedRouteName();
         $route = strtolower($route);
 
         //set role here
         $userSession = new Container('user');
         $userRole = $userSession->user_group['name'] == null ? 'Guest' : $userSession->user_group['name'];
+        $e -> getViewModel() -> setVariable('userRole', $userRole);
 
         if (!$e -> getViewModel() -> acl ->hasResource($route) || !$e -> getViewModel() -> acl -> isAllowed($userRole, $route))
         {
