@@ -29,7 +29,7 @@
             <div class="checkbox i-checks">
                 <label>
                     <input name="agree" type="checkbox" value="1" ><i></i> &nbsp;
-                    <?php echo sprintf($this->translate('Agree the <a href="%s" class="color-green">Terms and Conditions.</a>','User'), $this->url('terms')) ?>
+                    <?php echo $this->translate('Agree the ','User');?><a href="<?php echo $this->url('terms');?>" class="color-green"><?php echo $this->translate('Terms and Conditions.','User');?></a>
                 </label>
             </div>
 
@@ -51,8 +51,8 @@
         </div>
 
         <p class="text-muted text-center">
-            <small><?php echo $this->translate('Already have an account?') ?></small>
-            <a href="<?php echo $this->url('user') ?>/login"><?php echo $this->translate('Login','User') ?></a></p>
+            <small><?php echo $this->translate('Already have an account?','User') ?>
+            <a href="<?php echo $this->url('user') ?>/login"><?php echo $this->translate('Login','User') ?></a></p></small>
 
     </form>
 </div>
