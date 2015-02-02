@@ -45,4 +45,14 @@ class Module
             ),
         );
     }
+
+    public function getViewHelperConfig()
+    {
+        return array(
+            'invokables' => array(
+                'userData'
+                    => 'User\View\Helper\UserData'
+            )
+        );
+    }
 }

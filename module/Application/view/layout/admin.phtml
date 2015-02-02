@@ -41,8 +41,26 @@
 <div id="wrapper">
 
     <!-- Left sidebar -->
-    <?php //include "admin/left-sidebar.phtml" ?>
-    <?php include "admin/left-sidebar-client.phtml" ?>
+    <?php
+    var_dump($this->userData());
+    switch($this->userData()['role']){
+        case 'Admin':
+            include "admin/left-sidebar.phtml"; //staff menus here
+            break;
+        case 'Employer': // employer == client
+        case 'Client':
+            include "admin/left-sidebar-client.phtml";
+            break;
+        case 'Freelancer':
+            include "admin/left-sidebar-freelancer.phtml";
+            break;
+        default:
+            // TODO: default menu
+    };
+    ?>
+    <?php  ?>
+    <?php //" ?>
+    <?php //include "admin/left-sidebar-freelancer.phtml" ?>
     <!-- End left sidebar -->
 
     <!-- Main Wrapper -->

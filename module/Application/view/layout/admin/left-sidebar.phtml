@@ -112,6 +112,18 @@
                     <i class="fa fa-random"></i> <span class="nav-lable">PaperTask Profile</span></a>
             </li>
 
+            <li> <!-- only admin can see the mail system -->
+                <a href="#"><i class="fa fa-envelope"></i> <span class="nav-lable">Mail</span></a>
+            </li>
+
+            <li>
+                <a href="<?php echo $this->url('admin', array('controller' => 'papertask', 'action' => 'profile',"lang"=>$this->translate('lang','Application'))) ?>">
+                    <i class="fa fa-gear"></i> <span class="nav-lable">Settings</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="financial_report.html">My Profile</a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
+                        <li><a href="transaction.html">Reset Password</a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
+                    </ul>
+            </li>
         </ul>
 
     </div>

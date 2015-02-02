@@ -65,6 +65,8 @@ $allow_all = array(
 	'email\loadTemplate',
 	// -- Profile
 	'papertask\profile',
+	// -- ResetPassword
+	'resetpassword\index',
 	// -- API
 	'api/common',
 	'api/user',

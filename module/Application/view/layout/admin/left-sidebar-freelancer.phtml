@@ -20,36 +20,30 @@
                 </div>
 
             </li>
-            <li> <!-- different roles have different dashboard, a little bit different, can do at last -->
+            <li>
                 <a href="<?php echo $this->url('admin',array("lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
             </li>
 
-            <li> <!-- admin, operation manager can see all info, pm can only see tasks belong to the clients who assigned to the pm, sales dir and sales manager can not see this -->
+            <li>
                 <a href="<?php echo $this->url('admin', array('controller' => 'task',
-                    'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-tasks"></i> <span class="nav-label">Tasks</span></a>
+                    'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-tasks"></i> <span class="nav-label">Task Pool</span></a>
             </li>
 
             <li>
                 <a href="<?php echo $this->url('admin', array('controller' => 'project',
-                    'action' => 'quote',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-files-o"></i> <span class="nav-label">Quotes</span></a>
+                    'action' => 'quote',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-file-text-o"></i> <span class="nav-label">My Tests</span></a>
             </li>
-
-            <li> <!-- admin, sales director, operation manager can see full info, sales manager and pm can only see clients belong to them -->
+            <li>
                 <a href="<?php echo $this->url('admin', array('controller' => 'project',
-                    'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-archive"></i> <span class="nav-label">Projects</span> <span class="fa arrow"></span> <span class="label label-warning">16</span></a>
-                    <ul class="nav nav-second-level collapse">
-                        <li><a href="financial_report.html">All Projects</a></li>
-                        <li><a href="transaction.html">Ongoing Projects</a></li>
-                        <li><a href="client-unpaid.html">Review <span class="label label-warning">16</span></a></li>
-                        <li><a href="freelancer-unpaid.html">Completed Projects</a></li>
-                    </ul>
+                    'action' => 'quote',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-files-o"></i> <span class="nav-label">My Tasks</span> <span class="label label-warning">1</span></a>
             </li>
 
             <li>
                 <a href="#"><i class="fa fa-book"></i> <span class="nav-lable">Finance</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="transaction.html">Transactions</a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
-                    <li><a href="client-unpaid.html">Unpaid Projects</a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
+                    <li><a href="transaction.html">Transactions</a></li>
+                    <li><a href="client-unpaid.html">Unpaid Tasks</a></li>
+                    <li><a href="client-unpaid.html">Edit Payment Info</a></li>
                 </ul>
             </li>
 
@@ -62,8 +56,7 @@
                 <a href="<?php echo $this->url('admin', array('controller' => 'papertask', 'action' => 'profile',"lang"=>$this->translate('lang','Application'))) ?>">
                     <i class="fa fa-gear"></i> <span class="nav-lable">Settings</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href=<?php echo $this->url('admin', array('controller' => 'employer',
-                                'action' => 'profile',"lang"=>$this->translate('lang','Application'))) ?>>Account Information</a></li>
+                        <li><a href="financial_report.html">My Profile</a></li>
                         <li><a href="transaction.html">Reset Password</a></li>
                     </ul>
             </li>

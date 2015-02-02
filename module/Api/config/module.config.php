@@ -131,6 +131,7 @@ return array(
             'Api\Controller\User\InterpretingPrice' => 'Api\Controller\User\InterpretingPriceController',
 			'Api\Controller\User\InterpretingPriceP' => 'Api\Controller\User\InterpretingPricePController',
             'Api\Controller\User\PriceData' => 'Api\Controller\User\PriceDataController',
+            'Api\Controller\User\ResetPassword' => 'Api\Controller\User\ResetPasswordController',
             'Api\Controller\User\Resource' => 'Api\Controller\User\ResourceController',
             'Api\Controller\User\Resume' => 'Api\Controller\User\ResumeController',
             'Api\Controller\User\Staff' => 'Api\Controller\User\StaffController',
@@ -148,7 +149,7 @@ return array(
             'Api\Controller\Papertask\Interpreting' => 'Api\Controller\Papertask\InterpretingController',
             'Api\Controller\Papertask\Translation' => 'Api\Controller\Papertask\TranslationController',
             'Api\Controller\Papertask\Translationtm' => 'Api\Controller\Papertask\TranslationtmController',
-			
+
         ),
     ),
     'view_manager' => array(

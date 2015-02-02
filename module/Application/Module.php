@@ -134,7 +134,6 @@ class Module
         //set role here
         $userSession = new Container('user');
         $userRole = $userSession->user_group['name'] == null ? 'Guest' : $userSession->user_group['name'];
-        $e -> getViewModel() -> setVariable('userRole', $userRole);
 
         if (!$e -> getViewModel() -> acl ->hasResource($route) || !$e -> getViewModel() -> acl -> isAllowed($userRole, $route))
         {
