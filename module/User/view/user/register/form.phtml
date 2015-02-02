@@ -12,7 +12,15 @@
     <form class="m-t" method="post" role="form" action="">
         <input type="hidden" name="u" value="<?php echo $this->u ?>" />
         <?php
-        foreach($this->form->getElements() as $element): ?>
+        foreach($this->form->getElements() as $element): 
+			$placeholder = $element->getAttribute('placeholder');
+			if(isset($placeholder))
+			{
+				$element->setAttribute('placeholder',$this->translate($placeholder,'User'));
+			}
+		
+		
+		?>
             <?php
             $messages = $element->getMessages()
             ?>

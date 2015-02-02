@@ -17,6 +17,8 @@ class UserForm extends Form
 
     public function __construct($name = null)
     {
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
         // we want to ignore the name passed
         parent::__construct('freelancer');
         $this->setAttribute('method', 'post');
