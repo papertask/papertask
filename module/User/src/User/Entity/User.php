@@ -500,6 +500,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function isAdmin(){
         return $this->getGroup()->isAdmin();
     }
+	
 
     public function setGroupByName($name, $entityManager){
         if($name == 'freelancer'){

@@ -46,9 +46,9 @@ class Staff extends Entity{
     public function getData(){
         return [
             'id' => $this->id,
-            'client' => $this->client->getData(),
+            'client' => ($this->client)?$this->client->getData():null,
             'name' => $this->name,
-            'type' => $this->type->getData()
+            'type' => ($this->type)?$this->type->getData():null
         ];
     }
     

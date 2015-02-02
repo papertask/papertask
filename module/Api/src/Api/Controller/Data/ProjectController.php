@@ -11,6 +11,7 @@ use Zend\View\Model\JsonModel;
 
 use Application\Controller\AbstractRestfulController;
 use User\Entity\Staff;
+use User\Entity\UserGroup;
 use User\Entity\Language;
 use User\Entity\Field;
 
@@ -23,7 +24,11 @@ class ProjectController extends AbstractRestfulController
 		$projectTypes = $config['project_create'];
 		
 		$data['languages'] = $this->getAllData('\User\Entity\Language');
-        $data['clients'] = $this->getAllData('\User\Entity\Employer');
+        //$data['clients'] = $this->getAllData('\User\Entity\Employer');
+		// Get freelancer group
+		$data['clients'] = $this->getAllDataBy('\User\Entity\User',['group' => UserGroup::EMPLOYER_GROUP_ID]);
+		//var_dump($data['clients']);
+		//$data['clients']['name'] = $data['clients']['firstName'] + ' ' + $data['clients']['lastName'];
         $data['fields'] = $this->getAllData('\User\Entity\Field');
         //$data['pms'] = $this->getAllDataBy('\User\Entity\Staff', ['type' => Staff::STAFF_TYPE_PM]);
         //$data['sales'] = $this->getAllDataBy('\User\Entity\Staff', ['type' => Staff::STAFF_TYPE_SALE]);

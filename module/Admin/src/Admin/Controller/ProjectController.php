@@ -70,8 +70,10 @@ class ProjectController extends AbstractActionController
 
     public function detailAction(){
         $id = $this->params()->fromQuery('id');
+		$lang_code = $this->params()->fromRoute('lang');
         return new ViewModel([
             'id' => $id,
+			"lang_code" => $lang_code
         ]);
     }
 }

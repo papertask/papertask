@@ -40,6 +40,7 @@ $allow_all = array(
 	'project\index',
 	'project\new',
 	'project\quote', // Quotes in menu
+	'project\detail', // Quotes in menu
 	// -- Freelancer
 	'freelancer\index',
 	'freelancer\new',

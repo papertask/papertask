@@ -23,11 +23,11 @@ angularApp.controller('ProjectIndexController', function($scope, StaffApi, Langu
     $scope.sales = {};
 
     $scope.goToDetail = function($project){
-        location.href = "/admin/project/detail/#?id=" + $project.id;
+        location.href = "/" + LANG_CODE + "/admin/project/detail/#?id=" + $project.id;
     };
 
     $scope.goToEdit = function($project){
-        location.href = "/admin/project/detail/#edit?id=" + $project.id;
+        location.href = "/" + LANG_CODE + "/admin/project/detail/#edit?id=" + $project.id;
     };
 
     StaffApi.list({

@@ -85,7 +85,7 @@
                     <label class="col-sm-3 control-label">Client *</label>
                     <div class="col-sm-9">
                         <select class="form-control required valid" name="client" aria-required="true"
-                                ng-model="project.client" ng-options="client.name for client in clients">
+                                ng-model="project.client" ng-options="client.firstName + ' ' + client.lastName for client in clients" ng-change="change_client(project.client)">
                             <option value="">--</option>
                         </select>
                     </div>

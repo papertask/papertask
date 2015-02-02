@@ -65,6 +65,44 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         return "";
     };
 
+    $scope.change_client = function(client){
+       console.log(client);
+	   //get translation no tm
+	   var USER_ID = client.id
+	   if($scope.hasTypeTranslationNoTM)
+	   {
+		$http.get('/api/user/translationprice?userId='+ USER_ID).success(function($data) {
+            $scope.translationPrices = $data['translationPrices'];
+		//find 
+		console.log($scope.translationPrices);
+		console.log($scope.project.sourceLanguage);
+		console.log($scope.project.targetLanguages);
+		TableItemListService.translationPrices={};
+		for(i=0;i<$scope.translationPrices.length;i++){
+			for(j=0;j<$scope.project.targetLanguages.length;j++){
+				console.log($scope.translationPrices[i].sourceLanguage.id );
+				
+				console.log($scope.translationPrices[i].targetLanguage.id );
+				
+				console.log($scope.project.targetLanguages[j].id);
+			
+				if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  )
+					
+					TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = $scope.translationPrices[i].price;
+			
+			}
+			
+			
+		}
+			//TableItemListService.translationPrices = $scope.translationPrices;
+			console.log(TableItemListService.translationPrices);
+        });
+	   }
+	   
+	   //get translation tm
+    };
+	
+
     $scope.setInterpreting = function($interpreting){
         jQuery(".project-types .active").removeClass("active");
         $scope.project.types = [$interpreting];
@@ -112,6 +150,8 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 
     $scope.submit = function(){
         $scope.project.data = TableItemListService.data();
+		console.log($scope.project.data);
+		
         $http.post("/api/admin/project/", $scope.project)
             .success(function($data){
                 if($data.success){
@@ -227,8 +267,19 @@ angularApp.factory("TableItemListService", function(){
             } else {
                 isNew = false;
             }
+			
             setListener($scope);
+			console.log("check");
+			console.log(modalId);
+			console.log($scope);
             vars.item = $item;
+			if(modalId == "#modal-translation-noTM")
+			{
+				//find rate
+				
+				vars.item.rate = Number($scope.TableItemListService.translationPrices[$scope.identifier[1].id]);
+				console.log($scope.TableItemListService.translationPrices[$scope.identifier[1].id]);
+			}
             itemCloned = {};
             jQuery.extend(true, itemCloned, $item);
             $(modalId).modal("show");
