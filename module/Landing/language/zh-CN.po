@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Papertask\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 14:16+0800\n"
-"PO-Revision-Date: 2015-01-29 15:20+0800\n"
+"PO-Revision-Date: 2015-02-02 21:20+0800\n"
 "Last-Translator: \n"
 "Language-Team: Hat Dao <enjoy3013@gmail.com>\n"
 "Language: en_US\n"
@@ -34,7 +34,7 @@ msgstr "您的电子邮箱不正确。"
 
 #: module/Landing/view/landing/index/index.phtml:1
 msgid "Professional Cloud Translation and Localization Service By PaperTask"
-msgstr "PaperTask提供专业的翻译和本地化云服务"
+msgstr "PaperTask 提供专业的翻译和本地化云服务"
 
 #: module/Landing/view/landing/index/index.phtml:9
 msgid "The new mode of translation services"
@@ -1319,7 +1319,7 @@ msgstr ""
 
 #: module/Landing/view/landing/index/freelancer.phtml:1
 msgid "FREELANCER"
-msgstr "自由翻译"
+msgstr "自由译者"
 
 #: module/Landing/view/landing/index/freelancer.phtml:7
 msgid "WORK FREE!"
