@@ -23,7 +23,7 @@ use Zend\View\Model\JsonModel;
 class FreelancerController extends AbstractActionController
 {
     protected $requiredLogin = true;
-	
+
     public function indexAction(){
         $lang_code = $this->params()->fromRoute('lang');
 		return new ViewModel(array(
@@ -39,7 +39,7 @@ class FreelancerController extends AbstractActionController
             "user" => $this->getCurrentUser(),
         ));
     }
-	
+
 	public function uploadFileAction() {
         if ( !empty( $_FILES ) ) {
 
@@ -50,7 +50,7 @@ class FreelancerController extends AbstractActionController
 
             move_uploaded_file( $tempPath, $uploadPath );
             $file = new CvFile();
-           
+
             $file->setData([
                 'name' => $_FILES[ 'file' ][ 'name' ],
                 'path' => $uploadPath,
@@ -69,7 +69,7 @@ class FreelancerController extends AbstractActionController
             return new JsonModel( $answer );
         }
     }
-    
+
     public function deleteFileAction( ) {
         $entityManager = $this->getEntityManager();
         $fid = $this->getRequest()->getQuery('fid');
@@ -77,10 +77,10 @@ class FreelancerController extends AbstractActionController
         $entityManager->remove( $cvfile );
         $entityManager->flush();
         $answer = ["success" => true];
-        
+
         return new JsonModel( $answer );
     }
-	
+
     public function updateInfoAction(){
         return $this->finishRegistrationAction();
     }
@@ -102,14 +102,18 @@ class FreelancerController extends AbstractActionController
 		//ini_set('display_errors', 1);
         $userId = (int)$this->getRequest()->getQuery('id');
         $entityManager = $this->getEntityManager();
-        $user = $this->getUserById($userId);
+        if($userId){
+            $user = $this->getUserById($userId);
+        } else {
+            $user = $this->getCurrentUser();
+        }
         // Get Interpreting Price
         $repository = $entityManager->getRepository('User\Entity\UserInterpretingPrice');
         $interPretingPrices = $repository->findBy( array('user'=>$user) );
         $pInterPretingPrices = array();
         foreach ( $interPretingPrices as $k => $v ) {
             $pInterPretingPrices[$k] = $v->getData();
-        }         
+        }
         // Get EngeeringPrice
         $repository = $entityManager->getRepository('User\Entity\UserEngineeringPrice');
         $engineeringPrices = $repository->findBy(array('user'=>$user));
@@ -117,7 +121,7 @@ class FreelancerController extends AbstractActionController
         foreach ($engineeringPrices as $k => $v ) {
             $pEngineeringPrices[$k] = $v->getData();
         }
-         
+
         // Get Translation Price
         $repository = $entityManager->getRepository('User\Entity\UserTranslationPrice');
         $translationPrices = $repository->findBy(array('user'=>$user));
@@ -125,7 +129,7 @@ class FreelancerController extends AbstractActionController
         foreach ( $translationPrices as $k => $v ) {
             $pTranslationPrices[$k] = $v->getData();
         }
-         
+
         // Get DesktopPrices
         $repository = $entityManager->getRepository('User\Entity\UserDesktopPrice');
         $dtpPrices = $repository->findBy(array('user'=>$user));
@@ -133,7 +137,7 @@ class FreelancerController extends AbstractActionController
         foreach ( $dtpPrices as $k => $v) {
             $pDtpPrices[$k]=$v->getData();
         }
-         
+
         // Get Translation Ratio
         $repository = $entityManager->getRepository('User\Entity\UserTmRatio');
         $tmRatios = $repository->findBy(array('user'=>$user));
@@ -147,15 +151,15 @@ class FreelancerController extends AbstractActionController
         foreach ( $cvfile as $k => $v ) {
             $cvfiles[$k] = $v->getData();
         }
-		
+
 		//Get resume
 		$resume = $entityManager->getRepository('\User\Entity\Resume')
                         ->findOneBy(['user' => $user]);
-						
+
 		//var_dump($user->getFreelancer()->getData());exit;
-			
+
         $lang_code = $this->params()->fromRoute('lang');
-		return new ViewModel(array('user'=>$user->getData(), 
+		return new ViewModel(array('user'=>$user->getData(),
                 'freelancer' => $user->getFreelancer()->getData(),
                 'interpretingPrices'=>$pInterPretingPrices,
                 'engineeringPrices'=>$pEngineeringPrices,

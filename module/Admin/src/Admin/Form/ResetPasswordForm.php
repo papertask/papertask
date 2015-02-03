@@ -93,7 +93,6 @@ class ResetPasswordForm  extends Form{
     }
 
     public function reset($controller){
-        var_dump("Im here! form/reset");
         $data = $this->getData();
         $curr = $data['current'];
         if($data['new'] == $data['confirm']){

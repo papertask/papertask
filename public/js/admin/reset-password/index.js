@@ -1,7 +1,4 @@
-/**
- * Created by G
- *
- */
+
 angularApp.run( function ($rootScope) {
     $("#form").validate({
         errorPlacement: function (error, element) {
@@ -16,9 +13,16 @@ angularApp.run( function ($rootScope) {
             angular.element('#ResetPasswordController').scope().submit();
         }
     });
-});
-angularApp.controller('ResetPasswordController', function($scope, $http, $timeout, $q) {
 
+    $('.alert .close').on('click', function(e) {
+        var scope = $(this).scope();
+        scope.$apply(function(){
+            scope.formMessage = '';
+        });
+    });
+});
+
+angularApp.controller('ResetPasswordController', function($scope, $http, $timeout, $q) {
     /**
      * Submit the form
      */
@@ -35,11 +39,18 @@ angularApp.controller('ResetPasswordController', function($scope, $http, $timeou
                 $http.put("/api/user/"+USER_ID+"/resetpassword", data).success(function(result, code){
                         console.log(result['data']);
 
-                        // TODO: Change this to common messages in Papertask instead of alerts.
                         if(result['data']['success']){
-                            alert("Password changed!");
+                            //alert();
+                            $scope.formMessageClass = "alert-success";
+                            $scope.formMessage = "Password changed!";
                         } else {
-                            alert("Some error occured: "+result['data']);
+                            //alert("Some error occured: "+result['data']);
+                            $scope.formMessageClass = "alert-danger";
+                            if (!result['data']['valid?']) {
+                                $scope.formMessage = "Current password is incorrect";
+                            } else {
+                                $scope.formMessage = "Some error occured: "+JSON.stringify(result['data']);
+                            }
                         }
                     });
                 });

@@ -13,6 +13,10 @@ $this->inlineScript()
 ?>
 <?php $this->headTitle($this->translate('Reset your password')) ?>
 <div class="ibox float-e-margins" ng-controller="ResetPasswordController" id="ResetPasswordController">
+    <div class="alert {{formMessageClass}}" ng-show="formMessage">
+        <button aria-hidden="true" class="close" type="button">×</button>
+        {{ formMessage }}
+    </div>
     <div class="ibox-title">
         <h4><i class="fa fa-edit"></i> <?php echo $this->translate('Reset your password') ?></h4>
     </div>

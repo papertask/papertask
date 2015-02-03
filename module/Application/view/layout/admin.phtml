@@ -42,7 +42,6 @@
 
     <!-- Left sidebar -->
     <?php
-    var_dump($this->userData());
     switch($this->userData()['role']){
         case 'Admin':
             include "admin/left-sidebar.phtml"; //staff menus here
@@ -58,9 +57,6 @@
             // TODO: default menu
     };
     ?>
-    <?php  ?>
-    <?php //" ?>
-    <?php //include "admin/left-sidebar-freelancer.phtml" ?>
     <!-- End left sidebar -->
 
     <!-- Main Wrapper -->
