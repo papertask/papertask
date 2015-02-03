@@ -71,8 +71,8 @@ class Project extends Entity{
     protected $field;
 
     /**
-     * @var \User\Entity\Employer
-     * @ORM\ManyToOne(targetEntity="Employer")
+     * @var \User\Entity\User
+     * @ORM\ManyToOne(targetEntity="User")
      */
     protected $client;
 
@@ -118,12 +118,20 @@ class Project extends Entity{
      * @ORM\Column(type="integer")
      */
     protected $payStatus = 1;  # unpaid
-
-    /**
+	
+	/** @ORM\Column(type="string", nullable=true) */
+    protected $po = null;
+	
+	/** @ORM\Column(type="string", nullable=true) */
+    protected $sourcetext = null;
+    
+	/**
      * @var int
      * @ORM\Column(type="array", length=255)
      */
     protected $types;
+	
+	
 
     public function getData(){
         return [
@@ -142,6 +150,8 @@ class Project extends Entity{
             'startDate' => $this->startDate,
             'status' => $this->status,
             'targetLanguages' => $this->getArrayData($this->targetLanguages),
+			'po' => $this->po,
+			'sourcetext' => $this->sourcetext,
             'types' => $this->types,
         ];
     }

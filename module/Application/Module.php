@@ -135,9 +135,12 @@ class Module
         //set role here
         $userSession = new Container('user');
         $userRole = $userSession->user_group['name'] == null ? 'Guest' : $userSession->user_group['name'];
-
+		
         if (!$e -> getViewModel() -> acl ->hasResource($route) || !$e -> getViewModel() -> acl -> isAllowed($userRole, $route))
         {
+			var_dump($e -> getViewModel() -> acl);
+			var_dump($route);
+			exit;
             $response = $e -> getResponse();
             //location to page or what ever
             $response -> getHeaders() -> addHeaderLine('Location', $e -> getRequest() -> getBaseUrl() . '/404');

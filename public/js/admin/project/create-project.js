@@ -99,6 +99,44 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         });
 	   }
 	   
+	   if($scope.hasTypeTranslationUseTM){
+				
+			$http.get("/api/user/" + USER_ID + "")
+				.success ( function ( $data ) {
+				   TableItemListService.tmRatios =  $data.tmRatios;
+				   console.log(TableItemListService.tmRatios);
+			})
+			if(!$scope.hasTypeTranslationNoTM){
+				$http.get('/api/user/translationprice?userId='+ USER_ID).success(function($data) {
+					$scope.translationPrices = $data['translationPrices'];
+					//find 
+					console.log($scope.translationPrices);
+					console.log($scope.project.sourceLanguage);
+					console.log($scope.project.targetLanguages);
+					TableItemListService.translationPrices={};
+					for(i=0;i<$scope.translationPrices.length;i++){
+						for(j=0;j<$scope.project.targetLanguages.length;j++){
+							console.log($scope.translationPrices[i].sourceLanguage.id );
+							
+							console.log($scope.translationPrices[i].targetLanguage.id );
+							
+							console.log($scope.project.targetLanguages[j].id);
+						
+							if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  )
+								
+								TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = $scope.translationPrices[i].price;
+						
+						}
+						
+						
+					}
+						//TableItemListService.translationPrices = $scope.translationPrices;
+						console.log(TableItemListService.translationPrices);
+				});
+			}
+			
+		}
+	   
 	   //get translation tm
     };
 	
@@ -223,6 +261,10 @@ angularApp.factory("TableItemListService", function(){
     var vars = {
         item: {}
     };
+	var vartms = {
+        itemtm: {}
+    };
+	
     var itemCloned = {};
     function setListener($scope){
         listener = $scope;
@@ -276,7 +318,6 @@ angularApp.factory("TableItemListService", function(){
 			if(modalId == "#modal-translation-noTM")
 			{
 				//find rate
-				
 				vars.item.rate = Number($scope.TableItemListService.translationPrices[$scope.identifier[1].id]);
 				console.log($scope.TableItemListService.translationPrices[$scope.identifier[1].id]);
 			}
@@ -284,7 +325,42 @@ angularApp.factory("TableItemListService", function(){
             jQuery.extend(true, itemCloned, $item);
             $(modalId).modal("show");
         },
-        vars: vars
+		savetm: function(){
+            $(modalId).find("form").validate();
+            if(!$(modalId).find("form").valid()){
+                return;
+            }
+            if(isNew){
+                listener.addtm(vartms.itemtm);
+            }
+            $(modalId).modal("hide");
+        },
+		showModalTM: function($scope, $itemtm){
+            if($itemtm === false){
+                $itemtm = {};
+                isNew = true;
+            } else {
+                isNew = false;
+            }
+			
+            setListener($scope);
+			console.log("check");
+			console.log(modalId);
+			console.log($scope);
+            vartms.itemtm = $itemtm;
+			if(modalId == "#modal-translation-TM")
+			{
+				//find rate
+				vartms.itemtm.rate = Number($scope.TableItemListService.translationPrices[$scope.identifier[1].id]);
+				
+				console.log($scope.TableItemListService.translationPrices[$scope.identifier[1].id]);
+			}
+            itemCloned = {};
+            jQuery.extend(true, itemCloned, $itemtm);
+            $(modalId).modal("show");
+        },
+        vars: vars,
+		vartms: vartms
     }
 });
 
@@ -292,14 +368,39 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
     $scope.CurrentUser = CurrentUser;
     $scope.TableItemListService = TableItemListService;
     $scope.identifier = {};
+	$scope.itemtm = [];
+	//$scope.itemtm.rate =  TableItemListService.tmRatios.repetitions;
+	
+	
     $scope.items = [];
     $scope.$modalId = "";
     TableItemListService.addScope($scope);
+	
+	$scope.setRateTm = function(){
+        if(TableItemListService.tmRatios){
+			console.log(TableItemListService.tmRatios);
+			$scope.raterepetitions =  TableItemListService.tmRatios.repetitions;
+			$scope.rateyibai =  TableItemListService.tmRatios.yibai;
+			$scope.ratejiuwu =  TableItemListService.tmRatios.jiuwu;
+			$scope.ratebawu =  TableItemListService.tmRatios.bawu;
+			$scope.rateqiwu =  TableItemListService.tmRatios.qiwu;
+			$scope.ratewushi =  TableItemListService.tmRatios.wushi;
+			$scope.ratenomatch =  TableItemListService.tmRatios.nomatch;
+		}
+    };
     $scope.setIdentifier = function($identifier){
         $scope.identifier = $identifier;
+		if(TableItemListService.translationPrices)
+		$scope.itemtm.rate = Number(TableItemListService.translationPrices[$scope.identifier[1].id]);
     };
     $scope.add = function($item){
         $scope.items.push($item);
+    };
+	$scope.addtm = function($itemtm){
+        //	$scope.itemtm.push($itemtm);
+		$scope.itemtm = $itemtm;
+		console.log("item_tm");
+		console.log($scope.itemtm);
     };
     $scope.remove = function($index){
         $scope.items.splice($index, 1);
@@ -308,16 +409,23 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
         TableItemListService.setModalId($scope.$modalId);
         TableItemListService.showModal($scope, $item);
     };
+	
+	$scope.showModalTM = function($itemtm){
+        TableItemListService.setModalId($scope.$modalId);
+        TableItemListService.showModalTM($scope, $itemtm);
+    };
     $scope.setModalId = function($modalId){
         $scope.$modalId = $modalId;
     }
     $scope.data = function(){
-        if($scope.items.length == 0){
+        if($scope.items.length == 0 && $scope.itemtm.length==0){
             return false;
         }
         return {
             items: $scope.items,
-            identifier: $scope.identifier
+            identifier: $scope.identifier,
+			itemtm: $scope.itemtm
+            
         };
     }
 });
@@ -325,6 +433,7 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 angularApp.controller('TableModalController', function($scope, TableItemListService){
     $scope.TableItemListService = TableItemListService;
     $scope.vars = TableItemListService.vars;
+	$scope.vartms = TableItemListService.vartms;
 });
 
 angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', function($scope, FileUploader, $timeout) {

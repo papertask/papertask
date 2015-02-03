@@ -56,9 +56,10 @@
         </div>
     </div>
 </div>
+</div>
 
 <!-- Translation TM -->
-<div id="modal-translation-TM" class="modal fade" aria-hidden="true">
+<div id="modal-translation-TM" class="modal fade" aria-hidden="true"  ng-controller="TableModalController">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -72,55 +73,76 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Iterm's Name</label>
                                 <div class="col-sm-9">
-                                    <input id="phone" name="phone" type="phone" value="Translation with TM" class="form-control">
+                                    <!--<input id="phone" name="phone" type="phone" value="Translation with TM" class="form-control">-->
+									<input name="itermname" class="form-control required" value="Translation with TM"
+                                           ng-model="vartms.itemtm.name" type="text" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Rate</label>
                                 <div class="col-sm-9">
-                                    <input id="phone" name="phone" type="phone" value="0.12" class="form-control">
+                                    <!--<input id="phone" name="phone" type="phone" value="0.12" class="form-control">-->
+									<input name="rate" class="form-control required"
+                                           ng-model="vartms.itemtm.rate" type="number" />
+									
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Repetitions</label> <!-- word counts -->
                                 <div class="col-sm-9">
-                                    <input id="phone" name="phone" type="phone" value="100" class="form-control">
+                                    <!--<input id="phone" name="phone" type="phone" value="100" class="form-control">-->
+									<input name="sourcerepetitions" class="form-control required"
+                                           ng-model="vartms.itemtm.sourcerepetitions" type="number" />
+									
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">100% </label>
                                 <div class="col-sm-9">
-                                    <input id="phone" name="phone" type="phone" value="200" class="form-control">
+                                    <!--<input id="phone" name="phone" type="phone" value="200" class="form-control">-->
+									<input name="sourceyibai" class="form-control required"
+                                           ng-model="vartms.itemtm.sourceyibai" type="number" />
+									
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">95%-99% </label>
                                 <div class="col-sm-9">
-                                    <input id="phone" name="phone" type="phone" value="200" class="form-control">
+                                    <!--<input id="phone" name="phone" type="phone" value="200" class="form-control">-->
+									<input name="sourcejiuwu" class="form-control required"
+                                           ng-model="vartms.itemtm.sourcejiuwu" type="number" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">85%-94% </label>
                                 <div class="col-sm-9">
-                                    <input id="phone" name="phone" type="phone" value="300" class="form-control">
+                                    <!--<input id="phone" name="phone" type="phone" value="300" class="form-control">-->
+									<input name="sourcebawu" class="form-control required"
+                                           ng-model="vartms.itemtm.sourcebawu" type="number" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">75%-84% </label>
                                 <div class="col-sm-9">
-                                    <input id="phone" name="phone" type="phone" value="200" class="form-control">
+                                    <!--<input id="phone" name="phone" type="phone" value="200" class="form-control">-->
+									<input name="sourceqiwu" class="form-control required"
+                                           ng-model="vartms.itemtm.sourceqiwu" type="number" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">50%-74% </label>
                                 <div class="col-sm-9">
-                                    <input id="phone" name="phone" type="phone" value="1000" class="form-control">
+                                    <!--<input id="phone" name="phone" type="phone" value="1000" class="form-control">-->
+									<input name="sourcewushi" class="form-control required"
+                                           ng-model="vartms.itemtm.sourcewushi" type="number" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">No Match </label>
                                 <div class="col-sm-9">
-                                    <input id="phone" name="phone" type="phone" value="1000" class="form-control">
+                                    <!--<input id="phone" name="phone" type="phone" value="1000" class="form-control">-->
+									<input name="sourcenomatch" class="form-control required"
+                                           ng-model="vartms.itemtm.sourcenomatch" type="number" />
                                 </div>
                             </div>
                         </div>
@@ -128,8 +150,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-w-m btn-primary">Save changes</button>
+                <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal" ng-click="TableItemListService.cancel()">Close</button>
+                <button type="button" class="btn btn-w-m btn-primary"  ng-click="TableItemListService.savetm()">Save changes</button>
             </div>
         </div>
     </div>
