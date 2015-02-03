@@ -10,35 +10,20 @@ use User\Entity\UserGroup;
 class ResetPasswordController extends AbstractRestfulController
 {
     public function update($id, $data){
-        // $userId = $this->getRequest()->getQuery('user_id');
-        // $entityManager = $this->getEntityManager();
-        // $user = $this->getUserById($userId);
-        // $employer = $user->getEmployer();
-        // $employer->updateData(array(
-        //         'position'=>isset($data['position'])?$data['position']:'',
-        //         'company'=>$entityManager->getRepository('User\Entity\Company')->findOneBy(array('id' => $data['company'])),
-        //         'defaultServiceLevel'=>$data['defaultServiceLevel'],
-        //         'comments'=>$data['comments'],
-        //         'name' => $data['username'],
-        //         'contracted' => $data['contracted'],
-        //         'pm' => $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $data['pm']['id'])),
-        //         'sales' => $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $data['sales']['id']))
-        //     ));
-        // $employer->save($entityManager);
+		$entityManager = $this->getEntityManager();
+		$result = array();
 
-		var_dump("Im here! form/reset");
-		$data = $this->getData();
-		$curr = $data['current'];
-		if($data['new'] == $data['confirm']){
-			$entityManager = $controller->getEntityManager();
-			$user = $controller->getUser(array('token' => $token));
-			if($user){
-				$user->reset($token, $data['new'], $entityManager);
+		$user = $this->getUserById($id);
+		if($user && ($data['new'] === $data['confirm'])){
+			$result['user'] = "User found";
+			$valid = $user->checkPassword($data['current']);
+			$result['valid?'] = $valid;
+			if($valid){
+				$result['success'] = $user->resetByOldPass($data['current'], $data['new'], $entityManager);
 			}
-			//return false;
 		}
 
-        return new JsonModel([]);
+        return new JsonModel(array('data' => $result));
     }
 
 }

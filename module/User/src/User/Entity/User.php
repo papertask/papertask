@@ -367,6 +367,17 @@ class User extends Entity implements InputFilterAwareInterface{
         return false;
     }
 
+    public function resetByOldPass($oldPass, $newPassword, $entityManager){
+        if ($this->checkPassword($oldPass)) {
+            $this->encodePassword($newPassword);
+            $entityManager->persist($this);
+            $entityManager->flush();
+            return true;
+        }
+        
+        return false;
+    }
+
     public function generateToken(){
         $tokenLength = 16;
         $token = time();

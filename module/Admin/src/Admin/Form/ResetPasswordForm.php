@@ -26,6 +26,7 @@ class ResetPasswordForm  extends Form{
                 'class' => 'form-control',
                 'required' => true,
                 'type'  => 'password',
+                'data-ng-model' => 'current',
             ),
             'options' => array(
                 'label' => 'Current password',
@@ -38,6 +39,7 @@ class ResetPasswordForm  extends Form{
                 'class' => 'form-control',
                 'required' => true,
                 'type'  => 'password',
+                'data-ng-model' => 'new',
             ),
             'options' => array(
                 'label' => 'New password',
@@ -50,6 +52,7 @@ class ResetPasswordForm  extends Form{
                 'class' => 'form-control',
                 'required' => true,
                 'type'  => 'password',
+                'data-ng-model' => 'confirm',
             ),
             'options' => array(
                 'label' => 'Re-enter Password',

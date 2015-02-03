@@ -22,7 +22,7 @@ use User\Entity\Roles;
 
 class StaffController extends AbstractRestfulController
 {
-	public function create ( $data ) 
+	public function create ( $data )
 	{
 		$entityManager = $this->getEntityManager();
 		$pdata = array(
@@ -42,10 +42,10 @@ class StaffController extends AbstractRestfulController
 				'country' => $entityManager->getRepository('User\Entity\Country')->findOneBy(array('id' => $data['country']))
 		);
 		$userExist = $entityManager->getRepository('User\Entity\User')->findOneBy(array('email'=>$data['email']));
-		
-		if ( $userExist ) 
+
+		if ( $userExist )
 		{
-			
+
 		}
 		else
 		{
@@ -62,9 +62,9 @@ class StaffController extends AbstractRestfulController
 		}
 		return new JsonModel( [] );
 	}
-	
+
     public function get( $id ){
-        $user = $this->getUserById( $id );        
+        $user = $this->getUserById( $id );
         $staffData = $user->getStaff()->getData();
         $entityManager = $this->getEntityManager();
         $bankInfo = $entityManager->getRepository('\User\Entity\BankInfo')
@@ -76,7 +76,7 @@ class StaffController extends AbstractRestfulController
         $cvfiles = array();
         foreach ( $cvfile as $k => $v ) {
             $cvfiles[$k] = $v->getData();
-        }   
+        }
         return new JsonModel([
             'staff' => $staffData,
             'bankInfo' => $bankInfo ? $bankInfo->getData() : null,
@@ -189,7 +189,7 @@ class StaffController extends AbstractRestfulController
         $entityManager->flush();
         $entityManager->remove( $staff );
         $entityManager->flush();
-        
+
         return new JsonModel([]);
     }
 }
