@@ -189,7 +189,7 @@ class FreelancerController extends AbstractActionController
         $id = $this->getRequest()->getQuery('id');
 
         if($id){
-            $user = $this->getUserById($userId);
+            $user = $this->getUserById($id);
         } else {
             $user = $this->getCurrentUser();
         }
