@@ -187,10 +187,23 @@ class FreelancerController extends AbstractActionController
     public function editPaymentInfoAction(){
         $entityManager = $this->getEntityManager();
         $id = $this->getRequest()->getQuery('id');
-        $user = $entityManager->find('\User\Entity\User', (int)$id);
+
+        if($id){
+            $user = $this->getUserById($userId);
+        } else {
+            $user = $this->getCurrentUser();
+        }
+        //$user = $entityManager->find('\User\Entity\User', (int)$id);
+
+        $isAdmin = false;
+        if($this->getCurrentUser()->isAdmin()){
+            $isAdmin = true;
+        }
+
         if($entityManager->find('\User\Entity\Freelancer', $user->getFreelancer())){
             return new ViewModel([
-                "user" => $user->getData()
+                "user" => $user->getData(),
+                "isAdmin" => $isAdmin,
             ]);
         }
     }
