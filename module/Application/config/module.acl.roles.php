@@ -46,6 +46,7 @@ $allow_all = array(
 	'freelancer\new',
 	'freelancer\detail',
 	'freelancer\edit-profile',
+	'freelancer\uploadFile',
 	// -- Employer (Client)
 	'employer\list',
 	'employer\new',

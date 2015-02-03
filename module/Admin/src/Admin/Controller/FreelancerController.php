@@ -41,6 +41,7 @@ class FreelancerController extends AbstractActionController
     }
 	
 	public function uploadFileAction() {
+		
         if ( !empty( $_FILES ) ) {
 
             $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
