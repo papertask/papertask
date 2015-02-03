@@ -3,7 +3,7 @@
 $this->headLink()
     ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
     ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css');
-	
+
 $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/freelancer/details.js' )
 					->prependFile ( $this->basePath () . '/js/admin/bootstrap-modal.js' )
 					->prependFile($this->basePath() . '/js/angular-filter.js')
@@ -16,7 +16,7 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/freelancer/d
 					->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
 					 ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
 					->prependFile ( $this->basePath () . '/js/inspinia.js' );
-					
+
 ?>
 <?php
 $this->inlineScript()
@@ -27,43 +27,43 @@ $this->inlineScript()
         var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
     ");
 ?>
-					
+
 <div class="row animated fadeInRight" ng-controller="FreelancerController" ng-init="init()">
 	<div class="col-md-4">
 		<div class="ibox">
 			<div class="ibox-title">
 				<h5>{{userInfo.username}}</h5>
-				<div class="ibox-tools">				
+				<div class="ibox-tools">
 					<span ng-show="userInfo.isActive == '1'" class="label label-primary"><?php echo $this->translate('Active') ?></span>
 					<span ng-show="userInfo.isActive == '0'" class="label label-default"><?php echo $this->translate('Unactive') ?></span>
 				</div>
 			</div>
 
 			<div class="ibox-content profile-content">
-				<p><i class="fa fa-user"></i> &nbsp; 
-                {{userInfo.lastName}}, {{userInfo.firstName}} &nbsp; 
+				<p><i class="fa fa-user"></i> &nbsp;
+                {{userInfo.lastName}}, {{userInfo.firstName}} &nbsp;
                 <i ng-show="userInfo.gender == '0'" class="fa fa-male"></i>
                 <i ng-show="userInfo.gender == '1'" class="fa fa-female"></i>
                 </p>
 				<p><i class="fa fa-envelope"></i> &nbsp; {{userInfo.email}}</p>
 				<p><i class="fa fa-tag"></i> &nbsp; {{userInfo.alias}}</p>
-				
+
 				<p><i class="fa fa-phone"></i> &nbsp; {{userInfo.phone}}</p>
 				<p><i class="fa fa-map-marker"></i> &nbsp; {{userInfo.city}}, {{userInfo.country.name}}</p>
 				<p class="small font-bold">
-					<?php if ($freelancer['isSenior']) {?>	
+					<?php if ($freelancer['isSenior']) {?>
 						<span class="fa fa-circle "> &nbsp; <?php echo $this->translate('Senior Freelancer') ?></span>
 					<?php } else {?>
 						<span class="fa fa-circle"> &nbsp; <?php echo $this->translate('Freelancer') ?></span>
 					<?php }?>
-					
+
                 </p>
 				<p class="small font-bold">
-                                <span><i class="fa fa-thumbs-up text-danger"></i> &nbsp; 
+                                <span><i class="fa fa-thumbs-up text-danger"></i> &nbsp;
                                     <span>
-										<?php 
+										<?php
 										//var_dump($freelancer['Rating'][0]);
-										for ($i = 0; $i < 6; $i++)  {  
+										for ($i = 0; $i < 6; $i++)  {
 											if($i < $freelancer['Rating'][0]) {?>
 											<i class="fa fa-star text-warning"></i>
 											<?php } else { ?>
@@ -74,14 +74,14 @@ $this->inlineScript()
                 </p>
 				 <p>
                 <?php
-                    foreach ( $cvfiles as $k => $v ) {                        
+                    foreach ( $cvfiles as $k => $v ) {
                         ?>
                         <i class="fa fa-file-text"></i><a href="<?php echo '../../../'.$v['path'];?>" class="text-info"> &nbsp; <?php echo $v['name'];?></a>
                         <?php
-                    } 
-                ?>                
+                    }
+                ?>
 				</p>
-				
+
 				<form role="form" class="form-inline">
                     <div class="form-group">
                         <input ng-model="password" type="password"
@@ -105,7 +105,7 @@ $this->inlineScript()
 						<li ng-show="freelancer.ResourcesGroup['interpreting'] == 1">
 							<a href=""><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></a></li>
 					</ul>
-					
+
 					<!--<ul class="tag-list" style="padding: 0">
                     <li ng-show="resourcesType[freelancerData.resources[0].group.name] == 1">
                         <a href=""><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></a></li>
@@ -115,12 +115,12 @@ $this->inlineScript()
                     <li ng-show="resourcesType[freelancerData.resources[2].group.name] == 1">
                         <a href=""><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></a></li>
 					</ul>-->
-				
+
 				</div>
 				<div class="hr-line-dashed"></div>
 				<h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
 				<div id="objComment"></div>
-            
+
 
             <div class="hr-line-dashed"></div>
             <h4><?php echo $this->translate('Payment information') ?></h4>
@@ -165,11 +165,14 @@ $this->inlineScript()
 						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['translation'] == 1" >
 							<div class="ibox-title">
 								<h5><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></h5>
+                                <?php if($this->isAdmin): ?>
 								<div class="ibox-tools">
                                     <a data-toggle="collapse" href="#translation_client" class="btn btn-primary btn-xs"><i class="fa fa-search"></i><?php echo $this->translate('Search Clients') ?></a>
                                 </div>
+                                <?php endif ?>
 							</div>
 							<div class="ibox-content">
+                                <?php if($this->isAdmin): ?>
 									<div class="row">
                                                 <div class="col-lg-12">
                                                     <div id="translation_client" class="panel-collapse collapse faq-answer">
@@ -200,7 +203,7 @@ $this->inlineScript()
 																		<div class="col-sm-8">
 																			<select class="form-control" name="" ng-model="searchParamsTranslation.country" >
 																				<option value=""></option>
-																				<option ng-repeat="country in countries" ng-value="country.id">{{country.name}}</option>													  
+																				<option ng-repeat="country in countries" ng-value="country.id">{{country.name}}</option>
 																			</select>
 																		</div>
                                                                     </div>
@@ -260,13 +263,14 @@ $this->inlineScript()
 														<div class="btn-group text-right">
 															<button type="button" class="btn btn-white" ng-class="pagesTranslation.previous?'':'disabled'" ng-click="onBtnPreviousTranslationClicked()"><i class="fa fa-chevron-left"></i></button>
 															<button ng-repeat="page in pagesTranslation.pagesInRange" class="btn btn-white" ng-class="page==pagesTranslation.current?'active':''" ng-click="onBtnGotoTranslation(page-1)">{{page}}</button>
-															<button type="button" class="btn btn-white"	ng-class="pagesTranslation.next?'':'disabled'" ng-click="onBtnNextTranslationClicked()"><i class="fa fa-chevron-right"></i></button>						
+															<button type="button" class="btn btn-white"	ng-class="pagesTranslation.next?'':'disabled'" ng-click="onBtnNextTranslationClicked()"><i class="fa fa-chevron-right"></i></button>
 														</div>
 
                                                     </div>
                                                 </div>
                                             </div>
-								<h4>Clients <small>- means freelancer can do tasks for these clients.</small></h4>
+								<?php endif ?>
+                                <h4>Clients <small>- means freelancer can do tasks for these clients.</small></h4>
                                             <table class="table">
                                                 <thead>
                                                 <tr>
@@ -288,17 +292,26 @@ $this->inlineScript()
                                                 </tbody>
                                             </table>
 
-                                            <div class="hr-line-dashed"></div>			
+                                            <div class="hr-line-dashed"></div>
 
 								<h4>
 									<?php echo $this->translate('Specialism  <small>- with <i class="fa fa-check"></i> means field tested and pass.</small>') ?>
 								</h4>
 
-								<div class="row file-manager">
-									 <label class="checkbox-inline" ng-repeat="specialism in TranslationSpecialisms"> 
-										<input type="checkbox" ng-click="setTestTranslationSpecialisms(specialism)" ng-checked="checkTranslationSpecialism[{{specialism.id - 1}}] == 1" value="{{specialism.id}} " id="inlineCheckbox1"> {{specialism.name}} </label>
-										
-								</div>
+                                <?php if($this->isAdmin): ?>
+    								<div class="row file-manager">
+    									 <label class="checkbox-inline" ng-repeat="specialism in TranslationSpecialisms">
+    										<input type="checkbox" ng-click="setTestTranslationSpecialisms(specialism)" ng-checked="checkTranslationSpecialism[{{specialism.id - 1}}] == 1" value="{{specialism.id}} " id="inlineCheckbox1"> {{specialism.name}}</label>
+
+    								</div>
+                                <?php else: ?>
+                                    <div class="row file-manager">
+                                        <ul class="tag-list" style="padding: 0">
+                                            <li ng-repeat="specialism in TranslationSpecialisms"><a href=""><i class="fa fa-check" ng-show="checkTranslationSpecialism[{{specialism.id - 1}}] == 1"></i> {{specialism.name}}</a></li>
+                                        </ul>
+                                    </div>
+                                <?php endif ?>
+
 								<div class="hr-line-dashed"></div>
 								<h4>Cat tools </h4>
 
@@ -311,6 +324,7 @@ $this->inlineScript()
 								</div>
 								<div class="hr-line-dashed"></div>
 								<h4><?php echo $this->translate('Languages and Price') ?> </h4>
+                                <?php if($this->isAdmin): ?>
 								<div class="table-responsive">
 									<table class="table table-striped">
 										<thead>
@@ -339,7 +353,7 @@ $this->inlineScript()
 										</tbody>
 									  </table>
 								  </div>
-
+                              <?php endif ?>
 								<div class="table-responsive">
 									<table class="table table-striped">
 										<thead>
@@ -367,11 +381,14 @@ $this->inlineScript()
 						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['desktop'] == 1" >
 							<div class="ibox-title">
 								<h5><i class="fa fa-desktop"></i> <?php echo $this->translate('Desktop Publishing') ?></h5>
+                                <?php if($this->isAdmin): ?>
 								<div class="ibox-tools">
                                     <a data-toggle="collapse" href="#desktop_client" class="btn btn-primary btn-xs"><i class="fa fa-search"></i><?php echo $this->translate('Search Clients') ?></a>
                                 </div>
+                                <?php endif ?>
 							</div>
 							<div class="ibox-content">
+                                <?php if($this->isAdmin): ?>
 								<div class="row">
                                                 <div class="col-lg-12">
                                                     <div id="desktop_client" class="panel-collapse collapse faq-answer">
@@ -402,7 +419,7 @@ $this->inlineScript()
 																		<div class="col-sm-8">
 																			<select class="form-control" name="" ng-model="searchParamsDesktop.country" >
 																				<option value=""></option>
-																				<option ng-repeat="country in countries" ng-value="country.id">{{country.name}}</option>													  
+																				<option ng-repeat="country in countries" ng-value="country.id">{{country.name}}</option>
 																			</select>
 																		</div>
                                                                     </div>
@@ -462,13 +479,14 @@ $this->inlineScript()
 														<div class="btn-group text-right">
 															<button type="button" class="btn btn-white" ng-class="pagesDesktop.previous?'':'disabled'" ng-click="onBtnPreviousDesktopClicked()"><i class="fa fa-chevron-left"></i></button>
 															<button ng-repeat="page in pagesDesktop.pagesInRange" class="btn btn-white" ng-class="page==pagesDesktop.current?'active':''" ng-click="onBtnGotoTranslation(page-1)">{{page}}</button>
-															<button type="button" class="btn btn-white"	ng-class="pagesDesktop.next?'':'disabled'" ng-click="onBtnNextDesktopClicked()"><i class="fa fa-chevron-right"></i></button>						
+															<button type="button" class="btn btn-white"	ng-class="pagesDesktop.next?'':'disabled'" ng-click="onBtnNextDesktopClicked()"><i class="fa fa-chevron-right"></i></button>
 														</div>
 
                                                     </div>
                                                 </div>
                                             </div>
-								<h4>Clients <small>- means freelancer can do tasks for these clients.</small></h4>
+								<?php endif ?>
+                                <h4>Clients <small>- means freelancer can do tasks for these clients.</small></h4>
                                             <table class="table">
                                                 <thead>
                                                 <tr>
@@ -490,7 +508,7 @@ $this->inlineScript()
                                                 </tbody>
                                             </table>
 
-                                            <div class="hr-line-dashed"></div>			
+                                            <div class="hr-line-dashed"></div>
 								<h4>Operating System </h4>
 
 								<div class="row file-manager">
@@ -579,9 +597,11 @@ $this->inlineScript()
 						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['interpreting'] == 1" >
 							<div class="ibox-title">
 								<h5><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></h5>
+                                <?php if($this->isAdmin): ?>
 								<div class="ibox-tools">
                                     <a data-toggle="collapse" href="#interpreting_client" class="btn btn-primary btn-xs"><i class="fa fa-search"></i><?php echo $this->translate('Search Clients') ?></a>
                                 </div>
+                                <?php endif ?>
 							</div>
 							<div class="ibox-content">
 							<div class="row">
@@ -614,7 +634,7 @@ $this->inlineScript()
 																		<div class="col-sm-8">
 																			<select class="form-control" name="" ng-model="searchParamsInterpreting.country" >
 																				<option value=""></option>
-																				<option ng-repeat="country in countries" ng-value="country.id">{{country.name}}</option>													  
+																				<option ng-repeat="country in countries" ng-value="country.id">{{country.name}}</option>
 																			</select>
 																		</div>
                                                                     </div>
@@ -674,7 +694,7 @@ $this->inlineScript()
 														<div class="btn-group text-right">
 															<button type="button" class="btn btn-white" ng-class="pagesInterpreting.previous?'':'disabled'" ng-click="onBtnPreviousInterpretingClicked()"><i class="fa fa-chevron-left"></i></button>
 															<button ng-repeat="page in pagesInterpreting.pagesInRange" class="btn btn-white" ng-class="page==pagesInterpreting.current?'active':''" ng-click="onBtnGotoInterpreting(page-1)">{{page}}</button>
-															<button type="button" class="btn btn-white"	ng-class="pagesInterpreting.next?'':'disabled'" ng-click="onBtnNextInterpretingClicked()"><i class="fa fa-chevron-right"></i></button>						
+															<button type="button" class="btn btn-white"	ng-class="pagesInterpreting.next?'':'disabled'" ng-click="onBtnNextInterpretingClicked()"><i class="fa fa-chevron-right"></i></button>
 														</div>
 
                                                     </div>
@@ -702,15 +722,24 @@ $this->inlineScript()
                                                 </tbody>
                                             </table>
 
-                                            <div class="hr-line-dashed"></div>	
+                                            <div class="hr-line-dashed"></div>
 								<h4><?php echo $this->translate('Specialism') ?></h4>
 
-								<div class="row file-manager">
-										 <label class="checkbox-inline" ng-repeat="specialism in InterpretingSpecialisms"> 
-										<input type="checkbox" ng-click="setTestInterpretingSpecialisms(specialism)" ng-checked="checkInterpretingSpecialism[{{specialism.id - 1}}] == 1" value="{{specialism.id}} " id="inlineCheckbox1"> {{specialism.name}} </label>
-								
-									
-								</div>
+
+
+                                <?php if($this->isAdmin): ?>
+                                    <<div class="row file-manager">
+                                        <label class="checkbox-inline" ng-repeat="specialism in InterpretingSpecialisms">
+                                            <input type="checkbox" ng-click="setTestInterpretingSpecialisms(specialism)" ng-checked="checkInterpretingSpecialism[{{specialism.id - 1}}] == 1" value="{{specialism.id}} " id="inlineCheckbox1"> {{specialism.name}} </label>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="row file-manager">
+                                        <ul class="tag-list" style="padding: 0">
+                                            <li ng-repeat="specialism in InterpretingSpecialisms"><a href=""><i class="fa fa-check" ng-show="checkInterpretingSpecialism[{{specialism.id - 1}}] == 1"></i> {{specialism.name}}</a></li>
+                                        </ul>
+                                    </div>
+                                <?php endif ?>
+
 								<div class="hr-line-dashed"></div>
 								<h4>Languages and Price </h4>
 
@@ -741,7 +770,7 @@ $this->inlineScript()
 							</div>
 						</div>
 					</div>
-					
+
 					<div id="tab-2" class="tab-pane">
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
@@ -761,6 +790,8 @@ $this->inlineScript()
 										</li>
 									</ul>
 								</div>
+
+
 								<div class="hr-line-dashed"></div>
 								<h4>Cat tools </h4>
 
@@ -773,7 +804,7 @@ $this->inlineScript()
 								</div>
 								<div class="hr-line-dashed"></div>
 								<h4><?php echo $this->translate('Languages and Price') ?> </h4>
-								
+
 								<div class="table-responsive">
 									<table class="table table-striped">
 										<thead>

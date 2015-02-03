@@ -42,20 +42,20 @@
 
     <!-- Left sidebar -->
     <?php
-    switch($this->userData()['role']){
-        case 'Admin':
-            include "admin/left-sidebar.phtml"; //staff menus here
-            break;
-        case 'Employer': // employer == client
-        case 'Client':
-            include "admin/left-sidebar-client.phtml";
-            break;
-        case 'Freelancer':
-            include "admin/left-sidebar-freelancer.phtml";
-            break;
-        default:
-            // TODO: default menu
-    };
+        switch($this->userData()['role']){
+            case 'Admin':
+                include "admin/left-sidebar.phtml"; //staff menus here
+                break;
+            case 'Employer': // employer == client
+            case 'Client':
+                include "admin/left-sidebar-client.phtml";
+                break;
+            case 'Freelancer':
+                include "admin/left-sidebar-freelancer.phtml";
+                break;
+            default:
+                // TODO: default menu
+        };
     ?>
     <!-- End left sidebar -->
 

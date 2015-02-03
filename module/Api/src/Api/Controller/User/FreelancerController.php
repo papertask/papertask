@@ -29,7 +29,7 @@ class FreelancerController extends AbstractRestfulController
 		$data['isActive'] = $pdata['isActive'];
 		$data['profileUpdated'] = $pdata['profileUpdated'];
 		$data['city'] = $pdata['city'];
-		
+
 		$data['currency'] = $pdata['currency'];
 		$data['createdTime'] = new \DateTime('now');
         $data['lastLogin'] = new \DateTime('now');
@@ -50,13 +50,13 @@ class FreelancerController extends AbstractRestfulController
             $user->setData( $data );
             $user->save($entityManager);
 			$user->createFreelancer( $this, $data, $entityManager);
-			
+
 			$freelancer = $user->getFreelancer();
 	        $tmp = array('Resources'=>$pdata['resources'], 'DesktopCatTools'=>$pdata['desktopcattools'], 'DesktopOperatingSystems'=>$pdata['desktopoperatingsystems'], 'InterpretingSpecialisms'=>$pdata['interpretingspecialisms'], 'TranslationCatTools'=>$pdata['translationcattools'], 'TranslationSpecialisms'=>$pdata['translationspecialisms']);
 			$freelancer->updateData($tmp, $entityManager);
 			$freelancer->save($entityManager);
 			$ret_data = $user->getData();
-           
+
 			// Set Translation Price
 			foreach ( $pdata['translationPrices'] as $k => $v ) {
 				$translationPrice = array(
@@ -102,7 +102,7 @@ class FreelancerController extends AbstractRestfulController
 		}
 		return new JsonModel(['success'=>'failed', 'msg'=>'Unknown Error']);
 	}
-	
+
     public function get($id){
 		$user = $this->getUserById($id);
 	    $freelancerData = $user->getFreelancer()->getData();
@@ -117,16 +117,16 @@ class FreelancerController extends AbstractRestfulController
         $entityManager = $this->getEntityManager();
         $user = $this->getUserById($userId);
         $freelancer = $user->getFreelancer();
-		var_dump($data['Resources']);
-		var_dump($data['TranslationSpecialismsP']);
+		// var_dump($data['Resources']);
+		// var_dump($data['TranslationSpecialismsP']);
 		if(count($data['Resources']))
 			$freelancer->updateData($data, $entityManager);
 		if(count($data['TranslationSpecialismsP']) || count($data['InterpretingSpecialismsP']))
 			$freelancer->updateSpecialismsPData($data, $entityManager);
-			
-		
+
+
 		$freelancer->updateSenior($data, $entityManager);
-		
+
         $freelancer->save($entityManager);
         return new JsonModel([]);
     }
@@ -165,7 +165,7 @@ class FreelancerController extends AbstractRestfulController
                 $queryBuilder->andWhere("user.id = ?1")
                     ->setParameter(1, (int)$request->getQuery('idFreelancer'));
             }
-			
+
 			// search by mail
             if($request->getQuery('email')){
                 $queryBuilder->andWhere("user.email like :email1")
@@ -208,14 +208,14 @@ class FreelancerController extends AbstractRestfulController
 							->orWhere("t.id = ?1")
 							->setParameter(1, $specialism);
             }
-			
+
         }
-		
+
         $queryBuilder->orderBy('user.createdTime', 'ASC');
         $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
         $paginator->setDefaultItemCountPerPage(10);
-		
+
 		$page = (int)$this->getRequest()->getQuery('page');
         if($page) $paginator->setCurrentPageNumber($page);
         $data = array();

@@ -46,6 +46,7 @@ $this->inlineScript()
 
     <div class="ibox-content">
         <form name="editProfileForm" method="">
+            <?php if($this->isAdmin): ?>
 			<div class="row">
                                     <div class="col-lg-2">
                                         <h4><i class="fa fa-plug"></i>&nbsp; <?php echo $this->translate('Status') ?></h4>
@@ -59,27 +60,27 @@ $this->inlineScript()
 											<label class="btn btn-outline btn-primary {{active_class(userInfo.isActive, '0')}}" ng-click="setActive('0')">
 												<input type="radio" name="deactive"  > <?php echo $this->translate('De-Active') ?>
 											</label>
-										</div>		
+										</div>
                                     </div>
-            </div>			
-			<div class="hr-line-dashed"></div> 
+            </div>
+			<div class="hr-line-dashed"></div>
 			<div class="panel panel-primary">
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-lg-8">
-                                                <h4><i class="fa fa-file-text"></i> Comments from PaperTask </h4>  
+                                                <h4><i class="fa fa-file-text"></i> Comments from PaperTask </h4>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label class="col-sm-4 control-label"><i class="fa fa-star"></i> Rating</label>
                                                     <div class="col-sm-6">
-														<select class="form-control" id="rating" name="rating" 
+														<select class="form-control" id="rating" name="rating"
 																ng-model="freelancer.rating" ng-options="rating.name for rating in ratings track by rating.id">
 														</select>
                                                     </div>
                                                 </div>
                                             </div>
-											
+
                                         </div>
                                         <div class="hr-line-dashed"></div>
                                         <div class="row">
@@ -89,42 +90,46 @@ $this->inlineScript()
                                             </div>
                                         </div>
                                     </div>
-            </div>			
+            </div>
+            <?php endif ?>
+
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h4><i class="fa fa-info-circle"></i> <?php echo $this->translate('Basic Information') ?></h4>
                     <div class="hr-line-dashed"></div>
-					
+
                     <?php include __DIR__ . "/edit-profile/basic-info.phtml" ?>
                 </div>
             </div>
+            <?php if($this->isAdmin): ?>
 			<div class="panel panel-primary">
                 <div class="panel-body">
                     <h4><i class="fa fa-puzzle-piece"></i> <?php echo $this->translate('Resource Type') ?></h4>
                     <div class="hr-line-dashed"></div>
-					
+
                     <?php include __DIR__ . "/edit-profile/resource-type.phtml" ?>
                 </div>
             </div>
-			
+
 			<div class="panel panel-primary">
                 <div class="panel-body">
                     <h4><i class="fa fa-usd"></i> <?php echo $this->translate('Price for PaperTask') ?></h4>
                     <div class="hr-line-dashed"></div>
-					
+
                     <?php include __DIR__ . "/edit-profile/language-skill-price.phtml" ?>
                 </div>
             </div>
-			
+
 			<div class="panel panel-primary">
                 <div class="panel-body">
                     <h4><i class="fa fa-bank"></i> <?php echo $this->translate('Payment Information') ?></h4>
                     <div class="hr-line-dashed"></div>
-					
+
                     <?php include __DIR__ . "/edit-profile/bank-info.phtml" ?>
                 </div>
             </div>
-			
+            <?php endif ?>
+            
             <div class="panel panel-primary">
                 <div class="panel-body">
 

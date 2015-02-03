@@ -16,6 +16,7 @@ class IndexController extends AbstractRestfulController
     public function get($id){
         $user = $this->getUserById($id);
         $userData = $user->getData();
+        $userData['isAdmin'] = $this->getCurrentUser()->isAdmin();
 
         $desktopPriceData = $this->getAllDataBy('\User\Entity\UserDesktopPrice', [
             'user' => $user,
@@ -42,23 +43,23 @@ class IndexController extends AbstractRestfulController
         $engineeringPircePData = $this->getAllDataBy('\User\Entity\UserEngineeringPriceP', [
             'user' => $user,
         ]);
-		
+
         $entityManager = $this->getEntityManager();
         $repository = $entityManager->getRepository('User\Entity\UserTmRatio');
         $tmRatio = $repository->findOneBy(array('user'=>$user));
-        
+
         return new JsonModel([
             'user'               => $userData,
             'desktopPrices'      => $desktopPriceData,
             'interpretingPrices' => $interpretingPriceData,
             'translationPrices'  => $translationPriceData,
             'engineeringPrices'  => $engineeringPirceData,
-			
+
 			'desktopPricesP'      => $desktopPricePData,
             'interpretingPricesP' => $interpretingPricePData,
             'translationPricesP'  => $translationPricePData,
             'engineeringPricesP'  => $engineeringPircePData,
-			
+
             'tmRatios'           => isset($tmRatio)?$tmRatio->getData():null
         ]);
     }

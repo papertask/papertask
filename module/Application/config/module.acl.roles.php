@@ -45,6 +45,7 @@ $allow_all = array(
 	'freelancer\new',
 	'freelancer\detail',
 	'freelancer\edit-profile',
+	'freelancer\uploadFile',
 	// -- Employer (Client)
 	'employer\list',
 	'employer\new',
@@ -73,6 +74,7 @@ $allow_all = array(
 	'api/data',
 	'api/admin',
 	'api/papertask',
+	'api/user_child',
 );
 
 return array(
