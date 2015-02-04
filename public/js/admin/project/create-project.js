@@ -192,6 +192,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 		
         $http.post("/api/admin/project/", $scope.project)
             .success(function($data){
+				
                 if($data.success){
                     location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
                 } else {

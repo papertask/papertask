@@ -135,7 +135,7 @@ class Project extends Entity{
 
     public function getData(){
         return [
-            'client' => $this->client->getData(),
+            'client' => $this->client->getEmployer()->getData(),
             'dueDate' => $this->dueDate,
             'duration' => $this->duration,
             'field' => $this->field->getData(),
@@ -152,7 +152,7 @@ class Project extends Entity{
             'targetLanguages' => $this->getArrayData($this->targetLanguages),
 			'po' => $this->po,
 			'sourcetext' => $this->sourcetext,
-            'types' => $this->types,
+            'types' => $this->types
         ];
     }
 

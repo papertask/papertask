@@ -12,6 +12,7 @@ use Api\Controller\AbstractRestfulJsonController;
 use User\Entity\Iterm;
 use User\Entity\Project;
 use User\Entity\UserGroup;
+use User\Entity\Task;
 
 class ProjectController extends AbstractRestfulJsonController
 {
@@ -30,7 +31,7 @@ class ProjectController extends AbstractRestfulJsonController
             $data['pm'] = $this->getReference('User\Entity\Staff', $data['pm']['id']);
         }
         if(isset($data['client'])){
-            $data['client'] = $this->getReference('\User\Entity\Employer', $data['client']['id']);
+            $data['client'] = $this->getReference('\User\Entity\User', $data['client']['id']);
         }
         if(isset($data['sourceLanguage'])){
             $data['sourceLanguage'] = $this->getReference('\User\Entity\Language', $data['sourceLanguage']['id']);
@@ -61,7 +62,10 @@ class ProjectController extends AbstractRestfulJsonController
 
     public function create($data)
     {
-        $this->cleanData($data);
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
+        
+		$this->cleanData($data);
 
         $targetLanguages = [];
         foreach($data['targetLanguages'] as $targetLanguage){
@@ -106,6 +110,12 @@ class ProjectController extends AbstractRestfulJsonController
                 "{$type}Iterms" => $typeIterms,
             ]);
         }
+		
+		//$task = new Task();
+        //$task->setData($data);
+        //$task->save($this->getEntityManager());
+		
+		
         $project->save($this->getEntityManager());
 
         return new JsonModel([

@@ -6,7 +6,7 @@ angularApp.run(function($rootScope){
     jQuery("#tasks form").validate();
 });
 
-angularApp.controller('ProjectDetailController', function($scope, $location, ProjectApi, DateFormatter, ProjectStatus,
+angularApp.controller('ProjectDetailController', function($scope, $http, $location, ProjectApi, DateFormatter, ProjectStatus,
                                                           ProjectServiceLevel, ProjectPriority, StaffApi, ClientApi,
                                                           FieldApi, ProjectType, TaskApi, TaskStatus, $q){
 
@@ -45,18 +45,29 @@ angularApp.controller('ProjectDetailController', function($scope, $location, Pro
             jQuery.extend($scope.tempProject, $scope.project);
         });
 
-        var pm_listener = StaffApi.list({
+        /*var pm_listener = StaffApi.list({
             type: 2
         }, function($pms){
             $scope.pms = $pms;
         });
-
+		
         var sales_listener = StaffApi.list({
             type: 1
         }, function($sales){
             $scope.sales = $sales;
         });
+		*/
+		var pm_listener = $http.get("/" + LANG_CODE + "/admin/staff/getPmList")
+            .success( function ( $data ) {
+                $scope.pms = $data.pmlist;
+            });
 
+        var sales_listener = $http.get("/" + LANG_CODE + "/admin/staff/getSalesList")
+            .success( function ( $data ) {
+                $scope.sales = $data.saleslist;
+            });
+			
+			
         var client_listener = ClientApi.list({}, function($clients){
             $scope.clients = $clients;
         });
@@ -68,8 +79,13 @@ angularApp.controller('ProjectDetailController', function($scope, $location, Pro
         $q.all([project_listener, field_listener, pm_listener, sales_listener, client_listener])
             .then(function(){
                 $scope.project.field = search_by_id($scope.fields, $scope.project.field.id);
+				console.log("project.pm");	
+				console.log($scope.project.pm);	
+				console.log($scope.pms);	
                 $scope.project.pm = search_by_id($scope.pms, $scope.project.pm.id);
-                $scope.project.sale = search_by_id($scope.sales, $scope.project.sale.id);
+				if($scope.project.sale)
+					$scope.project.sale = search_by_id($scope.sales, $scope.project.sale.id);
+				
                 $scope.project.client = search_by_id($scope.clients, $scope.project.client.id);
                 $scope.project.types = ProjectType.find($scope.project.types.sort())
 

@@ -47,7 +47,7 @@ class Iterm extends Entity{
 
     /**
      * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $unit;
 

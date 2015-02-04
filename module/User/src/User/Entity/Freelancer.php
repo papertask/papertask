@@ -77,6 +77,11 @@ class Freelancer extends Entity{
      */
     protected $TranslationSpecialismsP = null;
 	
+    /**
+     * @var \Doctrine\ORM\PersistentCollection
+     * @ORM\ManyToMany(targetEntity="Rating")
+     * @ORM\JoinTable(name="UserRating")
+     */
     protected $Rating = null;
 
     /**
