@@ -380,13 +380,13 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 	$scope.setRateTm = function(){
         if(TableItemListService.tmRatios){
 			console.log(TableItemListService.tmRatios);
-			$scope.raterepetitions =  TableItemListService.tmRatios.repetitions;
-			$scope.rateyibai =  TableItemListService.tmRatios.yibai;
-			$scope.ratejiuwu =  TableItemListService.tmRatios.jiuwu;
-			$scope.ratebawu =  TableItemListService.tmRatios.bawu;
-			$scope.rateqiwu =  TableItemListService.tmRatios.qiwu;
-			$scope.ratewushi =  TableItemListService.tmRatios.wushi;
-			$scope.ratenomatch =  TableItemListService.tmRatios.nomatch;
+			$scope.raterepetitions =  (TableItemListService.tmRatios.repetitions)?TableItemListService.tmRatios.repetitions:0;
+			$scope.rateyibai =  (TableItemListService.tmRatios.yibai)?TableItemListService.tmRatios.yibai:0;
+			$scope.ratejiuwu =  (TableItemListService.tmRatios.jiuwu)?TableItemListService.tmRatios.jiuwu:0;
+			$scope.ratebawu =  (TableItemListService.tmRatios.bawu)?TableItemListService.tmRatios.bawu:0;
+			$scope.rateqiwu =  (TableItemListService.tmRatios.qiwu)?TableItemListService.tmRatios.qiwu:0;
+			$scope.ratewushi =  (TableItemListService.tmRatios.wushi)?TableItemListService.tmRatios.wushi:0;
+			$scope.ratenomatch =  (TableItemListService.tmRatios.nomatch)?TableItemListService.tmRatios.nomatch:0;
 		}
     };
     $scope.setIdentifier = function($identifier){

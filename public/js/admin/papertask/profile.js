@@ -52,7 +52,8 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
         // Get list translationTM
         $http.get("/api/papertask/translationtm").success(function($data){
            $scope.translationTM = $data['translationTM'];
-            console.log($data['translationTM']);
+            console.log('translationTM');
+			console.log($data['translationTM']);
         }).error(function($e){
            alert('error');
         });
