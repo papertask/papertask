@@ -93,6 +93,7 @@ class ProjectController extends AbstractRestfulJsonController
             $identifier = $iterms['identifier'];
             $type = $identifier[0];
             $languageId = $identifier[1]['id'];
+			
             $typeIterms = [];
             foreach($iterms['items'] as $item){
                 $iterm = new Iterm();
@@ -109,14 +110,27 @@ class ProjectController extends AbstractRestfulJsonController
             $project->setData([
                 "{$type}Iterms" => $typeIterms,
             ]);
+			
+			
         }
-		
-		//$task = new Task();
-        //$task->setData($data);
-        //$task->save($this->getEntityManager());
-		
-		
+	
         $project->save($this->getEntityManager());
+		
+		foreach($data['data'] as $iterms){
+            $identifier = $iterms['identifier'];
+            $type = $identifier[0];
+            $languageId = $identifier[1]['id'];
+			
+			$task = new Task();
+			
+			$task->setData([
+                    'project' => $project,
+                    'language' => $targetLanguages[$languageId],
+                    'type' => $type,
+                    'status' => 3,
+                ]);
+			$task->save($this->getEntityManager());
+		}	
 
         return new JsonModel([
             'project' => $project->getData(),
