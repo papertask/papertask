@@ -1,11 +1,19 @@
-<?php $this->headTitle($this->translate('GET IN TOUCH WITH PAPERTASK','Landing')) ?>
+<?php $this->headTitle($this->translate('GET IN TOUCH WITH PAPERTASK','Landing')); ?>
 <?php
-$this->headScript()
+echo $this->headScript()
     ->prependFile($this->basePath() . '/js/landing/contact.js')
     ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
     ->prependScript("angularApp = angular.module('contact', []);")
-    ->prependFile($this->basePath() . '/js/angular.min.js')
+    ->prependFile($this->basePath() . '/js/angular.min.js');
+	
+echo $this->inlineScript()
+    ->prependScript("
+        var LANG_CODE = '" . $this->lang_code . "';
+		var EXITS_CONFIRM_TEXT = '" . $this->translate('This option was existed, please choose other') . "';
+        ");	
+
 ?>
+
 <div class="banner">
     <div class="container">
         <br><br>

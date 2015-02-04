@@ -22,7 +22,7 @@ angularApp.controller('contactController', function($scope, $http) {
             var validate = $('form[name=contactForm]').valid();
             if(validate == true){
                 jQuery.ajax({
-                    url: '/landing/index/contact-post/',
+                    url: "/" + LANG_CODE + "/landing/index/contact-post/",
                     type: 'get',
                     data: $scope.form,
                     success: function($data){

@@ -7,6 +7,7 @@ $allow_all = array(
 	'index\languages',
 	'index\freelancer',
 	'index\contact',
+	'index\contact-post',
 	'index\order',
 	'index\privacy',
 	'index\terms',
