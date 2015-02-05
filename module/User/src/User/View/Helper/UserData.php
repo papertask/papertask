@@ -12,17 +12,12 @@ class UserData extends AbstractHelper
 
     private function getUserData()
     {
-        $userData = array(
-            'role' => "Admin",
-            'type' => "Project Manager",
-            'id' => 12
-        );
-
         $userSession = new Container('user');
         $userRole = $userSession->user_group['name'] == null ? 'Guest' : $userSession->user_group['name'];
 
         $userData['role'] = $userRole;
         if($userData['role'] === "Admin") $userData['type'] = $userSession->user_type;
+        if($userData['role'] === "Freelancer") $userData['isSenior'] = $userSession->user_isSenior;
         $userData['id'] = $userSession->user_id;
 
         return $userData;

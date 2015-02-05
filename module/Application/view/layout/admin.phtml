@@ -83,7 +83,7 @@
                 include "admin/left-sidebar-client.phtml";
                 break;
             case 'Freelancer':
-                include "admin/left-sidebar-freelancer.phtml";
+                $this->userData()['isSenior'] ? include "admin/left-sidebar-senior-freelancer.phtml" : include "admin/left-sidebar-freelancer.phtml";
                 break;
             default:
                 include "admin/left-sidebar-client.phtml";
