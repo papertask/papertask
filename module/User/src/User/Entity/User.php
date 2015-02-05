@@ -374,7 +374,7 @@ class User extends Entity implements InputFilterAwareInterface{
             $entityManager->flush();
             return true;
         }
-        
+
         return false;
     }
 
@@ -391,6 +391,7 @@ class User extends Entity implements InputFilterAwareInterface{
         $sessionContainer = new Container('user');
         $sessionContainer->user_id = $this->id;
         $sessionContainer->user_group = $this->group ? $this->group->getData() : null;
+        if($this->isAdmin()) $sessionContainer->user_type = $this->getStaff()->getData()['type']['type'];
     }
 
     /**
@@ -506,10 +507,16 @@ class User extends Entity implements InputFilterAwareInterface{
     }
 
     /**
+     * Group = 3, Role = 1, otherwise – false
      * @return bool
      */
     public function isAdmin(){
-        return $this->getGroup()->isAdmin();
+
+        $res = false;
+        if($this->getGroup()->isAdmin()){
+            $res = $this->getStaff()->getData()['type']['id'] === 1 ? true : false;
+        }
+        return $res;
     }
 
     public function setGroupByName($name, $entityManager){

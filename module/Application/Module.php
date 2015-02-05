@@ -86,10 +86,10 @@ class Module
     {
         return array(
         'Zend\Loader\StandardAutoloader' => array(
-        'namespaces' => array(
-        __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-        ),
-        ),
+            'namespaces' => array(
+                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                ),
+            ),
         );
     }
 
@@ -141,7 +141,6 @@ class Module
             //location to page or what ever
             $response -> getHeaders() -> addHeaderLine('Location', $e -> getRequest() -> getBaseUrl() . '/404');
             $response -> setStatusCode(404);
-
         }
     }
 }

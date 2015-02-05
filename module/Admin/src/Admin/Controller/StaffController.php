@@ -21,7 +21,7 @@ use User\Entity\CvFile;
 class StaffController extends AbstractActionController
 {
     protected $requiredLogin = true;
-	
+
     public function indexAction(){
         $lang_code = $this->params()->fromRoute('lang');
 		return new ViewModel(array(
@@ -45,7 +45,7 @@ class StaffController extends AbstractActionController
             foreach ( $cvfile as $k => $v ) {
                 $cvfiles[$k] = $v->getData();
             }
-			
+
             return new ViewModel(array(
                 "user" => $user->getData(),
                 'staff' => $user->getStaff()->getId(),
@@ -67,12 +67,20 @@ class StaffController extends AbstractActionController
     public function editProfileAction(){
         $entityManager = $this->getEntityManager();
         $id = $this->getRequest()->getQuery('id');
-        $user = $entityManager->find('\User\Entity\User', (int)$id);
+
+        if($id){
+            $user = $this->getUserById($id);
+        } else {
+            $user = $this->getCurrentUser();
+        }
+        //$user = $entityManager->find('\User\Entity\User', (int)$id);
+
 		$lang_code = $this->params()->fromRoute('lang');
         if($entityManager->find('\User\Entity\Staff', $user->getStaff())){
             return new ViewModel([
                 "user" => $user->getData(),
 				"lang_code" => $lang_code,
+                "isAdmin" => $this->getCurrentUser()->isAdmin(),
             ]);
         }
     }
@@ -87,7 +95,7 @@ class StaffController extends AbstractActionController
             ]);
         }
     }
-    
+
     public function uploadFileAction() {
         if ( !empty( $_FILES ) ) {
 
@@ -98,7 +106,7 @@ class StaffController extends AbstractActionController
 
             move_uploaded_file( $tempPath, 'public/'.$uploadPath );
             $file = new CvFile();
-           
+
             $file->setData([
                 'name' => $_FILES[ 'file' ][ 'name' ],
                 'path' => $uploadPath,
@@ -117,7 +125,7 @@ class StaffController extends AbstractActionController
             return new JsonModel( $answer );
         }
     }
-    
+
     public function deleteFileAction( ) {
         $entityManager = $this->getEntityManager();
         $fid = $this->getRequest()->getQuery('fid');
@@ -125,7 +133,7 @@ class StaffController extends AbstractActionController
         $entityManager->remove( $cvfile );
         $entityManager->flush();
         $answer = ["success" => true];
-        
+
         return new JsonModel( $answer );
     }
 
@@ -145,7 +153,7 @@ class StaffController extends AbstractActionController
         //    $queryBuilder->andWhere("staff.client = ?1")
         //        ->setParameter(1, $client);
         // }
-		
+
 		$staffList = $entityManager->getRepository('User\Entity\User');
         //->findBy(array('group' => $freelancerGroup));
         $queryBuilder = $staffList->createQueryBuilder('user');
@@ -153,7 +161,7 @@ class StaffController extends AbstractActionController
 		$queryBuilder->leftJoin('user.staff', 'staff')->where('staff.type in (6,7)');
 		$queryBuilder->andWhere("user.group = 3");
 		$queryBuilder->andWhere("user.isActive='1'");
-		
+
         $query = $queryBuilder->getQuery();
         $result = $query->getArrayResult();
         return new JsonModel([
@@ -185,7 +193,7 @@ class StaffController extends AbstractActionController
 		$queryBuilder->leftJoin('user.staff', 'staff')->where('staff.type in (4,5)');
 		$queryBuilder->andWhere("user.group = 3");
 		$queryBuilder->andWhere("user.isActive='1'");
-		
+
         $query = $queryBuilder->getQuery();
         $result = $query->getArrayResult();
         return new JsonModel([

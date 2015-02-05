@@ -120,7 +120,8 @@
                 <a href="<?php echo $this->url('admin', array('controller' => 'papertask', 'action' => 'profile',"lang"=>$this->translate('lang','Application'))) ?>">
                     <i class="fa fa-gear"></i> <span class="nav-lable">Settings</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="financial_report.html">My Profile</a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
+                        <li><a href="<?php echo $this->url('admin', array('controller' => 'staff',
+                        'action' => 'edit-profile',"lang"=>$this->translate('lang','Application'))) ?>">My Profile</a></li>
                         <li><a href="<?php echo $this->url('admin', array('controller' => 'resetpassword', 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>">Reset Password</a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
                     </ul>
             </li>

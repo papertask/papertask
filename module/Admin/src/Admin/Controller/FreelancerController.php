@@ -100,7 +100,6 @@ class FreelancerController extends AbstractActionController
 	public function detailAction() {
 		//error_reporting(E_ALL);
 		//ini_set('display_errors', 1);
-		$isAdmin = $this->getCurrentUser()->isAdmin();
         $userId = (int)$this->getRequest()->getQuery('id');
         $entityManager = $this->getEntityManager();
 
@@ -172,7 +171,7 @@ class FreelancerController extends AbstractActionController
 				'lang_code' => $lang_code,
 				'cvfiles' => $cvfiles,
 				'resume' => $resume?$resume->getData():null,
-                'isAdmin' => $isAdmin,
+                'isAdmin' => $this->getCurrentUser()->isAdmin(),
         ));
     }
 
@@ -211,18 +210,20 @@ class FreelancerController extends AbstractActionController
     public function editProfileAction(){
         $entityManager = $this->getEntityManager();
         $id = $this->getRequest()->getQuery('id');
-        $user = $entityManager->find('\User\Entity\User', (int)$id);
-		$lang_code = $this->params()->fromRoute('lang');
-        $isAdmin = false;
-        if($this->getCurrentUser()->isAdmin()){
-            $isAdmin = true;
+        // $user = $entityManager->find('\User\Entity\User', (int)$id);
+        if($id){
+            $user = $this->getUserById($id);
+        } else {
+            $user = $this->getCurrentUser();
         }
+
+		$lang_code = $this->params()->fromRoute('lang');
 
         if($entityManager->find('\User\Entity\Freelancer', $user->getFreelancer())){
             return new ViewModel([
                 "user" => $user->getData(),
 				"lang_code" => $lang_code,
-                "isAdmin" => $isAdmin,
+                "isAdmin" => $this->getCurrentUser()->isAdmin(),
             ]);
         }
     }

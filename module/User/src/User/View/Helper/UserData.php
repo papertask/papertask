@@ -14,6 +14,7 @@ class UserData extends AbstractHelper
     {
         $userData = array(
             'role' => "Admin",
+            'type' => "Project Manager",
             'id' => 12
         );
 
@@ -21,6 +22,7 @@ class UserData extends AbstractHelper
         $userRole = $userSession->user_group['name'] == null ? 'Guest' : $userSession->user_group['name'];
 
         $userData['role'] = $userRole;
+        if($userData['role'] === "Admin") $userData['type'] = $userSession->user_type;
         $userData['id'] = $userSession->user_id;
 
         return $userData;
