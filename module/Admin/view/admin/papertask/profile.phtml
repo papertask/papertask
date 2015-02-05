@@ -29,6 +29,47 @@ $this->inlineScript()->appendScript("
 <div class="panel-body">
 <div class="tab-content">
 <div id="tab-1" class="tab-pane active">
+
+    <!-- currency rate -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h3><i class="fa fa-gears"></i> Currency Rate</h3>
+        </div>
+        <div class="ibox-content">
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="widget style1 navy-bg">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <h1 class="m-xs">1 USD  = 6.3 CNY &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a data-toggle="modal" href="#modal-currency"><i class="fa fa-edit"></i></a></h1>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="widget style1">
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <div data-toggle="buttons">
+                                    <label class="btn btn-outline btn-danger btn-lg active">
+                                        <input type="radio" name="" value="" /> <i class="fa fa-cny"> CNY</i>
+                                    </label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <label class="btn btn-outline btn-info btn-lg">
+                                        <input type="radio" name="" value="" /> <i class="fa fa-dollar"> USD</i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div id="translation" class="ibox float-e-margins">
         <div class="ibox-title">
             <h3><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></h3>
@@ -131,6 +172,34 @@ $this->inlineScript()->appendScript("
                    data-toggle="modal" class="btn btn-outline btn-primary" href="#modal-translation">
                     <?php echo $this->translate('Add Language pairs and prices') ?>
                 </a>
+            </div>
+
+            <!-- add papertask currency -->
+            <div id="modal-currency" class="modal fade" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Edit PaperTask Currency Rate</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label>Rate *</label>
+                                            <input id="" name="" type="" value="" class="form-control required" placeholder="6.3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-w-m btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- add language pair and price -->
