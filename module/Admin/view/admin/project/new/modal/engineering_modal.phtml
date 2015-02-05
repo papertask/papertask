@@ -22,6 +22,18 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Category") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control required valid" name="unit" aria-required="true"
+                                            ng-model="vars.item.unit"
+                                            ng-options="unit.name for unit in engineeringUnits">
+                                        <option value=""><?php echo $this->translate("Choose category") ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
                                     <?php echo $this->translate("Unit") ?> *
                                 </label>
                                 <div class="col-sm-9">
