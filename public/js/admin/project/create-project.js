@@ -20,7 +20,10 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
     $scope.files = [];
     $scope.interpreting = null;
     $scope.editing = true;
-
+	//papertask
+	$scope.translationTM = [];
+	$scope.translation = [];
+	
     $scope.order = {};
     $scope.project = {
         types: [],
@@ -54,6 +57,21 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
             .success( function ( $data ) {
                 $scope.sales = $data.saleslist;
             });
+		// Get list translationTM
+       $http.get("/api/papertask/translationtm").success(function($data){
+           $scope.translationTM = $data['translationTM'];
+            console.log('translationTM');
+			console.log($data['translationTM']);
+        }).error(function($e){
+           alert('error');
+        });
+		
+		$http.get("/api/papertask/translation").success(function($data){
+            $scope.translation = $data['translation'];
+            console.log($data['translation']);
+        }).error(function($e){
+            alert('error');
+        });
 			
         setModalControllerData('project', $scope.project);
     };
@@ -68,36 +86,63 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
     $scope.change_client = function(client){
        console.log(client);
 	   //get translation no tm
-	   var USER_ID = client.id
-	   if($scope.hasTypeTranslationNoTM)
-	   {
-		$http.get('/api/user/translationprice?userId='+ USER_ID).success(function($data) {
-            $scope.translationPrices = $data['translationPrices'];
-		//find 
-		console.log($scope.translationPrices);
-		console.log($scope.project.sourceLanguage);
-		console.log($scope.project.targetLanguages);
-		TableItemListService.translationPrices={};
-		for(i=0;i<$scope.translationPrices.length;i++){
-			for(j=0;j<$scope.project.targetLanguages.length;j++){
-				console.log($scope.translationPrices[i].sourceLanguage.id );
-				
-				console.log($scope.translationPrices[i].targetLanguage.id );
-				
-				console.log($scope.project.targetLanguages[j].id);
+	    var USER_ID = client.id;
+	    var ajaxEmployerInfo = $http.get("/api/user/" + USER_ID + "/employer")
+        .success( function ( $data ) {
+			$scope.employer = {
+				defaultServiceLevel: $data.employer.defaultServiceLevel,
+			};
+			$scope.project.serviceLevel=$scope.employer.defaultServiceLevel;
+		if($scope.hasTypeTranslationNoTM)
+	    {
+			$http.get('/api/user/translationprice?userId='+ USER_ID).success(function($data) {
+				$scope.translationPrices = $data['translationPrices'];
+			//find 
+			console.log($scope.translationPrices);
+			console.log($scope.project.sourceLanguage);
+			console.log($scope.project.targetLanguages);
+			TableItemListService.translationPrices={};
 			
-				if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  )
+			for(i=0;i<$scope.translationPrices.length;i++){
+				for(j=0;j<$scope.project.targetLanguages.length;j++){
+					console.log($scope.translationPrices[i].sourceLanguage.id );
 					
-					TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = $scope.translationPrices[i].price;
-			
+					console.log($scope.translationPrices[i].targetLanguage.id );
+					
+					console.log($scope.project.targetLanguages[j].id);
+				
+					if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  ){
+						
+						TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = $scope.translationPrices[i].price;
+					}
+					else {
+					//get default papertask
+						for(k=0;k<$scope.translation.length;k++){
+							if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage)
+								if($scope.project.serviceLevel==1)
+									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = Number($scope.translation[k].professionalPrice);
+								else if($scope.project.serviceLevel==2)
+									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = Number($scope.translation[k].businessPrice);
+								else
+									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = Number($scope.translation[k].premiumPrice);		
+						
+						}
+							
+					}		
+				
+				}
+				
+				
 			}
-			
-			
+				//TableItemListService.translationPrices = $scope.translationPrices;
+				console.log(TableItemListService.translationPrices);
+			});
 		}
-			//TableItemListService.translationPrices = $scope.translationPrices;
-			console.log(TableItemListService.translationPrices);
+			
+			
         });
-	   }
+		
+	    
 	   
 	   if($scope.hasTypeTranslationUseTM){
 				
@@ -136,10 +181,15 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 			}
 			
 		}
+		
+		
 	   
 	   //get translation tm
     };
 	
+	$scope.active_class = function(a, b){
+        return a == b ? 'active' : '';
+    };
 
     $scope.setInterpreting = function($interpreting){
         jQuery(".project-types .active").removeClass("active");
