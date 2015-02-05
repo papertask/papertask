@@ -227,4 +227,25 @@ class FreelancerController extends AbstractActionController
             ]);
         }
     }
+
+    public function editPriceAction(){
+        $entityManager = $this->getEntityManager();
+        $id = $this->getRequest()->getQuery('id');
+        // $user = $entityManager->find('\User\Entity\User', (int)$id);
+        if($id){
+            $user = $this->getUserById($id);
+        } else {
+            $user = $this->getCurrentUser();
+        }
+
+        $lang_code = $this->params()->fromRoute('lang');
+
+        if($entityManager->find('\User\Entity\Freelancer', $user->getFreelancer())){
+            return new ViewModel([
+                "user" => $user->getData(),
+                "lang_code" => $lang_code,
+                "isAdmin" => $this->getCurrentUser()->isAdmin(),
+            ]);
+        }
+    }
 }

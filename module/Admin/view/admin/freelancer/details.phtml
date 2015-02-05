@@ -728,7 +728,7 @@ $this->inlineScript()
 
 
                                 <?php if($this->isAdmin): ?>
-                                    <<div class="row file-manager">
+                                    <div class="row file-manager">
                                         <label class="checkbox-inline" ng-repeat="specialism in InterpretingSpecialisms">
                                             <input type="checkbox" ng-click="setTestInterpretingSpecialisms(specialism)" ng-checked="checkInterpretingSpecialism[{{specialism.id - 1}}] == 1" value="{{specialism.id}} " id="inlineCheckbox1"> {{specialism.name}} </label>
                                     </div>
@@ -738,7 +738,7 @@ $this->inlineScript()
                                             <li ng-repeat="specialism in InterpretingSpecialisms"><a href=""><i class="fa fa-check" ng-show="checkInterpretingSpecialism[{{specialism.id - 1}}] == 1"></i> {{specialism.name}}</a></li>
                                         </ul>
                                     </div>
-                                <?php endif ?>
+                                <?php endif; ?>
 
 								<div class="hr-line-dashed"></div>
 								<h4>Languages and Price </h4>
@@ -772,7 +772,7 @@ $this->inlineScript()
 					</div>
 
 					<div id="tab-2" class="tab-pane">
-						<div class="ibox float-e-margins">
+ 						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['translation'] == 1">
 							<div class="ibox-title">
 								<h3><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></h3>
 							</div>
@@ -829,7 +829,7 @@ $this->inlineScript()
 								</div>
 							</div>
 						</div>
-						<div class="ibox float-e-margins">
+						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['desktop'] == 1">
 							<div class="ibox-title">
 								<h3><i class="fa fa-desktop"></i> <?php echo $this->translate('Desktop Publishing') ?></h3>
 							</div>
@@ -889,7 +889,7 @@ $this->inlineScript()
 								</div>
 							</div>
 						</div>
-						<div class="ibox float-e-margins" >
+						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['interpreting'] == 1">
 							<div class="ibox-title">
 								<h3><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></h3>
 							</div>
