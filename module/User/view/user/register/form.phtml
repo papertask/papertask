@@ -62,7 +62,7 @@
 
         <p class="text-muted text-center">
             <small><?php echo $this->translate('Already have an account?','User') ?>
-            <a href="<?php echo $this->url('user') ?>/login"><?php echo $this->translate('Login','User') ?></a></p></small>
+            <a href="<?php echo $this->url('user',array("lang"=>$this->translate('lang', 'Application'))) ?>/login"><?php echo $this->translate('Login','User') ?></a></p></small>
 
     </form>
 </div>
