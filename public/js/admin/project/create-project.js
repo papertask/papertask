@@ -138,17 +138,25 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 				console.log(TableItemListService.translationPrices);
 			});
 		}
-			
-			
-        });
-		
-	    
-	   
-	   if($scope.hasTypeTranslationUseTM){
+		if($scope.hasTypeTranslationUseTM){
 				
 			$http.get("/api/user/" + USER_ID + "")
 				.success ( function ( $data ) {
 				   TableItemListService.tmRatios =  $data.tmRatios;
+				    console.log("tmRatios");
+				   console.log($data.tmRatios);
+				   console.log($scope.translationTM);
+				   if(!$data.tmRatios)
+				   {
+						TableItemListService.tmRatios = [];
+						TableItemListService.tmRatios.repetitions = Number($scope.translationTM[0].rate*100);
+						TableItemListService.tmRatios.yibai = Number($scope.translationTM[1].rate*100);
+						TableItemListService.tmRatios.jiuwu = Number($scope.translationTM[2].rate*100);
+						TableItemListService.tmRatios.bawu = Number($scope.translationTM[3].rate*100);
+						TableItemListService.tmRatios.qiwu = Number($scope.translationTM[4].rate*100);
+						TableItemListService.tmRatios.wushi = Number($scope.translationTM[5].rate*100);
+						TableItemListService.tmRatios.nomatch = Number($scope.translationTM[6].rate*100);
+				   }
 				   console.log(TableItemListService.tmRatios);
 			})
 			if(!$scope.hasTypeTranslationNoTM){
@@ -167,10 +175,24 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 							
 							console.log($scope.project.targetLanguages[j].id);
 						
-							if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  )
+							if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  ){
 								
 								TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = $scope.translationPrices[i].price;
-						
+							}
+							else {
+							//get default papertask
+								for(k=0;k<$scope.translation.length;k++){
+									if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage)
+										if($scope.project.serviceLevel==1)
+											TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = Number($scope.translation[k].professionalPrice);
+										else if($scope.project.serviceLevel==2)
+											TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = Number($scope.translation[k].businessPrice);
+										else
+											TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = Number($scope.translation[k].premiumPrice);		
+								
+								}
+									
+							}		
 						}
 						
 						
@@ -181,9 +203,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 			}
 			
 		}
-		
-		
-	   
+        });
 	   //get translation tm
     };
 	
