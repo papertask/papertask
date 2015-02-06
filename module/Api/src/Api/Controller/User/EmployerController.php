@@ -318,7 +318,6 @@ class EmployerController extends AbstractRestfulController
     }
 
 	public function reset(){
-		var_dump("Im here! form/reset");
 		$data = $this->getData();
 		$curr = $data['current'];
 		if($data['new'] == $data['confirm']){
