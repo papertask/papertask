@@ -60,9 +60,9 @@ class IndexController extends AbstractActionController
                 Mail::sendContactMail($this, $data);
                 $json['result'] = true;
                 $json['data'] = '';
-                $json['message'] = $this->getTranslator()->translate('Your contact has been sent.');
+                $json['message'] = $this->getTranslator()->translate('Your contact has been sent, we will contact you as soon as possible, thank you!.');
             }else{
-                $json['message'] = $this->getTranslator()->translate('Your email is not correct.');
+                $json['message'] = $this->getTranslator()->translate('Your email is not correct, please input again.');
             }
         }
 
