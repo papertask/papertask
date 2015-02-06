@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Papertask\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 14:16+0800\n"
-"PO-Revision-Date: 2015-02-02 21:20+0800\n"
+"PO-Revision-Date: 2015-02-06 16:17+0800\n"
 "Last-Translator: \n"
 "Language-Team: Hat Dao <enjoy3013@gmail.com>\n"
 "Language: en_US\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: translate\n"
 "X-Poedit-Basepath: /home/hat/Projects/papertask/\n"
-"X-Generator: Poedit 1.7.3\n"
+"X-Generator: Poedit 1.7.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ./module/Landing\n"
 
@@ -295,10 +295,6 @@ msgstr "选择源语言"
 #: module/Landing/view/landing/index/order.phtml:172
 msgid "Add Target Languages"
 msgstr "添加目标语言"
-
-#: module/Landing/view/landing/index/order.phtml:186
-msgid "Japanese"
-msgstr ""
 
 #: module/Landing/view/landing/index/order.phtml:214
 msgid "Previous"
@@ -2573,3 +2569,6 @@ msgstr ""
 "Beijing China. You may contact us by sending correspondence to the foregoing "
 "address or by emailing us at <a href=mailto:support@papertask."
 "com>support@papertask.com</a>."
+
+msgid "English"
+msgstr "英文"
