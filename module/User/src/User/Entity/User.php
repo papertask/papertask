@@ -391,7 +391,7 @@ class User extends Entity implements InputFilterAwareInterface{
         $sessionContainer = new Container('user');
         $sessionContainer->user_id = $this->id;
         $sessionContainer->user_group = $this->group ? $this->group->getData() : null;
-        if($this->isAdmin()) $sessionContainer->user_type = $this->getStaff()->getData()['type']['type'];
+        if($this->isStaff()) $sessionContainer->user_type = $this->getStaff()->getData()['type']['type'];
         if($this->isFreelancer()) $sessionContainer->user_isSenior = $this->getFreelancer()->getData()['isSenior'];
     }
 
@@ -505,6 +505,14 @@ class User extends Entity implements InputFilterAwareInterface{
      */
     public function isFreelancer(){
         return $this->getGroup()->isFreelancer();
+    }
+
+    /**
+    * Group = 3, Role = 1, otherwise – false
+    * @return bool
+    */
+    public function isStaff(){
+        return $this->getGroup()->isAdmin();
     }
 
     /**
