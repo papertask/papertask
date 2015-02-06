@@ -203,6 +203,68 @@ angularApp.factory("ProjectServiceLevel", function(){
         }
     }
 });
+angularApp.factory("LangGroup", function(){
+	var group = [{
+        "id": 2,
+        "name": "Arabic",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+	{
+        "id": 7,
+        "name": "Chinese (Hong Kong)",
+        "group_id": 2,
+        "group_name": "SC/TC/JP/KO"
+    },
+	{
+        "id": 8,
+        "name": "Chinese (Simplified)",
+        "group_id": 2,
+        "group_name": "SC/TC/JP/KO"
+    },
+	{
+        "id": 38,
+        "name": "Japanese",
+        "group_id": 2,
+        "group_name": "SC/TC/JP/KO"
+    },
+	{
+        "id": 42,
+        "name": "Korean",
+        "group_id": 2,
+        "group_name": "SC/TC/JP/KO"
+    },
+	{
+        "id": 75,
+        "name": "Thai",
+        "group_id": 3,
+        "group_name": "TH/VN"
+    },
+	{
+        "id": 81,
+        "name": "Vietnamese",
+        "group_id": 3,
+        "group_name": "TH/VN"
+    },
+	{
+        "id": 84,
+        "name": "Zulu",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+	
+	];
+	
+	return {
+        get: function($id){
+            for(var i = 0; i < group.length; i++){
+                if(group[i].id == $id){
+                    return group[i];
+                }
+            }
+        },
+    }
+});
 
 
 angularApp.factory("ProjectType", function($sce){

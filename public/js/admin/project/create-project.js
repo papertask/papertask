@@ -72,8 +72,38 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         }).error(function($e){
             alert('error');
         });
-			
+		TableItemListService.softwarePrices = [];
+		$http.get("/api/papertask/desktop-publishing").success(function($data){
+						$scope.softwarePrices = $data['softwarePrices'];
+						TableItemListService.softwarePrices = $scope.softwarePrices;
+						console.log($data['softwarePrices']);
+						console.log('Got list software prices');
+					}).error(function($e){
+						alert('error');
+					});	
+					
+		TableItemListService.engineeringPPrices = [];			
+		$http.get("/api/papertask/engineering").success(function($data){
+				$scope.engineeringPPrices = $data['engineering'];
+				TableItemListService.engineeringPPrices = $scope.engineeringPPrices;
+				console.log($scope.engineeringPPrices);
+				console.log('Got list engineering prices');
+			}).error(function($e){
+				alert('error');
+		});
+		
+		
+		// get some option
+		var priceDataRequest = $http.get("/api/user/priceData")
+            .success(function($data){
+                //$scope.services = $data['services'];
+                $scope.softwares = $data['softwares'];
+				$scope.engineeringCategories = $data['engcategory'];
+				setModalControllerData('engineeringCategories', $scope.engineeringCategories);
+				setModalControllerData('softwares', $scope.softwares);
+            });	
         setModalControllerData('project', $scope.project);
+		
     };
 
     $scope.projectType = function(){
@@ -87,6 +117,17 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
        console.log(client);
 	   //get translation no tm
 	    var USER_ID = client.id;
+		
+		TableItemListService.desktopPrices=[];
+		$http.get('/api/user/desktopprice?userId='+USER_ID).success(function($data) {
+            TableItemListService.desktopPrices = $data['desktopPrices'];
+        });
+		
+		TableItemListService.engineeringPrices=[];
+		$http.get('/api/user/engineeringprice?userId=' + USER_ID).success(function($data) {
+            TableItemListService.engineeringPrices = $data['engineeringPrices'];
+        });
+		
 	    var ajaxEmployerInfo = $http.get("/api/user/" + USER_ID + "/employer")
         .success( function ( $data ) {
 			$scope.employer = {
@@ -430,12 +471,18 @@ angularApp.factory("TableItemListService", function(){
             jQuery.extend(true, itemCloned, $itemtm);
             $(modalId).modal("show");
         },
+		getRateDtp : function($scope){
+			listener.getRateDtp(vars.item);
+		},
+		getRateEng : function($scope){
+			listener.getRateEng(vars.item);
+		},
         vars: vars,
 		vartms: vartms
     }
 });
 
-angularApp.controller('TableItemController', function($scope, CurrentUser, TableItemListService){
+angularApp.controller('TableItemController', function($scope, CurrentUser, TableItemListService, LangGroup){
     $scope.CurrentUser = CurrentUser;
     $scope.TableItemListService = TableItemListService;
     $scope.identifier = {};
@@ -467,6 +514,139 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
     $scope.add = function($item){
         $scope.items.push($item);
     };
+	$scope.getRateDtp = function($item){
+	
+			if($item.software && $item.unit)
+			{
+				console.log("start get dtp");
+				console.log( TableItemListService.desktopPrices );
+				console.log( $item.software );
+				console.log( $item.unit );
+				//get private
+				if( TableItemListService.desktopPrices.length)
+				{
+					console.log($scope.identifier);
+					for(i=0;i<TableItemListService.desktopPrices.length;i++)
+					{
+						if($scope.identifier[1].id == $scope.TableItemListService.desktopPrices[i].language.id 
+						&& $item.software.id == $scope.TableItemListService.desktopPrices[i].software.id){
+						
+							if($item.unit.id == 1 && $scope.identifier[0] == "dtpMac")
+								$item.rate = Number($scope.TableItemListService.desktopPrices[i].priceHourMac);
+							else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpMac")	
+								$item.rate = Number($scope.TableItemListService.desktopPrices[i].priceMac);
+							
+							else if ($item.unit.id == 1 && $scope.identifier[0] == "dtpPc")	
+								$item.rate = Number($scope.TableItemListService.desktopPrices[i].priceHourPc);	
+							else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpPc")	
+								$item.rate = Number($scope.TableItemListService.desktopPrices[i].pricePc);	
+						}
+						else {
+							//get group language
+							console.log("lang_group");
+							$lang_group  =    LangGroup.get($scope.identifier[1].id);
+							
+							console.log($lang_group);
+							console.log(TableItemListService.softwarePrices);
+							for(j=0;j<TableItemListService.softwarePrices.length;j++)
+							{
+								if(TableItemListService.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  TableItemListService.softwarePrices[j].desktopSoftware.id){
+								
+								if($item.unit.id == 1 && $scope.identifier[0] == "dtpMac")
+									$item.rate = Number(TableItemListService.softwarePrices[j].priceApplePerHour);
+								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpMac")	
+									$item.rate = Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage);
+								
+								else if ($item.unit.id == 1 && $scope.identifier[0] == "dtpPc")	
+									$item.rate = Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour);	
+								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpPc")	
+									$item.rate = Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage);	
+								}
+							}
+							// TableItemListService.softwarePrices.length
+							
+						
+						}
+						console.log($item);
+							
+					}
+						
+				}
+				else {//if not get paper task
+							
+							//get group language
+							console.log("lang_group");
+							$lang_group  =    LangGroup.get($scope.identifier[1].id);
+							
+							console.log($lang_group);
+							console.log(TableItemListService.softwarePrices);
+							for(j=0;j<TableItemListService.softwarePrices.length;j++)
+							{
+								if(TableItemListService.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  TableItemListService.softwarePrices[j].desktopSoftware.id){
+								
+								if($item.unit.id == 1 && $scope.identifier[0] == "dtpMac")
+									$item.rate = Number(TableItemListService.softwarePrices[j].priceApplePerHour);
+								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpMac")	
+									$item.rate = Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage);
+								
+								else if ($item.unit.id == 1 && $scope.identifier[0] == "dtpPc")	
+									$item.rate = Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour);	
+								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpPc")	
+									$item.rate = Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage);	
+								}
+							}
+							// TableItemListService.softwarePrices.length
+				}
+			}
+	}
+	$scope.getRateEng = function($item){
+		if($item.category && $item.unit)
+		{
+			//get private
+			console.log("start get dtp");
+			console.log( TableItemListService.engineeringPrices );
+			console.log( $item.category );
+			console.log( $item.unit );	
+			if( TableItemListService.engineeringPrices.length)
+			{
+				for(i=0;i<TableItemListService.engineeringPrices.length;i++){
+					if($item.category.id == TableItemListService.engineeringPrices[i].engineeringcategory.id 
+					&&  $item.unit.id == TableItemListService.engineeringPrices[i].unit.id){
+						$item.rate =  Number(TableItemListService.engineeringPrices[i].priceNumber);
+					}
+					else {
+						console.log("engineeringPPrices");
+						console.log(TableItemListService.engineeringPPrices);
+						console.log($item.category.id);
+						console.log($item.unit.id);
+						for(j=0;j<TableItemListService.engineeringPPrices.length;j++)
+						{
+							console.log(TableItemListService.engineeringPPrices[j].engineeringCategory.id );
+							console.log(TableItemListService.engineeringPPrices[j].unit.id);
+							
+							if($item.category.id == TableItemListService.engineeringPPrices[j].engineeringCategory.id 
+							&&  $item.unit.id == TableItemListService.engineeringPPrices[j].unit.id){
+								
+								$item.rate =  Number(TableItemListService.engineeringPPrices[j].price);
+								
+							}
+						}
+					}
+				}
+			}
+			else{
+				for(j=0;j<TableItemListService.engineeringPPrices.length;j++)
+				{
+					if($item.category.id == TableItemListService.engineeringPPrices[j].engineeringCategory.id 
+					&&  $item.unit.id == TableItemListService.engineeringPPrices[j].unit.id){
+						$item.rate =  Number(TableItemListService.engineeringPPrices[j].price);
+					}
+				}
+			}
+		
+		}
+	
+	}
 	$scope.addtm = function($itemtm){
         //	$scope.itemtm.push($itemtm);
 		$scope.itemtm = $itemtm;
@@ -501,10 +681,13 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
     }
 });
 
-angularApp.controller('TableModalController', function($scope, TableItemListService){
+angularApp.controller('TableModalController', function($scope, TableItemListService,$http){
     $scope.TableItemListService = TableItemListService;
     $scope.vars = TableItemListService.vars;
 	$scope.vartms = TableItemListService.vartms;
+	
+	
+	
 });
 
 angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', function($scope, FileUploader, $timeout) {

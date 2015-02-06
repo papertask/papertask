@@ -30,9 +30,9 @@
                                     <?php echo $this->translate("DTP software") ?> *
                                 </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control required valid" name="" aria-required="true"
-                                            ng-model="vars.item.unit"
-                                            ng-options="unit.name for unit in dtpUnits">
+                                    <select class="form-control required valid" name="" ng-change="TableItemListService.getRateDtp()" aria-required="true"
+                                            ng-model="vars.item.software"
+                                            ng-options="software.name for software in softwares">
                                         <option value=""><?php echo $this->translate("Choose software") ?></option>
                                     </select>
                                 </div>
@@ -42,7 +42,7 @@
                                     <?php echo $this->translate("Unit") ?> *
                                 </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control required valid" name="unit" aria-required="true"
+                                    <select class="form-control required valid" ng-change="TableItemListService.getRateDtp()" name="unit" aria-required="true"
                                             ng-model="vars.item.unit"
                                             ng-options="unit.name for unit in dtpUnits">
                                         <option value=""><?php echo $this->translate("Choose unit") ?></option>
@@ -115,20 +115,30 @@
                                 <label class="col-sm-3 control-label">
                                     <?php echo $this->translate("DTP software") ?> *
                                 </label>
-                                <div class="col-sm-9">
+                                <!--<div class="col-sm-9">
                                     <select class="form-control required valid" name="" aria-required="true"
                                             ng-model="vars.item.unit"
                                             ng-options="unit.name for unit in dtpUnits">
                                         <option value=""><?php echo $this->translate("Choose software") ?></option>
                                     </select>
+                                </div>-->
+								
+								 <div class="col-sm-9">
+                                    <select class="form-control required valid" name="" ng-change="TableItemListService.getRateDtp()" aria-required="true"
+                                            ng-model="vars.item.software"
+                                            ng-options="software.name for software in softwares">
+                                        <option value=""><?php echo $this->translate("Choose software") ?></option>
+                                    </select>
                                 </div>
+								
+								
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">
                                     <?php echo $this->translate("Unit") ?> *
                                 </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control required valid" name="unit" aria-required="true"
+                                    <select class="form-control required valid" name="unit" ng-change="TableItemListService.getRateDtp()" aria-required="true"
                                             ng-model="vars.item.unit"
                                             ng-options="unit.name for unit in dtpUnits">
                                         <option value=""><?php echo $this->translate("Choose unit") ?></option>

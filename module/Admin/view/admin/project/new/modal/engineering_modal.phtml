@@ -25,9 +25,9 @@
                                     <?php echo $this->translate("Category") ?> *
                                 </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control required valid" name="unit" aria-required="true"
-                                            ng-model="vars.item.unit"
-                                            ng-options="unit.name for unit in engineeringUnits">
+                                    <select class="form-control required valid" name="category" ng-change="TableItemListService.getRateEng()" aria-required="true"
+                                            ng-model="vars.item.category"
+                                            ng-options="engineeringCategorie.category for engineeringCategorie in engineeringCategories">
                                         <option value=""><?php echo $this->translate("Choose category") ?></option>
                                     </select>
                                 </div>
@@ -37,7 +37,7 @@
                                     <?php echo $this->translate("Unit") ?> *
                                 </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control required valid" name="unit" aria-required="true"
+                                    <select class="form-control required valid" name="unit" ng-change="TableItemListService.getRateEng()"  aria-required="true"
                                             ng-model="vars.item.unit"
                                             ng-options="unit.name for unit in engineeringUnits">
                                         <option value=""><?php echo $this->translate("Choose unit") ?></option>
