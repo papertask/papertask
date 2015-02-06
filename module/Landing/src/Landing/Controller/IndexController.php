@@ -49,7 +49,7 @@ class IndexController extends AbstractActionController
 
         $json = [
             'result' => false,
-            'message' => $this->getTranslator()->translate('There is some error, please try again later.'),
+            'message' => $this->getTranslator()->translate('There is some error, please try again later.','Landing'),
             'data' => $data
         ];
 
@@ -60,9 +60,9 @@ class IndexController extends AbstractActionController
                 Mail::sendContactMail($this, $data);
                 $json['result'] = true;
                 $json['data'] = '';
-                $json['message'] = $this->getTranslator()->translate('Your contact has been sent, we will contact you as soon as possible, thank you!.');
+                $json['message'] = $this->getTranslator()->translate('Your contact has been sent, we will contact you as soon as possible, thank you!.','Landing');
             }else{
-                $json['message'] = $this->getTranslator()->translate('Your email is not correct, please input again.');
+                $json['message'] = $this->getTranslator()->translate('Your email is not correct, please input again.','Landing');
             }
         }
 
