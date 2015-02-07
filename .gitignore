@@ -28,3 +28,5 @@ extras/documentation
 .DS_Store
 
 public/uploads
+module/Landing/language/zh-CN.po
+module/Landing/language/zh-CN.mo
