@@ -21,7 +21,9 @@ class Iterm extends Entity{
      * @ORM\Column(type="integer")
      */
     protected $id;
-
+	
+	/** @ORM\Column(type="string") */
+    protected $name;
     /**
      * @var \User\Entity\File
      * @ORM\ManyToOne(targetEntity="File")
