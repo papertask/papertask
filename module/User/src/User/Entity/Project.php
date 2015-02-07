@@ -141,11 +141,11 @@ class Project extends Entity{
             'field' => $this->field->getData(),
             'id' => $this->id,
             'interpretingInfo' => $this->interpretingInfo,
+            'serviceLevel' => $this->serviceLevel,
             'pm' => $this->pm->getData(),
             'priority' => $this->priority,
             'reference' => $this->reference,
             'sale' => ($this->sale)?$this->sale->getData():null,
-            'serviceLevel' => $this->serviceLevel,
             'sourceLanguage' => $this->sourceLanguage->getData(),
             'startDate' => $this->startDate,
             'status' => $this->status,
@@ -155,7 +155,7 @@ class Project extends Entity{
             'types' => $this->types
         ];
     }
-
+	
     public function getId(){
         return $this->id;
     }

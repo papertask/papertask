@@ -49,7 +49,7 @@ class ProjectController extends AbstractRestfulJsonController
             $data['priority'] = $data['priority']['id'];
         }
         if(isset($data['serviceLevel'])) {
-            $data['serviceLevel'] = $data['serviceLevel']['id'];
+            $data['serviceLevel'] = $data['serviceLevel'];
         }
         if(isset($data['types'])){
             $arr = [];
@@ -72,10 +72,9 @@ class ProjectController extends AbstractRestfulJsonController
             $targetLanguages[$targetLanguage['id']] = $this->getReference('\User\Entity\Language', $targetLanguage['id']);
         }
         $data['targetLanguages'] = $targetLanguages;
-
         $project = new Project();
         $project->setData($data);
-        $project->save($this->getEntityManager());
+		$project->save($this->getEntityManager());
         $files = [];
         if(isset($data['files'])){
             foreach($data['files'] as $file){
@@ -98,7 +97,8 @@ class ProjectController extends AbstractRestfulJsonController
             foreach($iterms['items'] as $item){
                 $iterm = new Iterm();
                 $iterm->setData([
-                    'file' => $files[$item['file']['id']],
+                    'name' => $item['name'],
+					'file' => $files[$item['file']['id']],
                     'unit' => $item['unit']['id'],
                     'rate' => $item['rate'],
                     'quantity' => $item['quantity'],
@@ -109,13 +109,11 @@ class ProjectController extends AbstractRestfulJsonController
             }
             $project->setData([
                 "{$type}Iterms" => $typeIterms,
+				 
             ]);
 			
-			
         }
-	
         $project->save($this->getEntityManager());
-		
 		foreach($data['data'] as $iterms){
             $identifier = $iterms['identifier'];
             $type = $identifier[0];

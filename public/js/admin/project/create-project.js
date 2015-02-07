@@ -27,6 +27,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 	
     $scope.order = {};
     $scope.project = {
+		
         types: [],
 		files: []	
     };
@@ -114,7 +115,9 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         return "";
     };
 	$scope.setserviceLevel= function(level){
-		$scope.project.serviceLevel=level;
+	
+		//$scope.project.serviceLevel = level;
+		//project.serviceLevel
 		// check private
 		if($scope.employer.defaultServiceLevel == level)
 		{
@@ -365,9 +368,10 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
     };
 
     $scope.submit = function(){
+	
         $scope.project.data = TableItemListService.data();
-		console.log($scope.project.data);
-		
+		console.log("$scope.project");
+		console.log($scope.project);
         $http.post("/api/admin/project/", $scope.project)
             .success(function($data){
 				

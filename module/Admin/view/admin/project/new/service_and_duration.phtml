@@ -16,11 +16,11 @@
                     </div>-->
 					
 					<div data-toggle="buttons">
-						<label class="btn btn-outline btn-primary {{active_class(employer.defaultServiceLevel, 1)}}" ng-click="setserviceLevel(1)" >
+						<label class="btn btn-outline btn-primary {{active_class(employer.defaultServiceLevel, 1)}}" ng-click="project.serviceLevel=1;setserviceLevel(1)" >
 						<input type="radio" name="professional"> Professional
-						</label> &nbsp; <label class="btn btn-outline btn-primary {{active_class(employer.defaultServiceLevel, 2)}}" ng-click="setserviceLevel(2)"> <input
+						</label> &nbsp; <label class="btn btn-outline btn-primary {{active_class(employer.defaultServiceLevel, 2)}}" ng-click="project.serviceLevel=2;setserviceLevel(2)"> <input
 							type="radio" name="business"> Business
-						</label> &nbsp; <label class="btn btn-outline btn-primary {{active_class(employer.defaultServiceLevel, 3)}}" ng-click="setserviceLevel(3)" > <input
+						</label> &nbsp; <label class="btn btn-outline btn-primary {{active_class(employer.defaultServiceLevel, 3)}}" ng-click="project.serviceLevel=3;setserviceLevel(3)" > <input
 							type="radio" name="premium"> Premium
 						</label>
 					</div>
