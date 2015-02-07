@@ -848,7 +848,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
                             break;
                         }
                     }
-                    $http.get("/admin/staff/deleteFile?fid=" + cid);
+                    $http.get("/" + LANG_CODE +"/admin/staff/deleteFile?fid=" + cid);
                     // $http.delete("/api/user/" + cid + "/cv-files");
                 }, 100);
             }

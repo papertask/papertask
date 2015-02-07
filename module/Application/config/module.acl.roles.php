@@ -7,7 +7,6 @@ $allow_all = array(
 	'index\languages',
 	'index\freelancer',
 	'index\contact',
-	'index\contact-post',
 	'index\order',
 	'index\privacy',
 	'index\terms',
@@ -15,7 +14,6 @@ $allow_all = array(
 	'languages',
 	'freelancer',
 	'contact',
-	'contact-post',
 	'order',
 	'privacy',
 	'terms',
@@ -47,9 +45,6 @@ $allow_all = array(
 	'freelancer\new',
 	'freelancer\detail',
 	'freelancer\edit-profile',
-	'freelancer\edit-payment-info',
-	'freelancer\edit-price',
-	'freelancer\uploadFile',
 	// -- Employer (Client)
 	'employer\list',
 	'employer\new',
@@ -59,10 +54,11 @@ $allow_all = array(
 	// -- Staff
 	'staff\index',
 	'staff\new',
-	'staff\getPmList',
-	'staff\getSalesList',
 	'staff\view',
 	'staff\edit-profile',
+	'staff\getPmList',
+	'staff\getSalesList',
+	'staff\uploadFile',
 	// -- Email
 	'email\index',
 	'email\new',
@@ -70,15 +66,12 @@ $allow_all = array(
 	'email\loadTemplate',
 	// -- Profile
 	'papertask\profile',
-	// -- ResetPassword
-	'resetpassword\index',
 	// -- API
 	'api/common',
 	'api/user',
 	'api/data',
 	'api/admin',
 	'api/papertask',
-	'api/user_child',
 );
 
 return array(
@@ -89,7 +82,6 @@ return array(
 		'index\languages',
 		'index\freelancer',
 		'index\contact',
-		'index\contact-post',
 		'index\order',
 		'index\privacy',
 		'index\terms',
@@ -97,7 +89,6 @@ return array(
 		'languages',
 		'freelancer',
 		'contact',
-		'contact-post',
 		'order',
 		'privacy',
 		'terms',
