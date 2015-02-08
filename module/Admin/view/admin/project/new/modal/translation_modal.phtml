@@ -25,10 +25,10 @@
 						
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">
-                                    <?php echo $this->translate("File Name") ?> *
+                                    <?php echo $this->translate("File Name") ?>
                                 </label>
                                 <div class="col-sm-9">
-                                    <select ng-model="vars.item.file" class="form-control required" aria-required="true"
+                                    <select ng-model="vars.item.file" class="form-control"
                                             ng-options="file.name for file in project.files" name="file">
                                         <option value=""><?php echo $this->translate("Chose file") ?></option>
                                     </select>
