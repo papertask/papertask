@@ -41,7 +41,7 @@
                                     <?php echo $this->translate("Unit") ?> *
                                 </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control required valid" name="unit" aria-required="true"
+                                    <select class="form-control required valid" name="unit" ng-change="TableItemListService.getRateInt()" aria-required="true"
                                             ng-model="vars.item.unit"
                                             ng-options="unit.name for unit in interpretingUnits">
                                         <option value=""><?php echo $this->translate("Choose unit") ?></option>

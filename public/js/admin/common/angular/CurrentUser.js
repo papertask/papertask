@@ -9,9 +9,17 @@ angularApp.factory("CurrentUser", function($http) {
             jQuery.extend(true, $user, $data['user']);
         });
 
-    function price($price){
+    function price($price,$currency){
 		if($price)
-			return format2($price,$user.currency);
+		{
+			if($currency)
+			{
+				return format2($price,$currency);
+				
+			}	
+			else 			
+				return format2($price,$user.currency);
+		}	
 		else return null;	
     }
 	function format2(n, currency) {

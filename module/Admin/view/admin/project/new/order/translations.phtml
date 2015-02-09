@@ -28,9 +28,9 @@
 						<td>{{ item.name }}</td>
                         <td>{{ item.file.name }}</td>
                         <td><?php echo $this->translate("Source word") ?></td>
-                        <td>{{ CurrentUser.price(item.rate) }}</td>
+                        <td>{{ CurrentUser.price(item.rate, currency) }}</td>
                         <td>{{ item.quantity }}</td>
-                        <td>{{ CurrentUser.price(item.rate * item.quantity) }}</td>
+                        <td>{{ CurrentUser.price(item.rate * item.quantity, currency) }}</td>
                         <td>
                         <span ng-click="showModal(item)">
                             <i class="fa fa-edit"></i>
@@ -71,9 +71,15 @@
                         <td>1</td>
                         <td>{{ itemtm.name }}</td>
                         <td>Source Word</td>
-                        <td>{{ CurrentUser.price(itemtm.rate) }}</td>
-                        <td>1000</td>
-                        <td>{{ CurrentUser.price(itemtm.rate * 1000) }}</td>
+                        <td>{{ CurrentUser.price(itemtm.rate, currency) }}</td>
+                        <td>{{ itemtm.sourcerepetitions + itemtm.sourceyibai + itemtm.sourcejiuwu + itemtm.sourcebawu + itemtm.sourceqiwu + itemtm.sourcewushi}}</td>
+                        <td>{{ CurrentUser.price( (itemtm.rate * raterepetitions / 100) * itemtm.sourcerepetitions 
+																					+(itemtm.rate * rateyibai / 100) * itemtm.sourceyibai
+																					+(itemtm.rate * ratejiuwu / 100) * itemtm.sourcejiuwu
+																					+(itemtm.rate * ratebawu / 100) * itemtm.sourcebawu
+																					+(itemtm.rate * ratewushi / 100) * itemtm.sourcewushi
+																					+(itemtm.rate * ratenomatch / 100) * itemtm.sourcenomatch
+											, currency)  }}</td>
                         <td>
 							
                             <a data-toggle="modal" ng-click="showModalTM(false)"><i class="fa fa-edit"></i></a> &nbsp;&nbsp;
@@ -99,54 +105,54 @@
                                         <tr>
                                             <td>Repetitions</td>
                                             <td>{{ raterepetitions }}</td>
-                                            <td>{{ CurrentUser.price(itemtm.rate * raterepetitions / 100) }}</td>
+                                            <td>{{ CurrentUser.price(itemtm.rate * raterepetitions / 100, currency) }}</td>
                                             <td>{{ itemtm.sourcerepetitions }}</td>
-                                            <td>{{ CurrentUser.price((itemtm.rate * raterepetitions / 100) * itemtm.sourcerepetitions) }}</td>
+                                            <td>{{ CurrentUser.price((itemtm.rate * raterepetitions / 100) * itemtm.sourcerepetitions, currency) }}</td>
                                         </tr>
                                         <tr>
                                             <td>100%</td>
                                             <td>{{ rateyibai }}</td>
-                                            <td>{{ CurrentUser.price(itemtm.rate * rateyibai / 100) }}</td>
+                                            <td>{{ CurrentUser.price(itemtm.rate * rateyibai / 100, currency) }}</td>
                                             <td>{{ itemtm.sourceyibai }}</td>
-                                            <td>{{ CurrentUser.price((itemtm.rate * rateyibai / 100) * itemtm.sourceyibai) }}</td>
+                                            <td>{{ CurrentUser.price((itemtm.rate * rateyibai / 100) * itemtm.sourceyibai, currency) }}</td>
 
                                         </tr>
                                         <tr>
                                             <td>95%-99%</td>
                                             <td>{{ ratejiuwu }}</td>
-                                            <td>{{ CurrentUser.price(itemtm.rate * ratejiuwu / 100) }}</td>
+                                            <td>{{ CurrentUser.price(itemtm.rate * ratejiuwu / 100, currency) }}</td>
                                             <td>{{ itemtm.sourcejiuwu }}</td>
-                                            <td>{{ CurrentUser.price((itemtm.rate * ratejiuwu / 100) * itemtm.sourcejiuwu) }}</td>
+                                            <td>{{ CurrentUser.price((itemtm.rate * ratejiuwu / 100) * itemtm.sourcejiuwu, currency) }}</td>
                                         </tr>
                                         <tr>
                                             <td>85%-94%</td>
                                             <td>{{ ratebawu }}</td>
-                                            <td>{{ CurrentUser.price(itemtm.rate * ratebawu / 100) }}</td>
+                                            <td>{{ CurrentUser.price(itemtm.rate * ratebawu / 100, currency) }}</td>
                                             <td>{{ itemtm.sourcebawu }}</td>
-                                            <td>{{ CurrentUser.price((itemtm.rate * ratebawu / 100) * itemtm.sourcebawu) }}</td>
+                                            <td>{{ CurrentUser.price((itemtm.rate * ratebawu / 100) * itemtm.sourcebawu, currency) }}</td>
 
                                         </tr>
                                         <tr>
                                             <td>75%-84%</td>
                                             <td>{{ rateqiwu }}</td>
-                                            <td>{{ CurrentUser.price(itemtm.rate * rateqiwu / 100) }}</td>
+                                            <td>{{ CurrentUser.price(itemtm.rate * rateqiwu / 100, currency) }}</td>
                                             <td>{{ itemtm.sourceqiwu }}</td>
-                                            <td>{{ CurrentUser.price((itemtm.rate * rateqiwu / 100) * itemtm.sourceqiwu) }}</td>
+                                            <td>{{ CurrentUser.price((itemtm.rate * rateqiwu / 100) * itemtm.sourceqiwu, currency) }}</td>
                                         </tr>
                                         <tr>
                                             <td>50%-74%</td>
                                             <td>{{ ratewushi }}</td>
-                                            <td>{{ CurrentUser.price(itemtm.rate * ratewushi / 100) }}</td>
+                                            <td>{{ CurrentUser.price(itemtm.rate * ratewushi / 100, currency) }}</td>
                                             <td>{{ itemtm.sourcewushi }}</td>
-                                            <td>{{ CurrentUser.price((itemtm.rate * ratewushi / 100) * itemtm.sourcewushi) }}</td>
+                                            <td>{{ CurrentUser.price((itemtm.rate * ratewushi / 100) * itemtm.sourcewushi, currency) }}</td>
 
                                         </tr>
                                         <tr>
                                             <td>No Match</td>
                                             <td>{{ ratenomatch }}</td>
-                                            <td>{{ CurrentUser.price(itemtm.rate * ratenomatch / 100) }}</td>
+                                            <td>{{ CurrentUser.price(itemtm.rate * ratenomatch / 100, currency) }}</td>
                                             <td>{{ itemtm.sourcenomatch }}</td>
-                                            <td>{{ CurrentUser.price((itemtm.rate * ratenomatch / 100) * itemtm.sourcenomatch) }}</td>
+                                            <td>{{ CurrentUser.price((itemtm.rate * ratenomatch / 100) * itemtm.sourcenomatch, currency) }}</td>
 
                                         </tr>
                                         <tr>
@@ -157,7 +163,7 @@
 																					+(itemtm.rate * ratebawu / 100) * itemtm.sourcebawu
 																					+(itemtm.rate * ratewushi / 100) * itemtm.sourcewushi
 																					+(itemtm.rate * ratenomatch / 100) * itemtm.sourcenomatch
-											)  }}</td>
+											, currency)  }}</td>
                                         </tr>
                                         </tbody>
                                     </table>

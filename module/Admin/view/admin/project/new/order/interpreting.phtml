@@ -1,4 +1,4 @@
-<div class="panel panel-default" ng-show="project.interpreting"
+<div class="panel panel-default" ng-show="interpreting.id > 0"
      ng-controller="TableItemController">
     {{ setModalId('#modal-item') }}
     {{ setIdentifier(["interpreting", language]) }}
@@ -21,7 +21,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <?php include "table/row.phtml" ?>
+                    <?php include "table/rowint.phtml" ?>
                 </tbody>
             </table>
         </div>

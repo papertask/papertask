@@ -1,7 +1,6 @@
 <tr ng-repeat="item in items">
     <td>{{ $index + 1 }}</td>
 	<td>{{ item.name }}</td>
-    <td>{{ item.file.name }}</td>
     <td>{{ item.unit.name }}</td>
     <td>{{ CurrentUser.price(item.rate, currency) }}</td>
     <td>{{ item.quantity }}</td>

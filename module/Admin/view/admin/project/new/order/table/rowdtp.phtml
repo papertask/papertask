@@ -4,9 +4,9 @@
     <td>{{ item.file.name }}</td>
     <td>{{ item.software.name }}</td>
 	<td>{{ item.unit.name }}</td>
-    <td>{{ CurrentUser.price(item.rate) }}</td>
+    <td>{{ CurrentUser.price(item.rate, currency) }}</td>
     <td>{{ item.quantity }}</td>
-    <td>{{ CurrentUser.price(item.rate * item.quantity) }}</td>
+    <td>{{ CurrentUser.price(item.rate * item.quantity, currency) }}</td>
     <td>
                         <span ng-click="showModal(item)">
                             <i class="fa fa-edit"></i>
