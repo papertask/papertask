@@ -10,7 +10,7 @@
                     <div class="col-sm-8">
                         <select class="form-control required valid" name="sourceLanguage" aria-required="true"
                                 ng-options="language.name for language in languages"
-                                ng-model="project.sourceLanguage">
+                                ng-model="project.sourceLanguage" ng-change="change_client(project.client)">
                             <option value="">--</option>
                         </select>
                     </div>
@@ -24,7 +24,7 @@
                                ng-value="project.targetLanguages.length > 0 ? '1' : ''">
                         <select class="form-control required valid multiselect" multiple="multiple" data-role="multiselect"
                                 ng-options="language.name for language in languages"
-                                ng-model="project.targetLanguages" ng-multiple="true">
+                                ng-model="project.targetLanguages" ng-multiple="true" ng-change="change_client(project.client)">
                             <option value="">--</option>
                         </select>
                     </div>

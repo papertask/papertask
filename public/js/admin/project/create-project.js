@@ -198,7 +198,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
     $scope.change_client = function(client){
        console.log(client);
 	   //get translation no tm
-	   
+	    if(!client) return null;
 	    var USER_ID = client.id;
 		$scope.USER_ID = USER_ID;
 		TableItemListService.desktopPrices=[];
@@ -247,6 +247,8 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 				$scope.interpretingPrices = $data['interpretingPrices'];
 				console.log("interpretingPrices");
 				console.log($scope.interpretingPrices);
+				console.log($scope.interpretingPPrices);
+				console.log($scope.interpreting);
 				TableItemListService.interpretingPrices={};
 				for(i=0;i<$scope.interpretingPrices.length;i++){
 					for(j=0;j<$scope.project.targetLanguages.length;j++){
@@ -260,13 +262,14 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 						}
 						else {//get default papertask
 							for(k=0;k<$scope.interpretingPPrices.length;k++){
-								if($scope.project.sourceLanguage.id == $scope.interpretingPPrices[k].sourceLanguage 
-								&& $scope.project.targetLanguages[j].id == $scope.interpretingPPrices[k].targetLanguage
-								&& $scope.interpreting.name == $scope.interpretingPPrices[k].service.name
+							
+								if($scope.project.sourceLanguage.id == $scope.interpretingPPrices[k].sourceLanguage.id 
+								&& $scope.project.targetLanguages[j].id == $scope.interpretingPPrices[k].targetLanguage.id
+								&& $scope.interpreting.name == $scope.interpretingPPrices[k].interpretingService.name
 								){
 								TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id] = [];
-								TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].priceDay):Number($scope.interpretingPPrices[k].priceDay)/$scope.CurrentcyRate;
-								TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceHalfDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].priceHalfDay):Number($scope.interpretingPPrices[k].priceDay)/$scope.CurrentcyRate;
+								TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].pricePerDay):Number($scope.interpretingPPrices[k].pricePerDay)/$scope.CurrentcyRate;
+								TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceHalfDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].pricePerHalfDay):Number($scope.interpretingPPrices[k].pricePerHalfDay)/$scope.CurrentcyRate;
 							
 								}
 								
@@ -277,7 +280,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 					}
 				
 				}
-				
+				console.log("interpretingPrices");
 				console.log(TableItemListService.interpretingPrices);
 				
 			});
