@@ -53,11 +53,11 @@ $this->inlineScript()->appendScript("
                         <div class="row">
                             <div class="col-xs-12 text-center">
                                 <div data-toggle="buttons">
-                                    <label class="btn btn-outline btn-danger btn-lg active">
+                                    <label class="btn btn-outline btn-danger btn-lg active" ng-click="changecurrency(1)">
                                         <input type="radio" name="" value="" /> <i class="fa fa-cny"> CNY</i>
                                     </label>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <label class="btn btn-outline btn-info btn-lg">
+                                    <label class="btn btn-outline btn-info btn-lg" ng-click="changecurrency(2)">
                                         <input type="radio" name="" value="" /> <i class="fa fa-dollar"> USD</i>
                                     </label>
                                 </div>
@@ -153,9 +153,9 @@ $this->inlineScript()->appendScript("
                         <td>{{$index+1}}</td>
                         <td>{{languages[pair.sourceLanguage]}}</td>
                         <td>{{languages[pair.targetLanguage]}}</td>
-                        <td class="text-info"><strong>CNY {{pair.professionalPrice}}</strong></td>
-                        <td class="text-info"><strong>CNY {{pair.businessPrice}}</strong></td>
-                        <td class="text-info"><strong>CNY {{pair.premiumPrice}}</strong></td>
+                        <td class="text-info"><strong>{{currency}} {{pair.professionalPrice}}</strong></td>
+                        <td class="text-info"><strong>{{currency}} {{pair.businessPrice}}</strong></td>
+                        <td class="text-info"><strong>{{currency}} {{pair.premiumPrice}}</strong></td>
                         <td>
                             <a ng-click="editTranslation(pair)" data-toggle="modal" href="#modal-translation">
                                 <i class="fa fa-edit"></i></a>
@@ -293,10 +293,10 @@ $this->inlineScript()->appendScript("
                         <td>{{$index+1}}</td>
                         <td>{{price.languageGroup.name}}</td>
                         <td>{{price.desktopSoftware.name}}</td>
-                        <td class="text-info"><strong>CNY {{price.priceApplePerPage}}</strong></td>
-                        <td class="text-info"><strong>CNY {{price.priceWindowPerPage}}</strong></td>
-                        <td class="text-info"><strong>CNY {{price.priceApplePerHour}}</strong></td>
-                        <td class="text-info"><strong>CNY {{price.priceWindowPerHour}}</strong></td>
+                        <td class="text-info"><strong>{{currency}} {{price.priceApplePerPage}}</strong></td>
+                        <td class="text-info"><strong>{{currency}} {{price.priceWindowPerPage}}</strong></td>
+                        <td class="text-info"><strong>{{currency}} {{price.priceApplePerHour}}</strong></td>
+                        <td class="text-info"><strong>{{currency}} {{price.priceWindowPerHour}}</strong></td>
                         <td><a data-toggle="modal" href="#modal-dtp" ng-click="editSoftwarePrice(price)">
                                 <i class="fa fa-edit"></i></a>
                             &nbsp;
@@ -403,7 +403,7 @@ $this->inlineScript()->appendScript("
                         <td>{{$index+1}}</td>
                         <td>{{price.engineeringCategory.category}}</td>
                         <td>{{price.unit.name}}</td>
-                        <td>CNY {{price.price}}</td>
+                        <td>{{currency}} {{price.price}}</td>
                         <td>
                             <a ng-click="editEngineeringPrice(price)" data-toggle="modal" href="#modal-eng">
                                 <i class="fa fa-edit"></i></a>
@@ -504,8 +504,8 @@ $this->inlineScript()->appendScript("
                         <td>{{price.sourceLanguage.name}}</td>
                         <td>{{price.targetLanguage.name}}</td>
                         <td>{{price.interpretingService.name}}</td>
-                        <td class="text-info"><strong>CNY {{price.pricePerDay}}</strong></td>
-                        <td class="text-info"><strong>CNY {{price.pricePerHalfDay}}</strong></td>
+                        <td class="text-info"><strong>{{currency}} {{price.pricePerDay}}</strong></td>
+                        <td class="text-info"><strong>{{currency}} {{price.pricePerHalfDay}}</strong></td>
                         <td><a ng-click="editInterpretingPrice(price)" data-toggle="modal" href="#modal-interpreting">
                                 <i class="fa fa-edit"></i></a>
                             &nbsp;

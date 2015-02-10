@@ -3,6 +3,8 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
     $scope.translation = [];
     $scope.languages = [];
     $scope.languageGroups = [];
+	$scope.currency = 'CNY';
+	$scope.currencyrate = 6.3;
     $scope.newLanguagePricePair = nullTranslation = {
         'id': null,
         'sourceLanguage': null,
@@ -44,7 +46,48 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
         'pricePerDay': null,
         'pricePerHalfDay': null
     };
-
+	$scope.changecurrency = function(currency){
+		if(currency==1){
+		console.log("CNY");
+			$scope.currency = 'CNY';
+			init();
+		}
+		else if(currency==2){
+		console.log("USD");
+			$scope.currency = 'USD';
+			for(i=0;i<$scope.translation.length;i++)
+			{
+				$scope.translation[i].premiumPrice = format2(Number($scope.translation[i].premiumPrice)/$scope.currencyrate);
+				$scope.translation[i].professionalPrice = format2(Number($scope.translation[i].professionalPrice)/$scope.currencyrate);
+				$scope.translation[i].businessPrice	= format2(Number($scope.translation[i].businessPrice)/$scope.currencyrate);
+			}
+			for(i=0;i<$scope.softwarePrices.length;i++)
+			{
+				$scope.softwarePrices[i].priceApplePerHour = format2(Number($scope.softwarePrices[i].priceApplePerHour)/$scope.currencyrate);
+				$scope.softwarePrices[i].priceApplePerPage = format2(Number($scope.softwarePrices[i].priceApplePerPage)/$scope.currencyrate);
+				$scope.softwarePrices[i].priceWindowPerHour = format2(Number($scope.softwarePrices[i].priceWindowPerHour)/$scope.currencyrate);
+				$scope.softwarePrices[i].priceWindowPerPage = format2(Number($scope.softwarePrices[i].priceWindowPerPage)/$scope.currencyrate);
+			}
+			for(i=0;i<$scope.engineeringPrices.length;i++)
+			{
+				$scope.engineeringPrices[i].price = format2(Number($scope.engineeringPrices[i].price)/$scope.currencyrate);
+				
+			}
+			for(i=0;i<$scope.interpretingPrices.length;i++)
+			{
+				$scope.interpretingPrices[i].pricePerDay = format2(Number($scope.interpretingPrices[i].pricePerDay)/$scope.currencyrate);
+				$scope.interpretingPrices[i].pricePerHalfDay = format2(Number($scope.interpretingPrices[i].pricePerHalfDay)/$scope.currencyrate);
+				
+			}
+			
+			
+			
+			
+		}
+	};
+	function format2(n) {
+		return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+	}
     function init(){
         // validate
         $('form').validate();
