@@ -42,6 +42,15 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 	}
 	
     $scope.init = function(){
+		$http.get("/api/papertask/currencyrate").success(function($data){
+			$scope.profileservice = $data['profileservice'];
+			$scope.currencyrate_t = $scope.profileservice[0];
+			$scope.CurrentcyRate = Number($scope.currencyrate_t.currencyRate);
+			TableItemListService.CurrentcyRate = $scope.CurrentcyRate;
+        }).error(function($e){
+            alert('error');
+        });
+		
         $http.get("/api/data/project/")
             .success(function($data){
 				console.log($data);
@@ -653,10 +662,12 @@ angularApp.factory("TableItemListService", function(){
     }
 });
 
-angularApp.controller('TableItemController', function($scope, CurrentUser, CurrentcyRate, TableItemListService, LangGroup){
+angularApp.controller('TableItemController', function($scope, CurrentUser, TableItemListService, LangGroup){
     $scope.CurrentUser = CurrentUser;
-	$scope.CurrentcyRate = CurrentcyRate.get(1).rate;
+	
 	$scope.TableItemListService = TableItemListService;
+	$scope.CurrentcyRate = TableItemListService.CurrentcyRate;
+	
     $scope.identifier = {};
 	$scope.itemtm = [];
 	//$scope.itemtm.rate =  TableItemListService.tmRatios.repetitions;
