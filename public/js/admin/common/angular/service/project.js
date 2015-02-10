@@ -3,6 +3,27 @@
  */
 var angularApp = angularApp || angular.module('project', []);
 
+angularApp.factory("CurrentcyRate", function(){
+    var rates = [{
+        'id': 1,
+        'name': 'CNY',
+        'rate': 6.3,
+    }
+	]
+	function get($id){
+        for(var i = 0; i < rates.length; i++){
+            if(rates[i].id == $id){
+                return rates[i];
+            }
+        }
+    }
+	return {
+        get: get,
+        all: function () {
+            return rates;
+        }
+    }
+});	
 
 angularApp.factory("ProjectStatus", function(){
     var statuses = [{
