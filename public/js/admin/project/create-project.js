@@ -36,7 +36,11 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 		files: []	
     };
     $scope.targets = {};
-
+	
+	function format2n(n) {
+		return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+	}
+	
     $scope.init = function(){
         $http.get("/api/data/project/")
             .success(function($data){
@@ -268,8 +272,8 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 								&& $scope.interpreting.name == $scope.interpretingPPrices[k].interpretingService.name
 								){
 								TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id] = [];
-								TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].pricePerDay):Number($scope.interpretingPPrices[k].pricePerDay)/$scope.CurrentcyRate;
-								TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceHalfDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].pricePerHalfDay):Number($scope.interpretingPPrices[k].pricePerHalfDay)/$scope.CurrentcyRate;
+								TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].pricePerDay):format2n(Number($scope.interpretingPPrices[k].pricePerDay)/$scope.CurrentcyRate);
+								TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceHalfDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].pricePerHalfDay):format2n(Number($scope.interpretingPPrices[k].pricePerHalfDay)/$scope.CurrentcyRate);
 							
 								}
 								
@@ -323,11 +327,11 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 							if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage 
 								&& $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage)
 								if($scope.project.serviceLevel==1)
-									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate;
+									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):format2n(Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate);
 								else if($scope.project.serviceLevel==2)
-									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'usd')?Number($scope.translation[k].businessPrice):Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate;
+									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'usd')?Number($scope.translation[k].businessPrice):format2n(Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate);
 								else
-									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'usd')?Number($scope.translation[k].premiumPrice):Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate;		
+									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'usd')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);		
 						
 						}
 							
@@ -387,11 +391,11 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 								for(k=0;k<$scope.translation.length;k++){
 									if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage)
 										if($scope.project.serviceLevel==1)
-											TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate;
+											TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):format2n(Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate);
 										else if($scope.project.serviceLevel==2)
-											TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].businessPrice):Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate;
+											TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].businessPrice):format2n(Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate);
 										else
-											TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate;		
+											TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);		
 								
 								}
 									
@@ -662,6 +666,10 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Curre
     $scope.$modalId = "";
     TableItemListService.addScope($scope);
 	
+	function format2n(n) {
+		return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+	}
+	
 	$scope.setRateTm = function(){
         if(TableItemListService.tmRatios){
 			console.log(TableItemListService.tmRatios);
@@ -721,14 +729,14 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Curre
 								if(TableItemListService.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  TableItemListService.softwarePrices[j].desktopSoftware.id){
 								
 								if($item.unit.id == 1 && $scope.identifier[0] == "dtpMac")
-									$item.rate = (TableItemListService.currency == 'cny')?Number(TableItemListService.softwarePrices[j].priceApplePerHour):Number(TableItemListService.softwarePrices[j].priceApplePerHour)/$scope.CurrentcyRate;
+									$item.rate = (TableItemListService.currency == 'cny')?Number(TableItemListService.softwarePrices[j].priceApplePerHour):format2n(Number(TableItemListService.softwarePrices[j].priceApplePerHour)/$scope.CurrentcyRate);
 								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpMac")	
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage):Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage)/$scope.CurrentcyRate;
+									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage)/$scope.CurrentcyRate);
 								
 								else if ($item.unit.id == 1 && $scope.identifier[0] == "dtpPc")	
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour):Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour)/$scope.CurrentcyRate;	
+									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour)/$scope.CurrentcyRate);	
 								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpPc")	
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage):Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage)/$scope.CurrentcyRate;	
+									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage)/$scope.CurrentcyRate);	
 								}
 							}
 							// TableItemListService.softwarePrices.length
@@ -753,14 +761,14 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Curre
 								if(TableItemListService.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  TableItemListService.softwarePrices[j].desktopSoftware.id){
 								
 								if($item.unit.id == 1 && $scope.identifier[0] == "dtpMac")
-									$item.rate = (TableItemListService.currency == 'cny')?Number(TableItemListService.softwarePrices[j].priceApplePerHour):Number(TableItemListService.softwarePrices[j].priceApplePerHour)/$scope.CurrentcyRate;
+									$item.rate = (TableItemListService.currency == 'cny')?Number(TableItemListService.softwarePrices[j].priceApplePerHour):format2n(Number(TableItemListService.softwarePrices[j].priceApplePerHour)/$scope.CurrentcyRate);
 								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpMac")	
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage):Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage)/$scope.CurrentcyRate;
+									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage)/$scope.CurrentcyRate);
 								
 								else if ($item.unit.id == 1 && $scope.identifier[0] == "dtpPc")	
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour):Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour)/$scope.CurrentcyRate;	
+									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour)/$scope.CurrentcyRate);	
 								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpPc")	
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage):Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage)/$scope.CurrentcyRate;	
+									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage)/$scope.CurrentcyRate);	
 								}
 							}
 							// TableItemListService.softwarePrices.length
@@ -795,7 +803,7 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Curre
 							if($item.category.id == TableItemListService.engineeringPPrices[j].engineeringCategory.id 
 							&&  $item.unit.id == TableItemListService.engineeringPPrices[j].unit.id){
 								
-								$item.rate =  (TableItemListService.currency == 'cny')?Number(TableItemListService.engineeringPPrices[j].price):Number(TableItemListService.engineeringPPrices[j].price)/$scope.CurrentcyRate;
+								$item.rate =  (TableItemListService.currency == 'cny')?Number(TableItemListService.engineeringPPrices[j].price):format2n(Number(TableItemListService.engineeringPPrices[j].price)/$scope.CurrentcyRate);
 								
 							}
 						}
@@ -807,7 +815,7 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Curre
 				{
 					if($item.category.id == TableItemListService.engineeringPPrices[j].engineeringCategory.id 
 					&&  $item.unit.id == TableItemListService.engineeringPPrices[j].unit.id){
-						$item.rate =  (TableItemListService.currency == 'cny')?Number(TableItemListService.engineeringPPrices[j].price):Number(TableItemListService.engineeringPPrices[j].price)/$scope.CurrentcyRate;
+						$item.rate =  (TableItemListService.currency == 'cny')?Number(TableItemListService.engineeringPPrices[j].price):format2n(Number(TableItemListService.engineeringPPrices[j].price)/$scope.CurrentcyRate);
 					}
 				}
 			}
