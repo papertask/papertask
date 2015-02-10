@@ -55,6 +55,8 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
 		else if(currency==2){
 		console.log("USD");
 			$scope.currency = 'USD';
+			console.log("currencyrate");
+			console.log($scope.currencyrate);
 			for(i=0;i<$scope.translation.length;i++)
 			{
 				$scope.translation[i].premiumPrice = format2(Number($scope.translation[i].premiumPrice)/$scope.currencyrate);
@@ -91,7 +93,32 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
     function init(){
         // validate
         $('form').validate();
-
+		//Get currency
+		$http.get("/api/papertask/currencyrate").success(function($data){
+            $scope.profileservice = $data['profileservice'];
+			$scope.currencyrate_t = $scope.profileservice[0];
+			$scope.currencyrate = Number($scope.currencyrate_t.currencyRate);
+			
+			
+			console.log("currencyrate_t");
+			console.log($scope.currencyrate);
+			console.log($scope.profileservice);
+            console.log($scope.currencyrate_t);
+        }).error(function($e){
+            alert('error');
+        });
+		$scope.saveRate = function(){
+            var validate = $('form[name=CurrencyRate]').valid();
+            if(validate == true){
+                hideModal();
+				$http.put('/api/papertask/currencyrate/'+ $scope.currencyrate_t.id + '/',
+                        $scope.currencyrate_t).success(function($data){
+						console.log('update rate price');
+						$scope.currencyrate = Number($scope.currencyrate_t.currencyRate);
+                        
+                    });                    
+			}
+        };
         // Get list translationTM
         $http.get("/api/papertask/translationtm").success(function($data){
            $scope.translationTM = $data['translationTM'];

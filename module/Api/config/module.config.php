@@ -119,6 +119,7 @@ return array(
             'Api\Controller\Papertask\Interpreting' => 'Api\Controller\Papertask\InterpretingController',
             'Api\Controller\Papertask\Translation' => 'Api\Controller\Papertask\TranslationController',
             'Api\Controller\Papertask\Translationtm' => 'Api\Controller\Papertask\TranslationtmController',
+			'Api\Controller\Papertask\CurrencyRate' => 'Api\Controller\Papertask\CurrencyRateController',
             'Api\Controller\User\BankInfo' => 'Api\Controller\User\BankInfoController',
             'Api\Controller\User\Current' => 'Api\Controller\User\CurrentController',
             'Api\Controller\User\DesktopPrice' => 'Api\Controller\User\DesktopPriceController',

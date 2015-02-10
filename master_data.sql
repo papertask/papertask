@@ -284,3 +284,5 @@ INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('9', 'Financia
 INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('10', 'Sales Director', NULL), ('5', 'Sales', '4');
 INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('11', 'Operation Manager', NULL), ('7', 'Project Manager', '6');
 
+INSERT INTO `papertask`.`profileservice` (`id`, `name`, `currencyRate`) VALUES ('1', 'CNY', 6.3);
+
