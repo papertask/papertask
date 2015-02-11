@@ -88,7 +88,7 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
 		}
 	};
 	function format2(n) {
-		return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		return n.toFixed(3).replace(/(\d)(?=(\d{4})+\.)/g, "$1,");
 	}
     function init(){
         // validate
