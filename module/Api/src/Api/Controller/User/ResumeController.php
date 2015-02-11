@@ -15,7 +15,12 @@ use User\Entity\Resume;
 class ResumeController extends AbstractRestfulController
 {
     public function get($id){
+        if($id){
         $user = $this->getUserById($id);
+        } else {
+            $user = $this->getCurrentUser();
+        }
+        
         $resume = $this->getEntityManager()->getRepository('\User\Entity\Resume')->findOneBy(['user' => $user]);
 
         return new JsonModel([
@@ -25,7 +30,12 @@ class ResumeController extends AbstractRestfulController
 
     public function update($id, $data){
         $entityManager = $this->getEntityManager();
+        if($id){
         $user = $this->getUserById($id);
+        } else {
+            $user = $this->getCurrentUser();
+        }
+
         $resume = $entityManager->getRepository('\User\Entity\Resume')
             ->findOneBy(['user' => $user]);
         $data['user'] = $user;
@@ -37,7 +47,12 @@ class ResumeController extends AbstractRestfulController
 
     public function create($data){
         $entityManager = $this->getEntityManager();
+        if($data['user_id']){
         $user = $this->getUserById((int)$data['user_id']);
+        } else {
+            $user = $this->getCurrentUser();
+        }
+        // $user = $this->getUserById((int)$data['user_id']);
         $data['user'] = $user;
         $resume = new Resume();
 

@@ -64,6 +64,7 @@ $allow_all = array(
 	'staff\getSalesList',
 	'staff\view',
 	'staff\edit-profile',
+	'staff\uploadFile',
 	// -- Email
 	'email\index',
 	'email\new',

@@ -41,7 +41,55 @@
 <div id="wrapper">
 
     <!-- Left sidebar -->
-    <?php include "admin/left-sidebar.phtml" ?>
+    <?php
+        switch($this->userData()['role']){
+            case 'Admin':
+                //staff menus here
+                switch($this->userData()['type']){
+                    case 'Admin':
+                        include "admin/left-sidebar-admin.phtml";
+                        break;
+                    case 'Financial Manager':
+                        include "admin/left-sidebar-staff-fm.phtml";
+                        break;
+                    case 'Operation Manager':
+                        include "admin/left-sidebar-staff-om.phtml";
+                        break;
+                    case 'Project Manager':
+                        include "admin/left-sidebar-staff-pm.phtml";
+                        break;
+                    case 'Sales Director':
+                        include "admin/left-sidebar-staff-sd.phtml";
+                        break;
+                    case 'Sales': // Sales Manager
+                        include "admin/left-sidebar-staff-sm.phtml";
+                        break;
+                    case 'General Manager': // Inhouse
+                        include "admin/left-sidebar-staff-gm.phtml";
+                        break;
+                    default:
+                        include "admin/left-sidebar-admin.phtml";
+                        // include "admin/left-sidebar-staff-fm.phtml";
+                        // include "admin/left-sidebar-staff-om.phtml";
+                        // include "admin/left-sidebar-staff-pm.phtml";
+                        // include "admin/left-sidebar-staff-sd.phtml";
+                        // include "admin/left-sidebar-staff-sm.phtml";
+                        // include "admin/left-sidebar-staff-gm.phtml";
+
+                }
+                break;
+            case 'Employer': // employer == client
+            case 'Client':
+                include "admin/left-sidebar-client.phtml";
+                break;
+            case 'Freelancer':
+                $this->userData()['isSenior'] ? include "admin/left-sidebar-senior-freelancer.phtml" : include "admin/left-sidebar-freelancer.phtml";
+                break;
+            default:
+                include "admin/left-sidebar-client.phtml";
+                // TODO: default menu
+        };
+    ?>
     <!-- End left sidebar -->
 
     <!-- Main Wrapper -->

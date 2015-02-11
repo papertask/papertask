@@ -41,7 +41,6 @@ class FreelancerController extends AbstractActionController
     }
 	
 	public function uploadFileAction() {
-		
         if ( !empty( $_FILES ) ) {
 
             $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
@@ -103,7 +102,13 @@ class FreelancerController extends AbstractActionController
 		//ini_set('display_errors', 1);
         $userId = (int)$this->getRequest()->getQuery('id');
         $entityManager = $this->getEntityManager();
+
+        if($userId){
         $user = $this->getUserById($userId);
+        } else {
+            $user = $this->getCurrentUser();
+        }
+
         // Get Interpreting Price
         $repository = $entityManager->getRepository('User\Entity\UserInterpretingPrice');
         $interPretingPrices = $repository->findBy( array('user'=>$user) );
@@ -166,6 +171,7 @@ class FreelancerController extends AbstractActionController
 				'lang_code' => $lang_code,
 				'cvfiles' => $cvfiles,
 				'resume' => $resume?$resume->getData():null,
+                'isAdmin' => $this->getCurrentUser()->isAdmin(),
         ));
     }
 
@@ -180,10 +186,23 @@ class FreelancerController extends AbstractActionController
     public function editPaymentInfoAction(){
         $entityManager = $this->getEntityManager();
         $id = $this->getRequest()->getQuery('id');
-        $user = $entityManager->find('\User\Entity\User', (int)$id);
+
+        if($id){
+            $user = $this->getUserById($id);
+        } else {
+            $user = $this->getCurrentUser();
+        }
+        //$user = $entityManager->find('\User\Entity\User', (int)$id);
+
+        $isAdmin = false;
+        if($this->getCurrentUser()->isAdmin()){
+            $isAdmin = true;
+        }
+
         if($entityManager->find('\User\Entity\Freelancer', $user->getFreelancer())){
             return new ViewModel([
-                "user" => $user->getData()
+                "user" => $user->getData(),
+                "isAdmin" => $isAdmin,
             ]);
         }
     }
@@ -191,12 +210,41 @@ class FreelancerController extends AbstractActionController
     public function editProfileAction(){
         $entityManager = $this->getEntityManager();
         $id = $this->getRequest()->getQuery('id');
-        $user = $entityManager->find('\User\Entity\User', (int)$id);
+        // $user = $entityManager->find('\User\Entity\User', (int)$id);
+        if($id){
+            $user = $this->getUserById($id);
+        } else {
+            $user = $this->getCurrentUser();
+        }
+
 		$lang_code = $this->params()->fromRoute('lang');
+
         if($entityManager->find('\User\Entity\Freelancer', $user->getFreelancer())){
             return new ViewModel([
                 "user" => $user->getData(),
-				"lang_code" => $lang_code
+				"lang_code" => $lang_code,
+                "isAdmin" => $this->getCurrentUser()->isAdmin(),
+            ]);
+        }
+    }
+
+    public function editPriceAction(){
+        $entityManager = $this->getEntityManager();
+        $id = $this->getRequest()->getQuery('id');
+        // $user = $entityManager->find('\User\Entity\User', (int)$id);
+        if($id){
+            $user = $this->getUserById($id);
+        } else {
+            $user = $this->getCurrentUser();
+        }
+
+        $lang_code = $this->params()->fromRoute('lang');
+
+        if($entityManager->find('\User\Entity\Freelancer', $user->getFreelancer())){
+            return new ViewModel([
+                "user" => $user->getData(),
+                "lang_code" => $lang_code,
+                "isAdmin" => $this->getCurrentUser()->isAdmin(),
             ]);
         }
     }

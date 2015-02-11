@@ -1,4 +1,4 @@
-angularApp.run( function ($rootScope) {    
+angularApp.run( function ($rootScope) {
     $(".summernote").summernote();
     $("#form").validate({
         errorPlacement: function (error, element) {
@@ -32,7 +32,7 @@ angularApp.service('sharedInstance', function() {
 					break;
 				}
 			}
-		},        
+		},
 		getcvfiles: function () {
 			return cvfiles;
 		}
@@ -50,7 +50,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 	$scope.resource_active = {};
     $scope.softwares = [];
     $scope.companies = [];
-	
+
     $scope.userInfo = {
 		isActive: null,
 		isAdmin: false,
@@ -70,8 +70,8 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 	};
 	$scope.freelancer ={
 		Resources:[],
-		rating:[]	
-	
+		rating:[]
+
 	};
 
 	$scope.translationPrices = [];
@@ -81,17 +81,17 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 	$scope.resume = {};
 	$scope.cvfiles = [];
 	$scope.bankInfo = {};
-	
+
 	$scope.editTranslation = -1;
     $scope.editDtp = -1;
     $scope.editInterpreting = -1;
     $scope.editEngineering = -1;
-	
+
     $scope.resume = {
         'user_id': USER_ID
     };
 
-    
+
 	function rebuildMultiSelect(){
         $timeout(function(){
             $(".multiselect").multiselect("destroy");
@@ -99,7 +99,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
             $(".multiselect").multiselect();
         });
     }
-	
+
     function getCountriesList(){
         $http.get('/api/common/country').success(function($data){
             $scope.countries = $data['countries'];
@@ -112,7 +112,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
             console.log($scope.ratings)
         });
     }
-	
+
 	function getFreelancerData(){
         $http.get('/api/user/freelancer-data').success(function($data){
             $scope.freelancerData = $data;
@@ -143,7 +143,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
                 $scope.freelancer.InterpretingSpecialisms);
 			// get rating
             $scope.Ratings = findOptions($scope.freelancerData.ratings,
-                $scope.freelancer.Ratings);	
+                $scope.freelancer.Ratings);
 
             console.log($scope.InterpretingSpecialisms);
         });
@@ -169,34 +169,34 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 					checkexist = false;
 			}
 			if(checkexist){
-				$http.post("/api/user/translationprice", 
+				$http.post("/api/user/translationpricep",
 					{
 						userId: USER_ID,
-						sourceLanguageId: translationPrice.sourceLanguage.id, 
-						targetLanguageId: translationPrice.targetLanguage.id, 
+						sourceLanguageId: translationPrice.sourceLanguage.id,
+						targetLanguageId: translationPrice.targetLanguage.id,
 						price: translationPrice.price
 					}).success(function( data ) {
-						
-						$scope.translationPrices.push( {sourceLanguage: data.translationPrice.sourceLanguage, targetLanguage: data.translationPrice.targetLanguage, price: data.translationPrice.price, id: data.translationPrice.id});
+
+						$scope.translationPrices.push( {sourceLanguage: data.translationPriceP.sourceLanguage, targetLanguage: data.translationPriceP.targetLanguage, price: data.translationPriceP.price, id: data.translationPriceP.id});
 						console.log("translationPrice_after");
 						console.log($scope.translationPrices);
 					});
 			}
 			else{
 				bootbox.alert( EXITS_CONFIRM_TEXT);
-			}		
+			}
     	} else {
-		
-    		$http.put("/api/user/" + translationPrice.id + "/translationprice", 
+
+    		$http.put("/api/user/" + translationPrice.id + "/translationpricep",
 				{
     				userId: USER_ID,
-					sourceLanguageId: translationPrice.sourceLanguage.id, 
-					targetLanguageId: translationPrice.targetLanguage.id, 
+					sourceLanguageId: translationPrice.sourceLanguage.id,
+					targetLanguageId: translationPrice.targetLanguage.id,
 					price: translationPrice.price
 				}).success(function( data ) {
 					$scope.translationPrices[$scope.editTranslation] = {sourceLanguage: data.sourceLanguage, targetLanguage: data.targetLanguage, price: data.price, id: data.id}
     			});
-    		
+
     	}
     	jQuery("#modal-translation").modal("hide");
     	setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
@@ -213,16 +213,16 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 		$scope.editTranslation = -1;
 		jQuery("#modal-translation").modal("show");
 	}
-	$scope.deleteTranslationPrice = function ( index, tid ) {    	
+	$scope.deleteTranslationPrice = function ( index, tid ) {
         bootbox.confirm( DELETE_CONFIRM_TEXT, function( bflag ) {
             if ( bflag == true ) {
-                $http.delete("/api/user/" + tid + "/translationprice", {
-                    userId: USER_ID            
-                }).success(function( data ) {                
+                $http.delete("/api/user/" + tid + "/translationpricep", {
+                    userId: USER_ID
+                }).success(function( data ) {
                     $scope.translationPrices.splice(index, 1);
-                });                
+                });
             }
-        });       
+        });
     }
 	/**
      * Desktop Price
@@ -246,7 +246,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 					checkexist = false;
 			}
 			if(checkexist){
-				$http.post("/api/user/desktopprice", {
+				$http.post("/api/user/desktoppricep", {
 					userId: USER_ID,
 					languageId: desktopPrice.language.id,
 					softwareId: desktopPrice.software.id,
@@ -255,14 +255,14 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 					pricePc: desktopPrice.pricePc,
 					priceHourPc: desktopPrice.priceHourPc
 				}).success(function (data){
-					$scope.desktopPrices.push ( data.desktopPrice );
+					$scope.desktopPrices.push ( data.desktopPriceP );
 				});
 			}
 			else{
 				bootbox.alert( EXITS_CONFIRM_TEXT);
 			}
     	} else {
-    		$http.put("/api/user/" + desktopPrice.id + "/desktopprice", {
+    		$http.put("/api/user/" + desktopPrice.id + "/desktoppricep", {
     			userId: USER_ID,
     			languageId: desktopPrice.language.id,
     			softwareId: desktopPrice.software.id,
@@ -271,10 +271,10 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     			pricePc: desktopPrice.pricePc,
     			priceHourPc: desktopPrice.priceHourPc
     		}).success( function (data) {
-    			$scope.desktopPrices[ $scope.editDtp ] = data.desktopPrice;
+    			$scope.desktopPrices[ $scope.editDtp ] = data.desktopPriceP;
     		});
     	}
-    	
+
     	jQuery("#modal-dtp").modal("hide");
     	setModalControllerData('desktopPrice', $scope.dtpPricePlaceholder);
     	$scope.editDtp = -1;
@@ -286,7 +286,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 		$scope.desktopPrices[ind].pricePc = Number($scope.desktopPrices[ind].pricePc);
 		$scope.desktopPrices[ind].priceHourMac = Number($scope.desktopPrices[ind].priceHourMac);
 		$scope.desktopPrices[ind].priceHourPc = Number($scope.desktopPrices[ind].priceHourPc);
-		
+
     	setModalControllerData('desktopPrice', $scope.desktopPrices[ind]);
     	jQuery("#modal-dtp").modal("show");
     }
@@ -298,13 +298,13 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     $scope.deleteDesktopPrice = function ( ind, did ) {
         bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
             if ( bflag )
-                $http.delete("/api/user/" + did + "/desktopprice", {
-                    userId: USER_ID            
-                }).success(function( data ) {                
+                $http.delete("/api/user/" + did + "/desktoppricep", {
+                    userId: USER_ID
+                }).success(function( data ) {
                     $scope.desktopPrices.splice( ind, 1 );
-                });    
+                });
         });
-    	
+
     }
 	/**
      * Interpreting price
@@ -324,12 +324,12 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 			var checkexist = true;
 			for(i=0 ; i < $scope.interpretingPrices.length; i++)
 			{
-				if(interpretingPrice.sourceLanguage.id == $scope.interpretingPrices[i].sourceLanguage.id && interpretingPrice.targetLanguage.id == $scope.interpretingPrices[i].targetLanguage.id 
+				if(interpretingPrice.sourceLanguage.id == $scope.interpretingPrices[i].sourceLanguage.id && interpretingPrice.targetLanguage.id == $scope.interpretingPrices[i].targetLanguage.id
 				&& interpretingPrice.service.id == $scope.interpretingPrices[i].service.id)
 					checkexist = false;
 			}
 			if(checkexist){
-				$http.post("/api/user/interpretingprice", {
+				$http.post("/api/user/interpretingpricep", {
 					userId: USER_ID,
 					priceDay: interpretingPrice.priceDay,
 					priceHalfDay: interpretingPrice.priceHalfDay,
@@ -337,14 +337,14 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 					targetLanguageId: interpretingPrice.targetLanguage.id,
 					serviceId: interpretingPrice.service.id
 				}).success(function( data ){
-					$scope.interpretingPrices.push ( data.interpretingPrice );
+					$scope.interpretingPrices.push ( data.interpretingPriceP );
 				});
 			}
 			else{
 				bootbox.alert( EXITS_CONFIRM_TEXT);
-			}			
+			}
     	} else {
-    		$http.put("/api/user/" + interpretingPrice.id + "/interpretingprice", {
+    		$http.put("/api/user/" + interpretingPrice.id + "/interpretingpricep", {
     			userId: USER_ID,
     			priceDay: interpretingPrice.priceDay,
     			priceHalfDay: interpretingPrice.priceHalfDay,
@@ -352,10 +352,10 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     			targetLanguageId: interpretingPrice.targetLanguage.id,
     			serviceId: interpretingPrice.service.id
     		}).success(function( data ) {
-    			$scope.interpretingPrices[ $scope.editInterpreting ] = data.interpretingPrice;
+    			$scope.interpretingPrices[ $scope.editInterpreting ] = data.interpretingPriceP;
     		});
     	}
-    	
+
     	jQuery("#modal-interpreting").modal("hide");
     	setModalControllerData('interpretingPrice', $scope.interpretingPricePlaceholder);
     	$scope.editInterpreting = -1;
@@ -374,12 +374,12 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 	}
     $scope.deleteInterpretingPrice = function (ind, iid) {
         bootbox.confirm( DELETE_CONFIRM_TEXT, function ( bflag ) {
-            if ( bflag ) 
-               $http.delete("/api/user/" + iid + "/interpretingprice", {
-                    userId: USER_ID            
-                }).success(function( data ) {                
+            if ( bflag )
+               $http.delete("/api/user/" + iid + "/interpretingpricep", {
+                    userId: USER_ID
+                }).success(function( data ) {
                     $scope.interpretingPrices.splice( ind, 1 );
-                }); 
+                });
         });
     }
 	/**
@@ -389,137 +389,47 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
         setModalControllerData('languages', $scope.languages);
         setModalControllerData('services', $scope.services);
         setModalControllerData('softwares', $scope.softwares);
-        setModalControllerData('engineeringCategories', $scope.engineeringCategories);       
+        setModalControllerData('engineeringCategories', $scope.engineeringCategories);
     }
     function init(){
 		// submit
-		$scope.editProfile = function(){
-            
-			$('form[name=editProfileForm]').validate();
-            var validate = $('form[name=editProfileForm]').valid();
-            if(validate == true){
- 			if ( $scope.userInfo.tmRatios && $scope.userInfo.tmRatios.id ) {
-				var requesttm =  $http.put("/api/user/" + $scope.userInfo.tmRatios.id + "/tmratio", {
-					userId: USER_ID,
-					repetitions: $scope.userInfo.tmRatios.repetitions,
-					yibai: $scope.userInfo.tmRatios.yibai,
-					jiuwu: $scope.userInfo.tmRatios.jiuwu,
-					bawu: $scope.userInfo.tmRatios.bawu,
-					qiwu: $scope.userInfo.tmRatios.qiwu,
-					wushi: $scope.userInfo.tmRatios.wushi,
-					nomatch: $scope.userInfo.tmRatios.nomatch
-				}).success( function($data) {
-				console.log("userInfo");
-				console.log($scope.userInfo);
-					var requestUser = $http.put("/api/user/" + USER_ID, $scope.userInfo)
-						.success(function($data){
-						
-							//$http.put("/api/user/"+$scope.freelancer.freelancerId+"/freelancer?user_id=" + USER_ID, $scope.freelancer).success(function(){
-								//location.href="/admin/freelancer/detail?id=" + USER_ID;
-							//});
-						});
-				} ) ;
-			} else {
-				var requesttm = $http.post("/api/user/tmratio", {
-					userId: USER_ID,
-					repetitions: $scope.userInfo.tmRatios.repetitions,
-					yibai: $scope.userInfo.tmRatios.yibai,
-					jiuwu: $scope.userInfo.tmRatios.jiuwu,
-					bawu: $scope.userInfo.tmRatios.bawu,
-					qiwu: $scope.userInfo.tmRatios.qiwu,
-					wushi: $scope.userInfo.tmRatios.wushi,
-					nomatch: $scope.userInfo.tmRatios.nomatch
-				}).success( function($data) {
-					var requestUser = $http.put("/api/user/" + USER_ID, $scope.userInfo)
-						.success(function($data){
-							//$http.put("/api/user/"+$scope.freelancer.freelancerId+"/employer?user_id=" + USER_ID, $scope.freelancer).success(function(){
-								//location.href="/admin/freelancer/detail?id=" + USER_ID;
-							//});
-						});
-				} ) ;
-			}
-			//update freelancer 
-			// update bank info
-                if($scope.bankInfo.id){
-                    
-					var requestBankinfo = $scope.userInfo.isAdmin ?
-                        $http.put('/api/user/'+USER_ID+'/bankinfo', $scope.bankInfo).success(function($data){
-                        console.log("Updated bankinfo");
-                        }) : null;
-                }else{
-					// create
-                    // Update
-					$scope.bankInfo.user_id = USER_ID;
-                    var requestBankinfo =  $http.post('/api/user/bankinfo', $scope.bankInfo).success(function($data){
-                        console.log("Created bankinfo");
-                    });
-                }
-				// update resume
-                if($scope.resume.id){
-                     // Update
-					var requestResume =  $http.put('/api/user/'+USER_ID+'/resume', $scope.resume).success(function($data){
-                        console.log("Updated resume");
-                    });
-					
-                }else{
-                    // create
-                   $scope.resume.user_id = USER_ID;
-                    var requestResume =  $http.post('/api/user/resume', $scope.resume).success(function($data){
-                        console.log("Created resume");
-                    });
-                }
-				var rt = [$scope.freelancer.rating];
-				
-				 var requestResources = $scope.userInfo.isAdmin ? $http.put("/api/user/" + USER_ID + "/freelancer/" + $scope.freelancer.freelancerId, {
-					'Resources': getIds($scope.freelancer.Resources),
-					'DesktopCatTools': getIds($scope.freelancer.DesktopCatTools),
-					'DesktopOperatingSystems': getIds($scope.freelancer.DesktopOperatingSystems),
-					'InterpretingSpecialisms': getIds($scope.freelancer.InterpretingSpecialisms),
-					'TranslationCatTools': getIds($scope.freelancer.TranslationCatTools),
-					'TranslationSpecialisms': getIds($scope.freelancer.TranslationSpecialisms),	
-					'Rating': getIds(rt),
-					'isSenior' :$scope.freelancer.isSenior
-				}).success(function($data){
-					console.log("Update Resources");
-                 }).error(function(data, status, headers, config) {
-                     console.log(data);
-                     console.log(status);
-                     console.log(headers);
-                     console.log(config);
-                 }) : null;
-			
-				// wait all done
-				if($scope.userInfo.isAdmin)
-				$q.all([ requestResources, requestResume, requestBankinfo])
-				.then(function(result){
-					location.href = "/" + LANG_CODE + "/admin/freelancer/detail?id=" + USER_ID;
-				});
-                else
-                    $q.all([ requestResume ])
-                    .then(function(result){
-                        location.href = "/" + LANG_CODE + "/admin/freelancer/detail?id=" + USER_ID;
-                    });
-			}
+		$scope.editPrice = function(){
+            var requestResources = $scope.userInfo.isAdmin ? $http.put("/api/user/" + USER_ID + "/freelancer/" + $scope.freelancer.freelancerId, {
+                'Resources': getIds($scope.freelancer.Resources)
+            }).success(function($data){
+                console.log("Update Resources");
+            }).error(function(data, status, headers, config) {
+                console.log(data);
+                console.log(status);
+                console.log(headers);
+                console.log(config);
+            }) : null;
+
+            $q.all([ requestResources ])
+            .then(function(result){
+                location.href = "/" + LANG_CODE + "/admin/freelancer/detail?id=" + USER_ID;
+            });
 		}
+
 		var priceDataRequest = $http.get("/api/user/priceData")
             .success(function($data){
                 $scope.languages = $data['languages'];
                 $scope.services = $data['services'];
                 $scope.softwares = $data['softwares'];
                 $scope.engineeringCategories = $data['engcategory'];
-                
+
                 initModal();
             });
 		getCountriesList();
-		
-		$http.get('/api/user/translationprice?userId='+ USER_ID).success(function($data) {
-            $scope.translationPrices = $data['translationPrices'];
+
+		$http.get('/api/user/translationpricep?userId='+ USER_ID).success(function($data) {
+            $scope.translationPrices = $data['translationPricePs'];
         });
-		$http.get('/api/user/desktopprice?userId='+USER_ID).success(function($data) {
-            $scope.desktopPrices = $data['desktopPrices'];
+		$http.get('/api/user/desktoppricep?userId='+USER_ID).success(function($data) {
+            $scope.desktopPrices = $data['desktopPricePs'];
         });
-		$http.get('/api/user/interpretingprice?userId=' + USER_ID).success(function($data) {
-            $scope.interpretingPrices = $data['interpretingPrices'];
+		$http.get('/api/user/interpretingpricep?userId=' + USER_ID).success(function($data) {
+            $scope.interpretingPrices = $data['interpretingPricePs'];
         });
 		$http.get('/api/user/' + USER_ID + '/resume').success(function($data){
             if($data['resume']){
@@ -545,7 +455,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 					DesktopCatTools: $data.freelancer.DesktopCatTools,
 					DesktopOperatingSystems: $data.freelancer.DesktopOperatingSystems,
 					InterpretingSpecialisms: $data.freelancer.InterpretingSpecialisms,
-					
+
     				freelancerId: $data.freelancer.id,
 					rating : $data.freelancer.Rating,
 					isSenior : $data.freelancer.isSenior
@@ -553,7 +463,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 				console.log($scope.freelancer);
 				if($scope.freelancer.rating)
 					$scope.newrating = 0;
-				else $scope.newrating = 1;	
+				else $scope.newrating = 1;
 				generateActiveResources();
                 var priceDataRequest = $http.get("/api/user/freelancerData")
                     .success(function($data){
@@ -587,13 +497,13 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
                     tmRatios: $data.tmRatios
                 };
             });
-			
+
 		var ajaxCountryInfo = $http.get("/api/common/country")
             .success(function($data){
                 $scope.countries = $data['countries'];
                 setModalControllerData('countries', $scope.countries);
         });
-		
+
 		$q.all([ajaxUserInfo, ajaxCountryInfo])
             .then(function(){
                 console.log("country_tmp");
@@ -602,8 +512,8 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 				console.log($scope.countries);
 				console.log($scope.userInfo.country);
             });
-			
-		
+
+
 		var ajaxRatingInfo = $http.get('/api/common/rating').success(function($data){
             $scope.ratings = $data['ratings'];
 			setModalControllerData('ratings', $scope.ratings);
@@ -617,8 +527,8 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 				$scope.freelancer.rating = findOptionById($scope.ratings, $scope.freelancer.rating);
 				console.log($scope.ratings);
 				console.log($scope.freelancer.rating);
-            });	
-		
+            });
+
     }
 	$scope.openFileDialog = function () {
         $("#objFile").click();
@@ -668,7 +578,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
             $scope.userInfo = $data['user'];
             console.log($scope.userInfo);
         });
-		
+
 		var ajaxEmployerInfo = $http.get("/api/user/" + USER_ID + "/freelancer")
         	.success( function ( $data ) {
         		$scope.freelancer = {
@@ -734,7 +644,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     $scope.active_class = function(a, b){
         return a == b ? 'active' : '';
     };
-    
+
     $scope.setActive = function ( str_flag ) {
     	$scope.userInfo.isActive = str_flag;
     }
@@ -743,7 +653,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     }
     $scope.setCurrency = function ( str_currency ) {
     	$scope.userInfo.currency = str_currency;
-    } 
+    }
     $scope.setProfileUploaded = function ( str_flag ) {
     	$scope.userInfo.profileUploaded = str_flag;
     }
@@ -777,7 +687,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
                         path: $data['cvfiles'][i].path
                     });
                 }
-                
+
             }
         });
     }
@@ -786,9 +696,9 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
     }
     // CALLBACKS
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-        
+
     };
-    
+
     uploader.onAfterAddingFile = function(fileItem) {
         fileItem.upload();
     };
@@ -818,7 +728,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
             path: fileItem.file.path
         };
         $scope.cvfiles.push( fileItem.cvFile );
-        
+
         sharedInstance.addcvfile( fileItem.cvFile );
         $http.put('/api/user/'+USER_ID+'/cv-files', new Array({id: fileItem.cvFile.id, userid: USER_ID})).success(function(){ });
     };
@@ -833,27 +743,27 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
     uploader.onCompleteAll = function() {
         //console.info($scope.cvfiles);
     };
-    
-    $scope.deleteFile = function ( cid ) 
+
+    $scope.deleteFile = function ( cid )
     {
         bootbox.confirm('Are you sure!', function ( bFlag ) {
             if ( bFlag ) {
-                $timeout(function(){                
-                    sharedInstance.removecvfile( cid );       
-                    for ( var i = 0; i < $scope.cvfiles.length; i ++ ) 
+                $timeout(function(){
+                    sharedInstance.removecvfile( cid );
+                    for ( var i = 0; i < $scope.cvfiles.length; i ++ )
                     {
-                        if ( $scope.cvfiles[i].id == cid) 
+                        if ( $scope.cvfiles[i].id == cid)
                         {
-                            $scope.cvfiles.splice(i, 1);                        
+                            $scope.cvfiles.splice(i, 1);
                             break;
                         }
                     }
-                    $http.get("/" + LANG_CODE +"/admin/staff/deleteFile?fid=" + cid);
+                    $http.get("/admin/staff/deleteFile?fid=" + cid);
                     // $http.delete("/api/user/" + cid + "/cv-files");
-                }, 100);                    
+                }, 100);
             }
         });
-            
+
     };
 
     // -------------------------------

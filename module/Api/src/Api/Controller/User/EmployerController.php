@@ -316,4 +316,18 @@ class EmployerController extends AbstractRestfulController
             'pages' => $paginator->getPages()
         ));
     }
+
+	public function reset(){
+		$data = $this->getData();
+		$curr = $data['current'];
+		if($data['new'] == $data['confirm']){
+			$entityManager = $controller->getEntityManager();
+			$user = $controller->getUser(array('token' => $token));
+			if($user){
+				$user->reset($token, $data['new'], $entityManager);
+			}
+			return false;
+		}
+	}
+
 }

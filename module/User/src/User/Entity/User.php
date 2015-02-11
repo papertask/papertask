@@ -367,6 +367,17 @@ class User extends Entity implements InputFilterAwareInterface{
         return false;
     }
 
+    public function resetByOldPass($oldPass, $newPassword, $entityManager){
+        if ($this->checkPassword($oldPass)) {
+            $this->encodePassword($newPassword);
+            $entityManager->persist($this);
+            $entityManager->flush();
+            return true;
+        }
+
+        return false;
+    }
+
     public function generateToken(){
         $tokenLength = 16;
         $token = time();
@@ -380,6 +391,8 @@ class User extends Entity implements InputFilterAwareInterface{
         $sessionContainer = new Container('user');
         $sessionContainer->user_id = $this->id;
         $sessionContainer->user_group = $this->group ? $this->group->getData() : null;
+        if($this->isStaff()) $sessionContainer->user_type = $this->getStaff()->getData()['type']['type'];
+        if($this->isFreelancer()) $sessionContainer->user_isSenior = $this->getFreelancer()->getData()['isSenior'];
     }
 
     /**
@@ -495,12 +508,25 @@ class User extends Entity implements InputFilterAwareInterface{
     }
 
     /**
+     * Group = 3, Role = 1, otherwise = false
      * @return bool
      */
-    public function isAdmin(){
+    public function isStaff(){
         return $this->getGroup()->isAdmin();
     }
 	
+    /**
+     * Group = 3, Role = 1, otherwise – false
+     * @return bool
+     */
+    public function isAdmin(){
+
+        $res = false;
+        if($this->getGroup()->isAdmin()){
+            $res = $this->getStaff()->getData()['type']['id'] === 1 ? true : false;
+        }
+        return $res;
+    }
 
     public function setGroupByName($name, $entityManager){
         if($name == 'freelancer'){

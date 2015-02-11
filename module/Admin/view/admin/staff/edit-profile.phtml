@@ -25,6 +25,7 @@ $this->headScript()
 
     <div class="ibox-content">
         <form name="editProfileForm" method="">
+            <?php if($this->isAdmin): ?>
             <div class="row">
                 <div class="col-lg-2">
                     <h4><i class="fa fa-plug"></i>&nbsp; <?php echo $this->translate('Status'); ?></h4>
@@ -43,6 +44,7 @@ $this->headScript()
 
             </div>
             <div class="hr-line-dashed"></div>
+            <?php endif ?>
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h4><i class="fa fa-info-circle"></i> <?php echo $this->translate('Basic Information') ?></h4>
@@ -52,7 +54,7 @@ $this->headScript()
                 </div>
             </div>
 
-            <?php if($user['group']['id']*1 == 3): ?>
+            <?php if($this->isAdmin): ?>
             <div class="panel panel-primary staff-type">
                 <div class="panel-body">
 

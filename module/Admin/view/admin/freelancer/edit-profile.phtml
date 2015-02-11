@@ -46,6 +46,7 @@ $this->inlineScript()
 
     <div class="ibox-content">
         <form name="editProfileForm" method="">
+            <?php if($this->isAdmin): ?>
 			<div class="row">
                                     <div class="col-lg-2">
                                         <h4><i class="fa fa-plug"></i>&nbsp; <?php echo $this->translate('Status') ?></h4>
@@ -90,6 +91,8 @@ $this->inlineScript()
                                         </div>
                                     </div>
             </div>			
+            <?php endif ?>
+
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h4><i class="fa fa-info-circle"></i> <?php echo $this->translate('Basic Information') ?></h4>
@@ -98,6 +101,7 @@ $this->inlineScript()
                     <?php include __DIR__ . "/edit-profile/basic-info.phtml" ?>
                 </div>
             </div>
+            <?php if($this->isAdmin): ?>
 			<div class="panel panel-primary">
                 <div class="panel-body">
                     <h4><i class="fa fa-puzzle-piece"></i> <?php echo $this->translate('Resource Type') ?></h4>
@@ -124,6 +128,7 @@ $this->inlineScript()
                     <?php include __DIR__ . "/edit-profile/bank-info.phtml" ?>
                 </div>
             </div>
+            <?php endif ?>
 			
             <div class="panel panel-primary">
                 <div class="panel-body">

@@ -1,0 +1,74 @@
+<?php $this->headTitle($this->translate('Edit Price')) ?>
+<?php $this->headLink()
+        ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
+?>
+<?php
+$this->headScript()
+        ->prependFile($this->basePath() . '/js/admin/freelancer/edit-price.js')
+        ->prependFile($this->basePath() . '/js/common.js')
+        ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
+        ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
+        ->prependFile($this->basePath() . '/js/plugins/angular-file-upload/angular-file-upload.js')
+        ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload']);")
+        ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+        ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
+        ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
+        ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
+        ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js');
+
+$this->inlineScript()
+    ->prependScript("
+        var USER_ID = '" . $this->user['id'] . "';
+        var edit = function() {
+            $('.click2edit').summernote({focus: true});
+        };
+        var save = function() {
+            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+            $('.click2edit').destroy();
+        };
+		var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+		var EXITS_CONFIRM_TEXT = '" . $this->translate('This option was existed, please chose other') . "';
+		var LANG_CODE = '" . $this->lang_code . "';
+        ");
+?>
+
+
+<div ng-controller="EditProfileFreelancerController" ng-init="init()" id="EditProfileFreelancerController" class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h4><i class="fa fa-edit"></i> <?php echo $this->translate('Edit Profile') ?></h4>
+    </div>
+
+    <div class="ibox-content">
+        <form name="editProfileForm" method="">
+
+			<div class="panel panel-primary">
+                <div class="panel-body">
+                    <h4><i class="fa fa-puzzle-piece"></i> <?php echo $this->translate('Resource Type') ?></h4>
+                    <div class="hr-line-dashed"></div>
+
+                    <?php include __DIR__ . "/edit-profile/resource-type.phtml" ?>
+                </div>
+            </div>
+
+			<div class="panel panel-primary">
+                <div class="panel-body">
+                    <h4><i class="fa fa-usd"></i> <?php echo $this->translate('My Public Price') ?></h4>
+                    <div class="hr-line-dashed"></div>
+
+                    <?php include __DIR__ . "/edit-profile/language-skill-price-personal.phtml" ?>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <button ng-click="editPrice()" class="btn btn-primary btn-block" type="submit">
+                        <?php echo $this->translate('Save') ?></button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<?php include __DIR__."/edit-profile/modal.phtml" ?>

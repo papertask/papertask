@@ -67,12 +67,20 @@ class StaffController extends AbstractActionController
     public function editProfileAction(){
         $entityManager = $this->getEntityManager();
         $id = $this->getRequest()->getQuery('id');
-        $user = $entityManager->find('\User\Entity\User', (int)$id);
+
+        if($id){
+            $user = $this->getUserById($id);
+        } else {
+            $user = $this->getCurrentUser();
+        }
+        //$user = $entityManager->find('\User\Entity\User', (int)$id);
+
 		$lang_code = $this->params()->fromRoute('lang');
         if($entityManager->find('\User\Entity\Staff', $user->getStaff())){
             return new ViewModel([
                 "user" => $user->getData(),
 				"lang_code" => $lang_code,
+                "isAdmin" => $this->getCurrentUser()->isAdmin(),
             ]);
         }
     }

@@ -16,6 +16,7 @@ class IndexController extends AbstractRestfulController
     public function get($id){
         $user = $this->getUserById($id);
         $userData = $user->getData();
+        $userData['isAdmin'] = $this->getCurrentUser()->isAdmin();
 
         $desktopPriceData = $this->getAllDataBy('\User\Entity\UserDesktopPrice', [
             'user' => $user,

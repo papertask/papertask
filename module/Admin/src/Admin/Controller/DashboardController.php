@@ -24,6 +24,7 @@ class DashboardController extends AbstractActionController
         if($user->isFreelancer() && !$user->isProfileUpdated()){
             $this->redirect()->toUrl('/' . $lang_code . $user->getGroup()->getFirstLoginUrl());
         }
+
         return new ViewModel(array());
     }
 

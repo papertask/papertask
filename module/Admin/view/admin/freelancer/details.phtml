@@ -165,11 +165,14 @@ $this->inlineScript()
 						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['translation'] == 1" >
 							<div class="ibox-title">
 								<h5><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></h5>
+                                <?php if($this->isAdmin): ?>
 								<div class="ibox-tools">
                                     <a data-toggle="collapse" href="#translation_client" class="btn btn-primary btn-xs"><i class="fa fa-search"></i><?php echo $this->translate('Search Clients') ?></a>
                                 </div>
+                                <?php endif ?>
 							</div>
 							<div class="ibox-content">
+                                <?php if($this->isAdmin): ?>
 									<div class="row">
                                                 <div class="col-lg-12">
                                                     <div id="translation_client" class="panel-collapse collapse faq-answer">
@@ -266,6 +269,7 @@ $this->inlineScript()
                                                     </div>
                                                 </div>
                                             </div>
+								<?php endif ?>
 								<h4>Clients <small>- means freelancer can do tasks for these clients.</small></h4>
                                             <table class="table">
                                                 <thead>
@@ -294,11 +298,20 @@ $this->inlineScript()
 									<?php echo $this->translate('Specialism  <small>- with <i class="fa fa-check"></i> means field tested and pass.</small>') ?>
 								</h4>
 
+                                <?php if($this->isAdmin): ?>
 								<div class="row file-manager">
 									 <label class="checkbox-inline" ng-repeat="specialism in TranslationSpecialisms"> 
 										<input type="checkbox" ng-click="setTestTranslationSpecialisms(specialism)" ng-checked="checkTranslationSpecialism[{{specialism.id - 1}}] == 1" value="{{specialism.id}} " id="inlineCheckbox1"> {{specialism.name}} </label>
 										
 								</div>
+                                <?php else: ?>
+                                    <div class="row file-manager">
+                                        <ul class="tag-list" style="padding: 0">
+                                            <li ng-repeat="specialism in TranslationSpecialisms"><a href=""><i class="fa fa-check" ng-show="checkTranslationSpecialism[{{specialism.id - 1}}] == 1"></i> {{specialism.name}}</a></li>
+                                        </ul>
+                                    </div>
+                                <?php endif ?>
+
 								<div class="hr-line-dashed"></div>
 								<h4>Cat tools </h4>
 
@@ -311,6 +324,7 @@ $this->inlineScript()
 								</div>
 								<div class="hr-line-dashed"></div>
 								<h4><?php echo $this->translate('Languages and Price') ?> </h4>
+                                <?php if($this->isAdmin): ?>
 								<div class="table-responsive">
 									<table class="table table-striped">
 										<thead>
@@ -339,7 +353,7 @@ $this->inlineScript()
 										</tbody>
 									  </table>
 								  </div>
-
+                              <?php endif ?>
 								<div class="table-responsive">
 									<table class="table table-striped">
 										<thead>
@@ -367,11 +381,14 @@ $this->inlineScript()
 						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['desktop'] == 1" >
 							<div class="ibox-title">
 								<h5><i class="fa fa-desktop"></i> <?php echo $this->translate('Desktop Publishing') ?></h5>
+                                <?php if($this->isAdmin): ?>
 								<div class="ibox-tools">
                                     <a data-toggle="collapse" href="#desktop_client" class="btn btn-primary btn-xs"><i class="fa fa-search"></i><?php echo $this->translate('Search Clients') ?></a>
                                 </div>
+                                <?php endif ?>
 							</div>
 							<div class="ibox-content">
+                                <?php if($this->isAdmin): ?>
 								<div class="row">
                                                 <div class="col-lg-12">
                                                     <div id="desktop_client" class="panel-collapse collapse faq-answer">
@@ -468,6 +485,7 @@ $this->inlineScript()
                                                     </div>
                                                 </div>
                                             </div>
+								<?php endif ?>
 								<h4>Clients <small>- means freelancer can do tasks for these clients.</small></h4>
                                             <table class="table">
                                                 <thead>
@@ -579,9 +597,11 @@ $this->inlineScript()
 						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['interpreting'] == 1" >
 							<div class="ibox-title">
 								<h5><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></h5>
+                                <?php if($this->isAdmin): ?>
 								<div class="ibox-tools">
                                     <a data-toggle="collapse" href="#interpreting_client" class="btn btn-primary btn-xs"><i class="fa fa-search"></i><?php echo $this->translate('Search Clients') ?></a>
                                 </div>
+                                <?php endif ?>
 							</div>
 							<div class="ibox-content">
 							<div class="row">
@@ -705,12 +725,21 @@ $this->inlineScript()
                                             <div class="hr-line-dashed"></div>	
 								<h4><?php echo $this->translate('Specialism') ?></h4>
 
+
+
+                                <?php if($this->isAdmin): ?>
 								<div class="row file-manager">
 										 <label class="checkbox-inline" ng-repeat="specialism in InterpretingSpecialisms"> 
 										<input type="checkbox" ng-click="setTestInterpretingSpecialisms(specialism)" ng-checked="checkInterpretingSpecialism[{{specialism.id - 1}}] == 1" value="{{specialism.id}} " id="inlineCheckbox1"> {{specialism.name}} </label>
-								
-									
 								</div>
+                                <?php else: ?>
+                                    <div class="row file-manager">
+                                        <ul class="tag-list" style="padding: 0">
+                                            <li ng-repeat="specialism in InterpretingSpecialisms"><a href=""><i class="fa fa-check" ng-show="checkInterpretingSpecialism[{{specialism.id - 1}}] == 1"></i> {{specialism.name}}</a></li>
+                                        </ul>
+                                    </div>
+                                <?php endif; ?>
+
 								<div class="hr-line-dashed"></div>
 								<h4>Languages and Price </h4>
 
@@ -743,7 +772,7 @@ $this->inlineScript()
 					</div>
 					
 					<div id="tab-2" class="tab-pane">
-						<div class="ibox float-e-margins">
+ 						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['translation'] == 1">
 							<div class="ibox-title">
 								<h3><i class="fa fa-coffee"></i> <?php echo $this->translate('Translation') ?></h3>
 							</div>
@@ -761,6 +790,8 @@ $this->inlineScript()
 										</li>
 									</ul>
 								</div>
+
+
 								<div class="hr-line-dashed"></div>
 								<h4>Cat tools </h4>
 
@@ -798,7 +829,7 @@ $this->inlineScript()
 								</div>
 							</div>
 						</div>
-						<div class="ibox float-e-margins">
+						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['desktop'] == 1">
 							<div class="ibox-title">
 								<h3><i class="fa fa-desktop"></i> <?php echo $this->translate('Desktop Publishing') ?></h3>
 							</div>
@@ -858,7 +889,7 @@ $this->inlineScript()
 								</div>
 							</div>
 						</div>
-						<div class="ibox float-e-margins" >
+						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['interpreting'] == 1">
 							<div class="ibox-title">
 								<h3><i class="fa fa-comments-o"></i> <?php echo $this->translate('Interpreting') ?></h3>
 							</div>
@@ -989,11 +1020,16 @@ $this->inlineScript()
                                     </div>
                     </div>
 				</div>
+
+                <?php if(!$this->isAdmin): ?>
+                <a href="<?php echo $this->url('admin', ['controller'=>'freelancer', 'action'=>'edit-price']) ?>?id=<?php echo $user['id'];?>" class="btn btn-primary btn-block" type="button"><i class="fa fa-paste"></i> Edit Personal Skills &amp; Prices</a>
+                <?php endif ?>
 			</div>
 
 		</div>
 
 	</div>
+
 </div>
 
  <?php //include "profile/modal.phtml" ?>

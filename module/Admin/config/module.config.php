@@ -63,6 +63,7 @@ return array(
             'Admin\Controller\Quote' => 'Admin\Controller\QuoteController',
             'Admin\Controller\Staff' => 'Admin\Controller\StaffController',
             'Admin\Controller\Task' => 'Admin\Controller\TaskController',
+            'Admin\Controller\ResetPassword' => 'Admin\Controller\ResetPasswordController',
         ),
     ),
     'view_manager' => array(
