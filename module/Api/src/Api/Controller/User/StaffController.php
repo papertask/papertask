@@ -78,7 +78,7 @@ class StaffController extends AbstractRestfulController
             $cvfiles[$k] = $v->getData();
         }   
         return new JsonModel([
-            'staffList' => $staffData,
+            'staff' => $staffData,
             'bankInfo' => $bankInfo ? $bankInfo->getData() : null,
             'resume' => $resume ? $resume->getData():null,
             'cvfiles' => $cvfiles
@@ -116,10 +116,10 @@ class StaffController extends AbstractRestfulController
             $role = $entityManager->getRepository('User\Entity\Roles')->findBy(array('id' => $request->getQuery('type')));
             $queryBuilder->leftJoin('user.staff', 'staff')->where('staff.client=?1 and staff.type=?2')->setParameter(1, $user)->setParameter(2, $role);
         } else {
-            $queryBuilder->leftJoin('user.staff', 'staff')->where('staff.client=?1')->setParameter(1, $user);
+            //$queryBuilder->leftJoin('user.staff', 'staff')->where('staff.client=?1')->setParameter(1, $user);
         }
 
-        $queryBuilder->andWhere("user.group = 3");
+        $queryBuilder->andWhere("user.group = ?3")->setParameter(3, $staffGroup);
 
         if($request->getQuery('search')){
             // search by country aa
@@ -155,15 +155,19 @@ class StaffController extends AbstractRestfulController
             }
         }
         $queryBuilder->orderBy('user.createdTime', 'ASC');
-        $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
+		//var_dump($queryBuilder->getQuery());
+        //exit;
+		$adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
         $paginator->setDefaultItemCountPerPage(10);
 
         $page = (int)$this->getRequest()->getQuery('page');
         if($page) $paginator->setCurrentPageNumber($page);
+		
         $data = array();
         $helper = new Helper();
         if(count($paginator) > 0){
+		//var_dump($paginator);
             foreach($paginator as $user){
                 $userData = $user->getData();
 				$userData['staff'] = ($user->getStaff())?$user->getStaff()->getData():null;
