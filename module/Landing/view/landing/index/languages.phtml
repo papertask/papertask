@@ -1,0 +1,176 @@
+<?php $this->headTitle($this->translate('Languages and Prices','Landing')) ?>
+
+<?php
+$this->headScript()
+    ->prependFile($this->basePath() . '/js/landing/languages.js')
+    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
+    ->prependScript("angularApp = angular.module('languages', []);")
+    ->prependFile($this->basePath() . '/js/angular.min.js')
+?>
+<?php
+$this->inlineScript()
+    ->prependScript("
+    <script>if(typeof(angular) != 'undefined' && typeof(angularApp) == 'undefined'){
+        var angularApp = angularApp || angular.module('languages', []);
+    }</script>
+    ")
+?>
+
+
+<div ng-app="languages" id="languagesController" ng-controller="languagesController">
+    
+    <!-- ******PROMO****** --> 
+    <section id="promo" class="promo section offset-header has-pattern">
+        <div class="container">
+            <div class="row">
+                <br><br>
+                <h1 class="text-center"><?php echo $this->translate('PLEASE CHECK OUT THE LANGUAGES WE SUPPORT.','Landing') ?></h1>
+                <br>
+                <h3 class="text-center">
+                    <?php echo $this->translate('WE\'RE HONEST ABOUT QUALITY. AND WE OFFER ALL MAJOR LANGUAGES FOR TRANSLATION.','Landing') ?></h3>
+                <br>
+                <br><br>
+                <form name="showPriceForm" class="form-horizontal" role="form">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><?php echo $this->translate('Source Language','Landing') ?></label>
+                            <div class="col-sm-8">
+                                <select ngChange="updateTargetLanguages()" ng-model="params.sourceLanguage"
+                                        required name="sourceLanguage" class="form-control required">
+                                    <option value=""><?php echo $this->translate('Please select','Landing') ?></option>
+                                    <option ng-repeat="id in sourceLanguages" value="{{id}}"><?php echo $this->translate("{{languages[id]}}","Landing");?></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"><?php echo $this->translate('Target Language','Landing') ?> </label>
+                            <div class="col-sm-8">
+                                <select ng-model="params.targetLanguage" required name="targetLanguage"
+                                        class="form-control required">
+                                    <option value=""><?php echo $this->translate('Please select','Landing') ?></option>
+                                    <option ng-repeat="id in targetLanguages" value="{{id}}"><?php echo $this->translate("{{languages[id]}}","Landing");?></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">
+                                <?php echo $this->translate('Word Count','Landing') ?></label>
+                            <div class="col-sm-8">
+                                <input name="wordCount" ng-model="params.wordCount" type="number"
+                                       class="form-control required" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">
+                                <?php echo $this->translate('Choose Currency','Landing') ?></label>
+                            <div class="col-sm-8">
+                                <select ng-model="params.currency" name="currency" required class="form-control required">
+                                    <option value="USD">USD</option>
+                                    <option value="CNY">CNY</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br><br><br>
+                    <div align="center">
+                        <br><br><br><br>
+                        <button type="submit" ng-click="showPrice()" class="btn btn-default btn-lg"><?php echo $this->translate('Show Price','Landing') ?> </button>
+                        <br><br><br><br><br><br>
+                    </div>
+                </form>
+            </div><!--//row-->
+        </div><!--//container-->
+    </section><!--//promo-->
+
+
+    <!-- ******Pricing****** -->
+    <section id="features" class="pricing section has-pattern hidden">
+        <div class="container">
+             <div class="price-cols row">
+                <h2 class="title text-center"><?php echo $this->translate('Please choose','Landing') ?></h2>
+                <div class="items-wrapper col-md-10 col-sm-12 col-xs-12 col-md-offset-1 col-sm-offset-0 col-xs-offset-0">
+                    <div class="item price-1 col-md-4 col-sm-4 col-xs-12 text-center">
+                        <div class="item-inner">
+                            <div class="heading">
+                            <h3 class="title"><?php echo $this->translate('Professional','Landing') ?></h3>
+                                <p class="price-figure"><span class="price-figure-inner"><span class="currency">{{params.currency}}</span> <span class="number">{{price.professionalPrice | number:2}}</span><br /><span class="unit"><?php echo $this->translate('per word','Landing') ?></span></span></p>
+                            </div>
+                            <div class="content">
+                                <em><strong><?php echo $this->translate('Fast translation by native speakers','Landing') ?></strong></em>
+                                <ul class="list-unstyled feature-list text-left">
+                                    <br />
+                                    <li><i class="fa fa-check"></i><?php echo $this->translate('Emails, Letters','Landing') ?></li>
+                                    <li><i class="fa fa-check"></i><?php echo $this->translate('Daily content, social media posts','Landing') ?></li>
+                                    <li><i class="fa fa-check"></i><?php echo $this->translate('User reviews, user generated content','Landing') ?></li>
+                                    <li><i class="fa fa-check"></i><?php echo $this->translate('Internal communication, customer support','Landing') ?></li>
+                                </ul>
+                                <p style="font-size: 30px;"> {{params.currency}} {{price.professionalPrice*params.wordCount | number:2}}</p>
+                                <br />
+                                <a class="btn btn-theme btn-block" href="#"><?php echo $this->translate('Order Now','Landing') ?></a>
+   
+                            </div><!--//content-->
+                        </div><!--//item-inner-->
+                    </div><!--//item--> 
+                    
+                    <div class="item price-2 col-md-4 col-sm-4 col-xs-12 text-center best-buy">
+                        <div class="item-inner">
+                            <div class="heading">
+                            <h3 class="title"><?php echo $this->translate('Business','Landing') ?></h3>
+                                <p class="price-figure"><span class="price-figure-inner"><span class="currency">{{params.currency}}</span> <span class="number">{{price.businessPrice | number:2}}</span><br /><span class="unit"><?php echo $this->translate('per word','Landing') ?></span></span></p>
+                            </div>
+                            <div class="content">
+                                <em><strong><?php echo $this->translate('Professional quality translation plus proofreading','Landing') ?></strong></em>
+                                <ul class="list-unstyled feature-list text-left">
+                                    <br />
+                                    <li><i class="fa fa-check"></i><?php echo $this->translate('Application/introduction, website localization','Landing') ?></li>
+                                    <li><i class="fa fa-check"></i><?php echo $this->translate('Business presentations, reports, articles','Landing') ?></li>
+                                    <li><i class="fa fa-check"></i><?php echo $this->translate('Instructions, manuals, guidelines','Landing') ?></li>
+                                    <li><i class="fa fa-check"></i><?php echo $this->translate('Points translation, product description','Landing') ?></li>
+                                    
+                                </ul>
+                                <p style="font-size: 30px;">{{params.currency}} {{price.businessPrice*params.wordCount | number:2}}</p>
+                                <br />
+                                <a class="btn btn-theme btn-block" href="#"><?php echo $this->translate('Order Now','Landing') ?></a>
+                            </div><!--//content-->
+                            <div class="ribbon">
+                                <div class="text">Popular</div>
+                            </div><!--//ribbon-->
+                        </div><!--//item-inner-->
+                    </div><!--//item-->  
+                    
+                    <div class="item price-3 col-md-4 col-sm-4 col-xs-12 text-center">
+                        <div class="item-inner">
+                            <div class="heading">
+                                <h3 class="title"><?php echo $this->translate('Premium','Landing') ?></h3>
+                                <p class="price-figure"><span class="price-figure-inner"><span class="currency">{{params.currency}}</span> <span class="number">{{price.businessPrice | number:2}}</span><br /><span class="unit"><?php echo $this->translate('per word','Landing') ?></span></span></p>
+                            </div>
+                            <div class="content">
+                                <em><strong><?php echo $this->translate('Professional plus extra proofreading','Landing') ?></strong></em>
+                                <ul class="list-unstyled feature-list text-left">
+                                    <br />
+                                    <li><i class="fa fa-check"></i><?php echo $this->translate('Posters','Landing') ?></li>
+                                    <li><i class="fa fa-check"></i><?php echo $this->translate('Webpage, Webpage copy','Landing') ?></li>
+                                    <li><i class="fa fa-check"></i><?php echo $this->translate('News release','Landing') ?></li>
+                                    <li><i class="fa fa-check"></i><?php echo $this->translate('Promotional/marketing materials','Landing') ?></li>
+
+                                </ul>
+                                <p style="font-size: 30px;"> {{params.currency}} {{price.premiumPrice*params.wordCount | number:2}}</p>
+                                <br />
+                                <a class="btn btn-theme btn-block" href="#"><?php echo $this->translate('Order Now','Landing') ?></a>
+                                
+                            </div><!--//content-->
+                        </div><!--//item-inner-->
+                    </div><!--//item-->  
+                </div><!--//items-wrapper-->                   
+            </div><!--//row-->
+        </div><!--//container-->
+    </section><!--//pricing-->
+
+
+</div>
