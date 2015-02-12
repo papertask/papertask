@@ -1,0 +1,153 @@
+@import "mixins.less";
+@import "theme-default.less";
+
+/* Extra small devices (phones, less than 768px) */
+@media (max-width: 767px) { 
+
+    .promo .overview .summary li {
+        font-size: 18px;
+    }
+    .promo .overview .note .left-arrow {
+        left: 0;
+    }
+    .promo .overview .note .right-arrow {
+        right: 0;
+    }
+    .promo .overview .summary {
+        margin-left: 0;
+    }
+    
+    .promo .overview {
+        text-align: center;
+        .summary {
+            margin-left: 0;
+            li {
+               text-align: left;
+            }
+        }
+        .download-area {
+            margin: 0 auto;
+        }
+    }
+    
+    .promo .phone {
+        text-align: center;
+        .phone-holder {
+            margin: 0 auto;
+            width: auto;
+            .background-size(300px auto);
+        }
+    }
+    .promo .iphone .iphone-holder-inner {
+        width: 208px;
+        height: 394px;
+        left: 48px;
+        top: 96px;
+    }
+    
+    .promo .android .android-holder-inner {
+        width: 238px;
+        height: 394px;
+        left: 33px;
+        top: 67px;
+    }
+    .promo .ipad {
+        text-align: center;
+        .ipad-holder {
+            margin: 0 auto;   
+            width: auto;         
+            .background-size(300px auto);
+        }
+    }
+    .promo .ipad .ipad-holder-inner {
+        width: 229px;
+        height: auto;
+        left: 36px;
+        top: 59px;
+
+    }
+    .promo .ipad .flexslider .flex-control-nav {
+        bottom: -33px;
+    }
+    .promo .overview .note .left-arrow {
+        .background-size(30px auto);
+    }
+    .promo .overview .note .right-arrow {
+        .background-size(30px auto);
+    }
+    
+    
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+   .promo .overview {
+        text-align: center;
+        .summary {
+            margin-left: 60px;
+            li {
+               text-align: left;
+            }
+        }
+        .download-area {
+            margin: 0 auto;
+        }
+    }
+    
+    .promo .phone {
+        text-align: center;
+        .phone-holder {
+            margin: 0 auto;
+        }
+    }
+    
+    .promo .ipad {
+        text-align: center;
+        .ipad-holder {
+            margin: 0 auto;
+        }
+    }
+    
+    .header .main-nav .nav .nav-item a {
+        padding: 15px 10px;
+    }
+    
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .promo .overview {
+        text-align: left;
+        .summary {
+            margin-left: 0;
+            li {
+               text-align: left;
+            }
+        }
+        .download-area {
+        }
+    }
+    
+    .promo .phone {
+        text-align: left;
+    }
+    
+    .promo .ipad {
+        text-align: left;
+    }
+    
+    .header .main-nav .nav .nav-item a {
+        padding: 15px 20px;
+    }
+    
+    .modal-lg {
+        width: 780px;
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}
+
+

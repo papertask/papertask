@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title>Delta | Documentation...</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="css/documentation.css">
+</head>	
+
+<body>
+<div class="container">
+    <div class="row">    
+        <div class="col-md-3 sidebar">
+            <ul class="nav list-unstyled">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#structures">Page Structures</a></li>
+                <li><a href="#devices">Mobile Devices</a></li>
+                <li><a href="#theme-color">Theme Colour Schemes</a></li>
+                <li><a href="#javascript">JavaScript</a></li>
+                <li><a href="#fonts">Fonts</a></li>
+                <li><a href="#icons">Icons</a></li>
+                <li><a href="#style-switcher">Theme Style Switcher</a></li>  
+                <li><a href="#page-animations">Page Animations</a></li>              
+                <li><a href="#credits">Credits</a></li>
+                <li><a href="#changelog">Change Log</a></li>
+            </ul>
+        </div>
+        
+        <div class="content col-md-9">
+            <h1>Delta - Responsive HTML5 Template</h1>
+        	<div id="overview" class="section">
+                <h2>Overview</h2>
+                <hr />
+                <p>Delta is an HTML5 landing page template designed to help app developers promote their mobile apps. It is a good starting point to quickly have a web presence for your product to drive interest and sales. If you have any comments or suggestions please get in touch.</p>
+                <ul class="list-unstyled">
+                	<li>Author: <a href="http://www.3rdwavemedia.com">3rd Wave Media</a></li>
+                	<li>Email: <a href="mailto:hello@3rdwavemedia.com">hello@3rdwavemedia.com</a></li>
+                	<li>Twitter: <a href="https://twitter.com/3rdwave_media">3rdwave_media</a></li>
+                </ul>
+            </div><!--//overview-->
+            
+            <div id="structures" class="section">
+                <h2>Page Structures </h2>
+                <hr />
+                <p>The template page consists of <code>HTML Head</code>, <code>Page Header</code>, <code>Promo Section</code>, <code>Features Section</code>, <code>How it works section</code>, and <code>Page footer</code></p>               
+                <h3>HTML Head</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;head&gt;</span>
+    <span style="color: #007700">&lt;title&gt;</span>Responsive website template for mobile app<span style="color: #007700">&lt;/title&gt;</span>
+    <span style="color: #888888">&lt;!-- Meta --&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">charset=</span><span style="background-color: #fff0f0">&quot;utf-8&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">http-equiv=</span><span style="background-color: #fff0f0">&quot;X-UA-Compatible&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;IE=edge&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">name=</span><span style="background-color: #fff0f0">&quot;viewport&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;width=device-width, initial-scale=1.0&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">name=</span><span style="background-color: #fff0f0">&quot;description&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;meta</span> <span style="color: #0000CC">name=</span><span style="background-color: #fff0f0">&quot;author&quot;</span> <span style="color: #0000CC">content=</span><span style="background-color: #fff0f0">&quot;&quot;</span><span style="color: #007700">&gt;</span>    
+    <span style="color: #007700">&lt;link</span> <span style="color: #0000CC">rel=</span><span style="background-color: #fff0f0">&quot;shortcut icon&quot;</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&quot;favicon.ico&quot;</span><span style="color: #007700">&gt;</span>  
+    <span style="color: #007700">&lt;link</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&#39;http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic&#39;</span> <span style="color: #0000CC">rel=</span><span style="background-color: #fff0f0">&#39;stylesheet&#39;</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&#39;text/css&#39;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;link</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&#39;http://fonts.googleapis.com/css?family=Covered+By+Your+Grace&#39;</span> <span style="color: #0000CC">rel=</span><span style="background-color: #fff0f0">&#39;stylesheet&#39;</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&#39;text/css&#39;</span><span style="color: #007700">&gt;</span>  
+    <span style="color: #888888">&lt;!-- Global CSS --&gt;</span>
+    <span style="color: #007700">&lt;link</span> <span style="color: #0000CC">rel=</span><span style="background-color: #fff0f0">&quot;stylesheet&quot;</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&quot;assets/plugins/bootstrap/css/bootstrap.min.css&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #888888">&lt;!-- Plugins CSS --&gt;</span>    
+    <span style="color: #007700">&lt;link</span> <span style="color: #0000CC">rel=</span><span style="background-color: #fff0f0">&quot;stylesheet&quot;</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&quot;assets/plugins/font-awesome/css/font-awesome.css&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;link</span> <span style="color: #0000CC">rel=</span><span style="background-color: #fff0f0">&quot;stylesheet&quot;</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&quot;assets/plugins/flexslider/flexslider.css&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;link</span> <span style="color: #0000CC">rel=</span><span style="background-color: #fff0f0">&quot;stylesheet&quot;</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&quot;assets/plugins/animate-css/animate.min.css&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #888888">&lt;!-- Theme CSS --&gt;</span>  
+    <span style="color: #007700">&lt;link</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;theme-style&quot;</span> <span style="color: #0000CC">rel=</span><span style="background-color: #fff0f0">&quot;stylesheet&quot;</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&quot;assets/css/styles.css&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #888888">&lt;!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries --&gt;</span>
+    <span style="color: #888888">&lt;!--[if lt IE 9]&gt;</span>
+<span style="color: #888888">      &lt;script src=&quot;https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js&quot;&gt;&lt;/script&gt;</span>
+<span style="color: #888888">      &lt;script src=&quot;https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js&quot;&gt;&lt;/script&gt;</span>
+<span style="color: #888888">    &lt;![endif]--&gt;</span>
+<span style="color: #007700">&lt;/head&gt;</span>
+</pre>
+      
+                </div>
+
+                <h3>Page Header</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!-- ******HEADER****** --&gt;</span> 
+<span style="color: #007700">&lt;header</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;top&quot;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;header navbar-fixed-top&quot;</span><span style="color: #007700">&gt;</span>  
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;container&quot;</span><span style="color: #007700">&gt;</span>            
+        ...
+        ...   
+    <span style="color: #007700">&lt;/div&gt;</span>
+<span style="color: #007700">&lt;/header&gt;</span><span style="color: #888888">&lt;!--//header--&gt;</span>
+</pre>
+
+                </div>
+
+                <h3>Promo Section</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!-- ******PROMO****** --&gt;</span> 
+<span style="color: #007700">&lt;section</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;promo&quot;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;promo section offset-header has-pattern&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;container&quot;</span><span style="color: #007700">&gt;</span>
+        ...
+        ...
+        ...
+    <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//container--&gt;</span>
+<span style="color: #007700">&lt;/section&gt;</span><span style="color: #888888">&lt;!--//promo--&gt;</span>
+</pre>
+
+                </div>
+                
+                <h3>Features Section</h3>
+                <div class="highlight">
+                <pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!-- ******FEATURES****** --&gt;</span> 
+<span style="color: #007700">&lt;section</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;features&quot;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;features section&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;container&quot;</span><span style="color: #007700">&gt;</span>
+        ...
+        ...
+    <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//container--&gt;</span>
+<span style="color: #007700">&lt;/section&gt;</span><span style="color: #888888">&lt;!--//features--&gt;</span>
+</pre>
+
+                </div>
+                
+                <h3>How Section</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!-- ******HOW****** --&gt;</span> 
+<span style="color: #007700">&lt;section</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;how&quot;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;how section has-pattern&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;container&quot;</span><span style="color: #007700">&gt;</span>
+        ...
+        ...
+    <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//container--&gt;</span>
+<span style="color: #007700">&lt;/section&gt;</span><span style="color: #888888">&lt;!--//how--&gt;</span>
+</pre>
+
+                </div>
+                
+                <h3>FAQ section</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!-- ******FAQ****** --&gt;</span> 
+<span style="color: #007700">&lt;section</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;faq&quot;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;faq section&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;container&quot;</span><span style="color: #007700">&gt;</span>
+        ...
+        ...
+    <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//container--&gt;</span>
+<span style="color: #007700">&lt;/section&gt;</span><span style="color: #888888">&lt;!--//faq--&gt;</span>
+</pre>
+
+                </div>
+                
+                <h3>Story Section</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!-- ******STORY****** --&gt;</span> 
+<span style="color: #007700">&lt;section</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;story&quot;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;story section has-pattern&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;container&quot;</span><span style="color: #007700">&gt;</span>
+        ...
+        ...
+    <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//container--&gt;</span>
+<span style="color: #007700">&lt;/section&gt;</span><span style="color: #888888">&lt;!--//story--&gt;</span>
+</pre>
+
+                </div>
+                
+                <h3>Testimonials Section</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!-- ******TESTIMONIALS****** --&gt;</span> 
+<span style="color: #007700">&lt;section</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;testimonials&quot;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;testimonials section&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;container&quot;</span><span style="color: #007700">&gt;</span>
+        ...
+        ...
+    <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//container--&gt;</span>
+<span style="color: #007700">&lt;/section&gt;</span><span style="color: #888888">&lt;!--//Testimonials--&gt;</span>
+</pre>
+
+                </div>
+                
+                <h3>Contact Section</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!-- ******CONTACT****** --&gt;</span> 
+<span style="color: #007700">&lt;section</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;contact&quot;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;contact section has-pattern&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;container&quot;</span><span style="color: #007700">&gt;</span>
+        ...
+        ...
+    <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//container--&gt;</span>
+<span style="color: #007700">&lt;/section&gt;</span><span style="color: #888888">&lt;!--//contact--&gt;</span>
+</pre>
+
+                </div>
+                
+                <h3 id="page-footer">Page Footer</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!-- ******FOOTER****** --&gt;</span> 
+<span style="color: #007700">&lt;footer</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;footer&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;container&quot;</span><span style="color: #007700">&gt;</span>
+        ...
+        ...
+    <span style="color: #007700">&lt;/div&gt;</span>
+<span style="color: #007700">&lt;/footer&gt;</span><span style="color: #888888">&lt;!--//footer--&gt;</span>
+</pre>
+
+
+                </div>
+                
+            </div><!--//structures-->
+            
+            <div id="devices" class="section">
+                <h2>Mobile Devices</h2>
+                <hr />
+                <p>You can display a different device in the promo section. Below are the HTML code blocks for each device.</p>
+                <h3>iPhone Black</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!--// iPhone starts --&gt;</span>
+<span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;phone iphone <span style="color:red">iphone-black</span> col-md-4 col-sm-12 col-xs-12 &quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;iphone-holder phone-holder&quot;</span><span style="color: #007700">&gt;</span>
+        <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;iphone-holder-inner&quot;</span><span style="color: #007700">&gt;</span>
+            <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;slider flexslider&quot;</span><span style="color: #007700">&gt;</span>
+                <span style="color: #007700">&lt;ul</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;slides&quot;</span><span style="color: #007700">&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/iphone/iphone-slide-1.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/iphone/iphone-slide-2.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/iphone/iphone-slide-3.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                <span style="color: #007700">&lt;/ul&gt;</span><span style="color: #888888">&lt;!--//slides--&gt;</span>
+            <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//flexslider--&gt;</span>   
+        <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//iphone-holder-inner--&gt;</span>                    
+    <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//iphone-holder--&gt;</span>                   
+<span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//iphone--&gt;</span>  
+<span style="color: #888888">&lt;!--// iPhone ends --&gt;</span>
+</pre>
+
+                </div>
+                
+                <h3>iPhone White</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!--// iPhone starts --&gt;</span>
+<span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;phone iphone <span style="color:red">iphone-white</span> col-md-4 col-sm-12 col-xs-12 &quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;iphone-holder phone-holder&quot;</span><span style="color: #007700">&gt;</span>
+        <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;iphone-holder-inner&quot;</span><span style="color: #007700">&gt;</span>
+            <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;slider flexslider&quot;</span><span style="color: #007700">&gt;</span>
+                <span style="color: #007700">&lt;ul</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;slides&quot;</span><span style="color: #007700">&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/iphone/iphone-slide-1.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/iphone/iphone-slide-2.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/iphone/iphone-slide-3.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                <span style="color: #007700">&lt;/ul&gt;</span><span style="color: #888888">&lt;!--//slides--&gt;</span>
+            <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//flexslider--&gt;</span>   
+        <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//iphone-holder-inner--&gt;</span>                    
+    <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//iphone-holder--&gt;</span>                   
+<span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//iphone--&gt;</span>  
+<span style="color: #888888">&lt;!--// iPhone ends --&gt;</span>
+</pre>
+
+                </div>
+                
+                <h3>iPad Black</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!--// iPad starts --&gt;</span>
+<span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;ipad <span style="color:red">ipad-black</span> col-md-4 col-sm-12 col-xs-12 col-md-pull-1&quot;</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&quot;display:none&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;ipad-holder&quot;</span><span style="color: #007700">&gt;</span>
+        <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;ipad-holder-inner&quot;</span><span style="color: #007700">&gt;</span>
+            <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;slider flexslider&quot;</span><span style="color: #007700">&gt;</span>
+                <span style="color: #007700">&lt;ul</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;slides&quot;</span><span style="color: #007700">&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/ipad/ipad-slide-1.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/ipad/ipad-slide-2.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/ipad/ipad-slide-3.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                <span style="color: #007700">&lt;/ul&gt;</span><span style="color: #888888">&lt;!--//slides--&gt;</span>
+            <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//flexslider--&gt;</span>   
+        <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//ipad-holder-inner--&gt;</span>                    
+    <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//ipad-holder--&gt;</span>                   
+<span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//ipad--&gt;</span> 
+<span style="color: #888888">&lt;!--// iPad ends --&gt;</span>
+</pre>
+
+                </div>
+                
+                <h3>iPad White</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!--// iPad starts --&gt;</span>
+<span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;ipad <span style="color:red">ipad-white</span> col-md-4 col-sm-12 col-xs-12 col-md-pull-1&quot;</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&quot;display:none&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;ipad-holder&quot;</span><span style="color: #007700">&gt;</span>
+        <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;ipad-holder-inner&quot;</span><span style="color: #007700">&gt;</span>
+            <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;slider flexslider&quot;</span><span style="color: #007700">&gt;</span>
+                <span style="color: #007700">&lt;ul</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;slides&quot;</span><span style="color: #007700">&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/ipad/ipad-slide-1.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/ipad/ipad-slide-2.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/ipad/ipad-slide-3.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                <span style="color: #007700">&lt;/ul&gt;</span><span style="color: #888888">&lt;!--//slides--&gt;</span>
+            <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//flexslider--&gt;</span>   
+        <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//ipad-holder-inner--&gt;</span>                    
+    <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//ipad-holder--&gt;</span>                   
+<span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//ipad--&gt;</span> 
+<span style="color: #888888">&lt;!--// iPad ends --&gt;</span>
+</pre>
+                </div>
+                
+                <h3>Android Phone</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!--// Android starts --&gt;</span>                
+<span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;phone android col-md-4 col-sm-12 col-xs-12&quot;</span> <span style="color: #0000CC">style=</span><span style="background-color: #fff0f0">&quot;display:none&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;android-holder phone-holder&quot;</span><span style="color: #007700">&gt;</span>
+        <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;android-holder-inner&quot;</span><span style="color: #007700">&gt;</span>
+            <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;slider flexslider&quot;</span><span style="color: #007700">&gt;</span>
+                <span style="color: #007700">&lt;ul</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;slides&quot;</span><span style="color: #007700">&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/android/android-slide-1.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/android/android-slide-2.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                    <span style="color: #007700">&lt;li&gt;</span>
+                        <span style="color: #007700">&lt;img</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/images/android/android-slide-3.png&quot;</span>  <span style="color: #0000CC">alt=</span><span style="background-color: #fff0f0">&quot;&quot;</span> <span style="color: #007700">/&gt;</span>
+                    <span style="color: #007700">&lt;/li&gt;</span>
+                <span style="color: #007700">&lt;/ul&gt;</span><span style="color: #888888">&lt;!--//slides--&gt;</span>
+            <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//flexslider--&gt;</span>   
+        <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//phone-holder-inner--&gt;</span>                    
+    <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//iphone-holder--&gt;</span>                   
+<span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//iphone--&gt;</span> 
+<span style="color: #888888">&lt;!--// Android ends --&gt;</span>
+</pre>
+                </div>
+            </div><!--//Devices-->
+            
+            <div id="theme-color" class="section">
+                <h2>Theme Colour Schemes</h2>
+                <hr />
+                <p>There are 10 colour schemes available for the template. You can easily change the colour scheme by changing the stylesheet.</p>
+                <h3>Default</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!-- Theme CSS --&gt;</span>  
+<span style="color: #007700">&lt;link</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;theme-style&quot;</span> <span style="color: #0000CC">rel=</span><span style="background-color: #fff0f0">&quot;stylesheet&quot;</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&quot;assets/css/styles.css&quot;</span><span style="color: #007700">&gt;</span>
+</pre>
+
+                </div>
+                <p>If you want to change to a different colour scheme (eg. colour2), you just need to replace the current stylesheet file <code>styles.css</code> to <code>styles-2.css</code></p>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!-- Theme CSS --&gt;</span>  
+<span style="color: #007700">&lt;link</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;theme-style&quot;</span> <span style="color: #0000CC">rel=</span><span style="background-color: #fff0f0">&quot;stylesheet&quot;</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&quot;assets/css/styles-2.css&quot;</span><span style="color: #007700">&gt;</span>
+</pre>
+                </div>
+            </div><!--//Theme-color-->
+            
+            <div id="javascript" class="section">
+                <h2>Javascript</h2>
+                <hr />
+                <p>All Javascript is placed at the end of the page.</p>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!-- Javascript --&gt;</span>          
+<span style="color: #007700">&lt;script </span><span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/plugins/jquery-1.10.2.min.js&quot;</span><span style="color: #007700">&gt;&lt;/script&gt;</span>
+<span style="color: #007700">&lt;script </span><span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/plugins/jquery-migrate-1.2.1.min.js&quot;</span><span style="color: #007700">&gt;&lt;/script&gt;</span>
+<span style="color: #007700">&lt;script </span><span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/plugins/detectmobilebrowser.js&quot;</span><span style="color: #007700">&gt;&lt;/script&gt;</span>      
+<span style="color: #007700">&lt;script </span><span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/plugins/jquery.easing.1.3.js&quot;</span><span style="color: #007700">&gt;&lt;/script&gt;</span>   
+<span style="color: #007700">&lt;script </span><span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/plugins/bootstrap/js/bootstrap.min.js&quot;</span><span style="color: #007700">&gt;&lt;/script&gt;</span>     
+<span style="color: #007700">&lt;script </span><span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/plugins/jquery-inview/jquery.inview.min.js&quot;</span><span style="color: #007700">&gt;&lt;/script&gt;</span>
+<span style="color: #007700">&lt;script </span><span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/plugins/FitVids/jquery.fitvids.js&quot;</span><span style="color: #007700">&gt;&lt;/script&gt;</span>
+<span style="color: #007700">&lt;script </span><span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js&quot;</span><span style="color: #007700">&gt;&lt;/script&gt;</span>    
+<span style="color: #007700">&lt;script </span><span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/plugins/jquery-placeholder/jquery.placeholder.js&quot;</span><span style="color: #007700">&gt;&lt;/script&gt;</span>
+<span style="color: #007700">&lt;script </span><span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/plugins/flexslider/jquery.flexslider-min.js&quot;</span><span style="color: #007700">&gt;&lt;/script&gt;</span>
+<span style="color: #007700">&lt;script </span><span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/js/main.js&quot;</span><span style="color: #007700">&gt;&lt;/script&gt;</span>
+<span style="color: #888888">&lt;!--[if !IE]&gt;--&gt;</span> 
+<span style="color: #007700">&lt;script </span><span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> <span style="color: #0000CC">src=</span><span style="background-color: #fff0f0">&quot;assets/js/animations.js&quot;</span><span style="color: #007700">&gt;&lt;/script&gt;</span> 
+<span style="color: #888888">&lt;!--&lt;![endif]--&gt;</span>
+</pre>
+
+                </div>
+                
+            </div><!--//javascript-->
+                      
+            <div id="fonts" class="section">
+                <h2>Fonts </h2>
+                <hr />
+                <p>Delta uses <a target="_blank" href="https://www.google.com/fonts/specimen/Lato">"Lato"</a> and <a target="_blank" href="https://www.google.com/fonts/specimen/Covered+By+Your+Grace">"Covered By Your Grace"</a> fonts from Google Fonts.</p> 
+                <div class="highlight">
+				<pre style="margin: 0; line-height: 125%"><span style="color: #007700">&lt;link</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&#39;http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic&#39;</span> <span style="color: #0000CC">rel=</span><span style="background-color: #fff0f0">&#39;stylesheet&#39;</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&#39;text/css&#39;</span><span style="color: #007700">&gt;</span>
+<span style="color: #007700">&lt;link</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&#39;http://fonts.googleapis.com/css?family=Covered+By+Your+Grace&#39;</span> <span style="color: #0000CC">rel=</span><span style="background-color: #fff0f0">&#39;stylesheet&#39;</span> <span style="color: #0000CC">type=</span><span style="background-color: #fff0f0">&#39;text/css&#39;</span><span style="color: #007700">&gt;</span>
+</pre>
+  
+                </div>              
+            </div><!--//fonts-->
+       
+            <div id="icons" class="section">
+                <h2>Icons</h2>
+                <hr />
+                <p>We use <strong><a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">FontAwsome 4.0.3</a></strong> icons in this template. To view the complete set of 369 icons please go to <strong><a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">FontAwsome's official website</a></strong></p>
+                <p><a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank"><img class="img-responsive img-thumbnail" src="images/fontawsome-screenshot.png" alt="fontawsome" /></a></p>
+                
+                
+            </div><!--//icons-->
+            
+            <div id="style-switcher" class="section">
+                <h2>Theme Style Switcher</h2>
+                <hr />
+                <p>The theme style switcher is only used for demonstration purpose. You probably want to remove the relevant code (HTML and Javascript) in your production site.</p>
+                <p><img class="img-responsive" src="images/style-switcher.png" alt="style-switcher" /></p>
+                <h3>HTML</h3>
+                <p>The HTML code for the style switcher is below the <a href="#page-footer">page footer</a> in <code>index.html</code></p>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!-- *****CONFIGURE STYLE****** --&gt;</span>  
+<span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;config-wrapper&quot;</span><span style="color: #007700">&gt;</span>
+    <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;config-wrapper-inner&quot;</span><span style="color: #007700">&gt;</span>
+        <span style="color: #007700">&lt;a</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;config-trigger&quot;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;config-trigger&quot;</span> <span style="color: #0000CC">href=</span><span style="background-color: #fff0f0">&quot;#&quot;</span><span style="color: #007700">&gt;&lt;i</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;fa fa-cog&quot;</span><span style="color: #007700">&gt;&lt;/i&gt;&lt;/a&gt;</span>
+        <span style="color: #007700">&lt;div</span> <span style="color: #0000CC">id=</span><span style="background-color: #fff0f0">&quot;config-panel&quot;</span> <span style="color: #0000CC">class=</span><span style="background-color: #fff0f0">&quot;config-panel&quot;</span><span style="color: #007700">&gt;</span>
+            ...
+            ...
+        <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//configure-panel--&gt;</span>
+    <span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//config-wrapper-inner--&gt;</span>
+<span style="color: #007700">&lt;/div&gt;</span><span style="color: #888888">&lt;!--//config-wrapper--&gt;</span>
+</pre>
+
+                </div>
+                <h3>Javascript</h3>
+                <p>The Javascript code for the style switcher is in the bottom of <code>assets/js/main.js</code></p>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%">    <span style="color: #888888">/* ======= Style Switcher ======= */</span>
+    $(<span style="background-color: #fff0f0">&#39;#config-trigger&#39;</span>).on(<span style="background-color: #fff0f0">&#39;click&#39;</span>, <span style="color: #008800; font-weight: bold">function</span>(e) {
+        <span style="color: #008800; font-weight: bold">var</span> $panel <span style="color: #333333">=</span> $(<span style="background-color: #fff0f0">&#39;#config-panel&#39;</span>);
+        <span style="color: #008800; font-weight: bold">var</span> panelVisible <span style="color: #333333">=</span> $(<span style="background-color: #fff0f0">&#39;#config-panel&#39;</span>).is(<span style="background-color: #fff0f0">&#39;:visible&#39;</span>);
+        <span style="color: #008800; font-weight: bold">if</span> (panelVisible) {
+            $panel.hide();
+        } <span style="color: #008800; font-weight: bold">else</span> {
+            $panel.show();
+        }
+        e.preventDefault();
+    });
+    
+    ...
+    ...
+    ...
+</pre>
+
+                </div>
+            </div><!--//style-switcher-->
+            
+            <div id="page-animations" class="section">
+                <h2>Page Animations</h2>
+                <hr />
+                <p>We are applying CSS3 animations for non-mobile and non-IE browsers. You can disable the animations by removing the relevant CSS and Javascript.</p>
+                <h3>CSS</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #333333">&lt;</span>link rel<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;stylesheet&quot;</span> href<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;assets/plugins/animate-css/animate.min.css&quot;</span><span style="color: #333333">&gt;</span>
+</pre>
+
+                </div>
+                <h3>Javascript</h3>
+                <div class="highlight">
+<pre style="margin: 0; line-height: 125%"><span style="color: #888888">&lt;!--</span>[<span style="color: #008800; font-weight: bold">if</span> <span style="color: #333333">!</span>IE]<span style="color: #333333">&gt;--&gt;</span> 
+<span style="color: #333333">&lt;</span>script type<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;text/javascript&quot;</span> src<span style="color: #333333">=</span><span style="background-color: #fff0f0">&quot;assets/js/animations.js&quot;</span><span style="color: #333333">&gt;&lt;</span>/script&gt; </span>
+<span style="color: #888888">&lt;!--</span><span style="color: #333333">&lt;!</span>[endif]<span style="color: #333333">--&gt;</span> 
+</pre>
+                </div>
+                
+            </div><!--//page-animations-->
+
+            <!--Credits-->            
+            <div id="credits" class="section">
+                <h2>Credits </h2>
+                <hr />
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th width="120">Name</th>
+                            <th>URL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Twitter Bootstrap</td>
+                            <td><a target="_blank" href="http://twitter.github.io/bootstrap">http://twitter.github.io/bootstrap</a></td>
+                        </tr>
+                        <tr>
+                            <td>jQuery</td>
+                            <td><a target="_blank" href="http://jquery.com">http://jquery.com</a></td>
+                        </tr>
+                        <tr>
+                            <td>Font Awesome</td>
+                            <td><a target="_blank" href="http://fortawesome.github.io/Font-Awesome">http://fortawesome.github.io/Font-Awesome</a></td>
+                        </tr>
+                        <tr>
+                            <td>FlexSlider</td>
+                            <td><a target="_blank" href="http://www.woothemes.com/flexslider">http://www.woothemes.com/flexslider</a></td>
+                        </tr>
+                        <tr>
+                            <td>Google Fonts</td>
+                            <td><a target="_blank" href="http://www.google.com/fonts">http://www.google.com/fonts</a></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>jQuery Easing</td>
+                            <td><a target="_blank" href="http://gsgd.co.uk/sandbox/jquery/easing/">http://gsgd.co.uk/sandbox/jquery/easing/</a></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>jQuery ScrollTo</td>
+                            <td><a target="_blank" href="http://flesler.blogspot.com/2007/10/jqueryscrollto.html">http://flesler.blogspot.com/2007/10/jqueryscrollto.html</a></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>FitVids.JS</td>
+                            <td><a target="_blank" href="http://fitvidsjs.com/">http://fitvidsjs.com/</a></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>jQuery Inview</td>
+                            <td><a target="_blank" href="http://github.com/zuk/jquery.inview/">http://github.com/zuk/jquery.inview/</a></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>jQuery Placeholder</td>
+                            <td><a target="_blank" href="http://mths.be/placeholder">http://mths.be/placeholder</a></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Animate.css</td>
+                            <td><a target="_blank" href="http://daneden.github.io/animate.css/">http://daneden.github.io/animate.css/</a></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Profile images</td>
+                            <td><a target="_blank" href="https://www.flickr.com/photos/johnonolan/sets/72157624648122970/">https://www.flickr.com/photos/johnonolan/sets/72157624648122970/</a><br />(Creative Commons Attribution 2.0 Generic)</td>
+                        </tr>
+                        <tr>                        
+                    </tbody>
+                </table>            
+            </div><!--//credits-->
+                      
+            <div id="changelog" class="section">
+                <h2>Change Log</h2>
+                <hr />
+                <h5><strong>Version 1.2 - 15 May 2014</strong></h5>
+                <ul>
+                    <li>Fixed iPad screen flicker on scroll issue</li>
+                </ul>
+                <h5><strong>Version 1.1 - 31 March 2014</strong></h5>
+                <ul>
+                    <li>Fixed some markup issues</li>
+                    <li>Fixed some markup issues</li>
+                </ul>
+                <h5><strong>Version 1.0 - 30 March 2014</strong></h5>
+                <ul>
+                    <li>Initial Release</li>
+                </ul>
+            </div><!--//changelog-->			
+        </div><!--/content-->
+        
+    </div><!--/row-->
+</div><!--/container-->
+
+<script type="text/javascript" src="plugins/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="plugins/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="plugins/back-to-top.js"></script>		
+</body>
+</html>	
