@@ -1,4 +1,4 @@
-angularApp.controller('languagesController', function($scope, $http, $timeout, $q) {
+angularApp.controller('languagesController', function($scope, $rootScope, $http, $timeout, $q) {
     $scope.translation = [];
     $scope.sourceLanguages = [];
     $scope.targetLanguages = [];
@@ -38,7 +38,17 @@ angularApp.controller('languagesController', function($scope, $http, $timeout, $
 
             // get list languages
             $http.get("/api/common/language").success(function($data){
-                $scope.languages = $data;
+			$scope.languages = $data;
+			console.log(LANG_CODE);
+			if(LANG_CODE == 'zh-CN')
+			{
+				$rootScope.currentLanguage = 'zh-CN';
+				//$scope.languages = convert_to_zh($data);
+			}
+			else {
+				$rootScope.currentLanguage = 'en-US';
+                
+			}	
                 console.log($data);
             });
 
@@ -76,3 +86,23 @@ angularApp.controller('languagesController', function($scope, $http, $timeout, $
         });
     });
 });
+
+angularApp.filter('i18n', ['$rootScope', function($rootScope) {
+    return function (input) {
+        var translations = {
+            'zh-CN' : {
+                'Danish' : '丹麦',
+                'English' : '英语',
+                'Afrikaans' : '南非荷兰语',
+            },
+            'en-US' : {
+                'Danish' : 'Danish',
+                'English' : 'English',
+                'Afrikaans' : 'Afrikaans',
+            }
+        },
+        currentLanguage = $rootScope.currentLanguage || 'en-US';
+    
+        return translations[currentLanguage][input];
+    }
+}]);

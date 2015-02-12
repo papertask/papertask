@@ -12,8 +12,16 @@ $this->inlineScript()
     ->prependScript("
     <script>if(typeof(angular) != 'undefined' && typeof(angularApp) == 'undefined'){
         var angularApp = angularApp || angular.module('languages', []);
-    }</script>
-    ")
+	  }
+   
+	 </script>
+    ");
+echo $this->inlineScript()
+    ->prependScript("
+        var LANG_CODE = '" . $this->lang_code . "';
+        var EXITS_CONFIRM_TEXT = '" . $this->translate('This option was existed, please choose other') . "';
+        "); 	
+
 ?>
 
 
@@ -38,7 +46,7 @@ $this->inlineScript()
                                 <select ngChange="updateTargetLanguages()" ng-model="params.sourceLanguage"
                                         required name="sourceLanguage" class="form-control required">
                                     <option value=""><?php echo $this->translate('Please select','Landing') ?></option>
-                                    <option ng-repeat="id in sourceLanguages" value="{{id}}"><?php echo $this->translate("{{languages[id]}}","Landing");?></option>
+                                    <option ng-repeat="id in sourceLanguages" value="{{id}}"><?php echo $this->translate('{{languages[id] | i18n}}','Landing');?></option>
                                 </select>
                             </div>
                         </div>
