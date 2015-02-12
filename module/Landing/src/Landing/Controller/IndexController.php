@@ -65,7 +65,6 @@ class IndexController extends AbstractActionController
                 $json['message'] = $this->getTranslator()->translate('Your email is not correct, please input again.','Landing');
             }
         }
-
         return new JsonModel($json);
     }
 

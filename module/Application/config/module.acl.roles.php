@@ -92,6 +92,7 @@ return array(
 		'index\order',
 		'index\privacy',
 		'index\terms',
+		'index\contact-post',
 		'home',
 		'languages',
 		'freelancer',
