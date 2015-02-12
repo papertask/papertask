@@ -78,7 +78,7 @@ class StaffController extends AbstractRestfulController
             $cvfiles[$k] = $v->getData();
         }   
         return new JsonModel([
-            'staff' => $staffData,
+            'staffList' => $staffData,
             'bankInfo' => $bankInfo ? $bankInfo->getData() : null,
             'resume' => $resume ? $resume->getData():null,
             'cvfiles' => $cvfiles
