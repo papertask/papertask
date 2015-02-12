@@ -1,7 +1,7 @@
-<?php $this->headTitle($this->translate('Languages and Prices','Landing')) ?>
+<?php echo $this->headTitle($this->translate('Languages and Prices','Landing')) ?>
 
 <?php
-$this->headScript()
+echo $this->headScript()
     ->prependFile($this->basePath() . '/js/landing/languages.js')
     ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
     ->prependScript("angularApp = angular.module('languages', []);")
