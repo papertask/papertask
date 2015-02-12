@@ -183,7 +183,7 @@ angularApp.filter('i18n', ['$rootScope', function($rootScope) {
                 'Bosnian' : 'Bosnian',
                 'Bulgarian' : 'Bulgarian',
                 'Burmese' : 'Burmese',
-                'Chinese (Hong Kong)' : 'Chinese (Hong Kong)' :
+                'Chinese (Hong Kong)' : 'Chinese (Hong Kong)', 
                 'Chinese (Simplified)' : 'Chinese (Simplified)',
                 'Chinese (Traditional)' : 'Chinese (Traditional)',
                 'Croatian' : 'Croatian',
