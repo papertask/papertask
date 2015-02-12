@@ -58,7 +58,7 @@ echo $this->inlineScript()
                                 <select ng-model="params.targetLanguage" required name="targetLanguage"
                                         class="form-control required">
                                     <option value=""><?php echo $this->translate('Please select','Landing') ?></option>
-                                    <option ng-repeat="id in targetLanguages" value="{{id}}"><?php echo $this->translate("{{languages[id]}}","Landing");?></option>
+                                    <option ng-repeat="id in targetLanguages" value="{{id}}"><?php echo $this->translate("{{languages[id] | i18n}}","Landing");?></option>
                                 </select>
                             </div>
                         </div>
