@@ -1,63 +1,65 @@
 <?php $this->headTitle($this->translate('FREELANCER','Landing')) ?>
-<div class="banner">
-    <div class="container">
-        <br><br>
-        <div class="row">
-            <h1 class="text-center" style="font-size: 80px;"><strong>
-                    <?php echo $this->translate('WORK FREE!','Landing') ?></strong></h1>
-            <br><br>
-            <a href="<?php echo $this->url('user',array('lang'=>$this->translate('lang'))) ?>/register/freelancer/"
-               target="_blank" class="btn btn-download btn-lg">
-                <?php echo $this->translate('Register As a Freelancer, Now!','Landing') ?></a>
-            <br><br><br>
-        </div>
-    </div>
-</div>
-<div class="features">
-    <div class="container">
-        <h1 class="text-center" style="font-size: 40px;">
-            <?php echo $this->translate('Work With PaperTask','Landing') ?></h1>
-        <br><br><br>
-        <div class="row">
-            <div class="feature-item col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <button type="button" class="btn btn-primary btn-block btn-lg">1.
-                            <?php echo $this->translate('Register','Landing') ?></button>
-                        <br>
-                        <p><?php echo $this->translate('Sign up PaperTask, you may work with PaperTask together for translation jobs.','Landing') ?></p>
-                        <br>
+
+    <!-- ******FREELANCER****** --> 
+    <section id="contact" class="contact section has-pattern">
+        <div class="container">
+            <div class="row text-center">
+                <br /><br />
+                <h1 class="text-center" style="font-size: 80px;"><?php echo $this->translate('WORK FREE!','Landing') ?></strong></h1>
+                <br />
+                <div class="intro col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+                    <br />
+                    <div class="contact-form row">
+                        <a href="<?php echo $this->url('user',array('lang'=>$this->translate('lang'))) ?>/register/freelancer/" class="btn btn-theme btn-lg"><?php echo $this->translate('Register As a Freelancer, Now!','Landing') ?></a>
                     </div>
+                    
                 </div>
-            </div>
-            <div class="feature-item col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <button type="button" class="btn btn-primary btn-block btn-lg">2.
-                            <?php echo $this->translate('Qualify','Landing') ?></button>
-                        <br>
-                        <p><?php echo $this->translate('If you want to get a job here, you must pass our certification, after that, you can get the translation tasks.','Landing') ?></p>
-                        <br>
-                    </div>
+            </div><!--//row-->
+        </div><!--//container-->
+    </section><!--//contact-->  
+
+    <!-- ******STEPS****** --> 
+    <section id="features" class="features section">
+        <div class="container">
+            <h2 class="title text-center"><?php echo $this->translate('Work With PaperTask','Landing') ?></h2>
+            <br /><br />
+            <div class="row feature-row-last">
+                <div class="item col-md-4 col-sm-6 col-xs-12 text-center">
+                    <div class="icon">
+                        <i class="fa fa-user"></i>                
+                    </div><!--//icon-->
+                    <div class="content">
+                        <h3 class="title"><?php echo $this->translate('Register','Landing') ?></h3>
+                        <p><?php echo $this->translate('Sign up PaperTask, you may work with PaperTask together for translation jobs.','Landing') ?></p>  
+                        
+                    </div><!--//content-->               
+                </div><!--//item-->
+                <div class="item col-md-4 col-sm-6 col-xs-12 text-center">
+                    <div class="icon">
+                        <i class="fa fa-check"></i>                
+                    </div><!--//icon-->
+                    <div class="content">
+                        <h3 class="title"><?php echo $this->translate('Qualify','Landing') ?></h3>
+                        <p><?php echo $this->translate('If you want to get a job here, you must pass our certification, after that, you can get the translation tasks.','Landing') ?></p>  
+                        
+                    </div><!--//content-->               
+                </div><!--//item-->
+                <div class="item col-md-4 col-sm-6 col-xs-12 text-center">
+                    <div class="icon">
+                        <i class="fa fa-globe"></i>
+                    </div><!--//icon-->
+                    <div class="content">
+                        <h3 class="title"><?php echo $this->translate('Work Free','Landing') ?></h3>
+                        <p><?php echo $this->translate('In success pass our testing, you can get the translation jobs and work with us, look forward to your joining!','Landing') ?></p> 
+                        
+                    </div><!--//content-->    
+                    <br /><br />           
+                </div><!--//item-->
+
+                <div class="more text-center">
+                    <a class="btn btn-lg btn-theme scrollto animated fadeInUp delayp2" href="<?php echo $this->url('user',array('lang'=>$this->translate('lang'))) ?>/register/freelancer/" style="opacity: 0;"><?php echo $this->translate('Register As a Freelancer, Now!','Landing') ?></a>
                 </div>
-            </div>
-            <div class="feature-item col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <button type="button" class="btn btn-primary btn-block btn-lg">3.
-                            <?php echo $this->translate('Work Free','Landing') ?></button>
-                        <br>
-                        <p><?php echo $this->translate('In success pass our testing, you can get the translation jobs and work with us, look forward to your joining!','Landing') ?></p>
-                        <br>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row text-center">
-            <a href="<?php echo $this->url('user',array('lang'=>$this->translate('lang'))) ?>/register/freelancer/" target="_blank" class="btn btn-primary btn-lg">
-                <?php echo $this->translate('Register As a Freelancer, Now!','Landing') ?></a>
-        </div>
-        <br><br><br>
-    </div>
-</div>
+                <br />
+            </div><!--//row-->
+        </div><!--//container-->
+    </section><!--//features-->
