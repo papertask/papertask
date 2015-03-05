@@ -78,6 +78,7 @@ $allow_all = array(
 	'api/data',
 	'api/admin',
 	'api/papertask',
+	'api/companyinfo',
 	'api/user_child',
 );
 

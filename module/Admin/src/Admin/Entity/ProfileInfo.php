@@ -6,19 +6,22 @@
  * Time: 11:50 AM
  */
 
-namespace User\Entity;
-
-use Doctrine\ORM\Mapping as ORM;
+namespace Admin\Entity;
 
 use Common\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+
 /** @ORM\Entity */
-class Company extends Entity{
+class ProfileInfo extends Entity{
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     protected $id;
 

@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Common\Entity;
 
 /** @ORM\Entity */
-class Itermtm extends Entity{
+class Itermdtppc extends Entity{
 
     /**
      * @ORM\Id
@@ -29,6 +29,13 @@ class Itermtm extends Entity{
      */
     protected $project;
 	
+	/** @ORM\Column(type="string") */
+    protected $name;
+    /**
+     * @var \User\Entity\File
+     * @ORM\ManyToOne(targetEntity="File")
+     */
+    protected $file;
     /**
      * @var \User\Entity\Language
      * @ORM\ManyToOne(targetEntity="Language")
@@ -41,64 +48,40 @@ class Itermtm extends Entity{
      */
     protected $rate;
 
-	/**
+    /**
      * @var integer
      * @ORM\Column(type="integer")
      */
-    protected $sourcerepetitions;
+    protected $quantity;
+
+    /**
+     * @var integer
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $unit;
 	
 	/**
-     * @var integer
-     * @ORM\Column(type="integer")
+     * @var \User\Entity\DesktopSoftware
+     * @ORM\ManyToOne(targetEntity="DesktopSoftware")
      */
-    protected $sourcebawu;
-	/**
-     * @var integer
-     * @ORM\Column(type="integer")
-     */
-    protected $sourcejiuwu;
-	/**
-     * @var integer
-     * @ORM\Column(type="integer")
-     */
-    protected $sourcenomatch;
-	/**
-     * @var integer
-     * @ORM\Column(type="integer")
-     */
-    protected $sourceqiwu;
-	/**
-     * @var integer
-     * @ORM\Column(type="integer")
-     */
-    protected $sourcewushi;
-	/**
-     * @var integer
-     * @ORM\Column(type="integer")
-     */
-    protected $sourceyibai;
-   
-     public function getProject(){
+    protected $software;
+	
+	public function getProject(){
         return $this->project;
     }
 
     public function setProject($project){
         $this->project = $project;
-    }    
+    }
 	public function getData(){
         return [
             'name' => $this->name,
             'file' => $this->file,
 			'language' => $this->language->getData(),
 			'rate' => $this->rate,
-			'sourcerepetitions' => $this->sourcerepetitions,
-            'sourcebawu' => $this->sourcebawu,
-			'sourcejiuwu' => $this->sourcejiuwu,
-			'sourcenomatch' => $this->sourcenomatch,
-			'sourceqiwu' => $this->sourceqiwu,
-			'sourcewushi' => $this->sourcewushi,
-			'sourceyibai' => $this->sourceyibai
+			'quantity' => $this->quantity,
+            'unit' => $this->unit,
+			'software' => $this->software->getData()
         ];
-    }	
-
+    }
 }

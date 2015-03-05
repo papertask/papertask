@@ -478,7 +478,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         $scope.project.data = TableItemListService.data();
 		console.log("$scope.project");
 		console.log($scope.project);
-        $http.post("/api/admin/project/", $scope.project)
+        /*$http.post("/api/admin/project/", $scope.project)
             .success(function($data){
 				
                 if($data.success){
@@ -489,7 +489,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
             })
             .error(function($data){
 
-            });
+            });*/
     };
 
     function existsIdInArray(arr, id){
@@ -874,6 +874,22 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
         if($scope.items.length == 0 && $scope.itemtm.length==0){
             return false;
         }
+		else if($scope.items.length > 0 && $scope.itemtm.length==0)
+		{
+			return {
+            items: $scope.items,
+            identifier: $scope.identifier,
+            
+			};
+		}
+		else if($scope.items.length == 0 && $scope.itemtm.length > 0)
+		{
+			return {
+            itemtm: $scope.itemtm,
+            identifier: $scope.identifier,
+            
+			};
+		}
         return {
             items: $scope.items,
             identifier: $scope.identifier,

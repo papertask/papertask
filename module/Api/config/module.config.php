@@ -101,6 +101,15 @@ return array(
             'Api\Controller\Admin\Field' => 'Api\Controller\Admin\FieldController',
             'Api\Controller\Admin\Language' => 'Api\Controller\Admin\LanguageController',
             'Api\Controller\Admin\Project' => 'Api\Controller\Admin\ProjectController',
+			'Api\Controller\Admin\ProjectItermnotm' => 'Api\Controller\Admin\ProjectItermnotmController',
+			'Api\Controller\Admin\ProjectItermtm' => 'Api\Controller\Admin\ProjectItermtmController',
+			'Api\Controller\Admin\ProjectItermdtppc' => 'Api\Controller\Admin\ProjectItermdtppcController',
+			'Api\Controller\Admin\ProjectItermdtpmac' => 'Api\Controller\Admin\ProjectItermdtpmacController',
+			'Api\Controller\Admin\ProjectItermengineering' => 'Api\Controller\Admin\ProjectItermengineeringController',
+			'Api\Controller\Admin\ProjectIterminterpreting' => 'Api\Controller\Admin\ProjectIterminterpretingController',
+			
+			
+			
             'Api\Controller\Admin\Staff' => 'Api\Controller\Admin\StaffController',
             'Api\Controller\Admin\Task' => 'Api\Controller\Admin\TaskController',
             'Api\Controller\Admin\Roles' => 'Api\Controller\Admin\RolesController',
@@ -120,6 +129,7 @@ return array(
             'Api\Controller\Papertask\Translation' => 'Api\Controller\Papertask\TranslationController',
             'Api\Controller\Papertask\Translationtm' => 'Api\Controller\Papertask\TranslationtmController',
 			'Api\Controller\Papertask\CurrencyRate' => 'Api\Controller\Papertask\CurrencyRateController',
+			'Api\Controller\Papertask\CompanyInfo' => 'Api\Controller\Papertask\CompanyInfoController',
             'Api\Controller\User\BankInfo' => 'Api\Controller\User\BankInfoController',
             'Api\Controller\User\Current' => 'Api\Controller\User\CurrentController',
             'Api\Controller\User\DesktopPrice' => 'Api\Controller\User\DesktopPriceController',

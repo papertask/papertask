@@ -601,7 +601,7 @@ $this->inlineScript()->appendScript("
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th># 1</th>
+                    <th width="50%"># 1</th>
                     <td><a data-toggle="modal" href="#modal-company" type="button"
                            class="btn btn-primary btn-xs">Edit</a></td>
                 </tr>
@@ -609,38 +609,38 @@ $this->inlineScript()->appendScript("
                 <tbody>
                 <tr>
                     <th>Company Name</th>
-                    <td>PaperTask Limited</td>
+                    <td>{{companyinfo1.name }}</td>
                 </tr>
                 <tr>
                     <th>Phone</th>
-                    <td>0086 10 85916569</td>
+                    <td>{{ companyinfo1.telephone }}</td>
                 </tr>
                 <tr>
                     <th>Fax</th>
-                    <td>2</td>
+                    <td>{{ companyinfo1.fax }}</td>
                 </tr>
                 <tr>
                     <th>Address</th>
-                    <td></td>
+                    <td>{{ companyinfo1.address }}</td>
                 </tr>
                 <tr>
                     <th>City</th>
-                    <td></td>
+                    <td>{{ companyinfo1.city }}</td>
                 </tr>
                 <tr>
                     <th>Country</th>
-                    <td></td>
+                    <td>{{ companyinfo1.country }}</td>
                 </tr>
                 <tr>
                     <th>Note</th>
-                    <td></td>
+                    <td>{{ companyinfo2.note }}</td>
                 </tr>
                 </tbody>
             </table>
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th># 2</th>
+                    <th  width="50%"># 2</th>
                     <td><a data-toggle="modal" href="#modal-company" type="button"
                            class="btn btn-primary btn-xs">Edit</a></td>
                 </tr>
@@ -648,31 +648,31 @@ $this->inlineScript()->appendScript("
                 <tbody>
                 <tr>
                     <th>Company Name</th>
-                    <td>PaperTask Limited</td>
+                    <td>{{companyinfo2.name }}</td>
                 </tr>
                 <tr>
                     <th>Phone</th>
-                    <td>0086 10 85916569</td>
+                    <td>{{ companyinfo2.telephone }}</td>
                 </tr>
                 <tr>
                     <th>Fax</th>
-                    <td>2</td>
+                    <td>{{ companyinfo2.fax }}</td>
                 </tr>
                 <tr>
                     <th>Address</th>
-                    <td></td>
+                    <td>{{ companyinfo2.address }}</td>
                 </tr>
                 <tr>
                     <th>City</th>
-                    <td></td>
+                    <td>{{ companyinfo2.city }}</td>
                 </tr>
                 <tr>
                     <th>Country</th>
-                    <td></td>
+                    <td>{{ companyinfo2.country }}</td>
                 </tr>
                 <tr>
                     <th>Note</th>
-                    <td></td>
+                    <td>{{ companyinfo2.note }}</td>
                 </tr>
                 </tbody>
             </table>

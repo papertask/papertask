@@ -39,12 +39,29 @@ class Project extends Entity{
      * @ORM\ManyToMany(targetEntity="Language")
      */
     protected $targetLanguages;
+	
+	/**
+     * @var string
+     * @ORM\Column(type="string", nullable=True)
+     */
+    protected $quote_no;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
     protected $reference;
+	/**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $tax=0;
+
+	/**
+     * @var float
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $discount = 0.00;
 
     /**
      * @var integer
@@ -137,6 +154,9 @@ class Project extends Entity{
         return [
             'client' => $this->client->getEmployer()->getData(),
             'dueDate' => $this->dueDate,
+			'quote_no' => $this->quote_no,
+			'tax' => $this->tax,
+			'discount' => $this->discount,
             'duration' => $this->duration,
             'field' => $this->field->getData(),
             'id' => $this->id,

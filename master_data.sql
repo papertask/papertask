@@ -286,3 +286,5 @@ INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('11', 'Operati
 
 INSERT INTO `papertask`.`profileservice` (`id`, `name`, `currencyRate`) VALUES ('1', 'CNY', 6.3);
 
+INSERT INTO `papertask`.`profileinfo` (`id`, `name`, `telephone`, `fax`, `address`, `city`, `country`, `website`, `note`) VALUES ('1', 'PaperTask', '090002323', '090002323', 'dsadadsadad', 'dasdada', 'dadadad', 'dsada', 'ddsdcc');
+INSERT INTO `papertask`.`profileinfo` (`id`, `name`, `telephone`, `fax`, `address`, `city`, `country`, `website`, `note`) VALUES ('2', 'PaperTask', '090002323', '090002323', 'dsadadsadad', 'dasdada', 'dadadad', 'dsada', 'ddsdcc');

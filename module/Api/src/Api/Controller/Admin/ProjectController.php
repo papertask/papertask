@@ -10,7 +10,15 @@ use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Admin\Model\Helper;
 use Api\Controller\AbstractRestfulJsonController;
 use User\Entity\Iterm;
+use User\Entity\Itermdtpmac;
+use User\Entity\Itermdtppc;
+use User\Entity\Itermengineering;
+use User\Entity\Iterminterpreting;
+use User\Entity\Itermtm;
+use User\Entity\Itermnotm;
+
 use User\Entity\Project;
+
 use User\Entity\UserGroup;
 use User\Entity\Task;
 
@@ -72,7 +80,11 @@ class ProjectController extends AbstractRestfulJsonController
             $targetLanguages[$targetLanguage['id']] = $this->getReference('\User\Entity\Language', $targetLanguage['id']);
         }
         $data['targetLanguages'] = $targetLanguages;
-        $project = new Project();
+		
+		if($data['status'] == 1){
+			$data['quote_no'] = "QUO-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
+		}
+		$project = new Project();
         $project->setData($data);
 		$project->save($this->getEntityManager());
         $files = [];
@@ -92,26 +104,110 @@ class ProjectController extends AbstractRestfulJsonController
             $identifier = $iterms['identifier'];
             $type = $identifier[0];
             $languageId = $identifier[1]['id'];
+			if ($type == 'translationNoTM'){
+				
+				foreach($iterms['items'] as $item){
+					$iterm = new Itermnotm();
+					$iterm->setProject($project);
+					$iterm->setData([
+						'name' => $item['name'],
+						'file' => $files[$item['file']['id']],
+						'unit' => $item['unit']['id'],
+						'rate' => $item['rate'],
+						'quantity' => $item['quantity'],
+						'language' => $targetLanguages[$languageId],
+					]);
+				}
+				$iterm->save($this->getEntityManager());
+			}
+			else if ($type == 'translationTM'){
+				
+				//foreach($iterms['itemtm'] as $item){
+					$iterm = new Itermtm();
+					$iterm->setProject($project);
+					$iterm->setData([
+						'name' => $iterms['itemtm']['name'],
+						'file' => $files[$item['file']['id']],
+						'sourcebawu' => $iterms['itemtm']['sourcebawu'],
+						'sourcejiuwu' => $iterms['itemtm']['sourcejiuwu'],
+						'sourcenomatch' => $iterms['itemtm']['sourcenomatch'],
+						'sourceqiwu' => $iterms['itemtm']['sourceqiwu'],
+						'sourcerepetitions' => $iterms['itemtm']['sourcerepetitions'],
+						'sourcewushi' => $iterms['itemtm']['sourcewushi'],
+						'sourceyibai' => $iterms['itemtm']['sourceyibai'],
+						'rate' => $iterms['itemtm']['rate'],
+						'language' => $targetLanguages[$languageId],
+					]);
+				//}
+				$iterm->save($this->getEntityManager());
+			}
+			else if ($type == 'dtpMac'){
+				
+				foreach($iterms['items'] as $item){
+					$iterm = new Itermdtpmac();
+					$iterm->setProject($project);
+					$iterm->setData([
+						'name' => $item['name'],
+						'file' => $files[$item['file']['id']],
+						'unit' => $item['unit']['id'],
+						'rate' => $item['rate'],
+						'quantity' => $item['quantity'],
+						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']), //$item['software'],
+						'language' => $targetLanguages[$languageId],
+					]);
+				}
+				$iterm->save($this->getEntityManager());
 			
-            $typeIterms = [];
-            foreach($iterms['items'] as $item){
-                $iterm = new Iterm();
-                $iterm->setData([
-                    'name' => $item['name'],
-					'file' => $files[$item['file']['id']],
-                    'unit' => $item['unit']['id'],
-                    'rate' => $item['rate'],
-                    'quantity' => $item['quantity'],
-                    'language' => $targetLanguages[$languageId],
-                ]);
-                $iterm->save($this->getEntityManager());
-                $typeIterms[] = $iterm;
-            }
-            $project->setData([
-                "{$type}Iterms" => $typeIterms,
-				 
-            ]);
-			
+			}
+			else if ($type == 'dtpPc'){
+				
+				foreach($iterms['items'] as $item){
+					$iterm = new Itermdtppc();
+					$iterm->setProject($project);
+					$iterm->setData([
+						'name' => $item['name'],
+						'file' => $files[$item['file']['id']],
+						'unit' => $item['unit']['id'],
+						'rate' => $item['rate'],
+						'quantity' => $item['quantity'],
+						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']), 
+						'language' => $targetLanguages[$languageId],
+					]);
+				}
+				$iterm->save($this->getEntityManager());
+			}
+			else if ($type == 'engineering'){
+				
+				foreach($iterms['items'] as $item){
+					$iterm = new Itermengineering();
+					$iterm->setProject($project);
+					$iterm->setData([
+						'name' => $item['name'],
+						'file' => $files[$item['file']['id']],
+						'unit' => $item['unit']['id'],
+						'rate' => $item['rate'],
+						'quantity' => $item['quantity'],
+						'language' => $targetLanguages[$languageId],
+					]);
+				}
+				$iterm->save($this->getEntityManager());
+			}
+			else{
+				
+				foreach($iterms['items'] as $item){
+					$iterm = new Iterminterpreting();
+					$iterm->setProject($project);
+					$iterm->setData([
+						'name' => $item['name'],
+						'file' => $files[$item['file']['id']],
+						'unit' => $item['unit']['id'],
+						'rate' => $item['rate'],
+						'quantity' => $item['quantity'],
+						'language' => $targetLanguages[$languageId],
+					]);
+				}
+				$iterm->save($this->getEntityManager());
+			}
         }
         $project->save($this->getEntityManager());
 		foreach($data['data'] as $iterms){
@@ -224,9 +320,21 @@ class ProjectController extends AbstractRestfulJsonController
     }
 
     public function get($id){
-        $project = $this->find('\User\Entity\Project', $id);
-        return new JsonModel([
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		$entityManager = $this->getEntityManager();
+        $project = $this->find('User\Entity\Project', $id);
+        /*$Itermnotm = $entityManager->getRepository('User\Entity\Itermnotm')->findBy(array('project'=>$project));
+        $Itermnotms = array();
+        foreach( $Itermnotm as $k => $v ) 
+        {
+            $Itermnotms[$k] = $v->getData();
+        }*/
+		//var_dump($Itermnotms);exit;
+		return new JsonModel([
             'project' => $project->getData(),
+			//'itermnotms' => $Itermnotms,
+			
         ]);
     }
 

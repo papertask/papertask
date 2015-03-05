@@ -27,7 +27,7 @@ angularApp.controller('ProjectIndexController', function($scope, StaffApi, Langu
     };
 
     $scope.goToEdit = function($project){
-        location.href = "/" + LANG_CODE + "/admin/project/detail/#edit?id=" + $project.id;
+        location.href = "/" + LANG_CODE + "/admin/project/detail?id=" + $project.id;
     };
 
     StaffApi.list({

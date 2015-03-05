@@ -1,0 +1,243 @@
+
+<div class="row">
+<div class="row">
+    <div class="col-lg-12" align="right">
+        <a href="#" class="btn btn-white"><i class="fa fa-pencil"></i> Edit </a>
+        <a href="#" class="btn btn-white"><i class="fa fa-file-pdf-o "></i> Download </a>
+        <a href="quote_print.html" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Print Quote </a>
+    </div>
+</div>
+<div class="hr-line-dashed"></div>
+<div class="row">
+    <div class="col-sm-6">
+        <h4>Quote No.</h4>
+        <h4 class="text-navy">{{ project.quote_no }}</h4>
+		
+        <h5>From:</h5>
+        <strong>{{ project.pm.name }}</strong><br>
+        <strong>Project Manager</strong><br>
+        <address>
+            <strong>{{companyinfo1.name}}</strong><br>
+            {{companyinfo1.address}}<br>
+            {{companyinfo1.city}}, {{companyinfo1.country}}<br>
+            <abbr title="Phone">P:</abbr> {{companyinfo1.telephone}}
+        </address>
+    </div>
+
+    <div class="col-sm-6 text-right">
+        <p>
+            <span><strong>Quote Date:</strong>{{ DateFormatter.format(project.startDate) }}</span><br/>
+            <span><strong>Due Date:</strong>{{  DateFormatter.format(project.dueDate) }}</span>
+        </p>
+        <h5>To:</span></h5>
+        <strong>{{ project.client.name }}</strong><br>
+        <strong>{{ project.client.position }} </strong><br>
+        <address>
+            <strong>{{ project.client.company.name }}</strong><br>
+            {{ project.client.company.address }}<br>
+            {{ project.client.company.city }}, {{ project.client.company.country }}<br>
+            <abbr title="Phone">P:</abbr> {{ project.client.company.telephone }}
+        </address>
+
+    </div>
+</div>
+<div class="hr-line-dashed"></div>
+<h4>Dear {{ project.client.name }},</h4><br>
+<h4>RE: {{ project.reference }} </h4><br>
+<p>Further to receipt of your enquiry, I now have pleasure in providing you with the cost for the above requirement.</p>
+<p><strong>Service Level: <span class="text-navy">  {{ project.serviceLevel.name }}</span></strong></p>
+<p><strong>Approximate duration: <span class="text-navy">{{ project.duration }} Working days</span></strong></p>
+<div class="hr-line-dashed"></div>
+
+<div class="table-responsive m-t"  ng-repeat="targetLanguage in project.targetLanguages">
+    <table class="table table-bordered invoice-table">
+        <thead>
+        <tr>
+            <th>{{ project.sourceLanguage.name }} to {{ targetLanguage.name }} - task</th>
+            <th>Unit</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+        </tr>
+        </thead>
+        <tbody>
+		<!-- this is only for translation use TM -->
+        <tr  ng-show="hasTypeTranslationShow()">
+            <td><div><a data-toggle="collapse" href="#use_tm1"><i class="fa fa-eye"></i> <strong>{{ itemtm.name }}</strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
+            <td>Source Word</td>
+            <td>{{ itemtm.rate }}</td>
+            <td>{{ itemtm.sourcerepetitions + itemtm.sourceyibai + itemtm.sourcejiuwu + itemtm.sourcebawu + itemtm.sourceqiwu + itemtm.sourcewushi}}</td>
+            <td>{{ (itemtm.rate * raterepetitions / 100) * itemtm.sourcerepetitions 
+																					+(itemtm.rate * rateyibai / 100) * itemtm.sourceyibai
+																					+(itemtm.rate * ratejiuwu / 100) * itemtm.sourcejiuwu
+																					+(itemtm.rate * ratebawu / 100) * itemtm.sourcebawu
+																					+(itemtm.rate * ratewushi / 100) * itemtm.sourcewushi
+																					+(itemtm.rate * ratenomatch / 100) * itemtm.sourcenomatch }}</td>
+        </tr>
+        <tr  ng-show="hasTypeTranslationShow()"> <!-- this is only for translation use TM -->
+            <td colspan="5">
+                <div id="use_tm1" class="panel-collapse collapse">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>TM Template</th>
+                                <th>Rate (%)</th>
+                                <th>Unit Price</th>
+                                <th>Quantity (Word)</th>
+                                <th>Quantity</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Repetitions</td>
+                                <td>10%</td>
+                                <td>CNY 0.012</td>
+                                <td>100</td>
+                                <td>CNY 1.20</td>
+                            </tr>
+                            <tr>
+                                <td>100%</td>
+                                <td>10%</td>
+                                <td>CNY 0.012</td>
+                                <td>200</td>
+                                <td>CNY 2.40</td>
+                            </tr>
+                            <tr>
+                                <td>95%-99%</td>
+                                <td>10%</td>
+                                <td>CNY 0.012</td>
+                                <td>200</td>
+                                <td>CNY 2.40</td>
+                            </tr>
+                            <tr>
+                                <td>85%-94%</td>
+                                <td>50%</td>
+                                <td>CNY 0.06</td>
+                                <td>300</td>
+                                <td>CNY 18.00</td>
+                            </tr>
+                            <tr>
+                                <td>75%-84%</td>
+                                <td>50%</td>
+                                <td>CNY 0.06</td>
+                                <td>200</td>
+                                <td>CNY 12.00</td>
+                            </tr>
+                            <tr>
+                                <td>50%-74%</td>
+                                <td>100%</td>
+                                <td>CNY 0.12</td>
+                                <td>1000</td>
+                                <td>CNY 120.00</td>
+                            </tr>
+                            <tr>
+                                <td>No Match</td>
+                                <td>100%</td>
+                                <td>CNY 0.12</td>
+                                <td>1000</td>
+                                <td>CNY 120.00</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" align="right"><strong>Total</strong></td>
+                                <td class="text-info">CNY xxxx.xx</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr ng-show="hasTypeTranslationNoTM()" ng-repeat = "itermnotmsnew in itermnotmsnews[targetLanguage.id]">
+			
+            <td><div><strong> {{ itermnotmsnew.name }} </strong> - <span class="text-navy"> Translation (No TM)</span></div></td>
+            <td>{{ itermnotmsnew.unit }}</td>
+            <td>{{ itermnotmsnew.rate }}</td>
+            <td>{{ itermnotmsnew.quantity }}</td>
+            <td>{{ itermnotmsnew.rate*itermnotmsnew.quantity }}</td>
+        </tr>
+        <tr ng-show="hasTypeDesktopPublishingMac()" ng-repeat = "itermdtpmac in itermdtpmacs[targetLanguage.id]">
+            <td><div><strong> {{ itermdtpmac.name }}</strong> - <span class="text-info">DTP <i class="fa fa-apple"></i></span></div></td>
+            <td>{{ itermdtpmac.unit }}</td>
+            <td>{{ itermdtpmac.rate }}</td>
+            <td>{{ itermdtpmac.quantity }}</td>
+            <td>{{ itermdtpmac.rate * itermdtpmac.quantity }}</td>
+        </tr>
+		<tr ng-show="hasTypeDesktopPublishingWin()" ng-repeat = "itermdtppc in itermdtppcs[targetLanguage.id]">
+            <td><div><strong> {{ itermdtppc.name }}</strong> - <span class="text-info">DTP <i class="fa fa-windows"></i></span></div></td>
+            <td>{{ itermdtppc.unit }}</td>
+            <td>{{ itermdtppc.rate }}</td>
+            <td>{{ itermdtppc.quantity }}</td>
+            <td>{{ itermdtppc.rate * itermdtppc.quantity }}</td>
+        </tr>
+		<tr ng-show="hasTypeDesktopPublishingEngineer()" ng-repeat = "itermengineering in itermengineerings[targetLanguage.id]">
+            <td><div><strong> {{ itermengineering.name }}</strong> - <span class="text-info">Engineering </span></div></td>
+            <td>{{ itermengineering.unit }}</td>
+            <td>{{ itermengineering.rate }}</td>
+            <td>{{ itermengineering.quantity }}</td>
+            <td>{{ itermengineering.rate * itermengineering.quantity }}</td>
+        </tr>
+		<tr ng-show="interpreting.id > 0" ng-repeat = "iterminterpreting in iterminterpretings[targetLanguage.id]">
+            <td><div><strong> {{ iterminterpreting.name }}</strong> - <span class="text-info"> Interpreting </span></div></td>
+            <td>{{ iterminterpreting.unit }}</td>
+            <td>{{ iterminterpreting.rate }}</td>
+            <td>{{ iterminterpreting.quantity }}</td>
+            <td>{{ iterminterpreting.rate * iterminterpreting.quantity }}</td>
+        </tr>
+		
+        </tbody>
+    </table>
+</div><!-- /table-responsive -->
+<table class="table invoice-total">
+    <tbody>
+    <tr>
+        <td><strong>Sub Total :</strong></td>
+        <td>CNY 1026.00</td>
+    </tr>
+    <tr>
+        <td><strong>(-) Discount :</strong></td>
+        <td><span class="text-danger"><strong>-</strong></span> CNY 100.00</td>
+    </tr>
+    <tr>
+        <td><strong>TAX (6%):</strong></td>
+        <td>CNY 235.98</td>
+    </tr>
+    <tr>
+        <td><strong>TOTAL :</strong></td>
+        <td>CNY 1261.98</td>
+    </tr>
+    </tbody>
+</table>
+<!-- if the client is uncontracted, then "make a payment" will show, if client type is "contracted", then dont show "make a payment" instead of "accept the quote" after accept, the project status changed from quoted to ordered -->
+<div class="text-right">
+    <button class="btn btn-primary"><i class="fa fa-dollar"></i> Quote Accepted</button>
+</div>
+<div class="hr-line-dashed"></div>
+<div class="m-t">
+    The above costs include supplying the translations as electronic files in formats per your requirements.
+    <br><br>
+    Should any amendments or changes to the source text be required after the project has commenced, they will be incorporated at the standard rate which can be provided upon request.
+    <br><br>
+    <strong>Turnaround Time</strong>
+    <br>
+    It would take approximately <span class="text-navy">3 working days</span> from your accept the quote order to complete the translation work.
+    <br><br>
+    We strongly recommend that any text be reviewed prior to going to print. We would be happy to liase with any reviewers in country should you require it.
+    <br><br>
+    <strong>Terms of Service</strong>
+    <br>
+    Work will be invoiced on completion of each stage of the client order. The Company cannot accept a delay in payment due to translated documents awaiting approval of agents abroad, unless by prior agreement at the commencement of the project.
+    <br><br>
+    Prices quoted are valid for 30 days after this letter.
+    <br><br>
+    If you should require any further information please do not hesitate to contact me.
+    <br><br>
+    Assuring you of our best attention at all times.
+    <br><br>
+    Yours sincerely,
+    <br><br>
+    {{ project.pm.name }}<br>
+    Project Manager/Sales Manager<br>
+    <strong>PaperTask</strong>
+</div>
+</div>
