@@ -186,6 +186,19 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
                 jQuery.extend($scope.tempProject, $scope.project);
             });
     }
+
+	$scope.saveTaxandDiscount = function ( project ) {
+		
+		$scope.project.tax = project.tax;
+		$scope.project.discount = project.discount;
+		
+		console.log($scope.project);
+		console.log(project);
+		var updateTaxandDiscount = $http.put("/api/admin/project/" + $scope.project.id + "?action=1", $scope.project)
+				.success( function ( $data ) {
+					jQuery("#modal-edit-quote").modal("hide");
+				});	
+	}
 	function existsIdInArray(arr, id){
         for(var i = 0; i < arr.length; i++){
             if(arr[i].id == id){

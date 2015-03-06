@@ -365,12 +365,21 @@ class ProjectController extends AbstractRestfulJsonController
     }
 
     public function update($id, $data){
-        $this->cleanData($data);
-
+        //$this->cleanData($data);
+		//
         /** @var \User\Entity\Project $project */
-        $project = $this->find('\User\Entity\Project', $id);
-        $project->setData($data);
-        $project->save($this->getEntityManager());
+		//$action 
+		$action = $this->params()->fromQuery('action');
+		//var_dump($action);exit;
+		$project = $this->find('\User\Entity\Project', $id);
+		if($action==1)
+		{
+			$project->setData([
+				'tax' => $data.tax,
+				'discount' =>  $data.discount,
+			]);
+			$project->save($this->getEntityManager());
+        }
         return new JsonModel([
             'project' => $project->getData(),
         ]);
