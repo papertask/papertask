@@ -710,7 +710,7 @@ $this->inlineScript()->appendScript("
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th># 1</th>
+                    <th width="50%"># 1</th>
                     <td><a data-toggle="modal" href="#modal-bank" type="button" class="btn btn-primary btn-xs">Edit</a>
                     </td>
                 </tr>
@@ -718,46 +718,46 @@ $this->inlineScript()->appendScript("
                 <tbody>
                 <tr>
                     <th>Bank Name</th>
-                    <td>ICBC Beijing</td>
+                    <td>{{ bankinfo1.name }}</td>
                 </tr>
                 <tr>
                     <th>Beneficiar Name</th>
-                    <td>0086 10 85916569</td>
+                    <td>{{ bankinfo1.beneficiar_name }}</td>
                 </tr>
                 <tr>
                     <th>Account No./IBAN</th>
-                    <td>2</td>
+                    <td>{{ bankinfo1.accountNo }}</td>
                 </tr>
                 <tr>
                     <th>Swift Code</th>
-                    <td></td>
+                    <td>{{ bankinfo1.swift }}</td>
                 </tr>
                 <tr>
                     <th>ABA Routing Number</th>
-                    <td></td>
+                    <td>{{ bankinfo1.routingNumber }}</td>
                 </tr>
                 <tr>
                     <th>Bank Address</th>
-                    <td></td>
+                    <td>{{ bankinfo1.address }}</td>
                 </tr>
                 <tr>
                     <th>Bank City</th>
-                    <td></td>
+                    <td>{{ bankinfo1.city }}</td>
                 </tr>
                 <tr>
                     <th>Bank Country</th>
-                    <td></td>
+                    <td>{{ bankinfo1.country }}</td>
                 </tr>
                 <tr>
                     <th>Note</th>
-                    <td></td>
+                    <td>{{ bankinfo1.note }}</td>
                 </tr>
                 </tbody>
             </table>
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th># 2</th>
+                    <th width="50%"># 2</th>
                     <td><a data-toggle="modal" href="#modal-bank" type="button" class="btn btn-primary btn-xs">Edit</a>
                     </td>
                 </tr>
@@ -765,39 +765,39 @@ $this->inlineScript()->appendScript("
                 <tbody>
                 <tr>
                     <th>Bank Name</th>
-                    <td>ICBC Beijing</td>
+                    <td>{{ bankinfo2.name }}</td>
                 </tr>
                 <tr>
                     <th>Beneficiar Name</th>
-                    <td>0086 10 85916569</td>
+                    <td>{{ bankinfo2.beneficiar_name }}</td>
                 </tr>
                 <tr>
                     <th>Account No./IBAN</th>
-                    <td>2</td>
+                    <td>{{ bankinfo2.accountNo }}</td>
                 </tr>
                 <tr>
                     <th>Swift Code</th>
-                    <td></td>
+                    <td>{{ bankinfo2.swift }}</td>
                 </tr>
                 <tr>
                     <th>ABA Routing Number</th>
-                    <td></td>
+                    <td>{{ bankinfo2.routingNumber }}</td>
                 </tr>
                 <tr>
                     <th>Bank Address</th>
-                    <td></td>
+                    <td>{{ bankinfo2.address }}</td>
                 </tr>
                 <tr>
                     <th>Bank City</th>
-                    <td></td>
+                    <td>{{ bankinfo2.city }}</td>
                 </tr>
                 <tr>
                     <th>Bank Country</th>
-                    <td></td>
+                    <td>{{ bankinfo2.country }}</td>
                 </tr>
                 <tr>
                     <th>Note</th>
-                    <td></td>
+                    <td>{{ bankinfo2.note }}</td>
                 </tr>
                 </tbody>
             </table>

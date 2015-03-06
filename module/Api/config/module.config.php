@@ -107,8 +107,7 @@ return array(
 			'Api\Controller\Admin\ProjectItermdtpmac' => 'Api\Controller\Admin\ProjectItermdtpmacController',
 			'Api\Controller\Admin\ProjectItermengineering' => 'Api\Controller\Admin\ProjectItermengineeringController',
 			'Api\Controller\Admin\ProjectIterminterpreting' => 'Api\Controller\Admin\ProjectIterminterpretingController',
-			
-			
+			'Api\Controller\Admin\Invoice' => 'Api\Controller\Admin\InvoiceController',
 			
             'Api\Controller\Admin\Staff' => 'Api\Controller\Admin\StaffController',
             'Api\Controller\Admin\Task' => 'Api\Controller\Admin\TaskController',
@@ -130,6 +129,8 @@ return array(
             'Api\Controller\Papertask\Translationtm' => 'Api\Controller\Papertask\TranslationtmController',
 			'Api\Controller\Papertask\CurrencyRate' => 'Api\Controller\Papertask\CurrencyRateController',
 			'Api\Controller\Papertask\CompanyInfo' => 'Api\Controller\Papertask\CompanyInfoController',
+			'Api\Controller\Papertask\BankInfo' => 'Api\Controller\Papertask\BankInfoController',
+			
             'Api\Controller\User\BankInfo' => 'Api\Controller\User\BankInfoController',
             'Api\Controller\User\Current' => 'Api\Controller\User\CurrentController',
             'Api\Controller\User\DesktopPrice' => 'Api\Controller\User\DesktopPriceController',

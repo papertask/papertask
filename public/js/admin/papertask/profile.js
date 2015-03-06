@@ -119,6 +119,18 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
         }).error(function($e){
             alert('error');
         });
+		//get bank info
+		$http.get("/api/papertask/bankinfo").success(function($data){
+            $scope.bankinfo = $data['bankinfo'];
+			$scope.bankinfo1 = $scope.bankinfo[0];
+			$scope.bankinfo2 = $scope.bankinfo[1];
+			
+			console.log("bankinfo");
+			console.log($scope.bankinfo1);
+			console.log($scope.bankinfo2);
+        }).error(function($e){
+            alert('error');
+        });
 		
 		$scope.saveRate = function(){
             var validate = $('form[name=CurrencyRate]').valid();

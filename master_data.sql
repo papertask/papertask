@@ -288,3 +288,6 @@ INSERT INTO `papertask`.`profileservice` (`id`, `name`, `currencyRate`) VALUES (
 
 INSERT INTO `papertask`.`profileinfo` (`id`, `name`, `telephone`, `fax`, `address`, `city`, `country`, `website`, `note`) VALUES ('1', 'PaperTask', '090002323', '090002323', 'dsadadsadad', 'dasdada', 'dadadad', 'dsada', 'ddsdcc');
 INSERT INTO `papertask`.`profileinfo` (`id`, `name`, `telephone`, `fax`, `address`, `city`, `country`, `website`, `note`) VALUES ('2', 'PaperTask', '090002323', '090002323', 'dsadadsadad', 'dasdada', 'dadadad', 'dsada', 'ddsdcc');
+
+INSERT INTO `papertask`.`profilebank` (`id`, `account`, `address`, `city`, `country`, `swift`, `name`, `accountNo`, `routingNumber`) 
+VALUES ('1', '', 'Shops 110-120, 1/F Emperor Group Centre, 288 Hennessy Road', 'Wanchai', 'Hong Kong', 'HSBCHKHHHKH', 'HSBC Hong Kong', '', '');

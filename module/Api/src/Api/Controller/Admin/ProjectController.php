@@ -21,6 +21,7 @@ use User\Entity\Project;
 
 use User\Entity\UserGroup;
 use User\Entity\Task;
+use User\Entity\Invoice;
 
 class ProjectController extends AbstractRestfulJsonController
 {
@@ -100,6 +101,15 @@ class ProjectController extends AbstractRestfulJsonController
                 }
             }
         }
+		$invoice = new Invoice();
+		$invoice_no = "INV-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
+		$invoice->setData(
+		[
+			'invoice_no' => $invoice_no,
+			'invoiceDate' => date("Y-m-d  H:i:s"),
+			'dueDate' => $data['dueDate'],
+		]);
+		$invoice->save($this->getEntityManager());
 		
         foreach($data['data'] as $iterms){
             $identifier = $iterms['identifier'];

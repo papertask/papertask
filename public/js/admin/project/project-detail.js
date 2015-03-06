@@ -93,7 +93,19 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
         }).error(function($e){
             alert('error');
         });	
+		//get bank info
+		$http.get("/api/papertask/bankinfo").success(function($data){
+            $scope.bankinfo = $data['bankinfo'];
+			$scope.bankinfo1 = $scope.bankinfo[0];
+			$scope.bankinfo2 = $scope.bankinfo[1];
 			
+			console.log("bankinfo");
+			console.log($scope.bankinfo1);
+			console.log($scope.bankinfo2);
+        }).error(function($e){
+            alert('error');
+        });		
+		
         var client_listener = ClientApi.list({}, function($clients){
             $scope.clients = $clients;
         });
@@ -129,7 +141,8 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 				});
 				$http.get('/api/admin/projectitermtm?projectId='+ projectId).success(function($data) {
 					$scope.itemtm = $data['Itermtms'][0];
-					$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
+					if($scope.itemtm)
+						$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
 					console.log("scope.itemtm");
 					console.log($scope.itemtm);		
 				});
@@ -156,6 +169,12 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 					$scope.iterminterpretings = arrangeItem($data['Iterminterpretings']);
 					console.log("scope.iterminterpretings");
 					console.log($scope.iterminterpretings);			
+				});
+				
+				$http.get('/api/admin/invoice?projectId='+ projectId).success(function($data) {
+					$scope.invoice = $data['invoice'];
+					console.log("scope.invoice");
+					console.log($scope.invoice);			
 				});
 				
 				$scope.project.types = ProjectType.find($scope.project.types.sort())
