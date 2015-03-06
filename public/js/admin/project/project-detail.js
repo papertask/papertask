@@ -26,7 +26,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
     $scope.ProjectServiceLevel = ProjectServiceLevel;
     $scope.ProjectPriority = ProjectPriority;
     $scope.FieldApi = FieldApi;
-
+	
     $scope.tempProject = {};
     $scope.clients = [];
     $scope.sales = [];
@@ -38,7 +38,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 	$scope.telephone = [];
 	
 	$scope.itermtm = [];
-	
+	$scope.subtotal = 0;
     function search_by_id($array, $id){
         for(var i = 0; i < $array.length; i++){
             if($array[i].id == $id){
@@ -117,7 +117,9 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 				console.log($scope.project.client);	
                 $http.get('/api/admin/projectitermnotm?projectId='+ projectId).success(function($data) {
 					$scope.itermnotms = $data['Itermnotms'];
+					
 					// arrange itermnotms based language
+					
 					$scope.itermnotmsnews = arrangeItem($data['Itermnotms']);
 					console.log("scope.itermnotms");
 					console.log($scope.itermnotms);	
@@ -127,6 +129,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 				});
 				$http.get('/api/admin/projectitermtm?projectId='+ projectId).success(function($data) {
 					$scope.itemtm = $data['Itermtms'][0];
+					$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
 					console.log("scope.itemtm");
 					console.log($scope.itemtm);		
 				});
@@ -198,8 +201,10 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 		{
 			$scope.itermtmnew[$scope.project.targetLanguages[i].id] = [];
 			for(var j = 0; j < Itemr.length; j++){
-				if(Itemr[j].language.id == $scope.project.targetLanguages[i].id)
+				if(Itemr[j].language.id == $scope.project.targetLanguages[i].id){
 					$scope.itermtmnew[$scope.project.targetLanguages[i].id].push(Itemr[j]);
+					$scope.subtotal = $scope.subtotal + parseFloat(Itemr[j].total);	
+				}	
 			}
 		}
         return $scope.itermtmnew;

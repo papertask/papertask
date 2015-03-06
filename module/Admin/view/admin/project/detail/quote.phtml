@@ -187,7 +187,7 @@
     <tbody>
     <tr>
         <td><strong>Sub Total :</strong></td>
-        <td>{{ project.subtotal }}</td>
+        <td>{{ subtotal }}</td>
     </tr>
     <tr>
         <td><strong>(-) Discount :</strong></td>
@@ -195,11 +195,11 @@
     </tr>
     <tr>
         <td><strong>TAX ({{ project.tax }} %):</strong></td>
-        <td>{{ (project.subtotal - project.discount)* project.tax/100 }}</td>
+        <td>{{ (subtotal - project.discount)* project.tax/100 }}</td>
     </tr>
     <tr>
         <td><strong>TOTAL :</strong></td>
-        <td>{{ project.subtotal - project.discount + (project.subtotal - project.discount)* project.tax/100 }}</td>
+        <td>{{ subtotal - project.discount + (subtotal - project.discount)* project.tax/100 }}</td>
     </tr>
     </tbody>
 </table>
