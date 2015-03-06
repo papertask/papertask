@@ -62,14 +62,14 @@
         </thead>
         <tbody>
 		<!-- this is only for translation use TM -->
-        <tr  ng-show="hasTypeTranslationShow()">
+        <tr  ng-show="hasTypeTranslationUseTM()">
             <td><div><a data-toggle="collapse" href="#use_tm1"><i class="fa fa-eye"></i> <strong>{{ itemtm.name }}</strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
             <td>Source Word</td>
             <td>{{ itemtm.rate }}</td>
             <td>{{ itemtm.sourcerepetitions + itemtm.sourceyibai + itemtm.sourcejiuwu + itemtm.sourcebawu + itemtm.sourceqiwu + itemtm.sourcewushi}}</td>
             <td>{{ itemtm.total }}</td>
         </tr>
-        <tr  ng-show="hasTypeTranslationShow()"> <!-- this is only for translation use TM -->
+        <tr  ng-show="hasTypeTranslationUseTM()"> <!-- this is only for translation use TM -->
             <td colspan="5">
                 <div id="use_tm1" class="panel-collapse collapse">
                     <div class="table-responsive">
