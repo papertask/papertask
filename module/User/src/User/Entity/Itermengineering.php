@@ -65,7 +65,11 @@ class Itermengineering extends Entity{
      */
 	 
     protected $engineeringcategory;
-	
+	 /**
+     * @var float
+     * @ORM\Column(type="decimal")
+     */
+    protected $total = 0;
 	public function getProject(){
         return $this->project;
     }
@@ -81,7 +85,8 @@ class Itermengineering extends Entity{
 			'rate' => $this->rate,
 			'quantity' => $this->quantity,
             'unit' => $this->unit,
-			'engineeringcategory' => $this->engineeringcategory
+			'engineeringcategory' => $this->engineeringcategory,
+			'total' => $this->total
         ];
     }
 

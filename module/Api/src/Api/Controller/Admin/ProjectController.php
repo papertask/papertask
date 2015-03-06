@@ -74,7 +74,6 @@ class ProjectController extends AbstractRestfulJsonController
 		//ini_set('display_errors', 1);
         
 		$this->cleanData($data);
-
         $targetLanguages = [];
         foreach($data['targetLanguages'] as $targetLanguage){
             $targetLanguages[$targetLanguage['id']] = $this->getReference('\User\Entity\Language', $targetLanguage['id']);
@@ -84,7 +83,9 @@ class ProjectController extends AbstractRestfulJsonController
 		if($data['status'] == 1){
 			$data['quote_no'] = "QUO-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
 		}
+		
 		$project = new Project();
+		
         $project->setData($data);
 		$project->save($this->getEntityManager());
         $files = [];
@@ -99,7 +100,7 @@ class ProjectController extends AbstractRestfulJsonController
                 }
             }
         }
-
+		
         foreach($data['data'] as $iterms){
             $identifier = $iterms['identifier'];
             $type = $identifier[0];
@@ -115,7 +116,8 @@ class ProjectController extends AbstractRestfulJsonController
 						'unit' => $item['unit']['id'],
 						'rate' => $item['rate'],
 						'quantity' => $item['quantity'],
-						'language' => $targetLanguages[$languageId],
+						'total' => $item['total'],
+						'language' => $targetLanguages[$languageId]
 					]);
 				}
 				$iterm->save($this->getEntityManager());
@@ -135,8 +137,16 @@ class ProjectController extends AbstractRestfulJsonController
 						'sourcerepetitions' => $iterms['itemtm']['sourcerepetitions'],
 						'sourcewushi' => $iterms['itemtm']['sourcewushi'],
 						'sourceyibai' => $iterms['itemtm']['sourceyibai'],
+						'raterepetitions' => $iterms['itemtm']['raterepetitions'],
+						'ratewushi' => $iterms['itemtm']['ratewushi'],
+						'rateyibai' => $iterms['itemtm']['rateyibai'],
+						'ratebawu' => $iterms['itemtm']['ratebawu'],
+						'ratejiuwu' => $iterms['itemtm']['ratejiuwu'],
+						'ratenomatch' => $iterms['itemtm']['ratenomatch'],
+						'rateqiwu' => $iterms['itemtm']['rateqiwu'],
+						'total' => $iterms['itemtm']['total'],
 						'rate' => $iterms['itemtm']['rate'],
-						'language' => $targetLanguages[$languageId],
+						'language' => $targetLanguages[$languageId]
 					]);
 				//}
 				$iterm->save($this->getEntityManager());
@@ -152,6 +162,7 @@ class ProjectController extends AbstractRestfulJsonController
 						'unit' => $item['unit']['id'],
 						'rate' => $item['rate'],
 						'quantity' => $item['quantity'],
+						'total' => $item['total'],
 						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']), //$item['software'],
 						'language' => $targetLanguages[$languageId],
 					]);
@@ -170,6 +181,7 @@ class ProjectController extends AbstractRestfulJsonController
 						'unit' => $item['unit']['id'],
 						'rate' => $item['rate'],
 						'quantity' => $item['quantity'],
+						'total' => $item['total'],
 						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']), 
 						'language' => $targetLanguages[$languageId],
 					]);
@@ -187,6 +199,7 @@ class ProjectController extends AbstractRestfulJsonController
 						'unit' => $item['unit']['id'],
 						'rate' => $item['rate'],
 						'quantity' => $item['quantity'],
+						'total' => $item['total'],
 						'language' => $targetLanguages[$languageId],
 					]);
 				}
@@ -203,6 +216,7 @@ class ProjectController extends AbstractRestfulJsonController
 						'unit' => $item['unit']['id'],
 						'rate' => $item['rate'],
 						'quantity' => $item['quantity'],
+						'total' => $item['total'],
 						'language' => $targetLanguages[$languageId],
 					]);
 				}

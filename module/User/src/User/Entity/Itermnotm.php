@@ -60,6 +60,12 @@ class Itermnotm extends Entity{
      */
     protected $unit;
 	
+	 /**
+     * @var decimal
+     * @ORM\Column(type="decimal")
+     */
+    protected $total = 0;
+	
 	public function getProject(){
         return $this->project;
     }
@@ -75,7 +81,8 @@ class Itermnotm extends Entity{
 			'language' => $this->language->getData(),
 			'rate' => $this->rate,
 			'quantity' => $this->quantity,
-            'unit' => $this->unit
+            'unit' => $this->unit,
+			'total' => $this->total
         ];
     }
 

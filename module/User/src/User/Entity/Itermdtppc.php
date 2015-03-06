@@ -65,6 +65,11 @@ class Itermdtppc extends Entity{
      * @ORM\ManyToOne(targetEntity="DesktopSoftware")
      */
     protected $software;
+	 /**
+     * @var float
+     * @ORM\Column(type="decimal")
+     */
+    protected $total = 0;
 	
 	public function getProject(){
         return $this->project;
@@ -81,7 +86,8 @@ class Itermdtppc extends Entity{
 			'rate' => $this->rate,
 			'quantity' => $this->quantity,
             'unit' => $this->unit,
-			'software' => $this->software->getData()
+			'software' => $this->software->getData(),
+			'total' => $this->total
         ];
     }
 }

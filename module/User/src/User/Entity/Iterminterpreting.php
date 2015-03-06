@@ -59,6 +59,11 @@ class Iterminterpreting extends Entity{
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $unit;
+	 /**
+     * @var float
+     * @ORM\Column(type="decimal")
+     */
+    protected $total = 0;
 	
 	public function getProject(){
         return $this->project;
@@ -74,7 +79,8 @@ class Iterminterpreting extends Entity{
 			'language' => $this->language->getData(),
 			'rate' => $this->rate,
 			'quantity' => $this->quantity,
-            'unit' => $this->unit
+            'unit' => $this->unit,
+			'total' => $this->total
         ];
     }
 

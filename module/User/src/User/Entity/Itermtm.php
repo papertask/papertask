@@ -29,6 +29,9 @@ class Itermtm extends Entity{
      */
     protected $project;
 	
+	/** @ORM\Column(type="string") */
+    protected $name;
+	
     /**
      * @var \User\Entity\Language
      * @ORM\ManyToOne(targetEntity="Language")
@@ -51,7 +54,51 @@ class Itermtm extends Entity{
      * @var integer
      * @ORM\Column(type="integer")
      */
+    protected $raterepetitions;
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
     protected $sourcebawu;
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $rateyibai;
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $ratejiuwu;
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $ratebawu;
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $rateqiwu;
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $ratewushi;
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $ratenomatch;
+	
+	
 	/**
      * @var integer
      * @ORM\Column(type="integer")
@@ -77,6 +124,12 @@ class Itermtm extends Entity{
      * @ORM\Column(type="integer")
      */
     protected $sourceyibai;
+	 
+	 /**
+     * @var float
+     * @ORM\Column(type="decimal")
+     */
+    protected $total = 0;
    
      public function getProject(){
         return $this->project;
@@ -97,7 +150,16 @@ class Itermtm extends Entity{
 			'sourcenomatch' => $this->sourcenomatch,
 			'sourceqiwu' => $this->sourceqiwu,
 			'sourcewushi' => $this->sourcewushi,
-			'sourceyibai' => $this->sourceyibai
+			'sourceyibai' => $this->sourceyibai,
+			'raterepetitions' => $this->raterepetitions,
+			'rateyibai' => $this->rateyibai,
+			'ratejiuwu' => $this->ratejiuwu,
+			'ratebawu' => $this->ratebawu,
+			'rateqiwu' => $this->rateqiwu,
+			'ratewushi' => $this->ratewushi,
+			'ratenomatch' => $this->ratenomatch,
+			'total' => $this->total
+			
         ];
     }	
 

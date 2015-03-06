@@ -30,7 +30,7 @@
                         <td><?php echo $this->translate("Source word") ?></td>
                         <td>{{ CurrentUser.price(item.rate, currency) }}</td>
                         <td>{{ item.quantity }}</td>
-                        <td>{{ CurrentUser.price(item.rate * item.quantity, currency) }}</td>
+                        <td>{{ CurrentUser.price(item.total, currency) }}</td>
                         <td>
                         <span ng-click="showModal(item)">
                             <i class="fa fa-edit"></i>
@@ -157,13 +157,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="4" align="right"><strong>Total</strong></td>
-                                            <td class="text-info">{{ CurrentUser.price( (itemtm.rate * raterepetitions / 100) * itemtm.sourcerepetitions 
-																					+(itemtm.rate * rateyibai / 100) * itemtm.sourceyibai
-																					+(itemtm.rate * ratejiuwu / 100) * itemtm.sourcejiuwu
-																					+(itemtm.rate * ratebawu / 100) * itemtm.sourcebawu
-																					+(itemtm.rate * ratewushi / 100) * itemtm.sourcewushi
-																					+(itemtm.rate * ratenomatch / 100) * itemtm.sourcenomatch
-											, currency)  }}</td>
+                                            <td class="text-info">{{ CurrentUser.price( itemtm.total , currency)  }}</td>
                                         </tr>
                                         </tbody>
                                     </table>

@@ -67,12 +67,7 @@
             <td>Source Word</td>
             <td>{{ itemtm.rate }}</td>
             <td>{{ itemtm.sourcerepetitions + itemtm.sourceyibai + itemtm.sourcejiuwu + itemtm.sourcebawu + itemtm.sourceqiwu + itemtm.sourcewushi}}</td>
-            <td>{{ (itemtm.rate * raterepetitions / 100) * itemtm.sourcerepetitions 
-																					+(itemtm.rate * rateyibai / 100) * itemtm.sourceyibai
-																					+(itemtm.rate * ratejiuwu / 100) * itemtm.sourcejiuwu
-																					+(itemtm.rate * ratebawu / 100) * itemtm.sourcebawu
-																					+(itemtm.rate * ratewushi / 100) * itemtm.sourcewushi
-																					+(itemtm.rate * ratenomatch / 100) * itemtm.sourcenomatch }}</td>
+            <td>{{ itemtm.total }}</td>
         </tr>
         <tr  ng-show="hasTypeTranslationShow()"> <!-- this is only for translation use TM -->
             <td colspan="5">
@@ -91,56 +86,56 @@
                             <tbody>
                             <tr>
                                 <td>Repetitions</td>
-                                <td>10%</td>
-                                <td>CNY 0.012</td>
-                                <td>100</td>
-                                <td>CNY 1.20</td>
+                                <td>{{ itemtm.raterepetitions }}</td>
+                                <td>{{ itemtm.rate * itemtm.raterepetitions / 100 }}</td>
+                                <td>{{ itemtm.sourcerepetitions }}</td>
+                                <td>{{ (itemtm.rate * itemtm.raterepetitions / 100) * itemtm.sourcerepetitions }}</td>
                             </tr>
                             <tr>
                                 <td>100%</td>
-                                <td>10%</td>
-                                <td>CNY 0.012</td>
-                                <td>200</td>
-                                <td>CNY 2.40</td>
+                                <td>{{ itemtm.rateyibai }}</td>
+                                <td>{{ itemtm.rate * itemtm.rateyibai / 100 }}</td>
+                                <td>{{ itemtm.sourceyibai }}</td>
+                                <td>{{ (itemtm.rate * itemtm.rateyibai / 100) * itemtm.sourceyibai }}</td>
                             </tr>
                             <tr>
                                 <td>95%-99%</td>
-                                <td>10%</td>
-                                <td>CNY 0.012</td>
-                                <td>200</td>
-                                <td>CNY 2.40</td>
+                                <td>{{ itemtm.ratejiuwu }}</td>
+                                <td>{{ itemtm.rate * itemtm.ratejiuwu / 100 }}</td>
+                                <td>{{ itemtm.sourcejiuwu }}</td>
+                                <td>{{ (itemtm.rate * itemtm.ratejiuwu / 100) * itemtm.sourcejiuwu }}</td>
                             </tr>
                             <tr>
                                 <td>85%-94%</td>
-                                <td>50%</td>
-                                <td>CNY 0.06</td>
-                                <td>300</td>
-                                <td>CNY 18.00</td>
+                                <td>{{ itemtm.ratebawu }}</td>
+                                <td>{{ itemtm.rate * itemtm.ratebawu / 100 }}</td>
+                                <td>{{ itemtm.sourcebawu }}</td>
+                                <td>{{ (itemtm.rate * itemtm.ratebawu / 100) * itemtm.sourcebawu }}</td>
                             </tr>
                             <tr>
                                 <td>75%-84%</td>
-                                <td>50%</td>
-                                <td>CNY 0.06</td>
-                                <td>200</td>
-                                <td>CNY 12.00</td>
+                                <td>{{ itemtm.rateqiwu }}</td>
+                                <td>{{ itemtm.rate * itemtm.rateqiwu / 100 }}</td>
+                                <td>{{ itemtm.sourceqiwu }}</td>
+                                <td>{{ (itemtm.rate * itemtm.rateqiwu / 100) * itemtm.sourceqiwu }}</td>
                             </tr>
                             <tr>
                                 <td>50%-74%</td>
-                                <td>100%</td>
-                                <td>CNY 0.12</td>
-                                <td>1000</td>
-                                <td>CNY 120.00</td>
+                                <td>{{ itemtm.ratewushi }}</td>
+                                <td>{{ itemtm.rate * itemtm.ratewushi / 100 }}</td>
+                                <td>{{ itemtm.sourcewushi }}</td>
+                                <td>{{ (itemtm.rate * itemtm.ratewushi / 100) * itemtm.sourcewushi }}</td>
                             </tr>
                             <tr>
                                 <td>No Match</td>
-                                <td>100%</td>
-                                <td>CNY 0.12</td>
-                                <td>1000</td>
-                                <td>CNY 120.00</td>
+                                <td>{{ itemtm.ratenomatch }}</td>
+                                <td>{{ itemtm.rate * itemtm.ratenomatch / 100 }}</td>
+                                <td>{{ itemtm.sourcenomatch }}</td>
+                                <td>{{ (itemtm.rate * itemtm.ratenomatch / 100) * itemtm.sourcenomatch }}</td>
                             </tr>
                             <tr>
                                 <td colspan="4" align="right"><strong>Total</strong></td>
-                                <td class="text-info">CNY xxxx.xx</td>
+                                <td class="text-info">{{ itemtm.total }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -154,35 +149,35 @@
             <td>{{ itermnotmsnew.unit }}</td>
             <td>{{ itermnotmsnew.rate }}</td>
             <td>{{ itermnotmsnew.quantity }}</td>
-            <td>{{ itermnotmsnew.rate*itermnotmsnew.quantity }}</td>
+            <td>{{ itermnotmsnew.total }}</td>
         </tr>
         <tr ng-show="hasTypeDesktopPublishingMac()" ng-repeat = "itermdtpmac in itermdtpmacs[targetLanguage.id]">
             <td><div><strong> {{ itermdtpmac.name }}</strong> - <span class="text-info">DTP <i class="fa fa-apple"></i></span></div></td>
             <td>{{ itermdtpmac.unit }}</td>
             <td>{{ itermdtpmac.rate }}</td>
             <td>{{ itermdtpmac.quantity }}</td>
-            <td>{{ itermdtpmac.rate * itermdtpmac.quantity }}</td>
+            <td>{{ itermdtpmac.total }}</td>
         </tr>
 		<tr ng-show="hasTypeDesktopPublishingWin()" ng-repeat = "itermdtppc in itermdtppcs[targetLanguage.id]">
             <td><div><strong> {{ itermdtppc.name }}</strong> - <span class="text-info">DTP <i class="fa fa-windows"></i></span></div></td>
             <td>{{ itermdtppc.unit }}</td>
             <td>{{ itermdtppc.rate }}</td>
             <td>{{ itermdtppc.quantity }}</td>
-            <td>{{ itermdtppc.rate * itermdtppc.quantity }}</td>
+            <td>{{ itermdtppc.total }}</td>
         </tr>
 		<tr ng-show="hasTypeDesktopPublishingEngineer()" ng-repeat = "itermengineering in itermengineerings[targetLanguage.id]">
             <td><div><strong> {{ itermengineering.name }}</strong> - <span class="text-info">Engineering </span></div></td>
             <td>{{ itermengineering.unit }}</td>
             <td>{{ itermengineering.rate }}</td>
             <td>{{ itermengineering.quantity }}</td>
-            <td>{{ itermengineering.rate * itermengineering.quantity }}</td>
+            <td>{{ itermengineering.total }}</td>
         </tr>
 		<tr ng-show="interpreting.id > 0" ng-repeat = "iterminterpreting in iterminterpretings[targetLanguage.id]">
             <td><div><strong> {{ iterminterpreting.name }}</strong> - <span class="text-info"> Interpreting </span></div></td>
             <td>{{ iterminterpreting.unit }}</td>
             <td>{{ iterminterpreting.rate }}</td>
             <td>{{ iterminterpreting.quantity }}</td>
-            <td>{{ iterminterpreting.rate * iterminterpreting.quantity }}</td>
+            <td>{{ iterminterpreting.total }}</td>
         </tr>
 		
         </tbody>
@@ -192,19 +187,19 @@
     <tbody>
     <tr>
         <td><strong>Sub Total :</strong></td>
-        <td>CNY 1026.00</td>
+        <td>{{ project.subtotal }}</td>
     </tr>
     <tr>
         <td><strong>(-) Discount :</strong></td>
-        <td><span class="text-danger"><strong>-</strong></span> CNY 100.00</td>
+        <td><span class="text-danger"><strong>-</strong></span> {{ project.discount }}</td>
     </tr>
     <tr>
-        <td><strong>TAX (6%):</strong></td>
-        <td>CNY 235.98</td>
+        <td><strong>TAX ({{ project.tax }} %):</strong></td>
+        <td>{{ (project.subtotal - project.discount)* project.tax/100 }}</td>
     </tr>
     <tr>
         <td><strong>TOTAL :</strong></td>
-        <td>CNY 1261.98</td>
+        <td>{{ project.subtotal - project.discount + (project.subtotal - project.discount)* project.tax/100 }}</td>
     </tr>
     </tbody>
 </table>

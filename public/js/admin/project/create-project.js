@@ -478,7 +478,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         $scope.project.data = TableItemListService.data();
 		console.log("$scope.project");
 		console.log($scope.project);
-        /*$http.post("/api/admin/project/", $scope.project)
+        $http.post("/api/admin/project/", $scope.project)
             .success(function($data){
 				
                 if($data.success){
@@ -489,7 +489,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
             })
             .error(function($data){
 
-            });*/
+            });
     };
 
     function existsIdInArray(arr, id){
@@ -684,13 +684,13 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 	$scope.setRateTm = function(){
         if(TableItemListService.tmRatios){
 			console.log(TableItemListService.tmRatios);
-			$scope.raterepetitions =  (TableItemListService.tmRatios.repetitions)?TableItemListService.tmRatios.repetitions:0;
-			$scope.rateyibai =  (TableItemListService.tmRatios.yibai)?TableItemListService.tmRatios.yibai:0;
-			$scope.ratejiuwu =  (TableItemListService.tmRatios.jiuwu)?TableItemListService.tmRatios.jiuwu:0;
-			$scope.ratebawu =  (TableItemListService.tmRatios.bawu)?TableItemListService.tmRatios.bawu:0;
-			$scope.rateqiwu =  (TableItemListService.tmRatios.qiwu)?TableItemListService.tmRatios.qiwu:0;
-			$scope.ratewushi =  (TableItemListService.tmRatios.wushi)?TableItemListService.tmRatios.wushi:0;
-			$scope.ratenomatch =  (TableItemListService.tmRatios.nomatch)?TableItemListService.tmRatios.nomatch:0;
+			$scope.itemtm.raterepetitions = $scope.raterepetitions =  (TableItemListService.tmRatios.repetitions)?TableItemListService.tmRatios.repetitions:0;
+			$scope.itemtm.rateyibai = $scope.rateyibai =  (TableItemListService.tmRatios.yibai)?TableItemListService.tmRatios.yibai:0;
+			$scope.itemtm.ratejiuwu = $scope.ratejiuwu =  (TableItemListService.tmRatios.jiuwu)?TableItemListService.tmRatios.jiuwu:0;
+			$scope.itemtm.ratebawu = $scope.ratebawu =  (TableItemListService.tmRatios.bawu)?TableItemListService.tmRatios.bawu:0;
+			$scope.itemtm.rateqiwu = $scope.rateqiwu =  (TableItemListService.tmRatios.qiwu)?TableItemListService.tmRatios.qiwu:0;
+			$scope.itemtm.ratewushi = $scope.ratewushi =  (TableItemListService.tmRatios.wushi)?TableItemListService.tmRatios.wushi:0;
+			$scope.itemtm.ratenomatch = $scope.ratenomatch =  (TableItemListService.tmRatios.nomatch)?TableItemListService.tmRatios.nomatch:0;
 		}
     };
     $scope.setIdentifier = function($identifier){
@@ -699,6 +699,7 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 			$scope.itemtm.rate = Number(TableItemListService.translationPrices[$scope.identifier[1].id]);
     };
     $scope.add = function($item){
+		$item.total = $item.rate * $item.quantity;
         $scope.items.push($item);
     };
 	$scope.getRateDtp = function($item){
@@ -852,6 +853,13 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 	$scope.addtm = function($itemtm){
         //	$scope.itemtm.push($itemtm);
 		$scope.itemtm = $itemtm;
+		$scope.itemtm.total = ($scope.itemtm.rate * $scope.raterepetitions / 100) * $scope.itemtm.sourcerepetitions 
+							+($scope.itemtm.rate * $scope.rateyibai / 100) * $scope.itemtm.sourceyibai
+							+($scope.itemtm.rate * $scope.ratejiuwu / 100) * $scope.itemtm.sourcejiuwu
+							+($scope.itemtm.rate * $scope.ratebawu / 100) * $scope.itemtm.sourcebawu
+							+($scope.itemtm.rate * $scope.ratewushi / 100) * $scope.itemtm.sourcewushi
+							+($scope.itemtm.rate * $scope.ratenomatch / 100) * $scope.itemtm.sourcenomatch
+		
 		console.log("item_tm");
 		console.log($scope.itemtm);
     };
