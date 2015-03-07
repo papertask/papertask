@@ -101,16 +101,17 @@ class ProjectController extends AbstractRestfulJsonController
                 }
             }
         }
+		//invoice
 		$invoice = new Invoice();
 		$invoice_no = "INV-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
 		$invoice->setData(
 		[
 			'invoice_no' => $invoice_no,
-			'invoiceDate' => date("Y-m-d  H:i:s"),
 			'dueDate' => $data['dueDate'],
 		]);
+		$invoice->setProject($project);
 		$invoice->save($this->getEntityManager());
-		
+		//
         foreach($data['data'] as $iterms){
             $identifier = $iterms['identifier'];
             $type = $identifier[0];
@@ -375,12 +376,7 @@ class ProjectController extends AbstractRestfulJsonController
     }
 
     public function update($id, $data){
-        //$this->cleanData($data);
-		//
-        /** @var \User\Entity\Project $project */
-		//$action 
 		$action = $this->params()->fromQuery('action');
-		//var_dump($action);exit;
 		$project = $this->find('\User\Entity\Project', $id);
 		if($action==1)
 		{

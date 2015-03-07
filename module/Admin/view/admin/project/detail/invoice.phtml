@@ -10,7 +10,7 @@
                                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 																	<input data-field="datetime" readonly type="text" name="invoiceDate" ng-model="invoice.invoiceDate"
 																	class="form-control required valid" data-errorplace="element.parent().before(error)"/>
-                                                                    <span class="input-group-btn">
+                                                                    <span class="input-group-btn"  ng-click="setinvoiceDate()">
                                                                         <button type="button" class="btn btn-primary">Set</button> 
                                                                     </span>
                                                                 </div>
@@ -20,10 +20,12 @@
                                                     </div>
                                                     <div class="col-lg-6" align="right">
                                                         <a href="#" class="btn btn-white"><i class="fa fa-file-pdf-o "></i> Download </a>
-                                                        <a href="invoice_print.html" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Print Invoice </a>
+                                                        <a href="#" target="_blank" class="btn btn-primary"  ng-click="printInvoice()"><i class="fa fa-print"></i> Print Invoice </a>
                                                     </div>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
+												
+<div id="divToPrint">												
 <div class="row">
     <div class="col-sm-6">
         <h4>Invoice No.</h4>
@@ -239,38 +241,5 @@
                                                     <h2 class="text-center"><em>Thank you for your business!</em></h2>
                                                 </div>
 </div>
+</div>
 
-<!--- modal-->
-<div ng-controller="ModalController" id="modalContainer">
-<div id="modal-edit-quote" class="modal fade" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Quote discount and tax</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label>Tax (%)</label>
-										<input class="form-control required" type="number" ng-model="project.tax">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Discount</label>
-										<input class="form-control required" type="number" ng-model="project.discount">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-w-m btn-primary" ng-click="submitTo('#modal-edit-quote','#ProjectDetailController',
-	                                           'saveTaxandDiscount', project)">Save changes</button>
-                    </div>
-                </div>
-            </div>
-</div>
-</div>

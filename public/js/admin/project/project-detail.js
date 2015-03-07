@@ -172,8 +172,11 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 				});
 				
 				$http.get('/api/admin/invoice?projectId='+ projectId).success(function($data) {
-					$scope.invoice = $data['invoice'];
+					$scope.invoice = $data['invoices'];
+					$scope.invoice.invoiceDate = $scope.invoice.invoiceDate.date;
+					
 					console.log("scope.invoice");
+					//console.log($data);	
 					console.log($scope.invoice);			
 				});
 				
@@ -204,19 +207,39 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 				
                 jQuery.extend($scope.tempProject, $scope.project);
             });
+			
+			
     }
 
-	$scope.saveTaxandDiscount = function ( project ) {
+	$scope.saveTaxandDiscount = function ( ) {
+		console.log("scope.invoice");
+		console.log($scope.invoice);
 		
-		$scope.project.tax = project.tax;
-		$scope.project.discount = project.discount;
-		
-		console.log($scope.project);
-		console.log(project);
-		var updateTaxandDiscount = $http.put("/api/admin/project/" + $scope.project.id + "?action=1", $scope.project)
-				.success( function ( $data ) {
-					jQuery("#modal-edit-quote").modal("hide");
-				});	
+		var updateInvoiceDate= $http.put("/api/admin/project/" + $scope.project.id + "?action=1", $scope.project)
+		.success( function ( $data ) {
+			jQuery("#modal-edit-quote").modal("hide");
+		});	
+	}
+	$scope.setinvoiceDate = function ( ){
+				console.log($scope.invoice);
+				var d = new Date($scope.invoice.invoiceDate);
+				var dd = d.getDate()
+				if (dd<10) dd= '0'+dd;
+				var mm = d.getMonth() + 1  // now moths are 1-12
+				if (mm<10) mm= '0'+mm;
+				var yy = d.getFullYear();
+				
+				$scope.invoice.invoice_no = "INV-" +  yy + mm + dd  + Math.floor((Math.random()*9000) + 1000);
+				var updateinvoiceDate = $http.put("/api/admin/invoice/" + $scope.invoice.id + "?action=1", $scope.invoice)
+					.success( function ( $data ) {
+				});			
+	}
+	$scope.printInvoice = function ( ){
+	   var divToPrint = document.getElementById('divToPrint');
+       var popupWin = window.open('', '_blank', '');
+       popupWin.document.open();
+       popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
+       popupWin.document.close();
 	}
 	function existsIdInArray(arr, id){
         for(var i = 0; i < arr.length; i++){
@@ -226,6 +249,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
         }
         return false;
     }
+	
 	
 	function arrangeItem(Itemr) {
 		$scope.itermtmnew = [];

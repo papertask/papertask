@@ -33,7 +33,7 @@ class Invoice extends Entity{
     protected $invoice_no;
 	/**
      * @var string
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $invoiceDate;
 
@@ -54,6 +54,7 @@ class Invoice extends Entity{
 	
 	public function getData(){
         return [
+			'id' => $this->id,
             'invoice_no' => $this->invoice_no,
             'invoiceDate' => $this->invoiceDate,
 			'dueDate' => $this->dueDate
