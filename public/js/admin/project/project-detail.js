@@ -248,6 +248,10 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 	$scope.printInvoice = function(){
 		$scope.url_printInvoice = "/" + LANG_CODE + "/admin/project/invoiceprint?id=" + projectId;
     };
+	$scope.downloadQuote = function(){
+		$scope.url_downloadQuote = "/" + LANG_CODE + "/admin/project/quotedownload?id=" + projectId;
+    };
+	
 	function existsIdInArray(arr, id){
         for(var i = 0; i < arr.length; i++){
             if(arr[i].id == id){

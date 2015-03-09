@@ -3,7 +3,8 @@
 <div class="row">
     <div class="col-lg-12" align="right">
         <a data-toggle="modal" href="#modal-edit-quote" class="btn btn-white"><i class="fa fa-pencil"></i> Edit </a>
-        <a href="#" class="btn btn-white"><i class="fa fa-file-pdf-o "></i> Download </a>
+        <a ng-href="{{url_downloadQuote}}" target="_blank" class="btn btn-white" ng-click="downloadQuote()"><i class="fa fa-file-pdf-o "></i> Download </a>
+
         <a ng-href="{{url_printQuote}}" target="_blank" class="btn btn-primary" ng-click="printQuote()"><i class="fa fa-print"></i> Print Quote </a>
     </div>
 </div>

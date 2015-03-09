@@ -93,8 +93,9 @@ return array(
             'admin/project/index' => __DIR__ . '/../view/admin/project/index.phtml',
             'admin/project/new' => __DIR__ . '/../view/admin/project/new.phtml',
 			'admin/project/quoteprint' => __DIR__ . '/../view/admin/project/quoteprint.phtml',
-			'admin/project/invoiceprint' => __DIR__ . '/../view/admin/project/invoiceprint.phtml',
+			'admin/project/quotedownload' => __DIR__ . '/../view/admin/project/quotedownload.phtml',
 			
+			'admin/project/invoiceprint' => __DIR__ . '/../view/admin/project/invoiceprint.phtml',
             'admin/quote/detail' => __DIR__ . '/../view/admin/quote/detail.phtml',
             'admin/staff/edit-payment-info' => __DIR__ . '/../view/admin/freelancer/edit-payment-info.phtml',
             'admin/staff/edit-profile' => __DIR__ . '/../view/admin/staff/edit-profile.phtml',
