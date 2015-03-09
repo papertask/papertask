@@ -1,23 +1,7 @@
 /**
  * Created by eastagile on 11/11/14.
  */
-angularApp.run(function($rootScope){
-    jQuery("#edit_project form").validate();
-    jQuery("#tasks form").validate();
-});
-angularApp.filter('dateFormat', function($filter)
-{
- return function(input)
- {
-  if(input == null){ return ""; } 
- 
-  var _date = $filter('date')(new Date(input), 'MMMM dd, yyyy');
- 
-  return _date.toUpperCase();
-
- };
-});
-angularApp.controller('ProjectDetailController', function($scope, $http, $location, ProjectApi, DateFormatter, ProjectStatus,
+angularApp.controller('QuotePrintController', function($scope, $http, $location, ProjectApi, DateFormatter, ProjectStatus,
                                                           ProjectServiceLevel, ProjectPriority, StaffApi, ClientApi,
                                                           FieldApi, ProjectType, TaskApi, TaskStatus, $q){
 
@@ -63,18 +47,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
         });
 		
 		
-        /*var pm_listener = StaffApi.list({
-            type: 2
-        }, function($pms){
-            $scope.pms = $pms;
-        });
-		
-        var sales_listener = StaffApi.list({
-            type: 1
-        }, function($sales){
-            $scope.sales = $sales;
-        });
-		*/
+        
 		var pm_listener = $http.get("/" + LANG_CODE + "/admin/staff/getPmList")
             .success( function ( $data ) {
                 $scope.pms = $data.pmlist;
@@ -139,7 +112,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 					console.log("scope.itermnotmsnews");
 					console.log($scope.itermnotmsnews);			
 				});
-				$http.get('/api/admin/projectitermtm?projectId='+ projectId).success(function($data) {
+				var itemtm_listener = $http.get('/api/admin/projectitermtm?projectId='+ projectId).success(function($data) {
 					$scope.itemtm = $data['Itermtms'][0];
 					if($scope.itemtm)
 						$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
@@ -147,31 +120,31 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 					console.log($scope.itemtm);		
 				});
 				
-				$http.get('/api/admin/projectitermdtpmac?projectId='+ projectId).success(function($data) {
+				var itermdtpmacs_listener = $http.get('/api/admin/projectitermdtpmac?projectId='+ projectId).success(function($data) {
 					$scope.itermdtpmacs = arrangeItem($data['Itermdtpmacs']);
 					console.log("scope.itermdtpmacs");
 					console.log($scope.itermdtpmacs);		
 				});
 				
-				$http.get('/api/admin/projectitermdtppc?projectId='+ projectId).success(function($data) {
+				var itermdtppcs_listener = $http.get('/api/admin/projectitermdtppc?projectId='+ projectId).success(function($data) {
 					$scope.itermdtppcs = arrangeItem($data['Itermdtppcs']);
 					console.log("scope.itermdtppcs");
 					console.log($scope.itermdtppcs);			
 				});
 				
-				$http.get('/api/admin/projectitermengineering?projectId='+ projectId).success(function($data) {
+				var itermengineerings_listener = $http.get('/api/admin/projectitermengineering?projectId='+ projectId).success(function($data) {
 					$scope.itermengineerings = arrangeItem($data['Itermengineerings']);
 					console.log("scope.itermengineerings");
 					console.log($scope.itermengineerings);			
 				});
 				
-				$http.get('/api/admin/projectiterminterpreting?projectId='+ projectId).success(function($data) {
+				var iterminterpretings_listener = $http.get('/api/admin/projectiterminterpreting?projectId='+ projectId).success(function($data) {
 					$scope.iterminterpretings = arrangeItem($data['Iterminterpretings']);
 					console.log("scope.iterminterpretings");
 					console.log($scope.iterminterpretings);			
 				});
 				
-				$http.get('/api/admin/invoice?projectId='+ projectId).success(function($data) {
+				var invoice_listener = $http.get('/api/admin/invoice?projectId='+ projectId).success(function($data) {
 					$scope.invoice = $data['invoices'];
 					$scope.invoice.invoiceDate = $scope.invoice.invoiceDate.date;
 					
@@ -206,48 +179,16 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 				};
 				
                 jQuery.extend($scope.tempProject, $scope.project);
+				$q.all([itemtm_listener, itermdtpmacs_listener, itermdtppcs_listener, itermengineerings_listener, iterminterpretings_listener, invoice_listener])
+				.then(function(){
+					window.print();
+				});
             });
 			
 			
     }
 
-	$scope.saveTaxandDiscount = function ( ) {
-		console.log("scope.invoice");
-		console.log($scope.invoice);
-		
-		var updateInvoiceDate= $http.put("/api/admin/project/" + $scope.project.id + "?action=1", $scope.project)
-		.success( function ( $data ) {
-			jQuery("#modal-edit-quote").modal("hide");
-		});	
-	}
-	$scope.setinvoiceDate = function ( ){
-				console.log($scope.invoice);
-				var d = new Date($scope.invoice.invoiceDate);
-				var dd = d.getDate()
-				if (dd<10) dd= '0'+dd;
-				var mm = d.getMonth() + 1  // now moths are 1-12
-				if (mm<10) mm= '0'+mm;
-				var yy = d.getFullYear();
-				
-				$scope.invoice.invoice_no = "INV-" +  yy + mm + dd  + Math.floor((Math.random()*9000) + 1000);
-				var updateinvoiceDate = $http.put("/api/admin/invoice/" + $scope.invoice.id + "?action=1", $scope.invoice)
-					.success( function ( $data ) {
-				});			
-	}
-	$scope.printInvoice = function ( ){
-	   var divToPrint = document.getElementById('divToPrint');
-       var popupWin = window.open('', '_blank', '');
-       popupWin.document.open();
-       popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
-       popupWin.document.close();
-	}
 	
-	$scope.printQuote = function(){
-		$scope.url_printQuote = "/" + LANG_CODE + "/admin/project/quoteprint?id=" + projectId;
-    };
-	$scope.printInvoice = function(){
-		$scope.url_printInvoice = "/" + LANG_CODE + "/admin/project/invoiceprint?id=" + projectId;
-    };
 	function existsIdInArray(arr, id){
         for(var i = 0; i < arr.length; i++){
             if(arr[i].id == id){
@@ -273,12 +214,6 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
         return $scope.itermtmnew;
     }
 
-    
-
-    function showEdit(){
-        jQuery("#edit_project").collapse("toggle");
-    }
-
     function getOnlyFields($object, $fields){
         var data = {};
         for(var i = 0; i < $fields.length; i++){
@@ -288,80 +223,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
         return data;
     }
 
-    function update(){
-        if(jQuery("#edit_project form").valid()) {
-            var fields = ['client', 'pm', 'sale', 'priority', 'reference', 'field'];
-            var data = getOnlyFields($scope.tempProject, fields);
-
-            ProjectApi.update($scope.project.id, data, function () {
-                jQuery.extend($scope.project, $scope.tempProject);
-                jQuery("#edit_project").collapse("toggle");
-            });
-        }
-    }
-    $scope.showEdit = showEdit;
-    $scope.update = update;
+   
 
     init();
-});
-
-
-angularApp.controller("ProjectTasksController", function($scope, TaskStatus, ProjectType, TaskApi){
-    $scope.newTask = {};
-
-    $scope.setItemApi(TaskApi);
-
-    function attachData($task){
-        $task.type = ProjectType.get($task.type);
-        $task.status = TaskStatus.get($task.status);
-    }
-
-    function createTask(){
-        if(jQuery("#tasks form").valid()){
-            var newTask = $scope.newTask;
-            newTask.project_id = $scope.project.id;
-            newTask.status = TaskStatus.unassigned;
-
-            TaskApi.create(newTask, function($newTask){
-                attachData($newTask);
-                $scope.newTask = {};
-                $scope.items.push($newTask);
-            });
-        }
-    }
-
-    function afterLoadItems($tasks){
-        for(var i = 0; i < $tasks.length; i++){
-            attachData($tasks[i]);
-        }
-    }
-    $scope.custom.afterLoadItems = afterLoadItems;
-
-    $scope.createTask = createTask;
-
-    function update($task, $data){
-        TaskApi.update($task.id, $data, function($updateTask){
-            attachData($updateTask);
-            jQuery.extend($task, $updateTask);
-        });
-    }
-
-    function sendToSpecialismPool($task){
-        update($task, {is_specialism_pool: 1});
-    }
-    $scope.sendToSpecialismPool = sendToSpecialismPool;
-
-    function sendToClientPool($task){
-        update($task, {is_client_pool: 1});
-    }
-    $scope.sendToClientPool = sendToClientPool;
-
-    $scope.$watch(function(){
-        return $scope.project;
-    }, function(){
-        if(typeof($scope.project.id) != 'undefined'){
-            $scope.filter.project_id = $scope.project.id;
-            $scope.refresh();
-        }
-    });
 });

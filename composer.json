@@ -16,4 +16,7 @@
         "hybridauth/hybridauth": "3.0.0.*@dev"
 		"tecnick.com/tcpdf": "dev-master"
     }
+	"autoload": {
+      "classmap": ["vendor/tcpdf"]
+	}
 }

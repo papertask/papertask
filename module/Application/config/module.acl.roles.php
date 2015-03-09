@@ -45,6 +45,8 @@ $allow_all = array(
 	'project\quote', // Quotes in menu
 	'project\detail', // Quotes in menu
 	'project\uploadFile',
+	'project\quoteprint',
+	'project\invoiceprint',
 	// -- Freelancer
 	'freelancer\index',
 	'freelancer\new',

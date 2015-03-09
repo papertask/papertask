@@ -33,6 +33,7 @@ class ProjectController extends AbstractActionController
 			"lang_code" => $lang_code,
         ));
     }
+	
 
     public function uploadFileAction(){
         if ( !empty( $_FILES ) ) {
@@ -75,5 +76,26 @@ class ProjectController extends AbstractActionController
             'id' => $id,
 			"lang_code" => $lang_code
         ]);
+    }
+	
+	public function quoteprintAction(){
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		$id = $this->params()->fromQuery('id');
+		$lang_code = $this->params()->fromRoute('lang');
+		$viewModel = new ViewModel();
+		$viewModel->setVariables(array('id' => $id, 'lang_code' => $lang_code))
+             ->setTerminal(true);
+        return $viewModel;
+    }
+	public function invoiceprintAction(){
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		$id = $this->params()->fromQuery('id');
+		$lang_code = $this->params()->fromRoute('lang');
+		$viewModel = new ViewModel();
+		$viewModel->setVariables(array('id' => $id, 'lang_code' => $lang_code))
+             ->setTerminal(true);
+        return $viewModel;
     }
 }
