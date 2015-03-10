@@ -380,8 +380,8 @@ class ProjectController extends AbstractRestfulJsonController
 		if($action==1)
 		{
 			$project->setData([
-				'tax' => $data.tax,
-				'discount' =>  $data.discount,
+				'tax' => $data['tax'],
+				'discount' =>  $data['discount'],
 			]);
 			$project->save($this->getEntityManager());
         }

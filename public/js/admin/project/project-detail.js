@@ -38,7 +38,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 	$scope.telephone = [];
 	
 	$scope.itermtm = [];
-	$scope.subtotal = 0;
+	$scope.subtotal_tmp = 0;
     function search_by_id($array, $id){
         for(var i = 0; i < $array.length; i++){
             if($array[i].id == $id){
@@ -144,33 +144,33 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 					console.log($scope.itermnotmsnews);			
 				});
 				$http.get('/api/admin/projectitermtm?projectId='+ projectId).success(function($data) {
-					$scope.itemtm = arrangeItem($data['Itermtms']);
+					$scope.itemtms = arrangeItem($data['Itermtms']);
 					//if($scope.itemtm)
 					//	$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
-					console.log("scope.itemtm");
-					console.log($scope.itemtm);		
+					console.log("scope.itemtms");
+					console.log($scope.itemtms);		
 				});
 				
 				$http.get('/api/admin/projectitermdtpmac?projectId='+ projectId).success(function($data) {
-					$scope.itermdtpmacs = arrangeItem($data['Itermdtpmacs']);
+					$scope.itermdtpmacs = arrangeItem($data['Itermdtpmacs'], 'dtpUnits');
 					console.log("scope.itermdtpmacs");
 					console.log($scope.itermdtpmacs);		
 				});
 				
 				$http.get('/api/admin/projectitermdtppc?projectId='+ projectId).success(function($data) {
-					$scope.itermdtppcs = arrangeItem($data['Itermdtppcs']);
+					$scope.itermdtppcs = arrangeItem($data['Itermdtppcs'], 'dtpUnits');
 					console.log("scope.itermdtppcs");
 					console.log($scope.itermdtppcs);			
 				});
 				
 				$http.get('/api/admin/projectitermengineering?projectId='+ projectId).success(function($data) {
-					$scope.itermengineerings = arrangeItem($data['Itermengineerings']);
+					$scope.itermengineerings = arrangeItem($data['Itermengineerings'], 'engineeringUnits');
 					console.log("scope.itermengineerings");
 					console.log($scope.itermengineerings);			
 				});
 				
 				$http.get('/api/admin/projectiterminterpreting?projectId='+ projectId).success(function($data) {
-					$scope.iterminterpretings = arrangeItem($data['Iterminterpretings']);
+					$scope.iterminterpretings = arrangeItem($data['Iterminterpretings'], 'interpretingUnits');
 					console.log("scope.iterminterpretings");
 					console.log($scope.iterminterpretings);			
 				});
@@ -217,8 +217,13 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
     }
 	
 	$scope.saveTaxandDiscount = function ( ) {
-		console.log("scope.invoice");
-		console.log($scope.invoice);
+		console.log("scope.project");
+		console.log($scope.project);
+		var subtotal_tmp = Number($scope.subtotal_tmp);
+		var tax = Number((subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
+		$scope.tax = $scope.currency + " " + tax.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		var total = Number(subtotal_tmp - $scope.project.discount + (subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
+		$scope.total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		
 		var updateInvoiceDate= $http.put("/api/admin/project/" + $scope.project.id + "?action=1", $scope.project)
 		.success( function ( $data ) {
@@ -270,21 +275,50 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 		n = Number(n)
 		return $scope.currency + " " + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
-	function arrangeItem(Itemr) {
+	function arrangeItem(Itemr, unit) {
 		$scope.itermtmnew = [];
 		for(var i = 0; i < $scope.project.targetLanguages.length; i++)
 		{
 			$scope.itermtmnew[$scope.project.targetLanguages[i].id] = [];
 			for(var j = 0; j < Itemr.length; j++){
 				if(Itemr[j].language.id == $scope.project.targetLanguages[i].id){
-					$scope.subtotal = $scope.subtotal + parseFloat(Itemr[j].total);
+					$scope.subtotal_tmp = $scope.subtotal_tmp + parseFloat(Itemr[j].total);
 					var total = Number(Itemr[j].total);
 					var rate = Number(Itemr[j].rate);
+					var subtotal_tmp = Number($scope.subtotal_tmp);
 					console.log(total);					
 					Itemr[j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
-					console.log(Itemr[j].total);	
-					Itemr[j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+					console.log(Itemr[j].total);
+					Itemr[j].rate_tmp = Itemr[j].rate;
+					Itemr[j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+					//set unit
+					if(unit == 'interpretingUnits'){
+						if(Itemr[j].unit == 1) 
+							Itemr[j].unit = 'Day';
+						else Itemr[j].unit = 'Half Day';
+					}	
+					else if(unit == 'engineeringUnits'){
+						if(Itemr[j].unit == 1) 
+							Itemr[j].unit = 'Page';
+						else if(Itemr[j].unit == 2) 
+							Itemr[j].unit = 'Graphic';
+						else if(Itemr[j].unit == 3) 
+							Itemr[j].unit = 'Hour';
+						else  if(Itemr[j].unit == 4) 
+							Itemr[j].unit = 'Day';		
+						else Itemr[j].unit = 'Month';
+					}		
+					else if(unit == 'dtpUnits'){
+						if(Itemr[j].unit == 1) 
+							Itemr[j].unit = 'Hour';
+						else Itemr[j].unit = 'Page';
+					}
+					$scope.subtotal = $scope.currency + " " + subtotal_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+					var tax = Number((subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
+					$scope.tax = $scope.currency + " " + tax.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					
+					var total = Number(subtotal_tmp - $scope.project.discount + (subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
+					$scope.total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					$scope.itermtmnew[$scope.project.targetLanguages[i].id].push(Itemr[j]);
 				}	
 			}
