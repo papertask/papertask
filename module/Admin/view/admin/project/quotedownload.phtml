@@ -7,10 +7,10 @@
     <!-- Le styles -->
 	 
 </head>
-<body class="white-bg">
-    <div class="wrapper wrapper-content p-xl">
-		<div class="ibox-content p-xl">
-			<div class="row" style=" margin-right: 15px; margin-left: 15px;">
+<body class="white-bg" style="background-color: #ffffff;">
+    <div class="wrapper wrapper-content p-xl" style="padding: 20px 10px 40px;padding: 40px;">
+		<div class="ibox-content p-xl" style="background-color: #ffffff;color: inherit;padding: 15px 20px 20px 20px;border-color: #e7eaec;border-image: none;border-style: solid solid none;border-width: 1px 0px;padding: 40px;">
+			<div class="row" style=" margin-right: 15px; margin-left:15px;">
 				<div class="col-xs-6" style="float:left;">
 					<h4>Quote No.</h4>
 					<h4 class="text-navy" style="color: #1ab394;"><?php echo $this->project['quote_no']; ?></h4>
@@ -18,7 +18,7 @@
 					<h5>From:</h5>
 					<strong><?php echo $this->project['pm']['name']; ?></strong><br>
 					<strong>Project Manager</strong><br>
-					<address>
+					<address style="margin-bottom: 20px;font-style: normal;line-height: 1.42857143;">
 						<strong><?php echo $this->companyinfo['name']; ?></strong><br>
 						<?php echo $this->companyinfo['address']; ?><br>
 						<?php echo $this->companyinfo['city']; ?>, <?php echo $this->companyinfo['country']; ?><br>
@@ -34,7 +34,7 @@
 					<h5>To:</span></h5>
 					<strong><?php echo $this->project['client']['name']; ?> </strong><br>
 					<strong><?php echo $this->project['client']['position']; ?></strong><br>
-					<address>
+					<address style="margin-bottom: 20px;font-style: normal;line-height: 1.42857143;">
 						<strong><?php echo $this->project['client']['company']['name']; ?></strong><br>
 						<?php echo $this->project['client']['company']['address']; ?><br>
 						<?php echo $this->project['client']['company']['city']; ?>, <?php echo $this->project['client']['company']['country']; ?><br>
@@ -50,9 +50,9 @@
 			<p>Further to receipt of your enquiry, I now have pleasure in providing you with the cost for the above requirement.</p>
 			<p><strong>Service Level: <span class="text-navy" style="color: #1ab394;">  <?php echo $this->serviceLevel; ?></span></strong></p>
 			<p><strong>Approximate duration: <span class="text-navy" style="color: #1ab394;"> <?php echo $this->project['duration']; ?> Working days</span></strong></p>
-			<div class="hr-line-dashed"></div>
+			<div class="hr-line-dashed" style="clear:both;border-top: 1px dashed #e7eaec;color: #ffffff;background-color: #ffffff;height: 1px;margin: 20px 0;"></div>
 			
-			<div class="table-responsive m-t"  ng-repeat="targetLanguage in project.targetLanguages">
+			<div class="table-responsive m-t" style="width: 100%;margin-bottom: 15px;overflow-x: auto;overflow-y: hidden;-webkit-overflow-scrolling: touch;-ms-overflow-style: -ms-autohiding-scrollbar;border: 1px solid #ddd;"  ng-repeat="targetLanguage in project.targetLanguages">
 			<?php foreach($this->project['targetLanguages'] as $targetLanguage) { ?>
 			<table class="table table-bordered invoice-table" style="border: 1px solid #ddd;width: 100%;max-width: 100%;margin-bottom: 20px;">
 				<thead>
@@ -78,7 +78,7 @@
 					<td colspan="5">
 						<div id="use_tm1" class="panel-collapse collapse">
 							<div class="table-responsive">
-								<table class="table table-bordered">
+								<table class="table table-bordered" style="border: 1px solid #ddd;width: 100%;max-width: 100%;margin-bottom: 20px;">
 									<thead>
 									<tr>
 										<th>TM Template</th>
@@ -221,7 +221,7 @@
 			</table>
 			<?php } ?>
 		</div><!-- /table-responsive -->
-		<table class="table invoice-total">
+		<table class="table invoice-total" style="border: 1px solid #ddd;width: 100%;max-width: 100%;margin-bottom: 20px;">
 			<tbody>
 			<tr>
 				<td><strong>Sub Total :</strong></td>
@@ -242,7 +242,7 @@
 			</tbody>
 		</table>
 		<!-- if the client is uncontracted, then "make a payment" will show, if client type is "contracted", then dont show "make a payment" instead of "accept the quote" after accept, the project status changed from quoted to ordered -->
-		<div class="hr-line-dashed"></div>
+		<div class="hr-line-dashed" style="border-top: 1px dashed #e7eaec;color: #ffffff;background-color: #ffffff;height: 1px;margin: 20px 0;"></div>
 		<div class="m-t">
 			The above costs include supplying the translations as electronic files in formats per your requirements.
 			<br><br>
