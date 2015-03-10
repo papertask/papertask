@@ -86,7 +86,7 @@ class ProjectController extends AbstractRestfulJsonController
 		}
 		
 		$project = new Project();
-		
+		//var_dump($data);exit;
         $project->setData($data);
 		$project->save($this->getEntityManager());
         $files = [];

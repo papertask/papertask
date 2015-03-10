@@ -10,6 +10,9 @@ angularApp.factory("CurrentUser", function($http) {
         });
 
     function price($price,$currency){
+	console.log("CurrentUser");
+		console.log($price);
+		console.log($currency);
 		if($price)
 		{
 			if($currency)

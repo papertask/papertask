@@ -26,7 +26,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
     $scope.ProjectServiceLevel = ProjectServiceLevel;
     $scope.ProjectPriority = ProjectPriority;
     $scope.FieldApi = FieldApi;
-	
+	$scope.currency = null;
     $scope.tempProject = {};
     $scope.clients = [];
     $scope.sales = [];
@@ -49,6 +49,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 
     var projectId = PROJECT_ID;
     function init(){
+		
         var project_listener = ProjectApi.get(projectId, function($project){
             $project.priority = ProjectPriority.get($project.priority);
             $project.serviceLevel = ProjectServiceLevel.get($project.serviceLevel);
@@ -56,8 +57,11 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
             $project.tasks = [];
 			
             $scope.project = $project;
+			$scope.currency = $scope.project.currency;
+			
 			console.log("scope.project");
 			console.log($scope.project);
+			console.log($scope.currency);
 
             jQuery.extend($scope.tempProject, $scope.project);
         });
@@ -140,9 +144,9 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 					console.log($scope.itermnotmsnews);			
 				});
 				$http.get('/api/admin/projectitermtm?projectId='+ projectId).success(function($data) {
-					$scope.itemtm = $data['Itermtms'][0];
-					if($scope.itemtm)
-						$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
+					$scope.itemtm = arrangeItem($data['Itermtms']);
+					//if($scope.itemtm)
+					//	$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
 					console.log("scope.itemtm");
 					console.log($scope.itemtm);		
 				});
@@ -173,7 +177,8 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 				
 				$http.get('/api/admin/invoice?projectId='+ projectId).success(function($data) {
 					$scope.invoice = $data['invoices'];
-					$scope.invoice.invoiceDate = $scope.invoice.invoiceDate.date;
+					if($scope.invoice.invoiceDate)
+						$scope.invoice.invoiceDate = $scope.invoice.invoiceDate.date;
 					
 					console.log("scope.invoice");
 					//console.log($data);	
@@ -210,7 +215,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 			
 			
     }
-
+	
 	$scope.saveTaxandDiscount = function ( ) {
 		console.log("scope.invoice");
 		console.log($scope.invoice);
@@ -261,7 +266,10 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
         return false;
     }
 	
-	
+	function format22(n) {
+		n = Number(n)
+		return $scope.currency + " " + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+	}
 	function arrangeItem(Itemr) {
 		$scope.itermtmnew = [];
 		for(var i = 0; i < $scope.project.targetLanguages.length; i++)
@@ -269,14 +277,21 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 			$scope.itermtmnew[$scope.project.targetLanguages[i].id] = [];
 			for(var j = 0; j < Itemr.length; j++){
 				if(Itemr[j].language.id == $scope.project.targetLanguages[i].id){
+					$scope.subtotal = $scope.subtotal + parseFloat(Itemr[j].total);
+					var total = Number(Itemr[j].total);
+					var rate = Number(Itemr[j].rate);
+					console.log(total);					
+					Itemr[j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+					console.log(Itemr[j].total);	
+					Itemr[j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+					
 					$scope.itermtmnew[$scope.project.targetLanguages[i].id].push(Itemr[j]);
-					$scope.subtotal = $scope.subtotal + parseFloat(Itemr[j].total);	
 				}	
 			}
 		}
         return $scope.itermtmnew;
     }
-
+	
     
 
     function showEdit(){

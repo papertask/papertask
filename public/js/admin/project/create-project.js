@@ -240,6 +240,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
                     cellphone: $data.user.cellphone
                 };
 				$scope.currency = $data.user.currency;
+				$scope.project.currency = $scope.currency;
 				TableItemListService.currency = $data.user.currency;
 				console.log("currency");
 				console.log($scope.currency);

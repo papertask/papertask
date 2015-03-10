@@ -141,6 +141,8 @@ class Project extends Entity{
 	
 	/** @ORM\Column(type="string", nullable=true) */
     protected $sourcetext = null;
+	/** @ORM\Column(type="string", nullable=true) */
+    protected $currency = null;
     
 	/**
      * @var int
@@ -172,6 +174,7 @@ class Project extends Entity{
             'targetLanguages' => $this->getArrayData($this->targetLanguages),
 			'po' => $this->po,
 			'sourcetext' => $this->sourcetext,
+			'currency' =>  $this->currency,
             'types' => $this->types
         ];
     }

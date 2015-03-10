@@ -156,28 +156,28 @@
         <tr ng-show="hasTypeDesktopPublishingMac()" ng-repeat = "itermdtpmac in itermdtpmacs[targetLanguage.id]">
             <td><div><strong> {{ itermdtpmac.name }}</strong> - <span class="text-info">DTP <i class="fa fa-apple"></i></span></div></td>
             <td>{{ itermdtpmac.unit }}</td>
-            <td>{{ itermdtpmac.rate }}</td>
+            <td>{{ itermdtpmac.rate }} </td>
             <td>{{ itermdtpmac.quantity }}</td>
-            <td>{{ itermdtpmac.total }}</td>
+            <td>{{ itermdtpmac.total }} </td>
         </tr>
 		<tr ng-show="hasTypeDesktopPublishingWin()" ng-repeat = "itermdtppc in itermdtppcs[targetLanguage.id]">
             <td><div><strong> {{ itermdtppc.name }}</strong> - <span class="text-info">DTP <i class="fa fa-windows"></i></span></div></td>
             <td>{{ itermdtppc.unit }}</td>
             <td>{{ itermdtppc.rate }}</td>
             <td>{{ itermdtppc.quantity }}</td>
-            <td>{{ itermdtppc.total }}</td>
+            <td>{{itermdtppc.total }} </td>
         </tr>
 		<tr ng-show="hasTypeDesktopPublishingEngineer()" ng-repeat = "itermengineering in itermengineerings[targetLanguage.id]">
             <td><div><strong> {{ itermengineering.name }}</strong> - <span class="text-info">Engineering </span></div></td>
             <td>{{ itermengineering.unit }}</td>
             <td>{{ itermengineering.rate }}</td>
             <td>{{ itermengineering.quantity }}</td>
-            <td>{{ itermengineering.total }}</td>
+            <td>{{ itermengineering.total }} </td>
         </tr>
 		<tr ng-show="interpreting.id > 0" ng-repeat = "iterminterpreting in iterminterpretings[targetLanguage.id]">
             <td><div><strong> {{ iterminterpreting.name }}</strong> - <span class="text-info"> Interpreting </span></div></td>
             <td>{{ iterminterpreting.unit }}</td>
-            <td>{{ iterminterpreting.rate }}</td>
+            <td>{{ iterminterpreting.rate }} </td>
             <td>{{ iterminterpreting.quantity }}</td>
             <td>{{ iterminterpreting.total }}</td>
         </tr>
