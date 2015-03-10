@@ -99,16 +99,16 @@ echo $this->inlineScript()
 				</thead>
 				<tbody>
 				<!-- this is only for translation use TM -->
-				<tr  ng-show="hasTypeTranslationUseTM()">
-					<td><div><a data-toggle="collapse" href="#use_tm1"><i class="fa fa-eye"></i> <strong>{{ itemtm.name }}</strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
+				<tr  ng-show="hasTypeTranslationUseTM()" >
+					<td><div><a data-toggle="collapse" href="#use_tm{{targetLanguage.id}}"><i class="fa fa-eye"></i> <strong>{{ itemtms[targetLanguage.id][0].name }}</strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
 					<td>Source Word</td>
-					<td>{{ itemtm.rate }}</td>
-					<td>{{ itemtm.sourcerepetitions + itemtm.sourceyibai + itemtm.sourcejiuwu + itemtm.sourcebawu + itemtm.sourceqiwu + itemtm.sourcewushi}}</td>
-					<td>{{ itemtm.total }}</td>
+					<td>{{ itemtms[targetLanguage.id][0].rate }}</td>
+					<td>{{ itemtms[targetLanguage.id][0].sourcerepetitions + itemtms[targetLanguage.id][0].sourceyibai + itemtms[targetLanguage.id][0].sourcejiuwu + itemtms[targetLanguage.id][0].sourcebawu + itemtms[targetLanguage.id][0].sourceqiwu + itemtms[targetLanguage.id][0].sourcewushi}}</td>
+					<td>{{ itemtms[targetLanguage.id][0].total }}</td>
 				</tr>
 				<tr  ng-show="hasTypeTranslationUseTM()"> <!-- this is only for translation use TM -->
 					<td colspan="5">
-						<div id="use_tm1" class="panel-collapse collapse">
+						<div id="use_tm{{targetLanguage.id}}" class="panel-collapse">
 							<div class="table-responsive">
 								<table class="table table-bordered">
 									<thead>
@@ -123,56 +123,56 @@ echo $this->inlineScript()
 									<tbody>
 									<tr>
 										<td>Repetitions</td>
-										<td>{{ itemtm.raterepetitions }}</td>
-										<td>{{ itemtm.rate * itemtm.raterepetitions / 100 }}</td>
-										<td>{{ itemtm.sourcerepetitions }}</td>
-										<td>{{ (itemtm.rate * itemtm.raterepetitions / 100) * itemtm.sourcerepetitions }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].raterepetitions }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].raterepetitions / 100 }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].sourcerepetitions }}</td>
+										<td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].raterepetitions / 100) * itemtms[targetLanguage.id][0].sourcerepetitions }}</td>
 									</tr>
 									<tr>
 										<td>100%</td>
-										<td>{{ itemtm.rateyibai }}</td>
-										<td>{{ itemtm.rate * itemtm.rateyibai / 100 }}</td>
-										<td>{{ itemtm.sourceyibai }}</td>
-										<td>{{ (itemtm.rate * itemtm.rateyibai / 100) * itemtm.sourceyibai }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].rateyibai }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateyibai / 100 }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].sourceyibai }}</td>
+										<td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateyibai / 100) * itemtms[targetLanguage.id][0].sourceyibai }}</td>
 									</tr>
 									<tr>
 										<td>95%-99%</td>
-										<td>{{ itemtm.ratejiuwu }}</td>
-										<td>{{ itemtm.rate * itemtm.ratejiuwu / 100 }}</td>
-										<td>{{ itemtm.sourcejiuwu }}</td>
-										<td>{{ (itemtm.rate * itemtm.ratejiuwu / 100) * itemtm.sourcejiuwu }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].ratejiuwu }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratejiuwu / 100 }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].sourcejiuwu }}</td>
+										<td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratejiuwu / 100) * itemtms[targetLanguage.id][0].sourcejiuwu }}</td>
 									</tr>
 									<tr>
 										<td>85%-94%</td>
-										<td>{{ itemtm.ratebawu }}</td>
-										<td>{{ itemtm.rate * itemtm.ratebawu / 100 }}</td>
-										<td>{{ itemtm.sourcebawu }}</td>
-										<td>{{ (itemtm.rate * itemtm.ratebawu / 100) * itemtm.sourcebawu }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].ratebawu }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratebawu / 100 }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].sourcebawu }}</td>
+										<td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratebawu / 100) * itemtms[targetLanguage.id][0].sourcebawu }}</td>
 									</tr>
 									<tr>
 										<td>75%-84%</td>
-										<td>{{ itemtm.rateqiwu }}</td>
-										<td>{{ itemtm.rate * itemtm.rateqiwu / 100 }}</td>
-										<td>{{ itemtm.sourceqiwu }}</td>
-										<td>{{ (itemtm.rate * itemtm.rateqiwu / 100) * itemtm.sourceqiwu }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].rateqiwu }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateqiwu / 100 }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].sourceqiwu }}</td>
+										<td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateqiwu / 100) * itemtms[targetLanguage.id][0].sourceqiwu }}</td>
 									</tr>
 									<tr>
 										<td>50%-74%</td>
-										<td>{{ itemtm.ratewushi }}</td>
-										<td>{{ itemtm.rate * itemtm.ratewushi / 100 }}</td>
-										<td>{{ itemtm.sourcewushi }}</td>
-										<td>{{ (itemtm.rate * itemtm.ratewushi / 100) * itemtm.sourcewushi }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].ratewushi }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratewushi / 100 }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].sourcewushi }}</td>
+										<td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratewushi / 100) * itemtms[targetLanguage.id][0].sourcewushi }}</td>
 									</tr>
 									<tr>
 										<td>No Match</td>
-										<td>{{ itemtm.ratenomatch }}</td>
-										<td>{{ itemtm.rate * itemtm.ratenomatch / 100 }}</td>
-										<td>{{ itemtm.sourcenomatch }}</td>
-										<td>{{ (itemtm.rate * itemtm.ratenomatch / 100) * itemtm.sourcenomatch }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].ratenomatch }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratenomatch / 100 }}</td>
+										<td>{{ itemtms[targetLanguage.id][0].sourcenomatch }}</td>
+										<td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratenomatch / 100) * itemtms[targetLanguage.id][0].sourcenomatch }}</td>
 									</tr>
 									<tr>
 										<td colspan="4" align="right"><strong>Total</strong></td>
-										<td class="text-info">{{ itemtm.total }}</td>
+										<td class="text-info">{{ itemtms[targetLanguage.id][0].total }}</td>
 									</tr>
 									</tbody>
 								</table>
@@ -228,15 +228,15 @@ echo $this->inlineScript()
 			</tr>
 			<tr>
 				<td><strong>(-) Discount :</strong></td>
-				<td><span class="text-danger"><strong>-</strong></span> {{ project.discount }}</td>
+				<td><span class="text-danger"><strong>-</strong></span> {{currency}} {{ project.discount }}</td>
 			</tr>
 			<tr>
 				<td><strong>TAX ({{ project.tax }} %):</strong></td>
-				<td>{{ (subtotal - project.discount)* project.tax/100 }}</td>
+				<td>{{ tax }}</td>
 			</tr>
 			<tr>
 				<td><strong>TOTAL :</strong></td>
-				<td>{{ subtotal - project.discount + (subtotal - project.discount)* project.tax/100 }}</td>
+				<td>{{ total }}</td>
 			</tr>
 			</tbody>
 		</table>
