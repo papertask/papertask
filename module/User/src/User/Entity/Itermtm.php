@@ -90,7 +90,7 @@ class Itermtm extends Entity{
      * @var integer
      * @ORM\Column(type="decimal", scale=2, precision=6)
      */
-    protected $ratenomatch = 0.00
+    protected $ratenomatch = 0.00;
 	
 	
 	/**
