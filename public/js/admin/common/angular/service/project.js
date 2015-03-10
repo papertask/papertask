@@ -226,10 +226,40 @@ angularApp.factory("ProjectServiceLevel", function(){
 });
 angularApp.factory("LangGroup", function(){
 	var group = [{
+        "id": 1,
+        "name": "Afrikaans",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
         "id": 2,
         "name": "Arabic",
         "group_id": 1,
         "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 3,
+        "name": "Belarusian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 4,
+        "name": "Bosnian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 5,
+        "name": "Bosnian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 6,
+        "name": "Burmese",
+        "group_id": 4,
+        "group_name": "Others"
     },
 	{
         "id": 7,
@@ -243,11 +273,203 @@ angularApp.factory("LangGroup", function(){
         "group_id": 2,
         "group_name": "SC/TC/JP/KO"
     },
-	{
+        {
+        "id": 9,
+        "name": "Chinese (Traditional)",
+        "group_id": 2,
+        "group_name": "SC/TC/JP/KO"
+    },
+        {
+        "id": 10,
+        "name": "Croatian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 11,
+        "name": "Czech",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 12,
+        "name": "Danish",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 13,
+        "name": "Dinka",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 14,
+        "name": "Dutch",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 15,
+        "name": "Dutch (Belgium)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 16,
+        "name": "English",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 17,
+        "name": "English (British)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 18,
+        "name": "English (United States)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 19,
+        "name": "Estonian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 20,
+        "name": "Finnish",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 21,
+        "name": "Flemish",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 22,
+        "name": "French",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 23,
+        "name": "French (Algeria)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 24,
+        "name": "French (Belgium)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 25,
+        "name": "French (Canada)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 26,
+        "name": "French (Switzerland)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 27,
+        "name": "German",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 28,
+        "name": "German (Austria)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 29,
+        "name": "German (Switzerland)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 30,
+        "name": "Greek",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 31,
+        "name": "Hebrew",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 32,
+        "name": "Hindi",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 33,
+        "name": "Hmong",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 34,
+        "name": "Hungarian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 35,
+        "name": "Icelandic",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 36,
+        "name": "Indonesian",
+        "group_id": 3,
+        "group_name": "TH/VN"
+    },
+        {
+        "id": 37,
+        "name": "Italian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
         "id": 38,
         "name": "Japanese",
         "group_id": 2,
         "group_name": "SC/TC/JP/KO"
+    },
+        {
+        "id": 39,
+        "name": "Javanese",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 40,
+        "name": "Kazakh",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 41,
+        "name": "Khmer",
+        "group_id": 4,
+        "group_name": "Others"
     },
 	{
         "id": 42,
@@ -255,11 +477,233 @@ angularApp.factory("LangGroup", function(){
         "group_id": 2,
         "group_name": "SC/TC/JP/KO"
     },
+        {
+        "id": 43,
+        "name": "Laothian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 44,
+        "name": "Latvian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 45,
+        "name": "Lithuanian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 46,
+        "name": "Macedonian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 47,
+        "name": "Malay",
+        "group_id": 3,
+        "group_name": "TH/VN"
+    },
+        {
+        "id": 48,
+        "name": "Maltese",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 49,
+        "name": "Maori",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 50,
+        "name": "Mongolian",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 51,
+        "name": "Norwegian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 52,
+        "name": "Persian/Farsi",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 53,
+        "name": "Polish",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 54,
+        "name": "Portuguese",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 55,
+        "name": "Portuguese (Brazil)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 56,
+        "name": "Romanian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 57,
+        "name": "Russian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 58,
+        "name": "Samoan",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 59,
+        "name": "Serbian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 60,
+        "name": "Slovak",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 61,
+        "name": "Slovenian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 62,
+        "name": "Somali",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 63,
+        "name": "Spanish",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 64,
+        "name": "Spanish (Chile)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 65,
+        "name": "Spanish (Colombia)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 66,
+        "name": "Spanish (International)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 67,
+        "name": "Spanish (Latin America)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 68,
+        "name": "Spanish (Mexico)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 69,
+        "name": "Spanish (Panama)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 70,
+        "name": "Spanish (Peru)",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 71,
+        "name": "Sundanese",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 72,
+        "name": "Swedish",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 73,
+        "name": "Tagalog",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 74,
+        "name": "Tamil",
+        "group_id": 4,
+        "group_name": "Others"
+    },
 	{
         "id": 75,
         "name": "Thai",
         "group_id": 3,
         "group_name": "TH/VN"
+    },
+        {
+        "id": 76,
+        "name": "Tibetan",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 77,
+        "name": "Tonga",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
+        "id": 78,
+        "name": "Turkish",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 79,
+        "name": "Ukrainian",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 80,
+        "name": "Uzbek",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
     },
 	{
         "id": 81,
@@ -267,7 +711,19 @@ angularApp.factory("LangGroup", function(){
         "group_id": 3,
         "group_name": "TH/VN"
     },
-	{
+        {
+        "id": 82,
+        "name": "Welsh",
+        "group_id": 1,
+        "group_name": "European/CE/Greek/Russian"
+    },
+        {
+        "id": 83,
+        "name": "Xhosa",
+        "group_id": 4,
+        "group_name": "Others"
+    },
+        {
         "id": 84,
         "name": "Zulu",
         "group_id": 4,
