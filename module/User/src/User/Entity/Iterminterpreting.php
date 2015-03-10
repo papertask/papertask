@@ -43,12 +43,6 @@ class Iterminterpreting extends Entity{
     protected $language;
 
     /**
-     * @var decimal
-     * @ORM\Column(type="decimal")
-     */
-    protected $rate;
-
-    /**
      * @var integer
      * @ORM\Column(type="integer")
      */
@@ -60,10 +54,15 @@ class Iterminterpreting extends Entity{
      */
     protected $unit;
 	 /**
-     * @var float
-     * @ORM\Column(type="decimal")
+     * @var decimal
+     * @ORM\Column(type="decimal", scale=2, precision=6)
      */
-    protected $total = 0;
+    protected $rate = 0.00;
+	 /**
+     * @var float
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $total = 0.00;
 	
 	public function getProject(){
         return $this->project;

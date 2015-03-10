@@ -42,11 +42,7 @@ class Itermnotm extends Entity{
      */
     protected $language;
 
-    /**
-     * @var decimal
-     * @ORM\Column(type="decimal")
-     */
-    protected $rate;
+    
 
     /**
      * @var integer
@@ -59,12 +55,16 @@ class Itermnotm extends Entity{
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $unit;
-	
+	/**
+     * @var decimal
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $rate = 0.00;
 	 /**
      * @var decimal
-     * @ORM\Column(type="decimal")
+     * @ORM\Column(type="decimal", scale=2, precision=6)
      */
-    protected $total = 0;
+    protected $total = 0.00;
 	
 	public function getProject(){
         return $this->project;

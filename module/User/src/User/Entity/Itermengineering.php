@@ -43,12 +43,6 @@ class Itermengineering extends Entity{
     protected $language;
 
     /**
-     * @var decimal
-     * @ORM\Column(type="decimal")
-     */
-    protected $rate;
-
-    /**
      * @var integer
      * @ORM\Column(type="integer")
      */
@@ -65,11 +59,16 @@ class Itermengineering extends Entity{
      */
 	 
     protected $engineeringcategory;
+	/**
+     * @var decimal
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $rate = 0.00;
 	 /**
      * @var float
-     * @ORM\Column(type="decimal")
+     * @ORM\Column(type="decimal", scale=2, precision=6)
      */
-    protected $total = 0;
+    protected $total = 0.00;
 	public function getProject(){
         return $this->project;
     }

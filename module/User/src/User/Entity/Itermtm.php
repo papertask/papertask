@@ -38,12 +38,6 @@ class Itermtm extends Entity{
      */
     protected $language;
 
-    /**
-     * @var decimal
-     * @ORM\Column(type="decimal")
-     */
-    protected $rate;
-
 	/**
      * @var integer
      * @ORM\Column(type="integer")
@@ -52,9 +46,9 @@ class Itermtm extends Entity{
 	
 	/**
      * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", scale=2, precision=6)
      */
-    protected $raterepetitions;
+    protected $raterepetitions = 0.00;
 	
 	/**
      * @var integer
@@ -64,39 +58,39 @@ class Itermtm extends Entity{
 	
 	/**
      * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", scale=2, precision=6)
      */
-    protected $rateyibai;
+    protected $rateyibai = 0.00;
 	
 	/**
      * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", scale=2, precision=6)
      */
-    protected $ratejiuwu;
+    protected $ratejiuwu = 0.00;
 	
 	/**
      * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", scale=2, precision=6)
      */
-    protected $ratebawu;
+    protected $ratebawu = 0.00;
 	
 	/**
      * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", scale=2, precision=6)
      */
-    protected $rateqiwu;
+    protected $rateqiwu = 0.00;
 	
 	/**
      * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", scale=2, precision=6)
      */
-    protected $ratewushi;
+    protected $ratewushi = 0.00;
 	
 	/**
      * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", scale=2, precision=6)
      */
-    protected $ratenomatch;
+    protected $ratenomatch = 0.00
 	
 	
 	/**
@@ -124,12 +118,16 @@ class Itermtm extends Entity{
      * @ORM\Column(type="integer")
      */
     protected $sourceyibai;
-	 
+	 /**
+     * @var decimal
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $rate = 0.00; 
 	 /**
      * @var float
-     * @ORM\Column(type="decimal")
+     * @ORM\Column(type="decimal", scale=2, precision=6)
      */
-    protected $total = 0;
+    protected $total = 0.00;
    
      public function getProject(){
         return $this->project;
