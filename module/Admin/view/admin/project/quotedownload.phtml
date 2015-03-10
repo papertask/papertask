@@ -5,30 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>INSPINIA | Invoice Print</title>
     <!-- Le styles -->
-	 <link href="<?php echo $this->basePath() . '/css/bootstrap.min.css'?>" rel="stylesheet" media="all">
-	 <link href="<?php echo $this->basePath() . '/css/style.css'?>" rel="stylesheet" media="all">
-	 <link href="<?php echo $this->basePath() . '/font-awesome/css/font-awesome.css'?>" rel="stylesheet" media="all">
+	 
 </head>
 <body class="white-bg">
     <div class="wrapper wrapper-content p-xl">
 		<div class="ibox-content p-xl">
-			<div class="row">
-				<div class="col-xs-6">
+			<div class="row" style=" margin-right: 15px; margin-left: 15px;">
+				<div class="col-xs-6" style="float:left;">
 					<h4>Quote No.</h4>
-					<h4 class="text-navy"><?php echo $this->project['quote_no']; ?></h4>
+					<h4 class="text-navy" style="color: #1ab394;"><?php echo $this->project['quote_no']; ?></h4>
 					
 					<h5>From:</h5>
 					<strong><?php echo $this->project['pm']['name']; ?></strong><br>
 					<strong>Project Manager</strong><br>
 					<address>
-						<strong><?php echo $this->project['companyinfo']['name']; ?></strong><br>
-						<?php echo $this->project['companyinfo']['address']; ?><br>
-						<?php echo $this->project['companyinfo']['city']; ?>, <?php echo $this->project['companyinfo']['country']; ?><br>
-						<abbr title="Phone">P:</abbr> <?php echo $this->project['companyinfo']['telephone']; ?>
+						<strong><?php echo $this->companyinfo['name']; ?></strong><br>
+						<?php echo $this->companyinfo['address']; ?><br>
+						<?php echo $this->companyinfo['city']; ?>, <?php echo $this->companyinfo['country']; ?><br>
+						<abbr title="Phone">P:</abbr> <?php echo $this->companyinfo['telephone']; ?>
 					</address>
 				</div>
 
-				<div class="col-xs-6 text-right">
+				<div class="col-xs-6 text-right" style="float:right;">
 					<p>
 						<span><strong>Quote Date:</strong><?php //echo $this->project['startDate']; ?></span><br/>
 						<span><strong>Due Date:</strong><?php //echo $this->project['dueDate']; ?></span>
@@ -46,36 +44,37 @@
 				</div>
 			</div>
 			
-			<div class="hr-line-dashed"></div>
+			<div class="hr-line-dashed" style="clear:both;border-top: 1px dashed #e7eaec; color: #ffffff; background-color: #ffffff;height: 1px;margin: 20px 0;"></div>
 			<h4>Dear <?php echo $this->project['client']['name']; ?>,</h4><br>
 			<h4>RE: <?php echo $this->project['reference']; ?> </h4><br>
 			<p>Further to receipt of your enquiry, I now have pleasure in providing you with the cost for the above requirement.</p>
-			<p><strong>Service Level: <span class="text-navy">  <?php echo $this->project['serviceLevel']['name']; ?></span></strong></p>
-			<p><strong>Approximate duration: <span class="text-navy"> <?php echo $this->project['duration']; ?> Working days</span></strong></p>
+			<p><strong>Service Level: <span class="text-navy" style="color: #1ab394;">  <?php echo $this->serviceLevel; ?></span></strong></p>
+			<p><strong>Approximate duration: <span class="text-navy" style="color: #1ab394;"> <?php echo $this->project['duration']; ?> Working days</span></strong></p>
 			<div class="hr-line-dashed"></div>
 			
 			<div class="table-responsive m-t"  ng-repeat="targetLanguage in project.targetLanguages">
 			<?php foreach($this->project['targetLanguages'] as $targetLanguage) { ?>
-			<table class="table table-bordered invoice-table">
+			<table class="table table-bordered invoice-table" style="border: 1px solid #ddd;width: 100%;max-width: 100%;margin-bottom: 20px;">
 				<thead>
 				<tr>
-					<th><?php echo $this->project['sourceLanguage']['name']; ?> to <?php echo $targetLanguage['name'] ?> - task</th>
-					<th>Unit</th>
-					<th>Unit Price</th>
-					<th>Quantity</th>
-					<th>Total Price</th>
+					<th width="60%" style="text-align: left;"><?php echo $this->project['sourceLanguage']['name']; ?> to <?php echo $targetLanguage['name'] ?> - task</th>
+					<th width="10%" style="text-align: left;">Unit</th>
+					<th width="10%" style="text-align: left;">Unit Price</th>
+					<th width="10%" style="text-align: left;">Quantity</th>
+					<th width="10%" style="text-align: left;">Total Price</th>
 				</tr>
 				</thead>
 				<tbody>
 				<!-- this is only for translation use TM -->
-				<tr  ng-show="hasTypeTranslationUseTM()">
+				<?php if($this->hasTypeTranslationUseTM > 0) { ?>
+				<tr >
 					<td><div><a data-toggle="collapse" href="#use_tm1"><i class="fa fa-eye"></i> <strong>{{ itemtm.name }}</strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
 					<td>Source Word</td>
 					<td>{{ itemtm.rate }}</td>
 					<td>{{ itemtm.sourcerepetitions + itemtm.sourceyibai + itemtm.sourcejiuwu + itemtm.sourcebawu + itemtm.sourceqiwu + itemtm.sourcewushi}}</td>
 					<td>{{ itemtm.total }}</td>
 				</tr>
-				<tr  ng-show="hasTypeTranslationUseTM()"> <!-- this is only for translation use TM -->
+				<tr > <!-- this is only for translation use TM -->
 					<td colspan="5">
 						<div id="use_tm1" class="panel-collapse collapse">
 							<div class="table-responsive">
@@ -149,43 +148,74 @@
 						</div>
 					</td>
 				</tr>
-				<tr ng-show="hasTypeTranslationNoTM()" ng-repeat = "itermnotmsnew in itermnotmsnews[targetLanguage.id]">
-					
-					<td><div><strong> {{ itermnotmsnew.name }} </strong> - <span class="text-navy"> Translation (No TM)</span></div></td>
-					<td>{{ itermnotmsnew.unit }}</td>
-					<td>{{ itermnotmsnew.rate }}</td>
-					<td>{{ itermnotmsnew.quantity }}</td>
-					<td>{{ itermnotmsnew.total }}</td>
-				</tr>
-				<tr ng-show="hasTypeDesktopPublishingMac()" ng-repeat = "itermdtpmac in itermdtpmacs[targetLanguage.id]">
-					<td><div><strong> {{ itermdtpmac.name }}</strong> - <span class="text-info">DTP <i class="fa fa-apple"></i></span></div></td>
-					<td>{{ itermdtpmac.unit }}</td>
-					<td>{{ itermdtpmac.rate }}</td>
-					<td>{{ itermdtpmac.quantity }}</td>
-					<td>{{ itermdtpmac.total }}</td>
-				</tr>
-				<tr ng-show="hasTypeDesktopPublishingWin()" ng-repeat = "itermdtppc in itermdtppcs[targetLanguage.id]">
-					<td><div><strong> {{ itermdtppc.name }}</strong> - <span class="text-info">DTP <i class="fa fa-windows"></i></span></div></td>
-					<td>{{ itermdtppc.unit }}</td>
-					<td>{{ itermdtppc.rate }}</td>
-					<td>{{ itermdtppc.quantity }}</td>
-					<td>{{ itermdtppc.total }}</td>
-				</tr>
-				<tr ng-show="hasTypeDesktopPublishingEngineer()" ng-repeat = "itermengineering in itermengineerings[targetLanguage.id]">
-					<td><div><strong> {{ itermengineering.name }}</strong> - <span class="text-info">Engineering </span></div></td>
-					<td>{{ itermengineering.unit }}</td>
-					<td>{{ itermengineering.rate }}</td>
-					<td>{{ itermengineering.quantity }}</td>
-					<td>{{ itermengineering.total }}</td>
-				</tr>
+				<?php } ?>
 				
-				<tr ng-show="interpreting.id > 0" ng-repeat = "iterminterpreting in iterminterpretings[targetLanguage.id]">
-					<td><div><strong> {{ iterminterpreting.name }}</strong> - <span class="text-info"> Interpreting </span></div></td>
-					<td>{{ iterminterpreting.unit }}</td>
-					<td>{{ iterminterpreting.rate }}</td>
-					<td>{{ iterminterpreting.quantity }}</td>
-					<td>{{ iterminterpreting.total }}</td>
-				</tr>
+				<?php if($this->hasTypeTranslationUseTM > 0) { ?>
+					<?php foreach($this->iterm_translations as $iterm_translations) { 
+					if($iterm_translations['language']['id'] == $targetLanguage['id']) {?>
+						<tr>
+							<td><div><strong> <?php echo $iterm_translations['name'];?></strong> - <span class="text-navy"> Translation (No TM)</span></div></td>
+							<td><?php echo $iterm_translations['unit'];?> </td>
+							<td><?php echo $iterm_translations['rate'];?></td>
+							<td><?php echo $iterm_translations['quantity'];?></td>
+							<td><?php echo $iterm_translations['total'];?></td>
+						</tr>
+					<?php } ?>	
+				<?php }} ?>
+				
+				
+				<?php if($this->hasTypeDesktopPublishingMac > 0) { ?>
+					<?php foreach($this->iterm_dtpmacs as $iterm_dtpmac) { 
+					if($iterm_dtpmac['language']['id'] == $targetLanguage['id']) {?>
+						<tr>
+							<td width="40%"><div><strong> <?php echo $iterm_dtpmac['name'];?></strong> - <span class="text-info">DTP <i class="fa fa-apple"></i></span></div></td>
+							<td width="10%"><?php echo $iterm_dtpmac['unit'];?> </td>
+							<td width="10%"><?php echo $iterm_dtpmac['rate'];?></td>
+							<td width="10%"><?php echo $iterm_dtpmac['quantity'];?></td>
+							<td width="10%"><?php echo $iterm_dtpmac['total'];?></td>
+						</tr>
+					<?php } ?>	
+				<?php }} ?>
+				
+				<?php if($this->hasTypeDesktopPublishingWin > 0) { ?>
+					<?php foreach($this->iterm_dtppcs as $iterm_dtppc) { 
+					if($iterm_dtppc['language']['id'] == $targetLanguage['id']) {?>
+						<tr>
+							<td width="40%"><div><strong> <?php echo $iterm_dtppc['name'];?></strong> - <span class="text-info">DTP <i class="fa fa-windows"></i></span></div></td>
+							<td width="10%"><?php echo $iterm_dtppc['unit'];?> </td>
+							<td width="10%"><?php echo $iterm_dtppc['rate'];?></td>
+							<td width="10%"><?php echo $iterm_dtppc['quantity'];?></td>
+							<td width="10%"><?php echo $iterm_dtppc['total'];?></td>
+						</tr>
+					<?php } ?>	
+				<?php }} ?>
+				
+				<?php if($this->hasTypeDesktopPublishingEngineer > 0) { ?>
+					<?php foreach($this->iterm_engineerings as $iterm_engineering) { 
+					if($iterm_engineering['language']['id'] == $targetLanguage['id']) {?>
+						<tr>
+							<td><div><strong> <?php echo $iterm_engineering['name'];?></strong> - <span class="text-info">Engineering </span></div></td>
+							<td><?php echo $iterm_engineering['unit'];?> </td>
+							<td><?php echo $iterm_engineering['rate'];?></td>
+							<td><?php echo $iterm_engineering['quantity'];?></td>
+							<td><?php echo $iterm_engineering['total'];?></td>
+						</tr>
+					<?php } ?>	
+				<?php }} ?>
+				
+				<?php if($this->hasTypeDesktopPublishingInterpreting > 0) { ?>
+					<?php foreach($this->iterm_interpretings as $iterm_interpreting) { 
+					if($iterm_interpreting['language']['id'] == $targetLanguage['id']) {?>
+						<tr>
+							<td><div><strong> <?php echo $iterm_interpreting['name'];?></strong> - <span class="text-info">iterm_interpreting </span></div></td>
+							<td><?php echo $iterm_interpreting['unit'];?> </td>
+							<td><?php echo $iterm_interpreting['rate'];?></td>
+							<td><?php echo $iterm_interpreting['quantity'];?></td>
+							<td><?php echo $iterm_interpreting['total'];?></td>
+						</tr>
+					<?php } ?>	
+				<?php }} ?>
+				
 				
 				</tbody>
 			</table>
@@ -195,7 +225,7 @@
 			<tbody>
 			<tr>
 				<td><strong>Sub Total :</strong></td>
-				<td>{{ subtotal }}</td>
+				<td><?php echo $this->subtotal; ?></td>
 			</tr>
 			<tr>
 				<td><strong>(-) Discount :</strong></td>
@@ -203,11 +233,11 @@
 			</tr>
 			<tr>
 				<td><strong>TAX ( <?php echo $this->project['tax']; ?> %):</strong></td>
-				<td>{{ (subtotal - project.discount)* project.tax/100 }}</td>
+				<td><?php echo ($this->subtotal  - $this->project['discount'])* $this->project['tax']/100; ?> </td>
 			</tr>
 			<tr>
 				<td><strong>TOTAL :</strong></td>
-				<td>{{ subtotal - project.discount + (subtotal - project.discount)* project.tax/100 }}</td>
+				<td><?php echo $this->subtotal  - $this->project['discount'] + ($this->subtotal  - $this->project['discount'])* $this->project['tax']/100; ?> </td>
 			</tr>
 			</tbody>
 		</table>

@@ -96,13 +96,104 @@ class ProjectController extends AbstractActionController
 		//whole TCPDF's settings goes here
 		$id = $this->params()->fromQuery('id');
 		$lang_code = $this->params()->fromRoute('lang');
-		 // Get Project
-		
+		// Get Project
 		$entityManager = $this->getEntityManager();
 		$project = $entityManager->find('\User\Entity\Project', (int)$id);
+		$project_data = $project->getData();
+		$types = $project_data['types'];
+		$hasTypeTranslationNoTM = 0;
+		$hasTypeTranslationUseTM = 0;
+		$hasTypeDesktopPublishingWin = 0;
+		$hasTypeDesktopPublishingMac = 0;	
+		$hasTypeDesktopPublishingEngineer = 0;			
+		$hasTypeDesktopPublishingInterpreting = 0;		
+		foreach($types as $type)
+		{
+			if($type == 1)
+				$hasTypeTranslationNoTM = 1;
+			else if($type == 2)
+				$hasTypeTranslationUseTM = 1;
+			else if($type == 3)
+				$hasTypeDesktopPublishingWin = 1;
+			else if($type == 4)
+				$hasTypeDesktopPublishingMac = 1;		
+			else if($type == 5)
+				$hasTypeDesktopPublishingEngineer = 1;		
+			else if($type > 5)
+				$hasTypeDesktopPublishingInterpreting = 1;	
+		}
+		if($project_data['serviceLevel']==1)
+			$serviceLevel = "Professional";
+		else if($project_data['serviceLevel']==2)	
+			$serviceLevel = "Business";
+		else if($project_data['serviceLevel']==3)	
+			$serviceLevel = "Premium";	
 		
+		//var_dump($project->getData()->);exit;
+		//Get company info
 		$companyinfo = $entityManager->find('\Admin\Entity\ProfileInfo', 1);
+		$subtotal = 0;
+		//get iterm translation
+        $repository = $entityManager->getRepository('User\Entity\Itermnotm');
+        $iterm_translation = $repository->findBy( array('project'=>$project) );
+        $iterm_translations = array();
+        foreach ( $iterm_translation as $k => $v ) {
+            $iterm_translations[$k] = $v->getData();
+			if($hasTypeTranslationNoTM == 1)
+				$subtotal = $subtotal +  $iterm_translations[$k]['total'];
+        } 
 
+		//get iterm translationtm
+        $repository = $entityManager->getRepository('User\Entity\Itermtm');
+        $iterm_translationtm = $repository->findBy( array('project'=>$project) );
+        $iterm_translationtms = array();
+        foreach ( $iterm_translationtm as $k => $v ) {
+            $iterm_translationtms[$k] = $v->getData();
+			if($hasTypeTranslationUseTM == 1)
+				$subtotal = $subtotal +  $iterm_translationtms[$k]['total'];
+        } 
+		
+		//get iterm iterm_dtppcs
+        $repository = $entityManager->getRepository('User\Entity\Itermdtppc');
+        $iterm_dtppc = $repository->findBy( array('project'=>$project) );
+        $iterm_dtppcs = array();
+        foreach ( $iterm_dtppc as $k => $v ) {
+            $iterm_dtppcs[$k] = $v->getData();
+			if($hasTypeDesktopPublishingWin == 1)
+				$subtotal = $subtotal +  $iterm_dtppcs[$k]['total'];	
+        } 
+		
+		//get iterm iterm_dtpmac
+        $repository = $entityManager->getRepository('User\Entity\Itermdtpmac');
+        $iterm_dtpmac = $repository->findBy( array('project'=>$project) );
+        $iterm_dtpmacs = array();
+        foreach ( $iterm_dtpmac as $k => $v ) {
+            $iterm_dtpmacs[$k] = $v->getData();
+			if($hasTypeDesktopPublishingMac == 1)
+				$subtotal = $subtotal +  $iterm_dtpmacs[$k]['total'];	
+        } 
+		//var_dump($iterm_dtpmacs);exit;
+		// Get Interpreting Price
+        $repository = $entityManager->getRepository('User\Entity\Iterminterpreting');
+        $iterm_interpreting = $repository->findBy( array('project'=>$project) );
+        $iterm_interpretings = array();
+        foreach ( $iterm_interpreting as $k => $v ) {
+            $iterm_interpretings[$k] = $v->getData();
+			if($hasTypeDesktopPublishingInterpreting == 1)
+				$subtotal = $subtotal +  $iterm_interpretings[$k]['total'];
+        } 	
+		
+		// Get Itermengineering 
+        $repository = $entityManager->getRepository('User\Entity\Itermengineering');
+        $iterm_engineering = $repository->findBy( array('project'=>$project) );
+        $iterm_engineerings = array();
+        foreach ( $iterm_engineering as $k => $v ) {
+            $iterm_engineerings[$k] = $v->getData();
+			if($hasTypeDesktopPublishingEngineer == 1)
+				$subtotal = $subtotal +  $iterm_engineerings[$k]['total'];
+        } 	
+
+		
 		$view = $this->getServiceLocator()->get('Zend\View\Renderer\RendererInterface');
 		$viewModel = new ViewModel();
 		$template = '/admin/project/quotedownload';
@@ -112,6 +203,20 @@ class ProjectController extends AbstractActionController
 				'lang_code' => $lang_code,
 				'project' => $project->getData(),
 				'companyinfo' => $companyinfo->getData(),
+				'hasTypeTranslationNoTM' => $hasTypeTranslationNoTM,
+				'hasTypeTranslationUseTM' => $hasTypeTranslationUseTM,
+				'hasTypeDesktopPublishingWin' => $hasTypeDesktopPublishingWin,
+				'hasTypeDesktopPublishingMac' => $hasTypeDesktopPublishingMac,	
+				'hasTypeDesktopPublishingEngineer' => $hasTypeDesktopPublishingEngineer,			
+				'hasTypeDesktopPublishingInterpreting' => $hasTypeDesktopPublishingInterpreting,	
+				'iterm_translations' => $iterm_translations,
+				'iterm_translationtms' => $iterm_translationtms,
+				'iterm_dtppcs' => $iterm_dtppcs,
+				'iterm_dtpmacs' => $iterm_dtpmacs,
+				'iterm_interpretings' => $iterm_interpretings,
+				'iterm_engineerings' => $iterm_engineerings,
+				'serviceLevel' => $serviceLevel,
+				'subtotal' => $subtotal,
 				))
 				->setTerminal(true);
 		return $viewModel;
@@ -122,9 +227,9 @@ class ProjectController extends AbstractActionController
 		//$base = sprintf('%s://%s', $scheme, $host);
 		//$base = $base.':8080/';
 		//var_dump($base);exit;
-		$content .= '<style>'.file_get_contents('http://papertask.local:8080/assets/plugins/bootstrap/css/bootstrap.min.css').'</style>';
-		$content .= '<style>'.file_get_contents('http://papertask.local:8080/assets/css/style.css').'</style>';
-		$content .= '<style>'.file_get_contents('http://papertask.local:8080/assets/plugins/font-awesome/css/font-awesome.css').'</style>';
+		//$content .= '<style>'.file_get_contents('http://papertask.local:8080/assets/plugins/bootstrap/css/bootstrap.min.css').'</style>';
+		//$content .= '<style>'.file_get_contents('http://papertask.local:8080/assets/css/style.css').'</style>';
+		//$content .= '<style>'.file_get_contents('http://papertask.local:8080/assets/plugins/font-awesome/css/font-awesome.css').'</style>';
 
 		
 		// set array for viewer preferences
