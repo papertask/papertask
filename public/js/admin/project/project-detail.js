@@ -148,7 +148,8 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 					//if($scope.itemtm)
 					//	$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
 					console.log("scope.itemtms");
-					console.log($scope.itemtms);		
+					console.log($scope.itemtms);	
+					
 				});
 				
 				$http.get('/api/admin/projectitermdtpmac?projectId='+ projectId).success(function($data) {
