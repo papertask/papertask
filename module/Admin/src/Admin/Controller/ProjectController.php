@@ -82,7 +82,7 @@ class ProjectController extends AbstractActionController
 		error_reporting(E_ALL);
 		ini_set('display_errors', 1);
 		$id = $this->params()->fromQuery('id');
-		$id= 35;
+		//$id= 35;
 		$lang_code = $this->params()->fromRoute('lang');
 		$viewModel = new ViewModel();
 		$viewModel->setVariables(array('id' => $id, 'lang_code' => $lang_code))
