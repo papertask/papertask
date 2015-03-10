@@ -219,7 +219,7 @@ class ProjectController extends AbstractActionController
 				'subtotal' => $subtotal,
 				))
 				->setTerminal(true);
-		return $viewModel;
+		//return $viewModel;
 		$content = $view->render($viewModel);
 		//$uri = $this->getRequest()->getUri();
 		//$scheme = $uri->getScheme();
