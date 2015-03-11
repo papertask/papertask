@@ -385,6 +385,12 @@ class ProjectController extends AbstractRestfulJsonController
 			]);
 			$project->save($this->getEntityManager());
         }
+		if($action==2){
+			$project->setData([
+				'status' => 2,
+			]);
+			$project->save($this->getEntityManager());
+		}
         return new JsonModel([
             'project' => $project->getData(),
         ]);

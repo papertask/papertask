@@ -231,6 +231,14 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 			jQuery("#modal-edit-quote").modal("hide");
 		});	
 	}
+	$scope.quoteAccepted= function ( ) {
+		var updateInvoiceDate= $http.put("/api/admin/project/" + $scope.project.id + "?action=2", $scope.project)
+		.success( function ( $data ) {
+			//show tap
+			location.reload();
+			//$project.status = ProjectStatus.get(2);
+		});	
+	}
 	$scope.setinvoiceDate = function ( ){
 				console.log($scope.invoice);
 				var d = new Date($scope.invoice.invoiceDate);

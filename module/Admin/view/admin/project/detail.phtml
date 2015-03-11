@@ -58,9 +58,9 @@ $this->inlineScript()
             <li class="active"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasks.length }}</span> <?php echo $this->translate("Tasks"); ?></a></li>
             <li class=""><a href="#message" data-toggle="tab"><span class="label label-warning">6</span> Messages & Activities</a></li>
             <li class=""><a href="#files" data-toggle="tab"><span class="label label-danger">2</span> Project Files</a></li>
-            <li class=""><a href="#feedback" data-toggle="tab"> Feedbacks</a></li>
+            <li class="" ng-show="project.status.id == 2" ><a href="#feedback" data-toggle="tab"> Feedbacks</a></li>
             <li class=""><a href="#quote" data-toggle="tab"> Quote</a></li> <!-- if the project status is quote, then show quote, other wise hide quote -->
-            <li class=""><a href="#invoice" data-toggle="tab"> Invoice</a></li> <!-- if the status is not quote, then show invoice -->
+            <li class="" ng-show="project.status.id == 2"><a href="#invoice" data-toggle="tab"> Invoice</a></li> <!-- if the status is not quote, then show invoice -->
         </ul>
     </div>
 </div>
@@ -427,7 +427,7 @@ $this->inlineScript()
 	<?php include "detail/quote.phtml"; ?>
 </div>
 
-<div class="tab-pane" id="invoice">
+<div class="tab-pane" id="invoice" ng-show="project.status.id==2">
 	<?php include "detail/invoice.phtml"; ?>
 </div>
 
