@@ -317,14 +317,16 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 					}	
 					else if(unit == 'engineeringUnits'){
 						if(Itemr[j].unit == 1) 
-							Itemr[j].unit = 'Page';
-						else if(Itemr[j].unit == 2) 
-							Itemr[j].unit = 'Graphic';
-						else if(Itemr[j].unit == 3) 
 							Itemr[j].unit = 'Hour';
+						else if(Itemr[j].unit == 2) 
+							Itemr[j].unit = 'Day';
+						else if(Itemr[j].unit == 3) 
+							Itemr[j].unit = 'Month';
 						else  if(Itemr[j].unit == 4) 
-							Itemr[j].unit = 'Day';		
-						else Itemr[j].unit = 'Month';
+							Itemr[j].unit = 'Word';	
+						else  if(Itemr[j].unit == 5) 
+							Itemr[j].unit = 'Graphic';				
+						else Itemr[j].unit = 'Page';
 					}		
 					else if(unit == 'dtpUnits'){
 						if(Itemr[j].unit == 1) 
