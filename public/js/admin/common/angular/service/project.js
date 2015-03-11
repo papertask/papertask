@@ -879,10 +879,26 @@ angularApp.factory("DateFormatter", function(){
         return date.getDate() + " " + month_names_full[date.getMonth()] + " " + date.getFullYear()
                 + " - " + hour + ":" + date.getSeconds() + " " + t;
     }
+	function format1($date){
+		if(!$date)
+			return "";
+        if(typeof($date) == 'undefined'){
+            return "";
+        }
+		var date;
+		
+		if($date.date)
+			date = new Date($date.date);
+		else date = new Date($date);
+        //15 October 2014 - 11:04 AM
+
+        return date.getDate() + " " + month_names_full[date.getMonth()] + " " + date.getFullYear();
+    }
 
     return {
         short: short,
-        format: format
+        format: format,
+		format1:format1
     }
 });
 

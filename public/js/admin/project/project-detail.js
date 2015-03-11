@@ -240,8 +240,14 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 		});	
 	}
 	$scope.setinvoiceDate = function ( ){
-				console.log($scope.invoice);
-				var d = new Date($scope.invoice.invoiceDate);
+				
+				
+				//var d = new Date($scope.invoice.invoiceDate_tmp);
+				var dt  = $scope.invoice.invoiceDate_tmp.split(/\-|\s/);
+				d = new Date(dt.slice(0,3).reverse().join('/')+' '+dt[3]);
+				
+				//var d = new Date.parseDate($scope.invoice.invoiceDate_tmp, "d-m-Y g:i");
+				$scope.invoice.invoiceDate = d;
 				var dd = d.getDate()
 				if (dd<10) dd= '0'+dd;
 				var mm = d.getMonth() + 1  // now moths are 1-12
@@ -249,6 +255,9 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 				var yy = d.getFullYear();
 				
 				$scope.invoice.invoice_no = "INV-" +  yy + mm + dd  + Math.floor((Math.random()*9000) + 1000);
+				$scope.invoice.dueDate = new Date(new Date(d).setMonth(d.getMonth()+1));
+				console.log($scope.invoice);
+				//return;
 				var updateinvoiceDate = $http.put("/api/admin/invoice/" + $scope.invoice.id + "?action=1", $scope.invoice)
 					.success( function ( $data ) {
 				});			

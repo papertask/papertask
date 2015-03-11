@@ -8,7 +8,7 @@
 
                                                                 <div class="col-sm-6 input-group date">
                                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-																	<input data-field="datetime" readonly type="text" name="invoiceDate" ng-model="invoice.invoiceDate"
+																	<input data-field="datetime" readonly type="text" name="invoiceDate" ng-model="invoice.invoiceDate_tmp"
 																	class="form-control required valid" data-errorplace="element.parent().before(error)"/>
                                                                     <span class="input-group-btn"  ng-click="setinvoiceDate()">
                                                                         <button type="button" class="btn btn-primary">Set</button> 
@@ -44,8 +44,8 @@
 
     <div class="col-xs-6 text-right">
         <p>
-            <span><strong>Invoice Date:</strong>{{ DateFormatter.format(invoice.invoiceDate) }}</span><br/>
-            <span><strong>Due Date:</strong>{{  DateFormatter.format(invoice.dueDate) }}</span>
+            <span><strong>Invoice Date:</strong>{{ DateFormatter.format1(invoice.invoiceDate) }}</span><br/>
+            <span><strong>Due Date:</strong>{{  DateFormatter.format1(invoice.dueDate) }}</span>
         </p>
         <h5>To:</span></h5>
         <strong>{{ project.client.name }}</strong><br>
