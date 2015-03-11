@@ -738,7 +738,8 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 								return;
 							}								
 						}
-						else {
+					}	
+					//	else {
 							//get group language
 							console.log("lang_group");
 							$lang_group  =    LangGroup.get($scope.identifier[1].id);
@@ -770,10 +771,10 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 							// TableItemListService.softwarePrices.length
 							
 						
-						}
+						//}
 						console.log($item);
 							
-					}
+					//}
 						
 				}
 				else {//if not get paper task
@@ -824,10 +825,11 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 					if($item.category.id == TableItemListService.engineeringPrices[i].engineeringcategory.id 
 					&&  $item.unit.id == TableItemListService.engineeringPrices[i].unit.id){
 						
-						$item.rate =  Number(TableItemListService.engineeringPrices[i].priceNumber);
+						$item.rate =  Number(TableItemListService.engineeringPrices[i].price);
 						return;
 					}
-					else {
+				}	
+				//	else {
 						console.log("engineeringPPrices");
 						console.log(TableItemListService.engineeringPPrices);
 						console.log($item.category.id);
@@ -844,8 +846,9 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 								return;
 							}
 						}
-					}
-				}
+						$item.rate = 0;
+					//}
+				//}
 			}
 			else{
 				for(j=0;j<TableItemListService.engineeringPPrices.length;j++)
@@ -856,6 +859,7 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 						return;
 					}
 				}
+				$item.rate = 0;
 			}
 		
 		}

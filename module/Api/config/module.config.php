@@ -203,11 +203,12 @@ return array(
             ['id' => 2, 'name' => 'Half Day'],
         ],
         'engineeringUnits' => [
-            ['id' => 1, 'name' => 'Page'],
-            ['id' => 2, 'name' => 'Graphic'],
-            ['id' => 3, 'name' => 'Hour'],
-            ['id' => 4, 'name' => 'Day'],
-            ['id' => 5, 'name' => 'Month'],
+            ['id' => 1, 'name' => 'Hour'],
+            ['id' => 2, 'name' => 'Day'],
+            ['id' => 3, 'name' => 'Month'],
+            ['id' => 4, 'name' => 'Word'],
+            ['id' => 5, 'name' => 'Graphic'],
+			['id' => 5, 'name' => 'Page'],
         ],
         'dtpUnits' => [
             ['id' => 1, 'name' => 'Hour'],
