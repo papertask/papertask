@@ -243,8 +243,9 @@ echo $this->inlineScript()
 		<!-- if the client is uncontracted, then "make a payment" will show, if client type is "contracted", then dont show "make a payment" instead of "accept the quote" after accept, the project status changed from quoted to ordered -->
 		<div class="hr-line-dashed"></div>
 		<div class="m-t">
-                                                    <h2 class="text-center text-danger">Due Date: {{  DateFormatter.format(invoice.dueDate) }}</h2>
-                                                    <br>
+            <h2 class="text-center text-danger">Due Date: {{  DateFormatter.format(invoice.dueDate) }}</h2>
+            <br>
+			
                                                     <div class="row">
                                                         <div class="col-xs-6">
                                                             <dl class="dl-horizontal">

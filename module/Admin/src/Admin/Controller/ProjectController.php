@@ -305,8 +305,6 @@ class ProjectController extends AbstractActionController
 		$entityManager = $this->getEntityManager();
 		$project = $entityManager->find('\User\Entity\Project', (int)$id);
 		$project_data = $project->getData();
-		$dueDate = $project_data["dueDate"]->format('d M Y');
-		$startDate = $project_data["startDate"]->format('d M Y');
 		$types = $project_data['types'];
 		$hasTypeTranslationNoTM = 0;
 		$hasTypeTranslationUseTM = 0;
@@ -336,9 +334,24 @@ class ProjectController extends AbstractActionController
 		else if($project_data['serviceLevel']==3)	
 			$serviceLevel = "Premium";	
 		
-		//var_dump($project->getData()->);exit;
+		//get invoice
+        $repository = $entityManager->getRepository('User\Entity\Invoice');
+        $invoice = $repository->findBy( array('project'=>$project) );
+        $invoices = array();
+        foreach ( $invoice as $k => $v ) {
+            $invoices[$k] = $v->getData();
+        } 
+		$invoices = $invoices[0];
+		$invoiceDate = '';
+		$dueDate = '';
+		if($invoices['invoiceDate'])
+			$invoiceDate = $invoices['invoiceDate']->format('d M Y');
+		if($invoices['dueDate'])
+			$dueDate = $invoices['dueDate']->format('d M Y');
 		//Get company info
 		$companyinfo = $entityManager->find('\Admin\Entity\ProfileInfo', 1);
+		//Get bank info
+		$bankinfo = $entityManager->find('\Admin\Entity\ProfileBank', 1);
 		$subtotal = 0;
 		//get iterm translation
         $repository = $entityManager->getRepository('User\Entity\Itermnotm');
@@ -360,7 +373,6 @@ class ProjectController extends AbstractActionController
 			if($hasTypeTranslationUseTM == 1)
 				$subtotal = $subtotal +  $iterm_translationtms[$k]['total'];
         } 
-		//var_dump($iterm_translationtms);exit;
 		//get iterm iterm_dtppcs
         $repository = $entityManager->getRepository('User\Entity\Itermdtppc');
         $iterm_dtppc = $repository->findBy( array('project'=>$project) );
@@ -388,7 +400,6 @@ class ProjectController extends AbstractActionController
 			if($hasTypeDesktopPublishingMac == 1)
 				$subtotal = $subtotal +  $iterm_dtpmacs[$k]['total'];	
         } 
-		//var_dump($iterm_dtpmacs);exit;
 		// Get Interpreting Price
         $repository = $entityManager->getRepository('User\Entity\Iterminterpreting');
         $iterm_interpreting = $repository->findBy( array('project'=>$project) );
@@ -430,13 +441,14 @@ class ProjectController extends AbstractActionController
 		
 		$view = $this->getServiceLocator()->get('Zend\View\Renderer\RendererInterface');
 		$viewModel = new ViewModel();
-		$template = '/admin/project/quotedownload';
+		$template = '/admin/project/invoicedownload';
 		$viewModel->setTemplate($template)
 				->setVariables(array(
 				'id' => $id, 
 				'lang_code' => $lang_code,
 				'project' => $project->getData(),
 				'companyinfo' => $companyinfo->getData(),
+				'bankinfo' => $bankinfo->getData(),
 				'hasTypeTranslationNoTM' => $hasTypeTranslationNoTM,
 				'hasTypeTranslationUseTM' => $hasTypeTranslationUseTM,
 				'hasTypeDesktopPublishingWin' => $hasTypeDesktopPublishingWin,
@@ -451,8 +463,9 @@ class ProjectController extends AbstractActionController
 				'iterm_engineerings' => $iterm_engineerings,
 				'serviceLevel' => $serviceLevel,
 				'subtotal' => $subtotal,
+				'invoices' => $invoices,
 				'dueDate' => $dueDate,
-				'startDate' => $startDate
+				'invoiceDate' => $invoiceDate
 				))
 				->setTerminal(true);
 		//return $viewModel;

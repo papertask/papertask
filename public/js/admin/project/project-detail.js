@@ -279,6 +279,9 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 	$scope.downloadQuote = function(){
 		$scope.url_downloadQuote = "/" + LANG_CODE + "/admin/project/quotedownload?id=" + projectId;
     };
+	$scope.downloadInvoice = function(){
+		$scope.url_downloadInvoice = "/" + LANG_CODE + "/admin/project/invoicedownload?id=" + projectId;
+    };
 	
 	function existsIdInArray(arr, id){
         for(var i = 0; i < arr.length; i++){
