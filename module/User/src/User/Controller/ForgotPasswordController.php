@@ -62,10 +62,11 @@ class ForgotPasswordController extends AbstractActionController
 
     public function resetpasswordAction(){
         $request = $this->getRequest();
+        var_dump($request->getPost('token'));
         if($request->isPost()){
             $user = $this->getUserById((int)$request->getPost('user_id'));
-            $user->setData(['password' => $request->getPost('password')]);
-            $user->save($this->getEntityManager());
+            $user->reset($request->getPost('token'),['password' => $request->getPost('password')],$this->getEntityManager());
+            // $user->save($this->getEntityManager());
 
             return new JsonModel(['success' => true]);
         }

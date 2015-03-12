@@ -73,7 +73,11 @@ class ResetForm  extends Form{
 
     public function reset($controller){
         $data = $this->getData();
-        $token = $data['token'];
+
+
+        // $token = $data['token'];
+        $token = $controller->params()->fromQuery('token',null);
+        //var_dump($token);
         if($data['password'] == $data['confirmation']){
             $entityManager = $controller->getEntityManager();
             $user = $controller->getUser(array('token' => $token));
@@ -84,4 +88,4 @@ class ResetForm  extends Form{
         }
     }
 
-} 
+}
