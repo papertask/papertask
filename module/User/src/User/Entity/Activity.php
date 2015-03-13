@@ -61,7 +61,7 @@ class Activity extends Entity{
     public function sendNewActivityMail($controller){
         // initial data for email template
         $lang_code = $controller->params()->fromRoute('lang');
-        $user = $controller->getCurrentUser();
+
         $projectLink = $controller->getBaseUrl(). $lang_code . '/admin/project/detail?id=' . $this->project->getId();
 
         $data = array(
@@ -72,15 +72,23 @@ class Activity extends Entity{
             'projectLink' => $projectLink,
         );
 
-        $emails = ['demo.alex@gmail.com', 'zzooppra@gmail.com'];
-        // remove current user from mail list to send
+        $emails = [];
+        $emails[] = $controller->getUser(array("staff" => $this->project->getData()['pm']['id']))->getData()['email'];
+        $emails[] = $controller->getUser(array("employer" => $this->project->getData()['client']['id']))->getData()['email'];
+
+        if($this->project->getData()['sale']){
+            $emails[] = $controller->getUser(array("staff" => $this->project->getData()['sale']['id']))->getData()['email'];
+        }
+
+        // Uncomment to remove current user from mail list to send
+        // $user = $controller->getCurrentUser();
         // if(($key = array_search($user->getEmail(), $emails)) !== false) {
         //     unset($emails[$key]);
         // }
 
-        // foreach ($emails as $email) {
-            Mail::sendMail($controller, "ACTIVITY_NEW", $emails, $data);
-        // }
+        foreach ($emails as $email) {
+            Mail::sendMail($controller, "ACTIVITY_NEW", $email, $data);
+        }
     }
 
     public function getData(){

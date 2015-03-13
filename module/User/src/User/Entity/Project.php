@@ -39,7 +39,7 @@ class Project extends Entity{
      * @ORM\ManyToMany(targetEntity="Language")
      */
     protected $targetLanguages;
-	
+
 	/**
      * @var string
      * @ORM\Column(type="string", nullable=True)
@@ -135,22 +135,22 @@ class Project extends Entity{
      * @ORM\Column(type="integer")
      */
     protected $payStatus = 1;  # unpaid
-	
+
 	/** @ORM\Column(type="string", nullable=true) */
     protected $po = null;
-	
+
 	/** @ORM\Column(type="string", nullable=true) */
     protected $sourcetext = null;
 	/** @ORM\Column(type="string", nullable=true) */
     protected $currency = null;
-    
+
 	/**
      * @var int
      * @ORM\Column(type="array", length=255)
      */
     protected $types;
-	
-	
+
+
 
     public function getData(){
         return [
@@ -178,7 +178,7 @@ class Project extends Entity{
             'types' => $this->types
         ];
     }
-	
+
     public function getId(){
         return $this->id;
     }
