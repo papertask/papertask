@@ -45,7 +45,8 @@ class ActivityController extends AbstractRestfulJsonController
     public function getList(){
         $projectId = $this->params()->fromQuery('project_id');
         $activities = $this->getAllDataBy('\User\Entity\Activity', [
-            'project' => $projectId
+            'project' => $projectId,
+            'is_deleted' => false
         ], ['id' => 'ASC']);
         return new JsonModel([
             'activities' => $activities,
@@ -54,32 +55,26 @@ class ActivityController extends AbstractRestfulJsonController
 
     public function delete($id){
         /** @var \User\Entity\Task $task */
-        $task = $this->find('\User\Entity\Task', $id);
-        $task->setData([
+        $activity = $this->find('\User\Entity\Activity', $id);
+        $activity->setData([
             'is_deleted' => true,
         ]);
         $task->save($this->getEntityManager());
 
         return new JsonModel([
-            'task' => $task->getData(),
+            'activity' => $activity->getData(),
         ]);
     }
 
     public function update($id, $data){
-        $task = $this->find('\User\Entity\Task', $id);
+        $activity = $this->find('\User\Entity\Activity', $id);
         $updateData = [];
-        if(isset($data['is_specialism_pool'])){
-            $updateData['is_specialism_pool'] = (bool) $data['is_specialism_pool'];
-            $updateData['is_client_pool'] = !$updateData['is_specialism_pool'];
-        } else if (isset($data['is_client_pool'])){
-            $updateData['is_client_pool'] = (bool) $data['is_client_pool'];
-            $updateData['is_specialism_pool'] = !$updateData['is_client_pool'];
-        }
-        $task->setData($updateData);
-        $task->save($this->getEntityManager());
+
+        $activity->setData($updateData);
+        $activity->save($this->getEntityManager());
 
         return new JsonModel([
-            'task' => $task->getData(),
+            'activity' => $activity->getData(),
         ]);
     }
 }

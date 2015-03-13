@@ -33,7 +33,9 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
     $scope.pms = [];
     $scope.fields = [];
     $scope.project = {
-        task: []
+        task: [],
+        tasksNum: 0,
+        activitiesNum: 0,
     };
 	$scope.telephone = [];
 
@@ -400,6 +402,7 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
                 attachData($newTask);
                 $scope.newTask = {};
                 $scope.items.push($newTask);
+                $scope.project.tasksNum = $scope.items.length;
             });
         }
     }
@@ -408,6 +411,7 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
         for(var i = 0; i < $tasks.length; i++){
             attachData($tasks[i]);
         }
+        $scope.project.tasksNum = $tasks.length;
     }
     $scope.custom.afterLoadItems = afterLoadItems;
 
@@ -455,7 +459,12 @@ angularApp.controller("ProjectActivitiesController", function($scope, ActivityAp
         ActivityApi.create(newActivity, function($newActivity){
             $scope.newActivity = Object.create(templateActivity);
             $scope.items.push($newActivity);
+            $scope.project.activitiesNum = $scope.items.length;
         });
+    }
+
+    $scope.custom.afterLoadItems = function($activities){
+        $scope.project.activitiesNum = $activities.length;
     }
 
     $scope.$watch(function(){

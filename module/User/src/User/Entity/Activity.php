@@ -48,6 +48,12 @@ class Activity extends Entity{
     /** @ORM\Column(type="string", nullable=true) */
     protected $message = null;
 
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    protected $is_deleted = false;
+
     public function getData(){
         return [
             'id' => $this->id,

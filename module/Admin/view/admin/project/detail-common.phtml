@@ -2,8 +2,8 @@
 <div class="panel-heading">
     <div class="panel-options">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasks.length }}</span> <?php echo $this->translate("Tasks"); ?></a></li>
-            <li class=""><a href="#message" data-toggle="tab"><span class="label label-warning">6</span> Messages & Activities</a></li>
+            <li class="active"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasksNum }}</span> <?php echo $this->translate("Tasks"); ?></a></li>
+            <li class=""><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> Messages & Activities</a></li>
             <li class=""><a href="#files" data-toggle="tab"><span class="label label-danger">2</span> Project Files</a></li>
             <li class="" ng-show="project.status.id == 2"><a href="#feedback" data-toggle="tab"> Feedbacks</a></li>
             <li class=""><a href="#quote" data-toggle="tab"> Quote</a></li>
@@ -19,7 +19,7 @@
     <div class="tab-content">
         <?php include "detail/tasks.phtml"; ?>
         <?php include "detail/activities.phtml"; ?>
-        
+
         <div class="tab-pane" id="files">
             <table class="table table-bordered">
                 <thead>
