@@ -749,51 +749,70 @@ angularApp.factory("ProjectType", function($sce){
         "id": 1,
         "name": "Translation (No TM)",
         "name_short": "No TM",
+		"name_task" : $sce.trustAsHtml("No TM"),
+		"tootip" : "Translation without Translation Memory",
         "name_text": "Translation (No TM)"
     }, {
         "id": 2,
         "name": "Translation (Use TM)",
         "name_short": "TM",
+		"name_task" : $sce.trustAsHtml("TM"),
+		"tootip" : "Translation with Translation Memory",
         "name_text": "Translation (Use TM)"
     }, {
         "id": 3,
         "name": "Proofreading",
         "name_short": "Proofreading",
+		"name_task" : $sce.trustAsHtml("Proofreading"),
         "name_text": "Proofreading"
     }, {
         "id": 4,
-        "name": $sce.trustAsHtml("DTP <i class=\"fa fa-apple\"><\/i>"),
+        "name": $sce.trustAsHtml('DTP <i class=\"fa fa-apple\"><\/i>'),
         "name_short": "MAC",
+		"name_task" : $sce.trustAsHtml('DTP <i class=\"fa fa-apple\"><\/i>'),	
+		"tootip" : "Desktop Publishing",
         "name_text": "DTP MAC"
     }, {
         "id": 5,
-        "name": $sce.trustAsHtml("DTP <i class=\"fa fa-windows\"><\/i>"),
+        "name": $sce.trustAsHtml('DTP <i class=\"fa fa-windows\"><\/i>'),
         "name_short": "WIN",
+		"name_task" : $sce.trustAsHtml('DTP <i class=\"fa fa-windows\"><\/i>'),
+		"tootip" : "Desktop Publishing",
         "name_text": "DTP Windows"
     }, {
         "id": 6,
         "name": $sce.trustAsHtml("Engineering"),
         "name_short": "ENG",
+		"name_task" : $sce.trustAsHtml("Engineering"),
+		"tootip" : "Engineering",
         "name_text": "Engineering"
     }, {
         "id": 7,
         "name": "Simultaneous",
         "name_short": "SIM",
+		"name_task" : $sce.trustAsHtml("Simultaneous"),
+		"tootip" : "Simultaneous",
         "name_text": "Simultaneous"
     }, {
         "id": 8,
         "name": "Consecutive",
         "name_short": "CON",
+		"name_task" : $sce.trustAsHtml("Consecutive"),
+		"tootip" : "Consecutive",
         "name_text": "Consecutive"
     }, {
         "id": 9,
         "name": "Business Escort",
         "name_short": "BE",
+		"name_task" : $sce.trustAsHtml("Business Escort"),
+		"tootip" : "Business Escort",
         "name_text": "Business Escort"
     }, {
         "id": 10,
         "name": "Tourism Escort",
         "name_short": "TE",
+		"name_task" : $sce.trustAsHtml("Tourism Escort"),
+		"tootip" : "Tourism Escort",
         "name_text": "Tourism Escort"
     }];
 

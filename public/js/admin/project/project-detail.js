@@ -49,7 +49,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 
     var projectId = PROJECT_ID;
     function init(){
-		
+		$("*[rel=tooltip]").tooltip();
         var project_listener = ProjectApi.get(projectId, function($project){
             $project.priority = ProjectPriority.get($project.priority);
             $project.serviceLevel = ProjectServiceLevel.get($project.serviceLevel);
@@ -388,6 +388,8 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
     $scope.setItemApi(TaskApi);
 
     function attachData($task){
+		console.log("check task");
+		console.log($task);
         $task.type = ProjectType.get($task.type);
         $task.status = TaskStatus.get($task.status);
     }
@@ -407,9 +409,13 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
     }
 
     function afterLoadItems($tasks){
+		console.log("check tasks1");
+		console.log($tasks);
         for(var i = 0; i < $tasks.length; i++){
             attachData($tasks[i]);
         }
+		//console.log("check tasks");
+		//console.log($tasks);
     }
     $scope.custom.afterLoadItems = afterLoadItems;
 
@@ -433,9 +439,13 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
     $scope.sendToClientPool = sendToClientPool;
 
     $scope.$watch(function(){
+		
         return $scope.project;
     }, function(){
         if(typeof($scope.project.id) != 'undefined'){
+			var str = $scope.project.quote_no;
+			var res = str.split("-");
+			$scope.project.project_no = res[1];
             $scope.filter.project_id = $scope.project.id;
             $scope.refresh();
         }

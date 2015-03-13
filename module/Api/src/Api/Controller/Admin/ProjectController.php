@@ -238,6 +238,24 @@ class ProjectController extends AbstractRestfulJsonController
 		foreach($data['data'] as $iterms){
             $identifier = $iterms['identifier'];
             $type = $identifier[0];
+			if ($type == 'translationNoTM'){
+				$type = 1;
+			}
+			else if ($type == 'translationTM'){
+				$type = 2;
+			}
+			else if ($type == 'dtpMac'){
+				$type = 4;
+			}
+			else if ($type == 'dtpPc'){
+				$type = 5;
+			}
+			else if ($type == 'engineering'){
+				$type = 6;
+			}
+			else{
+				$type = $data['types'][0]['id'];
+			}
             $languageId = $identifier[1]['id'];
 			
 			$task = new Task();
