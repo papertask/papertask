@@ -191,7 +191,7 @@ class User extends Entity implements InputFilterAwareInterface{
             'cellphone'
         );
 
-        if(isset($arr['currency']) and !in_array($arr['currency'], ['usd', 'cny'])){
+        if(isset($arr['currency']) and $arr['currency'] and !in_array($arr['currency'], ['usd', 'cny'])){
             throw new \Exception("Invalid currency '{$arr['currency']}'");
         }
 
@@ -514,7 +514,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function isStaff(){
         return $this->getGroup()->isAdmin();
     }
-	
+
     /**
      * Group = 3, Role = 1, otherwise – false
      * @return bool

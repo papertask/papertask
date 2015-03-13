@@ -279,10 +279,10 @@ INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('3', 'Financia
 INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('4', 'Sales Director', NULL), ('5', 'Sales', '4');
 INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('6', 'Operation Manager', NULL), ('7', 'Project Manager', '6');
 
-INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('8', 'Admin', NULL), ('2', 'General Manager', '4');
-INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('9', 'Financial Manager', NULL);
-INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('10', 'Sales Director', NULL), ('5', 'Sales', '4');
-INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('11', 'Operation Manager', NULL), ('7', 'Project Manager', '6');
+-- INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('8', 'Admin', NULL), ('2', 'General Manager', '4');
+-- INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('9', 'Financial Manager', NULL);
+-- INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('10', 'Sales Director', NULL), ('5', 'Sales', '4');
+-- INSERT INTO `papertask`.`roles` (`id`, `type`, `subtype`) VALUES ('11', 'Operation Manager', NULL);
 
 INSERT INTO `papertask`.`profileservice` (`id`, `name`, `currencyRate`) VALUES ('1', 'CNY', 6.3);
 

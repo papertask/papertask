@@ -7,7 +7,6 @@
     ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
     ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
 ?>
-
 <!-- Scripts -->
 <?php $this->headScript()
     ->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
@@ -37,421 +36,70 @@ $this->inlineScript()
     ");
 ?>
 <style>
-    .label_check label{
-        margin-right: 0.3em;
-    }
+.note-editor {
+    height: 150px;
+}
+
+.label_check label{
+    margin-right: 0.3em;
+}
 </style>
 <div class="row">
-<div class="col-lg-12">
-<div class="ibox" ng-controller="ProjectDetailController" id="ProjectDetailController">
-<div class="ibox-content">
-    <?php include "detail/info.phtml"; ?>
-    <?php include "detail/miniform.phtml"; ?>
+    <div class="col-lg-12">
+        <div class="ibox" ng-controller="ProjectDetailController" id="ProjectDetailController">
+            <div class="ibox-content">
+                <?php include "detail/info.phtml"; ?>
+                <?php include "detail/miniform.phtml"; ?>
 
 
-<div class="row m-t-sm">
-<div class="col-lg-12">
-<div class="panel blank-panel">
-<div class="panel-heading">
-    <div class="panel-options">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasks.length }}</span> <?php echo $this->translate("Tasks"); ?></a></li>
-            <li class=""><a href="#message" data-toggle="tab"><span class="label label-warning">6</span> Messages & Activities</a></li>
-            <li class=""><a href="#files" data-toggle="tab"><span class="label label-danger">2</span> Project Files</a></li>
-            <li class="" ng-show="project.status.id == 2" ><a href="#feedback" data-toggle="tab"> Feedbacks</a></li>
-            <li class=""><a href="#quote" data-toggle="tab"> Quote</a></li> <!-- if the project status is quote, then show quote, other wise hide quote -->
-            <li class="" ng-show="project.status.id == 2"><a href="#invoice" data-toggle="tab"> Invoice</a></li> <!-- if the status is not quote, then show invoice -->
-        </ul>
-    </div>
-</div>
+                <div class="row m-t-sm">
+                    <div class="col-lg-12">
+                        <div class="panel blank-panel">
+                            <?php
+                                switch($this->userData()['role']){
+                                    case 'Admin':
+                                        //staff menus here
+                                        switch($this->userData()['type']){
+                                            case 'Admin':
+                                            case 'Financial Manager':
+                                            case 'Operation Manager':
+                                            case 'Project Manager':
+                                            case 'Sales Director':
+                                            case 'Sales': // Sales Manager
+                                            case 'General Manager': // Inhouse
+                                            default:
+                                                include "detail-common.phtml";
+                                        }
+                                        break;
+                                    case 'Employer': // employer == client
+                                    case 'Client':
+                                        include "detail-client.phtml";
+                                        break;
+                                    case 'Freelancer':
+                                    default:
+                                        include "detail-common.phtml";
+                                        // TODO: default menu
+                                };
+                            ?>
 
-<div class="panel-body">
-
-<div class="tab-content">
-    <?php include "detail/tasks.phtml"; ?>
-<div class="tab-pane" id="message">
-    <div class="feed-activity-list">
-        <div class="feed-element">
-            <div class="media-body ">
-                <small class="pull-right">2014-Aug-20, 14:36</small>
-                <strong>Yang, Michael</strong> create quote. <br>
-                <div class="well">
-                    Project log or Description, if no log or description, then dont show div class=well
-                </div>
-            </div>
-        </div>
-        <div class="feed-element">
-            <div class="media-body ">
-                <small class="pull-right">2014-Aug-20, 15:36</small>
-                <strong>Smith, Alex</strong> accept the quote. <br>
-            </div>
-        </div>
-        <div class="feed-element">
-            <div class="media-body ">
-                <small class="pull-right">2014-Aug-20, 14:36</small>
-                <strong><a href="#" class="text-navy">freelancer_name1</a></strong> pick up task <a href="#" class="text-navy">#8888888-01</a>. <br>
-            </div>
-        </div>
-        <div class="feed-element">
-            <div class="media-body ">
-                <small class="pull-right">2014-Aug-20, 14:36</small>
-                <strong><a href="#" class="text-navy">freelancer_name2</a></strong> pick up task <a href="#" class="text-navy">#8888888-02</a>. <br>
-            </div>
-        </div>
-        <div class="feed-element">
-            <div class="media-body ">
-                <small class="pull-right">2014-Aug-20, 14:36</small>
-                <strong><a href="#" class="text-navy">freelancer_name2</a></strong> post message. <br>
-                <div class="well">
-                    Project log or Description, if no log or description, then dont show div class=well
-                </div>
-            </div>
-        </div>
-
-        <div class="feed-element">
-            <div class="media-body ">
-                <small class="pull-right">2014-Aug-20, 14:36</small>
-                <strong>Yang, Michael</strong> create task <a href="#" class="text-navy">#8888888-03</a>. <br>
-            </div>
-        </div>
-        <div class="feed-element">
-            <div class="media-body ">
-                <small class="pull-right">2014-Aug-20, 14:36</small>
-                <strong>Smith, Alex</strong> post message. <br>
-                <div class="well">
-                    requirements
-                </div>
-            </div>
-        </div>
-        <div class="feed-element">
-            <div class="media-body ">
-                <small class="pull-right">2014-Aug-20, 14:36</small>
-                <strong>Yang, Michael</strong> post message. <br>
-                <div class="well">
-                    answer
-                </div>
-            </div>
-        </div>
-        <div class="feed-element">
-            <div class="media-body ">
-                <small class="pull-right">2014-Aug-20, 14:36</small>
-                <strong>Yang, Michael</strong> post message. <br>
-                <div class="well">
-                    answer
-                </div>
-            </div>
-        </div>
-        <div class="feed-element">
-            <div class="media-body ">
-                <small class="pull-right">2014-Aug-20, 14:36</small>
-                <strong>Smith, Alex</strong> request re-do the project, project rejected. <br>
-            </div>
-        </div>
-        <div class="feed-element">
-            <div class="media-body ">
-                <small class="pull-right">2014-Aug-20, 14:36</small>
-                <strong>Smith, Alex</strong> accept the delivery, project closed. <br>
-            </div>
-        </div>
-    </div>
-
-    <br>
-    <div class="form-group">
-        <div class="summernote">
-
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <div class="form-group" align="right">
-        <div class="col-sm-12">
-            <button class="btn btn-primary" type="submit">Send</button>
-        </div>
-    </div>
-</div>
-
-<div class="tab-pane" id="files">
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Source File Name</th>
-            <th>Size</th>
-            <th>Time Stamp</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>1</td>
-            <td><a href=""><i class="fa fa-file"></i> Project_document_SC.docx <i class="fa fa-cloud-download"></i></a> </td>
-            <td>46.88 KB</td>
-            <td>2014-Oct-09 16:30</td>
-            <td><i class="fa fa-trash"></i></td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="text-right m-t-md">
-        <a href="#" class="btn btn-xs btn-primary"><i class="fa fa-cloud-upload"></i> Upload Source files</a>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <h4>Files For Client Review</h4>
-    <div class="panel-body">
-        <div class="panel-group" id="accordion_files">
-            <div class="panel panel-default">
-                <div class="panel-heading" style="padding-bottom: 10px;">
-                    <h5 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion_files" href="#lang1_files"><i class="fa fa-exclamation-triangle text-danger"></i> English <i class="fa fa-arrow-right"></i> Simplify Chinese <i class="fa fa-paperclip"></i></a> <!-- with paperclip means file for this language has been uploaded -->
-                    </h5>
-                </div>
-                <div id="lang1_files" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Languages</th>
-                                <th>File Name</th>
-                                <th>Size</th>
-                                <th>Time Stamp</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>English <i class="fa fa-arrow-right"></i> Simplify Chinese</td>
-                                <td><a href=""><i class="fa fa-file"></i> Project_document_SC.docx <i class="fa fa-cloud-download"></i></a> </td>
-                                <td>46.88 KB</td>
-                                <td>2014-Oct-09 16:30</td>
-                                <td><i class="fa fa-trash"></i></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="text-center m-t-md">
-                            <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-cloud-upload"></i> Upload files</a>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label class="control-label">What's wrong with the translation?</label>
-                                <div class="checkbox"><label> <input type="checkbox" checked disabled value=""> It is incomplete </label></div>
-                                <div class="checkbox"><label> <input type="checkbox" checked disabled value=""> It contains spelling or grammatical errors </label></div>
-                                <div class="checkbox"><label> <input type="checkbox" disabled value=""> It misses key meaning or details from the original </label></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Comments</label>
-                                <p>sdasdkjasdkas;dasdasjdlksjdlskdjasldj</p>
-                            </div><!-- /form-group -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" style="padding-bottom: 10px;">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion_files" href="#lang2_files">English <i class="fa fa-arrow-right"></i> Traditional Chinese</a>
-                    </h4>
-                </div>
-                <div id="lang2_files" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Languages</th>
-                                <th>File Name</th>
-                                <th>Size</th>
-                                <th>Time Stamp</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>English <i class="fa fa-arrow-right"></i> Simplify Chinese</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><i class="fa fa-trash"></i></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="text-center m-t-md">
-                            <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-cloud-upload"></i> Upload files</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" style="padding-bottom: 10px;">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion_files" href="#lang3_files">English <i class="fa fa-arrow-right"></i> German <i class="fa fa-paperclip"></i></a></a>
-                    </h4>
-                </div>
-                <div id="lang3_files" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Languages</th>
-                                <th>File Name</th>
-                                <th>Size</th>
-                                <th>Time Stamp</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>English <i class="fa fa-arrow-right"></i> German</td>
-                                <td><a href=""><i class="fa fa-file"></i> Project_document_JP.docx <i class="fa fa-cloud-download"></i></a> </td>
-                                <td>46.88 KB</td>
-                                <td>2014-Oct-09 16:30</td>
-                                <td></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="text-center m-t-md">
-                            <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-cloud-upload"></i> Upload files</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="tab-pane" id="feedback">
-    <div class="panel-body">
-        <div class="panel-group" id="accordion_feedback">
-            <div class="panel panel-default">
-                <div class="panel-heading" style="padding-bottom: 10px;">
-                    <h5 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion_feedback" href="#feedback_lang1"><i class="fa fa-exclamation-triangle text-danger"></i> English <i class="fa fa-arrow-right"></i> Simplify Chinese </a>
-                    </h5>
-                </div>
-                <div id="feedback_lang1" class="panel-collapse collapse in">
-                    <br>
-                    <div class="row form-horizontal">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Quality: </label>
-                                <div class="col-lg-6"><p class="form-control-static"><span class="label label-primary">Satisfactory</span></p></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Turn Around Time</label>
-                                <div class="col-lg-8"><p class="form-control-static"><span class="label label-primary">Faster</span></p></div>
-                            </div>
-                        </div>
-                    </div>
+    <script>
+        $(document).ready(function(){
+            $('.dtbox').DateTimePicker();
 
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="control-label">Feed back to Translator and Project Manager</label>
-                            <p>dfadlkfjadfjad;fjadsfjlfksdlf;sf;</p>
-                        </div><!-- /form-group -->
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" style="padding-bottom: 10px;">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion_feedback" href="#feedback_lang2">English <i class="fa fa-arrow-right"></i> Traditional Chinese</a>
-                    </h4>
-                </div>
-                <div id="feedback_lang2" class="panel-collapse collapse">
-                    <br>
-                    <div class="row form-horizontal">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Quality: </label>
-                                <div class="col-lg-6"><p class="form-control-static"><span class="label label-primary">Satisfactory</span></p></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Turn Around Time</label>
-                                <div class="col-lg-8"><p class="form-control-static"><span class="label label-primary">Faster</span></p></div>
-                            </div>
-                        </div>
-                    </div>
+            // trigger datetime picker when click to calendar icon
+            // TODO: this is not working
+            $('i.fa.fa-calendar').on('click', function(e){
+                console.log('clicked');
+                e.preventDefault();
 
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="control-label">Feed back to Translator and Project Manager</label>
-                            <p>dfadlkfjadfjad;fjadsfjlfksdlf;sf;</p>
-                        </div><!-- /form-group -->
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" style="padding-bottom: 10px;">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion_feedback" href="#feedback_lang3">English <i class="fa fa-arrow-right"></i> German </a>
-                    </h4>
-                </div>
-                <div id="feedback_lang3" class="panel-collapse collapse">
-                    <br>
-                    <div class="row form-horizontal">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Quality: </label>
-                                <div class="col-lg-6"><p class="form-control-static"><span class="label label-primary">Satisfactory</span></p></div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label class="col-lg-4 control-label">Turn Around Time</label>
-                                <div class="col-lg-8"><p class="form-control-static"><span class="label label-primary">Faster</span></p></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="control-label">Feed back to Translator and Project Manager</label>
-                            <p>dfadlkfjadfjad;fjadsfjlfksdlf;sf;</p>
-                        </div><!-- /form-group -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- if the project status is quoted or quoting, then hide other tabs only show quote tab -->
-<div class="tab-pane" id="quote">
-	<?php include "detail/quote.phtml"; ?>
-</div>
-
-<div class="tab-pane" id="invoice" ng-show="project.status.id==2">
-	<?php include "detail/invoice.phtml"; ?>
-</div>
-
-</div>
-
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<script>
-    $(document).ready(function(){
-        $('.dtbox').DateTimePicker();
-
-        // trigger datetime picker when click to calendar icon
-        // TODO: this is not working
-        $('i.fa.fa-calendar').on('click', function(e){
-            console.log('clicked');
-            e.preventDefault();
-
-            $(this).parents('.input-group').find('input[readonly]').click();
+                $(this).parents('.input-group').find('input[readonly]').click();
+            });
         });
-    });
-</script>
+    </script>

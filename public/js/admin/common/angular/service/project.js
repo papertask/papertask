@@ -23,7 +23,7 @@ angularApp.factory("CurrentcyRate", function(){
             return rates;
         }
     }
-});	
+});
 
 angularApp.factory("ProjectStatus", function(){
     var statuses = [{
@@ -729,9 +729,9 @@ angularApp.factory("LangGroup", function(){
         "group_id": 4,
         "group_name": "Others"
     },
-	
+
 	];
-	
+
 	return {
         get: function($id){
             for(var i = 0; i < group.length; i++){
@@ -886,7 +886,7 @@ angularApp.factory("DateFormatter", function(){
             return "";
         }
 		var date;
-		
+
 		if($date.date)
 			date = new Date($date.date);
 		else date = new Date($date);
@@ -987,4 +987,8 @@ angularApp.factory("LanguageApi", function(API){
 
 angularApp.factory("TaskApi", function(API){
     return API.factory('/api/admin/task/', 'task', 'tasks');
+});
+
+angularApp.factory("ActivityApi", function(API){
+    return API.factory('/api/admin/activity/', 'activity', 'activities');
 });
