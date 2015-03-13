@@ -4,6 +4,7 @@ namespace User\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Common\Entity;
+use Common\Mail;
 
 /** @ORM\Entity */
 class Activity extends Entity{
@@ -53,6 +54,34 @@ class Activity extends Entity{
      * @ORM\Column(type="boolean")
      */
     protected $is_deleted = false;
+
+    /**
+     * @param \Application\Controller\AbstractActionController $controller
+     */
+    public function sendNewActivityMail($controller){
+        // initial data for email template
+        $lang_code = $controller->params()->fromRoute('lang');
+        $user = $controller->getCurrentUser();
+        $projectLink = $controller->getBaseUrl(). $lang_code . '/admin/project/detail?id=' . $this->project->getId();
+
+        $data = array(
+            'project' => $this->project->getData(),
+            'type' => $this->type,
+            'sender' => $this->sender->getData(),
+            'message' => $this->message,
+            'projectLink' => $projectLink,
+        );
+
+        $emails = ['demo.alex@gmail.com', 'zzooppra@gmail.com'];
+        // remove current user from mail list to send
+        // if(($key = array_search($user->getEmail(), $emails)) !== false) {
+        //     unset($emails[$key]);
+        // }
+
+        // foreach ($emails as $email) {
+            Mail::sendMail($controller, "ACTIVITY_NEW", $emails, $data);
+        // }
+    }
 
     public function getData(){
         return [

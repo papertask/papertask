@@ -37,6 +37,8 @@ class ActivityController extends AbstractRestfulJsonController
         $activity->setData($data);
         $activity->save($this->getEntityManager());
 
+        $activity->sendNewActivityMail($this);
+        
         return new JsonModel([
             'activity' => $activity->getData(),
         ]);
