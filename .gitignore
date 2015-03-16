@@ -28,3 +28,4 @@ extras/documentation
 .DS_Store
 
 public/uploads
+*.zip
