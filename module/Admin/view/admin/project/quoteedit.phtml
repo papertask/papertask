@@ -1,0 +1,104 @@
+<?php $this->headTitle($this->translate('Add New Project')) ?>
+<!-- Le styles -->
+<?php $this->headLink()
+    ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
+    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
+    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
+    ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
+    ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+?>
+
+<!-- Scripts -->
+<?php $this->headScript()
+    ->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
+    ->prependFile($this->basePath() . '/js/admin/project/quote-edit.js')
+    ->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
+    ->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
+    ->prependFile($this->basePath() . '/js/admin/angular-steps.js')
+    ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
+	->prependScript("PROJECT_ID = {$this->id};")
+    ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload']);")
+    ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
+    ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
+    //->prependFile($this->basePath() . '/js/plugins/datapicker/bootstrap-datepicker.js')
+    ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
+    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
+    ->prependFile($this->basePath() . '/js/inspinia.js')
+	->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js');
+
+?>
+<?php
+$this->inlineScript()
+    ->prependScript("
+		var LANG_CODE = '" . $this->lang_code . "';
+		var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+		var EXITS_CONFIRM_TEXT = '" . $this->translate('This client was existed') . "';
+		var EXITS_CONFIRM_OPTION_TEXT = '" . $this->translate('This option was existed, please chose other') . "';
+    ");
+?>
+<style>
+    .form-group label.btn-outline {
+        margin-right: 0.3em;
+    }
+    input[readonly][data-field=datetime]{
+        background-color: #fff;
+    }
+    input[readonly][data-field=datetime]:hover,
+    i.fa.fa-calendar:hover{
+        cursor: pointer;
+    }
+</style>
+<div class="row" id="QuoteEditController" ng-controller="QuoteEditController" ng-init="init()">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                 <h5><i class="fa fa-file-text-o"></i> Quote Information</h5>
+            </div>
+            <div class="ibox-content">
+				<div class="row m-t-sm">
+					<div class="col-lg-12">
+						<?php include "quoteedit/service_and_duration.phtml" ?>
+                        <?php include "quoteedit/type_and_status.phtml" ?>
+                        <?php include "quoteedit/order_information.phtml" ?>
+					</div>
+				
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-controller="ModalController" id="modalContainer">
+	<?php include "quoteedit/modal/translation_modal.phtml"; ?>
+    <?php include "quoteedit/modal/interpreting_modal.phtml" ?>
+    <?php include "quoteedit/modal/engineering_modal.phtml" ?>
+    <?php include "quoteedit/modal/desktop_publishing_modal.phtml" ?>
+   
+</div>
+<script>
+    var edit = function() {
+        $('.click2edit').summernote({focus: true});
+    };
+    var save = function() {
+        var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+        $('.click2edit').destroy();
+    };
+
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.dtbox').DateTimePicker();
+
+        // trigger datetime picker when click to calendar icon
+        // TODO: this is not working
+        $('i.fa.fa-calendar').on('click', function(e){
+            console.log('clicked');
+            e.preventDefault();
+
+            $(this).parents('.input-group').find('input[readonly]').click();
+        });
+    });
+</script>

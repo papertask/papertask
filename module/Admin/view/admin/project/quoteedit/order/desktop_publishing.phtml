@@ -1,0 +1,92 @@
+<div class="panel panel-default">
+    <div class="panel-heading" style="padding-bottom: 10px;">
+        Desktop Publishing
+    </div>
+    <div class="panel-body">
+        <div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Iterms - <span class="text-info">DTP <i class="fa fa-apple"></i></span></th>
+						<th>File</th>
+                        <th>DTP Software </th>
+                        <th>Unit </th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+						<tr ng-repeat="item in itermdtpmacs[language.id]">
+							<td>{{ $index + 1 }}</td>
+							<td>{{ item.name }}</td>
+							<td>{{ item.file.name }}</td>
+							<td>{{ item.software.name }}</td>
+							<td>{{ item.unit.name }}</td>
+							<td>{{ item.rate }}</td>
+							<td>{{ item.quantity }}</td>
+							<td>{{ item.total }}</td>
+							<td>
+												<span ng-click="editDesktopMac($index, item.id, language.id)">
+													<i class="fa fa-edit"></i>
+												</span> &nbsp;&nbsp;
+								<span ng-click="deleteDesktopMac($index, item.id, language.id)"><i class="fa fa-trash-o text-danger"></i></span>
+							</td>
+						</tr>                    
+					</tbody>
+                </table>
+            </div>
+            <div class="text-center">
+				 <a class="btn btn-outline btn-primary"
+                   ng-click="addDesktopMac(language.id)">Add Iterm</a>
+				   
+                
+            </div>
+            <div class="hr-line-dashed"></div>
+        </div>
+        <div>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+						<th>Iterms - <span class="text-info">DTP <i class="fa fa-windows"></i></span></th>
+                        <th>File</th>
+                        <th>DTP Software </th>
+                        <th>Unit </th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+						<tr ng-repeat="item in itermdtppcs[language.id]">
+							<td>{{ $index + 1 }}</td>
+							<td>{{ item.name }}</td>
+							<td>{{ item.file.name }}</td>
+							<td>{{ item.software.name }}</td>
+							<td>{{ item.unit.name }}</td>
+							<td>{{ item.rate }}</td>
+							<td>{{ item.quantity }}</td>
+							<td>{{ item.total }}</td>
+							<td>
+												<span ng-click="editDesktopPc($index, item.id, language.id)">
+													<i class="fa fa-edit"></i>
+												</span> &nbsp;&nbsp;
+								<span ng-click="deleteDesktopPc($index, item.id, language.id)"><i class="fa fa-trash-o text-danger"></i></span>
+							</td>
+						</tr>                    
+					</tbody>
+                </table>
+            </div>
+            <div class="text-center">
+                <a class="btn btn-outline btn-primary"
+                   ng-click="addDesktopPc(language.id)">Add Iterm</a>
+            </div>
+        </div>
+    </div>
+</div>

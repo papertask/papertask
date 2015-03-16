@@ -82,14 +82,27 @@ class ProjectItermtmController extends AbstractRestfulJsonController
     }
 
     public function update($id, $data){
-        $this->cleanData($data);
-
-        /** @var \User\Entity\Project $project */
-        $project = $this->find('\User\Entity\Project', $id);
-        $project->setData($data);
-        $project->save($this->getEntityManager());
+		$entityManager = $this->getEntityManager();
+		if($data['file']['id'])
+			 $file = $this->find('\User\Entity\File', $data['file']['id']);
+        $itermtm = $entityManager->find('\User\Entity\Itermtm', $id);
+        $itermtm->setData([
+				'name' => $data['name'],
+				'rate' => $data['rate'],
+				'sourcebawu' => $data['sourcebawu'],
+				'sourcejiuwu' => $data['sourcejiuwu'],
+				'sourcenomatch' => $data['sourcenomatch'],
+				'sourceqiwu' => $data['sourceqiwu'],
+				'sourcerepetitions' => $data['sourcerepetitions'],
+				'sourcewushi' => $data['sourcewushi'],
+				'sourceyibai' => $data['sourceyibai'],
+				'total' => $data['total'],
+           ]);
+           
+        $itermtm->save($entityManager);
+           
         return new JsonModel([
-            'project' => $project->getData(),
-        ]);
+               'itermtm' => $itermtm->getData(),
+           ]);
     }
 }

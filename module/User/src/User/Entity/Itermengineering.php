@@ -78,14 +78,15 @@ class Itermengineering extends Entity{
     }
 	public function getData(){
         return [
+			'id' =>  $this->id,
             'name' => $this->name,
             'file' => $this->file,
 			'language' => $this->language->getData(),
 			'rate' => $this->rate,
 			'quantity' => $this->quantity,
             'unit' => $this->unit,
-			'engineeringcategory' => $this->engineeringcategory,
-			'total' => $this->total
+			'engineeringcategory' => $this->engineeringcategory->getData(),
+			'total' => $this->total,
         ];
     }
 

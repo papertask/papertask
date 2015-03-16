@@ -9,14 +9,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 
 use Admin\Model\Helper;
 use Api\Controller\AbstractRestfulJsonController;
-use User\Entity\Iterm;
-use User\Entity\Itermdtpmac;
 use User\Entity\Itermdtppc;
-use User\Entity\Itermengineering;
-use User\Entity\Iterminterpreting;
-use User\Entity\Itermtm;
-use User\Entity\Itermnotm;
-
 use User\Entity\Project;
 
 use User\Entity\UserGroup;
@@ -34,7 +27,28 @@ class ProjectItermdtppcController extends AbstractRestfulJsonController
 
     public function create($data)
     {
-		
+		$projectid = $this->getRequest()->getQuery('projectid');
+		$iterm = new Itermdtppc();
+		if($data['file']['id'])
+			$file = $this->find('\User\Entity\File', $data['file']['id']);
+		$project = $this->find('User\Entity\Project', $projectid);
+		$iterm->setProject($project);
+		$language = $this->find('User\Entity\Language', $data['languageid']);
+		$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']); 
+		$iterm->setData([
+			'name' => $data['name'],
+			'unit' => $data['unit']['id'],
+			'file' => ($file)?$file:null,
+			'rate' => $data['rate'],
+			'quantity' => $data['quantity'],
+			'total' => $data['total'],
+			'language' => $language,
+			'software' => $software,
+		]);
+		$iterm->save($this->getEntityManager());
+		return new JsonModel([
+            'iterm' => $iterm->getData(),
+        ]);
     }
 
     public function getList(){
@@ -51,45 +65,37 @@ class ProjectItermdtppcController extends AbstractRestfulJsonController
     }
 
     public function get($id){
-		//error_reporting(E_ALL);
-		//ini_set('display_errors', 1);
-		$entityManager = $this->getEntityManager();
-        $project = $this->find('User\Entity\Itermnotm', $id);
-        $Itermnotm = $entityManager->getRepository('\User\Entity\Itermnotm')->findBy(array('project'=>$project));
-        $Itermnotms = array();
-        foreach( $Itermnotm as $k => $v ) 
-        {
-            $Itermnotms[$k] = $v->getData();
-        }
-		var_dump($Itermnotms);exit;
-		return new JsonModel([
-            'project' => $project->getData(),
-			'itermnotms' => $Itermnotms,
-			
-        ]);
     }
 
     public function delete($id){
-        /** @var \User\Entity\Project $project */
-        $project = $this->find('\User\Entity\Project', $id);
-        $project->setData([
-            'is_deleted' => true
-        ]);
-        $project->save($this->getEntityManager());
-        return new JsonModel([
-            'project' => $project->getData(),
-        ]);
+        $entityManager = $this->getEntityManager();
+        $itermdtppc = $entityManager->find('\User\Entity\Itermdtppc', $id);
+        $entityManager->remove($itermdtppc);
+        $entityManager->flush();
+        return new JsonModel([]);
     }
 
     public function update($id, $data){
-        $this->cleanData($data);
-
-        /** @var \User\Entity\Project $project */
-        $project = $this->find('\User\Entity\Project', $id);
-        $project->setData($data);
-        $project->save($this->getEntityManager());
-        return new JsonModel([
-            'project' => $project->getData(),
-        ]);
+			$entityManager = $this->getEntityManager();
+			if($data['file']['id']){
+				$file = $this->find('\User\Entity\File', $data['file']['id']);
+			} 
+			$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']); 
+			$itermdtppc = $entityManager->find('\User\Entity\Itermdtppc', $id);
+			$itermdtppc->setData([
+				'name' => $data['name'],
+				'unit' => $data['unit']['id'],
+				'file' => ($file)?$file:null,
+				'rate' => $data['rate'],
+				'quantity' => $data['quantity'],
+				'total' => $data['total'],
+				'software' => $software,
+           ]);
+           
+			$itermdtppc->save($entityManager);
+           
+			return new JsonModel([
+               'itermdtppc' => $itermdtppc->getData(),
+           ]);
     }
 }

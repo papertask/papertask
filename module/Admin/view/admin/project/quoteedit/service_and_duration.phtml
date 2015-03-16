@@ -1,0 +1,32 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4><i class="fa fa-sitemap"></i> Service Level <small>Project default service level</small></h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+					<div data-toggle="buttons">
+						<label class="btn btn-outline btn-primary {{active_class(project.serviceLevel.id, 1)}}" ng-click="project.serviceLevel=1;setserviceLevel(1)" >
+						<input type="radio" name="professional"> Professional
+						</label> &nbsp; <label class="btn btn-outline btn-primary {{active_class(project.serviceLevel.id, 2)}}" ng-click="project.serviceLevel=2;setserviceLevel(2)"> <input
+							type="radio" name="business"> Business
+						</label> &nbsp; <label class="btn btn-outline btn-primary {{active_class(project.serviceLevel.id, 3)}}" ng-click="project.serviceLevel=3;setserviceLevel(3)" > <input
+							type="radio" name="premium"> Premium
+						</label>
+					</div>
+                </div>
+            </div>
+            <div class="col-lg-6 form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-6 control-label">Approximate duration *</label>
+                    <div class="col-sm-3">
+                        <input ng-model="project.duration" type="text" class="form-control required"
+                            name="duration"/>
+                    </div>
+                    <span class="col-sm-3 control-label">Working days</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

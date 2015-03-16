@@ -216,7 +216,8 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 			
 			
     }
-	
+
+
 	$scope.saveTaxandDiscount = function ( ) {
 		console.log("scope.project");
 		console.log($scope.project);

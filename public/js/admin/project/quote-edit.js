@@ -13,23 +13,34 @@ angularApp.run(function($rootScope){
     });
 });
 
-angularApp.controller('CreateProjectController', function($scope, $http, $timeout, $q, $sce, CurrentUser,
-                                                          TableItemListService, ProjectType, CurrentcyRate){
+angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $q, $sce, CurrentUser,
+                                                          TableItemListService, ProjectType, ProjectApi,ProjectServiceLevel, 
+															ProjectStatus, ProjectPriority, CurrentcyRate){
     $scope.ProjectType = ProjectType;
+	 $scope.ProjectStatus = ProjectStatus;
+    $scope.ProjectServiceLevel = ProjectServiceLevel;
+    $scope.ProjectPriority = ProjectPriority;
 	$scope.CurrentcyRate = CurrentcyRate.get(1).rate;
 	//console.log("CurrentcyRate");
 	//console.log($scope.CurrentcyRate);
 
     $scope.files = [];
+	$scope.type_active = [];
 	$scope.USER_ID = null;
     $scope.currency = null;
 	$scope.interpreting = null;
     $scope.editing = true;
+	$scope.itermnotmsnews = [];
 	//papertask
 	$scope.translationTM = [];
 	$scope.translation = [];
+	$scope.translationNoTM = [];
+	$scope.desktopMac = [];
+	$scope.desktopPc = [];
+	$scope.engineering = [];
 	
     $scope.order = {};
+	$scope.laguageid = null;
     $scope.project = {
 		
         types: [],
@@ -40,8 +51,142 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 	function format2n(n) {
 		return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
-	
+	var projectId = PROJECT_ID;
     $scope.init = function(){
+	
+		var project_listener = ProjectApi.get(projectId, function($project){
+            $project.priority = ProjectPriority.get($project.priority);
+            $project.serviceLevel = ProjectServiceLevel.get($project.serviceLevel);
+            $project.status = ProjectStatus.get($project.status);
+            $project.tasks = [];
+			
+            $scope.project = $project;
+			generateActiveResources();
+			$scope.currency = $scope.project.currency;
+			
+			console.log("scope.project");
+			console.log($scope.project);
+			//console.log($scope.serviceLevel);
+
+            jQuery.extend($scope.tempProject, $scope.project);
+        });
+		$q.all([project_listener])
+            .then(function(){
+				$http.get('/api/admin/projectitermnotm?projectId='+ projectId).success(function($data) {
+					$scope.itermnotms = $data['Itermnotms'];
+					// arrange itermnotms based language
+					$scope.itermnotmsnews = arrangeItem($data['Itermnotms']);
+					console.log("scope.itermnotms");
+					console.log($scope.itermnotms);	
+					
+					console.log("scope.itermnotmsnews");
+					console.log($scope.itermnotmsnews);			
+				});
+				$http.get('/api/admin/projectitermtm?projectId='+ projectId).success(function($data) {
+					$scope.itemtms = arrangeItem($data['Itermtms']);
+					//if($scope.itemtm)
+					//	$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
+					console.log("scope.itemtms");
+					console.log($scope.itemtms);	
+					
+				});
+				
+				$http.get('/api/admin/projectitermdtpmac?projectId='+ projectId).success(function($data) {
+					$scope.itermdtpmacs = arrangeItem($data['Itermdtpmacs'], 'dtpUnits');
+					console.log("scope.itermdtpmacs");
+					console.log($scope.itermdtpmacs);		
+				});
+				
+				$http.get('/api/admin/projectitermdtppc?projectId='+ projectId).success(function($data) {
+					$scope.itermdtppcs = arrangeItem($data['Itermdtppcs'], 'dtpUnits');
+					console.log("scope.itermdtppcs");
+					console.log($scope.itermdtppcs);			
+				});
+				
+				$http.get('/api/admin/projectitermengineering?projectId='+ projectId).success(function($data) {
+					$scope.itermengineerings = arrangeItem($data['Itermengineerings'], 'engineeringUnits');
+					console.log("scope.itermengineerings");
+					console.log($scope.itermengineerings);			
+				});
+				
+				$http.get('/api/admin/projectiterminterpreting?projectId='+ projectId).success(function($data) {
+					$scope.iterminterpretings = arrangeItem($data['Iterminterpretings'], 'interpretingUnits');
+					console.log("scope.iterminterpretings");
+					console.log($scope.iterminterpretings);			
+				});
+				
+				$http.get('/api/admin/invoice?projectId='+ projectId).success(function($data) {
+					$scope.invoice = $data['invoices'];
+					if($scope.invoice.invoiceDate)
+						$scope.invoice.invoiceDate = $scope.invoice.invoiceDate.date;
+					
+					console.log("scope.invoice");
+					//console.log($data);	
+					console.log($scope.invoice);			
+				});
+			});	
+		function generateActiveResources(){
+			for(var i = 0; i < $scope.project.types.length; i++){
+				$scope.type_active[$scope.project.types[i]] = 'active';
+				
+			}
+			console.log($scope.type_active);
+		}
+		function arrangeItem(Itemr, unit) {
+		$scope.itermtmnew = [];
+			for(var i = 0; i < $scope.project.targetLanguages.length; i++)
+			{
+				$scope.itermtmnew[$scope.project.targetLanguages[i].id] = [];
+				for(var j = 0; j < Itemr.length; j++){
+					if(Itemr[j].language.id == $scope.project.targetLanguages[i].id){
+						$scope.subtotal_tmp = $scope.subtotal_tmp + parseFloat(Itemr[j].total);
+						var total = Number(Itemr[j].total);
+						var rate = Number(Itemr[j].rate);
+						var subtotal_tmp = Number($scope.subtotal_tmp);
+						console.log(total);					
+						Itemr[j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+						console.log(Itemr[j].total);
+						Itemr[j].rate_tmp = Number(Itemr[j].rate);
+						Itemr[j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+						//set unit
+						Itemr[j].unit_tmp = Itemr[j].unit;
+						Itemr[j].unit = [];
+						Itemr[j].unit.id = Itemr[j].unit_tmp;
+						if(unit == 'interpretingUnits'){
+							if(Itemr[j].unit_tmp == 1) 
+								Itemr[j].unit.name = 'Day';
+							else Itemr[j].unit.name = 'Half Day';
+						}	
+						else if(unit == 'engineeringUnits'){
+							if(Itemr[j].unit_tmp == 1) 
+								Itemr[j].unit.name = 'Hour';
+							else if(Itemr[j].unit_tmp == 2) 
+								Itemr[j].unit.name = 'Day';
+							else if(Itemr[j].unit_tmp == 3) 
+								Itemr[j].unit.name = 'Month';
+							else  if(Itemr[j].unit_tmp == 4) 
+								Itemr[j].unit.name = 'Word';	
+							else  if(Itemr[j].unit_tmp == 5) 
+								Itemr[j].unit.name = 'Graphic';				
+							else Itemr[j].unit.name = 'Page';
+						}		
+						else if(unit == 'dtpUnits'){
+							if(Itemr[j].unit_tmp == 1) 
+								Itemr[j].unit.name = 'Hour';
+							else Itemr[j].unit.name = 'Page';
+						}
+						$scope.subtotal = $scope.currency + " " + subtotal_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+						var tax = Number((subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
+						$scope.tax = $scope.currency + " " + tax.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+						
+						var total = Number(subtotal_tmp - $scope.project.discount + (subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
+						$scope.total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+						$scope.itermtmnew[$scope.project.targetLanguages[i].id].push(Itemr[j]);
+					}	
+				}
+			}
+			return $scope.itermtmnew;
+		}
 		$http.get("/api/papertask/currencyrate").success(function($data){
 			$scope.profileservice = $data['profileservice'];
 			$scope.currencyrate_t = $scope.profileservice[0];
@@ -62,7 +207,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
                 }
 				
 
-                $scope.project.targetLanguages = [];
+                //$scope.project.targetLanguages = [];
                 $timeout(function(){
                     jQuery("select.multiselect").multiselect("destroy").multiselect();
                 });
@@ -133,7 +278,461 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         setModalControllerData('project', $scope.project);
 		
     };
-
+	/**
+     * Translation Prices
+     */
+   
+	$scope.saveTranslationTM = function( itemtm ){
+			$scope.iterm_tm =[];
+			$scope.iterm_tm = itemtm;
+			console.log("scope.iterm_tm");
+			console.log($scope.iterm_tm);
+			//$scope.itemtms[$scope.laguageid][0] = $scope.iterm_tm;
+			//return;
+			
+			//$scope.iterm_notm.rate_tmp = $scope.iterm_notm.rate;
+			itemtm.total_tmp = 	($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratebawu)/100)*$scope.iterm_tm.sourcebawu
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratejiuwu)/100)*$scope.iterm_tm.sourcejiuwu
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratenomatch)/100)*$scope.iterm_tm.sourcenomatch
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.rateqiwu)/100)*$scope.iterm_tm.sourceqiwu
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.raterepetitions)/100)*$scope.iterm_tm.sourcerepetitions
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratewushi)/100)*$scope.iterm_tm.sourcewushi
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.rateyibai)/100)*$scope.iterm_tm.sourceyibai;
+			$scope.iterm_tm.total = itemtm.total_tmp;
+			$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		if ( itemtm.id ) {
+			$http.put("/api/admin/projectitermtm/" + itemtm.id, 
+				{
+    				languageid: $scope.laguageid,
+					rate: itemtm.rate_tmp, 
+					sourcebawu: itemtm.sourcebawu, 
+					sourcejiuwu: itemtm.sourcejiuwu,
+					sourcenomatch: itemtm.sourcenomatch,
+					sourceqiwu: itemtm.sourceqiwu,
+					sourcerepetitions: itemtm.sourcerepetitions,
+					sourcewushi: itemtm.sourcewushi,
+					sourceyibai: itemtm.sourceyibai,
+					total: itemtm.total_tmp,
+					name : itemtm.name,
+					file : itemtm.file
+				}).success(function( data ) {
+					$scope.itemtms[$scope.laguageid][0] = $scope.iterm_tm;
+    			});
+				
+    	} else {
+			$http.post("/api/admin/projectitermtm?projectid="+projectId, 
+					{
+						languageid: $scope.laguageid,
+						rate: itemtm.rate_tmp, 
+						quantity: itemtm.quantity, 
+						total: itemtm.total_tmp,
+						name : itemtm.name,
+						file : itemtm.file
+						
+					}).success(function( data ) {
+						$scope.iterm_tm.id = data.iterm.id;
+						$scope.itemtms[$scope.laguageid].push($scope.iterm_tm);
+					});
+    	}
+    	jQuery("#modal-translation-TM").modal("hide");
+    	setModalControllerData('itemtm', []);
+    	$scope.editTm = -1;
+    };
+	$scope.editTranslationTM = function ( index, tid, laguageid ) {
+    	$scope.editTm = index;
+		$scope.laguageid = laguageid;
+		
+		$scope.itemtm = $scope.itemtms[laguageid][0];
+		$scope.itemtm.rate_tmp = Number($scope.itemtms[laguageid][0].rate_tmp);
+    	setModalControllerData('itemtm', $scope.itemtm);
+    	jQuery("#modal-translation-TM").modal("show");
+    }
+	$scope.addTranslationNoTM = function(laguageid){
+		setModalControllerData('itemtm',[]);
+		$scope.editTranslation = -1;
+		$scope.laguageid = laguageid;
+		jQuery("#modal-translation-TM").modal("show");
+	}
+	/**
+     * Translation Prices
+     */
+   
+	$scope.saveTranslationNoTM = function( translationNoTM ){
+			$scope.iterm_notm =[];
+			$scope.iterm_notm = translationNoTM;
+			//$scope.iterm_notm.rate_tmp = $scope.iterm_notm.rate;
+			translationNoTM.total_tmp = $scope.iterm_notm.rate_tmp * $scope.iterm_notm.quantity;
+			$scope.iterm_notm.total = translationNoTM.total_tmp;
+			$scope.iterm_notm.total = $scope.currency + " " + Number($scope.iterm_notm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_notm.rate = $scope.currency + " " + Number($scope.iterm_notm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		if ( $scope.editTranslation == -1 ) {
+			$http.post("/api/admin/projectitermnotm?projectid="+projectId, 
+					{
+						languageid: $scope.laguageid,
+						rate: translationNoTM.rate_tmp, 
+						quantity: translationNoTM.quantity, 
+						total: translationNoTM.total_tmp,
+						name : translationNoTM.name,
+						file : translationNoTM.file
+						
+					}).success(function( data ) {
+						$scope.iterm_notm.id = data.iterm.id;
+						$scope.itermnotmsnews[$scope.laguageid].push($scope.iterm_notm);
+					});
+				
+    	} else {
+    		$http.put("/api/admin/projectitermnotm/" + translationNoTM.id, 
+				{
+    				languageid: $scope.laguageid,
+					rate: translationNoTM.rate_tmp, 
+					quantity: translationNoTM.quantity, 
+					total: translationNoTM.total_tmp,
+					name : translationNoTM.name,
+					file : translationNoTM.file
+				}).success(function( data ) {
+					$scope.itermnotmsnews[$scope.laguageid][$scope.editTranslation] = $scope.iterm_notm;
+    			});
+    		
+    	}
+    	jQuery("#modal-translation-noTM").modal("hide");
+    	setModalControllerData('translationNoTM', []);
+    	$scope.editTranslation = -1;
+    };
+	$scope.editTranslationNoTMPrice = function ( index, tid, laguageid ) {
+    	$scope.editTranslation = index;
+		$scope.laguageid = laguageid;
+		
+		$scope.translationNoTM = $scope.itermnotmsnews[laguageid][index];
+		$scope.translationNoTM.rate_tmp = Number($scope.itermnotmsnews[laguageid][index].rate_tmp);
+    	setModalControllerData('translationNoTM', $scope.translationNoTM);
+    	jQuery("#modal-translation-noTM").modal("show");
+    }
+	$scope.addTranslationNoTMPrice = function(laguageid){
+		setModalControllerData('translationNoTM',[]);
+		$scope.editTranslation = -1;
+		$scope.laguageid = laguageid;
+		jQuery("#modal-translation-noTM").modal("show");
+	}
+	$scope.deleteTranslationNoTMPrice = function ( index, tid, laguageid  ) {    	
+        bootbox.confirm( DELETE_CONFIRM_TEXT, function( bflag ) {
+            if ( bflag == true ) {
+                $http.delete("/api/admin/projectitermnotm/" + tid, {
+                    tid: tid            
+                }).success(function( data ) {                
+					$scope.itermnotmsnews[laguageid].splice(index, 1);
+                    
+                });                
+            }
+        });       
+    }
+	/**
+     * Desktop Price Mac
+     */
+    
+    $scope.saveDesktopMac = function ( desktopMac ) {
+		
+		$scope.iterm_dtpmac =[];
+		$scope.iterm_dtpmac = desktopMac;
+		desktopMac.total_tmp = $scope.iterm_dtpmac.rate_tmp * $scope.iterm_dtpmac.quantity;
+		$scope.iterm_dtpmac.total = desktopMac.total_tmp;
+		$scope.iterm_dtpmac.total = $scope.currency + " " + Number($scope.iterm_dtpmac.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_dtpmac.rate = $scope.currency + " " + Number($scope.iterm_dtpmac.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    	if ( $scope.editDtpMac == -1) {
+			$http.post("/api/admin/projectitermdtpmac?projectid="+projectId, 
+					{
+						languageid: $scope.laguageid,
+						rate: desktopMac.rate_tmp, 
+						unit : desktopMac.unit,
+						quantity: desktopMac.quantity, 
+						total: desktopMac.total_tmp,
+						name : desktopMac.name,
+						file : desktopMac.file,
+						software : desktopMac.software,
+						
+					}).success(function( data ) {
+						$scope.iterm_dtpmac.id = data.iterm.id;
+						$scope.itermdtpmacs[$scope.laguageid].push($scope.iterm_dtpmac);
+					});
+		} else {
+			$http.put("/api/admin/projectitermdtpmac/" + desktopMac.id, 
+				{
+    				languageid: $scope.laguageid,
+					rate: desktopMac.rate_tmp, 
+					quantity: desktopMac.quantity, 
+					total: desktopMac.total_tmp,
+					name : desktopMac.name,
+					file : desktopMac.file,
+					software : desktopMac.software,
+				}).success(function( data ) {
+					$scope.itermdtpmacs[$scope.laguageid][$scope.editDtpMac] = $scope.iterm_dtpmac;
+    			});
+    	}
+    	
+    	jQuery("#modal-dtp-mac").modal("hide");
+    	setModalControllerData('desktopMac', []);
+    	$scope.editDtpMac = -1;
+    }
+    $scope.editDesktopMac = function ( index, tid, laguageid ) {
+    	$scope.editDtpMac = index;
+		$scope.laguageid = laguageid;
+		$scope.desktopMac = $scope.itermdtpmacs[laguageid][index];
+		$scope.desktopMac.rate_tmp = Number($scope.itermdtpmacs[laguageid][index].rate_tmp);
+		console.log("scope.desktopMac");
+		console.log($scope.desktopMac);
+		
+    	setModalControllerData('desktopMac', $scope.desktopMac);
+    	jQuery("#modal-dtp-mac").modal("show");
+    }
+	$scope.addDesktopMac = function(laguageid){
+		setModalControllerData('desktopMac', []);
+		$scope.editDtpMac = -1;
+		$scope.laguageid = laguageid;
+		jQuery("#modal-dtp-mac").modal("show");
+	}
+	
+    $scope.deleteDesktopMac = function ( index, tid, laguageid ) {
+        bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
+            if ( bflag == true ) {
+                $http.delete("/api/admin/projectItermdtpmac/" + tid, {
+                    tid: tid            
+                }).success(function( data ) {                
+					$scope.itermdtpmacs[laguageid].splice(index, 1);
+                    
+                });                
+            }
+        });
+    	
+    }
+	/**
+     * Desktop Price Pc
+     */
+    
+    $scope.saveDesktopPc = function ( desktopPc ) {
+		
+		$scope.iterm_dtppc =[];
+		$scope.iterm_dtppc = desktopPc;
+		desktopPc.total_tmp = $scope.iterm_dtppc.rate_tmp * $scope.iterm_dtppc.quantity;
+		$scope.iterm_dtppc.total = desktopPc.total_tmp;
+		$scope.iterm_dtppc.total = $scope.currency + " " + Number($scope.iterm_dtppc.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_dtppc.rate = $scope.currency + " " + Number($scope.iterm_dtppc.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    	if ( $scope.editDtpPc == -1) {
+			$http.post("/api/admin/projectitermdtppc?projectid="+projectId, 
+					{
+						languageid: $scope.laguageid,
+						rate: desktopPc.rate_tmp, 
+						unit : desktopPc.unit,
+						quantity: desktopPc.quantity, 
+						total: desktopPc.total_tmp,
+						name : desktopPc.name,
+						file : desktopPc.file,
+						software : desktopPc.software,
+						
+					}).success(function( data ) {
+						$scope.iterm_dtppc.id = data.iterm.id;
+						$scope.itermdtppcs[$scope.laguageid].push($scope.iterm_dtppc);
+					});
+		} else {
+			$http.put("/api/admin/projectitermdtppc/" + desktopPc.id, 
+				{
+    				languageid: $scope.laguageid,
+					rate: desktopPc.rate_tmp, 
+					quantity: desktopPc.quantity, 
+					total: desktopPc.total_tmp,
+					name : desktopPc.name,
+					file : desktopPc.file,
+					software : desktopPc.software,
+				}).success(function( data ) {
+					$scope.itermdtppcs[$scope.laguageid][$scope.editDtpPc] = $scope.iterm_dtppc;
+    			});
+    	}
+    	
+    	jQuery("#modal-dtp-pc").modal("hide");
+    	setModalControllerData('desktopPc', []);
+    	$scope.editDtpPc = -1;
+    }
+    $scope.editDesktopPc = function ( index, tid, laguageid ) {
+    	$scope.editDtpPc = index;
+		$scope.laguageid = laguageid;
+		$scope.desktopPc = $scope.itermdtppcs[laguageid][index];
+		$scope.desktopPc.rate_tmp = Number($scope.itermdtppcs[laguageid][index].rate_tmp);
+		console.log("scope.desktopPc");
+		console.log($scope.desktopPc);
+		
+    	setModalControllerData('desktopPc', $scope.desktopPc);
+    	jQuery("#modal-dtp-pc").modal("show");
+    }
+	$scope.addDesktopPc = function(laguageid){
+		setModalControllerData('desktopPc', []);
+		$scope.editDtpPc = -1;
+		$scope.laguageid = laguageid;
+		jQuery("#modal-dtp-pc").modal("show");
+	}
+	
+    $scope.deleteDesktopPc = function ( index, tid, laguageid ) {
+        bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
+            if ( bflag == true ) {
+                $http.delete("/api/admin/projectitermdtppc/" + tid, {
+                    tid: tid            
+                }).success(function( data ) {                
+					$scope.itermdtppcs[laguageid].splice(index, 1);
+                    
+                });                
+            }
+        });
+    	
+    }
+	/**
+     * Engineering
+     */
+    
+    $scope.saveEngineering = function ( engineering ) {
+		
+		$scope.iterm_engineering =[];
+		$scope.iterm_engineering = engineering;
+		engineering.total_tmp = $scope.iterm_engineering.rate_tmp * $scope.iterm_engineering.quantity;
+		$scope.iterm_engineering.total = engineering.total_tmp;
+		$scope.iterm_engineering.total = $scope.currency + " " + Number($scope.iterm_engineering.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_engineering.rate = $scope.currency + " " + Number($scope.iterm_engineering.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    	if ( $scope.editEngineering == -1) {
+			$http.post("/api/admin/projectitermengineering?projectid="+projectId, 
+					{
+						languageid: $scope.laguageid,
+						rate: engineering.rate_tmp, 
+						unit : engineering.unit,
+						quantity: engineering.quantity, 
+						total: engineering.total_tmp,
+						name : engineering.name,
+						file : engineering.file,
+						engineeringcategory : engineering.engineeringcategory,
+						
+					}).success(function( data ) {
+						$scope.iterm_engineering.id = data.iterm.id;
+						$scope.itermengineerings[$scope.laguageid].push($scope.iterm_engineering);
+					});
+		} else {
+			$http.put("/api/admin/projectitermengineering/" + engineering.id, 
+				{
+    				languageid: $scope.laguageid,
+					rate: engineering.rate_tmp, 
+					quantity: engineering.quantity, 
+					total: engineering.total_tmp,
+					name : engineering.name,
+					file : engineering.file,
+					engineeringcategory : engineering.engineeringcategory,
+				}).success(function( data ) {
+					$scope.itermengineerings[$scope.laguageid][$scope.editEngineering] = $scope.iterm_engineering;
+    			});
+    	}
+    	
+    	jQuery("#modal-eng").modal("hide");
+    	setModalControllerData('engineering', []);
+    	$scope.editEngineering = -1;
+    }
+    $scope.editEng = function ( index, tid, laguageid ) {
+    	$scope.editEngineering = index;
+		$scope.laguageid = laguageid;
+		$scope.engineering = $scope.itermengineerings[laguageid][index];
+		$scope.engineering.rate_tmp = Number($scope.itermengineerings[laguageid][index].rate_tmp);
+		console.log("scope.engineering");
+		console.log($scope.engineering);
+		
+    	setModalControllerData('engineering', $scope.engineering);
+    	jQuery("#modal-eng").modal("show");
+    }
+	$scope.addEngineering = function(laguageid){
+		setModalControllerData('engineering', []);
+		$scope.editEngineering = -1;
+		$scope.laguageid = laguageid;
+		jQuery("#modal-eng").modal("show");
+	}
+	
+    $scope.deleteEngineering = function ( index, tid, laguageid ) {
+        bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
+            if ( bflag == true ) {
+                $http.delete("/api/admin/projectitermengineering/" + tid, {
+                    tid: tid            
+                }).success(function( data ) {                
+					$scope.itermengineerings[laguageid].splice(index, 1);
+                    
+                });                
+            }
+        });
+    	
+    }
+	/**
+     * Interpreting price
+     */
+	$scope.saveInt = function( interpreting ){
+			$scope.iterm_interpreting =[];
+			$scope.iterm_interpreting = interpreting;
+			interpreting.total_tmp = $scope.iterm_interpreting.rate_tmp * $scope.iterm_interpreting.quantity;
+			$scope.iterm_interpreting.total = interpreting.total_tmp;
+			$scope.iterm_interpreting.total = $scope.currency + " " + Number($scope.iterm_interpreting.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_interpreting.rate = $scope.currency + " " + Number($scope.iterm_interpreting.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		if ( $scope.editInterpreting == -1 ) {
+			$http.post("/api/admin/projectiterminterpreting?projectid="+projectId, 
+					{
+						languageid: $scope.laguageid,
+						rate: interpreting.rate_tmp, 
+						quantity: interpreting.quantity, 
+						total: interpreting.total_tmp,
+						name : interpreting.name,
+						file : interpreting.file
+						
+					}).success(function( data ) {
+						$scope.iterm_interpreting.id = data.iterm.id;
+						$scope.iterminterpretings[$scope.laguageid].push($scope.iterm_interpreting);
+					});
+				
+    	} else {
+    		$http.put("/api/admin/projectiterminterpreting/" + interpreting.id, 
+				{
+    				languageid: $scope.laguageid,
+					rate: interpreting.rate_tmp, 
+					quantity: interpreting.quantity, 
+					total: interpreting.total_tmp,
+					name : interpreting.name,
+					file : interpreting.file
+				}).success(function( data ) {
+					$scope.iterminterpretings[$scope.laguageid][$scope.editInterpreting] = $scope.iterm_interpreting;
+    			});
+    		
+    	}
+    	jQuery("#modal-interpreting").modal("hide");
+    	setModalControllerData('interpreting', []);
+    	$scope.editInterpreting = -1;
+    };
+	$scope.editInt = function ( index, tid, laguageid ) {
+    	$scope.editInterpreting = index;
+		$scope.laguageid = laguageid;
+		
+		$scope.interpreting = $scope.iterminterpretings[laguageid][index];
+		$scope.interpreting.rate_tmp = Number($scope.iterminterpretings[laguageid][index].rate_tmp);
+    	setModalControllerData('interpreting', $scope.interpreting);
+    	jQuery("#modal-interpreting").modal("show");
+    }
+	$scope.addInt = function(laguageid){
+		setModalControllerData('interpreting',[]);
+		$scope.editInterpreting = -1;
+		$scope.laguageid = laguageid;
+		jQuery("#modal-interpreting").modal("show");
+	}
+	$scope.deleteInt = function ( index, tid, laguageid  ) {    	
+        bootbox.confirm( DELETE_CONFIRM_TEXT, function( bflag ) {
+            if ( bflag == true ) {
+                $http.delete("/api/admin/projectiterminterpreting/" + tid, {
+                    tid: tid            
+                }).success(function( data ) {                
+					$scope.iterminterpretings[laguageid].splice(index, 1);
+                    
+                });                
+            }
+        });       
+    }
+	
+	
+	
     $scope.projectType = function(){
         if($scope.project.types.length > 0){
             return "normal";
@@ -427,7 +1026,6 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 	$scope.active_class = function(a, b){
         return a == b ? 'active' : '';
     };
-	
 
     $scope.setInterpreting = function($interpreting){
         jQuery(".project-types .active").removeClass("active");

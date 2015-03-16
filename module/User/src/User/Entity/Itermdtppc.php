@@ -82,6 +82,7 @@ class Itermdtppc extends Entity{
     }
 	public function getData(){
         return [
+			'id' =>  $this->id,
             'name' => $this->name,
             'file' => $this->file,
 			'language' => $this->language->getData(),

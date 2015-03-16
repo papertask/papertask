@@ -1,0 +1,40 @@
+<div class="panel panel-info">
+	<div class="panel-heading">
+        <i class="fa fa-puzzle-piece"></i> Project Type 
+    </div>
+     <div class="panel-body">
+        <div class="form-group project-types">
+            <label class="col-sm-3 control-label">
+                <h4><i class="fa fa-coffee"></i>&nbsp; Translation</h4>
+            </label>
+            <div data-toggle="buttons">
+                <label class="btn btn-outline btn-primary {{type_active[translation.id]}}"
+                       ng-repeat="translation in ProjectType.translations" ng-click="addType(translation)">
+                    <input type="checkbox" name="type" ng-value="translation.id"/> {{translation.name}}
+                </label>
+            </div>
+        </div>
+        <div class="form-group project-types">
+            <label class="col-sm-3 control-label">
+                <h4><i class="fa fa-desktop"></i> &nbsp;DTP/Engineering</h4>
+            </label>
+            <div data-toggle="buttons">
+                <label class="btn btn-outline btn-primary {{type_active[dtp.id]}}" ng-repeat="dtp in ProjectType.dtps"
+                       ng-click="addType(dtp)">
+                    <input type="checkbox" name="type" ng-value="dtp.id" /> <span ng-bind-html="dtp.name"></span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group" id="project-interpreting">
+            <label class="col-sm-3 control-label">
+                <h4><i class="fa fa-comments-o"></i> &nbsp; Interpreting</h4>
+            </label>
+            <div data-toggle="buttons">
+                <label class="btn btn-outline btn-primary {{interpreting == project.interpreting ? 'active': ''}}"
+                       ng-repeat="interpreting in ProjectType.interpretings" ng-click="setInterpreting(interpreting)">
+                    <input type="radio" name="type" ng-value="intepreting.id" /> {{interpreting.name}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

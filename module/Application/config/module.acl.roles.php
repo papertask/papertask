@@ -49,6 +49,7 @@ $allow_all = array(
 	'project\quotedownload',
 	'project\invoiceprint',
 	'project\invoicedownload',
+	'project\quoteedit',
 	// -- Freelancer
 	'freelancer\index',
 	'freelancer\new',

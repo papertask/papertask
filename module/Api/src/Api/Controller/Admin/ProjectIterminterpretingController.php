@@ -34,7 +34,26 @@ class ProjectIterminterpretingController extends AbstractRestfulJsonController
 
     public function create($data)
     {
+		$projectid = $this->getRequest()->getQuery('projectid');
+		$iterm = new Iterminterpreting();
+		if($data['file']['id'])
+			$file = $this->find('\User\Entity\File', $data['file']['id']);
+		$project = $this->find('User\Entity\Project', $projectid);
+		$iterm->setProject($project);
+		$language = $this->find('User\Entity\Language', $data['languageid']);
 		
+		$iterm->setData([
+			'name' => $data['name'],
+			'file' => ($file)?$file:null,
+			'rate' => $data['rate'],
+			'quantity' => $data['quantity'],
+			'total' => $data['total'],
+			'language' => $language,
+		]);
+		$iterm->save($this->getEntityManager());
+		return new JsonModel([
+            'iterm' => $iterm->getData(),
+        ]);
     }
 
     public function getList(){
@@ -70,26 +89,30 @@ class ProjectIterminterpretingController extends AbstractRestfulJsonController
     }
 
     public function delete($id){
-        /** @var \User\Entity\Project $project */
-        $project = $this->find('\User\Entity\Project', $id);
-        $project->setData([
-            'is_deleted' => true
-        ]);
-        $project->save($this->getEntityManager());
-        return new JsonModel([
-            'project' => $project->getData(),
-        ]);
+        $entityManager = $this->getEntityManager();
+        $iterminterpreting = $entityManager->find('\User\Entity\Iterminterpreting', $id);
+        $entityManager->remove($iterminterpreting);
+        $entityManager->flush();
+        return new JsonModel([]);
     }
 
     public function update($id, $data){
-        $this->cleanData($data);
-
-        /** @var \User\Entity\Project $project */
-        $project = $this->find('\User\Entity\Project', $id);
-        $project->setData($data);
-        $project->save($this->getEntityManager());
-        return new JsonModel([
-            'project' => $project->getData(),
-        ]);
+			$entityManager = $this->getEntityManager();
+		   if($data['file']['id'])
+			 $file = $this->find('\User\Entity\File', $data['file']['id']);
+           $iterminterpreting = $entityManager->find('\User\Entity\Iterminterpreting', $id);
+           $iterminterpreting->setData([
+				'name' => $data['name'],
+				'file' => ($file)?$file:null,
+				'rate' => $data['rate'],
+				'quantity' => $data['quantity'],
+				'total' => $data['total'],
+           ]);
+           
+           $iterminterpreting->save($entityManager);
+           
+           return new JsonModel([
+               'iterminterpreting' => $iterminterpreting->getData(),
+           ]);
     }
 }

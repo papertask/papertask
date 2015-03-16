@@ -1,0 +1,169 @@
+<!-- Translation no TM -->
+<div id="modal-translation-noTM" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Input/Edit Word Count</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-lg-12">
+							<div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Task Name") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                   <input name="quantity" class="form-control required"
+                                           ng-model="translationNoTM.name" type="text" />
+                                </div>
+                            </div>
+						
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("File Name") ?>
+                                </label>
+                                <div class="col-sm-9">
+                                    <select ng-model="translationNoTM.file" class="form-control"
+                                            ng-options="file.name for file in project.files" name="file">
+                                        <option value=""><?php echo $this->translate("Chose file") ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Rate") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <input name="rate" class="form-control required" 
+                                           ng-model="translationNoTM.rate_tmp" type="number" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Quantity") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <input name="quantity" class="form-control required"
+                                           ng-model="translationNoTM.quantity" type="number" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+				<button type="button" class="btn btn-w-m btn-white" data-dismiss="modal"><?php echo $this->translate("Close") ?></button>
+                <button type="button" class="btn btn-w-m btn-primary"
+                        ng-click="submitTo('#modal-translation-noTM','#QuoteEditController',
+	                                           'saveTranslationNoTM', translationNoTM)">
+                    <?php echo $this->translate("Save changes") ?>
+                </button>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Translation TM -->
+<div id="modal-translation-TM" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Input/Edit Word count</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Iterm's Name</label>
+                                <div class="col-sm-9">
+                                    <!--<input id="phone" name="phone" type="phone" value="Translation with TM" class="form-control">-->
+									<input name="itermname" class="form-control required" value="Translation with TM"
+                                           ng-model="itemtm.name" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Rate</label>
+                                <div class="col-sm-9">
+                                    <!--<input id="phone" name="phone" type="phone" value="0.12" class="form-control">-->
+									<input name="rate" class="form-control required"
+                                           ng-model="itemtm.rate_tmp" type="number" />
+									
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Repetitions</label> <!-- word counts -->
+                                <div class="col-sm-9">
+                                    <!--<input id="phone" name="phone" type="phone" value="100" class="form-control">-->
+									<input name="sourcerepetitions" class="form-control required"
+                                           ng-model="itemtm.sourcerepetitions" type="number" />
+									
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">100% </label>
+                                <div class="col-sm-9">
+                                    <!--<input id="phone" name="phone" type="phone" value="200" class="form-control">-->
+									<input name="sourceyibai" class="form-control required"
+                                           ng-model="itemtm.sourceyibai" type="number" />
+									
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">95%-99% </label>
+                                <div class="col-sm-9">
+                                    <!--<input id="phone" name="phone" type="phone" value="200" class="form-control">-->
+									<input name="sourcejiuwu" class="form-control required"
+                                           ng-model="itemtm.sourcejiuwu" type="number" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">85%-94% </label>
+                                <div class="col-sm-9">
+                                    <!--<input id="phone" name="phone" type="phone" value="300" class="form-control">-->
+									<input name="sourcebawu" class="form-control required"
+                                           ng-model="itemtm.sourcebawu" type="number" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">75%-84% </label>
+                                <div class="col-sm-9">
+                                    <!--<input id="phone" name="phone" type="phone" value="200" class="form-control">-->
+									<input name="sourceqiwu" class="form-control required"
+                                           ng-model="itemtm.sourceqiwu" type="number" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">50%-74% </label>
+                                <div class="col-sm-9">
+                                    <!--<input id="phone" name="phone" type="phone" value="1000" class="form-control">-->
+									<input name="sourcewushi" class="form-control required"
+                                           ng-model="itemtm.sourcewushi" type="number" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">No Match </label>
+                                <div class="col-sm-9">
+                                    <!--<input id="phone" name="phone" type="phone" value="1000" class="form-control">-->
+									<input name="sourcenomatch" class="form-control required"
+                                           ng-model="itemtm.sourcenomatch" type="number" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+				<button type="button" class="btn btn-w-m btn-white" data-dismiss="modal"><?php echo $this->translate("Close") ?></button>
+                <button type="button" class="btn btn-w-m btn-primary"
+                        ng-click="submitTo('#modal-translation-TM','#QuoteEditController',
+	                                           'saveTranslationTM', itemtm)">
+                    <?php echo $this->translate("Save changes") ?>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

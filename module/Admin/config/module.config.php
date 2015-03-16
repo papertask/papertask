@@ -94,6 +94,7 @@ return array(
             'admin/project/new' => __DIR__ . '/../view/admin/project/new.phtml',
 			'admin/project/quoteprint' => __DIR__ . '/../view/admin/project/quoteprint.phtml',
 			'admin/project/quotedownload' => __DIR__ . '/../view/admin/project/quotedownload.phtml',
+			'admin/project/quoteedit' => __DIR__ . '/../view/admin/project/quoteedit.phtml',
 			
 			'admin/project/invoiceprint' => __DIR__ . '/../view/admin/project/invoiceprint.phtml',
 			'admin/project/invoicedownload' => __DIR__ . '/../view/admin/project/invoicedownload.phtml',
