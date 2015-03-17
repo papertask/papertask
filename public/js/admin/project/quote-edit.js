@@ -62,7 +62,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	
 		var project_listener = ProjectApi.get(projectId, function($project){
             $project.priority = ProjectPriority.get($project.priority);
-            $project.serviceLevel = ProjectServiceLevel.get($project.serviceLevel);
+            //$project.serviceLevel = ProjectServiceLevel.get($project.serviceLevel);
             $project.status = ProjectStatus.get($project.status);
             $project.tasks = [];
 			
