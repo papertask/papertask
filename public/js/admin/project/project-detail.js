@@ -194,8 +194,12 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 				$scope.hasTypeTranslationNoTM = function(){
 					return existsIdInArray($scope.project.types, 1);
 				};
-				$scope.hasTypeTranslationUseTM = function(){
-					return existsIdInArray($scope.project.types, 2);
+				$scope.hasTypeTranslationUseTM = function(item){
+					console.log(item);
+					if(!item)
+						return false;
+					else	
+						return existsIdInArray($scope.project.types, 2);
 				};
 				$scope.hasTypeTranslationShow = function(){
 					return $scope.hasTypeTranslationUseTM() || $scope.hasTypeTranslationNoTM();
