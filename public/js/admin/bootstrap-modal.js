@@ -48,4 +48,19 @@ angularApp.controller("ModalController", function($scope){
             angular.element(elementSelector).scope()[functionName].apply(null, args);
         }
     }
+	
+	$scope.calTo = function(){
+
+        var modalSelector = arguments[0];
+        
+        if(modalSelector){
+            var elementSelector = arguments[1];
+            var functionName = arguments[2];
+            var args = [];
+            for(var i = 3; i < arguments.length; i++){
+                args.push(arguments[i]);
+            }
+            angular.element(elementSelector).scope()[functionName].apply(null, args);
+        }
+    }
 });

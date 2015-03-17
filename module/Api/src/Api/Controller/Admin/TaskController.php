@@ -5,6 +5,7 @@ use Zend\View\Model\JsonModel;
 
 use Api\Controller\AbstractRestfulJsonController;
 use User\Entity\Task;
+use User\Entity\Activity;
 
 class TaskController extends AbstractRestfulJsonController
 {
@@ -30,6 +31,16 @@ class TaskController extends AbstractRestfulJsonController
         $task = new Task();
         $task->setData($data);
         $task->save($this->getEntityManager());
+
+        $activity = new Activity();
+        $activity->setData([
+            'activityDate' => new \DateTime('NOW'),
+            'project' => $data['project'],
+            'task' => $task,
+            'type' => "create_task",
+            'sender' => $this->getCurrentUser()
+        ]);
+        $activity->save($this->getEntityManager());
 
         return new JsonModel([
             'task' => $task->getData(),

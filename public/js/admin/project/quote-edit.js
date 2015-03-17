@@ -15,7 +15,7 @@ angularApp.run(function($rootScope){
 
 angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $q, $sce, CurrentUser,
                                                           TableItemListService, ProjectType, ProjectApi,ProjectServiceLevel, 
-															ProjectStatus, ProjectPriority, CurrentcyRate){
+															ProjectStatus, ProjectPriority, CurrentcyRate, LangGroup){
     $scope.ProjectType = ProjectType;
 	 $scope.ProjectStatus = ProjectStatus;
     $scope.ProjectServiceLevel = ProjectServiceLevel;
@@ -38,6 +38,12 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	$scope.desktopMac = [];
 	$scope.desktopPc = [];
 	$scope.engineering = [];
+	//private price
+	$scope.desktopPrices=[];
+	$scope.engineeringPrices=[]
+	//papertask price
+	$scope.softwarePrices =[];
+	$scope.engineeringPPrices=[];
 	
     $scope.order = {};
 	$scope.laguageid = null;
@@ -60,12 +66,16 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
             $project.status = ProjectStatus.get($project.status);
             $project.tasks = [];
 			
-            $scope.project = $project;
+			
+            
+			$scope.project = $project;
+			$scope.USER_ID = $scope.project.userid;
 			generateActiveResources();
 			$scope.currency = $scope.project.currency;
-			
+			$scope.project.types = ProjectType.find($scope.project.types);
 			console.log("scope.project");
 			console.log($scope.project);
+			console.log($scope.project.types);
 			//console.log($scope.serviceLevel);
 
             jQuery.extend($scope.tempProject, $scope.project);
@@ -114,16 +124,62 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 					console.log("scope.iterminterpretings");
 					console.log($scope.iterminterpretings);			
 				});
-				
-				$http.get('/api/admin/invoice?projectId='+ projectId).success(function($data) {
-					$scope.invoice = $data['invoices'];
-					if($scope.invoice.invoiceDate)
-						$scope.invoice.invoiceDate = $scope.invoice.invoiceDate.date;
-					
-					console.log("scope.invoice");
-					//console.log($data);	
-					console.log($scope.invoice);			
+				//get private price 	
+		
+				$http.get('/api/user/desktopprice?userId='+$scope.USER_ID).success(function($data) {
+					$scope.desktopPrices = $data['desktopPrices'];
+					console.log("$scope.desktopPrices");
+					console.log($scope.desktopPrices);
+				});	
+				$http.get('/api/user/engineeringprice?userId=' + $scope.USER_ID).success(function($data) {
+					$scope.engineeringPrices = $data['engineeringPrices'];
+					console.log("$scope.engineeringPrices");
+					console.log($scope.engineeringPrices);
 				});
+				
+				if($scope.interpreting){
+					$http.get('/api/user/interpretingprice?userId=' + USER_ID).success(function($data) {
+						$scope.interpretingPrices = $data['interpretingPrices'];
+						console.log("interpretingPrices");
+						console.log($scope.interpretingPrices);
+						console.log($scope.interpretingPPrices);
+						console.log($scope.interpreting);
+						TableItemListService.interpretingPrices={};
+						for(i=0;i<$scope.interpretingPrices.length;i++){
+							for(j=0;j<$scope.project.targetLanguages.length;j++){
+								if($scope.project.sourceLanguage.id == $scope.interpretingPrices[i].sourceLanguage.id 
+								&& $scope.project.targetLanguages[j].id == $scope.interpretingPrices[i].targetLanguage.id  
+								&& $scope.interpreting.name == $scope.interpretingPrices[i].service.name
+								){
+									TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id] = [];
+									TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceDay = $scope.interpretingPrices[i].priceDay;
+									TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceHalfDay = $scope.interpretingPrices[i].priceHalfDay;
+								}
+								else {//get default papertask
+									for(k=0;k<$scope.interpretingPPrices.length;k++){
+									
+										if($scope.project.sourceLanguage.id == $scope.interpretingPPrices[k].sourceLanguage.id 
+										&& $scope.project.targetLanguages[j].id == $scope.interpretingPPrices[k].targetLanguage.id
+										&& $scope.interpreting.name == $scope.interpretingPPrices[k].interpretingService.name
+										){
+										TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id] = [];
+										TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].pricePerDay):format2n(Number($scope.interpretingPPrices[k].pricePerDay)/$scope.CurrentcyRate);
+										TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceHalfDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].pricePerHalfDay):format2n(Number($scope.interpretingPPrices[k].pricePerHalfDay)/$scope.CurrentcyRate);
+									
+										}
+										
+										
+									}
+								}
+							
+							}
+						
+						}
+						console.log("interpretingPrices");
+						console.log(TableItemListService.interpretingPrices);
+						
+					});
+				}	
 			});	
 		function generateActiveResources(){
 			for(var i = 0; i < $scope.project.types.length; i++){
@@ -191,7 +247,6 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			$scope.profileservice = $data['profileservice'];
 			$scope.currencyrate_t = $scope.profileservice[0];
 			$scope.CurrentcyRate = Number($scope.currencyrate_t.currencyRate);
-			TableItemListService.CurrentcyRate = $scope.CurrentcyRate;
         }).error(function($e){
             alert('error');
         });
@@ -244,27 +299,22 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
         }).error(function($e){
             alert('error');
         });
-  
-		TableItemListService.softwarePrices = [];
-		$http.get("/api/papertask/desktop-publishing").success(function($data){
-						$scope.softwarePrices = $data['softwarePrices'];
-						TableItemListService.softwarePrices = $scope.softwarePrices;
-						console.log($data['softwarePrices']);
-						console.log('Got list software prices');
-					}).error(function($e){
-						alert('error');
-					});	
-					
-		TableItemListService.engineeringPPrices = [];			
+		
 		$http.get("/api/papertask/engineering").success(function($data){
 				$scope.engineeringPPrices = $data['engineering'];
-				TableItemListService.engineeringPPrices = $scope.engineeringPPrices;
-				console.log($scope.engineeringPPrices);
 				console.log('Got list engineering prices');
+				console.log($scope.engineeringPPrices);
 			}).error(function($e){
 				alert('error');
 		});
-		
+		$http.get("/api/papertask/desktop-publishing").success(function($data){
+				$scope.softwarePrices = $data['softwarePrices'];
+				console.log('Got list software prices');
+				console.log($scope.softwarePrices);
+				
+			}).error(function($e){
+				alert('error');
+		});	
 		
 		// get some option
 		var priceDataRequest = $http.get("/api/user/priceData")
@@ -275,6 +325,10 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 				setModalControllerData('engineeringCategories', $scope.engineeringCategories);
 				setModalControllerData('softwares', $scope.softwares);
             });	
+			
+		
+		
+		
         setModalControllerData('project', $scope.project);
 		
     };
@@ -731,7 +785,234 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
         });       
     }
 	
+	// save project
+	$scope.saveProject = function(){
+        var updateProject= $http.put("/api/admin/project/" + $scope.project.id + "?action=3", $scope.project)
+		.success( function ( $data ) {
+		});	
+    };
+	// get rate dtp mac
+	$scope.getRateDtpMac = function($item){
+			if($item.software && $item.unit)
+			{
+				console.log("start get dtp");
+				console.log( $scope.desktopPrices );
+				console.log($item);
+				//get private
+				if( $scope.desktopPrices)
+				{
+					console.log($scope.laguageid);
+					for(i=0;i<$scope.desktopPrices.length;i++)
+					{
+						if($scope.laguageid == $scope.desktopPrices[i].language.id 
+						&& $item.software.id == $scope.desktopPrices[i].software.id){
+						
+							if($item.unit.id == 1){
+								$scope.desktopMac.rate_tmp = Number($scope.desktopPrices[i].priceHourMac);
+								setModalControllerData('desktopMac', $scope.desktopMac);
+								return;
+							}	
+							else if ($item.unit.id == 2){	
+								$scope.desktopMac.rate_tmp = Number($scope.desktopPrices[i].priceMac);
+								setModalControllerData('desktopMac', $scope.desktopMac);
+								return;
+							}	
+						}
+					}
+					console.log("lang_group");
+					$lang_group = LangGroup.get($scope.laguageid);
+					console.log($lang_group);
+					console.log($scope.softwarePrices);
+					for(j=0;j<$scope.softwarePrices.length;j++)
+						{
+							if($scope.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  $scope.softwarePrices[j].desktopSoftware.id){
+								
+								if($item.unit.id == 1){
+									$scope.desktopMac.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceApplePerHour):format2n(Number($scope.softwarePrices[j].priceApplePerHour)/$scope.CurrentcyRate);
+									setModalControllerData('desktopMac', $scope.desktopMac);
+									return;
+								}
+								else if ($item.unit.id == 2){	
+									$scope.desktopMac.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceApplePerPage):format2n(Number($scope.softwarePrices[j].priceApplePerPage)/$scope.CurrentcyRate);
+									setModalControllerData('desktopMac', $scope.desktopMac);
+									return;
+								}
+							}
+						}
+						
+				}
+				else {//if not get paper task
+						//get group language
+						console.log("lang_group");
+						$lang_group  =    LangGroup.get($scope.laguageid);
+						for(j=0;j<$scope.softwarePrices.length;j++)
+						{
+							if($scope.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  $scope.softwarePrices[j].desktopSoftware.id){
+								if($item.unit.id == 1){
+									$scope.desktopMac.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceApplePerHour):format2n(Number($scope.softwarePrices[j].priceApplePerHour)/$scope.CurrentcyRate);
+									setModalControllerData('desktopMac', $scope.desktopMac);
+									return;
+								}
+								else if ($item.unit.id == 2){	
+									$scope.desktopMac.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceApplePerPage):format2n(Number($scope.softwarePrices[j].priceApplePerPage)/$scope.CurrentcyRate);
+									setModalControllerData('desktopMac', $scope.desktopMac);
+									return;
+								}
+							}
+						}
+				}
+			}
+	}
 	
+	// get rate dtp pc
+	$scope.getRateDtpPc = function($item){
+			if($item.software && $item.unit)
+			{
+				console.log("start get dtp pc");
+				console.log( $scope.desktopPrices );
+				console.log($item);
+				//get private
+				if( $scope.desktopPrices)
+				{
+					console.log($scope.laguageid);
+					for(i=0;i<$scope.desktopPrices.length;i++)
+					{
+						if($scope.laguageid == $scope.desktopPrices[i].language.id 
+						&& $item.software.id == $scope.desktopPrices[i].software.id){
+						
+							if($item.unit.id == 1){
+								$scope.desktopPc.rate_tmp = Number($scope.desktopPrices[i].priceHourPc);
+								setModalControllerData('desktopPc', $scope.desktopPc);
+								return;
+							}	
+							else if ($item.unit.id == 2){	
+								$scope.desktopPc.rate_tmp = Number($scope.desktopPrices[i].pricePc);
+								setModalControllerData('desktopPc', $scope.desktopPc);
+								return;
+							}	
+						}
+					}
+					console.log("lang_group");
+					$lang_group = LangGroup.get($scope.laguageid);
+					console.log($lang_group);
+					console.log($scope.softwarePrices);
+					for(j=0;j<$scope.softwarePrices.length;j++)
+						{
+							if($scope.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  $scope.softwarePrices[j].desktopSoftware.id){
+								
+								if($item.unit.id == 1){
+									$scope.desktopPc.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceWindowPerHour):format2n(Number($scope.softwarePrices[j].priceWindowPerHour)/$scope.CurrentcyRate);
+									setModalControllerData('desktopPc', $scope.desktopPc);
+									return;
+								}
+								else if ($item.unit.id == 2){	
+									$scope.desktopPc.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceWindowPerPage):format2n(Number($scope.softwarePrices[j].priceWindowPerPage)/$scope.CurrentcyRate);
+									setModalControllerData('desktopPc', $scope.desktopPc);
+									return;
+								}
+							}
+						}
+						
+				}
+				else {//if not get paper task
+						//get group language
+						console.log("lang_group");
+						$lang_group  =    LangGroup.get($scope.laguageid);
+						for(j=0;j<$scope.softwarePrices.length;j++)
+						{
+							if($scope.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  $scope.softwarePrices[j].desktopSoftware.id){
+								
+								if($item.unit.id == 1){
+									$scope.desktopPc.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceWindowPerHour):format2n(Number($scope.softwarePrices[j].priceWindowPerHour)/$scope.CurrentcyRate);
+									setModalControllerData('desktopPc', $scope.desktopPc);
+									return;
+								}
+								else if ($item.unit.id == 2){	
+									$scope.desktopPc.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceWindowPerPage):format2n(Number($scope.softwarePrices[j].priceWindowPerPage)/$scope.CurrentcyRate);
+									setModalControllerData('desktopPc', $scope.desktopPc);
+									return;
+								}
+							}
+						}
+				}
+			}
+	}
+	// get auto end price
+	$scope.getRateEng = function($item){
+		console.log($item);
+		
+		if($item.engineeringcategory && $item.unit)
+		{
+			//get private
+			console.log("start get eng");
+			console.log( $scope.engineeringPrices );
+			console.log( $item.engineeringcategory );
+			console.log( $item.unit );	
+			if( $scope.engineeringPrices.length)
+			{
+				for(i=0;i<$scope.engineeringPrices.length;i++){
+					if($item.engineeringcategory.id == $scope.engineeringPrices[i].engineeringcategory.id 
+					&&  $item.unit.id == $scope.engineeringPrices[i].unit.id){
+						
+						$scope.engineering.rate_tmp =  Number($scope.engineeringPrices[i].price);
+						setModalControllerData('engineering', $scope.engineering);
+						return;
+					}
+				}	
+				console.log("engineeringPPrices");
+				console.log($scope.engineeringPPrices);
+				console.log($item.engineeringcategory.id);
+				console.log($item.unit.id);
+				for(j=0;j<$scope.engineeringPPrices.length;j++)
+					{
+						console.log($scope.engineeringPPrices[j].engineeringCategory.id );
+						console.log($scope.engineeringPPrices[j].unit.id);
+						
+						if($item.engineeringcategory.id == $scope.engineeringPPrices[j].engineeringCategory.id 
+							&&  $item.unit.id == $scope.engineeringPPrices[j].unit.id){
+								
+							$scope.engineering.rate_tmp =  ($scope.currency == 'cny')?Number($scope.engineeringPPrices[j].price):format2n(Number($scope.engineeringPPrices[j].price)/$scope.CurrentcyRate);
+							setModalControllerData('engineering', $scope.engineering);
+							return;
+						}
+					}
+				$scope.engineering.rate_tmp =  0;
+				setModalControllerData('engineering', $scope.engineering);
+				return;	
+				//$item.rate = 0;
+
+			}
+			else{
+				for(j=0;j<$scope.engineeringPPrices.length;j++)
+				{
+					if($item.category.id == $scope.engineeringPPrices[j].engineeringCategory.id 
+					&&  $item.unit.id == $scope.engineeringPPrices[j].unit.id){
+						$scope.engineering.rate_tmp =  ($scope.currency == 'cny')?Number($scope.engineeringPPrices[j].price):format2n(Number($scope.engineeringPPrices[j].price)/$scope.CurrentcyRate);
+						setModalControllerData('engineering', $scope.engineering);
+						return;
+					}
+				}
+				$scope.engineering.rate_tmp = 0;
+				setModalControllerData('engineering', $scope.engineering);
+				return;	
+			}
+		}
+	}
+	
+	$scope.getRateInt = function($item){
+		console.log($item);
+		console.log($scope.interpretingPrices);
+		if($scope.interpretingPrices){
+			if($item.unit.id == 1)
+			{
+				$item.rate =  Number(TableItemListService.interpretingPrices[$scope.laguageid].priceDay);
+			}
+			else if ($item.unit.id == 2){
+				$item.rate =  Number(TableItemListService.interpretingPrices[$scope.laguageid].priceHalfDay);
+			
+			}
+		}
+	}
 	
     $scope.projectType = function(){
         if($scope.project.types.length > 0){
@@ -740,71 +1021,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
         return "";
     };
 	$scope.setserviceLevel= function(level){
-	
-		//$scope.project.serviceLevel = level;
-		//project.serviceLevel
-		// check private
-		if($scope.employer.defaultServiceLevel == level)
-		{
-			if($scope.hasTypeTranslationNoTM)
-			{
-				$http.get('/api/user/translationprice?userId='+ $scope.USER_ID).success(function($data) {
-					$scope.translationPrices = $data['translationPrices'];
-				//find 
-				console.log($scope.translationPrices);
-				console.log($scope.project.sourceLanguage);
-				console.log($scope.project.targetLanguages);
-				TableItemListService.translationPrices={};
-				
-				for(i=0;i<$scope.translationPrices.length;i++){
-					for(j=0;j<$scope.project.targetLanguages.length;j++){
-						console.log($scope.translationPrices[i].sourceLanguage.id );
-						
-						console.log($scope.translationPrices[i].targetLanguage.id );
-						
-						console.log($scope.project.targetLanguages[j].id);
-					
-						if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  ){
-							
-							TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = $scope.translationPrices[i].price;
-						}
-						else {
-						//get default papertask
-							for(k=0;k<$scope.translation.length;k++){
-								if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage)
-									if($scope.project.serviceLevel==1)
-										TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = Number($scope.translation[k].professionalPrice) ;
-									else if($scope.project.serviceLevel==2)
-										TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = Number($scope.translation[k].businessPrice);
-									else
-										TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = Number($scope.translation[k].premiumPrice);		
-							
-							}
-								
-						}		
-					
-					}
-					
-					
-				}
-					//TableItemListService.translationPrices = $scope.translationPrices;
-					console.log(TableItemListService.translationPrices);
-				});
-			}
-		}
-		else{//if not check papertask
-			for(j=0;j<$scope.project.targetLanguages.length;j++){
-				for(k=0;k<$scope.translation.length;k++){
-					if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage)
-						if($scope.project.serviceLevel==1)
-							TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = Number($scope.translation[k].professionalPrice);
-						else if($scope.project.serviceLevel==2)
-							TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = Number($scope.translation[k].businessPrice);
-						else
-							TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = Number($scope.translation[k].premiumPrice);		
-				}
-			}		
-		}
+		 $scope.project.serviceLevel = level;
+		
 	};
 	
     $scope.change_client = function(client){
@@ -862,16 +1080,16 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 				console.log($scope.interpretingPrices);
 				console.log($scope.interpretingPPrices);
 				console.log($scope.interpreting);
-				TableItemListService.interpretingPrices={};
+				$scope.interpretingPrices={};
 				for(i=0;i<$scope.interpretingPrices.length;i++){
 					for(j=0;j<$scope.project.targetLanguages.length;j++){
 						if($scope.project.sourceLanguage.id == $scope.interpretingPrices[i].sourceLanguage.id 
 						&& $scope.project.targetLanguages[j].id == $scope.interpretingPrices[i].targetLanguage.id  
 						&& $scope.interpreting.name == $scope.interpretingPrices[i].service.name
 						){
-							TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id] = [];
-							TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceDay = $scope.interpretingPrices[i].priceDay;
-							TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceHalfDay = $scope.interpretingPrices[i].priceHalfDay;
+							$scope.interpretingPrices[$scope.project.targetLanguages[j].id] = [];
+							$scope.interpretingPrices[$scope.project.targetLanguages[j].id].priceDay = $scope.interpretingPrices[i].priceDay;
+							$scope.interpretingPrices[$scope.project.targetLanguages[j].id].priceHalfDay = $scope.interpretingPrices[i].priceHalfDay;
 						}
 						else {//get default papertask
 							for(k=0;k<$scope.interpretingPPrices.length;k++){
@@ -880,9 +1098,9 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 								&& $scope.project.targetLanguages[j].id == $scope.interpretingPPrices[k].targetLanguage.id
 								&& $scope.interpreting.name == $scope.interpretingPPrices[k].interpretingService.name
 								){
-								TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id] = [];
-								TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].pricePerDay):format2n(Number($scope.interpretingPPrices[k].pricePerDay)/$scope.CurrentcyRate);
-								TableItemListService.interpretingPrices[$scope.project.targetLanguages[j].id].priceHalfDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].pricePerHalfDay):format2n(Number($scope.interpretingPPrices[k].pricePerHalfDay)/$scope.CurrentcyRate);
+								$scope.interpretingPrices[$scope.project.targetLanguages[j].id] = [];
+								$scope.interpretingPrices[$scope.project.targetLanguages[j].id].priceDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].pricePerDay):format2n(Number($scope.interpretingPPrices[k].pricePerDay)/$scope.CurrentcyRate);
+								$scope.interpretingPrices[$scope.project.targetLanguages[j].id].priceHalfDay = ($scope.currency == 'cny')?Number($scope.interpretingPPrices[k].pricePerHalfDay):format2n(Number($scope.interpretingPPrices[k].pricePerHalfDay)/$scope.CurrentcyRate);
 							
 								}
 								
@@ -894,7 +1112,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 				
 				}
 				console.log("interpretingPrices");
-				console.log(TableItemListService.interpretingPrices);
+				console.log($scope.interpretingPrices);
 				
 			});
 			
@@ -1031,7 +1249,9 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
         jQuery(".project-types .active").removeClass("active");
         $scope.project.types = [$interpreting];
         $scope.interpreting = $interpreting;
+		console.log("scope.interpreting");
 		console.log($scope.interpreting);
+		console.log($scope.project.types);
     };
 
     $scope.clearInterpreting =function (){
@@ -1048,6 +1268,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
         } else {
             $scope.project.types.splice($index, 1);
         }
+		console.log("scope.project.types");
+		console.log($scope.project.types);
     };
 
     $scope.addFile = function($fileInput){
@@ -1302,183 +1524,8 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 		$item.total = $item.rate * $item.quantity;
         $scope.items.push($item);
     };
-	$scope.getRateDtp = function($item){
+
 	
-			if($item.software && $item.unit)
-			{
-				console.log("start get dtp");
-				console.log( TableItemListService.desktopPrices );
-				console.log( $item.software );
-				console.log( $item.unit );
-				//get private
-				if( TableItemListService.desktopPrices.length)
-				{
-					console.log($scope.identifier);
-					for(i=0;i<TableItemListService.desktopPrices.length;i++)
-					{
-						if($scope.identifier[1].id == $scope.TableItemListService.desktopPrices[i].language.id 
-						&& $item.software.id == $scope.TableItemListService.desktopPrices[i].software.id){
-						
-							if($item.unit.id == 1 && $scope.identifier[0] == "dtpMac"){
-								$item.rate = Number($scope.TableItemListService.desktopPrices[i].priceHourMac);
-								return;
-							}	
-							else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpMac"){	
-								$item.rate = Number($scope.TableItemListService.desktopPrices[i].priceMac);
-								return;
-							}	
-							
-							else if ($item.unit.id == 1 && $scope.identifier[0] == "dtpPc")	{
-								$item.rate = Number($scope.TableItemListService.desktopPrices[i].priceHourPc);	
-								return;
-							}	
-							else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpPc")	{
-								$item.rate = Number($scope.TableItemListService.desktopPrices[i].pricePc);
-								return;
-							}								
-						}
-					}	
-					//	else {
-							//get group language
-							console.log("lang_group");
-							$lang_group  =    LangGroup.get($scope.identifier[1].id);
-							
-							console.log($lang_group);
-							console.log(TableItemListService.softwarePrices);
-							for(j=0;j<TableItemListService.softwarePrices.length;j++)
-							{
-								if(TableItemListService.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  TableItemListService.softwarePrices[j].desktopSoftware.id){
-								
-								if($item.unit.id == 1 && $scope.identifier[0] == "dtpMac"){
-									$item.rate = (TableItemListService.currency == 'cny')?Number(TableItemListService.softwarePrices[j].priceApplePerHour):format2n(Number(TableItemListService.softwarePrices[j].priceApplePerHour)/$scope.CurrentcyRate);
-									return;
-								}
-								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpMac"){	
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage)/$scope.CurrentcyRate);
-									return;
-								}
-								else if ($item.unit.id == 1 && $scope.identifier[0] == "dtpPc")	{
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour)/$scope.CurrentcyRate);	
-									return;
-								}
-								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpPc")	{
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage)/$scope.CurrentcyRate);	
-									return;
-								}
-								}
-							}
-							// TableItemListService.softwarePrices.length
-							
-						
-						//}
-						console.log($item);
-							
-					//}
-						
-				}
-				else {//if not get paper task
-							
-							//get group language
-							console.log("lang_group");
-							$lang_group  =    LangGroup.get($scope.identifier[1].id);
-							
-							console.log($lang_group);
-							console.log(TableItemListService.softwarePrices);
-							for(j=0;j<TableItemListService.softwarePrices.length;j++)
-							{
-								if(TableItemListService.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  TableItemListService.softwarePrices[j].desktopSoftware.id){
-								
-								if($item.unit.id == 1 && $scope.identifier[0] == "dtpMac"){
-									$item.rate = (TableItemListService.currency == 'cny')?Number(TableItemListService.softwarePrices[j].priceApplePerHour):format2n(Number(TableItemListService.softwarePrices[j].priceApplePerHour)/$scope.CurrentcyRate);
-									return;
-								}
-								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpMac"){	
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage)/$scope.CurrentcyRate);
-									return;
-								}
-								else if ($item.unit.id == 1 && $scope.identifier[0] == "dtpPc")	{
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour)/$scope.CurrentcyRate);	
-									return;
-								}
-								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpPc")	{
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage)/$scope.CurrentcyRate);	
-									return;
-								}
-								}
-							}
-							// TableItemListService.softwarePrices.length
-				}
-			}
-	}
-	$scope.getRateEng = function($item){
-		if($item.category && $item.unit)
-		{
-			//get private
-			console.log("start get dtp");
-			console.log( TableItemListService.engineeringPrices );
-			console.log( $item.category );
-			console.log( $item.unit );	
-			if( TableItemListService.engineeringPrices.length)
-			{
-				for(i=0;i<TableItemListService.engineeringPrices.length;i++){
-					if($item.category.id == TableItemListService.engineeringPrices[i].engineeringcategory.id 
-					&&  $item.unit.id == TableItemListService.engineeringPrices[i].unit.id){
-						
-						$item.rate =  Number(TableItemListService.engineeringPrices[i].price);
-						return;
-					}
-				}	
-				//	else {
-						console.log("engineeringPPrices");
-						console.log(TableItemListService.engineeringPPrices);
-						console.log($item.category.id);
-						console.log($item.unit.id);
-						for(j=0;j<TableItemListService.engineeringPPrices.length;j++)
-						{
-							console.log(TableItemListService.engineeringPPrices[j].engineeringCategory.id );
-							console.log(TableItemListService.engineeringPPrices[j].unit.id);
-							
-							if($item.category.id == TableItemListService.engineeringPPrices[j].engineeringCategory.id 
-							&&  $item.unit.id == TableItemListService.engineeringPPrices[j].unit.id){
-								
-								$item.rate =  (TableItemListService.currency == 'cny')?Number(TableItemListService.engineeringPPrices[j].price):format2n(Number(TableItemListService.engineeringPPrices[j].price)/$scope.CurrentcyRate);
-								return;
-							}
-						}
-						$item.rate = 0;
-					//}
-				//}
-			}
-			else{
-				for(j=0;j<TableItemListService.engineeringPPrices.length;j++)
-				{
-					if($item.category.id == TableItemListService.engineeringPPrices[j].engineeringCategory.id 
-					&&  $item.unit.id == TableItemListService.engineeringPPrices[j].unit.id){
-						$item.rate =  (TableItemListService.currency == 'cny')?Number(TableItemListService.engineeringPPrices[j].price):format2n(Number(TableItemListService.engineeringPPrices[j].price)/$scope.CurrentcyRate);
-						return;
-					}
-				}
-				$item.rate = 0;
-			}
-		
-		}
-	
-	}
-	$scope.getRateInt = function($item){
-		console.log($item);
-		console.log($scope.identifier);
-		console.log(TableItemListService.interpretingPrices);
-		if(TableItemListService.interpretingPrices){
-			if($item.unit.id == 1)
-			{
-				$item.rate =  Number(TableItemListService.interpretingPrices[$scope.identifier[1].id].priceDay);
-			}
-			else if ($item.unit.id == 2){
-				$item.rate =  Number(TableItemListService.interpretingPrices[$scope.identifier[1].id].priceHalfDay);
-			
-			}
-		}
-	}
 	$scope.addtm = function($itemtm){
         //	$scope.itemtm.push($itemtm);
 		$scope.itemtm = $itemtm;

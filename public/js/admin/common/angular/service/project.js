@@ -1007,3 +1007,7 @@ angularApp.factory("LanguageApi", function(API){
 angularApp.factory("TaskApi", function(API){
     return API.factory('/api/admin/task/', 'task', 'tasks');
 });
+
+angularApp.factory("ActivityApi", function(API){
+    return API.factory('/api/admin/activity/', 'activity', 'activities');
+});

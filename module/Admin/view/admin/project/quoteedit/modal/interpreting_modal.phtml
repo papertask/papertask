@@ -40,7 +40,8 @@
                                     <?php echo $this->translate("Unit") ?> *
                                 </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control required valid" name="unit" ng-change="TableItemListService.getRateInt()" aria-required="true"
+                                    <select class="form-control required valid" name="unit" ng-change="calTo('#modal-interpreting','#QuoteEditController',
+	                                           'getRateInt', interpreting)" aria-required="true"
                                             ng-model="interpreting.unit"
                                             ng-options="unit.name for unit in interpretingUnits track by unit.id">
                                         <option value=""><?php echo $this->translate("Choose unit") ?></option>

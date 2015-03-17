@@ -35,7 +35,8 @@
                                     <?php echo $this->translate("Category") ?> *
                                 </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control required valid" name="category" ng-change="getRateEng()" aria-required="true"
+                                    <select class="form-control required valid" name="category" ng-change="calTo('#modal-eng','#QuoteEditController',
+	                                           'getRateEng', engineering)" aria-required="true"
                                             ng-model="engineering.engineeringcategory"
                                             ng-options="engineeringCategorie.category for engineeringCategorie in engineeringCategories track by engineeringCategorie.id">
                                         <option value=""><?php echo $this->translate("Choose category") ?></option>
@@ -47,7 +48,8 @@
                                     <?php echo $this->translate("Unit") ?> *
                                 </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control required valid" name="unit" ng-change="getRateEng()"  aria-required="true"
+                                    <select class="form-control required valid" name="unit" ng-change="calTo('#modal-eng','#QuoteEditController',
+	                                           'getRateEng', engineering)"  aria-required="true"
                                             ng-model="engineering.unit"
                                             ng-options="unit.name for unit in engineeringUnits  track by unit.id">
                                         <option value=""><?php echo $this->translate("Choose unit") ?></option>

@@ -33,8 +33,10 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
     $scope.pms = [];
     $scope.fields = [];
     $scope.project = {
-        task: []
-    }
+        task: [],
+        tasksNum: 0,
+        activitiesNum: 0,
+    };
 	$scope.telephone = [];
 	
 	$scope.itermtm = [];
@@ -216,7 +218,6 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 			
 			
     }
-
 
 	$scope.saveTaxandDiscount = function ( ) {
 		console.log("scope.project");
@@ -405,6 +406,7 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
                 attachData($newTask);
                 $scope.newTask = {};
                 $scope.items.push($newTask);
+                $scope.project.tasksNum = $scope.items.length;
             });
         }
     }
@@ -415,8 +417,7 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
         for(var i = 0; i < $tasks.length; i++){
             attachData($tasks[i]);
         }
-		//console.log("check tasks");
-		//console.log($tasks);
+        $scope.project.tasksNum = $tasks.length;
     }
     $scope.custom.afterLoadItems = afterLoadItems;
 
@@ -447,6 +448,39 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
 			var str = $scope.project.quote_no;
 			var res = str.split("-");
 			$scope.project.project_no = res[1];
+            $scope.filter.project_id = $scope.project.id;
+            $scope.refresh();
+        }
+    });
+});
+
+angularApp.controller("ProjectActivitiesController", function($scope, ActivityApi){
+    var templateActivity = {
+        type: "message"
+    };
+    $scope.newActivity = Object.create(templateActivity);
+
+    $scope.setItemApi(ActivityApi);
+
+    $scope.sendMessage = function(){
+        var newActivity = $scope.newActivity;
+        newActivity.project_id = $scope.project.id;
+
+        ActivityApi.create(newActivity, function($newActivity){
+            $scope.newActivity = Object.create(templateActivity);
+            $scope.items.push($newActivity);
+            $scope.project.activitiesNum = $scope.items.length;
+        });
+    }
+
+    $scope.custom.afterLoadItems = function($activities){
+        $scope.project.activitiesNum = $activities.length;
+    }
+
+    $scope.$watch(function(){
+        return $scope.project;
+    }, function(){
+        if(typeof($scope.project.id) != 'undefined'){
             $scope.filter.project_id = $scope.project.id;
             $scope.refresh();
         }

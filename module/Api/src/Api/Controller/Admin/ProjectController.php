@@ -23,6 +23,8 @@ use User\Entity\UserGroup;
 use User\Entity\Task;
 use User\Entity\Invoice;
 
+use User\Entity\Activity;
+
 class ProjectController extends AbstractRestfulJsonController
 {
     /**
@@ -269,6 +271,18 @@ class ProjectController extends AbstractRestfulJsonController
 			$task->save($this->getEntityManager());
 		}	
 
+        $activity = new Activity();
+        $activity->setData([
+            'activityDate' => new \DateTime('NOW'),
+            'project' => $project,
+            'type' => "create_quote",
+            'sender' => $data['pm'],
+            // message should be equal to project description
+            // project description isn't showed now
+            'message' => $data['description'],
+        ]);
+        $activity->save($this->getEntityManager());
+
         return new JsonModel([
             'project' => $project->getData(),
             'success' => true,
@@ -406,6 +420,31 @@ class ProjectController extends AbstractRestfulJsonController
 		if($action==2){
 			$project->setData([
 				'status' => 2,
+			]);
+			$project->save($this->getEntityManager());
+
+            $activity = new Activity();
+            $activity->setData([
+                'activityDate' => new \DateTime('NOW'),
+                'project' => $project,
+                'type' => "accept_quote",
+                'sender' => $this->getReference('\User\Entity\User', $data['client']['id'])
+            ]);
+            $activity->save($this->getEntityManager());
+		}
+		if($action==3){
+			 $arr = [];
+            foreach($data['types'] as $type){
+                $arr[] = $type['id'];
+            }
+            $data['types'] = $arr;
+			
+			$project->setData([
+				'tax' => $data['tax'],
+				'discount' =>  $data['discount'],
+				'duration' =>  $data['duration'],
+				'serviceLevel' =>  $data['serviceLevel'],
+				'types' => $data['types'],
 			]);
 			$project->save($this->getEntityManager());
 		}

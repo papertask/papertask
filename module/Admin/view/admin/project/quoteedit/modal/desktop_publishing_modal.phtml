@@ -39,7 +39,8 @@
                                     <?php echo $this->translate("DTP software") ?> *
                                 </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control required valid" name="" ng-change="getRateDtp()" aria-required="true"
+                                    <select class="form-control required valid" name="" ng-change="calTo('#modal-dtp-mac','#QuoteEditController',
+	                                           'getRateDtpMac', desktopMac)" aria-required="true"
                                             ng-model="desktopMac.software"
                                             ng-options="software.name for software in softwares track by software.id">
                                         <option value=""><?php echo $this->translate("Choose software") ?></option>
@@ -51,7 +52,8 @@
                                     <?php echo $this->translate("Unit") ?> *
                                 </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control required valid" ng-change="getRateDtp()" name="unit" aria-required="true"
+                                    <select class="form-control required valid" ng-change="calTo('#modal-dtp-mac','#QuoteEditController',
+	                                           'getRateDtpMac', desktopMac)" name="unit" aria-required="true"
                                             ng-model="desktopMac.unit"
                                             ng-options="unit.name for unit in dtpUnits track by unit.id">
                                         <option value=""><?php echo $this->translate("Choose unit") ?></option>
@@ -84,7 +86,7 @@
                 <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal"><?php echo $this->translate("Close") ?></button>
                 <button type="button" class="btn btn-w-m btn-primary"
                         ng-click="submitTo('#modal-dtp-mac','#QuoteEditController',
-	                                           'saveDesktopMac', desktopMac)"">
+	                                           'saveDesktopMac', desktopMac)">
                     <?php echo $this->translate("Save changes") ?>
                 </button>
             </div>
@@ -142,7 +144,8 @@
                                 </div>-->
 								
 								 <div class="col-sm-9">
-                                    <select class="form-control required valid" name="" ng-change="getRateDtp()" aria-required="true"
+                                    <select class="form-control required valid" name="" ng-change="calTo('#modal-dtp-mac','#QuoteEditController',
+	                                           'getRateDtpPc', desktopPc)" aria-required="true"
                                             ng-model="desktopPc.software"
                                             ng-options="software.name for software in softwares  track by software.id">
                                         <option value=""><?php echo $this->translate("Choose software") ?></option>
@@ -156,7 +159,8 @@
                                     <?php echo $this->translate("Unit") ?> *
                                 </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control required valid" name="unit" ng-change="getRateDtp()" aria-required="true"
+                                    <select class="form-control required valid" name="unit" ng-change="calTo('#modal-dtp-mac','#QuoteEditController',
+	                                           'getRateDtpPc', desktopPc)" aria-required="true"
                                             ng-model="desktopPc.unit"
                                             ng-options="unit.name for unit in dtpUnits track by unit.id">
                                         <option value=""><?php echo $this->translate("Choose unit") ?></option>

@@ -63,6 +63,36 @@ $this->inlineScript()
 						<?php include "quoteedit/service_and_duration.phtml" ?>
                         <?php include "quoteedit/type_and_status.phtml" ?>
                         <?php include "quoteedit/order_information.phtml" ?>
+						<div class="hr-line-dashed"></div>
+                        <div class="row">
+							<div class="col-lg-6 form-horizontal">
+								<div class="form-group">
+                                                <label class="col-sm-3 control-label">Disount </label>
+                                                <span class="col-sm-2 control-label"><span class="text-danger"><strong>-</strong></span> {{ project.currency }}</span>
+                                                <div class="col-sm-6">
+													<input name="discount" class="form-control"
+															ng-model="project.discount" />
+                                                </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Tax </label>
+                                                <div class="col-sm-4">
+                                                   <input name="tax" class="form-control"
+															ng-model="project.tax" />
+                                                </div>
+                                                <span class="col-sm-1 control-label">%</span>
+                                            </div>
+                            </div>
+													
+                        </div>
+						<div class="hr-line-dashed"></div>
+		                <div class="row">
+		                    <div class="col-sm-4 col-sm-offset-4">
+		                        <button class="btn btn-primary btn-block" type="button" ng-click="saveProject()">Update</button>
+		                    </div>
+		                </div>							
 					</div>
 				
 				</div>

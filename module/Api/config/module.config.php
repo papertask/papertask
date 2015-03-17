@@ -111,6 +111,7 @@ return array(
 			
             'Api\Controller\Admin\Staff' => 'Api\Controller\Admin\StaffController',
             'Api\Controller\Admin\Task' => 'Api\Controller\Admin\TaskController',
+            'Api\Controller\Admin\Activity' => 'Api\Controller\Admin\ActivityController',
             'Api\Controller\Admin\Roles' => 'Api\Controller\Admin\RolesController',
             'Api\Controller\Common\Company' => 'Api\Controller\Common\CompanyController',
             'Api\Controller\Common\Country' => 'Api\Controller\Common\CountryController',

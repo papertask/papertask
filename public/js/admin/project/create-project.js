@@ -428,7 +428,6 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         return a == b ? 'active' : '';
     };
 	
-
     $scope.setInterpreting = function($interpreting){
         jQuery(".project-types .active").removeClass("active");
         $scope.project.types = [$interpreting];
