@@ -17,7 +17,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
                                                           TableItemListService, ProjectType, ProjectApi,ProjectServiceLevel, 
 															ProjectStatus, ProjectPriority, CurrentcyRate, LangGroup){
     $scope.ProjectType = ProjectType;
-	 $scope.ProjectStatus = ProjectStatus;
+	$scope.ProjectStatus = ProjectStatus;
     $scope.ProjectServiceLevel = ProjectServiceLevel;
     $scope.ProjectPriority = ProjectPriority;
 	$scope.CurrentcyRate = CurrentcyRate.get(1).rate;
@@ -41,6 +41,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	//private price
 	$scope.desktopPrices=[];
 	$scope.engineeringPrices=[]
+	$scope.translationPrices=[];
 	//papertask price
 	$scope.softwarePrices =[];
 	$scope.engineeringPPrices=[];
@@ -65,9 +66,6 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
             //$project.serviceLevel = ProjectServiceLevel.get($project.serviceLevel);
             $project.status = ProjectStatus.get($project.status);
             $project.tasks = [];
-			
-			
-            
 			$scope.project = $project;
 			$scope.USER_ID = $scope.project.userid;
 			generateActiveResources();
@@ -125,7 +123,9 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 					console.log($scope.iterminterpretings);			
 				});
 				//get private price 	
-		
+				$http.get('/api/user/translationprice?userId='+ $scope.USER_ID).success(function($data) {
+					$scope.translationPrices = $data['translationPrices'];
+				});	
 				$http.get('/api/user/desktopprice?userId='+$scope.USER_ID).success(function($data) {
 					$scope.desktopPrices = $data['desktopPrices'];
 					console.log("$scope.desktopPrices");
@@ -463,9 +463,58 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
     	jQuery("#modal-translation-noTM").modal("show");
     }
 	$scope.addTranslationNoTMPrice = function(laguageid){
-		setModalControllerData('translationNoTM',[]);
 		$scope.editTranslation = -1;
 		$scope.laguageid = laguageid;
+		$scope.translationNoTM = [];
+		//get auto rate here
+		if($scope.project.client.defaultServiceLevel == $scope.project.serviceLevel){
+			console.log("scope.translationPrices");
+			console.log($scope.translationPrices);
+			console.log($scope.translation);
+			for(i=0;i<$scope.translationPrices.length;i++){
+				if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id &&  $scope.translationPrices[i].targetLanguage.id == laguageid){
+					$scope.translationNoTM.rate_tmp = Number($scope.translationPrices[i].price);
+					break;
+				}
+			}
+			for(k=0;k<$scope.translation.length;k++){
+				if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.translation[k].targetLanguage == laguageid){
+					if($scope.project.serviceLevel==1){
+						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].professionalPrice);
+						break;
+					}	
+					else if($scope.project.serviceLevel==2){
+						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].businessPrice);
+						break;
+					}	
+					else{
+						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].premiumPrice);
+						break;
+					}	
+				}			
+			}
+		}
+		else {
+			for(k=0;k<$scope.translation.length;k++){
+				if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.translation[k].targetLanguage == laguageid){
+					if($scope.project.serviceLevel==1){
+						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].professionalPrice);
+						break;
+					}	
+					else if($scope.project.serviceLevel==2){
+						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].businessPrice);
+						break;
+					}	
+					else{
+						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].premiumPrice);
+						break;
+					}	
+				}			
+			}
+		}
+		
+		setModalControllerData('translationNoTM',$scope.translationNoTM);
+		
 		jQuery("#modal-translation-noTM").modal("show");
 	}
 	$scope.deleteTranslationNoTMPrice = function ( index, tid, laguageid  ) {    	
@@ -794,6 +843,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			
 		});	
     };
+	//get translation
+	
 	// get rate dtp mac
 	$scope.getRateDtpMac = function($item){
 			if($item.software && $item.unit)
