@@ -71,7 +71,7 @@
 				</thead>
 				<tbody>
 				<!-- this is only for translation use TM -->
-				<?php if($this->hasTypeTranslationUseTM > 0) { ?>
+				<?php if($iterm_translationtms[$targetLanguage['id']]) { ?>
 				<tr style="border-left: 1px solid #e7e7e7;">
 					<td style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><a data-toggle="collapse" href="#use_tm1"><i class="fa fa-eye"></i> <strong><?php echo $iterm_translationtms[$targetLanguage['id']]['name'];?></strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
 					<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Source Word</td>
