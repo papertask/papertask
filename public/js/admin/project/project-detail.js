@@ -219,6 +219,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 			
     }
 
+
 	$scope.saveTaxandDiscount = function ( ) {
 		console.log("scope.project");
 		console.log($scope.project);
@@ -280,6 +281,9 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
     };
 	$scope.downloadQuote = function(){
 		$scope.url_downloadQuote = "/" + LANG_CODE + "/admin/project/quotedownload?id=" + projectId;
+    };
+	$scope.editQuote = function(){
+		$scope.url_editQuote = "/" + LANG_CODE + "/admin/project/quoteedit?id=" + projectId;
     };
 	$scope.downloadInvoice = function(){
 		$scope.url_downloadInvoice = "/" + LANG_CODE + "/admin/project/invoicedownload?id=" + projectId;
@@ -406,7 +410,6 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
                 attachData($newTask);
                 $scope.newTask = {};
                 $scope.items.push($newTask);
-                $scope.project.tasksNum = $scope.items.length;
             });
         }
     }
@@ -417,7 +420,8 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
         for(var i = 0; i < $tasks.length; i++){
             attachData($tasks[i]);
         }
-        $scope.project.tasksNum = $tasks.length;
+		//console.log("check tasks");
+		//console.log($tasks);
     }
     $scope.custom.afterLoadItems = afterLoadItems;
 
