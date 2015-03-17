@@ -372,7 +372,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 
     function update(){
         if(jQuery("#edit_project form").valid()) {
-            var fields = ['client', 'pm', 'sale', 'priority', 'reference', 'field'];
+            var fields = ['client', 'pm', 'sale', 'priority', 'reference', 'field', 'po'];
             var data = getOnlyFields($scope.tempProject, fields);
 
             ProjectApi.update($scope.project.id, data, function () {

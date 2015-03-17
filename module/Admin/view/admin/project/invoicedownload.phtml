@@ -13,11 +13,11 @@
 			<table style="width: 100%;max-width: 100%;margin-bottom: 20px;">
 				<tbody>
 				<tr>
-					<td width="50%" style="text-align: left;"><h4>Invoice No.</h4></td>
+					<td width="50%" style="text-align: left;"><h4>Invoice No. : <span style="color: #1ab394;"><?php echo $this->invoices['invoice_no']; ?></span></h4></td>
 					<td width="50%" style="text-align: right;"><strong>Invoice Date:</strong> <?php echo $this->invoiceDate;?></td>
 				</tr>
 				<tr>
-					<td width="50%" style="text-align: left;"><h4 class="text-navy" style="color: #1ab394;"><?php echo $this->invoices['invoice_no']; ?></h4></td>
+					<td width="50%" style="text-align: left;"><h4>PO No. : <span style="color: #1ab394;"><?php echo $this->project['po']; ?></span></h4></td>
 					<td width="50%" style="text-align: right;"><strong>Due Date:</strong> <?php echo $this->dueDate;?></td>
 				</tr>
 				<tr>
