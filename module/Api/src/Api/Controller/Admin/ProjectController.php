@@ -213,6 +213,7 @@ class ProjectController extends AbstractRestfulJsonController
 						'rate' => $item['rate'],
 						'quantity' => $item['quantity'],
 						'total' => $item['total'],
+						'engineeringcategory' => $this->getReference('\Common\Entity\EngineeringCategory', $item['category']['id']), 
 						'language' => $targetLanguages[$languageId],
 					]);
 				}
