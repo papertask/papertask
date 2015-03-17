@@ -430,7 +430,7 @@ class ProjectController extends AbstractRestfulJsonController
                 'type' => "accept_quote",
                 'sender' => $this->getReference('\User\Entity\User', $data['client']['id'])
             ]);
-            $activity->save($this->getEntityManager());
+            //$activity->save($this->getEntityManager());
 		}
 		if($action==3){
 			 $arr = [];
