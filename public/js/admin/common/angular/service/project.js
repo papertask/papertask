@@ -23,7 +23,7 @@ angularApp.factory("CurrentcyRate", function(){
             return rates;
         }
     }
-});	
+});
 
 angularApp.factory("ProjectStatus", function(){
     var statuses = [{
@@ -729,9 +729,9 @@ angularApp.factory("LangGroup", function(){
         "group_id": 4,
         "group_name": "Others"
     },
-	
+
 	];
-	
+
 	return {
         get: function($id){
             for(var i = 0; i < group.length; i++){
@@ -769,7 +769,7 @@ angularApp.factory("ProjectType", function($sce){
         "id": 4,
         "name": $sce.trustAsHtml('DTP <i class=\"fa fa-apple\"><\/i>'),
         "name_short": "MAC",
-		"name_task" : $sce.trustAsHtml('DTP <i class=\"fa fa-apple\"><\/i>'),	
+		"name_task" : $sce.trustAsHtml('DTP <i class=\"fa fa-apple\"><\/i>'),
 		"tootip" : "Desktop Publishing",
         "name_text": "DTP MAC"
     }, {
@@ -905,7 +905,7 @@ angularApp.factory("DateFormatter", function(){
             return "";
         }
 		var date;
-		
+
 		if($date.date)
 			date = new Date($date.date);
 		else date = new Date($date);
@@ -921,6 +921,35 @@ angularApp.factory("DateFormatter", function(){
     }
 });
 
+/**
+ * File size filter
+ * https://gist.github.com/yrezgui/5653591
+ */
+angularApp.filter( 'filesize', function () {
+   var units = [
+     'bytes',
+     'KB',
+     'MB',
+     'GB',
+     'TB',
+     'PB'
+   ];
+
+   return function( bytes, precision ) {
+     if ( isNaN( parseFloat( bytes )) || ! isFinite( bytes ) ) {
+       return '?';
+     }
+
+     var unit = 0;
+
+     while ( bytes >= 1024 ) {
+       bytes /= 1024;
+       unit ++;
+     }
+
+     return bytes.toFixed( + precision ) + ' ' + units[ unit ];
+   };
+});
 
 angularApp.factory("API", function($http){
 

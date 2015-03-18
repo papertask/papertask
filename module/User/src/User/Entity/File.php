@@ -31,6 +31,12 @@ class File extends Entity{
      * @var string
      * @ORM\Column(type="string")
      */
+    protected $token;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
     protected $path;
 
     /**
@@ -54,7 +60,10 @@ class File extends Entity{
 
     public function getData(){
         return [
-            'id' => $this->id,
+            'token' => $this->token,
+            'time' => $this->time,
+            'size' => $this->size,
+            'name' => $this->name,
         ];
     }
 

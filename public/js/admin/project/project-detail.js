@@ -476,3 +476,22 @@ angularApp.controller("ProjectActivitiesController", function($scope, ActivityAp
         }
     });
 });
+
+angularApp.controller("ProjectFilesController", function($scope, $http, $window){
+    $scope.files = [];
+
+    var projectId = PROJECT_ID;
+    function init(){
+        $http.get("/" + LANG_CODE + "/admin/project/getFilesList?project_id="+projectId)
+            .success( function ( $data ) {
+                $scope.files = $data;
+            });
+    }
+
+    $scope.downloadFile = function(token){
+        // alert("DWD");
+        $window.open("/" + LANG_CODE + "/admin/project/downloadFile?token="+token, '_blank');
+    };
+
+    init();
+});

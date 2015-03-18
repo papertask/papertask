@@ -1,4 +1,4 @@
-<div class="tab-pane<?php echo ($filesTabActive == true ? 'active': '');?>" id="files">
+<div class="tab-pane<?php echo ($filesTabActive == true ? 'active': '');?>" id="files" ng-controller="ProjectFilesController">
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -10,11 +10,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td><a href=""><i class="fa fa-file"></i> Project_document_SC.docx <i class="fa fa-cloud-download"></i></a> </td>
-                <td>46.88 KB</td>
-                <td>2014-Oct-09 16:30</td>
+            <tr ng-repeat="file in files">
+                <td>{{$index + 1}}</td>
+                <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
+                <td>{{file.size | filesize}}</td>
+                <td>{{ DateFormatter.format(file.time) }}</td>
                 <td><i class="fa fa-trash"></i></td>
             </tr>
         </tbody>
