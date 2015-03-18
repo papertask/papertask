@@ -62,6 +62,14 @@ class File extends Entity{
         return $this->id;
     }
 
+    public function getPath(){
+        return $this->path;
+    }
+
+    public function getName(){
+        return $this->name;
+    }
+
     public function getProject(){
         return $this->project;
     }

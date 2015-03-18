@@ -75,18 +75,18 @@ class ProjectController extends AbstractRestfulJsonController
     {
 		//error_reporting(E_ALL);
 		//ini_set('display_errors', 1);
-        
+
 		$this->cleanData($data);
         $targetLanguages = [];
         foreach($data['targetLanguages'] as $targetLanguage){
             $targetLanguages[$targetLanguage['id']] = $this->getReference('\User\Entity\Language', $targetLanguage['id']);
         }
         $data['targetLanguages'] = $targetLanguages;
-		
+
 		if($data['status'] == 1){
 			$data['quote_no'] = "QUO-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
 		}
-		
+
 		$project = new Project();
 		//var_dump($data);exit;
         $project->setData($data);
@@ -119,7 +119,7 @@ class ProjectController extends AbstractRestfulJsonController
             $type = $identifier[0];
             $languageId = $identifier[1]['id'];
 			if ($type == 'translationNoTM'){
-				
+
 				foreach($iterms['items'] as $item){
 					$iterm = new Itermnotm();
 					$iterm->setProject($project);
@@ -136,7 +136,7 @@ class ProjectController extends AbstractRestfulJsonController
 				$iterm->save($this->getEntityManager());
 			}
 			else if ($type == 'translationTM'){
-				
+
 				//foreach($iterms['itemtm'] as $item){
 					$iterm = new Itermtm();
 					$iterm->setProject($project);
@@ -165,7 +165,7 @@ class ProjectController extends AbstractRestfulJsonController
 				$iterm->save($this->getEntityManager());
 			}
 			else if ($type == 'dtpMac'){
-				
+
 				foreach($iterms['items'] as $item){
 					$iterm = new Itermdtpmac();
 					$iterm->setProject($project);
@@ -181,10 +181,10 @@ class ProjectController extends AbstractRestfulJsonController
 					]);
 				}
 				$iterm->save($this->getEntityManager());
-			
+
 			}
 			else if ($type == 'dtpPc'){
-				
+
 				foreach($iterms['items'] as $item){
 					$iterm = new Itermdtppc();
 					$iterm->setProject($project);
@@ -195,14 +195,14 @@ class ProjectController extends AbstractRestfulJsonController
 						'rate' => $item['rate'],
 						'quantity' => $item['quantity'],
 						'total' => $item['total'],
-						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']), 
+						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']),
 						'language' => $targetLanguages[$languageId],
 					]);
 				}
 				$iterm->save($this->getEntityManager());
 			}
 			else if ($type == 'engineering'){
-				
+
 				foreach($iterms['items'] as $item){
 					$iterm = new Itermengineering();
 					$iterm->setProject($project);
@@ -213,14 +213,14 @@ class ProjectController extends AbstractRestfulJsonController
 						'rate' => $item['rate'],
 						'quantity' => $item['quantity'],
 						'total' => $item['total'],
-						'engineeringcategory' => $this->getReference('\Common\Entity\EngineeringCategory', $item['category']['id']), 
+						'engineeringcategory' => $this->getReference('\Common\Entity\EngineeringCategory', $item['category']['id']),
 						'language' => $targetLanguages[$languageId],
 					]);
 				}
 				$iterm->save($this->getEntityManager());
 			}
 			else{
-				
+
 				foreach($iterms['items'] as $item){
 					$iterm = new Iterminterpreting();
 					$iterm->setProject($project);
@@ -260,9 +260,9 @@ class ProjectController extends AbstractRestfulJsonController
 				$type = $data['types'][0]['id'];
 			}
             $languageId = $identifier[1]['id'];
-			
+
 			$task = new Task();
-			
+
 			$task->setData([
                     'project' => $project,
                     'language' => $targetLanguages[$languageId],
@@ -270,7 +270,7 @@ class ProjectController extends AbstractRestfulJsonController
                     'status' => 3,
                 ]);
 			$task->save($this->getEntityManager());
-		}	
+		}
 
         $activity = new Activity();
         $activity->setData([
@@ -279,7 +279,7 @@ class ProjectController extends AbstractRestfulJsonController
             'type' => "create_quote",
             'sender' => $data['pm'],
             // message should be equal to project description
-            // project description isn't showed now
+            // project description isn't saved to DB project entity now
             'message' => $data['description'],
         ]);
         $activity->save($this->getEntityManager());
@@ -378,12 +378,12 @@ class ProjectController extends AbstractRestfulJsonController
     }
 
     public function get($id){
-		
+
 		$entityManager = $this->getEntityManager();
         $project = $this->find('User\Entity\Project', $id);
         /*$Itermnotm = $entityManager->getRepository('User\Entity\Itermnotm')->findBy(array('project'=>$project));
         $Itermnotms = array();
-        foreach( $Itermnotm as $k => $v ) 
+        foreach( $Itermnotm as $k => $v )
         {
             $Itermnotms[$k] = $v->getData();
         }*/
@@ -391,7 +391,7 @@ class ProjectController extends AbstractRestfulJsonController
 		return new JsonModel([
             'project' => $project->getData(),
 			//'itermnotms' => $Itermnotms,
-			
+
         ]);
     }
 
@@ -439,7 +439,7 @@ class ProjectController extends AbstractRestfulJsonController
                 $arr[] = $type['id'];
             }
             $data['types'] = $arr;
-			
+
 			$project->setData([
 				'tax' => $data['tax'],
 				'discount' =>  $data['discount'],
