@@ -51,6 +51,20 @@ class ProjectIterminterpretingController extends AbstractRestfulJsonController
 			'language' => $language,
 		]);
 		$iterm->save($this->getEntityManager());
+		//add task if have not
+		/*$entityManager = $this->getEntityManager();
+		$repository = $entityManager->getRepository('User\Entity\Task');
+        $task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>1));
+		if(!$task){
+			$task = new Task();
+			$task->setData([
+                    'project' => $project,
+                    'language' => $language,
+                    'type' => 1,
+                    'status' => 3,
+                ]);
+			$task->save($this->getEntityManager());
+		}*/
 		return new JsonModel([
             'iterm' => $iterm->getData(),
         ]);

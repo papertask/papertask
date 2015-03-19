@@ -46,6 +46,20 @@ class ProjectItermdtppcController extends AbstractRestfulJsonController
 			'software' => $software,
 		]);
 		$iterm->save($this->getEntityManager());
+		//add task if have not
+		$entityManager = $this->getEntityManager();
+		$repository = $entityManager->getRepository('User\Entity\Task');
+        $task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>5));
+		if(!$task){
+			$task = new Task();
+			$task->setData([
+                    'project' => $project,
+                    'language' => $language,
+                    'type' => 5,
+                    'status' => 3,
+                ]);
+			$task->save($this->getEntityManager());
+		}
 		return new JsonModel([
             'iterm' => $iterm->getData(),
         ]);

@@ -34,7 +34,53 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 
     public function create($data)
     {
+		$projectid = $this->getRequest()->getQuery('projectid');
+		$iterm = new Itermtm();
+		if($data['file']['id'])
+			$file = $this->find('\User\Entity\File', $data['file']['id']);
+		$project = $this->find('User\Entity\Project', $projectid);
+		$iterm->setProject($project);
+		$language = $this->find('User\Entity\Language', $data['languageid']);
 		
+		$iterm->setData([
+			'name' => $data['name'],
+			'rate' => $data['rate'],
+			'sourcebawu' => $data['sourcebawu'],
+			'sourcejiuwu' => $data['sourcejiuwu'],
+			'sourcenomatch' => $data['sourcenomatch'],
+			'sourceqiwu' => $data['sourceqiwu'],
+			'sourcerepetitions' => $data['sourcerepetitions'],
+			'sourcewushi' => $data['sourcewushi'],
+			'sourceyibai' => $data['sourceyibai'],
+
+			'raterepetitions' => $data['raterepetitions'},
+			'rateyibai' => $data['rateyibai'],
+			'ratejiuwu' => $data['ratejiuwu'],
+			'ratebawu' => $data['ratebawu'],
+			'rateqiwu' => $data['rateqiwu'],
+			'ratewushi' => $data['ratewushi'],
+			'ratenomatch' => $data['ratenomatch'],
+
+			'total' => $data['total'],
+		]);
+		$iterm->save($this->getEntityManager());
+		//add task if have not
+		$entityManager = $this->getEntityManager();
+		$repository = $entityManager->getRepository('User\Entity\Task');
+        $task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>2));
+		if(!$task){
+			$task = new Task();
+			$task->setData([
+                    'project' => $project,
+                    'language' => $language,
+                    'type' => 2,
+                    'status' => 3,
+                ]);
+			$task->save($this->getEntityManager());
+		}
+		return new JsonModel([
+            'iterm' => $iterm->getData(),
+        ]);
     }
 
     public function getList(){

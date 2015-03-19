@@ -114,6 +114,7 @@ class ProjectController extends AbstractRestfulJsonController
 		$invoice->setProject($project);
 		$invoice->save($this->getEntityManager());
 		//
+		 if(isset($data['data'])){
         foreach($data['data'] as $iterms){
             $identifier = $iterms['identifier'];
             $type = $identifier[0];
@@ -271,7 +272,7 @@ class ProjectController extends AbstractRestfulJsonController
                 ]);
 			$task->save($this->getEntityManager());
 		}	
-
+		}
         $activity = new Activity();
         $activity->setData([
             'activityDate' => new \DateTime('NOW'),
@@ -282,7 +283,7 @@ class ProjectController extends AbstractRestfulJsonController
             // project description isn't showed now
             'message' => $data['description'],
         ]);
-        $activity->save($this->getEntityManager());
+        //$activity->save($this->getEntityManager());
 
         return new JsonModel([
             'project' => $project->getData(),
