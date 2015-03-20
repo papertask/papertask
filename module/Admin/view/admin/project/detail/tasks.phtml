@@ -47,7 +47,8 @@
                                     ng-click="sendToClientPool(task)"><i class="fa fa-users"></i> C</button>
                             <button href="#" data-toggle="tooltip" data-placement="top" title=""
                                     tooltip="View Task Details"
-                                    class="btn btn-white btn-xs"><i class="fa fa-folder"></i> </button>
+                                    class="btn btn-white btn-xs"
+									ng-click="viewtaskdetail(task)"><i class="fa fa-folder"></i> </button>
                             <button ng-hide="task.is_completed" class="btn btn-white btn-xs"
                                     ng-click="remove($index)"><i class="fa fa-trash-o"></i></button>
                         </div>

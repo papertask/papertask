@@ -46,7 +46,17 @@ class TaskController extends AbstractRestfulJsonController
             'task' => $task->getData(),
         ]);
     }
-
+	
+	public function get($id){
+		
+		$entityManager = $this->getEntityManager();
+        $task = $this->find('User\Entity\Task', $id);
+		return new JsonModel([
+            'task' => $task->getData(),
+			
+        ]);
+    }
+	
     public function getList(){
         $projectId = $this->params()->fromQuery('project_id');
         $tasks = $this->getAllDataBy('\User\Entity\Task', [
@@ -74,14 +84,26 @@ class TaskController extends AbstractRestfulJsonController
     public function update($id, $data){
         $task = $this->find('\User\Entity\Task', $id);
         $updateData = [];
+		$action = $this->params()->fromQuery('action');
+		if($action==1)
+		{
+			
+			$task->setData([
+				'name' => $data['name'],
+				'startDate' =>  new \DateTime($data['startDate']),
+				'dueDate' =>  new \DateTime($data['dueDate']),
+			]);
+        }
         if(isset($data['is_specialism_pool'])){
             $updateData['is_specialism_pool'] = (bool) $data['is_specialism_pool'];
             $updateData['is_client_pool'] = !$updateData['is_specialism_pool'];
+			$task->setData($updateData);
         } else if (isset($data['is_client_pool'])){
             $updateData['is_client_pool'] = (bool) $data['is_client_pool'];
             $updateData['is_specialism_pool'] = !$updateData['is_client_pool'];
+			$task->setData($updateData);
         }
-        $task->setData($updateData);
+       
         $task->save($this->getEntityManager());
 
         return new JsonModel([

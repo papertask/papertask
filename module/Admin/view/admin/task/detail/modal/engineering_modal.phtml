@@ -1,0 +1,91 @@
+<!-- ENG -->
+<div id="modal-eng" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Input/Edit Quantity and Price</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-lg-12">
+							<div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Task Name") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                   <input name="quantity" class="form-control required"
+                                           ng-model="engineering.name" type="text" />
+                                </div>
+                            </div>
+							
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("File Name") ?>
+                                </label>
+                                <div class="col-sm-9">
+                                    <select ng-model="engineering.file" class="form-control"
+                                            ng-options="file.name for file in project.files" name="file">
+                                        <option value=""><?php echo $this->translate("Chose file") ?></option>
+                                    </select>                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Category") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control required valid" name="category" ng-change="calTo('#modal-eng','#TaskDetailController',
+	                                           'getRateEng', engineering)" aria-required="true"
+                                            ng-model="engineering.engineeringcategory"
+                                            ng-options="engineeringCategorie.category for engineeringCategorie in engineeringCategories track by engineeringCategorie.id">
+                                        <option value=""><?php echo $this->translate("Choose category") ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Unit") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control required valid" name="unit" ng-change="calTo('#modal-eng','#TaskDetailController',
+	                                           'getRateEng', engineering)"  aria-required="true"
+                                            ng-model="engineering.unit"
+                                            ng-options="unit.name for unit in engineeringUnits  track by unit.id">
+                                        <option value=""><?php echo $this->translate("Choose unit") ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Rate") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <input name="rate" class="form-control required"
+                                           ng-model="engineering.rate_tmp" type="number" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Quantity") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <input name="quantity" class="form-control required"
+                                           ng-model="engineering.quantity" type="number" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal"><?php echo $this->translate("Close") ?></button>
+				 <button type="button" class="btn btn-w-m btn-primary"
+                        ng-click="submitTo('#modal-eng','#TaskDetailController',
+	                                           'saveEngineering', engineering)">
+                    <?php echo $this->translate("Save changes") ?>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

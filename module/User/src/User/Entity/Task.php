@@ -21,8 +21,11 @@ class Task extends Entity{
      * @ORM\Column(type="integer")
      */
     protected $id;
-
-    /**
+	
+	/** @ORM\Column(type="string") */
+    protected $name;
+    
+	/**
      * @var \User\Entity\Project
      * @ORM\ManyToOne(targetEntity="Project")
      */
@@ -75,10 +78,22 @@ class Task extends Entity{
      * @ORM\ManyToOne(targetEntity="Freelancer")
      */
     protected $assignee;
+	/**
+     * @var string
+     * @ORM\Column(type="datetime")
+     */
+    protected $startDate;
+
+    /**
+     * @var string
+     * @ORM\Column(type="datetime")
+     */
+    protected $dueDate;
 
     public function getData(){
         return [
             'id' => $this->id,
+			'name' => $this->name,
             'is_completed' => $this->is_completed,
             'is_client_pool' => $this->is_client_pool,
             'is_deleted' => $this->is_deleted,
@@ -87,6 +102,8 @@ class Task extends Entity{
             'project' => $this->project->getId(),
             'status' => $this->status,
             'type' => $this->type,
+			'dueDate' => $this->dueDate,
+			'startDate' => $this->startDate,
         ];
     }
 }

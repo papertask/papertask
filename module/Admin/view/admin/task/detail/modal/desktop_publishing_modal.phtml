@@ -1,0 +1,201 @@
+<!-- DTP MAC -->
+<div id="modal-dtp-mac" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel"><?php echo $this->translate("Input/Edit Quantity and Price") ?></h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-lg-12">
+							<div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Task Name") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                   <input name="quantity" class="form-control required"
+                                           ng-model="desktopMac.name" type="text" />
+                                </div>
+                            </div>
+							
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("File Name") ?>
+                                </label>
+                                <div class="col-sm-9">
+                                    <select ng-model="desktopMac.file" class="form-control"
+                                            ng-options="file.name for file in project.files" name="file">
+                                        <option value=""><?php echo $this->translate("Chose file") ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("DTP software") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control required valid" name="" ng-change="calTo('#modal-dtp-mac','#TaskDetailController',
+	                                           'getRateDtpMac', desktopMac)" aria-required="true"
+                                            ng-model="desktopMac.software"
+                                            ng-options="software.name for software in softwares track by software.id">
+                                        <option value=""><?php echo $this->translate("Choose software") ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Unit") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control required valid" ng-change="calTo('#modal-dtp-mac','#TaskDetailController',
+	                                           'getRateDtpMac', desktopMac)" name="unit" aria-required="true"
+                                            ng-model="desktopMac.unit"
+                                            ng-options="unit.name for unit in dtpUnits track by unit.id">
+                                        <option value=""><?php echo $this->translate("Choose unit") ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Rate") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <input name="rate" class="form-control required"
+                                           ng-model="desktopMac.rate_tmp" type="number" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Quantity") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <input name="quantity" class="form-control required"
+                                           ng-model="desktopMac.quantity" type="number" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal"><?php echo $this->translate("Close") ?></button>
+                <button type="button" class="btn btn-w-m btn-primary"
+                        ng-click="submitTo('#modal-dtp-mac','#TaskDetailController',
+	                                           'saveDesktopMac', desktopMac)">
+                    <?php echo $this->translate("Save changes") ?>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DTP Windows -->
+<div id="modal-dtp-pc" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel"><?php echo $this->translate("Input/Edit Quantity and Price") ?></h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-lg-12">
+							<div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Task Name") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                   <input name="quantity" class="form-control required"
+                                           ng-model="desktopPc.name" type="text" />
+                                </div>
+                            </div>
+							
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("File Name") ?>
+                                </label>
+                                <div class="col-sm-9">
+                                    <select ng-model="desktopPc.file" class="form-control"
+                                            ng-options="file.name for file in project.files  track by file.id" name="file">
+                                        <option value=""><?php echo $this->translate("Chose file") ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("DTP software") ?> *
+                                </label>
+                                <!--<div class="col-sm-9">
+                                    <select class="form-control required valid" name="" aria-required="true"
+                                            ng-model="vars.item.unit"
+                                            ng-options="unit.name for unit in dtpUnits">
+                                        <option value=""><?php echo $this->translate("Choose software") ?></option>
+                                    </select>
+                                </div>-->
+								
+								 <div class="col-sm-9">
+                                    <select class="form-control required valid" name="" ng-change="calTo('#modal-dtp-mac','#TaskDetailController',
+	                                           'getRateDtpPc', desktopPc)" aria-required="true"
+                                            ng-model="desktopPc.software"
+                                            ng-options="software.name for software in softwares  track by software.id">
+                                        <option value=""><?php echo $this->translate("Choose software") ?></option>
+                                    </select>
+                                </div>
+								
+								
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Unit") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control required valid" name="unit" ng-change="calTo('#modal-dtp-mac','#TaskDetailController',
+	                                           'getRateDtpPc', desktopPc)" aria-required="true"
+                                            ng-model="desktopPc.unit"
+                                            ng-options="unit.name for unit in dtpUnits track by unit.id">
+                                        <option value=""><?php echo $this->translate("Choose unit") ?></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Rate") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <input name="rate" class="form-control required"
+                                           ng-model="desktopPc.rate_tmp" type="number" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    <?php echo $this->translate("Quantity") ?> *
+                                </label>
+                                <div class="col-sm-9">
+                                    <input name="quantity" class="form-control required"
+                                           ng-model="desktopPc.quantity" type="number" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal"><?php echo $this->translate("Close") ?></button>
+                <button type="button" class="btn btn-w-m btn-primary"
+                        ng-click="submitTo('#modal-dtp-pc','#TaskDetailController',
+	                                           'saveDesktopPc', desktopPc)">
+                    <?php echo $this->translate("Save changes") ?>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

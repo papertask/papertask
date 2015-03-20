@@ -54,6 +54,7 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
 		if(!$task){
 			$task = new Task();
 			$task->setData([
+					
                     'project' => $project,
                     'language' => $language,
                     'type' => 4,

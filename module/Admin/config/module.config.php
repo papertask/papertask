@@ -106,6 +106,7 @@ return array(
             'admin/staff/new' => __DIR__ . '/../view/admin/staff/new.phtml',
             'admin/staff/view' => __DIR__ . '/../view/admin/staff/view.phtml',
             'admin/task/new' => __DIR__ . '/../view/admin/task/new.phtml',
+			'admin/task/detail' => __DIR__ . '/../view/admin/task/detail.phtml',
         ),
         'layout' => 'layout/admin',
         'template_path_stack' => array(

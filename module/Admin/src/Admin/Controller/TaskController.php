@@ -29,6 +29,11 @@ class TaskController extends AbstractActionController
     }
 
     public function detailAction(){
-        return new ViewModel(array());
+        $id = $this->params()->fromQuery('id');
+		$lang_code = $this->params()->fromRoute('lang');
+        return new ViewModel([
+            'id' => $id,
+			"lang_code" => $lang_code
+        ]);
     }
 }

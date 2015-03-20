@@ -446,6 +446,12 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
     function sendToClientPool($task){
         update($task, {is_client_pool: 1});
     }
+	function viewtaskdetail($task){
+		console.log("redirect");
+		console.log($task);
+        location.href = '/' + LANG_CODE + "/admin/task/detail?id="+$task.id;
+    }
+	 $scope.viewtaskdetail = viewtaskdetail;
     $scope.sendToClientPool = sendToClientPool;
 
     $scope.$watch(function(){

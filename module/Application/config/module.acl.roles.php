@@ -39,6 +39,7 @@ $allow_all = array(
 	'dashboard\index',
 	// -- Task
 	'task\index',
+	'task\detail',
 	// -- Project
 	'project\index',
 	'project\new',

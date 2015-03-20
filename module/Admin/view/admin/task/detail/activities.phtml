@@ -1,0 +1,38 @@
+<div ng-class="{2:'tab-pane',1:'tab-pane active'}[project.status.id]" id="message" ng-controller="ItemListController">
+    <div ng-controller="ProjectActivitiesController">
+        <div class="feed-activity-list">
+            <div class="feed-element" ng-repeat="activity in items">
+                <div class="media-body ">
+                    <small class="pull-right">{{ DateFormatter.format(activity.activityDate) }}</small>
+                    <strong ng-class="{'text-navy': activity.sender.group.isFreelancer}">{{activity.sender.firstName}} {{activity.sender.lastName}}</strong> {{activity.type}}
+                    <br>
+                    <div class="well" ng-show="activity.message">
+                        {{activity.message}}
+                    </div>
+                </div>
+            </div>
+            <!--<div class="feed-element">
+                <div class="media-body ">
+                    <small class="pull-right">2014-Aug-20, 14:36</small>
+                    <strong><a href="#" class="text-navy">freelancer_name1</a></strong> pick up task <a href="#" class="text-navy">#8888888-01</a>.
+                    <br>
+                </div>
+            </div>-->
+        </div>
+
+        <br>
+
+        <form ng-submit="sendMessage()">
+            <div class="form-group">
+                <summernote ng-model="newActivity.message"></summernote>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group" align="right">
+                <div class="col-sm-12">
+                    <button class="btn btn-primary" type="submit"><?php echo $this->translate("Send") ?></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

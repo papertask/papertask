@@ -269,6 +269,10 @@ class ProjectController extends AbstractRestfulJsonController
                     'language' => $targetLanguages[$languageId],
                     'type' => $type,
                     'status' => 3,
+					'name' => $data['reference'] . '-' . $identifier[0],
+					'startDate' => $data['startDate'],
+					'dueDate' => $data['dueDate'], 
+					
                 ]);
 			$task->save($this->getEntityManager());
 		}	
