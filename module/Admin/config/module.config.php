@@ -89,6 +89,8 @@ return array(
             'admin/freelancer/update-info' => __DIR__ . '/../view/admin/freelancer/finish-registration.phtml',
             'admin/freelancer/view' => __DIR__ . '/../view/admin/freelancer/view.phtml',
             'admin/freelancer/detail' => __DIR__ . '/../view/admin/freelancer/details.phtml',
+			
+			
             'admin/project/detail' => __DIR__ . '/../view/admin/project/detail.phtml',
             'admin/project/index' => __DIR__ . '/../view/admin/project/index.phtml',
             'admin/project/new' => __DIR__ . '/../view/admin/project/new.phtml',

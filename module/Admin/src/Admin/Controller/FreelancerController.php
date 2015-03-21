@@ -17,6 +17,8 @@ use User\Entity\Resume;
 
 use User\Entity\CvFile;
 
+use User\Entity\UserGroup;
+
 
 use Zend\View\Model\JsonModel;
 
@@ -247,5 +249,26 @@ class FreelancerController extends AbstractActionController
                 "isAdmin" => $this->getCurrentUser()->isAdmin(),
             ]);
         }
+    }
+	public function getFreelancesListAction() {
+        $entityManager = $this->getEntityManager();
+		$freelancerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::FREELANCER_GROUP_ID);
+
+		$freelancerList = $entityManager->getRepository('User\Entity\User');
+                                //->findBy(array('group' => $freelancerGroup));
+        $queryBuilder = $freelancerList->createQueryBuilder('user');
+		$queryBuilder->select(array('user.firstName','user.id userid','user.lastName','freelancer.id freelancerid'));
+		$queryBuilder->innerJoin('user.freelancer', 'freelancer');
+        $queryBuilder->where("user.group = :group1")->setParameter('group1', $freelancerGroup);
+		$queryBuilder->andWhere("user.isActive = ?1")
+                    ->setParameter(1, 1);
+					
+		
+		
+        $query = $queryBuilder->getQuery();
+        $result = $query->getArrayResult();
+        return new JsonModel([
+            'freelancerslist' => $result
+        ]);
     }
 }

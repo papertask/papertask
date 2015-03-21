@@ -94,6 +94,27 @@ class TaskController extends AbstractRestfulJsonController
 				'dueDate' =>  new \DateTime($data['dueDate']),
 			]);
         }
+		else if($action==2)
+		{
+			$freelancer = $this->find('\User\Entity\Freelancer', $data['freelancerid']);
+			$task->setData([
+				'assignee' => $freelancer,
+			]);
+        }
+		else if($action==3)//sendToSpecialismPool
+		{
+			$task->setData([
+				'is_specialism_pool' => 1,
+				'is_client_pool' => 0,
+			]);
+        }
+		else if($action==4)//sendToClientPool
+		{
+			$task->setData([
+				'is_specialism_pool' => 0,
+				'is_client_pool' => 1,
+			]);
+        }
         if(isset($data['is_specialism_pool'])){
             $updateData['is_specialism_pool'] = (bool) $data['is_specialism_pool'];
             $updateData['is_client_pool'] = !$updateData['is_specialism_pool'];

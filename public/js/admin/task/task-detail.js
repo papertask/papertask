@@ -41,6 +41,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
     $scope.clients = [];
     $scope.sales = [];
     $scope.pms = [];
+	$scope.freelancerassign =[];
     $scope.fields = [];
     $scope.project = {
         task: [],
@@ -117,6 +118,14 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
             .success( function ( $data ) {
                 $scope.sales = $data.saleslist;
             });
+		
+		var freelancer_listener = $http.get("/" + LANG_CODE + "/admin/freelancer/getFreelancesList")
+            .success( function ( $data ) {
+                $scope.freelancers = $data.freelancerslist;
+				setModalControllerData('freelancers', $scope.freelancers);
+				console.log("$scope.freelancers");
+				console.log($scope.freelancers);
+            });		
 		//get company info
 		 var companyinfo = $http.get("/api/papertask/companyinfo").success(function($data){
             $scope.companyinfo = $data['companyinfo'];
@@ -1183,6 +1192,32 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
     }
 	
 	// update task
+	$scope.assignFre = function(){
+		console.log($scope.task.freelancerassign);
+		if($scope.task.freelancerassign){
+			
+			var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
+			.success( function ( $data ) {
+				$scope.task = $data.task;
+				bootbox.alert(ASSIGN_SUCCESSFUL);
+			});	
+		}
+	};	
+	$scope.sendToSpecialismPool = function(){
+		var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=3")
+		.success( function ( $data ) {
+			$scope.task = $data.task;
+			bootbox.alert(ASSIGN_SUCCESSFUL);
+		});	
+	};
+	$scope.sendToClientPool = function(){
+		var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=4")
+		.success( function ( $data ) {
+			$scope.task = $data.task;
+			bootbox.alert(ASSIGN_SUCCESSFUL);
+		});	
+	};
+	
 	$scope.update = function(){
         var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=1", $scope.tempTask)
 		.success( function ( $data ) {
