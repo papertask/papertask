@@ -67,7 +67,7 @@ $this->inlineScript()
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasksNum }}</span> <?php echo $this->translate("Task Allocation"); ?></a></li>
 								
-								<li class=""><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> Messages & Activities</a></li>
+								<li class="" ng-show="1 == 0"><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> Messages & Activities</a></li>
 								
 							</ul>
 						</div>
@@ -75,7 +75,7 @@ $this->inlineScript()
 					<div class="panel-body">
 						<div class="tab-content">	
 							<?php include "detail/order_information.phtml"; ?>
-							<?php include "detail/activities.phtml"; ?>
+							<?php //include "detail/activities.phtml"; ?>
 						</div>
 					</div>	
 				</div>

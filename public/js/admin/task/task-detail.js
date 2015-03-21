@@ -94,6 +94,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				console.log($scope.task);
 				$scope.projectId = $scope.task.project;
 				$scope.task.type = ProjectType.get($scope.task.type);
+				$scope.task.status = TaskStatus.get($scope.task.status);
 				
 				jQuery.extend($scope.tempTask, $scope.task);
 				console.log("scope.tempTask");
@@ -149,6 +150,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
         });		
 		
         var client_listener = ClientApi.list({}, function($clients){
+			console.log("clients");
+			console.log($scope.clients);
             $scope.clients = $clients;
         });
 
@@ -166,6 +169,10 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					$project.tasks = [];
 					
 					$scope.project = $project;
+					var str = $scope.project.quote_no;
+					var res = str.split("-");
+					$scope.project.project_no = res[1];
+					
 					$scope.USER_ID = $scope.project.userid;
 					$scope.currency = $scope.project.currency;
 					
@@ -181,8 +188,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 						$scope.project.sale = search_by_id($scope.sales, $scope.project.sale.id);
 					
 					$scope.project.client = search_by_id($scope.clients, $scope.project.client.id);
-					console.log("$scope.task.type");	
-					console.log($scope.task.type);	
+					console.log("$scope.project.client");	
+					console.log($scope.project.client);	
 					//get all file
 					$http.get('/api/admin/file?projectId='+ $scope.projectId).success(function($data) {
 							console.log("scope.files");
