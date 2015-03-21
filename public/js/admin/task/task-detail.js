@@ -2,24 +2,32 @@
  * Created by eastagile on 11/11/14.
  */
 angularApp.run(function($rootScope){
-    jQuery("#edit_project form").validate();
+    jQuery("#edit_task form").validate();
     jQuery("#tasks form").validate();
 });
-angularApp.filter('dateFormat', function($filter)
-{
- return function(input)
- {
-  if(input == null){ return ""; } 
- 
-  var _date = $filter('date')(new Date(input), 'MMMM dd, yyyy');
- 
-  return _date.toUpperCase();
-
- };
+angularApp.run(function($rootScope){
+    var i = 1;
+    var element = jQuery("#projectfiles > input")[0];
+    jQuery(element).filestyle({
+        input: false,
+        icon: "fa fa-cloud-upload",
+        buttonText: "Upload Source files",
+        buttonName: "btn-xs btn-primary",
+        badge: false
+    });
+	var element = jQuery("#taskfiles > input")[0];
+    jQuery(element).filestyle({
+        input: false,
+        icon: "fa fa-cloud-upload",
+        buttonText: "Upload Final files",
+        buttonName: "btn-xs btn-primary",
+        badge: false
+    });
 });
+
 angularApp.controller('TaskDetailController', function($scope, $http, $timeout, $location, ProjectApi, DateFormatter, ProjectStatus, LangGroup,
                                                           ProjectServiceLevel, ProjectPriority, StaffApi, ClientApi,
-                                                          FieldApi, ProjectType, TaskApi, TaskStatus, $q){
+                                                          FieldApi, ProjectType, TaskApi, TaskStatus, FileListService, $q){
 
     $scope.DateFormatter = DateFormatter;
     $scope.ProjectStatus = ProjectStatus;
@@ -28,6 +36,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
     $scope.FieldApi = FieldApi;
 	$scope.currency = null;
     $scope.tempProject = {};
+	$scope.files = [];
+	$scope.taskfiles = [];
     $scope.clients = [];
     $scope.sales = [];
     $scope.pms = [];
@@ -40,6 +50,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	$scope.tempTask = {};
 	$scope.telephone = [];
 	$scope.projectId ='';
+	$scope.taskId ='';
 	$scope.itermtm = [];
 	$scope.subtotal_tmp = 0;
 	$scope.USER_ID = null;
@@ -69,6 +80,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
     var taskId = TASK_ID;
+	$scope.taskId = taskId;
     function init(){
 		$("*[rel=tooltip]").tooltip();
         
@@ -84,16 +96,12 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				
 				jQuery.extend($scope.tempTask, $scope.task);
 				console.log("scope.tempTask");
-				//$scope.tempTask.dueDate.date
-				//if($date.date)
-				//	date = new Date($date.date);
-				//else 	date  = new Date($date);
-				// 2014.Oct.10
-				//return date.getFullYear() + "." + month_names_short[date.getMonth()] + "." + date.getDate();
 				var dueDate = new Date($scope.task.dueDate.date);
-				$scope.tempTask.dueDate = dueDate.getDate() + '-' + dueDate.getMonth() + '-' + dueDate.getFullYear() +  ' ' + dueDate.getHours() + ':' + dueDate.getSeconds() ;
+				var month = dueDate.getMonth() + 1;
+				$scope.tempTask.dueDate = dueDate.getDate() + '-' + month + '-' + dueDate.getFullYear() +  ' ' + dueDate.getHours() + ':' + dueDate.getSeconds() ;
 				var startDate = new Date($scope.task.startDate.date);
-				$scope.tempTask.startDate = startDate.getDate() + '-' + startDate.getMonth() + '-' + startDate.getFullYear() +  ' ' + startDate.getHours() + ':' + startDate.getSeconds() ;
+				var startmonth = dueDate.getMonth() + 1;
+				$scope.tempTask.startDate = startDate.getDate() + '-' + startmonth + '-' + startDate.getFullYear() +  ' ' + startDate.getHours() + ':' + startDate.getSeconds() ;
 				//$scope.tempTask.startDate = $scope.tempTask.startDate.date;
 				console.log($scope.tempTask);
 				
@@ -166,6 +174,18 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					$scope.project.client = search_by_id($scope.clients, $scope.project.client.id);
 					console.log("$scope.task.type");	
 					console.log($scope.task.type);	
+					//get all file
+					$http.get('/api/admin/file?projectId='+ $scope.projectId).success(function($data) {
+							console.log("scope.files");
+							console.log($data['files']);	
+							arrangeFile($data['files']);
+							//$scope.files = $data['files'];
+							$scope.project.files = $scope.files;
+							setModalControllerData('files', $scope.files);
+							console.log("scope.files");
+							console.log($scope.files);			
+						});
+						
 					if($scope.task.type.id == 1){
 						$http.get('/api/admin/projectitermnotm?projectId='+ $scope.projectId).success(function($data) {
 							$scope.itermnotms = $data['Itermnotms'];
@@ -1097,6 +1117,18 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		n = Number(n)
 		return $scope.currency + " " + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
+	function arrangeFile(files) {
+		for(var i = 0; i < files.length; i++)
+		{
+			var date = new Date(files[i].time*1000);
+			var month = date.getMonth() + 1;	
+			files[i].date = date.getFullYear()  + '-' + month + '-' + date.getDate() +  ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() ;
+			if(files[i].task)
+				$scope.taskfiles.push(files[i]); 
+			else $scope.files.push(files[i]);
+		}
+		return true;
+	}
 	function arrangeItem(Itemr, unit) {
 		$scope.itermtmnew = [];
 		for(var i = 0; i < $scope.project.targetLanguages.length; i++)
@@ -1158,7 +1190,53 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			//location.href = "/" + LANG_CODE + "/admin/admin/task?id=" + projectId;
 		});	
     };	
-
+	$scope.removeItem = function(item){
+            var id = item.id;
+			bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
+				if ( bflag == true ) {
+					$http.delete("/api/admin/file/" + id, {
+						id: id            
+					}).success(function( data ) {                
+						for(var i = 0; i < $scope.files.length; i++){
+							if($scope.files[i].id == id){
+								$scope.files.splice(i, 1);
+								
+								break;
+							}
+						}	
+						
+					})
+					.error(function( data ){
+						bootbox.alert(CANNOT_DELETE_TEXT);
+					});             
+					
+				}
+			});
+    };
+		
+	$scope.removetaskItem = function(item){
+		var id = item.id;
+			bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
+				if ( bflag == true ) {
+					$http.delete("/api/admin/file/" + id, {
+						id: id            
+					}).success(function( data ) {                
+						for(var i = 0; i < $scope.taskfiles.length; i++){
+							if($scope.taskfiles[i].id == id){
+								$scope.taskfiles.splice(i, 1);
+								
+								break;
+							}
+						}	
+						
+					})
+					.error(function( data ){
+						bootbox.alert(CANNOT_DELETE_TEXT);
+					});             
+					
+				}
+			});
+    };
     function showEdit(){
         jQuery("#edit_task").collapse("toggle");
     }
@@ -1227,3 +1305,197 @@ angularApp.controller("ProjectActivitiesController", function($scope, ActivityAp
         }
     });
 });
+
+angularApp.factory("FileListService", function(){
+	var files = [];
+	var taskfiles = [];
+	var projectid = '';
+	var taskid = '';
+	return {
+		files: files,
+		taskfiles: taskfiles,
+		projectid: projectid,
+		taskid :taskid,
+	};
+
+
+});
+
+angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', function($scope, FileUploader, $timeout) {
+    var uploader = $scope.uploader = new FileUploader({
+		scope: true, 
+        url: "/" + LANG_CODE + "/admin/project/uploadFile" ,
+		//formData : [{projectId : $scope.projectId}],
+    });
+	
+	var uploadertask = $scope.uploadertask = new FileUploader({
+        url: "/" + LANG_CODE + "/admin/project/uploadFile", 
+		//formData : [{projectId : $scope.projectId, taskid : $scope.taskId}],
+    });
+    // FILTERS
+
+    uploader.filters.push({
+        name: 'customFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            return this.queue.length < 10;
+        }
+    });
+	
+	uploadertask.filters.push({
+        name: 'customFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            return this.queue.length < 10;
+        }
+    });
+
+
+    // CALLBACKS FILE PROJECT
+
+    uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+        console.info('onWhenAddingFileFailed', item, filter, options);
+    };
+    uploader.onAfterAddingFile = function(fileItem) {
+        fileItem.upload();
+    };
+    uploader.onAfterAddingAll = function(addedFileItems) {
+        console.info('onAfterAddingAll', addedFileItems);
+    };
+    uploader.onBeforeUploadItem = function(item) {
+		//var projectId = 
+		item.formData.push({ projectId: $scope.projectId });
+        //uploader.formData.projectId = $scope.projectId;
+        console.info('onBeforeUploadItem', item);
+    };
+    uploader.onProgressItem = function(fileItem, progress) {
+        console.info('onProgressItem', fileItem, progress);
+    };
+    uploader.onProgressAll = function(progress) {
+        console.info('onProgressAll', progress);
+    };
+    uploader.onSuccessItem = function(fileItem, response, status, headers) {
+		console.log("$scope.files");
+		console.log($scope.projectId);
+		console.log($scope.taskId);
+        if(!response.success){
+            fileItem.file.name += " - Uploading error";
+            $timeout(function(){
+                fileItem.remove();
+            }, 1000);
+            return;
+        }
+		var date = new Date(response.file.time*1000);
+		
+		var month = date.getMonth() + 1;	
+		var dateshow = date.getFullYear()  + '-' + month + '-' + date.getDate() +  ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() ;
+		console.log("$scope.files");
+		console.log(date);
+		console.log(dateshow);	
+        fileItem.projectFile = {
+            name: fileItem.file.name,
+            id: response.file.id,
+			size : response.file.size,
+			date : dateshow,
+			path : response.file.path, 
+        };
+		$scope.files.push(fileItem.projectFile);
+		
+		console.log($scope.files);
+    };
+    uploader.onErrorItem = function(fileItem, response, status, headers) {
+        console.info('onErrorItem', fileItem, response, status, headers);
+    };
+    uploader.onCancelItem = function(fileItem, response, status, headers) {
+        console.info('onCancelItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteItem = function(fileItem, response, status, headers) {
+    };
+    uploader.onCompleteAll = function() {
+        console.info('onCompleteAll');
+    };
+
+    console.info('uploader', uploader);
+
+
+    // -------------------------------
+	// CALLBACKS FILE TASK
+
+    uploadertask.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+        console.info('onWhenAddingFileFailed', item, filter, options);
+    };
+    uploadertask.onAfterAddingFile = function(fileItem) {
+        fileItem.upload();
+    };
+    uploadertask.onAfterAddingAll = function(addedFileItems) {
+        console.info('onAfterAddingAll', addedFileItems);
+    };
+    uploadertask.onBeforeUploadItem = function(item) {
+		item.formData.push({ projectId: $scope.projectId, taskId: $scope.taskId });
+        console.info('onBeforeUploadItem', item);
+    };
+    uploadertask.onProgressItem = function(fileItem, progress) {
+        console.info('onProgressItem', fileItem, progress);
+    };
+    uploadertask.onProgressAll = function(progress) {
+        console.info('onProgressAll', progress);
+    };
+    uploadertask.onSuccessItem = function(fileItem, response, status, headers) {
+        if(!response.success){
+            fileItem.file.name += " - Uploading error";
+            $timeout(function(){
+                fileItem.remove();
+            }, 1000);
+            return;
+        }
+		var date = new Date(response.file.time*1000);
+		var month = date.getMonth() + 1;	
+		var dateshow = date.getFullYear()  + '-' + month + '-' + date.getDate() +  ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() ;
+		
+        fileItem.taskFile = {
+            name: fileItem.file.name,
+            id: response.file.id,
+			size : response.file.size,
+			date : dateshow,
+			path : response.file.path,
+        };
+		$scope.taskfiles.push(fileItem.taskFile);
+    };
+    uploadertask.onErrorItem = function(fileItem, response, status, headers) {
+        console.info('onErrorItem', fileItem, response, status, headers);
+    };
+    uploadertask.onCancelItem = function(fileItem, response, status, headers) {
+        console.info('onCancelItem', fileItem, response, status, headers);
+    };
+    uploadertask.onCompleteItem = function(fileItem, response, status, headers) {
+    };
+    uploadertask.onCompleteAll = function() {
+        console.info('onCompleteAll');
+    };
+
+    console.info('uploadertask', uploadertask);
+
+
+    // -------------------------------
+
+    var controller = $scope.controller = {
+        isImage: function(item) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    };
+
+    var calTo = $scope.calTo = function(){
+
+        var modalSelector = arguments[0];
+        
+        if(modalSelector){
+            var elementSelector = arguments[1];
+            var functionName = arguments[2];
+            var args = [];
+            for(var i = 3; i < arguments.length; i++){
+                args.push(arguments[i]);
+            }
+            angular.element(elementSelector).scope()[functionName].apply(null, args);
+        }
+    }
+	
+}]);

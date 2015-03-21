@@ -3,5 +3,27 @@
     <?php include "order/desktop_publishing.phtml" ?>
     <?php include "order/engineering.phtml" ?>
     <?php include "order/interpreting.phtml" ?>
+
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <select class="form-control" name="account">
+                                                                    <option>Select Client Resource</option>
+                                                                    <option>Translator 1</option>
+                                                                    <option>Translator 2</option>
+                                                                    <option>Translator 3</option>
+                                                                    <option>...</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-2"><button class="btn btn-primary" type="submit">Assign Task</button></div> <!-- this button never disabled -->
+                                                            <div class="col-md-3" align="center"><a href="" disabled class="btn btn-success" type="submit">Send to Specialism Pool</a></div> 
+                                                            <div class="col-md-3" ><a href="" class="btn btn-info" type="submit">Send to Client's Resource Pool</a></div>
+                                                            <!-- if the task has been send to any pool, then the button need to be disabled then the task status should be pooling-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
 </div>
                     

@@ -51,10 +51,23 @@ class File extends Entity{
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true)
      */
     protected $project;
+	
+	/**
+     * @var \User\Entity\Task
+     * @ORM\ManyToOne(targetEntity="Task")
+     * @ORM\JoinColumn(name="task_id", referencedColumnName="id", nullable=true)
+     */
+    protected $task;
 
     public function getData(){
         return [
             'id' => $this->id,
+			'name' => $this->name,
+			'path' => $this->path,
+			'size' => $this->size,
+			'time' => $this->time,
+			'project' => ($this->project)?$this->project->getData():null,
+			'task' => ($this->task)?$this->task->getData():null,
         ];
     }
 

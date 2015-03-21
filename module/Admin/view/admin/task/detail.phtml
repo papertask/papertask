@@ -37,6 +37,7 @@ $this->inlineScript()
 		var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
 		var EXITS_CONFIRM_TEXT = '" . $this->translate('This client was existed') . "';
 		var EXITS_CONFIRM_OPTION_TEXT = '" . $this->translate('This option was existed, please chose other') . "';
+		var CANNOT_DELETE_TEXT =  '" . $this->translate('This file can not delete, it is using by iterms') . "';
     ");
 ?>
 <style>
@@ -54,6 +55,9 @@ $this->inlineScript()
 		<div class="ibox-content">
 			<?php include "detail/info.phtml"; ?>
 			<?php include "detail/miniform.phtml"; ?>
+			<div class="hr-line-dashed"></div>
+            <?php include "detail/files.phtml";?>   
+			<div class="hr-line-dashed"></div>			
 			<div class="row m-t-sm">
 				<div class="col-lg-12">
 				<div class="panel blank-panel">

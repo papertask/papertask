@@ -1,0 +1,40 @@
+<div class="ibox" ng-controller="AppController" nv-file-drop="" uploader="uploader">
+<div class="row">
+    <div class="col-lg-5" id="modal-file">
+        <dl class="dl-horizontal">
+            <dt>Project Files:</dt> 
+            <dd>
+            <ul class="list-unstyled project-files tooltip-demo" >
+				<li ng-repeat="file in files">
+					<a href="{{file.path}}" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{ file.size/1024/1024|number:2 }} MB | {{ file.date }}"><i class="fa fa-file"></i> {{ file.name }}</a>
+					<a href="#" ng-click="calTo('#modal-file','#TaskDetailController',
+	                                           'removeItem', file)"><i class="fa fa-trash"></i></a>
+					
+					
+				</li>
+            </ul>
+			<div class="text-center m-t-md" id="projectfiles">
+				<input type="file" nv-file-select="" uploader="uploader" multiple="multiple" />
+			</div>
+            
+            </dd>
+        </dl>
+    </div>
+    <div class="col-lg-7" id="modal-taskfile">
+        <dl class="dl-horizontal">
+            <dt>Final Files:</dt> 
+                <dd>
+					<ul class="list-unstyled project-files tooltip-demo">
+						<li ng-repeat="file in taskfiles">
+							<a href="{{file.path}}" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{ file.size/1024/1024|number:2 }} MB | {{ file.date }}"><i class="fa fa-file"></i> {{ file.name }}</a>
+							<a href="#" ng-click="calTo('#modal-taskfile','#TaskDetailController',
+	                                           'removetaskItem', file)"><i class="fa fa-trash"></i></a>
+						</li>					</ul>
+					<div class="text-center m-t-md" id="taskfiles">
+						<input type="file" nv-file-select="" uploader="uploadertask" multiple="multiple" />
+					</div>
+                </dd>
+            </dl>
+    </div>
+</div>	
+<div>

@@ -26,7 +26,7 @@
                                 </label>
                                 <div class="col-sm-9">
                                     <select ng-model="engineering.file" class="form-control"
-                                            ng-options="file.name for file in project.files" name="file">
+                                            ng-options="file.name for file in files track by file.id" name="file">
                                         <option value=""><?php echo $this->translate("Chose file") ?></option>
                                     </select>                                </div>
                             </div>

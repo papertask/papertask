@@ -36,6 +36,20 @@ class ProjectController extends AbstractActionController
 	
 
     public function uploadFileAction(){
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		//$projectId = $this->params()->fromQuery('projectId');
+		//$taskId = $this->params()->fromQuery('taskId');
+		$projectId = $this->getRequest()->getPost('projectId');
+		$taskId = $this->getRequest()->getPost('taskId');
+		//var_dump($projectId);
+		//var_dump($taskId);exit;
+		
+		$entityManager = $this->getEntityManager();
+		$project = $entityManager->find('\User\Entity\Project', (int)$projectId);
+		
+		$task = $entityManager->find('\User\Entity\Task', (int)$taskId);
+		
         if ( !empty( $_FILES ) ) {
 
             $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
@@ -50,6 +64,8 @@ class ProjectController extends AbstractActionController
                 'path' => $uploadPath,
                 'size' => $_FILES['file']['size'],
                 'time' => time(),
+				'project' => $project,
+				'task' => $task,
             ]);
             $file->save($this->getEntityManager());
             $answer = [
@@ -292,8 +308,8 @@ class ProjectController extends AbstractActionController
 		//exit;
     }
 	public function invoiceprintAction(){
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
 		$id = $this->params()->fromQuery('id');
 		$lang_code = $this->params()->fromRoute('lang');
 		$viewModel = new ViewModel();

@@ -99,6 +99,7 @@ return array(
         'invokables' => array(
             'Api\Controller\Admin\Client' => 'Api\Controller\Admin\ClientController',
             'Api\Controller\Admin\Field' => 'Api\Controller\Admin\FieldController',
+            'Api\Controller\Admin\File' => 'Api\Controller\Admin\FileController',
             'Api\Controller\Admin\Language' => 'Api\Controller\Admin\LanguageController',
             'Api\Controller\Admin\Project' => 'Api\Controller\Admin\ProjectController',
 			'Api\Controller\Admin\ProjectItermnotm' => 'Api\Controller\Admin\ProjectItermnotmController',

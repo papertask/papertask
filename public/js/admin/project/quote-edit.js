@@ -80,6 +80,13 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
         });
 		$q.all([project_listener])
             .then(function(){
+				//get all file
+				$http.get('/api/admin/file?projectId='+ projectId).success(function($data) {
+						$scope.files = $data['files'];
+						setModalControllerData('files', $scope.files);
+						console.log("scope.files");
+						console.log($scope.files);			
+				});
 				$http.get('/api/admin/projectitermnotm?projectId='+ projectId).success(function($data) {
 					$scope.itermnotms = $data['Itermnotms'];
 					// arrange itermnotms based language

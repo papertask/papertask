@@ -601,15 +601,11 @@ angularApp.factory("TableItemListService", function(){
             }
 			
             setListener($scope);
-			console.log("check");
-			console.log(modalId);
-			console.log($scope);
             vars.item = $item;
 			if(modalId == "#modal-translation-noTM")
 			{
 				//find rate
 				vars.item.rate = Number($scope.TableItemListService.translationPrices[$scope.identifier[1].id]);
-				console.log($scope.TableItemListService.translationPrices[$scope.identifier[1].id]);
 			}
             itemCloned = {};
             jQuery.extend(true, itemCloned, $item);
@@ -634,16 +630,11 @@ angularApp.factory("TableItemListService", function(){
             }
 			
             setListener($scope);
-			console.log("check");
-			console.log(modalId);
-			console.log($scope);
             vartms.itemtm = $itemtm;
 			if(modalId == "#modal-translation-TM")
 			{
 				//find rate
 				vartms.itemtm.rate = Number($scope.TableItemListService.translationPrices[$scope.identifier[1].id]);
-				
-				console.log($scope.TableItemListService.translationPrices[$scope.identifier[1].id]);
 			}
             itemCloned = {};
             jQuery.extend(true, itemCloned, $itemtm);
