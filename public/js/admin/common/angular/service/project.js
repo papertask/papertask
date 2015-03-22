@@ -106,6 +106,79 @@ angularApp.factory("TaskStatus", function(){
     }
 });
 
+angularApp.factory("FeedbackQuality", function(){
+    var values = [{
+        'id': 1,
+        'name': 'Bad',
+        'title': 'Very poor. There were multiple mistakes and/or the style was very poor.'
+    },{
+        'id': 2,
+        'name': 'Poor',
+        'title': 'Poor. There were mistakes and/or the style was poor.'
+    },{
+        'id': 3,
+        'name': 'Satisfactory',
+        'title': 'Satisfactory. If mistakes occurred, they were corrected.'
+    },{
+        'id': 4,
+        'name': 'Good',
+        'title': 'Good. The overall style was appropriate and there were few, if any, mistakes.'
+    },{
+        'id': 5,
+        'name': 'Perfect',
+        'title': 'Perfect'
+    }];
+
+    return {
+        get: function ($id) {
+            for (var i = 0; i < values.length; i++) {
+                if (values[i].id == $id) {
+                    return values[i];
+                }
+            }
+        },
+        all: function () {
+            return values;
+        }
+    }
+});
+
+angularApp.factory("FeedbackTime", function(){
+    var values = [{
+        'id': 1,
+        'name': 'Much Slower',
+        'title': 'Much slower than I expected'
+    },{
+        'id': 2,
+        'name': 'Slower',
+        'title': 'Slower than I expected'
+    },{
+        'id': 3,
+        'name': 'Satisfactory',
+        'title': 'Satisfactory'
+    },{
+        'id': 4,
+        'name': 'Faster',
+        'title': 'Faster than I expected'
+    },{
+        'id': 5,
+        'name': 'Much faster',
+        'title': 'Much faster than I expected'
+    }];
+
+    return {
+        get: function ($id) {
+            for (var i = 0; i < values.length; i++) {
+                if (values[i].id == $id) {
+                    return values[i];
+                }
+            }
+        },
+        all: function () {
+            return values;
+        }
+    }
+});
 
 angularApp.factory("ProjectPriority", function(){
     var priorities = [{
@@ -1039,4 +1112,8 @@ angularApp.factory("TaskApi", function(API){
 
 angularApp.factory("ActivityApi", function(API){
     return API.factory('/api/admin/activity/', 'activity', 'activities');
+});
+
+angularApp.factory("FeedbackApi", function(API){
+    return API.factory('/api/admin/projectfeedback/', 'feedback', 'feedbacks');
 });

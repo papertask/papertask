@@ -412,6 +412,7 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
             attachData($tasks[i]);
         }
         $scope.project.tasksNum = $tasks.length;
+        $scope.project.tasks = $tasks;
     }
     $scope.custom.afterLoadItems = afterLoadItems;
 
@@ -465,6 +466,76 @@ angularApp.controller("ProjectActivitiesController", function($scope, ActivityAp
 
     $scope.custom.afterLoadItems = function($activities){
         $scope.project.activitiesNum = $activities.length;
+    }
+
+    $scope.$watch(function(){
+        return $scope.project;
+    }, function(){
+        if(typeof($scope.project.id) != 'undefined'){
+            $scope.filter.project_id = $scope.project.id;
+            $scope.refresh();
+        }
+    });
+});
+
+angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi, FeedbackQuality, FeedbackTime){
+    $scope.q_values = FeedbackQuality.all();
+    $scope.t_values = FeedbackTime.all();
+
+    var prepare = function(feedback){
+        feedback.buttonTitle = "Update";
+    };
+
+    var templateFeedback = {
+        quality: 3,
+        turnAroundTime: 3,
+        message: "Describe your feedback in details to improve quality of service."
+    };
+
+    $scope.newFeedback = Object.create(templateFeedback);
+
+    $scope.setItemApi(FeedbackApi);
+
+    $scope.sendFeedback = function(newFeedback){
+        //var newFeedback = $scope.newFeedback;
+        newFeedback.buttonTitle = "Sending..."
+        newFeedback.project_id = $scope.project.id;
+
+        if(newFeedback.needToCreate){
+            FeedbackApi.create(newFeedback, function($newFeedback){
+                // $scope.newFeedback = Object.create(templateFeedback);
+                // $scope.items.push($newFeedback);
+                console.log($newFeedback);
+                newFeedback.buttonTitle = "Updated!";
+            });
+        } else {
+            FeedbackApi.update(newFeedback.id , newFeedback, function($newFeedback){
+                // $scope.newFeedback = Object.create(templateFeedback);
+                // $scope.items.push($newFeedback);
+                console.log($newFeedback);
+                newFeedback.buttonTitle = "Feedback updated";
+            });
+        }
+
+    }
+
+    $scope.custom.afterLoadItems = function($feedbacks){
+        $scope.project.tasks.forEach(function(task){
+            if(!$feedbacks.some(function(fb){
+                if(fb.task.id == task.id){
+                    return true;
+                }
+            })){
+                var mockFb = Object.create(templateFeedback);
+                mockFb.language = task.language;
+                mockFb.task = task;
+                mockFb.project_id = $scope.project.id;
+                mockFb.needToCreate = true;
+                $feedbacks.push(mockFb);
+            }
+        });
+
+        $feedbacks.forEach(prepare);
     }
 
     $scope.$watch(function(){

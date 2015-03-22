@@ -61,7 +61,7 @@ class ActivityController extends AbstractRestfulJsonController
         $activity->setData([
             'is_deleted' => true,
         ]);
-        $task->save($this->getEntityManager());
+        $activity->save($this->getEntityManager());
 
         return new JsonModel([
             'activity' => $activity->getData(),
