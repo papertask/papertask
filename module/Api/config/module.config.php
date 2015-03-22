@@ -109,10 +109,11 @@ return array(
 			'Api\Controller\Admin\ProjectItermengineering' => 'Api\Controller\Admin\ProjectItermengineeringController',
 			'Api\Controller\Admin\ProjectIterminterpreting' => 'Api\Controller\Admin\ProjectIterminterpretingController',
 			'Api\Controller\Admin\Invoice' => 'Api\Controller\Admin\InvoiceController',
-			
+
             'Api\Controller\Admin\Staff' => 'Api\Controller\Admin\StaffController',
             'Api\Controller\Admin\Task' => 'Api\Controller\Admin\TaskController',
             'Api\Controller\Admin\Activity' => 'Api\Controller\Admin\ActivityController',
+            'Api\Controller\Admin\ProjectFeedback' => 'Api\Controller\Admin\ProjectFeedbackController',
             'Api\Controller\Admin\Roles' => 'Api\Controller\Admin\RolesController',
             'Api\Controller\Common\Company' => 'Api\Controller\Common\CompanyController',
             'Api\Controller\Common\Country' => 'Api\Controller\Common\CountryController',
@@ -132,7 +133,7 @@ return array(
 			'Api\Controller\Papertask\CurrencyRate' => 'Api\Controller\Papertask\CurrencyRateController',
 			'Api\Controller\Papertask\CompanyInfo' => 'Api\Controller\Papertask\CompanyInfoController',
 			'Api\Controller\Papertask\BankInfo' => 'Api\Controller\Papertask\BankInfoController',
-			
+
             'Api\Controller\User\BankInfo' => 'Api\Controller\User\BankInfoController',
             'Api\Controller\User\Current' => 'Api\Controller\User\CurrentController',
             'Api\Controller\User\DesktopPrice' => 'Api\Controller\User\DesktopPriceController',
@@ -163,7 +164,7 @@ return array(
             'Api\Controller\Papertask\Interpreting' => 'Api\Controller\Papertask\InterpretingController',
             'Api\Controller\Papertask\Translation' => 'Api\Controller\Papertask\TranslationController',
             'Api\Controller\Papertask\Translationtm' => 'Api\Controller\Papertask\TranslationtmController',
-			
+
         ),
     ),
     'view_manager' => array(

@@ -31,6 +31,12 @@ class File extends Entity{
      * @var string
      * @ORM\Column(type="string")
      */
+    protected $token;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
     protected $path;
 
     /**
@@ -51,7 +57,7 @@ class File extends Entity{
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true)
      */
     protected $project;
-	
+
 	/**
      * @var \User\Entity\Task
      * @ORM\ManyToOne(targetEntity="Task")
@@ -65,14 +71,23 @@ class File extends Entity{
 			'name' => $this->name,
 			'path' => $this->path,
 			'size' => $this->size,
-			'time' => $this->time,
 			'project' => ($this->project)?$this->project->getData():null,
 			'task' => ($this->task)?$this->task->getData():null,
+            'token' => $this->token,
+            'time' => $this->time,
         ];
     }
 
     public function getId(){
         return $this->id;
+    }
+
+    public function getPath(){
+        return $this->path;
+    }
+
+    public function getName(){
+        return $this->name;
     }
 
     public function getProject(){

@@ -1,0 +1,162 @@
+<div class="tab-pane<?php echo ($filesTabActive == true ? ' active': '');?>" id="files" ng-controller="ProjectFilesController">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Source File Name</th>
+                <th>Size</th>
+                <th>Time Stamp</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="file in files">
+                <td>{{$index + 1}}</td>
+                <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
+                <td>{{file.size | filesize}}</td>
+                <td>{{ DateFormatter.format(file.time) }}</td>
+                <td><i class="fa fa-trash"></i></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-right m-t-md">
+        <a href="#" class="btn btn-xs btn-primary"><i class="fa fa-cloud-upload"></i> Upload Source files</a>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <h4>Files For Client Review</h4>
+    <div class="panel-body">
+        <div class="panel-group" id="accordion_files">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding-bottom: 10px;">
+                    <h5 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion_files" href="#lang1_files"><i class="fa fa-exclamation-triangle text-danger"></i> English <i class="fa fa-arrow-right"></i> Simplify Chinese <i class="fa fa-paperclip"></i></a> <!-- with paperclip means file for this language has been uploaded -->
+                    </h5>
+                </div>
+                <div id="lang1_files" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Languages</th>
+                                    <th>File Name</th>
+                                    <th>Size</th>
+                                    <th>Time Stamp</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>English <i class="fa fa-arrow-right"></i> Simplify Chinese</td>
+                                    <td><a href=""><i class="fa fa-file"></i> Project_document_SC.docx <i class="fa fa-cloud-download"></i></a> </td>
+                                    <td>46.88 KB</td>
+                                    <td>2014-Oct-09 16:30</td>
+                                    <td><i class="fa fa-trash"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center m-t-md">
+                            <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-cloud-upload"></i> Upload files</a>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="control-label">What's wrong with the translation?</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked disabled value=""> It is incomplete </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked disabled value=""> It contains spelling or grammatical errors </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" disabled value=""> It misses key meaning or details from the original </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Comments</label>
+                                <p>sdasdkjasdkas;dasdasjdlksjdlskdjasldj</p>
+                            </div>
+                            <!-- /form-group -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding-bottom: 10px;">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion_files" href="#lang2_files">English <i class="fa fa-arrow-right"></i> Traditional Chinese</a>
+                    </h4>
+                </div>
+                <div id="lang2_files" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Languages</th>
+                                    <th>File Name</th>
+                                    <th>Size</th>
+                                    <th>Time Stamp</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>English <i class="fa fa-arrow-right"></i> Simplify Chinese</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><i class="fa fa-trash"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center m-t-md">
+                            <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-cloud-upload"></i> Upload files</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" style="padding-bottom: 10px;">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion_files" href="#lang3_files">English <i class="fa fa-arrow-right"></i> German <i class="fa fa-paperclip"></i></a></a>
+                    </h4>
+                </div>
+                <div id="lang3_files" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Languages</th>
+                                    <th>File Name</th>
+                                    <th>Size</th>
+                                    <th>Time Stamp</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>English <i class="fa fa-arrow-right"></i> German</td>
+                                    <td><a href=""><i class="fa fa-file"></i> Project_document_JP.docx <i class="fa fa-cloud-download"></i></a> </td>
+                                    <td>46.88 KB</td>
+                                    <td>2014-Oct-09 16:30</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center m-t-md">
+                            <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-cloud-upload"></i> Upload files</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

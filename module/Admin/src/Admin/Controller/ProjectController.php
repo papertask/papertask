@@ -33,7 +33,7 @@ class ProjectController extends AbstractActionController
 			"lang_code" => $lang_code,
         ));
     }
-	
+
 
     public function uploadFileAction(){
 		error_reporting(E_ALL);
@@ -55,13 +55,16 @@ class ProjectController extends AbstractActionController
             $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
             $name = $_FILES[ 'file' ][ 'name' ];
 
-            $uploadPath = 'public/uploads' . DIRECTORY_SEPARATOR . $name;
+            // added rand number to prevent errors if users upload same named files
+            $token = "". time() . rand(11, 99);
+            $uploadPath = 'public/uploads' . DIRECTORY_SEPARATOR . $token . basename( $name );
 
             move_uploaded_file( $tempPath, $uploadPath );
             $file = new File();
             $file->setData([
                 'name' => $_FILES[ 'file' ][ 'name' ],
                 'path' => $uploadPath,
+                'token' => $token,
                 'size' => $_FILES['file']['size'],
                 'time' => time(),
 				'project' => $project,
@@ -77,6 +80,73 @@ class ProjectController extends AbstractActionController
             echo $json;
             die;
 
+        } else {
+            $answer = ['success' => false];
+            $json = json_encode( $answer );
+            die($json);
+        }
+    }
+
+    public function downloadFileAction(){
+        if ( $token = $this->params()->fromQuery('token') ) {
+            $entityManager = $this->getEntityManager();
+            $file = $entityManager->getRepository('\User\Entity\File')->findOneBy(
+    array('token' => $token));
+
+            $downloadPath = $file->getPath();
+            // ob_end_clean();
+
+            // var_dump($downloadPath);
+            if(!is_file($downloadPath)) {
+                $answer = ['success' => false];
+                $json = json_encode( $answer );
+                die($json);
+            }
+
+            $fileContents = file_get_contents($downloadPath);
+
+            $response = $this->getResponse();
+            $response->setContent($fileContents);
+            $response->setStatusCode(200);
+
+            $headers = $response->getHeaders();
+            $headers->clearHeaders()
+                ->addHeaderLine('Content-Type', 'application/octet-stream')
+                ->addHeaderLine('Content-Disposition', 'attachment; filename="' . $file->getName() . '"')
+                ->addHeaderLine('Content-Length', strlen($fileContents));
+
+            // var_dump($file->getData());
+            $response->setHeaders($headers);
+            return $response;
+        } else {
+            $answer = ['success' => false];
+            $json = json_encode( $answer );
+            die($json);
+        }
+    }
+
+    public function getFilesListAction(){
+        if ( $id = $this->params()->fromQuery('project_id') ) {
+            $entityManager = $this->getEntityManager();
+            $project = $entityManager->find('User\Entity\Project', (int)$id);
+            $repository = $entityManager->getRepository('User\Entity\File');
+            $files = $repository->findBy( array('project'=>$project) );
+
+            $json = array();
+
+            foreach ($files as $file){
+                $d = $file->getData();
+                $json[] = [
+                    'token' => $d['token'],
+        			"name" => $d['name'],
+        			"time" => $d['time'],
+        			"size" => $d['size'],
+                ];
+            }
+
+            $json = json_encode( $json );
+            echo $json;
+            die;
         } else {
             $answer = ['success' => false];
             $json = json_encode( $answer );
@@ -101,7 +171,7 @@ class ProjectController extends AbstractActionController
 			"lang_code" => $lang_code
         ]);
     }
-	
+
 	public function quoteprintAction(){
 		$id = $this->params()->fromQuery('id');
 		//$id= 35;
@@ -128,9 +198,9 @@ class ProjectController extends AbstractActionController
 		$hasTypeTranslationNoTM = 0;
 		$hasTypeTranslationUseTM = 0;
 		$hasTypeDesktopPublishingWin = 0;
-		$hasTypeDesktopPublishingMac = 0;	
-		$hasTypeDesktopPublishingEngineer = 0;			
-		$hasTypeDesktopPublishingInterpreting = 0;		
+		$hasTypeDesktopPublishingMac = 0;
+		$hasTypeDesktopPublishingEngineer = 0;
+		$hasTypeDesktopPublishingInterpreting = 0;
 		foreach($types as $type)
 		{
 			if($type == 1)
@@ -140,19 +210,19 @@ class ProjectController extends AbstractActionController
 			else if($type == 3)
 				$hasTypeDesktopPublishingWin = 1;
 			else if($type == 4)
-				$hasTypeDesktopPublishingMac = 1;		
+				$hasTypeDesktopPublishingMac = 1;
 			else if($type == 5)
-				$hasTypeDesktopPublishingEngineer = 1;		
+				$hasTypeDesktopPublishingEngineer = 1;
 			else if($type > 5)
-				$hasTypeDesktopPublishingInterpreting = 1;	
+				$hasTypeDesktopPublishingInterpreting = 1;
 		}
 		if($project_data['serviceLevel']==1)
 			$serviceLevel = "Professional";
-		else if($project_data['serviceLevel']==2)	
+		else if($project_data['serviceLevel']==2)
 			$serviceLevel = "Business";
-		else if($project_data['serviceLevel']==3)	
-			$serviceLevel = "Premium";	
-		
+		else if($project_data['serviceLevel']==3)
+			$serviceLevel = "Premium";
+
 		//var_dump($project->getData()->);exit;
 		//Get company info
 		$companyinfo = $entityManager->find('\Admin\Entity\ProfileInfo', 1);
@@ -165,7 +235,7 @@ class ProjectController extends AbstractActionController
             $iterm_translations[$k] = $v->getData();
 			if($hasTypeTranslationNoTM == 1)
 				$subtotal = $subtotal +  $iterm_translations[$k]['total'];
-        } 
+        }
 
 		//get iterm translationtm
         $repository = $entityManager->getRepository('User\Entity\Itermtm');
@@ -176,7 +246,7 @@ class ProjectController extends AbstractActionController
             $iterm_translationtms[$tmp['language']['id']] = $v->getData();
 			if($hasTypeTranslationUseTM == 1)
 				$subtotal = $subtotal +  $iterm_translationtms[$k]['total'];
-        } 
+        }
 		//var_dump($iterm_translationtms);exit;
 		//get iterm iterm_dtppcs
         $repository = $entityManager->getRepository('User\Entity\Itermdtppc');
@@ -186,12 +256,12 @@ class ProjectController extends AbstractActionController
 			$tmp = $v->getData();
 			if($tmp['unit'] == 1)
 				$tmp['unit']= 'Day';
-			else $tmp['unit']= 'Half Day';	
+			else $tmp['unit']= 'Half Day';
             $iterm_dtppcs[$k] = $tmp;
 			if($hasTypeDesktopPublishingWin == 1)
-				$subtotal = $subtotal +  $iterm_dtppcs[$k]['total'];	
-        } 
-		
+				$subtotal = $subtotal +  $iterm_dtppcs[$k]['total'];
+        }
+
 		//get iterm iterm_dtpmac
         $repository = $entityManager->getRepository('User\Entity\Itermdtpmac');
         $iterm_dtpmac = $repository->findBy( array('project'=>$project) );
@@ -200,11 +270,11 @@ class ProjectController extends AbstractActionController
 			$tmp = $v->getData();
 			if($tmp['unit'] == 1)
 				$tmp['unit']= 'Day';
-			else $tmp['unit']= 'Half Day';	
+			else $tmp['unit']= 'Half Day';
             $iterm_dtpmacs[$k] = $tmp;
 			if($hasTypeDesktopPublishingMac == 1)
-				$subtotal = $subtotal +  $iterm_dtpmacs[$k]['total'];	
-        } 
+				$subtotal = $subtotal +  $iterm_dtpmacs[$k]['total'];
+        }
 		//var_dump($iterm_dtpmacs);exit;
 		// Get Interpreting Price
         $repository = $entityManager->getRepository('User\Entity\Iterminterpreting');
@@ -212,54 +282,54 @@ class ProjectController extends AbstractActionController
         $iterm_interpretings = array();
         foreach ( $iterm_interpreting as $k => $v ) {
 			$tmp = $v->getData();
-			if($tmp['unit'] == 1) 
+			if($tmp['unit'] == 1)
 				$tmp['unit'] = 'Day';
-			else if($tmp['unit'] == 2) 
+			else if($tmp['unit'] == 2)
 				$tmp['unit'] = 'Half Day';
-				
+
             $iterm_interpretings[$k] = $tmp;
 			if($hasTypeDesktopPublishingInterpreting == 1)
 				$subtotal = $subtotal +  $iterm_interpretings[$k]['total'];
-        } 	
-		
-		// Get Itermengineering 
+        }
+
+		// Get Itermengineering
         $repository = $entityManager->getRepository('User\Entity\Itermengineering');
         $iterm_engineering = $repository->findBy( array('project'=>$project) );
         $iterm_engineerings = array();
         foreach ( $iterm_engineering as $k => $v ) {
 			$tmp = $v->getData();
-			if($tmp['unit'] == 1) 
+			if($tmp['unit'] == 1)
 				$tmp['unit'] = 'Hour';
-			else if($tmp['unit'] == 2) 
+			else if($tmp['unit'] == 2)
 				$tmp['unit'] = 'Day';
-			else if($tmp['unit'] == 3) 
+			else if($tmp['unit'] == 3)
 				$tmp['unit'] = 'Month';
-			else  if($tmp['unit'] == 4) 
-				$tmp['unit'] = 'Word';	
-			else  if($tmp['unit'] == 5) 
-				$tmp['unit'] = 'Graphic';				
-			else $tmp['unit'] = 'Page';			
+			else  if($tmp['unit'] == 4)
+				$tmp['unit'] = 'Word';
+			else  if($tmp['unit'] == 5)
+				$tmp['unit'] = 'Graphic';
+			else $tmp['unit'] = 'Page';
             $iterm_engineerings[$k] = $tmp;
 			if($hasTypeDesktopPublishingEngineer == 1)
 				$subtotal = $subtotal +  $iterm_engineerings[$k]['total'];
-        } 	
+        }
 
-		
+
 		$view = $this->getServiceLocator()->get('Zend\View\Renderer\RendererInterface');
 		$viewModel = new ViewModel();
 		$template = '/admin/project/quotedownload';
 		$viewModel->setTemplate($template)
 				->setVariables(array(
-				'id' => $id, 
+				'id' => $id,
 				'lang_code' => $lang_code,
 				'project' => $project->getData(),
 				'companyinfo' => $companyinfo->getData(),
 				'hasTypeTranslationNoTM' => $hasTypeTranslationNoTM,
 				'hasTypeTranslationUseTM' => $hasTypeTranslationUseTM,
 				'hasTypeDesktopPublishingWin' => $hasTypeDesktopPublishingWin,
-				'hasTypeDesktopPublishingMac' => $hasTypeDesktopPublishingMac,	
-				'hasTypeDesktopPublishingEngineer' => $hasTypeDesktopPublishingEngineer,			
-				'hasTypeDesktopPublishingInterpreting' => $hasTypeDesktopPublishingInterpreting,	
+				'hasTypeDesktopPublishingMac' => $hasTypeDesktopPublishingMac,
+				'hasTypeDesktopPublishingEngineer' => $hasTypeDesktopPublishingEngineer,
+				'hasTypeDesktopPublishingInterpreting' => $hasTypeDesktopPublishingInterpreting,
 				'iterm_translations' => $iterm_translations,
 				'iterm_translationtms' => $iterm_translationtms,
 				'iterm_dtppcs' => $iterm_dtppcs,
@@ -317,7 +387,7 @@ class ProjectController extends AbstractActionController
              ->setTerminal(true);
         return $viewModel;
     }
-	
+
 	public function invoicedownloadAction(){
 		//error_reporting(E_ALL);
 		//ini_set('display_errors', 1);
@@ -333,9 +403,9 @@ class ProjectController extends AbstractActionController
 		$hasTypeTranslationNoTM = 0;
 		$hasTypeTranslationUseTM = 0;
 		$hasTypeDesktopPublishingWin = 0;
-		$hasTypeDesktopPublishingMac = 0;	
-		$hasTypeDesktopPublishingEngineer = 0;			
-		$hasTypeDesktopPublishingInterpreting = 0;		
+		$hasTypeDesktopPublishingMac = 0;
+		$hasTypeDesktopPublishingEngineer = 0;
+		$hasTypeDesktopPublishingInterpreting = 0;
 		foreach($types as $type)
 		{
 			if($type == 1)
@@ -345,26 +415,26 @@ class ProjectController extends AbstractActionController
 			else if($type == 3)
 				$hasTypeDesktopPublishingWin = 1;
 			else if($type == 4)
-				$hasTypeDesktopPublishingMac = 1;		
+				$hasTypeDesktopPublishingMac = 1;
 			else if($type == 5)
-				$hasTypeDesktopPublishingEngineer = 1;		
+				$hasTypeDesktopPublishingEngineer = 1;
 			else if($type > 5)
-				$hasTypeDesktopPublishingInterpreting = 1;	
+				$hasTypeDesktopPublishingInterpreting = 1;
 		}
 		if($project_data['serviceLevel']==1)
 			$serviceLevel = "Professional";
-		else if($project_data['serviceLevel']==2)	
+		else if($project_data['serviceLevel']==2)
 			$serviceLevel = "Business";
-		else if($project_data['serviceLevel']==3)	
-			$serviceLevel = "Premium";	
-		
+		else if($project_data['serviceLevel']==3)
+			$serviceLevel = "Premium";
+
 		//get invoice
         $repository = $entityManager->getRepository('User\Entity\Invoice');
         $invoice = $repository->findBy( array('project'=>$project) );
         $invoices = array();
         foreach ( $invoice as $k => $v ) {
             $invoices[$k] = $v->getData();
-        } 
+        }
 		$invoices = $invoices[0];
 		$invoiceDate = '';
 		$dueDate = '';
@@ -385,7 +455,7 @@ class ProjectController extends AbstractActionController
             $iterm_translations[$k] = $v->getData();
 			if($hasTypeTranslationNoTM == 1)
 				$subtotal = $subtotal +  $iterm_translations[$k]['total'];
-        } 
+        }
 
 		//get iterm translationtm
         $repository = $entityManager->getRepository('User\Entity\Itermtm');
@@ -396,7 +466,7 @@ class ProjectController extends AbstractActionController
             $iterm_translationtms[$tmp['language']['id']] = $v->getData();
 			if($hasTypeTranslationUseTM == 1)
 				$subtotal = $subtotal +  $iterm_translationtms[$k]['total'];
-        } 
+        }
 		//get iterm iterm_dtppcs
         $repository = $entityManager->getRepository('User\Entity\Itermdtppc');
         $iterm_dtppc = $repository->findBy( array('project'=>$project) );
@@ -405,12 +475,12 @@ class ProjectController extends AbstractActionController
 			$tmp = $v->getData();
 			if($tmp['unit'] == 1)
 				$tmp['unit']= 'Day';
-			else $tmp['unit']= 'Half Day';	
+			else $tmp['unit']= 'Half Day';
             $iterm_dtppcs[$k] = $tmp;
 			if($hasTypeDesktopPublishingWin == 1)
-				$subtotal = $subtotal +  $iterm_dtppcs[$k]['total'];	
-        } 
-		
+				$subtotal = $subtotal +  $iterm_dtppcs[$k]['total'];
+        }
+
 		//get iterm iterm_dtpmac
         $repository = $entityManager->getRepository('User\Entity\Itermdtpmac');
         $iterm_dtpmac = $repository->findBy( array('project'=>$project) );
@@ -419,56 +489,56 @@ class ProjectController extends AbstractActionController
 			$tmp = $v->getData();
 			if($tmp['unit'] == 1)
 				$tmp['unit']= 'Day';
-			else $tmp['unit']= 'Half Day';	
+			else $tmp['unit']= 'Half Day';
             $iterm_dtpmacs[$k] = $tmp;
 			if($hasTypeDesktopPublishingMac == 1)
-				$subtotal = $subtotal +  $iterm_dtpmacs[$k]['total'];	
-        } 
+				$subtotal = $subtotal +  $iterm_dtpmacs[$k]['total'];
+        }
 		// Get Interpreting Price
         $repository = $entityManager->getRepository('User\Entity\Iterminterpreting');
         $iterm_interpreting = $repository->findBy( array('project'=>$project) );
         $iterm_interpretings = array();
         foreach ( $iterm_interpreting as $k => $v ) {
 			$tmp = $v->getData();
-			if($tmp['unit'] == 1) 
+			if($tmp['unit'] == 1)
 				$tmp['unit'] = 'Day';
-			else if($tmp['unit'] == 2) 
+			else if($tmp['unit'] == 2)
 				$tmp['unit'] = 'Half Day';
-				
+
             $iterm_interpretings[$k] = $tmp;
 			if($hasTypeDesktopPublishingInterpreting == 1)
 				$subtotal = $subtotal +  $iterm_interpretings[$k]['total'];
-        } 	
-		
-		// Get Itermengineering 
+        }
+
+		// Get Itermengineering
         $repository = $entityManager->getRepository('User\Entity\Itermengineering');
         $iterm_engineering = $repository->findBy( array('project'=>$project) );
         $iterm_engineerings = array();
         foreach ( $iterm_engineering as $k => $v ) {
 			$tmp = $v->getData();
-			if($tmp['unit'] == 1) 
+			if($tmp['unit'] == 1)
 				$tmp['unit'] = 'Hour';
-			else if($tmp['unit'] == 2) 
+			else if($tmp['unit'] == 2)
 				$tmp['unit'] = 'Day';
-			else if($tmp['unit'] == 3) 
+			else if($tmp['unit'] == 3)
 				$tmp['unit'] = 'Month';
-			else  if($tmp['unit'] == 4) 
-				$tmp['unit'] = 'Word';	
-			else  if($tmp['unit'] == 5) 
-				$tmp['unit'] = 'Graphic';				
-			else $tmp['unit'] = 'Page';			
+			else  if($tmp['unit'] == 4)
+				$tmp['unit'] = 'Word';
+			else  if($tmp['unit'] == 5)
+				$tmp['unit'] = 'Graphic';
+			else $tmp['unit'] = 'Page';
             $iterm_engineerings[$k] = $tmp;
 			if($hasTypeDesktopPublishingEngineer == 1)
 				$subtotal = $subtotal +  $iterm_engineerings[$k]['total'];
-        } 	
+        }
 
-		
+
 		$view = $this->getServiceLocator()->get('Zend\View\Renderer\RendererInterface');
 		$viewModel = new ViewModel();
 		$template = '/admin/project/invoicedownload';
 		$viewModel->setTemplate($template)
 				->setVariables(array(
-				'id' => $id, 
+				'id' => $id,
 				'lang_code' => $lang_code,
 				'project' => $project->getData(),
 				'companyinfo' => $companyinfo->getData(),
@@ -476,9 +546,9 @@ class ProjectController extends AbstractActionController
 				'hasTypeTranslationNoTM' => $hasTypeTranslationNoTM,
 				'hasTypeTranslationUseTM' => $hasTypeTranslationUseTM,
 				'hasTypeDesktopPublishingWin' => $hasTypeDesktopPublishingWin,
-				'hasTypeDesktopPublishingMac' => $hasTypeDesktopPublishingMac,	
-				'hasTypeDesktopPublishingEngineer' => $hasTypeDesktopPublishingEngineer,			
-				'hasTypeDesktopPublishingInterpreting' => $hasTypeDesktopPublishingInterpreting,	
+				'hasTypeDesktopPublishingMac' => $hasTypeDesktopPublishingMac,
+				'hasTypeDesktopPublishingEngineer' => $hasTypeDesktopPublishingEngineer,
+				'hasTypeDesktopPublishingInterpreting' => $hasTypeDesktopPublishingInterpreting,
 				'iterm_translations' => $iterm_translations,
 				'iterm_translationtms' => $iterm_translationtms,
 				'iterm_dtppcs' => $iterm_dtppcs,
