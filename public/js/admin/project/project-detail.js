@@ -484,6 +484,9 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi,
 
     var prepare = function(feedback){
         feedback.buttonTitle = "Update";
+        feedback.qualityTitle = $scope.q_values[Number(feedback.quality)-1].name;
+        feedback.timeTitle = $scope.q_values[Number(feedback.turnAroundTime)-1].name;
+        // console.log($scope.q_values[feedback.quality].name);
     };
 
     var templateFeedback = {

@@ -21,125 +21,12 @@
     <div class="tab-content">
 
         <?php include "detail/tasks.phtml"; ?>
-		
+
         <?php include "detail/activities.phtml"; ?>
 
         <?php include "detail/files.phtml"; ?>
 
-        <div class="tab-pane" id="feedback">
-            <div class="panel-body">
-                <div class="panel-group" id="accordion_feedback">
-                    <div class="panel panel-default">
-                        <div class="panel-heading" style="padding-bottom: 10px;">
-                            <h5 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion_feedback" href="#feedback_lang1"><i class="fa fa-exclamation-triangle text-danger"></i> English <i class="fa fa-arrow-right"></i> Simplify Chinese </a>
-                            </h5>
-                        </div>
-                        <div id="feedback_lang1" class="panel-collapse collapse in">
-                            <br>
-                            <div class="row form-horizontal">
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label class="col-lg-4 control-label">Quality: </label>
-                                        <div class="col-lg-6">
-                                            <p class="form-control-static"><span class="label label-primary">Satisfactory</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="col-lg-4 control-label">Turn Around Time</label>
-                                        <div class="col-lg-8">
-                                            <p class="form-control-static"><span class="label label-primary">Faster</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <label class="control-label">Feed back to Translator and Project Manager</label>
-                                    <p>dfadlkfjadfjad;fjadsfjlfksdlf;sf;</p>
-                                </div>
-                                <!-- /form-group -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" style="padding-bottom: 10px;">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion_feedback" href="#feedback_lang2">English <i class="fa fa-arrow-right"></i> Traditional Chinese</a>
-                            </h4>
-                        </div>
-                        <div id="feedback_lang2" class="panel-collapse collapse">
-                            <br>
-                            <div class="row form-horizontal">
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label class="col-lg-4 control-label">Quality: </label>
-                                        <div class="col-lg-6">
-                                            <p class="form-control-static"><span class="label label-primary">Satisfactory</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="col-lg-4 control-label">Turn Around Time</label>
-                                        <div class="col-lg-8">
-                                            <p class="form-control-static"><span class="label label-primary">Faster</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <label class="control-label">Feed back to Translator and Project Manager</label>
-                                    <p>dfadlkfjadfjad;fjadsfjlfksdlf;sf;</p>
-                                </div>
-                                <!-- /form-group -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" style="padding-bottom: 10px;">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion_feedback" href="#feedback_lang3">English <i class="fa fa-arrow-right"></i> German </a>
-                            </h4>
-                        </div>
-                        <div id="feedback_lang3" class="panel-collapse collapse">
-                            <br>
-                            <div class="row form-horizontal">
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label class="col-lg-4 control-label">Quality: </label>
-                                        <div class="col-lg-6">
-                                            <p class="form-control-static"><span class="label label-primary">Satisfactory</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="col-lg-4 control-label">Turn Around Time</label>
-                                        <div class="col-lg-8">
-                                            <p class="form-control-static"><span class="label label-primary">Faster</span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <label class="control-label">Feed back to Translator and Project Manager</label>
-                                    <p>dfadlkfjadfjad;fjadsfjlfksdlf;sf;</p>
-                                </div>
-                                <!-- /form-group -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php include "detail/feedbacks.phtml"; ?>
 
         <!-- if the project status is quoted or quoting, then hide other tabs only show quote tab -->
         <div class="tab-pane" id="quote">
