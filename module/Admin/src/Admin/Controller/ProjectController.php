@@ -55,13 +55,16 @@ class ProjectController extends AbstractActionController
             $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
             $name = $_FILES[ 'file' ][ 'name' ];
 
-            $uploadPath = 'public/uploads' . DIRECTORY_SEPARATOR . $name;
+            // added rand number to prevent errors if users upload same named files
+            $token = "". time() . rand(11, 99);
+            $uploadPath = 'public/uploads' . DIRECTORY_SEPARATOR . $token . basename( $name );
 
             move_uploaded_file( $tempPath, $uploadPath );
             $file = new File();
             $file->setData([
                 'name' => $_FILES[ 'file' ][ 'name' ],
                 'path' => $uploadPath,
+                'token' => $token,
                 'size' => $_FILES['file']['size'],
                 'time' => time(),
 				'project' => $project,
@@ -77,6 +80,75 @@ class ProjectController extends AbstractActionController
             echo $json;
             die;
 
+        } else {
+            $answer = ['success' => false];
+            $json = json_encode( $answer );
+            die($json);
+        }
+    }
+
+    public function downloadFileAction(){
+        if ( $token = $this->params()->fromQuery('token') ) {
+            $entityManager = $this->getEntityManager();
+            $file = $entityManager->getRepository('\User\Entity\File')->findOneBy(
+    array('token' => $token));
+
+            $downloadPath = $file->getPath();
+            // ob_end_clean();
+
+            // var_dump($downloadPath);
+            if(!is_file($downloadPath)) {
+                $answer = ['success' => false];
+                $json = json_encode( $answer );
+                die($json);
+            }
+
+            $fileContents = file_get_contents($downloadPath);
+
+            $response = $this->getResponse();
+            $response->setContent($fileContents);
+            $response->setStatusCode(200);
+
+            $headers = $response->getHeaders();
+            $headers->clearHeaders()
+                ->addHeaderLine('Content-Type', 'application/octet-stream')
+                ->addHeaderLine('Content-Disposition', 'attachment; filename="' . $file->getName() . '"')
+                ->addHeaderLine('Content-Length', strlen($fileContents));
+
+            // var_dump($file->getData());
+            $response->setHeaders($headers);
+            return $response;
+        } else {
+            $answer = ['success' => false];
+            $json = json_encode( $answer );
+            die($json);
+        }
+    }
+
+    public function getFilesListAction(){
+        if ( $id = $this->params()->fromQuery('project_id') ) {
+            $entityManager = $this->getEntityManager();
+            $project = $entityManager->find('User\Entity\Project', (int)$id);
+            $repository = $entityManager->getRepository('User\Entity\File');
+            $files = $repository->findBy( array('project'=>$project) );
+
+            $json = array();
+
+            foreach ($files as $file){
+                $d = $file->getData();
+                $json[] = [
+                    'token' => $d['token'],
+        			"name" => $d['name'],
+        			"time" => $d['time'],
+        			"size" => $d['size'],
+                    "task" => $d['task'],
+                ];
+                // $json[] = $d;
+            }
+
+            $json = json_encode( $json );
+            echo $json;
+            die;
         } else {
             $answer = ['success' => false];
             $json = json_encode( $answer );

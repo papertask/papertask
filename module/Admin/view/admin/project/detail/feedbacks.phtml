@@ -1,0 +1,44 @@
+<div class="tab-pane" id="feedback" ng-controller="ItemListController">
+    <div ng-controller="ProjectFeedbackController">
+        <div class="panel-body">
+            <div class="panel-group" id="accordion_feedback">
+                <div class="panel panel-default" ng-repeat="feedback in items">
+                    <div class="panel-heading" style="padding-bottom: 10px;">
+                        <h5 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion_feedback" href="#feedback_lang1"><i class="fa fa-exclamation-triangle text-danger"></i> {{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ feedback.task.language.name }} </a>
+                        </h5>
+                    </div>
+                    <div id="feedback_lang1" class="panel-collapse collapse in">
+                        <br>
+                        <div class="row form-horizontal">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Quality: </label>
+                                    <div class="col-lg-6">
+                                        <p class="form-control-static"><span class="label label-primary">{{feedback.qualityTitle}}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label">Turn Around Time</label>
+                                    <div class="col-lg-8">
+                                        <p class="form-control-static"><span class="label label-primary">{{feedback.timeTitle}}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="control-label">Feed back to Translator and Project Manager</label>
+                                <p>{{feedback.message}}</p>
+                            </div>
+                            <!-- /form-group -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
