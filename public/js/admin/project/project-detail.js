@@ -33,7 +33,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
     $scope.pms = [];
     $scope.fields = [];
     $scope.project = {
-        task: [],
+        tasks: [],
         tasksNum: 0,
         activitiesNum: 0,
     };
@@ -390,6 +390,7 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
     function attachData($task){
         $task.type = ProjectType.get($task.type);
         $task.status = TaskStatus.get($task.status);
+        $task.files = [];
     }
 
     function createTask(){
@@ -559,12 +560,30 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi,
 
 angularApp.controller("ProjectFilesController", function($scope, $http, $window){
     $scope.files = [];
+    $scope.taskFiles = [];
 
     var projectId = PROJECT_ID;
+
+    function attachTaskFiles(){
+        $scope.taskFiles.forEach(function(file) {
+            $scope.project.tasks.some(function(t){
+                if(t.id == file.task.id){
+                    t.files.push(file);
+                    return true;
+                }
+            });
+        });
+    }
+
     function init(){
         $http.get("/" + LANG_CODE + "/admin/project/getFilesList?project_id="+projectId)
             .success( function ( $data ) {
-                $scope.files = $data;
+                $scope.files = $data.filter(function(file){
+                    return !file.task;
+                });
+                $scope.taskFiles = $data.filter(function(file){
+                    return file.task;
+                });
             });
     }
 
@@ -572,6 +591,12 @@ angularApp.controller("ProjectFilesController", function($scope, $http, $window)
         // alert("DWD");
         $window.open("/" + LANG_CODE + "/admin/project/downloadFile?token="+token, '_blank');
     };
+
+    $scope.$watch(function(){
+        return !!($scope.project.tasks && $scope.project.tasks.length && $scope.taskFiles && $scope.taskFiles.length);
+    }, function(){
+        attachTaskFiles();
+    });
 
     init();
 });

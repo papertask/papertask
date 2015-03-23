@@ -114,129 +114,130 @@ class ProjectController extends AbstractRestfulJsonController
 		$invoice->setProject($project);
 		$invoice->save($this->getEntityManager());
 		//
-		 if(isset($data['data'])){
-        foreach($data['data'] as $iterms){
-            $identifier = $iterms['identifier'];
-            $type = $identifier[0];
-            $languageId = $identifier[1]['id'];
-			if ($type == 'translationNoTM'){
+		if(isset($data['data'])){
+            foreach($data['data'] as $iterms){
+                $identifier = $iterms['identifier'];
+                $type = $identifier[0];
+                $languageId = $identifier[1]['id'];
+    			if ($type == 'translationNoTM'){
 
-				foreach($iterms['items'] as $item){
-					$iterm = new Itermnotm();
-					$iterm->setProject($project);
-					$iterm->setData([
-						'name' => $item['name'],
-						'file' => $files[$item['file']['id']],
-						'unit' => $item['unit']['id'],
-						'rate' => $item['rate'],
-						'quantity' => $item['quantity'],
-						'total' => $item['total'],
-						'language' => $targetLanguages[$languageId]
-					]);
-				}
-				$iterm->save($this->getEntityManager());
-			}
-			else if ($type == 'translationTM'){
+    				foreach($iterms['items'] as $item){
+    					$iterm = new Itermnotm();
+    					$iterm->setProject($project);
+    					$iterm->setData([
+    						'name' => $item['name'],
+    						'file' => $files[$item['file']['id']],
+    						'unit' => $item['unit']['id'],
+    						'rate' => $item['rate'],
+    						'quantity' => $item['quantity'],
+    						'total' => $item['total'],
+    						'language' => $targetLanguages[$languageId]
+    					]);
+    				}
+    				$iterm->save($this->getEntityManager());
+    			}
+    			else if ($type == 'translationTM'){
 
-				//foreach($iterms['itemtm'] as $item){
-					$iterm = new Itermtm();
-					$iterm->setProject($project);
-					$iterm->setData([
-						'name' => $iterms['itemtm']['name'],
-						'file' => $files[$item['file']['id']],
-						'sourcebawu' => $iterms['itemtm']['sourcebawu'],
-						'sourcejiuwu' => $iterms['itemtm']['sourcejiuwu'],
-						'sourcenomatch' => $iterms['itemtm']['sourcenomatch'],
-						'sourceqiwu' => $iterms['itemtm']['sourceqiwu'],
-						'sourcerepetitions' => $iterms['itemtm']['sourcerepetitions'],
-						'sourcewushi' => $iterms['itemtm']['sourcewushi'],
-						'sourceyibai' => $iterms['itemtm']['sourceyibai'],
-						'raterepetitions' => $iterms['itemtm']['raterepetitions'],
-						'ratewushi' => $iterms['itemtm']['ratewushi'],
-						'rateyibai' => $iterms['itemtm']['rateyibai'],
-						'ratebawu' => $iterms['itemtm']['ratebawu'],
-						'ratejiuwu' => $iterms['itemtm']['ratejiuwu'],
-						'ratenomatch' => $iterms['itemtm']['ratenomatch'],
-						'rateqiwu' => $iterms['itemtm']['rateqiwu'],
-						'total' => $iterms['itemtm']['total'],
-						'rate' => $iterms['itemtm']['rate'],
-						'language' => $targetLanguages[$languageId]
-					]);
-				//}
-				$iterm->save($this->getEntityManager());
-			}
-			else if ($type == 'dtpMac'){
+    				//foreach($iterms['itemtm'] as $item){
+    					$iterm = new Itermtm();
+    					$iterm->setProject($project);
+    					$iterm->setData([
+    						'name' => $iterms['itemtm']['name'],
+    						'file' => $files[$item['file']['id']],
+    						'sourcebawu' => $iterms['itemtm']['sourcebawu'],
+    						'sourcejiuwu' => $iterms['itemtm']['sourcejiuwu'],
+    						'sourcenomatch' => $iterms['itemtm']['sourcenomatch'],
+    						'sourceqiwu' => $iterms['itemtm']['sourceqiwu'],
+    						'sourcerepetitions' => $iterms['itemtm']['sourcerepetitions'],
+    						'sourcewushi' => $iterms['itemtm']['sourcewushi'],
+    						'sourceyibai' => $iterms['itemtm']['sourceyibai'],
+    						'raterepetitions' => $iterms['itemtm']['raterepetitions'],
+    						'ratewushi' => $iterms['itemtm']['ratewushi'],
+    						'rateyibai' => $iterms['itemtm']['rateyibai'],
+    						'ratebawu' => $iterms['itemtm']['ratebawu'],
+    						'ratejiuwu' => $iterms['itemtm']['ratejiuwu'],
+    						'ratenomatch' => $iterms['itemtm']['ratenomatch'],
+    						'rateqiwu' => $iterms['itemtm']['rateqiwu'],
+    						'total' => $iterms['itemtm']['total'],
+    						'rate' => $iterms['itemtm']['rate'],
+    						'language' => $targetLanguages[$languageId]
+    					]);
+    				//}
+    				$iterm->save($this->getEntityManager());
+    			}
+    			else if ($type == 'dtpMac'){
 
-				foreach($iterms['items'] as $item){
-					$iterm = new Itermdtpmac();
-					$iterm->setProject($project);
-					$iterm->setData([
-						'name' => $item['name'],
-						'file' => $files[$item['file']['id']],
-						'unit' => $item['unit']['id'],
-						'rate' => $item['rate'],
-						'quantity' => $item['quantity'],
-						'total' => $item['total'],
-						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']), //$item['software'],
-						'language' => $targetLanguages[$languageId],
-					]);
-				}
-				$iterm->save($this->getEntityManager());
+    				foreach($iterms['items'] as $item){
+    					$iterm = new Itermdtpmac();
+    					$iterm->setProject($project);
+    					$iterm->setData([
+    						'name' => $item['name'],
+    						'file' => $files[$item['file']['id']],
+    						'unit' => $item['unit']['id'],
+    						'rate' => $item['rate'],
+    						'quantity' => $item['quantity'],
+    						'total' => $item['total'],
+    						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']), //$item['software'],
+    						'language' => $targetLanguages[$languageId],
+    					]);
+    				}
+    				$iterm->save($this->getEntityManager());
 
-			}
-			else if ($type == 'dtpPc'){
+    			}
+    			else if ($type == 'dtpPc'){
 
-				foreach($iterms['items'] as $item){
-					$iterm = new Itermdtppc();
-					$iterm->setProject($project);
-					$iterm->setData([
-						'name' => $item['name'],
-						'file' => $files[$item['file']['id']],
-						'unit' => $item['unit']['id'],
-						'rate' => $item['rate'],
-						'quantity' => $item['quantity'],
-						'total' => $item['total'],
-						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']),
-						'language' => $targetLanguages[$languageId],
-					]);
-				}
-				$iterm->save($this->getEntityManager());
-			}
-			else if ($type == 'engineering'){
+    				foreach($iterms['items'] as $item){
+    					$iterm = new Itermdtppc();
+    					$iterm->setProject($project);
+    					$iterm->setData([
+    						'name' => $item['name'],
+    						'file' => $files[$item['file']['id']],
+    						'unit' => $item['unit']['id'],
+    						'rate' => $item['rate'],
+    						'quantity' => $item['quantity'],
+    						'total' => $item['total'],
+    						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']),
+    						'language' => $targetLanguages[$languageId],
+    					]);
+    				}
+    				$iterm->save($this->getEntityManager());
+    			}
+    			else if ($type == 'engineering'){
 
-				foreach($iterms['items'] as $item){
-					$iterm = new Itermengineering();
-					$iterm->setProject($project);
-					$iterm->setData([
-						'name' => $item['name'],
-						'file' => $files[$item['file']['id']],
-						'unit' => $item['unit']['id'],
-						'rate' => $item['rate'],
-						'quantity' => $item['quantity'],
-						'total' => $item['total'],
-						'engineeringcategory' => $this->getReference('\Common\Entity\EngineeringCategory', $item['category']['id']),
-						'language' => $targetLanguages[$languageId],
-					]);
-				}
-				$iterm->save($this->getEntityManager());
-			}
-			else{
+    				foreach($iterms['items'] as $item){
+    					$iterm = new Itermengineering();
+    					$iterm->setProject($project);
+    					$iterm->setData([
+    						'name' => $item['name'],
+    						'file' => $files[$item['file']['id']],
+    						'unit' => $item['unit']['id'],
+    						'rate' => $item['rate'],
+    						'quantity' => $item['quantity'],
+    						'total' => $item['total'],
+    						'engineeringcategory' => $this->getReference('\Common\Entity\EngineeringCategory', $item['category']['id']),
+    						'language' => $targetLanguages[$languageId],
+    					]);
+    				}
+    				$iterm->save($this->getEntityManager());
+    			}
+    			else{
 
-				foreach($iterms['items'] as $item){
-					$iterm = new Iterminterpreting();
-					$iterm->setProject($project);
-					$iterm->setData([
-						'name' => $item['name'],
-						'file' => $files[$item['file']['id']],
-						'unit' => $item['unit']['id'],
-						'rate' => $item['rate'],
-						'quantity' => $item['quantity'],
-						'total' => $item['total'],
-						'language' => $targetLanguages[$languageId],
-					]);
-				}
-				$iterm->save($this->getEntityManager());
-			}
+    				foreach($iterms['items'] as $item){
+    					$iterm = new Iterminterpreting();
+    					$iterm->setProject($project);
+    					$iterm->setData([
+    						'name' => $item['name'],
+    						'file' => $files[$item['file']['id']],
+    						'unit' => $item['unit']['id'],
+    						'rate' => $item['rate'],
+    						'quantity' => $item['quantity'],
+    						'total' => $item['total'],
+    						'language' => $targetLanguages[$languageId],
+    					]);
+    				}
+    				$iterm->save($this->getEntityManager());
+    			}
+            }
         }
         $project->save($this->getEntityManager());
 		foreach($data['data'] as $iterms){

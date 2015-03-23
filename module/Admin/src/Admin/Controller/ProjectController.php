@@ -44,12 +44,12 @@ class ProjectController extends AbstractActionController
 		$taskId = $this->getRequest()->getPost('taskId');
 		//var_dump($projectId);
 		//var_dump($taskId);exit;
-		
+
 		$entityManager = $this->getEntityManager();
 		$project = $entityManager->find('\User\Entity\Project', (int)$projectId);
-		
+
 		$task = $entityManager->find('\User\Entity\Task', (int)$taskId);
-		
+
         if ( !empty( $_FILES ) ) {
 
             $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
@@ -141,7 +141,9 @@ class ProjectController extends AbstractActionController
         			"name" => $d['name'],
         			"time" => $d['time'],
         			"size" => $d['size'],
+                    "task" => $d['task'],
                 ];
+                // $json[] = $d;
             }
 
             $json = json_encode( $json );

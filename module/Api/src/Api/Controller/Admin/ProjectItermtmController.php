@@ -29,7 +29,7 @@ class ProjectItermtmController extends AbstractRestfulJsonController
      * @param $data
      */
     protected function cleanData(&$data){
-       
+
     }
 
     public function create($data)
@@ -41,7 +41,7 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 		$project = $this->find('User\Entity\Project', $projectid);
 		$iterm->setProject($project);
 		$language = $this->find('User\Entity\Language', $data['languageid']);
-		
+
 		$iterm->setData([
 			'name' => $data['name'],
 			'rate' => $data['rate'],
@@ -53,7 +53,7 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 			'sourcewushi' => $data['sourcewushi'],
 			'sourceyibai' => $data['sourceyibai'],
 
-			'raterepetitions' => $data['raterepetitions'},
+			'raterepetitions' => $data['raterepetitions'],
 			'rateyibai' => $data['rateyibai'],
 			'ratejiuwu' => $data['ratejiuwu'],
 			'ratebawu' => $data['ratebawu'],
@@ -89,7 +89,7 @@ class ProjectItermtmController extends AbstractRestfulJsonController
         $project = $entityManager->getRepository('\User\Entity\Project')->find( $projectId );
         $Itermtm = $entityManager->getRepository('\User\Entity\Itermtm')->findBy(array('project'=>$project));
         $Itermtms = array();
-        foreach( $Itermtm as $k => $v ) 
+        foreach( $Itermtm as $k => $v )
         {
             $Itermtms[$k] = $v->getData();
         }
@@ -103,7 +103,7 @@ class ProjectItermtmController extends AbstractRestfulJsonController
         $project = $this->find('User\Entity\Itermnotm', $id);
         $Itermnotm = $entityManager->getRepository('\User\Entity\Itermnotm')->findBy(array('project'=>$project));
         $Itermnotms = array();
-        foreach( $Itermnotm as $k => $v ) 
+        foreach( $Itermnotm as $k => $v )
         {
             $Itermnotms[$k] = $v->getData();
         }
@@ -111,7 +111,7 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 		return new JsonModel([
             'project' => $project->getData(),
 			'itermnotms' => $Itermnotms,
-			
+
         ]);
     }
 
@@ -144,9 +144,9 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 				'sourceyibai' => $data['sourceyibai'],
 				'total' => $data['total'],
            ]);
-           
+
         $itermtm->save($entityManager);
-           
+
         return new JsonModel([
                'itermtm' => $itermtm->getData(),
            ]);
