@@ -20,6 +20,12 @@ class TaskController extends AbstractRestfulJsonController
             $data['project'] = $this->getReference('\User\Entity\Project', $data['project_id']);
             unset($data['project_id']);
         }
+        if(isset($data['startDate'])){
+            $data['startDate'] = new \DateTime($data['startDate']);
+        }
+        if(isset($data['dueDate'])){
+            $data['dueDate'] = new \DateTime($data['dueDate']);
+        }
         if(isset($data['status'])){
             $data['status'] = $data['status']['id'];
         }

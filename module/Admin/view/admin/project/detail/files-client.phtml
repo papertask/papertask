@@ -36,7 +36,7 @@
                             <a data-toggle="collapse" data-parent="#accordion_preview" href="#preview_lang1"><i class="fa fa-exclamation-triangle text-danger"></i> {{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ task.language.name }} </a> <i class="fa fa-paperclip" ng-show="task.files.length"></i></a> <!-- with paperclip means file for this language has been uploaded -->
                         </h5>
                     </div>
-                    <div id="preview_lang1" class="panel-collapse collapse in">
+                    <div id="preview_lang{{$index}}" class="panel-collapse collapse in">
 
                         <div class="panel-body">
                             <table class="table">
@@ -61,16 +61,16 @@
                             <div ng-if="task.status.id != 1">
                                 <div class="col-md-6">
                                     <p>Happy with your translation? Formally approve it here.</p>
-                                    <a data-toggle="collapse" data-parent="#preview_lang1" href="#approve_lang1" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Approve</a> <!-- if user click the approve button(all languages), the approve button and request correct button should hide, and project status should change to completed -->
+                                    <a data-toggle="collapse" data-parent="#preview_lang{{$index}}" href="#approve_lang{{$index}}" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Approve</a> <!-- if user click the approve button(all languages), the approve button and request correct button should hide, and project status should change to completed -->
                                 </div>
                                 <div class="col-md-6">
                                     <p>If you need the translator to fix mistakes or make changes:</p>
-                                    <a data-toggle="collapse" data-parent="#preview_lang1" href="#correct_lang1" class="btn btn-warning"><i class="fa fa-edit"></i> Request corrections</a> <!-- if any language need correct, the project status will change to Reject -->
+                                    <a data-toggle="collapse" data-parent="#preview_lang{{$index}}" href="#correct_lang{{$index}}" class="btn btn-warning"><i class="fa fa-edit"></i> Request corrections</a> <!-- if any language need correct, the project status will change to Reject -->
                                 </div>
                             </div>
                         </div>
                         <div class="panel" ng-if="task.status.id != 1">
-                            <div id="approve_lang1" class="panel-collapse collapse">
+                            <div id="approve_lang{{$index}}" class="panel-collapse collapse">
                                 <div class="panel">
                                     <div class="panel-body">
                                         <hr />

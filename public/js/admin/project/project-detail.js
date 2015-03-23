@@ -387,13 +387,6 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 
 
 angularApp.controller("ProjectTasksController", function($scope, TaskStatus, ProjectType, TaskApi){
-    var templateFeedback = {
-        quality: 3,
-        turnAroundTime: 3,
-        message: "Describe your feedback in details to improve quality of service.",
-        buttonTitle: "Update",
-    };
-
     $scope.newTask = {};
 
     $scope.setItemApi(TaskApi);
@@ -402,12 +395,14 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
         $task.type = ProjectType.get($task.type);
         $task.status = TaskStatus.get($task.status);
         $task.files = [];
-        $task.feedback = Object.create(templateFeedback);
     }
 
     function createTask(){
         if(jQuery("#tasks form").valid()){
             var newTask = $scope.newTask;
+            newTask.name = newTask.name ? newTask.name : "";
+            newTask.startDate = $scope.project.startDate.date;
+            newTask.dueDate = $scope.project.dueDate.date;
             newTask.project_id = $scope.project.id;
             newTask.status = TaskStatus.unassigned;
 
@@ -511,7 +506,8 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
     var templateFeedback = {
         quality: 3,
         turnAroundTime: 3,
-        message: "Describe your feedback in details to improve quality of service."
+        message: "Describe your feedback in details to improve quality of service.",
+        buttonTitle: "Submit"
     };
 
     $scope.newFeedback = Object.create(templateFeedback);
@@ -548,12 +544,12 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
                     return true;
                 }
             })){
-                var mockFb = Object.create(templateFeedback);
-                mockFb.language = task.language;
-                mockFb.task = task;
-                mockFb.project_id = $scope.project.id;
-                mockFb.needToCreate = true;
-                $feedbacks.push(mockFb);
+                // var mockFb = Object.create(templateFeedback);
+                // mockFb.language = task.language;
+                // mockFb.task = task;
+                // mockFb.project_id = $scope.project.id;
+                // mockFb.needToCreate = true;
+                // $feedbacks.push(mockFb);
             }
         });
 
@@ -572,7 +568,16 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
     function attachTaskFeedbacks(){
         if(fb_dump !== "done" && fb_dump.length !== 0){
             $scope.project.tasks.forEach(function(task) {
-                task.feedback = fb_dump[task.id];
+                if(fb_dump[task.id])
+                    task.feedback = fb_dump[task.id];
+                else {
+                    var mockFb = Object.create(templateFeedback);
+                    mockFb.language = task.language;
+                    mockFb.task = task;
+                    mockFb.project_id = $scope.project.id;
+                    mockFb.needToCreate = true;
+                    task.feedback = mockFb;
+                }
             });
             fb_dump = "done";
         }
@@ -587,16 +592,17 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
 
 angularApp.controller("ProjectFilesController", function($scope, $http, $window, TaskApi, FeedbackApi){
     $scope.sendFeedback = function(task){
-        //var newFeedback = $scope.newFeedback;
-        task.feedback.task = task;
         task.feedback.buttonTitle = "Sending...";
-        task.feedback.project_id = $scope.project.id;
+
+        var newFeedback = task.feedback;
+        newFeedback.task = {id: task.id};
+        newFeedback.project_id = $scope.project.id;
 
         TaskApi.update(task.id, { 'status_id' : 1 }, function($res){
             console.log($res);
         });
 
-        FeedbackApi.create(task.feedback, function($newFeedback){
+        FeedbackApi.create(newFeedback, function($newFeedback){
             // $scope.newFeedback = Object.create(templateFeedback);
             // $scope.items.push($newFeedback);
             console.log($newFeedback);
