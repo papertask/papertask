@@ -19,8 +19,12 @@ angularApp.filter('dateFormat', function($filter)
 });
 angularApp.controller('ProjectDetailController', function($scope, $http, $location, ProjectApi, DateFormatter, ProjectStatus,
                                                           ProjectServiceLevel, ProjectPriority, StaffApi, ClientApi,
-                                                          FieldApi, ProjectType, TaskApi, TaskStatus, $q){
+                                                          FieldApi, ProjectType, TaskApi, TaskStatus,
+                                                          FeedbackQuality, FeedbackTime,
+                                                          $q){
 
+    $scope.q_values = FeedbackQuality.all();
+    $scope.t_values = FeedbackTime.all();
     $scope.DateFormatter = DateFormatter;
     $scope.ProjectStatus = ProjectStatus;
     $scope.ProjectServiceLevel = ProjectServiceLevel;
@@ -383,6 +387,13 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 
 
 angularApp.controller("ProjectTasksController", function($scope, TaskStatus, ProjectType, TaskApi){
+    var templateFeedback = {
+        quality: 3,
+        turnAroundTime: 3,
+        message: "Describe your feedback in details to improve quality of service.",
+        buttonTitle: "Update",
+    };
+
     $scope.newTask = {};
 
     $scope.setItemApi(TaskApi);
@@ -391,6 +402,7 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
         $task.type = ProjectType.get($task.type);
         $task.status = TaskStatus.get($task.status);
         $task.files = [];
+        $task.feedback = Object.create(templateFeedback);
     }
 
     function createTask(){
@@ -485,15 +497,15 @@ angularApp.controller("ProjectActivitiesController", function($scope, ActivityAp
     });
 });
 
-angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi, FeedbackQuality, FeedbackTime){
-    $scope.q_values = FeedbackQuality.all();
-    $scope.t_values = FeedbackTime.all();
+angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi){
+    var fb_dump = [];
 
     var prepare = function(feedback){
         feedback.buttonTitle = "Update";
         feedback.qualityTitle = $scope.q_values[Number(feedback.quality)-1].name;
         feedback.timeTitle = $scope.q_values[Number(feedback.turnAroundTime)-1].name;
         // console.log($scope.q_values[feedback.quality].name);
+        fb_dump[feedback.task.id] = feedback;
     };
 
     var templateFeedback = {
@@ -556,9 +568,43 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi,
             $scope.refresh();
         }
     });
+
+    function attachTaskFeedbacks(){
+        if(fb_dump !== "done" && fb_dump.length !== 0){
+            $scope.project.tasks.forEach(function(task) {
+                task.feedback = fb_dump[task.id];
+            });
+            fb_dump = "done";
+        }
+    }
+
+    $scope.$watch(function(){
+        return !!($scope.project.tasks && $scope.project.tasks.length && fb_dump.length && fb_dump !== "done");
+    }, function(){
+        attachTaskFeedbacks();
+    });
 });
 
-angularApp.controller("ProjectFilesController", function($scope, $http, $window){
+angularApp.controller("ProjectFilesController", function($scope, $http, $window, TaskApi, FeedbackApi){
+    $scope.sendFeedback = function(task){
+        //var newFeedback = $scope.newFeedback;
+        task.feedback.task = task;
+        task.feedback.buttonTitle = "Sending...";
+        task.feedback.project_id = $scope.project.id;
+
+        TaskApi.update(task.id, { 'status_id' : 1 }, function($res){
+            console.log($res);
+        });
+
+        FeedbackApi.create(task.feedback, function($newFeedback){
+            // $scope.newFeedback = Object.create(templateFeedback);
+            // $scope.items.push($newFeedback);
+            console.log($newFeedback);
+            task.feedback.buttonTitle = "Updated!";
+            //location.reload();
+        });
+    }
+
     $scope.files = [];
     $scope.taskFiles = [];
 
@@ -591,6 +637,7 @@ angularApp.controller("ProjectFilesController", function($scope, $http, $window)
         // alert("DWD");
         $window.open("/" + LANG_CODE + "/admin/project/downloadFile?token="+token, '_blank');
     };
+
 
     $scope.$watch(function(){
         return !!($scope.project.tasks && $scope.project.tasks.length && $scope.taskFiles && $scope.taskFiles.length);

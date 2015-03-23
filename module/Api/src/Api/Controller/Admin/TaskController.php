@@ -46,17 +46,17 @@ class TaskController extends AbstractRestfulJsonController
             'task' => $task->getData(),
         ]);
     }
-	
+
 	public function get($id){
-		
+
 		$entityManager = $this->getEntityManager();
         $task = $this->find('User\Entity\Task', $id);
 		return new JsonModel([
             'task' => $task->getData(),
-			
+
         ]);
     }
-	
+
     public function getList(){
         $projectId = $this->params()->fromQuery('project_id');
         $tasks = $this->getAllDataBy('\User\Entity\Task', [
@@ -87,7 +87,6 @@ class TaskController extends AbstractRestfulJsonController
 		$action = $this->params()->fromQuery('action');
 		if($action==1)
 		{
-			
 			$task->setData([
 				'name' => $data['name'],
 				'startDate' =>  new \DateTime($data['startDate']),
@@ -124,7 +123,12 @@ class TaskController extends AbstractRestfulJsonController
             $updateData['is_specialism_pool'] = !$updateData['is_client_pool'];
 			$task->setData($updateData);
         }
-       
+
+        if(isset($data['status_id'])){
+            $updateData['status'] = (int) $data['status_id'];
+            $task->setData($updateData);
+        }
+
         $task->save($this->getEntityManager());
 
         return new JsonModel([
