@@ -1,3 +1,7 @@
+<div ng-controller="ItemListController">
+    <div ng-controller="ProjectCorrectionController">
+    </div>
+</div>
 <div class="tab-pane<?php echo ($filesTabActive == true ? ' active': '');?>" id="files" ng-controller="ProjectFilesController">
     <div class="panel-body">
         <h3>Source Files</h3>
@@ -30,181 +34,136 @@
         <h3>Files For Review</h3>
         <div class="panel-group" id="accordion_preview">
             <div class="panel panel-default" ng-repeat="task in project.tasks">
-                <div class="panel-heading" style="padding-bottom: 10px;">
-                    <h5 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion_preview" href="#preview_lang1"><i class="fa fa-exclamation-triangle text-danger"></i> {{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ task.language.name }} </a> <i class="fa fa-paperclip" ng-show="task.files.length"></i></a> <!-- with paperclip means file for this language has been uploaded -->
-                    </h5>
-                </div>
-                <div id="preview_lang1" class="panel-collapse collapse in">
-
-                    <div class="panel-body">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>File Name</th>
-                                <th>Size</th>
-                                <th>Time Stamp</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="file in task.files">
-                                    <td>{{$index + 1}}</td>
-                                    <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
-                                    <td>{{file.size | filesize}}</td>
-                                    <td>{{ DateFormatter.format(file.time) }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <div class="col-md-6">
-                            <p>Happy with your translation? Formally approve it here.</p>
-                            <a data-toggle="collapse" data-parent="#preview_lang1" href="#approve_lang1" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Approve</a> <!-- if user click the approve button(all languages), the approve button and request correct button should hide, and project status should change to completed -->
-                        </div>
-                        <div class="col-md-6">
-                            <p>If you need the translator to fix mistakes or make changes:</p>
-                            <a data-toggle="collapse" data-parent="#preview_lang1" href="#correct_lang1" class="btn btn-warning"><i class="fa fa-edit"></i> Request corrections</a> <!-- if any language need correct, the project status will change to Reject -->
-                        </div>
+                    <div class="panel-heading" style="padding-bottom: 10px;">
+                        <h5 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion_preview" href="#preview_lang1"><i class="fa fa-exclamation-triangle text-danger" ng-hide="task.status.id == 1"></i> {{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ task.language.name }} </a> <i class="fa fa-paperclip" ng-show="task.files.length"></i></a> <!-- with paperclip means file for this language has been uploaded -->
+                        </h5>
                     </div>
-                    <div class="panel">
-                        <div id="approve_lang1" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <hr />
-                                <p>Leaving feedback here will help you get a better translation next time. On your next order, you'll be able to specify whether to use only your preferred translators. This translator is on your list of preferred translators.</p>
+                    <div id="preview_lang{{$index}}" class="panel-collapse collapse in">
 
-                                <div class="panel panel-default tooltip-demo">
+                        <div class="panel-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>File Name</th>
+                                    <th>Size</th>
+                                    <th>Time Stamp</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="file in task.files">
+                                        <td>{{$index + 1}}</td>
+                                        <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
+                                        <td>{{file.size | filesize}}</td>
+                                        <td>{{ DateFormatter.format(file.time) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div ng-if="task.status.id != 1">
+                                <div class="col-md-6">
+                                    <p>Happy with your translation? Formally approve it here.</p>
+                                    <a data-toggle="collapse" data-parent="#preview_lang{{$index}}" href="#approve_lang{{$index}}" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Approve</a> <!-- if user click the approve button(all languages), the approve button and request correct button should hide, and project status should change to completed -->
+                                </div>
+                                <div class="col-md-6">
+                                    <p>If you need the translator to fix mistakes or make changes:</p>
+                                    <a data-toggle="collapse" data-parent="#preview_lang{{$index}}" href="#correct_lang{{$index}}" class="btn btn-warning"><i class="fa fa-edit"></i> Request corrections</a> <!-- if any language need correct, the project status will change to Reject -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel" ng-if="task.status.id != 1">
+                            <div id="approve_lang{{$index}}" class="panel-collapse collapse">
+                                <div class="panel">
                                     <div class="panel-body">
-                                      <div class="form-group">
-                                        <label class="control-label">Quality</label>
-                                        <table class="table table-bordered table-hover table-striped">
-                                          <tbody>
-                                            <tr>
-                                              <td class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Very poor. There were multiple mistakes and/or the style was very poor." width="20%">
-                                                <label class="label-radio inline">
-                                                  <input type="radio" name="quality{$h}" value="bad">
-                                                  <span class="custom-radio"></span>
-                                                  Bad
-                                                </label>
-                                              </td>
-                                              <td class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Poor. There were mistakes and/or the style was poor." width="20%">
-                                                <label class="label-radio inline">
-                                                  <input type="radio" name="quality{$h}" value="poor">
-                                                  <span class="custom-radio"></span>
-                                                  Poor
-                                                </label>
-                                              </td>
-                                              <td class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Satisfactory. If mistakes occurred, they were corrected." width="20%">
-                                                <label class="label-radio inline">
-                                                  <input type="radio" name="quality{$h}" value="satisfactory">
-                                                  <span class="custom-radio"></span>
-                                                  Satisfactory
-                                                </label>
-                                              </td>
-                                              <td class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Good. The overall style was appropriate and there were few, if any, mistakes." width="20%">
-                                                <label class="label-radio inline">
-                                                  <input type="radio" name="quality{$h}" value="good">
-                                                  <span class="custom-radio"></span>
-                                                  Good
-                                                </label>
-                                              </td>
-                                              <td class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Perfect" width="20%">
-                                                <label class="label-radio inline">
-                                                  <input type="radio" name="quality{$h}" value="perfect">
-                                                  <span class="custom-radio"></span>
-                                                  Perfect
-                                                </label>
-                                              </td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div><!-- /form-group -->
-                                      <div class="form-group">
-                                        <label class="control-label">Turn Around Time</label>
-                                        <table class="table table-bordered table-hover table-striped">
-                                          <tbody>
-                                            <tr>
-                                              <td class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Much slower than I expected" width="20%">
-                                                <label class="label-radio inline">
-                                                  <input type="radio" name="time{$h}" value="m_slow">
-                                                  <span class="custom-radio"></span>
-                                                  Much Slower
-                                                </label>
-                                              </td>
-                                              <td class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Slower than I expected" width="20%">
-                                                <label class="label-radio inline">
-                                                  <input type="radio" name="time{$h}" value="slow">
-                                                  <span class="custom-radio"></span>
-                                                  Slower
-                                                </label>
-                                              </td>
-                                              <td class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Satisfactory" width="20%">
-                                                <label class="label-radio inline">
-                                                  <input type="radio" name="time{$h}" value="satisfactory">
-                                                  <span class="custom-radio"></span>
-                                                  Satisfactory
-                                                </label>
-                                              </td>
-                                              <td class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Faster than I expected" width="20%">
-                                                <label class="label-radio inline">
-                                                  <input type="radio" name="time{$h}" value="faster">
-                                                  <span class="custom-radio"></span>
-                                                  Faster
-                                                </label>
-                                              </td>
-                                              <td class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="Much faster than I expected" width="20%">
-                                                <label class="label-radio inline">
-                                                  <input type="radio" name="time{$h}" value="m_faster">
-                                                  <span class="custom-radio"></span>
-                                                  Much Faster
-                                                </label>
-                                              </td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div><!-- /form-group -->
-                                      <div class="form-group">
-                                        <label class="control-label">Feed back to Translator and Project Manager</label>
-                                        <textarea class="form-control parsley-validated" placeholder="Your message here..." id="tarea{$h}" rows="3" data-required="true"></textarea>
-                                      </div><!-- /form-group -->
-                                        <div class="text-right m-t-md">
-                                            <a href="#" class="btn btn-primary"> Submit</a>
+                                        <hr />
+                                        <p>Leaving feedback here will help you get a better translation next time. On your next order, you'll be able to specify whether to use only your preferred translators. This translator is on your list of preferred translators.</p>
+
+                                        <div class="panel panel-default tooltip-demo">
+                                            <div class="panel-body">
+                                              <div class="form-group">
+                                                <label class="control-label">Quality</label>
+                                                <table class="table table-bordered table-hover table-striped">
+                                                  <tbody>
+                                                    <tr>
+                                                      <td ng-repeat="val in q_values" class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{val.title}}" width="20%">
+                                                        <label class="label-radio inline">
+                                                          <input type="radio" ng-model="task.feedback.quality" value="{{val.id}}" ng-checked="task.feedback.quality == val.id">
+                                                          <span class="custom-radio"></span>
+                                                          {{val.name}}
+                                                        </label>
+                                                      </td>
+
+                                                    </tr>
+                                                  </tbody>
+                                                </table>
+                                              </div><!-- /form-group -->
+                                              <div class="form-group">
+                                                <label class="control-label">Turn Around Time</label>
+                                                <table class="table table-bordered table-hover table-striped">
+                                                  <tbody>
+                                                    <tr>
+                                                      <td ng-repeat="val in t_values" class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{val.title}}" width="20%">
+                                                        <label class="label-radio inline">
+                                                          <input type="radio" ng-model="task.feedback.turnAroundTime" value="{{val.id}}" ng-checked="task.feedback.turnAroundTime == val.id">
+                                                          <span class="custom-radio"></span>
+                                                          {{val.name}}
+                                                        </label>
+                                                      </td>
+
+                                                    </tr>
+                                                  </tbody>
+                                                </table>
+                                              </div><!-- /form-group -->
+                                              <div class="form-group">
+                                                <label class="control-label">Feed back to Translator and Project Manager</label>
+                                                <textarea class="form-control" ng-model='task.feedback.message' id="tarea{$h}" rows="3">{{task.feedback.message}}</textarea>
+                                              </div><!-- /form-group -->
+
+                                                <div class="text-right m-t-md">
+                                                    <a href="#" class="btn btn-primary" ng-click="sendFeedback(task)">{{task.feedback.buttonTitle}}</a>
+                                                </div>
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
+                        </div>
+                        <div class="panel" ng-if="task.status.id != 1">
+                            <div id="correct_lang{{$index}}" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="panel panel-default">
+                                      <form class="no-margin">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label class="control-label">What's wrong with the translation?</label>
+                                                <div class="checkbox"><label> <input type="checkbox" ng-model="task.correction.options.incomplete"> It is incomplete </label></div>
+                                                <div class="checkbox"><label> <input type="checkbox" ng-model="task.correction.options.spelling"> It contains spelling or grammatical errors </label></div>
+                                                <div class="checkbox"><label> <input type="checkbox" ng-model="task.correction.options.meaning"> It misses key meaning or details from the original </label></div>
+                                            </div>
+                                            <div class="form-group">
+                                            <label class="control-label">Comments</label>
+                                            <textarea class="form-control" ng-model="task.correction.message" rows="3" id="commt{$h}" data-required="true">{{task.correction.message}}</textarea>
+                                            <span class="help-block">(Please use English or Chinese (Simplified))</span>
+                                            </div><!-- /form-group -->
+                                            <div class="text-right m-t-md">
+                                                <a href="#" class="btn btn-warning" ng-click="requestCorrection(task)"> Request corrections from translator or project manager</a>
+                                            </div>
+                                        </div>
+                                      </form>
+                                    </div><!-- /panel -->
+
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="panel">
-                        <div id="correct_lang1" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <div class="panel panel-default">
-                                  <form class="no-margin">
-                                    <div class="panel-body">
-                                        <div class="form-group">
-                                            <label class="control-label">What's wrong with the translation?</label>
-                                            <div class="checkbox"><label> <input type="checkbox" value=""> It is incomplete </label></div>
-                                            <div class="checkbox"><label> <input type="checkbox" value=""> It contains spelling or grammatical errors </label></div>
-                                            <div class="checkbox"><label> <input type="checkbox" value=""> It misses key meaning or details from the original </label></div>
-                                        </div>
-                                        <div class="form-group">
-                                        <label class="control-label">Comments</label>
-                                        <textarea class="form-control" placeholder="Your message here..." rows="3" id="commt{$h}" data-required="true"></textarea>
-                                        <span class="help-block">(Please use English or Chinese (Simplified))</span>
-                                        </div><!-- /form-group -->
-                                        <div class="text-right m-t-md">
-                                            <a href="#" class="btn btn-warning"> Request corrections from translator or project manager</a>
-                                        </div>
-                                    </div>
-                                  </form>
-                                </div><!-- /panel -->
 
-                            </div>
-                        </div>
                     </div>
 
-                </div>
             </div>
+
         </div>
     </div>
 </div>

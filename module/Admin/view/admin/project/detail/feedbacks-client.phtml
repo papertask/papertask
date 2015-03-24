@@ -2,69 +2,71 @@
     <div ng-controller="ProjectFeedbackController">
         <div class="panel-body">
             <div class="panel-group" id="accordion_feedback">
-                <div class="panel panel-default" ng-repeat="feedback in items" >
-                    <div class="panel-heading" style="padding-bottom: 10px;">
-                        <h5 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion_feedback" href="#feedback_lang1"> {{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ feedback.task.language.name }} </a>
-                        </h5>
-                    </div>
-                    <div id="feedback_lang1" class="panel-collapse collapse in">
-                        <div class="panel">
-                            <div class="panel-body">
-                                <hr />
-                                <p>Leaving feedback here will help you get a better translation next time. On your next order, you'll be able to specify whether to use only your preferred translators. This translator is on your list of preferred translators.</p>
+                <div class="panel panel-default" ng-repeat="feedback in items" ng-if="feedback.task.status == 1 || feedback.task.status.id == 1">
 
-                                <div class="panel panel-default tooltip-demo">
-                                    <div class="panel-body">
-                                      <div class="form-group">
-                                        <label class="control-label">Quality</label>
-                                        <table class="table table-bordered table-hover table-striped">
-                                          <tbody>
-                                            <tr>
-                                              <td ng-repeat="val in q_values" class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{val.title}}" width="20%">
-                                                <label class="label-radio inline">
-                                                  <input type="radio" ng-model="feedback.quality" value="{{val.id}}" ng-checked="feedback.quality == val.id">
-                                                  <span class="custom-radio"></span>
-                                                  {{val.name}}
-                                                </label>
-                                              </td>
+                        <div class="panel-heading" style="padding-bottom: 10px;">
+                            <h5 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion_feedback" href="#feedback_lang1"> {{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ feedback.task.language.name }} </a>
+                            </h5>
+                        </div>
+                        <div id="feedback_lang1" class="panel-collapse collapse in">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <hr />
+                                    <p>Leaving feedback here will help you get a better translation next time. On your next order, you'll be able to specify whether to use only your preferred translators. This translator is on your list of preferred translators.</p>
 
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div><!-- /form-group -->
-                                      <div class="form-group">
-                                        <label class="control-label">Turn Around Time</label>
-                                        <table class="table table-bordered table-hover table-striped">
-                                          <tbody>
-                                            <tr>
-                                              <td ng-repeat="val in t_values" class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{val.title}}" width="20%">
-                                                <label class="label-radio inline">
-                                                  <input type="radio" ng-model="feedback.turnAroundTime" value="{{val.id}}" ng-checked="feedback.turnAroundTime == val.id">
-                                                  <span class="custom-radio"></span>
-                                                  {{val.name}}
-                                                </label>
-                                              </td>
+                                    <div class="panel panel-default tooltip-demo">
+                                        <div class="panel-body">
+                                          <div class="form-group">
+                                            <label class="control-label">Quality</label>
+                                            <table class="table table-bordered table-hover table-striped">
+                                              <tbody>
+                                                <tr>
+                                                  <td ng-repeat="val in q_values" class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{val.title}}" width="20%">
+                                                    <label class="label-radio inline">
+                                                      <input type="radio" ng-model="feedback.quality" value="{{val.id}}" ng-checked="feedback.quality == val.id">
+                                                      <span class="custom-radio"></span>
+                                                      {{val.name}}
+                                                    </label>
+                                                  </td>
 
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div><!-- /form-group -->
-                                      <div class="form-group">
-                                        <label class="control-label">Feed back to Translator and Project Manager</label>
-                                        <textarea class="form-control" ng-model='feedback.message' id="tarea{$h}" rows="3">{{feedback.message}}</textarea>
-                                      </div><!-- /form-group -->
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div><!-- /form-group -->
+                                          <div class="form-group">
+                                            <label class="control-label">Turn Around Time</label>
+                                            <table class="table table-bordered table-hover table-striped">
+                                              <tbody>
+                                                <tr>
+                                                  <td ng-repeat="val in t_values" class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{val.title}}" width="20%">
+                                                    <label class="label-radio inline">
+                                                      <input type="radio" ng-model="feedback.turnAroundTime" value="{{val.id}}" ng-checked="feedback.turnAroundTime == val.id">
+                                                      <span class="custom-radio"></span>
+                                                      {{val.name}}
+                                                    </label>
+                                                  </td>
 
-                                        <div class="text-right m-t-md">
-                                            <a href="#" class="btn btn-primary" ng-click="sendFeedback(feedback)">{{feedback.buttonTitle}}</a>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div><!-- /form-group -->
+                                          <div class="form-group">
+                                            <label class="control-label">Feed back to Translator and Project Manager</label>
+                                            <textarea class="form-control" ng-model='feedback.message' id="tarea{$h}" rows="3">{{feedback.message}}</textarea>
+                                          </div><!-- /form-group -->
+
+                                            <div class="text-right m-t-md">
+                                                <a href="#" class="btn btn-primary" ng-click="sendFeedback(feedback)">{{feedback.buttonTitle}}</a>
+                                            </div>
+
                                         </div>
 
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-                    </div>
+
                 </div>
             </div>
         </div>

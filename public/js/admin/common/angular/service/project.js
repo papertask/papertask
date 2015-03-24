@@ -1117,3 +1117,7 @@ angularApp.factory("ActivityApi", function(API){
 angularApp.factory("FeedbackApi", function(API){
     return API.factory('/api/admin/projectfeedback/', 'feedback', 'feedbacks');
 });
+
+angularApp.factory("CorrectionApi", function(API){
+    return API.factory('/api/admin/projectcorrection/', 'correction', 'corrections');
+});

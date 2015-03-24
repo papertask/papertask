@@ -19,8 +19,12 @@ angularApp.filter('dateFormat', function($filter)
 });
 angularApp.controller('ProjectDetailController', function($scope, $http, $location, ProjectApi, DateFormatter, ProjectStatus,
                                                           ProjectServiceLevel, ProjectPriority, StaffApi, ClientApi,
-                                                          FieldApi, ProjectType, TaskApi, TaskStatus, $q){
+                                                          FieldApi, ProjectType, TaskApi, TaskStatus,
+                                                          FeedbackQuality, FeedbackTime,
+                                                          $q){
 
+    $scope.q_values = FeedbackQuality.all();
+    $scope.t_values = FeedbackTime.all();
     $scope.DateFormatter = DateFormatter;
     $scope.ProjectStatus = ProjectStatus;
     $scope.ProjectServiceLevel = ProjectServiceLevel;
@@ -394,15 +398,31 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
 
     $scope.setItemApi(TaskApi);
 
+    var templateCorrection = {
+        options: {},
+        message: "Describe your feedback in details to improve quality of service.",
+        buttonTitle: "Submit"
+    };
+
     function attachData($task){
         $task.type = ProjectType.get($task.type);
         $task.status = TaskStatus.get($task.status);
         $task.files = [];
+
+        var mockC = Object.create(templateCorrection);
+        mockC.language = $task.language;
+        mockC.task = $task;
+        mockC.project_id = $scope.project.id;
+        mockC.needToCreate = true;
+        $task.correction = mockC;
     }
 
     function createTask(){
         if(jQuery("#tasks form").valid()){
             var newTask = $scope.newTask;
+            newTask.name = newTask.name ? newTask.name : "";
+            newTask.startDate = $scope.project.startDate.date;
+            newTask.dueDate = $scope.project.dueDate.date;
             newTask.project_id = $scope.project.id;
             newTask.status = TaskStatus.unassigned;
 
@@ -450,7 +470,6 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
     $scope.sendToClientPool = sendToClientPool;
 
     $scope.$watch(function(){
-		
         return $scope.project;
     }, function(){
         if(typeof($scope.project.id) != 'undefined'){
@@ -499,18 +518,20 @@ angularApp.controller("ProjectActivitiesController", function($scope, ActivityAp
 angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi, FeedbackQuality, FeedbackTime){
     $scope.q_values = FeedbackQuality.all();
     $scope.t_values = FeedbackTime.all();
-
+var fb_dump = [];
     var prepare = function(feedback){
         feedback.buttonTitle = "Update";
         feedback.qualityTitle = $scope.q_values[Number(feedback.quality)-1].name;
         feedback.timeTitle = $scope.q_values[Number(feedback.turnAroundTime)-1].name;
         // console.log($scope.q_values[feedback.quality].name);
+        fb_dump[feedback.task.id] = feedback;
     };
 
     var templateFeedback = {
         quality: 3,
         turnAroundTime: 3,
-        message: "Describe your feedback in details to improve quality of service."
+        message: "Describe your feedback in details to improve quality of service.",
+        buttonTitle: "Submit"
     };
 
     $scope.newFeedback = Object.create(templateFeedback);
@@ -547,12 +568,12 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi,
                     return true;
                 }
             })){
-                var mockFb = Object.create(templateFeedback);
-                mockFb.language = task.language;
-                mockFb.task = task;
-                mockFb.project_id = $scope.project.id;
-                mockFb.needToCreate = true;
-                $feedbacks.push(mockFb);
+                // var mockFb = Object.create(templateFeedback);
+                // mockFb.language = task.language;
+                // mockFb.task = task;
+                // mockFb.project_id = $scope.project.id;
+                // mockFb.needToCreate = true;
+                // $feedbacks.push(mockFb);
             }
         });
 
@@ -567,9 +588,137 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi,
             $scope.refresh();
         }
     });
+
+    function attachTaskFeedbacks(){
+        if(fb_dump !== "done" && fb_dump.length !== 0){
+            $scope.project.tasks.forEach(function(task) {
+                if(fb_dump[task.id])
+                    task.feedback = fb_dump[task.id];
+                else {
+                var mockFb = Object.create(templateFeedback);
+                mockFb.language = task.language;
+                mockFb.task = task;
+                mockFb.project_id = $scope.project.id;
+                mockFb.needToCreate = true;
+                    task.feedback = mockFb;
+            }
+        });
+            fb_dump = "done";
+        }
+    }
+
+    $scope.$watch(function(){
+        return !!($scope.project.tasks && $scope.project.tasks.length && fb_dump.length && fb_dump !== "done");
+    }, function(){
+        attachTaskFeedbacks();
+    });
 });
 
-angularApp.controller("ProjectFilesController", function($scope, $http, $window){
+angularApp.controller("ProjectCorrectionController", function($scope, CorrectionApi){
+    var c_dump = [], c_empty = false;
+
+    var prepare = function(correction){
+        correction.buttonTitle = "Update";
+        // correction.options = ;
+        c_dump[correction.task.id] = correction;
+    };
+
+    var templateCorrection = {
+        options: {sampleOption: 34, sampleOption2: "trr"},
+        message: "Describe your feedback in details to improve quality of service.",
+        buttonTitle: "Submit"
+    };
+
+    $scope.setItemApi(CorrectionApi);
+
+    $scope.custom.afterLoadItems = function($corrections){
+        $corrections.forEach(prepare);
+        if(!$corrections.length) c_empty = true;
+    }
+
+    $scope.$watch(function(){
+        return $scope.project;
+    }, function(){
+        if(typeof($scope.project.id) != 'undefined'){
+            $scope.filter.project_id = $scope.project.id;
+            $scope.refresh();
+        }
+    });
+
+    function attachTaskCorrections(){
+        if(c_dump !== "done" && c_dump.length !== 0){
+            $scope.project.tasks.forEach(function(task) {
+                if(c_dump[task.id])
+                    task.correction = c_dump[task.id];
+                else {
+                    // var mockC = Object.create(templateCorrection);
+                    // mockC.language = task.language;
+                    // mockC.task = task;
+                    // mockC.project_id = $scope.project.id;
+                    // mockC.needToCreate = true;
+                    // task.correction = mockC;
+                }
+            });
+            c_dump = "done";
+        }
+    }
+
+    $scope.$watch(function(){
+        return !!($scope.project.tasks && $scope.project.tasks.length && c_dump.length && c_dump !== "done");
+    }, function(){
+        attachTaskCorrections();
+    });
+});
+
+angularApp.controller("ProjectFilesController", function($scope, $http, $window, TaskApi, FeedbackApi, CorrectionApi){
+    $scope.sendFeedback = function(task){
+        task.feedback.buttonTitle = "Sending...";
+
+        var newFeedback = task.feedback;
+        newFeedback.task = {id: task.id};
+        newFeedback.project_id = $scope.project.id;
+
+        TaskApi.update(task.id, { 'status_id' : 1 }, function($res){
+            console.log($res);
+        });
+
+        FeedbackApi.create(newFeedback, function($newFeedback){
+            // $scope.newFeedback = Object.create(templateFeedback);
+            // $scope.items.push($newFeedback);
+            console.log($newFeedback);
+            task.feedback.buttonTitle = "Updated!";
+            location.reload();
+        });
+    }
+
+    $scope.requestCorrection = function(task){
+        // task.feedback.buttonTitle = "Sending...";
+
+        var newCorrection = task.correction;
+        newCorrection.task = {id: task.id};
+        newCorrection.options = newCorrection.options;
+        newCorrection.project_id = $scope.project.id;
+
+        TaskApi.update(task.id, { 'status_id' : 3 }, function($res){
+            console.log($res);
+        });
+
+        if(newCorrection.needToCreate)
+            CorrectionApi.create(newCorrection, function($res){
+                // $scope.newFeedback = Object.create(templateFeedback);
+                // $scope.items.push($newFeedback);
+                console.log($res);
+                // task.feedback.buttonTitle = "Updated!";
+                location.reload();
+            });
+        else
+            CorrectionApi.update(newCorrection.id , newCorrection, function($newCorrection){
+                // $scope.newFeedback = Object.create(templateFeedback);
+                // $scope.items.push($newFeedback);
+                console.log($newCorrection);
+});
+    }
+
     $scope.files = [];
     $scope.taskFiles = [];
 
@@ -603,11 +752,11 @@ angularApp.controller("ProjectFilesController", function($scope, $http, $window)
         $window.open("/" + LANG_CODE + "/admin/project/downloadFile?token="+token, '_blank');
     };
 
+    init();
+
     $scope.$watch(function(){
         return !!($scope.project.tasks && $scope.project.tasks.length && $scope.taskFiles && $scope.taskFiles.length);
     }, function(){
         attachTaskFiles();
     });
-
-    init();
 });
