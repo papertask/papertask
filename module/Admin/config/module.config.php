@@ -64,6 +64,8 @@ return array(
             'Admin\Controller\Staff' => 'Admin\Controller\StaffController',
             'Admin\Controller\Task' => 'Admin\Controller\TaskController',
             'Admin\Controller\ResetPassword' => 'Admin\Controller\ResetPasswordController',
+			'Admin\Controller\Finance' => 'Admin\Controller\FinanceController',
+			
         ),
     ),
     'view_manager' => array(
@@ -109,6 +111,10 @@ return array(
             'admin/staff/view' => __DIR__ . '/../view/admin/staff/view.phtml',
             'admin/task/new' => __DIR__ . '/../view/admin/task/new.phtml',
 			'admin/task/detail' => __DIR__ . '/../view/admin/task/detail.phtml',
+			
+			'admin/finance/client-unpaid' => __DIR__ . '/../view/admin/finance/client-unpaid.phtml',
+			'admin/finance/add-incomming' => __DIR__ . '/../view/admin/finance/add-incomming-transaction-record.phtml',
+			
         ),
         'layout' => 'layout/admin',
         'template_path_stack' => array(

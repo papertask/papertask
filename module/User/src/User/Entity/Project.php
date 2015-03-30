@@ -62,6 +62,11 @@ class Project extends Entity{
      * @ORM\Column(type="decimal", scale=2, precision=6)
      */
     protected $discount = 0.00;
+	/**
+     * @var float
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $total_tmp = 0.00;
 
     /**
      * @var integer
@@ -154,7 +159,7 @@ class Project extends Entity{
 
     public function getData(){
         return [
-            'client' => $this->client->getEmployer()->getData(),
+            'client' => ($this->client->getEmployer())?$this->client->getEmployer()->getData():null,
 			'userid' => $this->client->getId(),
             'dueDate' => $this->dueDate,
 			'quote_no' => $this->quote_no,
@@ -176,6 +181,7 @@ class Project extends Entity{
 			'po' => $this->po,
 			'sourcetext' => $this->sourcetext,
 			'currency' =>  $this->currency,
+			'total_tmp' => $this->total_tmp,
             'types' => $this->types
         ];
     }

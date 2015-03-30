@@ -72,6 +72,14 @@ $allow_all = array(
 	'staff\view',
 	'staff\edit-profile',
 	'staff\uploadFile',
+	//finance
+	'finance\client-unpaid',
+	'finance\add-incomming',
+	'finance\add-otgoing',
+	'finance\getProjectUnpaidList',
+	'finance\getFreelancerUnpaidList',
+	'finance\getClientUnpaid',
+	
 	// -- Email
 	'email\index',
 	'email\new',

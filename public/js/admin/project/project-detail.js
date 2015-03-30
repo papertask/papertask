@@ -199,7 +199,6 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 					return existsIdInArray($scope.project.types, 1);
 				};
 				$scope.hasTypeTranslationUseTM = function(item){
-					console.log(item);
 					if(!item)
 						return false;
 					else	
@@ -242,7 +241,9 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 		});	
 	}
 	$scope.quoteAccepted= function ( ) {
-		var updateInvoiceDate= $http.put("/api/admin/project/" + $scope.project.id + "?action=2", $scope.project)
+		
+		console.log($scope.project);
+		var updateInvoiceDate = $http.put("/api/admin/project/" + $scope.project.id + "?action=2", $scope.project)
 		.success( function ( $data ) {
 			//show tap
 			location.reload();
@@ -354,6 +355,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
 					$scope.tax = $scope.currency + " " + tax.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					
 					var total = Number(subtotal_tmp - $scope.project.discount + (subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
+					$scope.project.total_tmp = total;
 					$scope.total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					$scope.itermtmnew[$scope.project.targetLanguages[i].id].push(Itemr[j]);
 				}	
@@ -440,7 +442,7 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
             attachData($tasks[i]);
         }
         $scope.project.tasksNum = $tasks.length;
-        $scope.project.tasks = $tasks;
+        //$scope.project.tasks = $tasks;
     }
     $scope.custom.afterLoadItems = afterLoadItems;
 

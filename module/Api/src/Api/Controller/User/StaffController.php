@@ -99,8 +99,7 @@ class StaffController extends AbstractRestfulController
     }
 
     public function getList(){
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		
         $entityManager = $this->getEntityManager();
         $user = $this->getCurrentUser();
 

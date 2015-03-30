@@ -240,13 +240,17 @@ class EmployerController extends AbstractRestfulController
     }
     
     public function getList( ) {
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
+		
+		
         $entityManager = $this->getEntityManager();
         
         $employerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::EMPLOYER_GROUP_ID);
         $employerList = $entityManager->getRepository('User\Entity\User');
         $queryBuilder = $employerList->createQueryBuilder('user');
         $request = $this->getRequest();
-		
+		//var_dump($employerGroup);exit;
         if($request->getQuery('search') && $request->getQuery('company')){
             $company = $entityManager->getRepository('User\Entity\Company')->findBy(array('id'=>$request->getQuery('company')));
             $queryBuilder->leftJoin('user.employer', 'employer')->where('employer.company=?1')->setParameter(1, $company);

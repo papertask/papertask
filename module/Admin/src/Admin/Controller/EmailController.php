@@ -104,14 +104,18 @@ class EmailController extends AbstractActionController
     public function newAction(){
         $form = new TemplateTypeForm();
         $request = $this->getRequest();
+		$lang_code = $this->params()->fromRoute('lang');
         if($request->isPost()){
             $form->setData($request->getPost());
             if($form->isValid()){
                 $entityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
                 $form->save($entityManager);
-                return $this->redirect()->toUrl('/admin/email');
+                //return $this->redirect()->toUrl('/admin/email');
+				
+				return $this->redirect()->toUrl("/$lang_code/admin/email");
             }
         }
+		
         return new ViewModel(array('form' => $form));
     }
 

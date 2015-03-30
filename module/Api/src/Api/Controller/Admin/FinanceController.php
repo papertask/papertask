@@ -25,7 +25,7 @@ use User\Entity\Invoice;
 
 use User\Entity\Activity;
 
-class ProjectController extends AbstractRestfulJsonController
+class FinanceController extends AbstractRestfulJsonController
 {
     /**
      * Clean data from angular

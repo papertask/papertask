@@ -238,10 +238,10 @@ angularApp.factory("ProjectField", function(){
 angularApp.factory("PayStatus", function(){
     var statuses = [{
         'id': 1,
-        'name': 'Paid'
+        'name': 'UnPaid'
     },{
         'id': 2,
-        'name': 'Unpaid'
+        'name': 'Paid'
     }];
     return {
         get: function ($id) {
