@@ -67,7 +67,7 @@ class File extends Entity{
 
     public function getData(){
         return [
-            // 'id' => $this->id,
+            'id' => $this->id,
 			'name' => $this->name,
 			// 'path' => $this->path,
 			'size' => $this->size,
