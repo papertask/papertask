@@ -48,6 +48,10 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
         tasksNum: 0,
         activitiesNum: 0,
     };
+	$scope.task = {
+        total: 0,
+    };
+	$scope.task_total = 0;
 	$scope.tempTask = {};
 	$scope.telephone = [];
 	$scope.projectId ='';
@@ -1154,6 +1158,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				if(Itemr[j].language.id == $scope.project.targetLanguages[i].id){
 					$scope.subtotal_tmp = $scope.subtotal_tmp + parseFloat(Itemr[j].total);
 					var total = Number(Itemr[j].total);
+					$scope.task_total = $scope.task_total + total;
 					var rate = Number(Itemr[j].rate);
 					var subtotal_tmp = Number($scope.subtotal_tmp);
 					console.log(total);					
@@ -1189,8 +1194,9 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					var tax = Number((subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
 					$scope.tax = $scope.currency + " " + tax.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					
-					var total = Number(subtotal_tmp - $scope.project.discount + (subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
-					$scope.total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+					var total_tm = Number( (subtotal_tmp - $scope.project.discount)* $scope.project.tax/100 + subtotal_tmp - $scope.project.discount );
+					
+					$scope.total = $scope.currency + " " + total_tm.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					$scope.itermtmnew[$scope.project.targetLanguages[i].id].push(Itemr[j]);
 				}	
 			}
@@ -1200,7 +1206,10 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	
 	// update task
 	$scope.assignFre = function(){
+		
+		$scope.task.freelancerassign.total = $scope.task_total;
 		console.log($scope.task.freelancerassign);
+		
 		if($scope.task.freelancerassign){
 			
 			var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)

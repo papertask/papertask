@@ -1,0 +1,217 @@
+<?php echo  $this->headTitle($this->translate('Unpaid Project')) ?>
+<!-- Scripts -->
+<?php echo  $this->headLink()
+    ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
+	 ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
+    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
+    ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
+    ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+	->prependStylesheet($this->basePath() . '/css/plugins/iCheck/custom.css')
+	
+?>
+
+<?php
+echo $this->headScript ()
+	->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
+	->prependFile( $this->basePath() . '/js/admin/finance/add-outcome.js')
+	->prependFile($this->basePath() . '/js/plugins/iCheck/icheck.min.js')
+	->prependFile($this->basePath() . '/js/admin/common/angular/ItemListController.js')
+    ->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
+    ->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
+    ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
+    ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload', 'ui.bootstrap']);")
+    ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-tpls-0.11.2.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-0.11.2.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
+    ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
+    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
+	
+    ->prependFile($this->basePath() . '/js/inspinia.js');
+
+$this->inlineScript()
+    ->prependScript("
+		var USER_ID = '" . $this->userid . "';
+		var LANG_CODE = '" . $this->lang_code . "';
+        var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+    ");
+?>
+					
+<div class="row" ng-controller="AddOutcomeController" id = "AddOutcomeController" ng-init="init()">
+	<div class="col-lg-12">
+		<div class="wrapper wrapper-content animated fadeInUp">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h5><i class="fa fa-sign-out"></i> Add Outgoing Transaction Record</h5>
+				</div>
+				<form id="form">
+				<div class="ibox-content">
+					
+							<div class="row">
+                                <div class="col-sm-6">
+                                    <h5>From:</h5> <!-- if incomming, then this should from Client,if outgoing, then here should be Papertask -->
+                                    <address>
+                                        <strong>{{companyinfo1.name}}</strong><br>
+                                        {{companyinfo1.address}}<br>
+                                        {{companyinfo1.city}}, {{companyinfo1.country}}<br>
+                                        <abbr title="Phone">P:</abbr> {{companyinfo1.telephone}}
+                                    </address>
+									
+									
+                                </div>
+
+                                <div class="col-sm-6 text-right">
+                                    <h5>To:</span></h5>
+                                    <strong>{{userInfo.firstName}}, {{userInfo.lastName}}</strong><br>
+                                    <address>
+                                        {{userInfo.address}}<br>
+                                        {{userInfo.city}} , {{userInfo.country.name}}<br>
+                                        <abbr title="Phone">P:</abbr> {{userInfo.phone}}
+                                    </address>
+
+                                </div>
+                            </div>
+							
+							<div class="hr-line-dashed"></div>
+							
+                            <div class="row form-horizontal">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">From Account(PaperTask) </label>
+                                        <div class="col-sm-8">
+											
+											<select class="form-control valid" name="" aria-required="true"
+													ng-model="outtransaction.bankinfo"
+													ng-options="bankinfo.name for bankinfo in bankinfos track by bankinfo.id">
+												<option value=""><?php echo $this->translate("Choose Account") ?></option>
+											</select>
+											
+											
+                                           
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" id="ordered_date">
+                                        <label class="col-sm-4 control-label">Pay Date *</label>
+
+                                        <div class="col-sm-8">
+                                            <div class="input-group date">
+											
+												<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+												<input data-field="datetime" type="text" readonly class="form-control required valid" name="payDate"
+												   ng-model="outtransaction.payDate">
+                                            </div>
+											<div class="dtbox"></div>
+											
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+								
+									 
+									<div class="form-group">
+                                        <label class="col-sm-4 control-label">To Account(Freelancer) </label>
+                                        <div class="col-sm-8">
+											
+											<select class="form-control valid" name="" aria-required="true"
+													ng-model="outtransaction.bankinfouser"
+													ng-options="bankinfo.name for bankinfo in bankinfos track by bankinfo.id">
+												<option value=""><?php echo $this->translate("Choose Account") ?></option>
+											</select>
+											
+											
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="">
+                                        <label class="col-sm-4 control-label">Transaction Number *</label>
+										   
+                                        <div class="col-sm-8">
+                                            <input name="transactionnumber" class="form-control required"
+                                           ng-model="outtransaction.transactionno" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="">
+                                        <label class="col-sm-4 control-label">Fapiao Number *</label>
+                                        <div class="col-sm-8">
+											<input name="fapiaono" class="form-control required"
+                                           ng-model="outtransaction.fapiaono" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+					 <div class="table-responsive">
+						<table class="table">
+							<thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Task ID</th>
+                                    <th>Project Reference</th>
+                                    <th>Status</th>
+                                    <th>Completed Date</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+							<tbody>
+									<tr ng-repeat="tu in tus"> 
+										<td><input type="checkbox" class="i-checks" name="input[]" ng-click="toggleResource(tu)"></td>
+										<td>{{tu.id}}</td>
+										<td>{{tu.reference}}</td>
+										<td>{{ ProjectStatus.get(tu.status).name }}</td>
+										<td>{{ DateFormatter.short(tu.startDate) }}</td>
+										<td>{{tu.currency}} {{tu.total}}</td>
+									</tr>
+								
+							</tbody>
+						</table>
+					 </div>
+					 
+							<table class="table invoice-total">
+                                <tbody>
+                                <tr>
+                                    <td><strong>Sub Total :</strong></td>
+                                    <td>{{outtransaction.subtotal_show}}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>(-) Transaction Fee :</strong></td>
+                                    <td>
+									<input name="transactionnumber" class="form-control"
+                                           ng-model="outtransaction.transactionfee" type="text" ng-change="changefee()" />
+                                </tr>
+                                <tr>
+                                    <td><strong>TOTAL :</strong></td>
+                                    <td>{{outtransaction.total_show}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+							<div class="text-right">
+								<button class="btn btn-primary" type="submit">
+								<i class="fa fa-dollar"></i> Create Transaction</button>
+							</div>
+						
+				</div>
+				</form>	
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('.dtbox').DateTimePicker();
+		
+        // trigger datetime picker when click to calendar icon
+        // TODO: this is not working
+        $('i.fa.fa-calendar').on('click', function(e){
+            console.log('clicked');
+            e.preventDefault();
+
+            $(this).parents('.input-group').find('input[readonly]').click();
+        });
+    });
+</script>

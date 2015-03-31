@@ -20,6 +20,7 @@ use Zend\Paginator\Paginator;
 use Admin\Model\Helper;
 use User\Entity\User;
 use User\Entity\Project;
+use User\Entity\Task;
 use User\Entity\UserGroup;
 use User\Entity\UserDesktopPrice;
 use User\Entity\UserTranslationPrice;
@@ -41,10 +42,22 @@ class FinanceController extends AbstractActionController {
 			"userid" => $userid
         ));
     }
-    
+    public function addOutcommingAction() {
+        $lang_code = $this->params()->fromRoute('lang');
+		$userid = (int)$this->getRequest()->getQuery('id');
+		return new ViewModel(array(
+			"lang_code" => $lang_code,
+			"userid" => $userid
+        ));
+    }
     public function clientUnpaidAction() {
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+        $lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code
+        ));
+
+    } 
+	public function freelancerUnpaidAction() {
 	
         $lang_code = $this->params()->fromRoute('lang');
 		return new ViewModel(array(
@@ -52,6 +65,123 @@ class FinanceController extends AbstractActionController {
         ));
 
     } 
+	public function getTaskUnpaidListAction() {
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		
+		$entityManager = $this->getEntityManager();
+        $freelancerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::FREELANCER_GROUP_ID);
+        $freelancerList = $entityManager->getRepository('User\Entity\User');
+        $queryBuilder = $freelancerList->createQueryBuilder('user');
+		$queryBuilder->where("user.group=?1")->setParameter(1, $freelancerGroup);
+        
+		$adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
+        $paginator = new Paginator($adapter);
+        $paginator->setDefaultItemCountPerPage(10);
+		
+		$page = (int)$this->getRequest()->getQuery('page');
+        if($page) $paginator->setCurrentPageNumber($page);
+        $data = array();
+		
+        
+        foreach($paginator as $user){
+			
+			//get list project
+			$userdata = $user->getData();
+			
+			$taskList = $entityManager->getRepository('User\Entity\Task');
+			//->findBy(array('group' => $freelancerGroup));
+			$queryBuilder_tmp = $taskList->createQueryBuilder('task');
+			$queryBuilder_tmp->andWhere('task.is_deleted = 0');
+			$queryBuilder_tmp->andWhere('task.payStatus = 1');
+			$queryBuilder_tmp->andWhere('task.assignee = ?1')->setParameter(1, $user->getFreelancer());	
+			$query = $queryBuilder_tmp->getQuery();
+			$result = $query->getArrayResult();
+			$data[$userdata['id']]['task'] = $result;
+			$data[$userdata['id']]['freelancer'] = $userdata;
+			
+        }
+		//var_dump($data);exit;
+		return new JsonModel(array(
+            'tus' => $data,
+            'pages' => $paginator->getPages()
+        ));
+		
+       /* $projectList = $entityManager->getRepository('User\Entity\Project');
+        $queryBuilder = $projectList->createQueryBuilder('project');
+        $queryBuilder->andWhere('project.is_deleted = 0');
+		$queryBuilder->andWhere('project.payStatus = 1');
+        if($project_id = $this->params()->fromQuery('project_id')){
+            $queryBuilder->andWhere($queryBuilder->expr()->eq('project.id', $project_id));
+        }
+        if($reference = $this->params()->fromQuery('reference')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->like('project.reference',
+                $queryBuilder->expr()->literal("%$reference%")));
+        }
+        if($field = $this->params()->fromQuery('field')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('project.field', $field['id'])
+            );
+        }
+        if($status = $this->params()->fromQuery('status')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('project.status', $status['id'])
+            );
+        }
+        
+        if($sale = $this->params()->fromQuery('sale')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('project.sale', $sale['id'])
+            );
+        }
+        if($pm = $this->params()->fromQuery('pm')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('project.pm', $pm['id'])
+            );
+        }
+        if($clientId = $this->params()->fromQuery('clientId')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('project.client', $clientId)
+            );
+        }
+        if($startDate = $this->params()->fromQuery('startDate')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->gte('project.startDate', $startDate)
+            );
+        }
+        if($dueDate = $this->params()->fromQuery('dueDate')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->gte('project.dueDate', $dueDate)
+            );
+        }
+        if($source = $this->params()->fromQuery('source')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->gte('project.sourceLanguage', $source['id'])
+            );
+        }
+        if($target = $this->params()->fromQuery('target')){
+        }
+		$queryBuilder->orderBy('project.client', 'DESC');
+        $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
+        $paginator = new Paginator($adapter);
+        $paginator->setDefaultItemCountPerPage(10);
+
+        $page = (int)$this->getRequest()->getQuery('page');
+        if($page) $paginator->setCurrentPageNumber($page);
+        $data = array();
+		$client = array();
+        $helper = new Helper();
+        foreach($paginator as $user){
+            $userData = $user->getData();
+            $data[$userData['userid']][] = $userData;
+			if(!in_array($userData['userid'],$client) && $userData['userid'] > 0)
+				$client[] = $userData['userid']; 
+        }*/
+        //var_dump($paginator);die;
+        
+    }
+
 	public function getClientUnpaidAction() {
 	
 		$userId = (int)$this->getRequest()->getQuery('id');
@@ -67,6 +197,25 @@ class FinanceController extends AbstractActionController {
 		$result = $query->getArrayResult();
 		return new JsonModel(array(
             'projectlist' => $result,
+        ));
+		
+	}
+	public function getFreelancerUnpaidAction() {
+	
+		$userId = (int)$this->getRequest()->getQuery('id');
+        $entityManager = $this->getEntityManager();
+        $user = $this->getUserById($userId);
+		
+		//get all project
+		$taskList = $entityManager->getRepository('User\Entity\Task');
+		$queryBuilder_tmp = $taskList->createQueryBuilder('task');
+		$queryBuilder_tmp->andWhere('task.is_deleted = 0');
+		$queryBuilder_tmp->andWhere('task.payStatus = 1');
+		$queryBuilder_tmp->andWhere('task.assignee = ?1')->setParameter(1, $user->getFreelancer());	
+		$query = $queryBuilder_tmp->getQuery();
+		$result = $query->getArrayResult();
+		return new JsonModel(array(
+            'tasklist' => $result,
         ));
 		
 	}

@@ -113,7 +113,9 @@ return array(
 			'admin/task/detail' => __DIR__ . '/../view/admin/task/detail.phtml',
 			
 			'admin/finance/client-unpaid' => __DIR__ . '/../view/admin/finance/client-unpaid.phtml',
+			'admin/finance/freelancer-unpaid' => __DIR__ . '/../view/admin/finance/freelancer-unpaid.phtml',
 			'admin/finance/add-incomming' => __DIR__ . '/../view/admin/finance/add-incomming-transaction-record.phtml',
+			'admin/finance/add-outcomming' => __DIR__ . '/../view/admin/finance/add-outcomming-transaction-record.phtml',
 			
         ),
         'layout' => 'layout/admin',

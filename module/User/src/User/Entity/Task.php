@@ -89,6 +89,16 @@ class Task extends Entity{
      * @ORM\Column(type="datetime")
      */
     protected $dueDate;
+	/**
+     * @var int
+     * @ORM\Column(type="integer",options={"default" = 1})
+     */
+    protected $payStatus = 1;
+	/**
+     * @var float
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $total = 0.00;
 
     public function getData(){
         return [
@@ -104,6 +114,7 @@ class Task extends Entity{
             'type' => $this->type,
 			'dueDate' => $this->dueDate,
 			'startDate' => $this->startDate,
+			'total' => $this->total,
         ];
     }
 }

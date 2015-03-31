@@ -105,6 +105,7 @@ class TaskController extends AbstractRestfulJsonController
 			$freelancer = $this->find('\User\Entity\Freelancer', $data['freelancerid']);
 			$task->setData([
 				'assignee' => $freelancer,
+				'total' => $data['total'],
 			]);
         }
 		else if($action==3)//sendToSpecialismPool

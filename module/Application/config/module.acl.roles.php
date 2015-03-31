@@ -74,11 +74,13 @@ $allow_all = array(
 	'staff\uploadFile',
 	//finance
 	'finance\client-unpaid',
+	'finance\freelancer-unpaid',
 	'finance\add-incomming',
-	'finance\add-otgoing',
+	'finance\add-outcomming',
 	'finance\getProjectUnpaidList',
-	'finance\getFreelancerUnpaidList',
+	'finance\getTaskUnpaidList',
 	'finance\getClientUnpaid',
+	'finance\getFreelancerUnpaid',
 	
 	// -- Email
 	'email\index',

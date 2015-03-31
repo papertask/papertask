@@ -110,6 +110,7 @@ return array(
 			'Api\Controller\Admin\ProjectIterminterpreting' => 'Api\Controller\Admin\ProjectIterminterpretingController',
 			'Api\Controller\Admin\Invoice' => 'Api\Controller\Admin\InvoiceController',
 			'Api\Controller\Admin\Incometransaction' => 'Api\Controller\Admin\IncometransactionController',
+			'Api\Controller\Admin\Outcometransaction' => 'Api\Controller\Admin\OutcometransactionController',
 			
             'Api\Controller\Admin\Staff' => 'Api\Controller\Admin\StaffController',
             'Api\Controller\Admin\Task' => 'Api\Controller\Admin\TaskController',
