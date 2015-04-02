@@ -289,7 +289,7 @@ class ProjectController extends AbstractRestfulJsonController
             // project description isn't saved to DB project entity now
             'message' => $data['description'],
         ]);
-        //$activity->save($this->getEntityManager());
+        $activity->save($this->getEntityManager());
 
         return new JsonModel([
             'project' => $project->getData(),
