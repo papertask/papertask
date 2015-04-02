@@ -25,6 +25,7 @@ angularApp.controller('ClientUnpaidController', function($scope, $http, $timeout
 	$scope.init = function () {
 		var ajaxProjectUnpaidlist = $http.get("/" + LANG_CODE + "/admin/finance/getProjectUnpaidList")
             .success( function ( $data ) {
+			$scope.pages = $data.pages;
                 $scope.pus_tmp = $data.pus;
 				$scope.pus = [];
 				angular.forEach($scope.pus_tmp, function(element) {

@@ -13,7 +13,7 @@ use Common\Entity;
 
 
 /** @ORM\Entity */
-class Intransaction extends Entity{
+class Transaction extends Entity{
 
     /**
      * @ORM\Id
@@ -50,7 +50,12 @@ class Intransaction extends Entity{
      * @ORM\Column(type="decimal", scale=2, precision=6)
      */
     protected $total = 0.00;
-
+	
+	/**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    protected $typeStatus = 1;  # 1 : incoming , outgoing : 2
     
 
     /**
@@ -70,6 +75,18 @@ class Intransaction extends Entity{
      * @ORM\ManyToOne(targetEntity="Field")
      */
     protected $bank;
+	
+	/**
+     * @var string
+     * @ORM\Column(type="string", nullable=True)
+     */
+    protected $bankuser;
+	
+	/**
+     * @var string
+     * @ORM\Column(type="string", nullable=True)
+     */
+    protected $currency;
 
     /**
      * @var \User\Entity\User
@@ -77,8 +94,11 @@ class Intransaction extends Entity{
      */
     protected $client;
 	
-	
-
+	/**
+     * @var \User\Entity\User
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    protected $freelancer;
     
     /**
      * @var bool
@@ -91,13 +111,15 @@ class Intransaction extends Entity{
      * @var int
      * @ORM\Column(type="array", length=255, nullable=True)
      */
-    protected $projects;
+    protected $items;
 	
 	
 
     public function getData(){
         return [
-            'client' => ($this->client->getEmployer())?$this->client->getEmployer()->getData():null,
+			'id' => $this->id,
+            'client' => ($this->client)?$this->client->getEmployer()->getData():null,
+            'freelancer' => ($this->freelancer)?$this->freelancer->getData():null,
             'createDate' => $this->createDate,
 			'payDate' => $this->payDate,
 			'intrans_no' => $this->intrans_no,
@@ -107,7 +129,10 @@ class Intransaction extends Entity{
             'total' => $this->total,
             'subtotal' => $this->subtotal,
             'bank' => $this->bank->getData(),
-            'projects' => $this->projects
+			'bankuser' => $this->bankuser,
+            'items' => ($this->items)?$this->items:null,
+			'typeStatus' => $this->typeStatus,
+			'currency' => $this->currency,
         ];
     }
 	

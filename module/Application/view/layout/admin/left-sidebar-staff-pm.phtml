@@ -42,9 +42,15 @@
             <li>
                 <a href="#"><i class="fa fa-book"></i> <span class="nav-lable">Finance</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="transaction.html">Transactions</a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
-                    <li><a href="client-unpaid.html">Unpaid Projects</a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
-                    <li><a href="freelancer-unpaid.html">Unpaid Tasks</a></li>  <!-- admin, operation manager can see, and PM can see, but sales and sales director can not see -->
+                    <li><a href="<?php
+                        echo $this->url('admin', array('controller' => 'finance', 'action' => 'transaction',"lang"=>$this->translate('lang','Application')))
+                        ?>"><?php echo $this->translate("Transactions") ?></a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
+                    <li><a href="<?php
+                        echo $this->url('admin', array('controller' => 'finance', 'action' => 'client-unpaid',"lang"=>$this->translate('lang','Application')))
+                        ?>"><?php echo $this->translate("Unpaid Projects") ?></a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
+                    <li><a href="<?php
+                        echo $this->url('admin', array('controller' => 'finance', 'action' => 'freelancer-unpaid',"lang"=>$this->translate('lang','Application')))
+                        ?>"><?php echo $this->translate("Unpaid Tasks") ?></a></li>  <!-- admin, operation manager can see, and PM can see, but sales and sales director can not see -->
                 </ul>
             </li>
             <li>

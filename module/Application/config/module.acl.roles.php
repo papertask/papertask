@@ -76,11 +76,17 @@ $allow_all = array(
 	'finance\client-unpaid',
 	'finance\freelancer-unpaid',
 	'finance\add-incomming',
-	'finance\add-outcomming',
+	'finance\add-outgoing',
 	'finance\getProjectUnpaidList',
 	'finance\getTaskUnpaidList',
 	'finance\getClientUnpaid',
 	'finance\getFreelancerUnpaid',
+	'finance\transaction',
+	'finance\getTransactionList',
+	'finance\incomming-detail',
+	'finance\outgoing-detail',
+	'finance\getTransaction',
+	'finance\getTransactionTask',
 	
 	// -- Email
 	'email\index',

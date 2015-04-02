@@ -34,7 +34,70 @@ class FinanceController extends AbstractActionController {
     protected $requiredLogin = true;
     
     
-    public function addIncommingAction() {
+    public function transactionAction() {
+        $lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code
+        ));
+
+    } 
+	public function incommingDetailAction(){
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		
+		 $lang_code = $this->params()->fromRoute('lang');
+		 $transid = (int)$this->getRequest()->getQuery('id');
+		return new ViewModel(array(
+			"lang_code" => $lang_code,
+			"transid" => $transid,
+        ));
+	}
+	public function outgoingDetailAction(){
+		$lang_code = $this->params()->fromRoute('lang');
+		$transid = (int)$this->getRequest()->getQuery('id'); 
+		return new ViewModel(array(
+			"lang_code" => $lang_code,
+			"transid" => $transid,
+        ));
+	}
+	public function getTransactionAction(){
+		//get tran saction
+		$id = (int)$this->getRequest()->getQuery('id');
+		$entityManager = $this->getEntityManager();
+        $transaction = $this->find('User\Entity\Transaction', $id);
+		//get project
+		$data = $transaction->getData();
+		$projects = array();
+
+		foreach ($data['items'] as $item){
+			$project = $this->find('User\Entity\Project', $item);
+			$projects[] = $project->getData();
+		}
+		return new JsonModel(array(
+			"projects" => $projects,
+			'transaction' => $data,
+        ));
+	
+	}
+	public function getTransactionTaskAction(){
+		//get tran saction
+		$id = (int)$this->getRequest()->getQuery('id');
+		$entityManager = $this->getEntityManager();
+        $transaction = $this->find('User\Entity\Transaction', $id);
+		//get project
+		$data = $transaction->getData();
+		$tasks = array();
+
+		foreach ($data['items'] as $item){
+			$task = $this->find('User\Entity\Task', $item);
+			$tasks[] = $task->getData();
+		}
+		return new JsonModel(array(
+			"tasks" => $tasks,
+			'transaction' => $data,
+        ));
+	}
+	public function addIncommingAction() {
         $lang_code = $this->params()->fromRoute('lang');
 		$userid = (int)$this->getRequest()->getQuery('id');
 		return new ViewModel(array(
@@ -42,7 +105,7 @@ class FinanceController extends AbstractActionController {
 			"userid" => $userid
         ));
     }
-    public function addOutcommingAction() {
+    public function addOutgoingAction() {
         $lang_code = $this->params()->fromRoute('lang');
 		$userid = (int)$this->getRequest()->getQuery('id');
 		return new ViewModel(array(
@@ -65,6 +128,92 @@ class FinanceController extends AbstractActionController {
         ));
 
     } 
+	
+	public function getTransactionListAction() {
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		$entityManager = $this->getEntityManager();
+		$transactionList = $entityManager->getRepository('User\Entity\Transaction');
+		$queryBuilder = $transactionList->createQueryBuilder('transaction');
+		$queryBuilder->andWhere('transaction.is_deleted = 0');
+		if($trans_no = $this->params()->fromQuery('trans_no')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->like('transaction.intrans_no',
+                $queryBuilder->expr()->literal("%$trans_no%")));
+        }
+		if($trans_id = $this->params()->fromQuery('trans_id')){
+            $queryBuilder->andWhere($queryBuilder->expr()->eq('transaction.id', $trans_id));
+        }
+		if($fapiao_no = $this->params()->fromQuery('fapiao_no')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->like('transaction.fapiao_no',
+                $queryBuilder->expr()->literal("%$fapiao_no%")));
+        }
+		if($typeStatus = $this->params()->fromQuery('typeStatus')){
+            $queryBuilder->andWhere($queryBuilder->expr()->eq('transaction.typeStatus', $typeStatus));
+        }
+		
+		$adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
+        $paginator = new Paginator($adapter);
+        $paginator->setDefaultItemCountPerPage(10);
+
+        $page = (int)$this->getRequest()->getQuery('page');
+        if($page) $paginator->setCurrentPageNumber($page);
+		$data = array();
+        //$helper = new Helper();
+        foreach($paginator as $user){
+            $userData = $user->getData();
+			$data[] = $userData;
+        }
+		
+		$countProjectUnpaid = $entityManager->getRepository('User\Entity\Project');
+		$num_pu = $countProjectUnpaid->createQueryBuilder('project')
+			  ->select('COUNT(project.id) as num_pu, SUM(project.total_tmp) as balance_pu')
+			  ->andWhere('project.is_deleted = 0')
+			  ->andWhere('project.payStatus = 1')
+			  ->andWhere('project.currency = ?1')->setParameter(1, 'cny');
+		$count_pu_cny = $num_pu->getQuery()->getResult();
+		
+		$num_pu = $countProjectUnpaid->createQueryBuilder('project')
+			  ->select('COUNT(project.id) as num_pu, SUM(project.total_tmp) as balance_pu')
+			  ->andWhere('project.is_deleted = 0')
+			  ->andWhere('project.payStatus = 1')
+			  ->andWhere('project.currency = ?1')->setParameter(1, 'usd');
+		$count_pu_usd = $num_pu->getQuery()->getResult();
+		
+		$countProjectPaid = $entityManager->getRepository('User\Entity\Project');
+		
+		$num_pp = $countProjectPaid->createQueryBuilder('project')
+			  ->select('COUNT(project.id) as num_pp, SUM(project.total_tmp) as balance_pp ')
+			  ->andWhere('project.is_deleted = 0')
+			  ->andWhere('project.payStatus = 2')
+			  ->andWhere('project.currency = ?1')->setParameter(1, 'cny');
+		$count_pp_cny = $num_pp->getQuery()->getResult();
+		$num_pp = $countProjectPaid->createQueryBuilder('project')
+			  ->select('COUNT(project.id) as num_pp, SUM(project.total_tmp) as balance_pp ')
+			  ->andWhere('project.is_deleted = 0')
+			  ->andWhere('project.payStatus = 2')
+			  ->andWhere('project.currency = ?1')->setParameter(1, 'usd');
+		$count_pp_usd = $num_pp->getQuery()->getResult();
+		
+		//$dql = "SELECT SUM(e.total_tmp) AS balance FROM 'User\Entity\Project project " .
+		//	   "WHERE project.account = ?1";
+		//$balance = $em->createQuery($dql)
+		//			  ->setParameter(1, $myAccountId)
+		//			  ->getSingleScalarResult();
+		//var_dump($count_pu);
+		//var_dump($count_pp);exit;
+		
+		
+		return new JsonModel(array(
+            'transactionlist' => $data,
+            'pages' => $paginator->getPages(),
+			'count_pu_cny' => $count_pu_cny,
+			'count_pu_usd' => $count_pu_usd,
+			'count_pp_cny' => $count_pp_cny,
+			'count_pp_usd' => $count_pp_usd,
+        ));
+	}
 	public function getTaskUnpaidListAction() {
 		error_reporting(E_ALL);
 		ini_set('display_errors', 1);
@@ -74,7 +223,7 @@ class FinanceController extends AbstractActionController {
         $freelancerList = $entityManager->getRepository('User\Entity\User');
         $queryBuilder = $freelancerList->createQueryBuilder('user');
 		$queryBuilder->where("user.group=?1")->setParameter(1, $freelancerGroup);
-        
+
 		$adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
         $paginator->setDefaultItemCountPerPage(10);
@@ -220,8 +369,8 @@ class FinanceController extends AbstractActionController {
 		
 	}
 	public function getProjectUnpaidListAction() {
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
 		
 		$entityManager = $this->getEntityManager();
         $employerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::EMPLOYER_GROUP_ID);

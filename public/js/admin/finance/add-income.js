@@ -28,7 +28,7 @@ angularApp.controller('AddIncomeController', function($scope, $http, $timeout, $
 	$scope.pages 		= [];
 	$scope.employers 	= [];
 	$scope.intransaction = {
-		projectlist : [],
+		itemlist : [],
 		total : 0,
 		subtotal : 0,
 		transactionfee : 0,
@@ -121,19 +121,19 @@ angularApp.controller('AddIncomeController', function($scope, $http, $timeout, $
 	 */
 	$scope.toggleResource = function($id){
 	
-        console.log($scope.intransaction.projectlist);
-        var $index = $scope.intransaction.projectlist.indexOf($id);
+        console.log($scope.intransaction.itemlist);
+        var $index = $scope.intransaction.itemlist.indexOf($id);
 		
         if($index == -1){
-            $scope.intransaction.projectlist.push($id);
+            $scope.intransaction.itemlist.push($id);
         } else {
-            $scope.intransaction.projectlist.splice($index, 1);
+            $scope.intransaction.itemlist.splice($index, 1);
         }
 		var subtotal = 0;
 		var total = 0;
 		
-		for(var i = 0; i < $scope.intransaction.projectlist.length; i++){
-			subtotal += Number($scope.intransaction.projectlist[i].total_tmp);
+		for(var i = 0; i < $scope.intransaction.itemlist.length; i++){
+			subtotal += Number($scope.intransaction.itemlist[i].total_tmp);
 			
 		}
 		$scope.intransaction.subtotal = subtotal;
@@ -144,7 +144,7 @@ angularApp.controller('AddIncomeController', function($scope, $http, $timeout, $
 		$scope.intransaction.total = total;
 		$scope.intransaction.total_show = $scope.userInfo.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		
-		console.log($scope.intransaction.projectlist);
+		console.log($scope.intransaction.itemlist);
 	}
 	//
 	$scope.changefee = function(){
@@ -164,10 +164,12 @@ angularApp.controller('AddIncomeController', function($scope, $http, $timeout, $
      * Submit the form
      */
     $scope.submit = function(){
-    	console.log($scope.intransaction);
+    	
 		//return;
-		
-    	$http.post("/api/admin/incometransaction", $scope.intransaction)
+		$scope.intransaction.typeStatus = 1; 
+		//console.log($scope.intransaction);
+		//return;
+    	$http.post("/api/admin/transaction", $scope.intransaction)
         	.success(function($data){
 	            location.href="/" + LANG_CODE + "/admin/finance/client-unpaid";
         });

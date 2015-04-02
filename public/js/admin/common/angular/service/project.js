@@ -256,7 +256,27 @@ angularApp.factory("PayStatus", function(){
         }
     }
 });
-
+angularApp.factory("Currency", function(){
+    var statuses = [{
+        'id': 1,
+        'name': 'USD'
+    },{
+        'id': 2,
+        'name': 'CNY'
+    }];
+    return {
+        get: function ($id) {
+            for (var i = 0; i < statuses.length; i++) {
+                if (statuses[i].id == $id) {
+                    return statuses[i];
+                }
+            }
+        },
+        all: function () {
+            return statuses;
+        }
+    }
+});
 
 angularApp.factory("ProjectServiceLevel", function(){
     var levels = [{

@@ -386,18 +386,14 @@ class FinanceController extends AbstractRestfulJsonController
 
     public function get($id){
 		
+		//get tran saction
 		$entityManager = $this->getEntityManager();
-        $project = $this->find('User\Entity\Project', $id);
-        /*$Itermnotm = $entityManager->getRepository('User\Entity\Itermnotm')->findBy(array('project'=>$project));
-        $Itermnotms = array();
-        foreach( $Itermnotm as $k => $v ) 
-        {
-            $Itermnotms[$k] = $v->getData();
-        }*/
-		//var_dump($Itermnotms);exit;
+        $transaction = $this->find('User\Entity\Transaction', $id);
+		//get project
+		$data = $transaction->getData();
+		
 		return new JsonModel([
-            'project' => $project->getData(),
-			//'itermnotms' => $Itermnotms,
+            'transaction' => $transaction->getData(),
 			
         ]);
     }

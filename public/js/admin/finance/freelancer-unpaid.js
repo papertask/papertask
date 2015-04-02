@@ -76,7 +76,7 @@ angularApp.controller('FreelancerUnpaidController', function($scope, $http, $tim
 	}
 	
 	$scope.gotodetail = function ( id ) {
-		document.location.href = "/" + LANG_CODE + "/admin/finance/add-outcomming?id=" + id;
+		document.location.href = "/" + LANG_CODE + "/admin/finance/add-outgoing?id=" + id;
 	}
     
     $scope.advancedSearch = function () {

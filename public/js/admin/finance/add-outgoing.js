@@ -28,7 +28,7 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
 	$scope.pages 		= [];
 	$scope.employers 	= [];
 	$scope.outtransaction = {
-		tasklist : [],
+		itemlist : [],
 		total : 0,
 		subtotal : 0,
 		transactionfee : 0,
@@ -120,19 +120,19 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
 	 */
 	$scope.toggleResource = function($id){
 	
-        console.log($scope.outtransaction.tasklist);
-        var $index = $scope.outtransaction.tasklist.indexOf($id);
+        console.log($scope.outtransaction.itemlist);
+        var $index = $scope.outtransaction.itemlist.indexOf($id);
 		
         if($index == -1){
-            $scope.outtransaction.tasklist.push($id);
+            $scope.outtransaction.itemlist.push($id);
         } else {
-            $scope.outtransaction.tasklist.splice($index, 1);
+            $scope.outtransaction.itemlist.splice($index, 1);
         }
 		var subtotal = 0;
 		var total = 0;
 		
-		for(var i = 0; i < $scope.outtransaction.tasklist.length; i++){
-			subtotal += Number($scope.outtransaction.tasklist[i].total);
+		for(var i = 0; i < $scope.outtransaction.itemlist.length; i++){
+			subtotal += Number($scope.outtransaction.itemlist[i].total);
 			
 		}
 		$scope.outtransaction.subtotal = subtotal;
@@ -143,7 +143,7 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
 		$scope.outtransaction.total = total;
 		$scope.outtransaction.total_show = $scope.userInfo.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		
-		console.log($scope.outtransaction.tasklist);
+		console.log($scope.outtransaction.itemlist);
 	}
 	//
 	$scope.changefee = function(){
@@ -163,10 +163,12 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
      * Submit the form
      */
     $scope.submit = function(){
-    	console.log($scope.outtransaction);
+    	
 		//return;
-		
-    	$http.post("/api/admin/outcometransaction", $scope.outtransaction)
+		$scope.outtransaction.typeStatus = 2; 
+		//console.log($scope.outtransaction);
+		//return;
+    	$http.post("/api/admin/transaction", $scope.outtransaction)
         	.success(function($data){
 	            location.href="/" + LANG_CODE + "/admin/finance/freelancer-unpaid";
         });
