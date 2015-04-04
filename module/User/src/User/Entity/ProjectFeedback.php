@@ -29,10 +29,10 @@ class ProjectFeedback extends Entity{
     protected $project;
 
     /**
-     * @var \User\Entity\Task
-     * @ORM\ManyToOne(targetEntity="Task")
+     * @var \User\Entity\Language
+     * @ORM\ManyToOne(targetEntity="Language")
      */
-    protected $task;
+    protected $targetLanguage;
 
     /** @ORM\Column(type="integer") */
     protected $quality;
@@ -48,13 +48,13 @@ class ProjectFeedback extends Entity{
      * @ORM\Column(type="boolean")
      */
     protected $is_deleted = false;
-    
+
     public function getData(){
         return [
             'id' => $this->id,
             'createdDate' => $this->createdDate,
             'project' => $this->project->getId(),
-            'task' => $this->task->getData(),
+            'language' => $this->targetLanguage->getData(),
             'quality' => $this->quality,
             'turnAroundTime' => $this->turnAroundTime,
             'message' => $this->message,

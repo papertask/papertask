@@ -16,12 +16,23 @@ class ProjectFeedbackController extends AbstractRestfulJsonController
             throw new \Exception("No project id is set for Feedback");
         }
 
-        if(isset($data['task'])){
-            $data['task'] = $this->getReference('\User\Entity\Task', $data['task']['id']);
-            // unset($data['project_id']);
+        /**
+         * Need to set smth. as subject of Feedback
+         */
+
+        if(isset($data['language'])){
+            $data['targetLanguage'] = $this->getReference('\User\Entity\Language', $data['language']['id']);
+            unset($data['language']);
         } else {
-            throw new \Exception("No task is set for Feedback");
+             throw new \Exception("No language is set for Feedback");
         }
+
+        // if(isset($data['task'])){
+        //     $data['task'] = $this->getReference('\User\Entity\Task', $data['task']['id']);
+        //     // unset($data['project_id']);
+        // } else {
+        //     throw new \Exception("No task is set for Feedback");
+        // }
 
         $data['createdDate'] = new \DateTime('NOW');
     }

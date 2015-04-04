@@ -33,10 +33,10 @@
     <div class="panel-body">
         <h3>Files For Review</h3>
         <div class="panel-group" id="accordion_preview">
-            <div class="panel panel-default" ng-repeat="task in project.tasks">
+            <div class="panel panel-default" ng-repeat="lang in project.targetLanguages">
                     <div class="panel-heading" style="padding-bottom: 10px;">
                         <h5 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion_preview" href="#preview_lang1"><i class="fa fa-exclamation-triangle text-danger" ng-hide="task.status.id == 1"></i> {{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ task.language.name }} </a> <i class="fa fa-paperclip" ng-show="task.files.length"></i></a> <!-- with paperclip means file for this language has been uploaded -->
+                            <a data-toggle="collapse" data-parent="#accordion_preview" href="#preview_lang1"><i class="fa fa-exclamation-triangle text-danger" ng-hide="task.status.id == 1"></i> {{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ lang.name }} </a> <i class="fa fa-paperclip" ng-show="lang.files.length"></i></a> <!-- with paperclip means file for this language has been uploaded -->
                         </h5>
                     </div>
                     <div id="preview_lang{{$index}}" class="panel-collapse collapse in">
@@ -52,7 +52,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="file in task.files">
+                                    <tr ng-repeat="file in lang.files">
                                         <td>{{$index + 1}}</td>
                                         <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
                                         <td>{{file.size | filesize}}</td>
@@ -61,7 +61,7 @@
                                 </tbody>
                             </table>
 
-                            <div ng-if="task.status.id != 1">
+                            <div>
                                 <div class="col-md-6">
                                     <p>Happy with your translation? Formally approve it here.</p>
                                     <a data-toggle="collapse" data-parent="#preview_lang{{$index}}" href="#approve_lang{{$index}}" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Approve</a> <!-- if user click the approve button(all languages), the approve button and request correct button should hide, and project status should change to completed -->
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="panel" ng-if="task.status.id != 1">
+                        <div class="panel">
                             <div id="approve_lang{{$index}}" class="panel-collapse collapse">
                                 <div class="panel">
                                     <div class="panel-body">
@@ -88,7 +88,7 @@
                                                     <tr>
                                                       <td ng-repeat="val in q_values" class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{val.title}}" width="20%">
                                                         <label class="label-radio inline">
-                                                          <input type="radio" ng-model="task.feedback.quality" value="{{val.id}}" ng-checked="task.feedback.quality == val.id">
+                                                          <input type="radio" ng-model="lang.feedback.quality" value="{{val.id}}" ng-checked="lang.feedback.quality == val.id">
                                                           <span class="custom-radio"></span>
                                                           {{val.name}}
                                                         </label>
@@ -105,7 +105,7 @@
                                                     <tr>
                                                       <td ng-repeat="val in t_values" class="tooltip-test" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{val.title}}" width="20%">
                                                         <label class="label-radio inline">
-                                                          <input type="radio" ng-model="task.feedback.turnAroundTime" value="{{val.id}}" ng-checked="task.feedback.turnAroundTime == val.id">
+                                                          <input type="radio" ng-model="lang.feedback.turnAroundTime" value="{{val.id}}" ng-checked="lang.feedback.turnAroundTime == val.id">
                                                           <span class="custom-radio"></span>
                                                           {{val.name}}
                                                         </label>
@@ -117,11 +117,11 @@
                                               </div><!-- /form-group -->
                                               <div class="form-group">
                                                 <label class="control-label">Feed back to Translator and Project Manager</label>
-                                                <textarea class="form-control" ng-model='task.feedback.message' id="tarea{$h}" rows="3">{{task.feedback.message}}</textarea>
+                                                <textarea class="form-control" ng-model='lang.feedback.message' id="tarea{$h}" rows="3">{{lang.feedback.message}}</textarea>
                                               </div><!-- /form-group -->
 
                                                 <div class="text-right m-t-md">
-                                                    <a href="#" class="btn btn-primary" ng-click="sendFeedback(task)">{{task.feedback.buttonTitle}}</a>
+                                                    <a href="#" class="btn btn-primary" ng-click="sendFeedback(lang)">{{lang.feedback.buttonTitle}}</a>
                                                 </div>
 
                                             </div>
@@ -132,7 +132,7 @@
                             </div>
 
                         </div>
-                        <div class="panel" ng-if="task.status.id != 1">
+                        <div class="panel">
                             <div id="correct_lang{{$index}}" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="panel panel-default">
