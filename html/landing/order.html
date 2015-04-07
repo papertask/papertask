@@ -87,161 +87,173 @@
 
                   <div class=" setup-content" id="step-1">
 
-                    <div class="col-md-12 well">
-                      <p>We accept the following files, under <span class="text-danger">50MB</span> size:</p>
-                      <small><strong>Excel</strong> (.xls, .xlsx, .xlsm), <strong>Word</strong> (.doc, .docx), <strong>PowerPoint</strong> (.ppt, .pptx), <strong>Acrobat</strong> (.pdf), <strong>Open Office</strong> (.odt), <strong>Rich Text Format</strong> (.rtf), <strong>Plain text</strong> (.txt)</small>
-                      <br><br>
-                      <div class="col-md-4">
-                        <span class="btn btn-primary btn fileinput-button">
-                          <i class="fa fa-cloud-upload"></i>
-                          <span>Select files</span>
-                          <input id="fileupload" type="file" name="files[]" multiple>
-                        </span>
-                      </div>
-                      <div class="col-md-8">
-                        <p></p>
-                        <div class="progress progress-bar-default">
-                          <div style="width: 43%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="43" role="progressbar" class="progress-bar">
-                            <span class="sr-only">43% Complete (success)</span>
+                      <div class="panel-heading">
+                          <div class="panel-options">
+                              <ul class="nav nav-tabs">
+                                  <li class="active"><a href="#tab-1" data-toggle="tab">Uoload Files</a></li>
+                                  <li class=""><a href="#tab-2" data-toggle="tab">Paste Text</a></li>
+                              </ul>
                           </div>
-                        </div>
                       </div>
-                      <br><br><br>
-                      <div class="project-list">
-                          <table class="table table-hover">
-                              <tbody>
-                              <tr>
-                                  <td class="project-title">
-                                      file name1.doc
-                                  </td>
-                                  <td class="project-completion text-right">
-                                    888 words
-                                  </td>
-                                  <td class="project-actions text-right">
-                                      <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td class="project-title">
-                                      file name1.doc
-                                  </td>
-                                  <td class="project-actions text-right">
-                                    888 words
-                                  </td>
-                                  <td class="project-actions text-right">
-                                      <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                                  </td>
-                              </tr>
-                              </tbody>
-                          </table>
+                      <div class="panel-body">
+                          <div class="tab-content">
+                              <div class="tab-pane active" id="tab-1">
+
+                                  <div class="col-md-12">
+                                    <h4>We accept the following files, under <span class="text-danger">50MB</span> size: </h4>
+                                    <p>Allowed file types are "txt, zip, rar, html, htm, xml, gif, jpeg, jpg, png, doc, docx, ppt, pptx, pdf, chm, xls, xlsx, txt, zip, rar, html, htm, xml".</p>
+                                    <p><span class="text-danger">If files are bigger then 50MB, pleasae put the download link into the "Project Information" at bottom.</span></p>
+                                    <br>
+                                    <div class="col-md-4">
+                                      <span class="btn btn-primary btn fileinput-button">
+                                        <i class="fa fa-cloud-upload"></i>
+                                        <span>Select files</span>
+                                        <input id="fileupload" type="file" name="files[]" multiple>
+                                      </span>
+                                    </div>
+                                    <div class="col-md-8">
+                                      <p></p>
+                                      <div class="progress progress-bar-default">
+                                        <div style="width: 43%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="43" role="progressbar" class="progress-bar">
+                                          <span class="sr-only">43% Complete (success)</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <br><br><br>
+                                      <table class="table table-striped table-bordered">
+                                          <thead>
+                                          <tr>
+                                              <th>#</th>
+                                              <th>File Name</th>
+                                              <th>Word Count</th>
+                                              <th></th>
+                                          </tr>
+                                          </thead>
+                                          <tbody>
+                                          <tr>
+                                              <td>1</td>
+                                              <td><a href="#"> 提高沼气PPTUltimase NRG - Sales Presentation.pdf</a></td>
+                                              <td>288</td>
+                                              <td class="text-center">
+                                                  <a href="#"><i class="fa fa-trash-o text-danger"></i></a>
+                                              </td>
+                                          </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+
+                              </div>
+
+                              <div class="tab-pane" id="tab-2">
+                                  <textarea class="form-control" rows="8"></textarea>
+                              </div>
+                          </div>                                                
                       </div>
-                      <hr>
+                      
                       <div class="text-center">
                         <button id="activate-step-2" class="btn btn-primary btn-lg">Next</button> <!-- next button show after at least one file is uploaded -->
                       </div>
-                    </div>
+                    
                   </div>
+
                   <div class=" setup-content" id="step-2">
-                    <div class="col-md-12 well">
-                      <div class="row">
-                        <div class="col-md-3">
-                          <h5> Select Currency</h5>
-                          <div data-toggle="buttons"> <!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
-                              <label class="btn btn-outline btn-primary">
-                                  <input type="radio" name="cny" value="" /> CNY
-                              </label>
-                              <label class="btn btn-outline btn-primary">
-                                  <input type="radio" name="usd" checked value="" /> USD
-                              </label>
+                      <div class="panel-body">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <h4> Translate From *</h4>
+                            <select class="form-control" name="">
+                              <option>Select Source Language</option>
+                              <option>option 2</option>
+                              <option>option 3</option>
+                              <option>option 4</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <h4> Translate To *</h4>
+                            <select class="form-control" name="">
+                              <option>Add Target Languages</option>
+                              <option>option 2</option>
+                              <option>option 3</option>
+                              <option>option 4</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <h4> Currency *</h4>
+                            <select class="form-control" name="">
+                              <option>Please Select Currency</option>
+                              <option>USD</option>
+                              <option>CNY</option>
+                            </select>
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <h5> Select Quality Level</h5>
-                          <div data-toggle="buttons"> <!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
-                              <label class="btn btn-outline btn-primary">
-                                  <input type="radio" name="prof" value="" /> Professional <i class="fa fa-question-circle"></i>
-                              </label>
-                              <label class="btn btn-outline btn-primary">
-                                  <input type="radio" name="business" value="" /> Business <i class="fa fa-question-circle"></i>
-                              </label> 
-                              <label class="btn btn-outline btn-primary">
-                                  <input type="radio" name="premium" value="" /> Premium <i class="fa fa-question-circle"></i>
-                              </label>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <h5> Translate Graphics</h5>
-                          <div data-toggle="buttons"> <!-- here put it in default NO -->
-                              <label class="btn btn-outline btn-primary">
-                                  <input type="radio" name="cny" value="" /> YES
-                              </label>
-                              <label class="btn btn-outline btn-primary">
-                                  <input type="radio" name="usd" checked value="" /> NO
-                              </label>
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <hr>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <h4> Translate From *</h4>
-                          <select class="form-control" name="">
-                            <option>Select Source Language</option>
-                            <option>option 2</option>
-                            <option>option 3</option>
-                            <option>option 4</option>
-                          </select>
-                        </div>
-                        <div class="col-md-6">
-                          <h4> Translate To *</h4>
-                          <select class="form-control" name="">
-                            <option>Add Target Languages</option>
-                            <option>option 2</option>
-                            <option>option 3</option>
-                            <option>option 4</option>
-                          </select>
-                        </div>
-                      </div>
-                      <br>
-                      <div class="project-list">
-                          <table class="table table-hover">
+                          <br>
+                          <table class="table table-striped table-bordered">
+                              <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>Target Languages</th>
+                                  <th>Quality Level</th>
+                                  <th>Rate</th>
+                                  <th>Translate Graphics</th>
+                                  <th></th>
+                              </tr>
+                              </thead>
                               <tbody>
                               <tr>
-                                  <td class="project-status">
-                                      <span class="label label-primary">Japanese</span>
+                                  <td>1</td>
+                                  <td><span class="label label-primary">Japanese</span></td>
+                                  <td>
+                                    <select class="form-control" name=""> <!-- here should put client default service level, get info from client profile page -->
+                                      <option>Select Quality level</option> 
+                                      <option>Professional</option>
+                                      <option>Business</option>
+                                      <option>Premium</option>
+                                    </select>
                                   </td>
-                                  <td class="project-title text-center">
-                                      <strong>888 (words) &nbsp;&nbsp;&nbsp;&nbsp; x &nbsp;&nbsp;&nbsp;&nbsp; CNY 0.12 &nbsp;&nbsp;&nbsp;&nbsp; = &nbsp;&nbsp;&nbsp;&nbsp; CNY 120.87</strong>
+                                  <td>CNY 0.12 / word</td> <!-- here load the price of this client, if there is not private price for this client, then load papertask list price -->
+                                  <td>
+                                    <select class="form-control" name=""> <!-- default all "no" -->
+                                      <option>yes</option>
+                                      <option>No</option>
+                                    </select>
                                   </td>
-                                  <td class="project-actions text-right">
-                                    <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                                  <td class="text-center">
+                                      <a href="#"><i class="fa fa-trash-o text-danger"></i></a>
                                   </td>
                               </tr>
                               <tr>
-                                  <td class="project-status">
-                                      <span class="label label-primary">Korean</span>
+                                  <td>2</td>
+                                  <td><span class="label label-primary">Chinese</span></td>
+                                  <td>
+                                    <select class="form-control" name=""> <!-- here should put client default service level, get info from client profile page -->
+                                      <option>Select Quality level</option> 
+                                      <option>Professional</option>
+                                      <option>Business</option>
+                                      <option>Premium</option>
+                                    </select>
                                   </td>
-                                  <td class="project-title text-center">
-                                      <strong>888 (words) &nbsp;&nbsp;&nbsp;&nbsp; x &nbsp;&nbsp;&nbsp;&nbsp; CNY 0.12 &nbsp;&nbsp;&nbsp;&nbsp; = &nbsp;&nbsp;&nbsp;&nbsp; CNY 120.87</strong>
+                                  <td>CNY 0.12 / word</td> <!-- here load the price of this client, if there is not private price for this client, then load papertask list price -->
+                                  <td>
+                                    <select class="form-control" name=""> <!-- default all "no" -->
+                                      <option>yes</option>
+                                      <option>No</option>
+                                    </select>
                                   </td>
-                                  <td class="project-actions text-right">
-                                    <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                                  <td class="text-center">
+                                      <a href="#"><i class="fa fa-trash-o text-danger"></i></a>
                                   </td>
                               </tr>
                               </tbody>
                           </table>
                       </div>
-                      <hr>
                       <div class="text-center">
                         <button id="" class="btn btn-primary btn-lg">Previous</button>
                         <button id="activate-step-3" class="btn btn-primary btn-lg">Next</button>
                       </div>
-                    </div>
+
                   </div>
                   <div class="setup-content" id="step-3">
-                    <div class="well">
+
 
                       <form class="form-horizontal" role="form">
                         <div class="row"> <!-- here need ajax verify to see if the email address is exist, if no show below infor to create a new account -->
@@ -350,8 +362,6 @@
                         <button id="" class="btn btn-primary btn-lg">Request a Quote</button>
                       </div>
                     </div>
-
-                  </div>
 
               </form>
             </div>
