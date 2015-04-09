@@ -20,12 +20,12 @@ class InvoiceController extends AbstractRestfulJsonController
      * @param $data
      */
     protected function cleanData(&$data){
-       
+
     }
 
     public function create($data)
     {
-		
+
     }
 
     public function getList(){
@@ -34,15 +34,15 @@ class InvoiceController extends AbstractRestfulJsonController
         $project = $entityManager->getRepository('\User\Entity\Project')->find( $projectId );
         $Invoice = $entityManager->getRepository('\User\Entity\Invoice')->findBy(array('project'=>$project));
         //$Invoices = array();
-        //foreach( $Invoice as $k => $v ) 
+        //foreach( $Invoice as $k => $v )
         //{
         //    $Invoices[$k] = $v->getData();
         //}
-        return new JsonModel(['invoices'=>$Invoice[0]->getData()]);
+        return new JsonModel(['invoices'=> count($Invoice) > 0 ? $Invoice[0]->getData() : array()]);
     }
 
     public function get($id){
-		
+
     }
 
     public function delete($id){

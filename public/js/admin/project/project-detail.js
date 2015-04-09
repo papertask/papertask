@@ -47,6 +47,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
     $scope.project = {
         tasks: [],
         tasksNum: 0,
+        feedbacksNum: 0,
         activitiesNum: 0,
     };
 	$scope.telephone = [];
@@ -411,12 +412,12 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
         $task.status = TaskStatus.get($task.status);
         $task.files = [];
 
-        var mockC = Object.create(templateCorrection);
-        mockC.language = $task.language;
-        mockC.task = $task;
-        mockC.project_id = $scope.project.id;
-        mockC.needToCreate = true;
-        $task.correction = mockC;
+        // var mockC = Object.create(templateCorrection);
+        // mockC.language = $task.language;
+        // mockC.task = $task;
+        // mockC.project_id = $scope.project.id;
+        // mockC.needToCreate = true;
+        // $task.correction = mockC;
     }
 
     function createTask(){
@@ -515,7 +516,7 @@ angularApp.controller("ProjectActivitiesController", function($scope, ActivityAp
 });
 
 angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi){
-    var fb_dump = [];
+    var fb_dump = [], fb_loaded = false, fb_refreshed = false;
 
     var prepare = function(feedback){
         feedback.buttonTitle = "Update";
@@ -528,7 +529,7 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
     var templateFeedback = {
         quality: 3,
         turnAroundTime: 3,
-        message: "Describe your feedback in details to improve quality of service.",
+        //message: "Describe your feedback in details to improve quality of service.",
         buttonTitle: "Submit"
     };
 
@@ -576,6 +577,9 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
         });
 
         $feedbacks.forEach(prepare);
+        $scope.project.feedbacksNum = $feedbacks.length;
+        fb_loaded = true && fb_refreshed;
+        fb_refreshed = true;
     }
 
     $scope.$watch(function(){
@@ -589,7 +593,8 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
 
     function attachFeedbacks(){
         // if(fb_dump !== "done" && fb_dump.length !== 0){
-        if(fb_dump !== "done" && $scope.project.targetLanguages && $scope.project.targetLanguages.length){
+        // if(fb_dump !== "done" && $scope.project.targetLanguages && $scope.project.targetLanguages.length){
+        if(fb_loaded && fb_dump !== "done" && $scope.project.targetLanguages && $scope.project.targetLanguages.length){
             $scope.project.targetLanguages.forEach(function(lang) {
                 if(fb_dump[lang.id])
                     lang.feedback = fb_dump[lang.id];
@@ -606,8 +611,11 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
     }
 
     $scope.$watch(function(){
-        return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length && fb_dump.length && fb_dump !== "done");
-        // return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length);
+        //return !!((fb_loaded && $scope.project.targetLanguages && $scope.project.targetLanguages.length) || (fb_dump.length && fb_dump !== "done"));
+        return fb_loaded &&
+            $scope.project.targetLanguages && $scope.project.targetLanguages.length > 0 &&
+            fb_dump !== "done";
+        // return !!(fb_loaded && fb_dump.length && $scope.project.targetLanguages && $scope.project.targetLanguages.length);
     }, function(){
         attachFeedbacks();
     });

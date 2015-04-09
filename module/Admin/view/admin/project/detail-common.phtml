@@ -4,13 +4,13 @@
         <ul class="nav nav-tabs">
             <li ng-class="{1:'',2:'active'}[project.status.id]" ng-show="project.status.id == 2"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasksNum }}</span> <?php echo $this->translate("Tasks"); ?></a></li>
 
-			<li ng-class="{1:'active',2:''}[project.status.id]"><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> Messages & Activities</a></li>
+			<li ng-class="{1:'active',2:''}[project.status.id]"><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> <?php echo $this->translate('Messages & Activities') ?></a></li>
 
-			<li class=""><a href="#files" data-toggle="tab"><span class="label label-danger">2</span> Project Files</a></li>
-            <li class="" ng-show="project.status.id == 2"><a href="#feedback" data-toggle="tab"> Feedbacks</a></li>
-            <li class=""><a href="#quote" data-toggle="tab"> Quote</a></li>
+			<li class=""><a href="#files" data-toggle="tab"><span class="label label-danger">2</span> <?php echo $this->translate('Project Files') ?></a></li>
+            <li class="" ng-show="project.status.id == 2"><a href="#feedback" data-toggle="tab"><span class="label label-warning">{{ project.feedbacksNum }}</span> <?php echo $this->translate('Feedbacks') ?></a></li>
+            <li class=""><a href="#quote" data-toggle="tab"> <?php echo $this->translate('Quote') ?></a></li>
             <!-- if the project status is quote, then show quote, other wise hide quote -->
-            <li class="" ng-show="project.status.id == 2"><a href="#invoice" data-toggle="tab"> Invoice</a></li>
+            <li class="" ng-show="project.status.id == 2"><a href="#invoice" data-toggle="tab"> <?php echo $this->translate('Invoice') ?></a></li>
             <!-- if the status is not quote, then show invoice -->
         </ul>
     </div>
