@@ -622,7 +622,7 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
 });
 
 angularApp.controller("ProjectCorrectionController", function($scope, CorrectionApi){
-    var c_dump = [], c_empty = false;
+    var c_dump = [], c_empty = false, c_refreshed = false, c_loaded = false;
 
     var prepare = function(correction){
         correction.buttonTitle = "Update";
@@ -640,7 +640,10 @@ angularApp.controller("ProjectCorrectionController", function($scope, Correction
 
     $scope.custom.afterLoadItems = function($corrections){
         $corrections.forEach(prepare);
-        if(!$corrections.length) c_empty = true;
+
+        // if(!$corrections.length) c_empty = true;
+        c_loaded = true && c_refreshed;
+        c_refreshed = true;
     }
 
     $scope.$watch(function(){
@@ -653,7 +656,8 @@ angularApp.controller("ProjectCorrectionController", function($scope, Correction
     });
 
     function attachCorrections(){
-        if(c_dump !== "done" && c_dump.length !== 0){
+        // if(c_dump !== "done" && c_dump.length !== 0){
+        if(c_loaded && c_dump !== "done" && $scope.project.targetLanguages && $scope.project.targetLanguages.length){
             $scope.project.targetLanguages.forEach(function(lang) {
                 if(c_dump[lang.id])
                     lang.correction = c_dump[lang.id];
@@ -671,7 +675,11 @@ angularApp.controller("ProjectCorrectionController", function($scope, Correction
     }
 
     $scope.$watch(function(){
-        return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length);
+
+        return c_loaded &&
+            $scope.project.targetLanguages && $scope.project.targetLanguages.length > 0 &&
+            c_dump !== "done";
+        // return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length);
         // return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length && c_dump.length && c_dump !== "done");
     }, function(){
         attachCorrections();
@@ -820,25 +828,25 @@ angularApp.controller("ProjectFilesController", function($scope, $http, $window,
         newCorrection.project_id = $scope.project.id;
 
         /**
-         * Update smth. status set to appreved!
+         * Update smth. status set to approved!
          */
         // TaskApi.update(task.id, { 'status_id' : 3 }, function($res){
         //     console.log($res);
         // });
 
-        if(newCorrection.needToCreate)
+        if(newCorrection.id)
+            CorrectionApi.update(newCorrection.id , newCorrection, function($newCorrection){
+                // $scope.newFeedback = Object.create(templateFeedback);
+                // $scope.items.push($newFeedback);
+                console.log($newCorrection);
+            });
+        else
             CorrectionApi.create(newCorrection, function($res){
                 // $scope.newFeedback = Object.create(templateFeedback);
                 // $scope.items.push($newFeedback);
                 console.log($res);
                 // task.feedback.buttonTitle = "Updated!";
                 location.reload();
-            });
-        else
-            CorrectionApi.update(newCorrection.id , newCorrection, function($newCorrection){
-                // $scope.newFeedback = Object.create(templateFeedback);
-                // $scope.items.push($newFeedback);
-                console.log($newCorrection);
             });
     }
 

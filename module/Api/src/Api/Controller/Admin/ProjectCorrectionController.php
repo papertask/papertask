@@ -16,9 +16,9 @@ class ProjectCorrectionController extends AbstractRestfulJsonController
             throw new \Exception("No project id is set for Correction");
         }
 
-        if(isset($data['task'])){
-            $data['task'] = $this->getReference('\User\Entity\Task', $data['task']['id']);
-            // unset($data['project_id']);
+        if(isset($data['lang'])){
+            $data['targetLanguage'] = $this->getReference('\User\Entity\Language', $data['lang']['id']);
+            unset($data['lang']);
         } else {
             throw new \Exception("No task is set for Correction");
         }
