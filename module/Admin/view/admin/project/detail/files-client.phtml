@@ -59,11 +59,11 @@
                             </table>
 
                             <div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" ng-show="lang.feedback.needToCreate">
                                     <p>Happy with your translation? Formally approve it here.</p>
                                     <a data-toggle="collapse" data-parent="#preview_lang{{$index}}" href="#approve_lang{{$index}}" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Approve</a> <!-- if user click the approve button(all languages), the approve button and request correct button should hide, and project status should change to completed -->
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6" ng-show="lang.feedback.needToCreate">
                                     <p>If you need the translator to fix mistakes or make changes:</p>
                                     <a data-toggle="collapse" data-parent="#preview_lang{{$index}}" href="#correct_lang{{$index}}" class="btn btn-warning"><i class="fa fa-edit"></i> Request corrections</a> <!-- if any language need correct, the project status will change to Reject -->
                                 </div>

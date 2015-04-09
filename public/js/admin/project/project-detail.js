@@ -5,14 +5,6 @@ angularApp.run(function($rootScope){
     jQuery("#edit_project form").validate();
     jQuery("#tasks form").validate();
 
-    // var element = jQuery("#files > input")[0];
-    // jQuery(element).filestyle({
-    //     input: false,
-    //     icon: false,
-    //     buttonText: "Add files",
-    //     buttonName: "btn-xs btn-primary",
-    //     badge: false
-    // });
     // $(":file").filestyle({
     //     input: false,
     //     icon: "glyphicon-cloud-upload",
@@ -614,8 +606,8 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
     }
 
     $scope.$watch(function(){
-        // return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length && fb_dump.length && fb_dump !== "done");
-        return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length);
+        return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length && fb_dump.length && fb_dump !== "done");
+        // return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length);
     }, function(){
         attachFeedbacks();
     });
@@ -676,38 +668,6 @@ angularApp.controller("ProjectCorrectionController", function($scope, Correction
     }, function(){
         attachCorrections();
     });
-});
-
-angularApp.directive('fileUploader', function () {
-    var options = {};
-
-    return {
-        // compile: function compile(temaplateElement, templateAttrs) {
-        //     return {
-        //         pre: function (scope, element, attrs) {
-        //         },
-        //         post: function(scope, element, attrs) {
-        //         }
-        //     }
-        // },
-        link: function (scope, element, attrs) {
-            attrs.$observe('tooltip', function(value) {
-                if (value) {
-                  element.addClass('tooltip-title');
-                }
-            });
-        },
-        // priority: 0,
-        // terminal:false,
-        template: '<input type="file" nv-file-select="" uploader="lang.uploader" multiple="multiple" class="filestyle" data-input="false" data-buttonName="btn-primary" data-iconName="glyphicon-cloud-upload" data-buttonText=" Upload files"/>',
-        // templateUrl: 'template.html',
-        // replace: false,
-        // transclude: false,
-        restrict: 'E',
-        scope: true,
-        // controller: function ($scope, $element, $attrs, $transclude, otherInjectables) {
-        // }
-    }
 });
 
 angularApp.controller("ProjectFilesController", function($scope, $http, $window, FileUploader, TaskApi, FeedbackApi, CorrectionApi){
