@@ -42,6 +42,7 @@ class ProjectController extends AbstractActionController
 		//$taskId = $this->params()->fromQuery('taskId');
 		$projectId = $this->getRequest()->getPost('projectId');
 		$taskId = $this->getRequest()->getPost('taskId');
+		$langId = $this->getRequest()->getPost('langId');
 		//var_dump($projectId);
 		//var_dump($taskId);exit;
 
@@ -49,6 +50,8 @@ class ProjectController extends AbstractActionController
 		$project = $entityManager->find('\User\Entity\Project', (int)$projectId);
 
 		$task = $entityManager->find('\User\Entity\Task', (int)$taskId);
+
+		$lang = $entityManager->find('\User\Entity\Language', (int)$langId);
 
         if ( !empty( $_FILES ) ) {
 
@@ -69,6 +72,7 @@ class ProjectController extends AbstractActionController
                 'time' => time(),
 				'project' => $project,
 				'task' => $task,
+				'language' => $lang,
             ]);
             $file->save($this->getEntityManager());
             $answer = [
@@ -142,6 +146,7 @@ class ProjectController extends AbstractActionController
         			"time" => $d['time'],
         			"size" => $d['size'],
                     "task" => $d['task'],
+                    "language" => $d['language'],
                 ];
                 // $json[] = $d;
             }

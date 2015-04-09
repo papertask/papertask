@@ -65,6 +65,13 @@ class File extends Entity{
      */
     protected $task;
 
+	/**
+     * @var \User\Entity\Language
+     * @ORM\ManyToOne(targetEntity="Language")
+     * @ORM\JoinColumn(name="language_id", referencedColumnName="id", nullable=true)
+     */
+    protected $language;
+
     public function getData(){
         return [
             'id' => $this->id,
@@ -73,6 +80,7 @@ class File extends Entity{
 			'size' => $this->size,
 			'project' => ($this->project)?$this->project->getData():null,
 			'task' => ($this->task)?$this->task->getData():null,
+			'language' => ($this->language)?$this->language->getData():null,
             'token' => $this->token,
             'time' => $this->time,
         ];

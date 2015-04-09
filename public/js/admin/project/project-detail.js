@@ -4,6 +4,22 @@
 angularApp.run(function($rootScope){
     jQuery("#edit_project form").validate();
     jQuery("#tasks form").validate();
+
+    // var element = jQuery("#files > input")[0];
+    // jQuery(element).filestyle({
+    //     input: false,
+    //     icon: false,
+    //     buttonText: "Add files",
+    //     buttonName: "btn-xs btn-primary",
+    //     badge: false
+    // });
+    // $(":file").filestyle({
+    //     input: false,
+    //     icon: "glyphicon-cloud-upload",
+    //     buttonText: "Upload files",
+    //     buttonName: "btn btn-sm btn-primary",
+    //     badge: false
+    // });
 });
 angularApp.filter('dateFormat', function($filter)
 {
@@ -662,7 +678,147 @@ angularApp.controller("ProjectCorrectionController", function($scope, Correction
     });
 });
 
-angularApp.controller("ProjectFilesController", function($scope, $http, $window, TaskApi, FeedbackApi, CorrectionApi){
+angularApp.directive('fileUploader', function () {
+    var options = {};
+
+    return {
+        // compile: function compile(temaplateElement, templateAttrs) {
+        //     return {
+        //         pre: function (scope, element, attrs) {
+        //         },
+        //         post: function(scope, element, attrs) {
+        //         }
+        //     }
+        // },
+        link: function (scope, element, attrs) {
+            attrs.$observe('tooltip', function(value) {
+                if (value) {
+                  element.addClass('tooltip-title');
+                }
+            });
+        },
+        // priority: 0,
+        // terminal:false,
+        template: '<input type="file" nv-file-select="" uploader="lang.uploader" multiple="multiple" class="filestyle" data-input="false" data-buttonName="btn-primary" data-iconName="glyphicon-cloud-upload" data-buttonText=" Upload files"/>',
+        // templateUrl: 'template.html',
+        // replace: false,
+        // transclude: false,
+        restrict: 'E',
+        scope: true,
+        // controller: function ($scope, $element, $attrs, $transclude, otherInjectables) {
+        // }
+    }
+});
+
+angularApp.controller("ProjectFilesController", function($scope, $http, $window, FileUploader, TaskApi, FeedbackApi, CorrectionApi){
+
+    function attachUploaders(){
+        $scope.project.targetLanguages.forEach(function(lang, i) {
+            var uploader = lang.uploader = new FileUploader({
+                url: "/" + LANG_CODE + "/admin/project/uploadFile",
+                formData: [{langId: lang.id, projectId: $scope.project.id}]
+            });
+
+            // FILTERS
+
+            uploader.filters.push({
+                name: 'customFilter',
+                fn: function(item /*{File|FileLikeObject}*/, options) {
+                    return this.queue.length < 10;
+                }
+            });
+
+
+            // CALLBACKS
+
+            uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+                console.info('onWhenAddingFileFailed', lang.code, item, filter, options);
+            };
+            uploader.onAfterAddingFile = function(fileItem) {
+                fileItem.upload();
+            };
+            uploader.onAfterAddingAll = function(addedFileItems) {
+                console.info('onAfterAddingAll', lang.code, addedFileItems);
+            };
+            uploader.onBeforeUploadItem = function(item) {
+                console.info('onBeforeUploadItem', lang.code, item);
+            };
+            uploader.onProgressItem = function(fileItem, progress) {
+                console.info('onProgressItem', lang.code, fileItem, progress);
+            };
+            uploader.onProgressAll = function(progress) {
+                console.info('onProgressAll', lang.code, progress);
+            };
+            uploader.onSuccessItem = function(fileItem, response, status, headers) {
+                if(!response.success){
+                    fileItem.file.name += " - Uploading error";
+                    $timeout(function(){
+                        fileItem.remove();
+                    }, 1000);
+                    return;
+                }
+
+                fileItem.projectFile = {
+                    name: fileItem.file.name,
+                    lang: lang.id,
+                    id: response.file.id
+                };
+                fileItem.token = response.file.token;
+
+                if(!lang.files) lang.files = [];
+                lang.files.push(response.file);
+
+            };
+            uploader.onErrorItem = function(fileItem, response, status, headers) {
+                console.info('onErrorItem', lang.code, fileItem, response, status, headers);
+            };
+            uploader.onCancelItem = function(fileItem, response, status, headers) {
+                console.info('onCancelItem', lang.code, fileItem, response, status, headers);
+            };
+            uploader.onCompleteItem = function(fileItem, response, status, headers) {
+            };
+            uploader.onCompleteAll = function() {
+                console.info('onCompleteAll', lang.code);
+            };
+
+            console.info('uploader', lang.code, uploader);
+
+
+            // -------------------------------
+        });
+    }
+
+
+    $scope.controller = {
+        isImage: function(item) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    };
+
+    $scope.removeItem = function(item){
+        if(item.isSuccess){
+            if(item.projectFile.lang){
+                var token = item.token;
+                for(var i = 0; i < $scope.project.targetLanguages[item.projectFile.lang].files.length; i++){
+                    if($scope.project.targetLanguages[item.projectFile.lang].files[i].token == token){
+                        $scope.project.files.splice(i, 1);
+                        break;
+                    }
+                }
+            } else {
+                var token = item.token;
+                for(var i = 0; i < $scope.project.files.length; i++){
+                    if($scope.project.files[i].token == token){
+                        $scope.project.files.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        };
+        item.remove();
+    };
+
     $scope.sendFeedback = function(lang){
         lang.feedback.buttonTitle = "Sending...";
 
@@ -726,7 +882,7 @@ angularApp.controller("ProjectFilesController", function($scope, $http, $window,
     function attachLangFiles(){
         $scope.langFiles.forEach(function(file) {
             $scope.project.targetLanguages.some(function(l){
-                if(l.id == file.task.language.id){
+                if(l.id == file.language.id){
                     if(!l.files) l.files = [];
                     l.files.push(file);
                     return true;
@@ -739,10 +895,10 @@ angularApp.controller("ProjectFilesController", function($scope, $http, $window,
         $http.get("/" + LANG_CODE + "/admin/project/getFilesList?project_id="+projectId)
             .success( function ( $data ) {
                 $scope.files = $data.filter(function(file){
-                    return !file.task;
+                    return !file.task && !file.language;
                 });
                 $scope.langFiles = $data.filter(function(file){
-                    return file.task;
+                    return !!file.language;
                 });
             });
     }
@@ -752,11 +908,22 @@ angularApp.controller("ProjectFilesController", function($scope, $http, $window,
         $window.open("/" + LANG_CODE + "/admin/project/downloadFile?token="+token, '_blank');
     };
 
+    $scope.deleteFile = function(token){
+        console.log("File deleted");
+        // $window.open("/" + LANG_CODE + "/admin/project/downloadFile?token="+token, '_blank');
+    };
+
     init();
 
     $scope.$watch(function(){
-        return !!($scope.project.tasks && $scope.project.tasks.length && $scope.langFiles && $scope.langFiles.length);
+        return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length && $scope.langFiles && $scope.langFiles.length);
     }, function(){
         attachLangFiles();
+    });
+
+    $scope.$watch(function(){
+        return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length);
+    }, function(){
+        if($scope.project.targetLanguages && $scope.project.targetLanguages.length) attachUploaders();
     });
 });
