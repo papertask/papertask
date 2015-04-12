@@ -33,10 +33,10 @@
             <div class="panel panel-default" ng-repeat="lang in project.targetLanguages">
                     <div class="panel-heading" style="padding-bottom: 10px;">
                         <h5 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion_preview" href="#preview_lang1"><i class="fa fa-exclamation-triangle text-danger" ng-show="lang.correction"></i> {{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ lang.name }} </a> <i class="fa fa-paperclip" ng-show="lang.files.length"></i></a> <!-- with paperclip means file for this language has been uploaded -->
+                            <a data-toggle="collapse" data-parent="#accordion_preview" href="#preview_lang{{$index}}"><i class="fa fa-exclamation-triangle text-danger" ng-show="lang.correction"></i> {{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ lang.name }} </a> <i class="fa fa-paperclip" ng-show="lang.files.length"></i></a> <!-- with paperclip means file for this language has been uploaded -->
                         </h5>
                     </div>
-                    <div id="preview_lang{{$index}}" class="panel-collapse collapse in">
+                    <div id="preview_lang{{$index}}" class="panel-collapse collapse in" ng-if="lang.files.length">
 
                         <div class="panel-body">
                             <table class="table">
