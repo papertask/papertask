@@ -37,6 +37,7 @@ class Activity extends Entity{
     /**
      * @var string
      * @ORM\Column(type="string")
+     * accept_quote, create_quote, create_task, message
      */
     protected $type;
 
@@ -86,8 +87,16 @@ class Activity extends Entity{
         //     unset($emails[$key]);
         // }
 
+        $tpl = "ACTIVITY_NEW";
+        switch($this->type){
+            case 'accept_quote':
+            case 'create_quote':
+            case 'create_task':
+            case 'message':
+        }
+        
         foreach ($emails as $email) {
-            Mail::sendMail($controller, "ACTIVITY_NEW", $email, $data);
+            Mail::sendMail($controller, $tpl, $email, $data);
         }
     }
 
