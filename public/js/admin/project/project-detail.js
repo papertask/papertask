@@ -604,6 +604,8 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
                     mockFb.project_id = $scope.project.id;
                     mockFb.needToCreate = true;
                     lang.feedback = mockFb;
+                    lang.feedback.quality = mockFb.quality;
+                    lang.feedback.turnAroundTime = mockFb.turnAroundTime;
                 }
             });
             fb_dump = "done";
