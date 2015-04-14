@@ -277,6 +277,7 @@ class ProjectController extends AbstractRestfulJsonController
 			$task->save($this->getEntityManager());
 		}	
 		}
+		
         $activity = new Activity();
         $activity->setData([
             'activityDate' => new \DateTime('NOW'),
@@ -288,7 +289,7 @@ class ProjectController extends AbstractRestfulJsonController
             'message' => $data['description'],
         ]);
         //$activity->save($this->getEntityManager());
-
+		//var_dump($project); exit;
         return new JsonModel([
             'project' => $project->getData(),
             'success' => true,

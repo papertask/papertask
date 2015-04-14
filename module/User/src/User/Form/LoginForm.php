@@ -82,6 +82,7 @@ class LoginForm extends Form
 
         $user = $entityManager->getRepository('\User\Entity\User')->findOneBy(array('email' => $email));
 
+        
         if($user && $user->checkPassword($password)){
             if($user->isActivated()){
                 $user->authenticate();

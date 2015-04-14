@@ -26,6 +26,20 @@ class ProjectController extends AbstractActionController
         ));
     }
 
+    public function orderTranslationAction(){
+    	$lang_code = $this->params()->fromRoute('lang');
+    	return new ViewModel(array(
+    			"lang_code" => $lang_code,
+    	));
+    }	
+    
+    public function orderTranslationNonContractAction(){
+    	$lang_code = $this->params()->fromRoute('lang');
+    	return new ViewModel(array(
+    			"lang_code" => $lang_code,
+    	));
+    }
+    
     public function newAction()
     {
         $lang_code = $this->params()->fromRoute('lang');
@@ -596,4 +610,6 @@ class ProjectController extends AbstractActionController
 		$pdf->Output("pdf-name.pdf", 'D');
 		//exit;
     }
+    
+	
 }

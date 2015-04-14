@@ -282,6 +282,7 @@ class User extends Entity implements InputFilterAwareInterface{
         if($newPassword){
             $this->password = $newPassword;
         }
+        
         $passClass = new Password();
         $this->password = $passClass->create_hash($this->password);
         return $this;
@@ -661,9 +662,11 @@ class User extends Entity implements InputFilterAwareInterface{
             'lastLogin' => new \DateTime('now'),
             'createdTime' => new \DateTime('now'),
             'alias' => $strAlias,
+        	'password' => $data['password'],
         );
         $this->setData($data);
-        $this->encodePassword($this->generateRandomString());
+        
+        $this->encodePassword(isset($data['password'])? $data['password'] : $this->generateRandomString());
         $this->setGroupByName('employer', $entityManager);
         $entityManager->persist($this);
         $entityManager->flush();
@@ -680,9 +683,10 @@ class User extends Entity implements InputFilterAwareInterface{
             'lastLogin' => new \DateTime('now'),
             'createdTime' => new \DateTime('now'),
 			'alias' => $strAlias,
+        	'password' => $data['password'],
         );
         $this->setData($data);
-        $this->encodePassword($this->generateRandomString());
+        $this->encodePassword(isset($data['password'])? $data['password'] : $this->generateRandomString());
         $this->setGroupByName('freelancer', $entityManager);
         $entityManager->persist($this);
         $entityManager->flush();

@@ -66,6 +66,31 @@ angularApp.factory("ProjectStatus", function(){
     }
 });
 
+angularApp.factory("TransGraphs", function(){
+    var statuses = [{
+        'id': 0,
+        'name': 'no',
+        'decorator': 'No Translate Graphic'
+    },{
+        'id': 1,
+        'name': 'yes',
+        'decorator': 'Translate Graphic'
+    }];
+
+    return {
+        get: function ($id) {
+            for (var i = 0; i < statuses.length; i++) {
+                if (statuses[i].id == $id) {
+                    return statuses[i];
+                }
+            }
+        },
+        all: function () {
+            return statuses;
+        }
+    }
+});
+
 
 angularApp.factory("TaskStatus", function(){
     var unassigned = {

@@ -13,16 +13,19 @@ angularApp.controller('FreelancerUnpaidController', function($scope, $http, $tim
 	$scope.employers 	= [];
 	$scope.searchParams = {
         'search': null,
-        'name': null,
-        'idEmployer': null,
         'email': null,
-        'country': null,
-        'includeInactive': null,
-        'currency': null,
-        'page': null,
-        'company': null
+        'task_id': null,
+        'startDate': null,
+        'freelancerId': null,
+        'reference': null,
+        'dueDate': null,
+        'field': null,
+        'status' : null,
+        'sale' :  null,
+        'pm' :  null,
     };
 	$scope.init = function () {
+		
 		var ajaxProjectUnpaidlist = $http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList")
             .success( function ( $data ) {
 			console.log($data);
@@ -80,25 +83,79 @@ angularApp.controller('FreelancerUnpaidController', function($scope, $http, $tim
 	}
     
     $scope.advancedSearch = function () {
+    	$scope.searchParams = {
+    	        'search': 1,
+    	        'email': $scope.filter.email,
+    	        'task_id': $scope.filter.task_id,
+    	        'startDate': $scope.filter.startDate,
+    	        'freelancerId': $scope.filter.freelancerId,
+    	        'reference': $scope.filter.reference,
+    	        'dueDate': $scope.filter.dueDate,
+    	        'field': $scope.filter.field,
+    	        'status' : $scope.filter.status,
+    	        'sale' :  $scope.filter.sale,
+    	        'pm' :  $scope.filter.pm,
+    	    };
+        $scope.selectPage( 1 );
+    }
+    
+    $scope.search = function () {
+    	//alert($scope.filter.email);
+    	$scope.searchParams = {
+    	        'search': 1,
+    	        'email': $scope.filter.email,
+    	        'task_id': null,
+    	        'startDate': null,
+    	        'freelancerId': null,
+    	        'reference': null,
+    	        'dueDate': null,
+    	        'field': null,
+    	        'status' : null,
+    	        'sale' :  null,
+    	        'pm' :  null,
+    	    };
         $scope.selectPage( 1 );
     }
     
     $scope.reset = function () {
         $scope.searchParams = {
             'search': null,
-            'name': null,
-            'idEmployer': null,
             'email': null,
-            'country': null,
-            'includeInactive': null,
-            'currency': null,
-            'page': null,
-            'company': null
+    	        'task_id': null,
+    	        'startDate': null,
+    	        'freelancerId': null,
+    	        'reference': null,
+    	        'dueDate': null,
+    	        'field': null,
+    	        'status' : null,
+    	        'sale' :  null,
+    	        'pm' :  null,
         };
+        
+        if(typeof $scope.filter != "undefined"){
+	        angular.forEach($scope.filter, function(key,value){
+	        	$scope.filter.key = null;
+	        });
+	        
+	        $scope.filter.email = null;
+	        $scope.filter.task_id = null;
+	        $scope.filter.startDate = null;
+	        $scope.filter.freelancerId = null;
+	        $scope.filter.reference = null;
+	        $scope.filter.dueDate = null;
+	        $scope.filter.field = null;
+	        $scope.filter.company = null;
+	        $scope.filter.status = null;
+	        $scope.filter.sale = null;
+	        $scope.filter.pm = null;
+        }
+        
         $scope.selectPage(1);
     }
+    
 	$scope.selectPage = function($page){
         // check search
+		/*
         var search = 0;
         for(var key in $scope.searchParams) {
             var obj = $scope.searchParams[key];
@@ -113,8 +170,12 @@ angularApp.controller('FreelancerUnpaidController', function($scope, $http, $tim
         }else{
             var $params = {page: $page};
         }
+        */
+		var $params = $scope.searchParams;
+		
+		console.log($params);
 
-        $http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList", {
+        $http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList?page="+$page, {
             params: $params
         }).success(function($data){
            $scope.tus_tmp = $data.tus;
@@ -130,7 +191,13 @@ angularApp.controller('FreelancerUnpaidController', function($scope, $http, $tim
         });
     }
 	$scope.onBtnPreviousClicked = function () {
-		$http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList?page="+ $scope.pages.previous)
+		
+		var $params = $scope.searchParams;
+		console.log($params);
+		
+		$http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList?page="+ $scope.pages.previous,{
+            params: $params
+        })
 	        .success(function($data){
 	            $scope.pages = $data.pages;
 	            $scope.tus_tmp = $data.tus;
@@ -142,7 +209,13 @@ angularApp.controller('FreelancerUnpaidController', function($scope, $http, $tim
 	}
 	
 	$scope.onBtnGoto = function ( int_index ) {
-		$http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList?page="+ (int_index*1 + 1))
+		
+		var $params = $scope.searchParams;
+		console.log($params);
+		
+		$http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList?page="+ (int_index*1 + 1),{
+            params: $params
+        })
 	        .success(function($data){
 	            $scope.pages = $data.pages;
 	            $scope.tus_tmp = $data.tus;
@@ -154,7 +227,13 @@ angularApp.controller('FreelancerUnpaidController', function($scope, $http, $tim
 	    });
 	}
 	$scope.onBtnNextClicked = function () {
-		$http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList?page="+ $scope.pages.next)
+		
+		var $params = $scope.searchParams;
+		console.log($params);
+		
+		$http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList?page="+ $scope.pages.next,{
+            params: $params
+        })
 	        .success(function($data){
 	            $scope.pages = $data.pages;
 	            $scope.tus_tmp = $data.tus;

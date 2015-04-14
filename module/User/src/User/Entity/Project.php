@@ -48,7 +48,7 @@ class Project extends Entity{
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=True)
      */
     protected $reference;
 	/**
@@ -70,7 +70,7 @@ class Project extends Entity{
 
     /**
      * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=True)
      */
     protected $priority;
 
@@ -82,7 +82,7 @@ class Project extends Entity{
 
     /**
      * @var string
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=True)
      */
     protected $dueDate;
 
@@ -125,7 +125,7 @@ class Project extends Entity{
 
     /**
      * @var int
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=True)
      */
     protected $duration = 0;
 
@@ -155,6 +155,14 @@ class Project extends Entity{
      */
     protected $types;
 	
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    protected $transGraph = 0;
+    
+  
+	
 	
 
     public function getData(){
@@ -167,11 +175,11 @@ class Project extends Entity{
 			'tax' => $this->tax,
 			'discount' => $this->discount,
             'duration' => $this->duration,
-            'field' => $this->field->getData(),
+            'field' => ($this->field)?$this->field->getData():null,
             'id' => $this->id,
             'interpretingInfo' => $this->interpretingInfo,
             'serviceLevel' => $this->serviceLevel,
-            'pm' => $this->pm->getData(),
+            'pm' => ($this->pm)?$this->pm->getData():null,
             'priority' => $this->priority,
             'reference' => $this->reference,
             'sale' => ($this->sale)?$this->sale->getData():null,
@@ -183,7 +191,8 @@ class Project extends Entity{
 			'sourcetext' => $this->sourcetext,
 			'currency' =>  $this->currency,
 			'total_tmp' => $this->total_tmp,
-            'types' => $this->types
+            'types' => $this->types,
+            'transGraph' => $this->transGraph,
         ];
     }
 	

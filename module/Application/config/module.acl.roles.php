@@ -51,6 +51,8 @@ $allow_all = array(
 	'project\invoiceprint',
 	'project\invoicedownload',
 	'project\quoteedit',
+	'project\order-translation',
+	'project\order-translation-non-contract',
 	// -- Freelancer
 	'freelancer\index',
 	'freelancer\new',
@@ -87,6 +89,9 @@ $allow_all = array(
 	'finance\outgoing-detail',
 	'finance\getTransaction',
 	'finance\getTransactionTask',
+	
+	'finance\searchProjectUnpaidList',
+	'finance\advsearchProjectUnpaidList',
 	
 	// -- Email
 	'email\index',

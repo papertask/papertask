@@ -215,6 +215,14 @@ class FinanceController extends AbstractActionController {
         ));
 	}
 	public function getTaskUnpaidListAction() {
+		
+		$params = $this->getRequest()->getQuery();
+		foreach($params as $key => $value){
+			if (strpos( $value,'{') !== false) {
+				$params->$key = json_decode($value);
+			}
+		}
+		
 		error_reporting(E_ALL);
 		ini_set('display_errors', 1);
 		
@@ -224,6 +232,12 @@ class FinanceController extends AbstractActionController {
         $queryBuilder = $freelancerList->createQueryBuilder('user');
 		$queryBuilder->where("user.group=?1")->setParameter(1, $freelancerGroup);
 
+		if($params->email !=null & $params->email != ''){
+			$queryBuilder->andWhere("user.email LIKE :email")->setParameter('email', "%".$params->email."%");
+		}
+		
+		
+		
 		$adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
         $paginator->setDefaultItemCountPerPage(10);
@@ -232,6 +246,7 @@ class FinanceController extends AbstractActionController {
         if($page) $paginator->setCurrentPageNumber($page);
         $data = array();
 		
+        
         
         foreach($paginator as $user){
 			
@@ -243,11 +258,68 @@ class FinanceController extends AbstractActionController {
 			$queryBuilder_tmp = $taskList->createQueryBuilder('task');
 			$queryBuilder_tmp->andWhere('task.is_deleted = 0');
 			$queryBuilder_tmp->andWhere('task.payStatus = 1');
-			$queryBuilder_tmp->andWhere('task.assignee = ?1')->setParameter(1, $user->getFreelancer());	
+			$queryBuilder_tmp->andWhere('task.assignee = ?1')->setParameter(1, $user->getFreelancer());	//
+			$queryBuilder_tmp->distinct();
+			
+			if(($params->field !=null & $params->field != '') | ($params->pm !=null & $params->pm != '') | ($params->sale !=null & $params->sale != '')){
+				$queryBuilder_tmp->innerJoin('User\Entity\Project','p','WITH','task.project = p.id');
+			}
+			
+			if($params->task_id !=null & $params->task_id != ''){
+				$queryBuilder_tmp->andWhere('task.id = :task_id');
+				$queryBuilder_tmp->setParameter('task_id', $params->task_id);
+				$queryBuilder_tmp->distinct();
+			}
+			
+			if($params->freelancerId !=null & $params->freelancerId != ''){
+				$queryBuilder_tmp->andWhere('task.assignee = :freelancerId');
+				$queryBuilder_tmp->setParameter('freelancerId', $params->freelancerId);	
+				
+			}
+			
+			if($params->status !=null & $params->status != ''){
+				$queryBuilder_tmp->andWhere('task.status = :status')->setParameter('status', $params->status->id);
+			}
+			
+			if($params->field !=null & $params->field != ''){
+				$queryBuilder_tmp->andWhere('p.field = :field')->setParameter('field', $params->field->id);//
+			}
+			
+        	if($params->startDate !=null & $params->startDate != ''){
+    			$time=strtotime($params->startDate);
+    			$time = date("Y-m-d", $time);
+    			$begin = $time." 00:00:00";
+    			$end = $time." 23:59:59";
+    			$queryBuilder_tmp->andWhere('task.startDate BETWEEN ?6 AND ?7')
+    			->setParameter(6, $begin)
+    			->setParameter(7, $end);
+    		}
+			
+    		if($params->dueDate !=null & $params->dueDate != ''){
+    			$time=strtotime($params->dueDate);
+    			$time = date("Y-m-d", $time);
+    			$begin = $time." 00:00:00";
+    			$end = $time." 23:59:59";
+    			$queryBuilder_tmp->andWhere('task.dueDate BETWEEN ?8 AND ?9')
+    			->setParameter(8, $begin)
+    			->setParameter(9, $end);
+    		}
+    		
+    		if($params->pm !=null & $params->pm != ''){
+    			$queryBuilder_tmp->andWhere('p.pm = :pm')->setParameter('pm', $params->pm->id);//
+    		}
+    		
+    		if($params->sale !=null & $params->sale != ''){
+    			$queryBuilder_tmp->andWhere('p.sale = :sale')->setParameter('sale', $params->sale->id);//
+    		}
+    		
 			$query = $queryBuilder_tmp->getQuery();
+			//var_dump($query); exit;
 			$result = $query->getArrayResult();
+			if($result!= null){
 			$data[$userdata['id']]['task'] = $result;
 			$data[$userdata['id']]['freelancer'] = $userdata;
+			}
 			
         }
 		//var_dump($data);exit;
@@ -369,8 +441,15 @@ class FinanceController extends AbstractActionController {
 		
 	}
 	public function getProjectUnpaidListAction() {
-		//error_reporting(E_ALL);
-		//ini_set('display_errors', 1);
+		$params = $this->getRequest()->getQuery();
+		foreach($params as $key => $value){
+			if (strpos( $value,'{') !== false) {
+				$params->$key = json_decode($value);
+			}
+		}
+		
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
 		
 		$entityManager = $this->getEntityManager();
         $employerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::EMPLOYER_GROUP_ID);
@@ -378,6 +457,10 @@ class FinanceController extends AbstractActionController {
         $queryBuilder = $employerList->createQueryBuilder('user');
 		$queryBuilder->where("user.group=?1")->setParameter(1, $employerGroup);
         
+		if($params->email !=null & $params->email != ''){
+			$queryBuilder->andWhere("user.email LIKE :email")->setParameter('email', "%$params->email%");
+		}
+		
 		$adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
         $paginator->setDefaultItemCountPerPage(10);
@@ -398,90 +481,73 @@ class FinanceController extends AbstractActionController {
 			$queryBuilder_tmp->andWhere('project.is_deleted = 0');
 			$queryBuilder_tmp->andWhere('project.payStatus = 1');
 			$queryBuilder_tmp->andWhere('project.client = ?1')->setParameter(1, $user);	
-			$query = $queryBuilder_tmp->getQuery();
-			$result = $query->getArrayResult();
-			$data[$userdata['id']]['project'] = $result;
-			$data[$userdata['id']]['client'] = $userdata;
+			$queryBuilder_tmp->distinct();
 			
+			if($params->project_id !=null & $params->project_id != ''){
+				$queryBuilder_tmp->andWhere('project.id LIKE :project_id')->setParameter('project_id', $params->project_id);
         }
-		//var_dump($data);exit;
-		return new JsonModel(array(
-            'pus' => $data,
-            'pages' => $paginator->getPages()
-        ));
 		
-       /* $projectList = $entityManager->getRepository('User\Entity\Project');
-        $queryBuilder = $projectList->createQueryBuilder('project');
-        $queryBuilder->andWhere('project.is_deleted = 0');
-		$queryBuilder->andWhere('project.payStatus = 1');
-        if($project_id = $this->params()->fromQuery('project_id')){
-            $queryBuilder->andWhere($queryBuilder->expr()->eq('project.id', $project_id));
+			if($params->clientId !=null & $params->clientId != ''){
+				$queryBuilder_tmp->andWhere('project.client = :clientId')->setParameter('clientId', $params->clientId);
         }
-        if($reference = $this->params()->fromQuery('reference')){
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->like('project.reference',
-                $queryBuilder->expr()->literal("%$reference%")));
-        }
-        if($field = $this->params()->fromQuery('field')){
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq('project.field', $field['id'])
-            );
-        }
-        if($status = $this->params()->fromQuery('status')){
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq('project.status', $status['id'])
-            );
+			
+			if($params->reference !=null & $params->reference != ''){
+				$queryBuilder_tmp->andWhere('project.reference LIKE :reference')->setParameter('reference', '%'.$params->reference.'%');
         }
         
-        if($sale = $this->params()->fromQuery('sale')){
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq('project.sale', $sale['id'])
-            );
+			if($params->status !=null & $params->status != ''){
+				$queryBuilder_tmp->andWhere('project.status = :status')->setParameter('status', $params->status->id);
         }
-        if($pm = $this->params()->fromQuery('pm')){
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq('project.pm', $pm['id'])
-            );
+			 
+			if($params->field !=null & $params->field != ''){
+				$queryBuilder_tmp->andWhere('project.field = :field')->setParameter('field', $params->field->id);
         }
-        if($clientId = $this->params()->fromQuery('clientId')){
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq('project.client', $clientId)
-            );
+			 
+			 
+			 
+			if($params->startDate !=null & $params->startDate != ''){
+				$time=strtotime($params->startDate);
+				$time = date("Y-m-d", $time);
+				$begin = $time." 00:00:00";
+				$end = $time." 23:59:59";
+				$queryBuilder_tmp->andWhere('project.startDate BETWEEN ?6 AND ?7')
+				->setParameter(6, $begin)
+				->setParameter(7, $end);
         }
-        if($startDate = $this->params()->fromQuery('startDate')){
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->gte('project.startDate', $startDate)
-            );
+			 
+			if($params->dueDate !=null & $params->dueDate != ''){
+				$time=strtotime($params->dueDate);
+				$time = date("Y-m-d", $time);
+				$begin = $time." 00:00:00";
+				$end = $time." 23:59:59";
+				$queryBuilder_tmp->andWhere('project.dueDate BETWEEN ?8 AND ?9')
+				->setParameter(8, $begin)
+				->setParameter(9, $end);
         }
-        if($dueDate = $this->params()->fromQuery('dueDate')){
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->gte('project.dueDate', $dueDate)
-            );
+			 
+			if($params->pm !=null & $params->pm != ''){
+				$queryBuilder_tmp->andWhere('project.pm = :pm')->setParameter('pm', $params->pm);
         }
-        if($source = $this->params()->fromQuery('source')){
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->gte('project.sourceLanguage', $source['id'])
-            );
+			 
+			if($params->sale !=null & $params->sale != ''){
+				$queryBuilder_tmp->andWhere('project.sale = :sale')->setParameter('sale', $params->sale->id);
         }
-        if($target = $this->params()->fromQuery('target')){
+			
+			
+			//var_dump($queryBuilder_tmp->getQuery()); exit;
+			$query = $queryBuilder_tmp->getQuery();
+			$result = $query->getArrayResult();
+			if($result != null){ 
+				$data[$userdata['id']]['project'] = $result;
+				$data[$userdata['id']]['client'] = $userdata;
         }
-		$queryBuilder->orderBy('project.client', 'DESC');
-        $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
-        $paginator = new Paginator($adapter);
-        $paginator->setDefaultItemCountPerPage(10);
 
-        $page = (int)$this->getRequest()->getQuery('page');
-        if($page) $paginator->setCurrentPageNumber($page);
-        $data = array();
-		$client = array();
-        $helper = new Helper();
-        foreach($paginator as $user){
-            $userData = $user->getData();
-            $data[$userData['userid']][] = $userData;
-			if(!in_array($userData['userid'],$client) && $userData['userid'] > 0)
-				$client[] = $userData['userid']; 
-        }*/
-        //var_dump($paginator);die;
+		}
+		//var_dump($data);exit;
+		return new JsonModel(array(
+				'pus' => $data,
+				'pages' => $paginator->getPages()
+		));
         
     }
    
@@ -546,4 +612,6 @@ class FinanceController extends AbstractActionController {
 				"lang_code" => $lang_code
         ));
     }
+    
+    
 }
