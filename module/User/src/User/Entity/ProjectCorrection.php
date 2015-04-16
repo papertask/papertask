@@ -29,10 +29,10 @@ class ProjectCorrection extends Entity{
     protected $project;
 
     /**
-     * @var \User\Entity\Task
-     * @ORM\ManyToOne(targetEntity="Task")
+     * @var \User\Entity\Language
+     * @ORM\ManyToOne(targetEntity="Language")
      */
-    protected $task;
+    protected $targetLanguage;
 
     /** @ORM\Column(type="json_array") */
     protected $options;
@@ -51,7 +51,7 @@ class ProjectCorrection extends Entity{
             'id' => $this->id,
             'createdDate' => $this->createdDate,
             'project' => $this->project->getId(),
-            'task' => $this->task->getData(),
+            'language' => $this->targetLanguage->getData(),
             'options' => $this->options,
             'message' => $this->message,
         ];

@@ -39,6 +39,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
     $scope.project = {
         tasks: [],
         tasksNum: 0,
+        feedbacksNum: 0,
         activitiesNum: 0,
     };
 	$scope.telephone = [];
@@ -411,12 +412,12 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
         $task.status = TaskStatus.get($task.status);
         $task.files = [];
 
-        var mockC = Object.create(templateCorrection);
-        mockC.language = $task.language;
-        mockC.task = $task;
-        mockC.project_id = $scope.project.id;
-        mockC.needToCreate = true;
-        $task.correction = mockC;
+        // var mockC = Object.create(templateCorrection);
+        // mockC.language = $task.language;
+        // mockC.task = $task;
+        // mockC.project_id = $scope.project.id;
+        // mockC.needToCreate = true;
+        // $task.correction = mockC;
     }
 
     function createTask(){
@@ -442,7 +443,7 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
             attachData($tasks[i]);
         }
         $scope.project.tasksNum = $tasks.length;
-        //$scope.project.tasks = $tasks;
+        $scope.project.tasks = $tasks;
     }
     $scope.custom.afterLoadItems = afterLoadItems;
 
@@ -517,22 +518,21 @@ angularApp.controller("ProjectActivitiesController", function($scope, ActivityAp
     });
 });
 
-angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi, FeedbackQuality, FeedbackTime){
-    $scope.q_values = FeedbackQuality.all();
-    $scope.t_values = FeedbackTime.all();
-var fb_dump = [];
+angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi){
+    var fb_dump = [], fb_loaded = false, fb_refreshed = false;
+
     var prepare = function(feedback){
         feedback.buttonTitle = "Update";
         feedback.qualityTitle = $scope.q_values[Number(feedback.quality)-1].name;
         feedback.timeTitle = $scope.q_values[Number(feedback.turnAroundTime)-1].name;
         // console.log($scope.q_values[feedback.quality].name);
-        fb_dump[feedback.task.id] = feedback;
+        fb_dump[feedback.language.id] = feedback;
     };
 
     var templateFeedback = {
         quality: 3,
         turnAroundTime: 3,
-        message: "Describe your feedback in details to improve quality of service.",
+        //message: "Describe your feedback in details to improve quality of service.",
         buttonTitle: "Submit"
     };
 
@@ -564,9 +564,9 @@ var fb_dump = [];
     }
 
     $scope.custom.afterLoadItems = function($feedbacks){
-        $scope.project.tasks.forEach(function(task){
+        $scope.project.targetLanguages.forEach(function(lang){
             if(!$feedbacks.some(function(fb){
-                if(fb.task.id == task.id){
+                if(fb.language.id == lang.id){
                     return true;
                 }
             })){
@@ -580,6 +580,9 @@ var fb_dump = [];
         });
 
         $feedbacks.forEach(prepare);
+        $scope.project.feedbacksNum = $feedbacks.length;
+        fb_loaded = true && fb_refreshed;
+        fb_refreshed = true;
     }
 
     $scope.$watch(function(){
@@ -591,18 +594,21 @@ var fb_dump = [];
         }
     });
 
-    function attachTaskFeedbacks(){
-        if(fb_dump !== "done" && fb_dump.length !== 0){
-            $scope.project.tasks.forEach(function(task) {
-                if(fb_dump[task.id])
-                    task.feedback = fb_dump[task.id];
+    function attachFeedbacks(){
+        // if(fb_dump !== "done" && fb_dump.length !== 0){
+        // if(fb_dump !== "done" && $scope.project.targetLanguages && $scope.project.targetLanguages.length){
+        if(fb_loaded && fb_dump !== "done" && $scope.project.targetLanguages && $scope.project.targetLanguages.length){
+            $scope.project.targetLanguages.forEach(function(lang) {
+                if(fb_dump[lang.id])
+                    lang.feedback = fb_dump[lang.id];
                 else {
                 var mockFb = Object.create(templateFeedback);
-                mockFb.language = task.language;
-                mockFb.task = task;
+                    mockFb.language = lang;
                 mockFb.project_id = $scope.project.id;
                 mockFb.needToCreate = true;
-                    task.feedback = mockFb;
+                    lang.feedback = mockFb;
+                    lang.feedback.quality = mockFb.quality;
+                    lang.feedback.turnAroundTime = mockFb.turnAroundTime;
             }
         });
             fb_dump = "done";
@@ -610,19 +616,23 @@ var fb_dump = [];
     }
 
     $scope.$watch(function(){
-        return !!($scope.project.tasks && $scope.project.tasks.length && fb_dump.length && fb_dump !== "done");
+        //return !!((fb_loaded && $scope.project.targetLanguages && $scope.project.targetLanguages.length) || (fb_dump.length && fb_dump !== "done"));
+        return fb_loaded &&
+            $scope.project.targetLanguages && $scope.project.targetLanguages.length > 0 &&
+            fb_dump !== "done";
+        // return !!(fb_loaded && fb_dump.length && $scope.project.targetLanguages && $scope.project.targetLanguages.length);
     }, function(){
-        attachTaskFeedbacks();
+        attachFeedbacks();
     });
 });
 
 angularApp.controller("ProjectCorrectionController", function($scope, CorrectionApi){
-    var c_dump = [], c_empty = false;
+    var c_dump = [], c_empty = false, c_refreshed = false, c_loaded = false;
 
     var prepare = function(correction){
         correction.buttonTitle = "Update";
         // correction.options = ;
-        c_dump[correction.task.id] = correction;
+        c_dump[correction.language.id] = correction;
     };
 
     var templateCorrection = {
@@ -635,7 +645,10 @@ angularApp.controller("ProjectCorrectionController", function($scope, Correction
 
     $scope.custom.afterLoadItems = function($corrections){
         $corrections.forEach(prepare);
-        if(!$corrections.length) c_empty = true;
+
+        // if(!$corrections.length) c_empty = true;
+        c_loaded = true && c_refreshed;
+        c_refreshed = true;
     }
 
     $scope.$watch(function(){
@@ -647,11 +660,12 @@ angularApp.controller("ProjectCorrectionController", function($scope, Correction
         }
     });
 
-    function attachTaskCorrections(){
-        if(c_dump !== "done" && c_dump.length !== 0){
-            $scope.project.tasks.forEach(function(task) {
-                if(c_dump[task.id])
-                    task.correction = c_dump[task.id];
+    function attachCorrections(){
+        // if(c_dump !== "done" && c_dump.length !== 0){
+        if(c_loaded && c_dump !== "done" && $scope.project.targetLanguages && $scope.project.targetLanguages.length){
+            $scope.project.targetLanguages.forEach(function(lang) {
+                if(c_dump[lang.id])
+                    lang.correction = c_dump[lang.id];
                 else {
                     // var mockC = Object.create(templateCorrection);
                     // mockC.language = task.language;
@@ -666,71 +680,192 @@ angularApp.controller("ProjectCorrectionController", function($scope, Correction
     }
 
     $scope.$watch(function(){
-        return !!($scope.project.tasks && $scope.project.tasks.length && c_dump.length && c_dump !== "done");
+
+        return c_loaded &&
+            $scope.project.targetLanguages && $scope.project.targetLanguages.length > 0 &&
+            c_dump !== "done";
+        // return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length);
+        // return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length && c_dump.length && c_dump !== "done");
     }, function(){
-        attachTaskCorrections();
+        attachCorrections();
     });
 });
 
-angularApp.controller("ProjectFilesController", function($scope, $http, $window, TaskApi, FeedbackApi, CorrectionApi){
-    $scope.sendFeedback = function(task){
-        task.feedback.buttonTitle = "Sending...";
+angularApp.controller("ProjectFilesController", function($scope, $http, $window, FileUploader, TaskApi, FeedbackApi, CorrectionApi){
 
-        var newFeedback = task.feedback;
-        newFeedback.task = {id: task.id};
+    function attachUploaders(){
+        $scope.project.targetLanguages.forEach(function(lang, i) {
+            var uploader = lang.uploader = new FileUploader({
+                url: "/" + LANG_CODE + "/admin/project/uploadFile",
+                formData: [{langId: lang.id, projectId: $scope.project.id}]
+            });
+
+            // FILTERS
+
+            uploader.filters.push({
+                name: 'customFilter',
+                fn: function(item /*{File|FileLikeObject}*/, options) {
+                    return this.queue.length < 10;
+                }
+        });
+
+
+            // CALLBACKS
+
+            uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+                console.info('onWhenAddingFileFailed', lang.code, item, filter, options);
+            };
+            uploader.onAfterAddingFile = function(fileItem) {
+                fileItem.upload();
+            };
+            uploader.onAfterAddingAll = function(addedFileItems) {
+                console.info('onAfterAddingAll', lang.code, addedFileItems);
+            };
+            uploader.onBeforeUploadItem = function(item) {
+                console.info('onBeforeUploadItem', lang.code, item);
+            };
+            uploader.onProgressItem = function(fileItem, progress) {
+                console.info('onProgressItem', lang.code, fileItem, progress);
+            };
+            uploader.onProgressAll = function(progress) {
+                console.info('onProgressAll', lang.code, progress);
+            };
+            uploader.onSuccessItem = function(fileItem, response, status, headers) {
+                if(!response.success){
+                    fileItem.file.name += " - Uploading error";
+                    $timeout(function(){
+                        fileItem.remove();
+                    }, 1000);
+                    return;
+                }
+
+                fileItem.projectFile = {
+                    name: fileItem.file.name,
+                    lang: lang.id,
+                    id: response.file.id
+                };
+                fileItem.token = response.file.token;
+
+                if(!lang.files) lang.files = [];
+                lang.files.push(response.file);
+
+            };
+            uploader.onErrorItem = function(fileItem, response, status, headers) {
+                console.info('onErrorItem', lang.code, fileItem, response, status, headers);
+            };
+            uploader.onCancelItem = function(fileItem, response, status, headers) {
+                console.info('onCancelItem', lang.code, fileItem, response, status, headers);
+            };
+            uploader.onCompleteItem = function(fileItem, response, status, headers) {
+            };
+            uploader.onCompleteAll = function() {
+                console.info('onCompleteAll', lang.code);
+            };
+
+            console.info('uploader', lang.code, uploader);
+
+
+            // -------------------------------
+        });
+    }
+
+
+    $scope.controller = {
+        isImage: function(item) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    };
+
+    $scope.removeItem = function(item){
+        if(item.isSuccess){
+            if(item.projectFile.lang){
+                var token = item.token;
+                for(var i = 0; i < $scope.project.targetLanguages[item.projectFile.lang].files.length; i++){
+                    if($scope.project.targetLanguages[item.projectFile.lang].files[i].token == token){
+                        $scope.project.files.splice(i, 1);
+                        break;
+                    }
+                }
+            } else {
+                var token = item.token;
+                for(var i = 0; i < $scope.project.files.length; i++){
+                    if($scope.project.files[i].token == token){
+                        $scope.project.files.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        };
+        item.remove();
+    };
+
+    $scope.sendFeedback = function(lang){
+        lang.feedback.buttonTitle = "Sending...";
+
+        var newFeedback = lang.feedback;
+        newFeedback.language = {id: lang.id};
         newFeedback.project_id = $scope.project.id;
 
-        TaskApi.update(task.id, { 'status_id' : 1 }, function($res){
-            console.log($res);
-        });
+        /**
+         * Update smth. status set to appreved!
+         *
+         */
+        // TaskApi.update(task.id, { 'status_id' : 1 }, function($res){
+        //     console.log($res);
+        // });
 
         FeedbackApi.create(newFeedback, function($newFeedback){
             // $scope.newFeedback = Object.create(templateFeedback);
             // $scope.items.push($newFeedback);
             console.log($newFeedback);
-            task.feedback.buttonTitle = "Updated!";
+            lang.feedback.buttonTitle = "Updated!";
             location.reload();
         });
     }
 
-    $scope.requestCorrection = function(task){
+    $scope.requestCorrection = function(lang){
         // task.feedback.buttonTitle = "Sending...";
 
-        var newCorrection = task.correction;
-        newCorrection.task = {id: task.id};
+        var newCorrection = lang.correction;
+        newCorrection.lang = {id: lang.id};
         newCorrection.options = newCorrection.options;
         newCorrection.project_id = $scope.project.id;
 
-        TaskApi.update(task.id, { 'status_id' : 3 }, function($res){
-            console.log($res);
-        });
+        /**
+         * Update smth. status set to approved!
+         */
+        // TaskApi.update(task.id, { 'status_id' : 3 }, function($res){
+        //     console.log($res);
+        // });
 
-        if(newCorrection.needToCreate)
+        if(newCorrection.id)
+            CorrectionApi.update(newCorrection.id , newCorrection, function($newCorrection){
+                // $scope.newFeedback = Object.create(templateFeedback);
+                // $scope.items.push($newFeedback);
+                console.log($newCorrection);
+            });
+        else
             CorrectionApi.create(newCorrection, function($res){
                 // $scope.newFeedback = Object.create(templateFeedback);
                 // $scope.items.push($newFeedback);
                 console.log($res);
                 // task.feedback.buttonTitle = "Updated!";
                 location.reload();
-            });
-        else
-            CorrectionApi.update(newCorrection.id , newCorrection, function($newCorrection){
-                // $scope.newFeedback = Object.create(templateFeedback);
-                // $scope.items.push($newFeedback);
-                console.log($newCorrection);
 });
     }
 
     $scope.files = [];
-    $scope.taskFiles = [];
+    $scope.langFiles = [];
 
     var projectId = PROJECT_ID;
 
-    function attachTaskFiles(){
-        $scope.taskFiles.forEach(function(file) {
-            $scope.project.tasks.some(function(t){
-                if(t.id == file.task.id){
-                    t.files.push(file);
+    function attachLangFiles(){
+        $scope.langFiles.forEach(function(file) {
+            $scope.project.targetLanguages.some(function(l){
+                if(l.id == file.language.id){
+                    if(!l.files) l.files = [];
+                    l.files.push(file);
                     return true;
                 }
             });
@@ -741,10 +876,10 @@ angularApp.controller("ProjectFilesController", function($scope, $http, $window,
         $http.get("/" + LANG_CODE + "/admin/project/getFilesList?project_id="+projectId)
             .success( function ( $data ) {
                 $scope.files = $data.filter(function(file){
-                    return !file.task;
+                    return !file.task && !file.language;
                 });
-                $scope.taskFiles = $data.filter(function(file){
-                    return file.task;
+                $scope.langFiles = $data.filter(function(file){
+                    return !!file.language;
                 });
             });
     }
@@ -754,11 +889,22 @@ angularApp.controller("ProjectFilesController", function($scope, $http, $window,
         $window.open("/" + LANG_CODE + "/admin/project/downloadFile?token="+token, '_blank');
     };
 
+    $scope.deleteFile = function(token){
+        console.log("File deleted");
+        // $window.open("/" + LANG_CODE + "/admin/project/downloadFile?token="+token, '_blank');
+    };
+
     init();
 
     $scope.$watch(function(){
-        return !!($scope.project.tasks && $scope.project.tasks.length && $scope.taskFiles && $scope.taskFiles.length);
+        return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length && $scope.langFiles && $scope.langFiles.length);
     }, function(){
-        attachTaskFiles();
+        attachLangFiles();
+    });
+
+    $scope.$watch(function(){
+        return !!($scope.project.targetLanguages && $scope.project.targetLanguages.length);
+    }, function(){
+        if($scope.project.targetLanguages && $scope.project.targetLanguages.length) attachUploaders();
     });
 });

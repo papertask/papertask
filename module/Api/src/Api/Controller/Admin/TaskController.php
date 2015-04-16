@@ -93,7 +93,6 @@ class TaskController extends AbstractRestfulJsonController
 		$action = $this->params()->fromQuery('action');
 		if($action==1)
 		{
-			
 			$task->setData([
 				'name' => $data['name'],
 				'startDate' =>  new \DateTime($data['startDate']),

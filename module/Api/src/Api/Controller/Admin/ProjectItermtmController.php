@@ -53,7 +53,7 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 			'sourcewushi' => $data['sourcewushi'],
 			'sourceyibai' => $data['sourceyibai'],
 
-			'raterepetitions' => $data['raterepetitions'},
+			'raterepetitions' => $data['raterepetitions'],
 			'rateyibai' => $data['rateyibai'],
 			'ratejiuwu' => $data['ratejiuwu'],
 			'ratebawu' => $data['ratebawu'],
