@@ -1,41 +1,38 @@
 <div class=" setup-content" id="step-2">
+<form id="formStep2" action="#" class="wizard-big" novalidate>
 	<div class="col-md-12">
 		<div class="row">
 			<div class="col-md-3">
 				<h4>Currency</h4>
-				<div data-toggle="buttons">
+				<div data-toggle="buttons" class="form-group">
 					<!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
-					<label class="btn btn-outline btn-primary"> <input type="radio"
-						name="usd" value="" /> USD
-					</label> <label class="btn btn-outline btn-primary"> <input
-						type="radio" name="cny" checked value="" /> CNY
-					</label>
+					<label  class="btn btn-outline btn-primary {{currency == project.currency ? 'active': ''}}"
+					 ng-repeat="currency in currencys" ng-click="chooseCurrency(currency);refreshInfo()"> <input type="radio"
+						 value="{{currency.id}}" name="{{currency.name}}" /> {{currency.name}}
+					</label>  
 				</div>
 			</div>
 			<div class="col-md-6">
 				<h4>Select Quality Level</h4>
-				<div data-toggle="buttons">
-					<!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
-					<label class="btn btn-outline btn-primary"> <input type="radio"
-						name="prof" value="" /> Professional <i
-						class="fa fa-question-circle"></i>
-					</label> <label class="btn btn-outline btn-primary"> <input
-						type="radio" name="business" value="" /> Business <i
-						class="fa fa-question-circle"></i>
-					</label> <label class="btn btn-outline btn-primary"> <input
-						type="radio" name="premium" value="" /> Premium <i
+				<div data-toggle="buttons" class="form-group">
+					
+					<label class="btn btn-outline btn-primary {{ProjectServiceLevel == project.serviceLevel ? 'active': ''}}" 
+					ng-repeat="ProjectServiceLevel in ProjectServiceLevels" ng-click="chooseProjectServiceLevel(ProjectServiceLevel);changePServicePrice();">
+						<input type="radio"
+						name="{{ProjectServiceLevel.name}}" value="{{ProjectServiceLevel.id}}"
+						/> {{ProjectServiceLevel.name}} <i
 						class="fa fa-question-circle"></i>
 					</label>
 				</div>
 			</div>
 			<div class="col-md-3">
 				<h4>Translate Graphics</h4>
-				<div data-toggle="buttons">
+				<div data-toggle="buttons" class="form-group">
 					<!-- here put it in default NO -->
-					<label class="btn btn-outline btn-primary"> <input type="radio"
-						name="cny" value="" /> YES
-					</label> <label class="btn btn-outline btn-primary"> <input
-						type="radio" name="usd" checked value="" /> NO
+					<label class="btn btn-outline btn-primary {{transGraph == project.transGraph ? 'active': ''}}" 
+					ng-repeat="transGraph in transGraphs" ng-click="choosetransGraph(transGraph)" > 
+					<input type="radio"
+						name="{{transGraph.name}}" value="{{transGraph.id}}" /> {{transGraph.name}}
 					</label>
 				</div>
 			</div>
@@ -46,22 +43,25 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h4>Translate From *</h4>
-				<select class="form-control required valid" name="sourceLanguage"
+				<select id="sourceLanguage" required class="form-control required valid" name="sourceLanguage"
 					aria-required="true"
 					ng-options="language.name for language in languages"
 					ng-model="project.sourceLanguage"
-					ng-change="change_client(project.client)">
-					<option value="">Select Source Language</option>
+					required
+					ng-change="changePServicePrice();">
+					<option value="" ng-disabled="disable" ng-hide="true">Select Source Language</option>
 				</select>
+
 			</div>
 			<div class="col-md-6">
 				<h4>Translate To *</h4>
-				<select class="form-control required valid" name="sourceLanguage"
+				<select class="form-control required valid" name="targetLanguage"
 					aria-required="true"
 					ng-options="language.name for language in languages"
 					ng-model="project.targetLanguage"
-					ng-change="change_client(project.client); add_targetLanguage();">
-					<option value="">Add Target Languages</option>
+					required
+					ng-change="add_targetLanguage();changePServicePrice();">
+					<option value="" ng-hide="hidetargetLang" >Add Target Languages</option>
 				</select>
 			</div>
 		</div>
@@ -82,10 +82,10 @@
 					<td>{{$index + 1}}</td>
 					<td><span class="label label-primary">{{item.name}}</span></td>
 					</td>
-					<td>CNY 0.12 / word</td>
+					<td>{{CurrentCurrency}} {{item.price | currency : '' : 2}} / word</td>
 					<!-- here load papertask list price -->
 					<td>1000</td>
-					<td>CNY 1200</td>
+					<td>{{CurrentCurrency}} {{item.price*1000 | currency : '' : 2}}</td>
 					<td class="text-center child-is-link"><i
 						ng-click="removeTargetLang(item)"
 						class="fa fa-trash-o text-danger"></i>
@@ -96,7 +96,8 @@
 		</table>
 		<div class="text-center">
 			<button id="" class="btn btn-primary btn-lg">Previous</button>
-			<button id="activate-step-3" class="btn btn-primary btn-lg">Next</button>
+			<button id="activate-step-3" class="btn btn-primary btn-lg" ng-click="checkValidStep2()">Next</button>
 		</div>
 	</div>
+</form>
 </div>

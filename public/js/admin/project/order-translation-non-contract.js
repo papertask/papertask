@@ -1,17 +1,27 @@
-angularApp.controller('OrderTranslationController', function($scope, $http, $timeout, $q, $sce, CurrentUser,
-		TableItemListService, ProjectServiceLevel, ProjectStatus, ProjectPriority,  ProjectType, CurrentcyRate){
+angularApp.controller('OrderTranslationController', function($scope, $http, $timeout, $q, $sce, Currency, CurrentUser,
+		TableItemListService, ProjectServiceLevel, TransGraphs, 
+		ProjectStatus, ProjectPriority, Fapiao,  ProjectType, CurrentcyRate){
 	$scope.files = [];
+	$scope.wordsperitem = 222;
+	$scope.price = 0.12;
+	$scope.totalwords = $scope.wordsperitem*$scope.totalitems;
 	
-	 $scope.project = {
-				
+	
+	 $scope.project = {			
 		        types: [],
-				files: []	
+				files: [],
+				targetLanguages : []
 	};
-
-	
+	 
+	 $scope.numberLangs = $scope.project.targetLanguages.length;	 
+	 $scope.totalitems = $scope.project.files.length;
+	 $scope.totalwords = $scope.wordsperitem*$scope.totalitems;
+	 $scope.ItermsTotal = $scope.price*$scope.totalwords*$scope.numberLangs;
+	 $scope.taxRate = 0.1;
+	 $scope.tax = $scope.taxRate*$scope.ItermsTotal;
+	 $scope.total = $scope.ItermsTotal + $scope.tax;
+	 
 	 $scope.init = function(){
-		 $scope.test = 'Hello';
-		 
 		 $http.get("/api/data/project/")
          .success(function($data){
 				console.log($data);
@@ -29,57 +39,295 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
                  //jQuery("select.multiselect").multiselect("destroy").multiselect();
              });
          });
+		 
+		 $http.get("/api/papertask/translation").success(function($data){
+	         $scope.translation = $data['translation'];
+	         console.log($data['translation']);
+	     }).error(function($e){
+	         alert('error');
+	     });
+		 
+		//Get currency
+		$http.get("/api/papertask/currencyrate").success(function($data){
+            $scope.profileservice = $data['profileservice'];
+			$scope.currencyrate_t = $scope.profileservice[0];
+			$scope.currencyrate = Number($scope.currencyrate_t.currencyRate);
+        }).error(function($e){
+            alert('error');
+        });
+			
 		 console.log( $scope.languages);
 	 };
 	 
-	 $scope.change = function(){
-		 //alert('change');
+	 $scope.initStep2 = function(){
+		 
+		 $scope.ajaxEmployerInfo();	 
+		 
+		 //console.log('$scope.transGraphs');  console.log($scope.transGraphs);
 	 }
+	 
+	 
+	 
+	 $scope.curentStep = 1;
+	 
+	 $scope.currencys = Currency.all();
+	 
+	 $scope.ProjectServiceLevels = ProjectServiceLevel.all();
+	 $scope.transGraphs = TransGraphs.all();
+	 
+	 // Default Currency => USA
+	 $scope.project.currency = Currency.get(1);	
+	 $scope.CurrentCurrency = $scope.project.currency.name;
+		 
+	 // Default transGraphs => No
+	 $scope.project.transGraph = $scope.transGraphs[0];
+	 if($scope.project.transGraph.name == 'no') 
+		 $scope.isGraph = false;
+	 else
+		 $scope.isGraph = true;
+	 
+	 //Fapiao
+	 $scope.Fapiaos = Fapiao.all();	
+	 $scope.project.fapiao = Fapiao.get(0);
+	 
+	 $scope.checkCurr = function(){
+		 console.info(' $scope.project.currency', $scope.project.currency);		 
+	 }
+	 
+	 $scope.chooseCurrency = function(currency){
+		 $scope.project.currency = currency;
+		 if(currency.name == "CNY"){
+			 $scope.changeRate = $scope.currencyrate;
+		 } else if (currency.name == "USD") {
+			 $scope.changeRate = 1/$scope.currencyrate;
+		 }
+		 $scope.CurrentCurrency = $scope.project.currency.name;
+		 $scope.changePrice($scope.changeRate);
+		 //console.info(' $scope.project.currency', $scope.project.currency);
+	 }
+	 
+	 $scope.changePrice = function(Rate){
+		 for(i=0; i<$scope.project.targetLanguages.length; i++){
+			 $scope.project.targetLanguages[i].price =  $scope.project.targetLanguages[i].price*Rate;
+		 }
+	 }
+	 
+	 $scope.chooseProjectServiceLevel = function(ProjectServiceLevel){
+		 $scope.project.serviceLevel = ProjectServiceLevel;
+		 console.info('$scope.project.serviceLevel', $scope.project.serviceLevel);
+	 }
+	 $scope.chooseFapiao = function(Fapiao){
+		 $scope.project.fapiao = Fapiao;
+		 if( $scope.project.fapiao.name == 'yes')
+			 $scope.taxRate = 0;
+		 else 
+			 $scope.taxRate = 0.1;
+		 $scope.refreshInfo();
+		 console.info(' $scope.project.fapiao',  $scope.project.fapiao);
+	 }
+	 
+	 $scope.choosetransGraph = function(transGraph){
+		 $scope.project.transGraph = transGraph;
+		 if($scope.project.transGraph.name == 'no') 
+			 $scope.isGraph = false;
+		 else
+			 $scope.isGraph = true;
+		 console.info('  $scope.project.transGraph',  $scope.project.transGraph);
+	 }
+	 
+	 $scope.changeCurStep = function (nextStep){
+		 $scope.curentStep = nextStep;
+	 }
+	 
+	 $scope.checkValidStep2 = function(){
+		 //$( "#formStep2" ).valid()
+		 if(true){
+			 $('ul.setup-panel li:eq(2)').removeClass('disabled');
+             $('ul.setup-panel li a[href="#step-3"]').trigger('click');
+            $("#activate-step-3").remove();
+         } else{
+             return false;
+         }
+	 }
+	 
+	 $scope.PayAndStartTrans = function(){
+		 if($( "#formStep3" ).valid()){
+			 $scope.project.client = CurrentUser.info;
+			 $scope.project.status = ProjectStatus.get(2);
+			 $scope.project.startDate = StrDate(new Date());
+			 $scope.project.dueDate =  $scope.project.startDate;
+			 var $params = $scope.prepareData($scope.project);
+			 
+			 console.log('$scope.project');
+			 console.log($params);
+			 
+			 $http.post("/api/admin/project/", $params)
+	         .success(function($data){
+	        	 $('#PayAndStartTrans').remove();
+	             if($data.success){
+	                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
+	             } else {
+	                 location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
+	             }
+	         })
+	         .error(function($data){
+
+	         });
+			 return false;
+         } else{
+             return false;
+         }
+	 }
+	 
+	 $scope.RequestQuote = function(){
+		 if($( "#formStep3" ).valid()){
+
+			 $scope.project.client = CurrentUser.info;
+			 $scope.project.status = ProjectStatus.get(1);
+			 $scope.project.startDate = StrDate(new Date());
+			 $scope.project.dueDate =  $scope.project.startDate;
+			 var $params = $scope.prepareData($scope.project);
+			 
+			 console.log('$scope.project');
+			 console.log($params);
+
+			 $http.post("/api/admin/project/", $params)
+	         .success(function($data){		
+	        	 $('#RequestQuote').remove();
+	             if($data.success){
+	                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
+	             } else {
+	                 location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
+	             }
+	         })
+	         .error(function($data){
+
+	         });
+         } else{
+             return false;
+         }
+	 }
+	 
+	 
+	 $scope.prepareData = function(proj){
+		 var data = $.extend(true, {}, proj); 
+		 data.serviceLevel = data.serviceLevel.id;
+		 data.transGraph = data.transGraph.id;
+		 data.currency = $scope.CurrentCurrency;
+		 return data;
+	 }
+	 
+	
 	 
 	 $scope.init();
 	 
 	 $scope.add_targetLanguage = function(){
+		 $scope.hidetargetLang = true;
 		 
-		 $scope.project.targetLanguages.push($scope.project.targetLanguage);
+		 if ($scope.project.targetLanguages.indexOf($scope.project.targetLanguage) == -1) {
+			 $scope.project.targetLanguages.push($scope.project.targetLanguage);
+	     } 
+		 
+		 
+		 $scope.refreshInfo();		 
+	
 		 console.log($scope.project);
 	 }
 	 
 	 $scope.removeTargetLang = function(lang){
 		 var index = $scope.project.targetLanguages.indexOf(lang);
 		  $scope.project.targetLanguages.splice(index, 1);  
-		  console.log($scope.project);
+		  //console.log($scope.project);
+		  if($scope.project.targetLanguages.length == 0){
+			  console.info('$scope.project.targetLanguages ',$scope.project.targetLanguages )
+			  $scope.hidetargetLang = false;
+			  $scope.project.targetLanguage= "";
+		  }
+		  $scope.refreshInfo();
 	 }	 
 
 	 $scope.ProjectServiceLevel = ProjectServiceLevel.all(); 
 	 
 	 //$scope.project.client = CurrentUser.info;
-	
 	 
-	 $scope.orderTranslation = function(){
-		 $scope.project.client = $scope.clients[0];
-		 $scope.project.status = ProjectStatus.get(1);
-		 $scope.project.reference = 'reference not null';
-		 $scope.project.dueDate = "11-04-2015 15:07";
-		 $scope.project.duration = '5';
-		 $scope.project.startDate = "11-04-2015 15:07";
-		 $scope.project.priority = ProjectPriority.get(1);
-		 
-		 console.log('$scope.project');
-		 console.log($scope.project);
-		 
-		 $http.post("/api/admin/project/", $scope.project)
-         .success(function($data){
+	 // Get EmployerInfo
+	 $scope.ajaxEmployerInfo = function(){
+		 $scope.USER_ID = CurrentUser.info.id;
+		 var ajaxEmployerInfo = $http.get("/api/user/" + $scope.USER_ID + "/employer")
+	     .success( function ( $data ) {
+	    	 	$scope.employer = $data.employer;
 				
-             if($data.success){
-                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
-             } else {
-                 location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
-             }
-         })
-         .error(function($data){
-
-         });
+	    	 	for(i=0;i<$scope.ProjectServiceLevel.length;i++){
+	    	 		if($scope.ProjectServiceLevel[i].id ==  $scope.employer.defaultServiceLevel){
+	    	 			$scope.project.serviceLevel = $scope.ProjectServiceLevel[i];
+	    	 			break;
+	    	 		}			
+	    	 	}
+	    	 	
+	    	 	$http.get("/api/user/" + $scope.USER_ID)
+		   	     .success( function ( $data ) {
+		   	    	 $scope.employer.translationPrices = $data.translationPrices;
+		   	     });
+	     });	 
 	 }
+	 
+	 $scope.refreshInfo = function(){
+		 $scope.totalitems = $scope.project.files.length;
+		 $scope.numberLangs = $scope.project.targetLanguages.length;
+		 //$scope.price = ($scope.numberLangs > 0)? $scope.project.targetLanguages[0].price : 0 ;
+		 if($scope.numberLangs > 0) {
+			 $scope.price = $scope.project.targetLanguages[0].price;
+		 } else {
+			 $scope.price = 0;
+		 }
+		 $scope.totalwords = $scope.wordsperitem*$scope.totalitems;
+		 $scope.ItermsTotal = $scope.price*$scope.totalwords*$scope.numberLangs;
+		 $scope.tax = $scope.taxRate*$scope.ItermsTotal;
+		 $scope.total = $scope.ItermsTotal + $scope.tax;
+		 $scope.hours = $scope.totalwords * 24/3000; 
+		 return false;
+	 }
+	 
+	 $scope.changePServicePrice = function(){
+			if($scope.project.sourceLanguage != null){
+				
+				TableItemListService.translationPrices = new Array(); 
+				var tempTrans = [];
+				for(j=0; j<$scope.project.targetLanguages.length; j++){
+					var isFind = false;
+					var price = null;
+					
+						//get default papertask
+						for(k=0;k<$scope.translation.length;k++){
+							if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage){
+								if($scope.project.serviceLevel.id==1) {
+									
+									price = Number($scope.translation[k].professionalPrice);
+									tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : Number($scope.translation[k].professionalPrice)});
+								}	
+								else if($scope.project.serviceLevel.id==2) {
+									price = Number($scope.translation[k].businessPrice);
+									tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : Number($scope.translation[k].businessPrice)});
+								}
+								else {
+									price = Number($scope.translation[k].premiumPrice);
+									tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : Number($scope.translation[k].premiumPrice)});
+								}
+								isFind = true;
+							}						
+						}
+					
+					
+					if(isFind == false){
+						price = '1.10';
+						tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : '1.10'});
+					}
+					$scope.project.targetLanguages[j].price = price;
+				} 
+				TableItemListService.translationPrices = tempTrans;
+			}	
+			$scope.refreshInfo();	
+		 }
 });
 
 
@@ -255,6 +503,8 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
     };
     uploader.onCompleteAll = function() {
         console.info('onCompleteAll');
+        //console.info('$scope.project.files',$scope.project.files);
+        $scope.refreshInfo();
     };
 
     console.info('uploader', uploader);
@@ -276,6 +526,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
             for(var i = 0; i < $scope.project.files.length; i++){
                 if($scope.project.files[i].id == id){
                     $scope.project.files.splice(i, 1);
+                    $scope.refreshInfo();
                     break;
                 }
             }

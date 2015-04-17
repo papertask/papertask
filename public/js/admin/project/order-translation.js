@@ -9,7 +9,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 				files: []	
 	};
 
-	
+     
 	 $scope.init = function(){		 
 		 $http.get("/api/data/project/")
          .success(function($data){
@@ -128,11 +128,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		   	     .success( function ( $data ) {
 		   	    	 $scope.employer.translationPrices = $data.translationPrices;
 		   	     });
-	     });
-		 
-		 
-		 
-		 
+	     });	 
 	 }
 	 
 	 $http.get("/api/papertask/translation").success(function($data){
@@ -143,7 +139,8 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
      });
 	 
 	 $scope.orderTranslation = function(){
-	
+		 var isvalid = $("#form").valid();
+		 
 		 $scope.project.client = CurrentUser.info;
 		 $scope.project.status = ProjectStatus.get(2);
 		 $scope.project.startDate = StrDate(new Date());
@@ -151,22 +148,27 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 var $params = $scope.prepareData($scope.project);
 		 
 		 console.log('$scope.project');
+		 console.log($scope.project);
+		 console.log('$params');
 		 console.log($params);
-		 form.valid();
-		 
-		 $http.post("/api/admin/project/", $params)
-         .success(function($data){				
-             if($data.success){
-                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
-             } else {
-                 location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
-             }
-         })
-         .error(function($data){
+		 return false;
+		 if(isvalid){
+		     $('#activate-step-3').remove();
+			 $http.post("/api/admin/project/", $params)
+	         .success(function($data){				
+	             if($data.success){
+	                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
+	             } else {
+	                location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
+	             }
+	         })
+	         .error(function($data){
 
-         });
-         
-         
+	         });
+	         
+		 } 	else {
+				//alert('unvalid');
+		 }      
 	 }
 	 
 	 $scope.needaQuote = function(){
@@ -178,7 +180,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 
 		 console.log('$scope.project');
 		 console.log($params);
-		 
+		 return false;
 		 $http.post("/api/admin/project/", $params)
          .success(function($data){				
              if($data.success){
@@ -195,11 +197,11 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 }
 	 
 	 $scope.prepareData = function(proj){
-		 var data = proj;
-		 var serviceLevel = proj.serviceLevel.id;
+		 var data = $.extend(true, {}, proj); 
+		 var serviceLevel = data.serviceLevel.id;
 		 data.serviceLevel = serviceLevel;
 		 
-		 var transGraph = proj.transGraph.id;
+		 var transGraph = data.transGraph.id;
 		 data.transGraph = transGraph;
 		 return data;
 	 }

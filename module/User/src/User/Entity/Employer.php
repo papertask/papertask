@@ -97,4 +97,8 @@ class Employer extends Entity{
     public function updateData($data){
         $this->setData($data);
     }
+    
+    public function getContract(){
+    	return $this->contracted;
+    }
 } 

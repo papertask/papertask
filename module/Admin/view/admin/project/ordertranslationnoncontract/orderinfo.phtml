@@ -10,19 +10,19 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th>3 iterms</th>
+										<th>{{totalitems}} iterms</th>
 										<!-- before iterms, put the number of files uploaded -->
-										<th class="text-right">888 words</th>
+										<th class="text-right">{{totalwords}} words</th>
 									</tr>
 									<tr>
 										<th>Languages</th>
-										<th class="text-right">4</th>
+										<th class="text-right">{{numberLangs}}</th>
 										<!-- target languages number -->
 									</tr>
 									<tr>
 										<th>Quality Level</th>
-										<th class="text-right"><span class="label label-primary">Business</span>
-											CNY 0.12/Word</th>
+										<th class="text-right"><span class="label label-primary">{{project.serviceLevel.name}}</span>
+											{{CurrentCurrency}} {{price | currency : '' : 2}}/Word</th>
 									</tr>
 								</thead>
 							</table>
@@ -31,23 +31,24 @@
 								<thead>
 									<tr>
 										<th>Iterms Total</th>
-										<th class="text-right">CNY 1200.88</th>
+										<th class="text-right">{{CurrentCurrency}} {{ItermsTotal | currency : '' : 2}}</th>
 									</tr>
 									<tr>
 										<th>Tax</th>
-										<th class="text-right">CNY 200.88</th>
+										<th class="text-right">{{CurrentCurrency}} {{tax | currency : '' : 2}}</th>
 									</tr>
 									<tr style="font-size: 22px;">
 										<th>Total</th>
-										<th class="text-right">CNY 1200.88</th>
+										<th class="text-right">{{CurrentCurrency}} {{total | currency : '' : 2}}</th>
 									</tr>
 								</thead>
 							</table>
 							<br>
 							<p>
-								Estimated delivery <strong>34 hours.</strong>
+								Estimated delivery <strong>{{hours | currency : '' : 0}} hours.</strong>
 							</p>
 							<!-- this hour based on the word count of the files, algorithm is estimate time = total word count / 2000 = number of hours, if the result is 1.2, then show 2, if 1.7, show 2 also-->
 						</div>
 					</div>
+					
 				</div>

@@ -7,7 +7,7 @@
   //  ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
  //   ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
   //  ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
- //   ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+    //->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
 	->prependStylesheet($this->basePath() . '/css/plugins/jquery-fileupload/jquery.fileupload.css');
 ?>
 
@@ -17,7 +17,7 @@
     ->prependFile($this->basePath() . '/js/admin/project/order-translation.js')
    ->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
     ->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
-    ->prependFile($this->basePath() . '/js/admin/angular-steps-order-translation.js')
+  //  ->prependFile($this->basePath() . '/js/admin/angular-steps-order-translation.js')
     ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
     ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload']);")
     ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
@@ -26,7 +26,7 @@
   //  ->prependFile($this->basePath() . '/js/plugins/datapicker/bootstrap-datepicker.js')
   //  ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
     ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
+  //  ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
   //  ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
   //  ->prependFile($this->basePath() . '/js/inspinia.js');
 	  
@@ -77,7 +77,7 @@ $this->inlineScript()
                         <div class="ibox-content">
                         <div class="row">
                             <div class="col-lg-12">
-                              <form id="form" action="#" class="wizard-big" ng-controller="OrderTranslationController" >
+                              <form id="form" action="#" class="wizard-big" ng-controller="OrderTranslationController" novalidate >
 
                                   <div class=" form-group">
                                     <div class="col-md-12">
@@ -94,7 +94,8 @@ $this->inlineScript()
                                     </div>
                                   </div>                                  
                                      <?php include "ordertranstation/step1.phtml" ?>                                                                 
-                                     <?php include "ordertranstation/step2.phtml" ?>
+                                     <?php include "ordertranstation/step2.phtml" ?>                                        
+    
                               </form>
                             </div>
                             </div>
@@ -134,12 +135,15 @@ $this->inlineScript()
               $('ul.setup-panel li a[href="#step-2"]').trigger('click');
               $(this).remove();
           });    
-          
+
+          /*
           $('#activate-step-3').on('click', function(e) {
               $('ul.setup-panel li a[href="#step-3"]').trigger('click');
               $(this).remove();
           }); 
-
+			
+			*/
+			
           $('#activate-step-4').on('click', function(e) {
               $('ul.setup-panel li a[href="#step-4"]').trigger('click');
               $(this).remove();
@@ -160,11 +164,13 @@ $this->inlineScript()
     	   var ss = dateIn.getSeconds();
     	   return String(yyyy +'-'+ mm +'-'+ dd + ' '+ hh +':'+ mi + ':' + ss); // Leading zeros for mm and dd
     	}
-      //var today = new Date();
-      //console.log(StrDate(today));
-        $.validator.setDefaults({
-        submitHandler: function () { alert("submitted!"); }
-    	});
+
+        jQuery.validator.setDefaults({
+		  debug: false,
+		  success: "valid"
+		});
+		$( "#form" ).validate();
+
  </script>
 
 

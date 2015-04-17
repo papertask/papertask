@@ -91,6 +91,31 @@ angularApp.factory("TransGraphs", function(){
     }
 });
 
+angularApp.factory("Fapiao", function(){
+    var statuses = [{
+        'id': 0,
+        'name': 'no',
+        'decorator': 'No Need Fapiao'
+    },{
+        'id': 1,
+        'name': 'yes',
+        'decorator': 'No Need Fapiao'
+    }];
+
+    return {
+        get: function ($id) {
+            for (var i = 0; i < statuses.length; i++) {
+                if (statuses[i].id == $id) {
+                    return statuses[i];
+                }
+            }
+        },
+        all: function () {
+            return statuses;
+        }
+    }
+});
+
 
 angularApp.factory("TaskStatus", function(){
     var unassigned = {

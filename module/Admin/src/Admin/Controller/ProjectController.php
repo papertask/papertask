@@ -13,6 +13,8 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
 use Application\Controller\AbstractActionController;
 use User\Entity\File;
+use User\Entity\User;
+use Application\Controller\AbstractRestfulController;
 
 class ProjectController extends AbstractActionController
 {
@@ -28,9 +30,24 @@ class ProjectController extends AbstractActionController
 
     public function orderTranslationAction(){
     	$lang_code = $this->params()->fromRoute('lang');
-    	return new ViewModel(array(
+    	
+    	$currentUserId = User::currentLoginId();
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);
+    	$employer = $currentUser->getEmployer();
+    	$isContracted = $employer->getContract();
+    	if($isContracted == 1){
+    		$view =  new ViewModel(array(
+    				"lang_code" => $lang_code,
+    		));
+    		$view->setTemplate('admin/project/order-translation.phtml');
+    		return $view;
+    	} else{
+    		$view =  new ViewModel(array(
     			"lang_code" => $lang_code,
     	));
+    		$view->setTemplate('admin/project/order-translation-non-contract.phtml');
+    		return $view;
+    	}
     }	
     
     public function orderTranslationNonContractAction(){
@@ -615,4 +632,6 @@ class ProjectController extends AbstractActionController
 		$pdf->Output("pdf-name.pdf", 'D');
 		//exit;
     }
+    
+	
 }

@@ -4,8 +4,8 @@
 angularApp.run(function($rootScope){
     $("#form").steps({
         bodyTag: "fieldset",
-        showFinishButtonAlways: false,
-        paginationPosition: false,
+        showFinishButtonAlways: true,
+        paginationPosition: "both",
         labels: {
             current: "current step:",
             pagination: "Pagination",
@@ -21,7 +21,7 @@ angularApp.run(function($rootScope){
             }
 
             // Forbid suppressing "Warning" step if the user is to young
-            if (newIndex === 3 && Number($("#age").val()) < 18) {
+            if (newIndex === 3) {
                 return false;
             }
 
@@ -42,7 +42,7 @@ angularApp.run(function($rootScope){
         },
         onStepChanged: function (event, currentIndex, priorIndex) {
             // Suppress (skip) "Warning" step if the user is old enough.
-            if (currentIndex === 2 && Number($("#age").val()) >= 18) {
+            if (currentIndex === 2) {
                 $(this).steps("next");
             }
 

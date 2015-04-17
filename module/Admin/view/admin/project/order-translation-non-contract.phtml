@@ -65,10 +65,15 @@ $this->inlineScript()
 	border-left: 4px solid #19aa8d;
 	background: #19aa8d;
 }
+
+.form-group label.btn-outline {
+    margin-right: 0.3em;
+}
+
 </style>
 
 
-<div class="row">
+<div class="row" ng-controller="OrderTranslationController">
 	<div class="col-lg-12">
 		<div class="wrapper wrapper-content animated">
 			<div class="row">
@@ -79,11 +84,11 @@ $this->inlineScript()
 								<i class="fa fa-files-o"></i> Order A Translation
 							</h5>
 						</div>
-						<div class="ibox-content">
+						<div class="ibox-content" >
 							<div class="row">
 								<div class="col-lg-12">
-									<form class="form-horizontal" action="#" role="form" class="wizard-big" ng-controller="OrderTranslationController">
-
+									<!-- <form class="form-horizontal" action="#" role="form" class="wizard-big" ng-controller="OrderTranslationController">
+ -->
 										<div class=" form-group">
 											<div class="col-md-12">
 												<ul
@@ -109,7 +114,7 @@ $this->inlineScript()
 										<?php include "ordertranslationnoncontract/step2.phtml"?>
 										<?php include "ordertranslationnoncontract/step3.phtml"?>
 										
-									</form>
+								<!-- 	</form> -->
 								</div>
 							</div>
 						</div>
@@ -152,13 +157,52 @@ $this->inlineScript()
               $('ul.setup-panel li:eq(1)').removeClass('disabled');
               $('ul.setup-panel li a[href="#step-2"]').trigger('click');
               $(this).remove();
-          })    
+          }) 
+          /*   
           $('#activate-step-3').on('click', function(e) {
+              
               $('ul.setup-panel li:eq(2)').removeClass('disabled');
-              $('ul.setup-panel li a[href="#step-3"]').trigger('click');
-              $(this).remove();
-          })    
+              console.info('currency',$scope.project.currency);
+              //checkValidStep2();
+              //$('ul.setup-panel li a[href="#step-3"]').trigger('click');
+              //$(this).remove();
+
+              return false;
+          })   
+          */
+
+          
+
+          jQuery.validator.setDefaults({
+    		  debug: false,
+    		  success: "valid"
+    		});
+  		
+    		$( "#formStep2" ).validate(); 
+    		$( "#formStep3" ).validate(); 
+			/*
+    		function checkValidStep2(){
+    	          if($( "#formStep2" ).valid()){
+    	              return true;
+    	          } else{
+    	              return false;
+    	          }
+    	    }
+    	    */
       });
+
+      function StrDate(dateIn) {
+      	   var yyyy = dateIn.getFullYear();
+      	   var mm = dateIn.getMonth()+1; // getMonth() is zero-based
+      	   var dd  = dateIn.getDate();
+      	   var hh = dateIn.getHours();
+      	   var mi = dateIn.getMinutes();
+      	   var ss = dateIn.getSeconds();
+      	   return String(yyyy +'-'+ mm +'-'+ dd + ' '+ hh +':'+ mi + ':' + ss); // Leading zeros for mm and dd
+      	 }
+
+     
+      
     </script>
 
 
