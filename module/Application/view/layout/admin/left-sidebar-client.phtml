@@ -38,18 +38,28 @@
                 <a href="<?php echo $this->url('admin', array('controller' => 'project',
                     'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-archive"></i> <span class="nav-label">Projects</span> <span class="fa arrow"></span> <span class="label label-warning">16</span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="financial_report.html">All Projects</a></li>
+                        <li><a href="<?php echo $this->url('admin', array('controller' => 'project',
+'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>">All Projects</a></li>
+                        <!-- 
                         <li><a href="transaction.html">Ongoing Projects</a></li>
                         <li><a href="client-unpaid.html">Review <span class="label label-warning">16</span></a></li>
-                        <li><a href="freelancer-unpaid.html">Completed Projects</a></li>
+                        <li><a href="freelancer-unpaid.html">Completed Projects</a></li> -->
+                        <li><a href="<?php echo $this->url('admin', array('controller' => 'project',
+'action' => 'order-translation',"lang"=>$this->translate('lang','Application'))) ?>">Create Project</a></li>
                     </ul>
             </li>
 
             <li>
                 <a href="#"><i class="fa fa-book"></i> <span class="nav-lable">Finance</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="transaction.html">Transactions</a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
-                    <li><a href="client-unpaid.html">Unpaid Projects</a></li>  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
+                   <!-- <li><a href="transaction.html">Transactions</a></li> -->  <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
+                   <!-- <li><a href="client-unpaid.html">Unpaid Projects</a></li> --> <!-- admin, sales director and operation manager can see all clients info, but sales manager can only see his own clients -->
+                	<li><a href="<?php echo $this->url('admin', array('controller' => 'finance',
+'action' => 'transaction',"lang"=>$this->translate('lang','Application'))) ?>">Transactions</a></li>
+                	<li><a href="<?php echo $this->url('admin', array('controller' => 'finance',
+'action' => 'client-unpaid',"lang"=>$this->translate('lang','Application'))) ?>">Unpaid Projects</a></li>
+                    <li><a href="<?php echo $this->url('admin', array('controller' => 'finance',
+'action' => 'freelancer-unpaid',"lang"=>$this->translate('lang','Application'))) ?>">Unpaid Tasks</a></li>
                 </ul>
             </li>
 
