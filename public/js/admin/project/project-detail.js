@@ -4,7 +4,30 @@
 angularApp.run(function($rootScope){
     jQuery("#edit_project form").validate();
     jQuery("#tasks form").validate();
+
+    //$(function() {
+    jQuery('.filestyle').each(function() {
+        var $this = $(this), options = $this.attr('data-options') ? JSON.parse($this.attr('data-options')) : {
+            'input' : $this.attr('data-input') === 'false' ? false : true,
+            'icon' : $this.attr('data-icon') === 'false' ? false : true,
+            'buttonBefore' : $this.attr('data-buttonBefore') === 'true' ? true : false,
+            'disabled' : $this.attr('data-disabled') === 'true' ? true : false,
+            'size' : $this.attr('data-size'),
+            'buttonText' : $this.attr('data-buttonText'),
+            'buttonName' : $this.attr('data-buttonName'),
+            'iconName' : $this.attr('data-iconName'),
+            'badge' : $this.attr('data-badge') === 'false' ? false : true
+        };
+
+        $this.filestyle(options);
+    });
+
+    jQuery('.bootstrap-filestyle').each(function() {
+        $(this).css("display", "block");
+    });
+    //});
 });
+
 angularApp.filter('dateFormat', function($filter)
 {
  return function(input)
