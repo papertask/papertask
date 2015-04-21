@@ -9,7 +9,7 @@
 					ng-options="language.name for language in languages"
 					ng-model="project.sourceLanguage"
 					required
-					ng-change="">
+					ng-change="removeLangFSML();clearTargetLanguages();">
 					<option value="" ng-disabled="disable" ng-hide="true">Select Source Language</option>
 				</select>
 
@@ -18,7 +18,7 @@
 				<h4>Translate To *</h4>
 				<select class="form-control required valid" name="targetLanguage"
 					aria-required="true"
-					ng-options="language.name for language in languages"
+					ng-options="language.name for language in modifiedTarLangs"
 					ng-model="project.targetLanguage"
 					required
 					ng-change="add_targetLanguage();changePServicePrice();">
@@ -49,10 +49,9 @@
 						<select required class="form-control valid" name="servicelevel"
 							aria-required="false"
 							ng-options="servicelevel.name for servicelevel in ProjectServiceLevel"
-							ng-model="project.serviceLevel"
-							
+							ng-model="project.serviceLevel"							
 							ng-change="changePServicePrice();">
-							<option value="">Select Quality level</option>
+							<option value="" ng-hide="true">Select Quality level</option>
 						</select>
 					</td>
 					<td>
@@ -61,7 +60,7 @@
 							aria-required="true"
 							ng-options="transGraph.name for transGraph in transGraphs"
 							ng-model="project.transGraph"
-							ng-change="">	
+							ng-change="changeTransGraphs()">	
 						</select>
 					</td>
 
@@ -84,11 +83,9 @@
 			</tbody>
 		</table>
 		<div class="text-center">
-			<button id="activate-step-1" class="btn btn-primary btn-lg">Previous</button>
-            <button id="activate-step-3" ng-click="orderTranslation()" class="btn btn-primary btn-lg">Order Translation</button>
-			<!-- <button type="submit"  id="activate-step-4"  ng-click="needaQuote()" class="btn btn-primary btn-lg">Need A Quote</button>
-			 ng-click="orderTranslation()"
-			 -->
+			<button id="activate-step-1" type="button" class="btn btn-primary btn-lg">Previous</button>
+            <button id="activate-step-3" ng-hide="isGraph" type="button" ng-click="orderTranslation()" class="btn btn-primary btn-lg">Order Translation</button>
+			<button type="button"    ng-click="needaQuote()" class="btn btn-primary btn-lg">Need A Quotation</button>
 		</div>
 	</div>
 </div>

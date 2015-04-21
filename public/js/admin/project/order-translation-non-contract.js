@@ -21,23 +21,26 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 $scope.tax = $scope.taxRate*$scope.ItermsTotal;
 	 $scope.total = $scope.ItermsTotal + $scope.tax;
 	 
+	 
+	 
 	 $scope.init = function(){
 		 $http.get("/api/data/project/")
          .success(function($data){
-				console.log($data);
+				//console.log($data);
              jQuery.extend(true, $scope, $data);  // copy data to scope
              var shareData = ['interpretingUnits', 'engineeringUnits', 'dtpUnits'];
              for(var i = 0; i < shareData.length; i++){
                  var key = shareData[i];
                  setModalControllerData(key, $scope[key]);
              }
-             console.log('scope');
-             console.log($scope);	
+             //console.log('scope');
+             //console.log($scope);	
 
              $scope.project.targetLanguages = [];
              $timeout(function(){
                  //jQuery("select.multiselect").multiselect("destroy").multiselect();
              });
+             $scope.modifiedTarLangs = $scope.languages;
          });
 		 
 		 $http.get("/api/papertask/translation").success(function($data){
@@ -55,36 +58,58 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
         }).error(function($e){
             alert('error');
         });
-			
-		 console.log( $scope.languages);
+		
+		
 	 };
 	 
-	 $scope.initStep2 = function(){
-		 
-		 $scope.ajaxEmployerInfo();	 
-		 
-		 //console.log('$scope.transGraphs');  console.log($scope.transGraphs);
+	 $scope.removeLangFSML  = function(lang = null){
+		 $scope.modifiedTarLangs = [];
+		 var lang = $scope.project.sourceLanguage;
+		 var id = lang.id;
+         for(var i = 0; i < $scope.languages.length; i++){
+             if($scope.languages[i].id != id){
+            	 $scope.modifiedTarLangs.push($scope.languages[i]);
+             }
+         }
 	 }
 	 
+	 $scope.clearTargetLanguages = function(){
+		 $scope.project.targetLanguages =[];
+	 }
 	 
+	 $scope.initStep2 = function(){		 
+		 $scope.ajaxEmployerInfo();	 
+		 $('ul.setup-panel li:eq(1)').removeClass('disabled');
+         $('ul.setup-panel li a[href="#step-2"]').trigger('click');
+         
+         // Default transGraphs => No
+         $scope.transGraphs = TransGraphs.all();
+		 $scope.project.transGraph = $scope.transGraphs[0]; 
+		 if($scope.project.transGraph.name == 'no') 
+			 $scope.isGraph = false;
+		 else
+			 $scope.isGraph = true;
+	 }
+	 
+	 $scope.choosetransGraph = function(){
+		 if($scope.project.transGraph.name == 'no') 
+			 $scope.isGraph = false;
+		 else
+			 $scope.isGraph = true;
+	 }
 	 
 	 $scope.curentStep = 1;
 	 
 	 $scope.currencys = Currency.all();
 	 
 	 $scope.ProjectServiceLevels = ProjectServiceLevel.all();
-	 $scope.transGraphs = TransGraphs.all();
 	 
 	 // Default Currency => USA
 	 $scope.project.currency = Currency.get(1);	
 	 $scope.CurrentCurrency = $scope.project.currency.name;
 		 
-	 // Default transGraphs => No
-	 $scope.project.transGraph = $scope.transGraphs[0];
-	 if($scope.project.transGraph.name == 'no') 
-		 $scope.isGraph = false;
-	 else
-		 $scope.isGraph = true;
+	 
+
 	 
 	 //Fapiao
 	 $scope.Fapiaos = Fapiao.all();	
@@ -94,11 +119,11 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 console.info(' $scope.project.currency', $scope.project.currency);		 
 	 }
 	 
-	 $scope.chooseCurrency = function(currency){
-		 $scope.project.currency = currency;
-		 if(currency.name == "CNY"){
+	 $scope.chooseCurrency = function(){
+		 //$scope.project.currency = currency;
+		 if($scope.project.currency.name == "CNY"){
 			 $scope.changeRate = $scope.currencyrate;
-		 } else if (currency.name == "USD") {
+		 } else if ($scope.project.currency.name == "USD") {
 			 $scope.changeRate = 1/$scope.currencyrate;
 		 }
 		 $scope.CurrentCurrency = $scope.project.currency.name;
@@ -112,28 +137,26 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 }
 	 }
 	 
-	 $scope.chooseProjectServiceLevel = function(ProjectServiceLevel){
-		 $scope.project.serviceLevel = ProjectServiceLevel;
+	 $scope.chooseProjectServiceLevel = function(){
+		 //$scope.project.serviceLevel = ProjectServiceLevel;
 		 console.info('$scope.project.serviceLevel', $scope.project.serviceLevel);
 	 }
 	 $scope.chooseFapiao = function(Fapiao){
 		 $scope.project.fapiao = Fapiao;
-		 if( $scope.project.fapiao.name == 'yes')
+		 if( $scope.project.fapiao.name == 'yes'){
 			 $scope.taxRate = 0;
-		 else 
+			 $scope.isFapiao = true;
+		 }	 
+		 else {
 			 $scope.taxRate = 0.1;
+			 $scope.isFapiao = false;
+			 
+		 }			 
 		 $scope.refreshInfo();
 		 console.info(' $scope.project.fapiao',  $scope.project.fapiao);
 	 }
 	 
-	 $scope.choosetransGraph = function(transGraph){
-		 $scope.project.transGraph = transGraph;
-		 if($scope.project.transGraph.name == 'no') 
-			 $scope.isGraph = false;
-		 else
-			 $scope.isGraph = true;
-		 console.info('  $scope.project.transGraph',  $scope.project.transGraph);
-	 }
+	
 	 
 	 $scope.changeCurStep = function (nextStep){
 		 $scope.curentStep = nextStep;
@@ -141,10 +164,10 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 
 	 $scope.checkValidStep2 = function(){
 		 //$( "#formStep2" ).valid()
-		 if(true){
+		 if($( "#formStep2" ).valid()){
 			 $('ul.setup-panel li:eq(2)').removeClass('disabled');
              $('ul.setup-panel li a[href="#step-3"]').trigger('click');
-            $("#activate-step-3").remove();
+            //$("#activate-step-3").remove();
          } else{
              return false;
          }
@@ -163,7 +186,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){
-	        	 $('#PayAndStartTrans').remove();
+	        	 //$('#PayAndStartTrans').remove();
 	             if($data.success){
 	                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
 	             } else {
@@ -193,7 +216,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){		
-	        	 $('#RequestQuote').remove();
+	        	 //$('#RequestQuote').remove();
 	             if($data.success){
 	                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
 	             } else {
@@ -246,7 +269,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		  $scope.refreshInfo();
 	 }	 
 
-	 $scope.ProjectServiceLevel = ProjectServiceLevel.all(); 
+	 $scope.ProjectServiceLevels = ProjectServiceLevel.all(); 
 	 
 	 //$scope.project.client = CurrentUser.info;
 	 
@@ -257,12 +280,14 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	     .success( function ( $data ) {
 	    	 	$scope.employer = $data.employer;
 				
+	    	 	/*
 	    	 	for(i=0;i<$scope.ProjectServiceLevel.length;i++){
 	    	 		if($scope.ProjectServiceLevel[i].id ==  $scope.employer.defaultServiceLevel){
 	    	 			$scope.project.serviceLevel = $scope.ProjectServiceLevel[i];
 	    	 			break;
 	    	 		}			
 	    	 	}
+	    	 	*/
 	    	 	
 	    	 	$http.get("/api/user/" + $scope.USER_ID)
 		   	     .success( function ( $data ) {
@@ -319,7 +344,17 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 					
 					
 					if(isFind == false){
-						price = '1.10';
+						console.info('$scope.project.serviceLevel',$scope.project.serviceLevel);
+						if($scope.project.serviceLevel != null )
+							price = $scope.project.serviceLevel.price.USD;
+						else 
+							price = 0;
+						
+						if($scope.project.currency.name == "CNY"){
+							price = $scope.currencyrate*price;			 
+						 } else if ($scope.project.currency.name == "USD") {					 
+						 }
+						
 						tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : '1.10'});
 					}
 					$scope.project.targetLanguages[j].price = price;

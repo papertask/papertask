@@ -23,7 +23,7 @@
 					
 
 					
-					<div class="form-group">
+					<div class="form-group" ng-show="isFapiao">
 						<label class="col-sm-3 control-label"> Title *</label>
 						<div class="col-sm-9">
 							<input id="tit" type="text" name="title" class="form-control required valid" value=""
@@ -31,7 +31,7 @@
 						</div>
 					</div>	
 					
-					<div class="form-group">
+					<div class="form-group" ng-show="isFapiao">
 						<label class="col-sm-3 control-label"> Address *</label>
 						<div class="col-sm-9">
 
@@ -45,14 +45,16 @@
 
 		
 
-		<div class="text-center">
+		<div class="text-center" ng-show="!isGraph">
+			<button id=""  type="button"  class="btn btn-primary btn-lg" onclick="PrevStep3()">Previous</button>
 			<!-- if second step choose NO to translate graphic, then show this button -->
-			<button id='PayAndStartTrans' ng-show="!isGraph" id="" class="btn btn-primary btn-lg" ng-click="PayAndStartTrans()">Pay
+			<button id='PayAndStartTrans'  type="button" class="btn btn-primary btn-lg" ng-click="PayAndStartTrans()">Pay
 				and Start to Translate</button>
 		</div>
-		<div class="text-center">
+		<div class="text-center" ng-show="isGraph">
+			<button id="" type="button"  class="btn btn-primary btn-lg" onclick="PrevStep3()">Previous</button>
 			<!-- if second step choose yes to translate graphic, then show this button -->
-			<button id='RequestQuote' ng-show="isGraph" id="" class="btn btn-primary btn-lg" ng-click="RequestQuote()">>Request
+			<button id='RequestQuote'  type="button"  class="btn btn-primary btn-lg" ng-click="RequestQuote()">Request
 				a Quote</button>
 		</div>
 		</form>

@@ -25,11 +25,25 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 
              $scope.project.targetLanguages = [];
              $timeout(function(){
-                 //jQuery("select.multiselect").multiselect("destroy").multiselect();
              });
-         });
-		 //console.log( $scope.languages);	 
+             $scope.modifiedTarLangs = $scope.languages;
+         }); 		 
 	 };
+	 
+	 $scope.removeLangFSML  = function(lang = null){
+		 $scope.modifiedTarLangs = [];
+		 var lang = $scope.project.sourceLanguage;
+		 var id = lang.id;
+         for(var i = 0; i < $scope.languages.length; i++){
+             if($scope.languages[i].id != id){
+            	 $scope.modifiedTarLangs.push($scope.languages[i]);
+             }
+         }
+	}
+		 
+	 $scope.clearTargetLanguages = function(){
+		 $scope.project.targetLanguages =[];
+	 }
 	 
 	 $scope.initStep2 = function(){
 		 $scope.currency = CurrentUser.info.currency;
@@ -37,19 +51,27 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 $scope.ajaxEmployerInfo();	 
 		 $scope.transGraphs = TransGraphs.all();
 		 $scope.project.transGraph = $scope.transGraphs[1];
+		 $scope.isGraph = true;
+		 
+		 
 		 //console.log('$scope.transGraphs');  console.log($scope.transGraphs);
+		 //console.info( '$scope.modifiedTarLangs',$scope.modifiedTarLangs);
 	 }
 	 
-	 $scope.change = function(){
-		 //alert('change');
+	 $scope.changeTransGraphs = function(){
+		 if($scope.project.transGraph.name == 'no')
+			 $scope.isGraph = false;
+		 else
+			 $scope.isGraph = true;
 	 }
 	 
 	 $scope.init();
 	
 	 
-	 $scope.add_targetLanguage = function(){	 
-		 $scope.project.targetLanguages.push($scope.project.targetLanguage);
-		 //console.log($scope.project);
+	 $scope.add_targetLanguage = function(){	
+		 if ($scope.project.targetLanguages.indexOf($scope.project.targetLanguage) == -1) {
+			 $scope.project.targetLanguages.push($scope.project.targetLanguage);
+	     } 
 	 }
 	 
 	 $scope.removeTargetLang = function(lang){
@@ -147,11 +169,6 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 $scope.project.dueDate =  $scope.project.startDate;
 		 var $params = $scope.prepareData($scope.project);
 		 
-		 console.log('$scope.project');
-		 console.log($scope.project);
-		 console.log('$params');
-		 console.log($params);
-		 return false;
 		 if(isvalid){
 		     $('#activate-step-3').remove();
 			 $http.post("/api/admin/project/", $params)
@@ -172,28 +189,31 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 }
 	 
 	 $scope.needaQuote = function(){
+		 var isvalid = $("#form").valid();
+		 
 		 $scope.project.client = CurrentUser.info;
 		 $scope.project.status = ProjectStatus.get(1);
 		 $scope.project.startDate = StrDate(new Date());
 		 $scope.project.dueDate =  $scope.project.startDate;
 		 var $params = $scope.prepareData($scope.project);
 		 
-		 console.log('$scope.project');
-		 console.log($params);
-		 return false;
-		 $http.post("/api/admin/project/", $params)
-         .success(function($data){				
-             if($data.success){
-                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
-             } else {
-                 location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
-             }
-         })
-         .error(function($data){
+		 if(isvalid){
+		     $('#activate-step-3').remove();
+			 $http.post("/api/admin/project/", $params)
+	         .success(function($data){				
+	             if($data.success){
+	                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
+	             } else {
+	                location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
+	             }
+	         })
+	         .error(function($data){
 
-         });
-         
-         
+	         });
+	         
+		 } 	else {
+				//alert('unvalid');
+		 }          
 	 }
 	 
 	 $scope.prepareData = function(proj){

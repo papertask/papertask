@@ -153,11 +153,13 @@ $this->inlineScript()
           $('ul.setup-panel li.active a').trigger('click');
           
           // DEMO ONLY //
+          /*
           $('#activate-step-2').on('click', function(e) {
               $('ul.setup-panel li:eq(1)').removeClass('disabled');
               $('ul.setup-panel li a[href="#step-2"]').trigger('click');
-              $(this).remove();
+              //$(this).remove();
           }) 
+          */
           /*   
           $('#activate-step-3').on('click', function(e) {
               
@@ -201,6 +203,13 @@ $this->inlineScript()
       	   return String(yyyy +'-'+ mm +'-'+ dd + ' '+ hh +':'+ mi + ':' + ss); // Leading zeros for mm and dd
       	 }
 
+  		function PrevStep3(){
+  			$('ul.setup-panel li a[href="#step-2"]').trigger('click');
+  		}
+
+  		function PrevStep2(){
+  			$('ul.setup-panel li a[href="#step-1"]').trigger('click');
+  		}
      
       
     </script>

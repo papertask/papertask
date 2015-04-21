@@ -1,68 +1,45 @@
 <div class=" setup-content" id="step-2">
 <form id="formStep2" action="#" class="wizard-big" novalidate>
 	<div class="col-md-12">
-		<div class="row">
-			<div class="col-md-3">
-				<h4>Currency</h4>
-				<div data-toggle="buttons" class="form-group">
-					<!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
-					<label  class="btn btn-outline btn-primary {{currency == project.currency ? 'active': ''}}"
-					 ng-repeat="currency in currencys" ng-click="chooseCurrency(currency);refreshInfo()"> <input type="radio"
-						 value="{{currency.id}}" name="{{currency.name}}" /> {{currency.name}}
-					</label>  
-				</div>
-			</div>
-			<div class="col-md-6">
-				<h4>Select Quality Level</h4>
-				<div data-toggle="buttons" class="form-group">
-					
-					<label class="btn btn-outline btn-primary {{ProjectServiceLevel == project.serviceLevel ? 'active': ''}}" 
-					ng-repeat="ProjectServiceLevel in ProjectServiceLevels" ng-click="chooseProjectServiceLevel(ProjectServiceLevel);changePServicePrice();">
-						<input type="radio"
-						name="{{ProjectServiceLevel.name}}" value="{{ProjectServiceLevel.id}}"
-						/> {{ProjectServiceLevel.name}} <i
-						class="fa fa-question-circle"></i>
-					</label>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<h4>Translate Graphics</h4>
-				<div data-toggle="buttons" class="form-group">
-					<!-- here put it in default NO -->
-					<label class="btn btn-outline btn-primary {{transGraph == project.transGraph ? 'active': ''}}" 
-					ng-repeat="transGraph in transGraphs" ng-click="choosetransGraph(transGraph)" > 
-					<input type="radio"
-						name="{{transGraph.name}}" value="{{transGraph.id}}" /> {{transGraph.name}}
-					</label>
-				</div>
-			</div>
-		</div>
 
 
-		<hr>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-5">
 				<h4>Translate From *</h4>
 				<select id="sourceLanguage" required class="form-control required valid" name="sourceLanguage"
 					aria-required="true"
 					ng-options="language.name for language in languages"
 					ng-model="project.sourceLanguage"
 					required
-					ng-change="changePServicePrice();">
+					ng-change="changePServicePrice();removeLangFSML();clearTargetLanguages();">
 					<option value="" ng-disabled="disable" ng-hide="true">Select Source Language</option>
 				</select>
 
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-5">
 				<h4>Translate To *</h4>
 				<select class="form-control required valid" name="targetLanguage"
 					aria-required="true"
-					ng-options="language.name for language in languages"
+					ng-options="language.name for language in modifiedTarLangs"
 					ng-model="project.targetLanguage"
 					required
 					ng-change="add_targetLanguage();changePServicePrice();">
 					<option value="" ng-hide="hidetargetLang" >Add Target Languages</option>
 				</select>
+			</div>
+			<div class="col-md-2">
+				<h4>Currency</h4>
+				<div data-toggle="buttons" class="form-group">
+					<!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
+					<select class="form-control required valid" name="currency"
+						aria-required="true"
+						ng-options="currency.name for currency in currencys"
+						ng-model="project.currency"
+						required
+						ng-change="chooseCurrency(currency);refreshInfo();">
+						<option value="" ng-hide="true" >Please Select Currency</option>
+				   </select>  
+				</div>
 			</div>
 		</div>
 		<br>
@@ -71,9 +48,9 @@
 				<tr>
 					<th>#</th>
 					<th>Target Languages</th>
+					<th>Quality Level</th>
 					<th>Rate</th>
-					<th>Word count</th>
-					<th>Iterm Total</th>
+					<th>Translate Graphics</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -82,10 +59,23 @@
 					<td>{{$index + 1}}</td>
 					<td><span class="label label-primary">{{item.name}}</span></td>
 					</td>
-					<td>{{CurrentCurrency}} {{item.price | currency : '' : 2}} / word</td>
+					<td>
+						<select required class="form-control valid" name="servicelevel"
+							aria-required="false"
+							ng-options="servicelevel.name for servicelevel in ProjectServiceLevels"
+							ng-model="project.serviceLevel"	
+							ng-change="chooseProjectServiceLevel();changePServicePrice();">
+							<option value="" ng-hide="true">Select Quality level</option>
+						</select>
+					</td>
 					<!-- here load papertask list price -->
-					<td>1000</td>
-					<td>{{CurrentCurrency}} {{item.price*1000 | currency : '' : 2}}</td>
+					<td>{{CurrentCurrency}} {{item.price | currency : '' : 2}} / word</td>
+					<td><select class="form-control required valid " name="transGraph"
+							aria-required="true"
+							ng-options="transGraph.name for transGraph in transGraphs"
+							ng-model="project.transGraph"
+							ng-change="choosetransGraph();">	
+						</select></td>
 					<td class="text-center child-is-link"><i
 						ng-click="removeTargetLang(item)"
 						class="fa fa-trash-o text-danger"></i>
@@ -95,8 +85,8 @@
 			</tbody>
 		</table>
 		<div class="text-center">
-			<button id="" class="btn btn-primary btn-lg">Previous</button>
-			<button id="activate-step-3" class="btn btn-primary btn-lg" ng-click="checkValidStep2()">Next</button>
+			<button id="" type="button"  class="btn btn-primary btn-lg" onclick="PrevStep2()">Previous</button>
+			<button id=""  type="button"  class="btn btn-primary btn-lg" ng-click="checkValidStep2()">Next</button>
 		</div>
 	</div>
 </form>

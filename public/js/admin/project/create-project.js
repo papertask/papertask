@@ -479,7 +479,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         $scope.project.data = TableItemListService.data();
 		console.log("$scope.project");
 		console.log($scope.project);
-		/*
+		
         $http.post("/api/admin/project/", $scope.project)
             .success(function($data){
 				
@@ -492,7 +492,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
             .error(function($data){
 
             });
-      */
+      
     };
 
     function existsIdInArray(arr, id){
