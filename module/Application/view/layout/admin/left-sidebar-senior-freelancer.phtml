@@ -26,7 +26,7 @@
 
             <li>
                 <a href="<?php echo $this->url('admin', array('controller' => 'task',
-                    'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-tasks"></i> <span class="nav-label">Task Pool</span></a>
+                    'action' => 'task-pool',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-tasks"></i> <span class="nav-label">Task Pool</span></a>
             </li>
 
             <li>
@@ -34,8 +34,8 @@
                     'action' => 'quote',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-file-text-o"></i> <span class="nav-label">Test Pool</span></a>
             </li>
             <li>
-                <a href="<?php echo $this->url('admin', array('controller' => 'project',
-                    'action' => 'quote',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-files-o"></i> <span class="nav-label">My Tasks</span> <span class="label label-warning">1</span></a>
+                <a href="<?php echo $this->url('admin', array('controller' => 'task',
+                    'action' => 'freelancer-task-view',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-files-o"></i> <span class="nav-label">My Tasks</span> <span class="label label-warning">1</span></a>
             </li>
 
             <li>

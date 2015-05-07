@@ -1,6 +1,7 @@
 /**
  * Created by eastagile on 11/11/14.
  */
+
 var angularApp = angularApp || angular.module('project', []);
 
 angularApp.factory("CurrentcyRate", function(){
@@ -139,6 +140,10 @@ angularApp.factory("TaskStatus", function(){
         'id': 5,
         'name': 'Evaluating',
         'decorator': 'info'
+    },{
+        'id': 6,
+        'name': 'Assigning',
+        'decorator': 'warning'
     }];
 
     return {

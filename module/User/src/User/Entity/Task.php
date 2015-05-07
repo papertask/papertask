@@ -117,4 +117,16 @@ class Task extends Entity{
 			'total' => $this->total,
         ];
     }
+    
+    public function setStatus( $status )
+    {
+    	$this->status = $status;
+    	//return $this;
+    }
+    
+    public function setAssignee( $assignee )
+    {
+    	$this->assignee = $assignee;
+    	//return $this;
+    }
 }

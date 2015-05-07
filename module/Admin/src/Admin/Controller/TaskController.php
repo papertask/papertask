@@ -10,9 +10,18 @@
 namespace Admin\Controller;
 
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
 use Application\Controller\AbstractActionController;
-use User\Entity\File;
+use User\Entity\User;
+use User\Entity\Project;
+use User\Entity\Task;
+// Pagination
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Doctrine\ORM\Query\ResultSetMapping;
+use Zend\Paginator\Paginator;
+
 
 class TaskController extends AbstractActionController
 {
@@ -20,7 +29,11 @@ class TaskController extends AbstractActionController
 
     public function indexAction()
     {
-        return new ViewModel(array());
+    	//echo 'hi'; exit;
+        $lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code,
+        ));
     }
 
     public function newAction()
@@ -35,5 +48,179 @@ class TaskController extends AbstractActionController
             'id' => $id,
 			"lang_code" => $lang_code
         ]);
+    }
+    
+    public function freelancertaskviewAction(){
+    	$lang_code = $this->params()->fromRoute('lang');
+    	$currentUserId = User::currentLoginId();
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);    	
+    	$freelancer = $currentUser->getFreelancer();
+
+    	return new ViewModel([
+    			'freelancer_id' => $freelancer->getId(),
+    			"lang_code" => $lang_code
+    	]);
+    }
+    
+    public function getFreelancerTaskListAction(){
+    	$freelancerId = (int)$this->getRequest()->getQuery('freelancer_id');
+    	
+    	$params = $this->getRequest()->getQuery();
+    	foreach($params as $key => $value){
+    		if (strpos( $value,'{') !== false) {
+    			$params->$key = json_decode($value);
+    		}
+    	}   	    	
+    	//var_dump($params); exit;
+    	
+    	$entityManager = $this->getEntityManager();
+    	$freelancerList = $entityManager->getRepository('User\Entity\Task');
+    	$queryBuilder = $freelancerList->createQueryBuilder('task');
+    	$queryBuilder->where("task.assignee=?1")->setParameter(1, $freelancerId);
+    	
+    	if($params->bsearch !=null & $params->bsearch != ''){
+    		$queryBuilder->andWhere('task.name LIKE :name');
+    		$queryBuilder->setParameter('name', "%".$params->bsearch."%");
+
+    	} else {
+    		// Advance Search
+    		if($params->status !=null & $params->status != ''){
+    			$queryBuilder->andWhere('task.status = :status');
+    			$queryBuilder->setParameter('status', $params->status->id);
+    			//$queryBuilder_tmp->distinct();
+    		}
+    		
+    		if($params->task_id !=null & $params->task_id != ''){
+    			$queryBuilder->andWhere('task.id = :task_id');
+    			$queryBuilder->setParameter('task_id', $params->task_id);
+    			//$queryBuilder_tmp->distinct();
+    		}
+    		
+    		if($params->startDate !=null & $params->startDate != ''){
+    			$time=strtotime($params->startDate);
+    			$time = date("Y-m-d", $time);
+    			$begin = $time." 00:00:00";
+    			$end = $time." 23:59:59";
+    			$queryBuilder->andWhere('task.startDate BETWEEN ?6 AND ?7')
+    			->setParameter(6, $begin)
+    			->setParameter(7, $end);
+    		}
+    			
+    		if($params->dueDate !=null & $params->dueDate != ''){
+    			$time=strtotime($params->dueDate);
+    			$time = date("Y-m-d", $time);
+    			$begin = $time." 00:00:00";
+    			$end = $time." 23:59:59";
+    			$queryBuilder->andWhere('task.dueDate BETWEEN ?8 AND ?9')
+    			->setParameter(8, $begin)
+    			->setParameter(9, $end);
+    		}
+    		
+    		if(($params->reference !=null & $params->reference != '')) {
+    			$entityManagerP = $this->getEntityManager();
+    			$ProjectList = $entityManagerP->getRepository('User\Entity\Project');
+    			$queryBuilderProject = $ProjectList->createQueryBuilder('project');
+    			$queryBuilderProject->where("project.reference LIKE :reference")->setParameter('reference', '%'.$params->reference.'%');
+    			$queryProject = $queryBuilderProject->getQuery();
+    			$resultProject = $queryProject->getArrayResult();
+    			$statement = "";
+    			foreach($resultProject as $project){
+    				//echo $project['id'];
+    				$statement = $statement."task.project = ".$project['id']." OR ";
+    			}
+    			$statement = substr($statement, 0, -3);
+    			$queryBuilder->andWhere($statement);
+    			//var_dump($statement); exit;
+    		}
+    	}
+    	
+    	
+    	
+    	
+    	$query = $queryBuilder->getQuery();
+    	//$result = $query->getArrayResult();
+    	//var_dump($result); exit;
+    	
+    	$adapter = new DoctrineAdapter(new ORMPaginator($query));
+    	$paginator = new Paginator($adapter);
+    	$paginator->setDefaultItemCountPerPage(10);
+    	
+    	$page = (int)$this->getRequest()->getQuery('page');
+    	if($page) $paginator->setCurrentPageNumber($page);
+    	$data = array();
+
+    	foreach($paginator as $task){  
+    		
+    		$data[] = $task->getData(); 			
+    	}
+    	
+    	return new JsonModel(array(
+    			'tasks' => $data,
+    			'pages' => $paginator->getPages()
+    	));
+    }
+    
+    public function FreelancerAcceptTaskAction(){
+    	$taskId = (int)$this->getRequest()->getQuery('id');
+    	$currentTask = $this->find('User\Entity\Task',$taskId);
+    	$currentTask->setStatus(2);
+    	$entityManager = $this->getEntityManager();
+    	$entityManager->persist($currentTask);
+    	$entityManager->flush();
+    	exit;
+    }
+    
+    public function FreelancerAcceptPoolingTaskAction(){
+    	$currentUserId = User::currentLoginId();
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);
+    	$freelancer = $currentUser->getFreelancer();
+    	$freelancer_id = $freelancer->getId();
+    	
+    	$taskId = (int)$this->getRequest()->getQuery('id');
+    	$currentTask = $this->find('User\Entity\Task',$taskId);
+    	$currentTask->setStatus(2);
+    	$currentTask->setAssignee($freelancer);
+    	$entityManager = $this->getEntityManager();
+    	$entityManager->persist($currentTask);
+    	$entityManager->flush();
+    	exit;
+    }
+    
+    public function TaskPoolAction(){
+    	//echo 'hi';exit;
+    	$lang_code = $this->params()->fromRoute('lang');
+
+    	return new ViewModel([
+    			
+    			"lang_code" => $lang_code
+    	]);
+    }
+    
+    public function getTaskPoolListAction(){
+    	$entityManager = $this->getEntityManager();
+    	$freelancerList = $entityManager->getRepository('User\Entity\Task');
+    	$queryBuilder = $freelancerList->createQueryBuilder('task');
+    	$queryBuilder->where("task.status=?1")->setParameter(1, '4'); // 4 = Pooling
+		$query = $queryBuilder->getQuery();
+    	//$result = $query->getArrayResult();
+    	//var_dump($result); exit;
+    	
+    	$adapter = new DoctrineAdapter(new ORMPaginator($query));
+    	$paginator = new Paginator($adapter);
+    	$paginator->setDefaultItemCountPerPage(10);
+    	
+    	$page = (int)$this->getRequest()->getQuery('page');
+    	if($page) $paginator->setCurrentPageNumber($page);
+    	$data = array();
+
+    	foreach($paginator as $task){  
+    		
+    		$data[] = $task->getData(); 			
+    	}
+    	
+    	return new JsonModel(array(
+    			'tasks' => $data,
+    			'pages' => $paginator->getPages()
+    	));
     }
 }

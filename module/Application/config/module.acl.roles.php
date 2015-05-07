@@ -40,6 +40,12 @@ $allow_all = array(
 	// -- Task
 	'task\index',
 	'task\detail',
+	'task\freelancer-task-view',
+	'task\getFreelancerTaskList',
+	'task\FreelancerAcceptTask',
+	'task\task-pool',
+	'task\getTaskPoolList',
+		
 	// -- Project
 	'project\index',
 	'project\new',

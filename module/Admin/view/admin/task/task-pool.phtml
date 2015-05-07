@@ -1,0 +1,130 @@
+<?php $this->headTitle($this->translate('Task Pool')) ?>
+<!-- Scripts -->
+<?php $this->headLink()
+    //->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
+	 //->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
+    //->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
+    //->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
+    //->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+?>
+
+<?php
+$this->headScript ()
+	//->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
+	->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
+	->prependFile($this->basePath() . '/js/admin/task/task-pool.js')
+	//->prependFile($this->basePath() . '/js/admin/common/angular/ItemListController.js')
+    //->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
+    //->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
+    //->prependFile($this->basePath() . '/js/admin/angular-steps.js')
+    //->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
+    ->prependScript("angularApp = angular.module('project', []);")
+    //->prependScript("FREELANCER_ID = {$this->freelancer_id};")
+    //->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+    //->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-tpls-0.11.2.min.js')
+    //->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-0.11.2.min.js')
+    //->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
+    //->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
+    //->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
+    //->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
+    //->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
+    //->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
+    ->prependFile($this->basePath() . '/js/inspinia.js');
+
+$this->inlineScript()
+    ->prependScript("
+		var LANG_CODE = '" . $this->lang_code . "';
+        var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+    ");
+?>
+					
+<div class="row" ng-controller="TaskPool" ng-init="init()">
+	<div class="col-lg-12">
+		<div class="wrapper wrapper-content animated fadeInUp">
+			<div class="ibox">
+				<div class="ibox-title">
+                            <h5> Task Pool</h5>
+                            <div class="ibox-tools">
+                                <button type="button" class="btn btn-white btn-xs" ng-click="refresh()" ><i class="fa fa-refresh"></i> Refresh</button>
+                            </div>
+                        </div>
+
+				<div class="ibox-content">
+					 <div class="project-list">
+						<table class="table table-hover">
+							<tbody>
+								<tr ng-repeat="task in tasks">
+									<td class="project-status"><span
+										class="label label-{{ task.status.decorator }}">{{
+											task.status.name }}</span>
+									</td>
+									<td class="project-title"><strong>Task {{
+											task.project.reference }} </strong> <br> <strong
+										class="text-info">{{ task.project.id }}-{{ task.id }}</strong>
+									</td>
+									<td class="project-title">
+										<div class="tooltip-demo">
+											<code>{{ task.project.sourceLanguage.name }}</code>
+											<i class="fa fa-arrow-right"></i>
+											<code>{{ task.language.name }}</code>
+											<br>
+											<code data-toggle="tooltip" data-placement="top" title=""
+												data-original-title="{{ task.type.tootip }}" ng-bind-html="task.type.name_task">{{
+											</code>
+											| Due: {{formatDate(task.dueDate.date) | date:'yyyy.MMM.dd'}}
+										</div>
+									</td>
+									<td class="project-title">Client's alias <br /> <small>Client's
+											Companykjffja...</small>
+									</td>
+									<td class="project-actions"><a href=""
+										ng-if="task.status.id == 4" ng-click="Accept(task.id)"
+										class="btn btn-info btn-sm"><i class="fa fa-check-square-o"></i>
+											Accept</a> <a href="" class="btn btn-white btn-sm"
+										ng-click="View(task.id)"><i class="fa fa-folder"></i> View</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="btn-group text-right">
+						<button type="button" class="btn btn-white" ng-class="pages.previous?'':'disabled'" ng-click="onBtnPreviousClicked()"><i class="fa fa-chevron-left"></i></button>
+						<button ng-repeat="page in pages.pagesInRange" class="btn btn-white" ng-class="page==pages.current?'active':''" ng-click="onBtnGoto(page-1)">{{page}}</button>
+						<button type="button" class="btn btn-white"	ng-class="pages.next?'':'disabled'" ng-click="onBtnNextClicked()"><i class="fa fa-chevron-right"></i></button>						
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+ <script>
+ $(document).ready(function(){
+
+     $('#loading-example-btn').click(function () {
+         btn = $(this);
+         simpleLoad(btn, true)
+
+         // Ajax example
+//         $.ajax().always(function () {
+//             simpleLoad($(this), false)
+//         });
+
+         simpleLoad(btn, false)
+     });
+ });
+
+ function simpleLoad(btn, state) {
+     if (state) {
+         btn.children().addClass('fa-spin');
+         btn.contents().last().replaceWith(" Loading");
+     } else {
+         setTimeout(function () {
+             btn.children().removeClass('fa-spin');
+             btn.contents().last().replaceWith(" Refresh");
+         }, 2000);
+     }
+ }
+    
+</script>
