@@ -129,4 +129,10 @@ class Task extends Entity{
     	$this->assignee = $assignee;
     	//return $this;
     }
+    
+    public function getProject()
+    {
+    	return $this->project;
+    	//return $this;
+    }
 }

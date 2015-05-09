@@ -199,4 +199,7 @@ class Project extends Entity{
     public function getId(){
         return $this->id;
     }
+    public function getCurrency(){
+    	return $this->currency;
+    }
 }

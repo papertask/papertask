@@ -100,8 +100,17 @@ class Outtransaction extends Entity{
 	
 
     public function getData(){
+    	
+    	if($this->client->getEmployer()){
+    		$client = $this->client->getEmployer()->getData();
+    	} else if ($this->client->getFreelancer()){
+    		$client = $this->client->getFreelancer()->getData();
+    	} else {
+    		$client = null;
+    	}
+    	
         return [
-            'client' => ($this->client->getEmployer())?$this->client->getEmployer()->getData():null,
+            'client' => $client,
             'createDate' => $this->createDate,
 			'payDate' => $this->payDate,
 			'intrans_no' => $this->intrans_no,
@@ -111,12 +120,18 @@ class Outtransaction extends Entity{
             'total' => $this->total,
             'subtotal' => $this->subtotal,
             'bank' => $this->bank->getData(),
-			'bankuser' => $this->bankuser->getData(),
-            'tasks' => $this->tasks
+			//'bankuser' => $this->bankuser->getData(),
+        	'bankuser' => $this->bankuser,
+            'tasks' => $this->tasks,
+            'id' => $this->id,
         ];
     }
 	
     public function getId(){
         return $this->id;
+    }
+    
+    public function getTasks(){
+    	return $this->tasks;
     }
 }

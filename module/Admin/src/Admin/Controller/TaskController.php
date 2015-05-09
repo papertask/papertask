@@ -77,35 +77,34 @@ class TaskController extends AbstractActionController
     	$freelancerList = $entityManager->getRepository('User\Entity\Task');
     	$queryBuilder = $freelancerList->createQueryBuilder('task');
     	$queryBuilder->where("task.assignee=?1")->setParameter(1, $freelancerId);
-    	$queryBuilder->andWhere('task.is_deleted = :is_deleted');
-    	$queryBuilder->setParameter('is_deleted', 0);
+    	$queryBuilder->andWhere('task.is_deleted = 0');
     	
     	// Unpaid Task
-    	if($params->paystatus !=null & $params->paystatus != ''){
+    	if($params->paystatus !=null && $params->paystatus != ''){
     		$queryBuilder->andWhere('task.payStatus = :paystatus');
     		$queryBuilder->setParameter('paystatus', $params->paystatus);
     	
     	}
     	
-    	if($params->bsearch !=null & $params->bsearch != ''){
+    	if($params->bsearch !=null && $params->bsearch != ''){
     		$queryBuilder->andWhere('task.name LIKE :name');
     		$queryBuilder->setParameter('name', "%".$params->bsearch."%");
 
     	} else {
     		// Advance Search
-    		if($params->status !=null & $params->status != ''){
+    		if($params->status !=null && $params->status != ''){
     			$queryBuilder->andWhere('task.status = :status');
     			$queryBuilder->setParameter('status', $params->status->id);
     			//$queryBuilder_tmp->distinct();
     		}
     		
-    		if($params->task_id !=null & $params->task_id != ''){
+    		if($params->task_id !=null && $params->task_id != ''){
     			$queryBuilder->andWhere('task.id = :task_id');
     			$queryBuilder->setParameter('task_id', $params->task_id);
     			//$queryBuilder_tmp->distinct();
     		}
     		
-    		if($params->startDate !=null & $params->startDate != ''){
+    		if($params->startDate !=null && $params->startDate != ''){
     			$time=strtotime($params->startDate);
     			$time = date("Y-m-d", $time);
     			$begin = $time." 00:00:00";
@@ -115,7 +114,7 @@ class TaskController extends AbstractActionController
     			->setParameter(7, $end);
     		}
     			
-    		if($params->dueDate !=null & $params->dueDate != ''){
+    		if($params->dueDate !=null && $params->dueDate != ''){
     			$time=strtotime($params->dueDate);
     			$time = date("Y-m-d", $time);
     			$begin = $time." 00:00:00";
@@ -125,7 +124,7 @@ class TaskController extends AbstractActionController
     			->setParameter(9, $end);
     		}
     		
-    		if($params->dueMonth !=null & $params->dueMonth != ''){
+    		if($params->dueMonth !=null && $params->dueMonth != ''){
     			$time=strtotime($params->dueMonth);
     			//$time = date("Y-m-d", $time);
     			$begin = date("Y-m-d", $time)." 00:00:00";
@@ -140,7 +139,7 @@ class TaskController extends AbstractActionController
     			->setParameter('end', $end);    		
     		}
     		
-    		if(($params->reference !=null & $params->reference != '')) {
+    		if(($params->reference !=null && $params->reference != '')) {
     			$entityManagerP = $this->getEntityManager();
     			$ProjectList = $entityManagerP->getRepository('User\Entity\Project');
     			$queryBuilderProject = $ProjectList->createQueryBuilder('project');
@@ -225,6 +224,7 @@ class TaskController extends AbstractActionController
     	$freelancerList = $entityManager->getRepository('User\Entity\Task');
     	$queryBuilder = $freelancerList->createQueryBuilder('task');
     	$queryBuilder->where("task.status=?1")->setParameter(1, '4'); // 4 = Pooling
+    	$queryBuilder->andWhere('task.is_deleted = 0');
 		$query = $queryBuilder->getQuery();
     	//$result = $query->getArrayResult();
     	//var_dump($result); exit;

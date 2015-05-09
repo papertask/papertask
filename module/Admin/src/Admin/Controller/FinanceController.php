@@ -27,6 +27,8 @@ use User\Entity\UserTranslationPrice;
 use User\Entity\UserInterpretingPrice;
 use User\Entity\UserTmRatio;
 use User\Entity\UserEngineeringPrice;
+use User\Entity\Outtransaction;
+
 use Zend\View\Model\JsonModel;
 use User\Entity\Company;
 
@@ -261,11 +263,11 @@ class FinanceController extends AbstractActionController {
 			$queryBuilder_tmp->andWhere('task.assignee = ?1')->setParameter(1, $user->getFreelancer());	//
 			$queryBuilder_tmp->distinct();
 			
-			if(($params->field !=null & $params->field != '') | ($params->pm !=null & $params->pm != '') | ($params->sale !=null & $params->sale != '')){
+			if(($params->field !=null && $params->field != '') || ($params->pm !=null & $params->pm != '') || ($params->sale !=null && $params->sale != '')){
 				$queryBuilder_tmp->innerJoin('User\Entity\Project','p','WITH','task.project = p.id');
 			}
 			
-			if($params->task_id !=null & $params->task_id != ''){
+			if($params->task_id !=null && $params->task_id != ''){
 				$queryBuilder_tmp->andWhere('task.id = :task_id');
 				$queryBuilder_tmp->setParameter('task_id', $params->task_id);
 				$queryBuilder_tmp->distinct();
@@ -277,15 +279,15 @@ class FinanceController extends AbstractActionController {
 				
 			}
 			
-			if($params->status !=null & $params->status != ''){
+			if($params->status !=null && $params->status != ''){
 				$queryBuilder_tmp->andWhere('task.status = :status')->setParameter('status', $params->status->id);
 			}
 			
-			if($params->field !=null & $params->field != ''){
+			if($params->field !=null && $params->field != ''){
 				$queryBuilder_tmp->andWhere('p.field = :field')->setParameter('field', $params->field->id);//
 			}
 			
-        	if($params->startDate !=null & $params->startDate != ''){
+        	if($params->startDate !=null && $params->startDate != ''){
     			$time=strtotime($params->startDate);
     			$time = date("Y-m-d", $time);
     			$begin = $time." 00:00:00";
@@ -295,7 +297,7 @@ class FinanceController extends AbstractActionController {
     			->setParameter(7, $end);
     		}
 			
-    		if($params->dueDate !=null & $params->dueDate != ''){
+    		if($params->dueDate !=null && $params->dueDate != ''){
     			$time=strtotime($params->dueDate);
     			$time = date("Y-m-d", $time);
     			$begin = $time." 00:00:00";
@@ -305,11 +307,11 @@ class FinanceController extends AbstractActionController {
     			->setParameter(9, $end);
     		}
     		
-    		if($params->pm !=null & $params->pm != ''){
+    		if($params->pm !=null && $params->pm != ''){
     			$queryBuilder_tmp->andWhere('p.pm = :pm')->setParameter('pm', $params->pm->id);//
     		}
     		
-    		if($params->sale !=null & $params->sale != ''){
+    		if($params->sale !=null && $params->sale != ''){
     			$queryBuilder_tmp->andWhere('p.sale = :sale')->setParameter('sale', $params->sale->id);//
     		}
     		
@@ -483,29 +485,29 @@ class FinanceController extends AbstractActionController {
 			$queryBuilder_tmp->andWhere('project.client = ?1')->setParameter(1, $user);	
 			$queryBuilder_tmp->distinct();
 			
-			if($params->project_id !=null & $params->project_id != ''){
+			if($params->project_id !=null && $params->project_id != ''){
 				$queryBuilder_tmp->andWhere('project.id LIKE :project_id')->setParameter('project_id', $params->project_id);
         }
 		
-			if($params->clientId !=null & $params->clientId != ''){
+			if($params->clientId !=null && $params->clientId != ''){
 				$queryBuilder_tmp->andWhere('project.client = :clientId')->setParameter('clientId', $params->clientId);
         }
 			
-			if($params->reference !=null & $params->reference != ''){
+			if($params->reference !=null && $params->reference != ''){
 				$queryBuilder_tmp->andWhere('project.reference LIKE :reference')->setParameter('reference', '%'.$params->reference.'%');
         }
         
-			if($params->status !=null & $params->status != ''){
+			if($params->status !=null && $params->status != ''){
 				$queryBuilder_tmp->andWhere('project.status = :status')->setParameter('status', $params->status->id);
         }
 			 
-			if($params->field !=null & $params->field != ''){
+			if($params->field !=null && $params->field != ''){
 				$queryBuilder_tmp->andWhere('project.field = :field')->setParameter('field', $params->field->id);
         }
 			 
 			 
 			 
-			if($params->startDate !=null & $params->startDate != ''){
+			if($params->startDate !=null && $params->startDate != ''){
 				$time=strtotime($params->startDate);
 				$time = date("Y-m-d", $time);
 				$begin = $time." 00:00:00";
@@ -515,7 +517,7 @@ class FinanceController extends AbstractActionController {
 				->setParameter(7, $end);
         }
 			 
-			if($params->dueDate !=null & $params->dueDate != ''){
+			if($params->dueDate !=null && $params->dueDate != ''){
 				$time=strtotime($params->dueDate);
 				$time = date("Y-m-d", $time);
 				$begin = $time." 00:00:00";
@@ -525,11 +527,11 @@ class FinanceController extends AbstractActionController {
 				->setParameter(9, $end);
         }
 			 
-			if($params->pm !=null & $params->pm != ''){
+			if($params->pm !=null && $params->pm != ''){
 				$queryBuilder_tmp->andWhere('project.pm = :pm')->setParameter('pm', $params->pm);
         }
 			 
-			if($params->sale !=null & $params->sale != ''){
+			if($params->sale !=null && $params->sale != ''){
 				$queryBuilder_tmp->andWhere('project.sale = :sale')->setParameter('sale', $params->sale->id);
         }
 			
@@ -613,5 +615,114 @@ class FinanceController extends AbstractActionController {
         ));
     }
     
+    public function freelancerTransactionAction(){
+    	$lang_code = $this->params()->fromRoute('lang');
+    	$currentUserId = User::currentLoginId();
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);
+    	$freelancer = $currentUser->getFreelancer();
+    	
+    	return new ViewModel([
+    			'freelancer_id' => $freelancer->getId(),
+    			"lang_code" => $lang_code
+    	]);
+    }
     
+    public function getFreelancerOutTransactionListAction(){    	
+    	$params = $this->getRequest()->getQuery();
+    	foreach($params as $key => $value){
+    		if (strpos( $value,'{') !== false) {
+    			$params->$key = json_decode($value);
+    		}
+    	}
+    	
+    	//var_dump($params);exit;
+    	
+    	$currentUserId = User::currentLoginId();
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);
+    	$freelancer = $currentUser->getFreelancer();
+    	$freelancer_id = $freelancer->getId();
+    	
+    	$entityManager = $this->getEntityManager();
+    	$freelancerList = $entityManager->getRepository('User\Entity\Outtransaction');
+    	$queryBuilder = $freelancerList->createQueryBuilder('outtr');
+    	$queryBuilder->where("outtr.client=?1")->setParameter(1,$freelancer_id); // 4 = Pooling
+    	$queryBuilder_tmp->andWhere('outtr.is_deleted = 0');
+    	
+    	if($params->bsearch !=null && $params->bsearch != ''){
+    		$queryBuilder->andWhere('outtr.intrans_no LIKE :outtrId');
+    			$queryBuilder->setParameter('outtrId', '%'.$params->bsearch.'%');
+    	
+    	} else {
+    		// Advance Search
+    	
+    		if($params->outtrId !=null && $params->outtrId != ''){
+    			$queryBuilder->andWhere('outtr.intrans_no LIKE :outtrId');
+    			$queryBuilder->setParameter('outtrId', '%'.$params->outtrId.'%');
+    			//echo 'hi';exit;
+    			//$queryBuilder_tmp->distinct();
+    		}   	
+    		 
+
+    	
+    		if($params->payMonth !=null && $params->payMonth != ''){
+    			$time=strtotime($params->payMonth);
+    			//$time = date("Y-m-d", $time);
+    			$begin = date("Y-m-d", $time)." 00:00:00";
+    			$end = date("Y-m-t", $time)." 23:59:59";
+
+    			$queryBuilder->andWhere('outtr.payDate BETWEEN :begin AND :end')
+    			->setParameter('begin', $begin)
+    			->setParameter('end', $end);
+    		}
+    
+    		
+    	}
+    	
+    	$query = $queryBuilder->getQuery();
+    	//$result = $query->getArrayResult();
+    	//var_dump($result); exit;
+    	
+    	$adapter = new DoctrineAdapter(new ORMPaginator($query));
+    	$paginator = new Paginator($adapter);
+    	$paginator->setDefaultItemCountPerPage(10);
+    	
+    	$page = (int)$this->getRequest()->getQuery('page');
+    	if($page) $paginator->setCurrentPageNumber($page);
+    	$data = array();
+
+    	foreach($paginator as $outtransaction){  
+    		//var_dump($outtransaction); exit;	
+    		//$data[]  = $outtransaction->getData(); 
+    		$outtr = array();
+    		$outtr = $outtransaction->getData();
+    		
+    		// Get Currency
+    		$taskIDs = $outtransaction->getTasks();
+    		$taskID  =  $taskIDs[0];
+    		$task = $this->find('User\Entity\Task',$taskID);
+    		$project = $task->getProject();
+    		$currency = $project->getCurrency();
+    		if($currency==null) $currency='CNY';
+    		$outtr['currency'] =$currency;
+    		$data[] = $outtr;
+    		//var_dump($currency); exit;			
+    	}
+    	
+    	return new JsonModel(array(
+    			'outtrs' => $data,
+    			'pages' => $paginator->getPages()
+    	));
+    }
+    
+    public function FreelancerUnpaidTaskAction(){
+    	$lang_code = $this->params()->fromRoute('lang');
+    	$currentUserId = User::currentLoginId();
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);
+    	$freelancer = $currentUser->getFreelancer();
+    
+    	return new ViewModel([
+    			'freelancer_id' => $freelancer->getId(),
+    			"lang_code" => $lang_code
+    			]);
+    }
 }

@@ -100,6 +100,9 @@ $allow_all = array(
 	
 	'finance\searchProjectUnpaidList',
 	'finance\advsearchProjectUnpaidList',
+	'finance\freelancer-transaction',
+	'finance\getFreelancerOutTransactionList',
+	'finance\freelancer-unpaid-task',
 	
 	// -- Email
 	'email\index',

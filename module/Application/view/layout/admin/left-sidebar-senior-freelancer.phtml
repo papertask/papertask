@@ -41,8 +41,8 @@
             <li>
                 <a href="#"><i class="fa fa-book"></i> <span class="nav-lable">Finance</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="transaction.html">Transactions</a></li>
-                    <li><a href="<?php echo $this->url('admin', ['controller'=>'task', 'action'=>'freelancer-unpaid-task']) ?>">Unpaid Tasks</a></li>
+                    <li><a href="<?php echo $this->url('admin', ['controller'=>'finance', 'action'=>'freelancer-transaction']) ?>">Transactions</a></li>
+                    <li><a href="<?php echo $this->url('admin', ['controller'=>'finance', 'action'=>'freelancer-unpaid-task']) ?>">Unpaid Tasks</a></li>
                     <li><a href="<?php echo $this->url('admin', ['controller'=>'freelancer', 'action'=>'edit-payment-info']) ?>">Edit Payment Info</a></li>
                 </ul>
             </li>
