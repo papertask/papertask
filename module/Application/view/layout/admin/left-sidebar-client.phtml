@@ -24,6 +24,11 @@
                 <a href="<?php echo $this->url('admin',array("lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
             </li>
 
+            <li> <!-- admin, operation manager can see all info, pm can only see tasks belong to the clients who assigned to the pm, sales dir and sales manager can not see this -->
+                <a href="<?php echo $this->url('admin', array('controller' => 'task',
+                    'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-tasks"></i> <span class="nav-label">Tasks</span></a>
+            </li>
+
             <li>
                 <a href="<?php echo $this->url('admin', array('controller' => 'project',
                     'action' => 'quote',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-files-o"></i> <span class="nav-label">Quotes</span></a>
@@ -35,10 +40,12 @@
                     <ul class="nav nav-second-level collapse">
                         <li><a href="<?php echo $this->url('admin', array('controller' => 'project',
 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>">All Projects</a></li>
+                        <!-- 
                         <li><a href="transaction.html">Ongoing Projects</a></li>
                         <li><a href="client-unpaid.html">Review <span class="label label-warning">16</span></a></li>
-                        <li><a href="freelancer-unpaid.html">Completed Projects</a></li>
-
+                        <li><a href="freelancer-unpaid.html">Completed Projects</a></li> -->
+                        <li><a href="<?php echo $this->url('admin', array('controller' => 'project',
+'action' => 'order-translation',"lang"=>$this->translate('lang','Application'))) ?>">Create Project</a></li>
                     </ul>
             </li>
 
@@ -51,6 +58,8 @@
 'action' => 'transaction',"lang"=>$this->translate('lang','Application'))) ?>">Transactions</a></li>
                 	<li><a href="<?php echo $this->url('admin', array('controller' => 'finance',
 'action' => 'client-unpaid',"lang"=>$this->translate('lang','Application'))) ?>">Unpaid Projects</a></li>
+                    <li><a href="<?php echo $this->url('admin', array('controller' => 'finance',
+'action' => 'freelancer-unpaid',"lang"=>$this->translate('lang','Application'))) ?>">Unpaid Tasks</a></li>
                 </ul>
             </li>
 

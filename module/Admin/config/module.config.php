@@ -117,6 +117,7 @@ return array(
 			'admin/task/detail' => __DIR__ . '/../view/admin/task/detail.phtml',
         	'admin/task/freelancer-task-view' => __DIR__ . '/../view/admin/task/freelancer-task-view.phtml',
         	'admin/task/task-pool' => __DIR__ . '/../view/admin/task/task-pool.phtml',
+        		'admin/task/freelancer-unpaid-task' => __DIR__ . '/../view/admin/task/freelancer-unpaid-task.phtml',
 			
 			'admin/finance/client-unpaid' => __DIR__ . '/../view/admin/finance/client-unpaid.phtml',
 			'admin/finance/freelancer-unpaid' => __DIR__ . '/../view/admin/finance/freelancer-unpaid.phtml',

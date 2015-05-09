@@ -45,6 +45,7 @@ $allow_all = array(
 	'task\FreelancerAcceptTask',
 	'task\task-pool',
 	'task\getTaskPoolList',
+	'task\freelancer-unpaid-task',
 		
 	// -- Project
 	'project\index',
@@ -66,6 +67,7 @@ $allow_all = array(
 	'freelancer\edit-profile',
 	'freelancer\uploadFile',
 	'freelancer\getFreelancesList',
+	'freelancer\edit-payment-info',
 	// -- Employer (Client)
 	'employer\list',
 	'employer\new',

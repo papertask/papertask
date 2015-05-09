@@ -77,6 +77,15 @@ class TaskController extends AbstractActionController
     	$freelancerList = $entityManager->getRepository('User\Entity\Task');
     	$queryBuilder = $freelancerList->createQueryBuilder('task');
     	$queryBuilder->where("task.assignee=?1")->setParameter(1, $freelancerId);
+    	$queryBuilder->andWhere('task.is_deleted = :is_deleted');
+    	$queryBuilder->setParameter('is_deleted', 0);
+    	
+    	// Unpaid Task
+    	if($params->paystatus !=null & $params->paystatus != ''){
+    		$queryBuilder->andWhere('task.payStatus = :paystatus');
+    		$queryBuilder->setParameter('paystatus', $params->paystatus);
+    	
+    	}
     	
     	if($params->bsearch !=null & $params->bsearch != ''){
     		$queryBuilder->andWhere('task.name LIKE :name');
@@ -114,6 +123,21 @@ class TaskController extends AbstractActionController
     			$queryBuilder->andWhere('task.dueDate BETWEEN ?8 AND ?9')
     			->setParameter(8, $begin)
     			->setParameter(9, $end);
+    		}
+    		
+    		if($params->dueMonth !=null & $params->dueMonth != ''){
+    			$time=strtotime($params->dueMonth);
+    			//$time = date("Y-m-d", $time);
+    			$begin = date("Y-m-d", $time)." 00:00:00";
+    			$end = date("Y-m-t", $time)." 23:59:59";
+    			
+    			
+    	
+    			//var_dump($begin); var_dump($end); exit;
+    			
+    			$queryBuilder->andWhere('task.dueDate BETWEEN :begin AND :end')
+    			->setParameter('begin', $begin)
+    			->setParameter('end', $end);    		
     		}
     		
     		if(($params->reference !=null & $params->reference != '')) {
@@ -223,4 +247,18 @@ class TaskController extends AbstractActionController
     			'pages' => $paginator->getPages()
     	));
     }
+    
+    public function FreelancerUnpaidTaskAction(){
+    	$lang_code = $this->params()->fromRoute('lang');
+    	$currentUserId = User::currentLoginId();
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);    	
+    	$freelancer = $currentUser->getFreelancer();
+
+    	return new ViewModel([
+    			'freelancer_id' => $freelancer->getId(),
+    			"lang_code" => $lang_code
+    	]);
+    }
+    
+
 }
