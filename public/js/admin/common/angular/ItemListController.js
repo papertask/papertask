@@ -79,8 +79,14 @@ angularApp.controller('ItemListController', function($scope, $location, $timeout
     $scope.$watch(function(){
         return $scope.ItemApi;
     }, function(){
+		console.log("$scope.ItemApi");
+		console.log($scope.ItemApi);
         if(typeof($scope.ItemApi) != 'undefined'){
-            $scope.loadItems($scope.page);
+			if($scope.ItemApi.statusproject)
+				$scope.filter.statusproject = $scope.ItemApi.statusproject
+			if($scope.ItemApi.quote)	
+				$scope.filter.quote  = $scope.ItemApi.quote
+			$scope.loadItems($scope.page);
         }
     });
 });

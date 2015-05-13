@@ -30,22 +30,29 @@
             </li>
 
             <li>
+
                 <a href="<?php echo $this->url('admin', array('controller' => 'project',
-                    'action' => 'quote',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-files-o"></i> <span class="nav-label">Quotes</span></a>
+                    'action' => 'client-quotes',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-files-o"></i> <span class="nav-label">Quotes</span></a>
             </li>
 
             <li> <!-- admin, sales director, operation manager can see full info, sales manager and pm can only see clients belong to them -->
                 <a href="<?php echo $this->url('admin', array('controller' => 'project',
-                    'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-archive"></i> <span class="nav-label">Projects</span> <span class="fa arrow"></span> <span class="label label-warning">16</span></a>
+                    'action' => 'client-projects',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-archive"></i> <span class="nav-label">Projects</span> <span class="fa arrow"></span> <span class="label label-warning">16</span></a>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="<?php echo $this->url('admin', array('controller' => 'project',
-'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>">All Projects</a></li>
-                        <!-- 
+'action' => 'client-projects',"lang"=>$this->translate('lang','Application'))) ?>">All Projects</a></li>
+                        <li><a href="<?php echo $this->url('admin', array('controller' => 'project',
+'action' => 'client-ongoing-projects',"lang"=>$this->translate('lang','Application'))) ?>">Ongoing Projects</a></li>
+						<li><a href="<?php echo $this->url('admin', array('controller' => 'project',
+'action' => 'client-review-projects',"lang"=>$this->translate('lang','Application'))) ?>">Reviewing Projects</a></li>
+						<li><a href="<?php echo $this->url('admin', array('controller' => 'project',
+'action' => 'client-completed-projects',"lang"=>$this->translate('lang','Application'))) ?>">Completed Projects</a></li>
+						<!-- 
                         <li><a href="transaction.html">Ongoing Projects</a></li>
                         <li><a href="client-unpaid.html">Review <span class="label label-warning">16</span></a></li>
-                        <li><a href="freelancer-unpaid.html">Completed Projects</a></li> -->
+                        <li><a href="freelancer-unpaid.html">Completed Projects</a></li>
                         <li><a href="<?php echo $this->url('admin', array('controller' => 'project',
-'action' => 'order-translation',"lang"=>$this->translate('lang','Application'))) ?>">Create Project</a></li>
+'action' => 'order-translation',"lang"=>$this->translate('lang','Application'))) ?>">Create Project</a></li> -->
                     </ul>
             </li>
 
@@ -58,8 +65,8 @@
 'action' => 'transaction',"lang"=>$this->translate('lang','Application'))) ?>">Transactions</a></li>
                 	<li><a href="<?php echo $this->url('admin', array('controller' => 'finance',
 'action' => 'client-unpaid',"lang"=>$this->translate('lang','Application'))) ?>">Unpaid Projects</a></li>
-                    <li><a href="<?php echo $this->url('admin', array('controller' => 'finance',
-'action' => 'freelancer-unpaid',"lang"=>$this->translate('lang','Application'))) ?>">Unpaid Tasks</a></li>
+                    <!-- <li><a href="<?php echo $this->url('admin', array('controller' => 'finance',
+'action' => 'freelancer-unpaid',"lang"=>$this->translate('lang','Application'))) ?>">Unpaid Tasks</a></li>-->
                 </ul>
             </li>
 

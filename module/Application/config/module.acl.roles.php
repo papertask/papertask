@@ -34,6 +34,7 @@ $allow_all = array(
 	'register\social',
 	'register\employer',
 	'register\freelancer',
+	'resetpassword\index',
 
 	// Dashboard Panel
 	'dashboard\index',
@@ -60,6 +61,14 @@ $allow_all = array(
 	'project\quoteedit',
 	'project\order-translation',
 	'project\order-translation-non-contract',
+	'project\client-projects',
+	'project\client-ongoing-projects',
+	'project\client-review-projects',
+	'project\client-completed-projects',
+	'project\client-quotes',
+	'project\quote-detail',
+	
+	
 	// -- Freelancer
 	'freelancer\index',
 	'freelancer\new',

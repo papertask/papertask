@@ -27,7 +27,56 @@ class ProjectController extends AbstractActionController
 			"lang_code" => $lang_code,
         ));
     }
-
+	public function clientProjectsAction()
+	{
+		$lang_code = $this->params()->fromRoute('lang');
+		//$currentUserId = User::currentLoginId();
+    	//$currentUser = $this->find('User\Entity\User',$currentUserId);
+		//$client = $currentUser->isEmployer();
+		//var_dump($client);
+		//var_dump($currentUserId);
+		//var_dump($currentUser);exit;
+		return new ViewModel(array(
+			"lang_code" => $lang_code,
+        ));
+	}
+	public function clientOngoingProjectsAction()
+	{
+		$lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code,
+        ));
+	}
+	public function clientReviewProjectsAction()
+	{
+		$lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code,
+        ));
+	}
+	public function clientCompletedProjectsAction()
+	{
+		$lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code,
+        ));
+	}
+	public function clientQuotesAction()
+	{
+		$lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code,
+        ));
+	}
+	public function quoteDetailAction()
+	{	
+		$id = $this->params()->fromQuery('id');
+		$lang_code = $this->params()->fromRoute('lang');
+        return new ViewModel([
+            'id' => $id,
+			"lang_code" => $lang_code
+        ]);
+	}
     public function orderTranslationAction(){
     	$lang_code = $this->params()->fromRoute('lang');
     	

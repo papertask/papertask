@@ -91,6 +91,13 @@ return array(
             'admin/freelancer/update-info' => __DIR__ . '/../view/admin/freelancer/finish-registration.phtml',
             'admin/freelancer/view' => __DIR__ . '/../view/admin/freelancer/view.phtml',
             'admin/freelancer/detail' => __DIR__ . '/../view/admin/freelancer/details.phtml',
+
+            'admin/project/client-projects' => __DIR__ . '/../view/admin/project/client-projects.phtml',
+            'admin/project/client-ongoing-projects' => __DIR__ . '/../view/admin/project/client-ongoing-projects.phtml',
+			'admin/project/client-review-projects' => __DIR__ . '/../view/admin/project/client-review-projects.phtml',
+			'admin/project/client-completed-projects' => __DIR__ . '/../view/admin/project/client-completed-projects.phtml',
+			'admin/project/client-quotes' => __DIR__ . '/../view/admin/project/client-quotes.phtml',
+			'admin/project/quote-detail' => __DIR__ . '/../view/admin/project/quote-detail.phtml',
 			
 			
             'admin/project/detail' => __DIR__ . '/../view/admin/project/detail.phtml',
@@ -128,6 +135,9 @@ return array(
 			'admin/finance/outgoing-detail' => __DIR__ . '/../view/admin/finance/outgoing-detail.phtml',
         	'admin/finance/freelancer-transaction' => __DIR__ . '/../view/admin/finance/freelancer-transaction.phtml',
         	'admin/finance/freelancer-unpaid-task' => __DIR__ . '/../view/admin/finance/freelancer-unpaid-task.phtml',
+			
+			'admin/resetpassword/index' => __DIR__ . '/../view/admin/reset-password/index.phtml',
+			
 			
         ),
         'layout' => 'layout/admin',

@@ -27,9 +27,14 @@ angularApp.factory("CurrentcyRate", function(){
 });	
 
 angularApp.factory("ProjectStatus", function(){
-    var statuses = [{
+    var statuses = [
+	{
+        'id': 0,
+        'name': 'Quoting',
+        'decorator': 'info'
+    },{
         'id': 1,
-        'name': 'Quote',
+        'name': 'Quoted',
         'decorator': 'info'
     },{
         'id': 2,

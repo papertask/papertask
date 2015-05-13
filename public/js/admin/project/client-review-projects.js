@@ -16,12 +16,10 @@ angularApp.controller('ProjectIndexController', function($scope, StaffApi, Langu
     $scope.StaffApi = StaffApi;
 
     /** This is for listing item controller **/
-	
+	 
 	//console.log($scope.listgoing);
-	
     $scope.ItemApi = ProjectApi;
-	
-	//console.log($scope.ItemApi);
+	$scope.ItemApi.statusproject = 4;
 
     $scope.languages = {};
     $scope.pms = {};

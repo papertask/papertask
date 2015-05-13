@@ -4,7 +4,7 @@
 
 angularApp.controller('ProjectIndexController', function($scope, StaffApi, LanguageApi, ProjectApi, ProjectServiceLevel,
                                                          ProjectStatus, DateFormatter, CurrentUser, PayStatus,
-                                                         ProjectField){
+                                                         ProjectField, $http){
 
     $scope.CurrentUser = CurrentUser;
     $scope.DateFormatter = DateFormatter;
@@ -16,24 +16,29 @@ angularApp.controller('ProjectIndexController', function($scope, StaffApi, Langu
     $scope.StaffApi = StaffApi;
 
     /** This is for listing item controller **/
-	
+	 
 	//console.log($scope.listgoing);
-	
     $scope.ItemApi = ProjectApi;
-	
-	//console.log($scope.ItemApi);
+	$scope.ItemApi.quote = 1;
 
     $scope.languages = {};
     $scope.pms = {};
     $scope.sales = {};
 
-    $scope.goToDetail = function($project){
-        location.href = "/" + LANG_CODE + "/admin/project/detail?id=" + $project.id;
+    $scope.goToQuote = function($project){
+        location.href = "/" + LANG_CODE + "/admin/project/quote-detail?id=" + $project.id;
     };
 
-    $scope.goToEdit = function($project){
-        location.href = "/" + LANG_CODE + "/admin/project/detail?id=" + $project.id;
-    };
+	
+	$scope.quoteAccepted= function ($project) {
+		console.log($project);
+		var updateInvoiceDate = $http.put("/api/admin/project/" + $project.id + "?action=2", $project)
+		.success( function ( $data ) {
+			//show tap
+			location.reload();
+			//$project.status = ProjectStatus.get(2);
+		});	
+	}
 
     StaffApi.list({
         type: 2

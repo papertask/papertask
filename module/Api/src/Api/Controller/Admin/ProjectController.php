@@ -24,6 +24,7 @@ use User\Entity\Task;
 use User\Entity\Invoice;
 
 use User\Entity\Activity;
+use User\Entity\User;
 
 class ProjectController extends AbstractRestfulJsonController
 {
@@ -341,11 +342,30 @@ class ProjectController extends AbstractRestfulJsonController
                 $queryBuilder->expr()->eq('project.pm', $pm['id'])
             );
         }
+		$currentUserId = User::currentLoginId();
+		$currentUser = $this->find('User\Entity\User',$currentUserId);
+		if($currentUser->isEmployer()){
+			 $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('project.client', $currentUserId)
+            );
+		}
+		
         if($clientId = $this->params()->fromQuery('clientId')){
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->eq('project.client', $clientId)
             );
         }
+		if($statusproject = $this->params()->fromQuery('statusproject')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('project.status', $statusproject)
+            );
+        }
+		if($getQuote = $this->params()->fromQuery('quote')){
+            $queryBuilder->andWhere("project.status = 1 or project.status = 0"
+            );
+        }
+		
+		
         if($startDate = $this->params()->fromQuery('startDate')){
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->gte('project.startDate', $startDate)
