@@ -38,6 +38,8 @@ $allow_all = array(
 
 	// Dashboard Panel
 	'dashboard\index',
+	'dashboard\client-dashboard',
+	'dashboard\freelancer-dashboard',
 	// -- Task
 	'task\index',
 	'task\detail',

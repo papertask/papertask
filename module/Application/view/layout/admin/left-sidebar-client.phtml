@@ -21,7 +21,8 @@
 
             </li>
             <li> <!-- different roles have different dashboard, a little bit different, can do at last -->
-                <a href="<?php echo $this->url('admin',array("lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
+                <a href="<?php echo $this->url('admin',array('controller' => 'dashboard',
+                    'action' => 'client-dashboard'"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
             </li>
 
             <li> <!-- admin, operation manager can see all info, pm can only see tasks belong to the clients who assigned to the pm, sales dir and sales manager can not see this -->

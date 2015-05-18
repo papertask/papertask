@@ -149,7 +149,13 @@ angularApp.factory("TaskStatus", function(){
         'id': 6,
         'name': 'Assigning',
         'decorator': 'warning'
-    }];
+    },{
+        'id': 7,
+        'name': 'Reviewing',
+        'decorator': 'warning'
+    }
+	
+	];
 
     return {
         get: function ($id) {

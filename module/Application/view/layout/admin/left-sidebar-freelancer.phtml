@@ -21,7 +21,8 @@
 
             </li>
             <li>
-                <a href="<?php echo $this->url('admin',array("lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
+                <a href="<?php echo $this->url('admin',array('controller' => 'dashboard',
+                    'action' => 'freelancer-dashboard',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
             </li>
 
             <li>
@@ -34,8 +35,8 @@
                     'action' => 'quote',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-file-text-o"></i> <span class="nav-label">My Tests</span></a>
             </li>
             <li>
-                <a href="<?php echo $this->url('admin', array('controller' => 'project',
-                    'action' => 'quote',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-files-o"></i> <span class="nav-label">My Tasks</span> <span class="label label-warning">1</span></a>
+                <a href="<?php echo $this->url('admin', array('controller' => 'task',
+                    'action' => 'freelancer-task-view',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-files-o"></i> <span class="nav-label">My Tasks</span> <span class="label label-warning">1</span></a>
             </li>
 
             <li>

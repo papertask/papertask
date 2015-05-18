@@ -85,7 +85,13 @@ class TaskController extends AbstractActionController
     		$queryBuilder->setParameter('paystatus', $params->paystatus);
     	
     	}
-    	
+    	//get task base on status
+		if($params->statustask !=null && $params->statustask != ''){
+    			$queryBuilder->andWhere('task.status = :status');
+    			$queryBuilder->setParameter('status', $params->statustask);
+    	}
+		
+		
     	if($params->bsearch !=null && $params->bsearch != ''){
     		$queryBuilder->andWhere('task.name LIKE :name');
     		$queryBuilder->setParameter('name', "%".$params->bsearch."%");
@@ -95,7 +101,6 @@ class TaskController extends AbstractActionController
     		if($params->status !=null && $params->status != ''){
     			$queryBuilder->andWhere('task.status = :status');
     			$queryBuilder->setParameter('status', $params->status->id);
-    			//$queryBuilder_tmp->distinct();
     		}
     		
     		if($params->task_id !=null && $params->task_id != ''){

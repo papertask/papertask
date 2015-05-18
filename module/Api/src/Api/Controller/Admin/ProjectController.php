@@ -332,6 +332,11 @@ class ProjectController extends AbstractRestfulJsonController
                 $queryBuilder->expr()->eq('project.payStatus', $payStatus['id'])
             );
         }
+		if($unpay = $this->params()->fromQuery('unpay')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->eq('project.payStatus', $unpay)
+            );
+        }
         if($sale = $this->params()->fromQuery('sale')){
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->eq('project.sale', $sale['id'])
@@ -388,7 +393,12 @@ class ProjectController extends AbstractRestfulJsonController
 		$queryBuilder->orderBy('project.id', 'DESC');
         $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
-        $paginator->setDefaultItemCountPerPage(10);
+		 
+		$number = $this->params()->fromQuery('number'); 
+		if(!$number){
+            $number = 10;
+        }
+        $paginator->setDefaultItemCountPerPage($number);
 
         $page = (int)$this->getRequest()->getQuery('page');
         if($page) $paginator->setCurrentPageNumber($page);

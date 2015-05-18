@@ -76,6 +76,9 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             'admin/dashboard/index' => __DIR__ . '/../view/admin/dashboard/index.phtml',
+			'admin/dashboard/client-dashboard' => __DIR__ . '/../view/admin/dashboard/client-dashboard.phtml',
+			'admin/dashboard/freelancer-dashboard' => __DIR__ . '/../view/admin/dashboard/freelancer-dashboard.phtml',
+			
             'admin/email/edit' => __DIR__ . '/../view/admin/email/edit.phtml',
             'admin/email/index' => __DIR__ . '/../view/admin/email/index.phtml',
             'admin/email/new' => __DIR__ . '/../view/admin/email/new.phtml',

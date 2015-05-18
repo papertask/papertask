@@ -24,8 +24,26 @@ class DashboardController extends AbstractActionController
         if($user->isFreelancer() && !$user->isProfileUpdated()){
             $this->redirect()->toUrl('/' . $lang_code . $user->getGroup()->getFirstLoginUrl());
         }
-
+		//if()
         return new ViewModel(array());
     }
-
+	public function clientDashboardAction()
+	{	
+		$lang_code = $this->params()->fromRoute('lang');
+        return new ViewModel([
+			"lang_code" => $lang_code
+        ]);
+	}
+	public function freelancerDashboardAction(){
+    	$lang_code = $this->params()->fromRoute('lang');
+    	//$currentUserId = User::currentLoginId();
+    	//$currentUser = $this->find('User\Entity\User',$currentUserId);    
+		$user = $this->getCurrentUser();		
+    	$freelancer = $user->getFreelancer();
+		//var_dump($freelancer->getId());exit;
+    	return new ViewModel([
+    			'freelancer_id' => $freelancer->getId(),
+    			"lang_code" => $lang_code
+    	]);
+    }
 }
