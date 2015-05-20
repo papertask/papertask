@@ -19,16 +19,26 @@ class DashboardController extends AbstractActionController
 
     public function indexAction()
     {
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
         $user = $this->getCurrentUser();
 		$lang_code = $this->params()->fromRoute('lang');
         if($user->isFreelancer() && !$user->isProfileUpdated()){
-            $this->redirect()->toUrl('/' . $lang_code . $user->getGroup()->getFirstLoginUrl());
+           $this->redirect()->toUrl('/' . $lang_code . $user->getGroup()->getFirstLoginUrl());
         }
-		//if()
+		else if($user->isFreelancer() && $user->isProfileUpdated()){
+			$this->redirect()->toUrl('/' . $lang_code . '/admin/dashboard/freelancer-dashboard');
+		}
+		else if($user->isEmployer()){
+			$url = "/" . $lang_code . '/admin/dashboard/client-dashboard';
+			$this->redirect()->toUrl($url);
+		}
         return new ViewModel(array());
     }
 	public function clientDashboardAction()
 	{	
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
 		$lang_code = $this->params()->fromRoute('lang');
         return new ViewModel([
 			"lang_code" => $lang_code
