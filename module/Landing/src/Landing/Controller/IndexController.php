@@ -69,7 +69,11 @@ class IndexController extends AbstractActionController
     }
 
     public function orderAction(){
-        return new ViewModel();
+    	$lang_code = $this->params()->fromRoute('lang');
+    	//echo $lang_code; exit;
+        return new ViewModel(array(
+            "lang_code" => $lang_code,
+            ));
     }
 
     public function termsAction(){

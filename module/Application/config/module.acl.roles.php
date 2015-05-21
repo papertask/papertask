@@ -69,6 +69,7 @@ $allow_all = array(
 	'project\client-completed-projects',
 	'project\client-quotes',
 	'project\quote-detail',
+	'project\wordcount',
 	
 	
 	// -- Freelancer
@@ -120,6 +121,7 @@ $allow_all = array(
 	'email\new',
 	'email\edit',
 	'email\loadTemplate',
+	'email\check',
 	// -- Profile
 	'papertask\profile',
 	// -- API
@@ -144,6 +146,14 @@ return array(
 		'index\privacy',
 		'index\terms',
 		'index\contact-post',
+    		
+    	// Project Order	
+    	'project',
+    	'admin',
+    	'admin/project',
+    	'admin/project/wordcount',
+    	'project/wordcount',
+    		
 		'home',
 		'languages',
 		'freelancer',
@@ -169,6 +179,8 @@ return array(
 		// API
 		'api/common',
 		'api/papertask',
+    	'api/data',
+    	'api/admin',
     ),
 	'Freelancer'=> $allow_all,
 	'Employer'=> $allow_all,

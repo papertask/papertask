@@ -1,397 +1,306 @@
 <?php $this->headTitle($this->translate('ORDER YOUR TRANSLATION')) ?>
-<div class="banner">
-    <div class="container">
-        <div class="row">
-            <h1 class="text-center" style="font-size: 60px;"><strong>
-                <?php echo $this->translate('ORDER YOUR TRANSLATION') ?></strong></h1>
-            <h3 class="text-center">
-                <?php echo $this->translate('PLEASE FOLLOW THE STEPS TO PLACE AN ORDER') ?></h3>
-            <br><br>
-        </div>
-    </div>
-</div>
-<div id="features" class="features">
 
-<div class="container">
-<div class="row">
-<div class="col-lg-8">
-<form class="form-horizontal" role="form">
+<!-- Le styles -->
+<?php $this->headLink()
+//   ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
+//  ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
+//   ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
+//  ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
+//  ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+->prependStylesheet($this->basePath() . '/css/plugins/jquery-fileupload/jquery.fileupload.css');
+?>
+<script
+	type="text/javascript"
+	src="<?php echo $this->basePath() .'/js/angular.min.js'?>"></script>
+<script
+	type="text/javascript"
+	src="<?php echo $this->basePath() .'/js/plugins/angular-file-upload/angular-file-upload.js'?>"></script>
+<script type="text/javascript"">
+	angularApp = angular.module('project', ['summernote', 'angularFileUpload']);
+	var LANG_CODE ='<?php echo $this->lang_code ?>';
+</script>
+<script
+	type="text/javascript"
+	src="<?php echo $this->basePath() .'/js/landing/order.js'?>"></script>
+<script
+	type="text/javascript"
+	src="<?php echo $this->basePath() .'/js/admin/common/angular/service/project.js'?>"></script>
+<script
+	type="text/javascript"
+	src="<?php echo $this->basePath() .'/js/admin/common/angular/CurrentUser.js'?>"></script>
+<script
+	type="text/javascript"
+	src="<?php echo $this->basePath() .'/js/admin/bootstrap-modal.js'?>"></script>
 
-<div class=" form-group">
-    <div class="col-md-12">
-        <ul class="nav nav-pills nav-justified thumbnail setup-panel">
-            <li class="active"><a href="#step-1">
-                    <h4 class="list-group-item-heading">
-                        <?php echo $this->translate('Step 1') ?></h4>
-                    <p class="list-group-item-text">
-                        <?php echo $this->translate('Upload the file(s)') ?></p>
-                </a></li>
-            <li class="disabled"><a href="#step-2">
-                    <h4 class="list-group-item-heading">
-                        <?php echo $this->translate('Step 2') ?></h4>
-                    <p class="list-group-item-text">
-                        <?php echo $this->translate('Select Languages and Quality') ?></p>
-                </a></li>
-            <li class="disabled"><a href="#step-3">
-                    <h4 class="list-group-item-heading">
-                        <?php echo $this->translate('Step 3') ?></h4>
-                    <p class="list-group-item-text">
-                        <?php echo $this->translate('Confirm Your Information') ?></p>
-                </a></li>
-        </ul>
-    </div>
-</div>
-
-<div class=" setup-content" id="step-1">
-
-    <div class="col-md-12 well">
-        <p>
-            <?php echo $this->translate('We accept the following files, under <span class="text-danger">50MB</span> size') ?>:</p>
-        <small><strong>Excel</strong> (.xls, .xlsx, .xlsm), <strong>Word</strong> (.doc, .docx), <strong>PowerPoint</strong> (.ppt, .pptx), <strong>Acrobat</strong> (.pdf), <strong>Open Office</strong> (.odt), <strong>Rich Text Format</strong> (.rtf), <strong>Plain text</strong> (.txt)</small>
-        <br><br>
-        <div class="col-md-4">
-                        <span class="btn btn-primary btn fileinput-button">
-                          <i class="fa fa-cloud-upload"></i>
-                          <span><?php echo $this->translate('Select files') ?></span>
-                          <input id="fileupload" type="file" name="files[]" multiple>
-                        </span>
-        </div>
-        <div class="col-md-8">
-            <p></p>
-            <div class="progress progress-bar-default">
-                <div style="width: 43%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="43" role="progressbar" class="progress-bar">
-                    <span class="sr-only">43% Complete (success)</span>
-                </div>
-            </div>
-        </div>
-        <br><br><br>
-        <div class="project-list">
-            <table class="table table-hover">
-                <tbody>
-                <tr>
-                    <td class="project-title">
-                        file name1.doc
-                    </td>
-                    <td class="project-completion text-right">
-                        888
-                        <?php echo $this->translate('words') ?>
-                    </td>
-                    <td class="project-actions text-right">
-                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>
-                            <?php echo $this->translate('Delete') ?> </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="project-title">
-                        file name1.doc
-                    </td>
-                    <td class="project-actions text-right">
-                        888
-                        <?php echo $this->translate('words') ?>
-                    </td>
-                    <td class="project-actions text-right">
-                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>
-                            <?php echo $this->translate('Delete') ?> </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <hr>
-        <div class="text-center">
-            <button id="activate-step-2" class="btn btn-primary btn-lg">
-                <?php echo $this->translate('Next') ?></button> <!-- next button show after at least one file is uploaded -->
-        </div>
-    </div>
-</div>
-<div class=" setup-content" id="step-2">
-    <div class="col-md-12 well">
-        <div class="row">
-            <div class="col-md-3">
-                <h5>
-                    <?php echo $this->translate('Select Currency') ?></h5>
-                <div data-toggle="buttons"> <!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
-                    <label class="btn btn-outline btn-primary">
-                        <input type="radio" name="cny" value="" /> CNY
-                    </label>
-                    <label class="btn btn-outline btn-primary">
-                        <input type="radio" name="usd" checked value="" /> USD
-                    </label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <h5>
-                    <?php echo $this->translate('Select Quality Level') ?></h5>
-                <div data-toggle="buttons"> <!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
-                    <label class="btn btn-outline btn-primary">
-                        <input type="radio" name="prof" value="" />
-                        <?php echo $this->translate('Professional') ?> <i class="fa fa-question-circle"></i>
-                    </label>
-                    <label class="btn btn-outline btn-primary">
-                        <input type="radio" name="business" value="" />
-                        <?php echo $this->translate('Business') ?> <i class="fa fa-question-circle"></i>
-                    </label>
-                    <label class="btn btn-outline btn-primary">
-                        <input type="radio" name="premium" value="" />
-                        <?php echo $this->translate('Premium') ?> <i class="fa fa-question-circle"></i>
-                    </label>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <h5>
-                    <?php echo $this->translate('Translate Graphics') ?></h5>
-                <div data-toggle="buttons"> <!-- here put it in default NO -->
-                    <label class="btn btn-outline btn-primary">
-                        <input type="radio" name="cny" value="" /> <?php echo $this->translate('YES') ?>
-                    </label>
-                    <label class="btn btn-outline btn-primary">
-                        <input type="radio" name="usd" checked value="" /> <?php echo $this->translate('NO') ?>
-                    </label>
-                </div>
-            </div>
-        </div>
+<script
+	type="text/javascript"
+	src="<?php echo $this->basePath() .'/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js'?>"></script>
+<script
+	type="text/javascript"
+	src="<?php echo $this->basePath() .'/js/plugins/angular-summernote/angular-summernote.js'?>"></script>
+<script
+	type="text/javascript"
+	src="<?php echo $this->basePath() .'/js/plugins/summernote/summernote.min.js'?>"></script>
+<script
+	type="text/javascript"
+	src="<?php echo $this->basePath() .'/js/plugins/validate/jquery.validate.min.js'?>"></script>
+<script
+	type="text/javascript"
+	src="<?php echo $this->basePath() .'/js/plugins/metisMenu/jquery.metisMenu.js'?>"></script>
+<script
+	type="text/javascript"
+	src="<?php echo $this->basePath() .'/js/inspinia.js'?>"></script>
+<script
+	type="text/javascript"
+	src="<?php echo $this->basePath() .'/js/plugins/pace/pace.min.js'?>"></script>
 
 
-        <hr>
-        <div class="row">
-            <div class="col-md-6">
-                <h4>
-                    <?php echo $this->translate('Translate From') ?> *</h4>
-                <select class="form-control" name="">
-                    <option>
-                        <?php echo $this->translate('Select Source Language') ?></option>
-                    <option>option 2</option>
-                    <option>option 3</option>
-                    <option>option 4</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <h4> Translate To *</h4>
-                <select class="form-control" name="">
-                    <option>
-                        <?php echo $this->translate('Add Target Languages') ?></option>
-                    <option>option 2</option>
-                    <option>option 3</option>
-                    <option>option 4</option>
-                </select>
-            </div>
-        </div>
-        <br>
-        <div class="project-list">
-            <table class="table table-hover">
-                <tbody>
-                <tr>
-                    <td class="project-status">
-                        <span class="label label-primary">
-                            <?php echo $this->translate('Japanese') ?></span>
-                    </td>
-                    <td class="project-title text-center">
-                        <strong>888 (words) &nbsp;&nbsp;&nbsp;&nbsp; x &nbsp;&nbsp;&nbsp;&nbsp; CNY 0.12 &nbsp;&nbsp;&nbsp;&nbsp; = &nbsp;&nbsp;&nbsp;&nbsp; CNY 120.87</strong>
-                    </td>
-                    <td class="project-actions text-right">
-                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>
-                            <?php echo $this->translate('Delete') ?> </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="project-status">
-                        <span class="label label-primary">Korean</span>
-                    </td>
-                    <td class="project-title text-center">
-                        <strong>888 (words) &nbsp;&nbsp;&nbsp;&nbsp; x &nbsp;&nbsp;&nbsp;&nbsp; CNY 0.12 &nbsp;&nbsp;&nbsp;&nbsp; = &nbsp;&nbsp;&nbsp;&nbsp; CNY 120.87</strong>
-                    </td>
-                    <td class="project-actions text-right">
-                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i>
-                            <?php echo $this->translate('Delete') ?> </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <hr>
-        <div class="text-center">
-            <button id="" class="btn btn-primary btn-lg">
-                <?php echo $this->translate('Previous') ?></button>
-            <button id="activate-step-3" class="btn btn-primary btn-lg">
-                <?php echo $this->translate('Next') ?></button>
-        </div>
-    </div>
-</div>
-<div class="setup-content" id="step-3">
-    <div class="well">
+<!-- Scripts -->
+<?php  $this->headScript()
+//  ->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
+//->prependFile($this->basePath() . '/assets/js/landing/order.js')
+->prependFile($this->basePath() . '/assets/js/common/angular/service/project.js')
+->prependFile($this->basePath() . '/assets/js/common/angular/CurrentUser.js')
+//->prependFile($this->basePath() . '/js/admin/angular-steps.js')
+->prependFile($this->basePath() . '/assets/js/bootstrap-modal.js')
+->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload']);")
+->prependFile($this->basePath() . '/assets/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+->prependFile($this->basePath() . '/assets/plugins/angular-summernote/angular-summernote.js')
+->prependFile($this->basePath() . '/assets/plugins/summernote/summernote.min.js')
+//  ->prependFile($this->basePath() . '/js/plugins/datapicker/bootstrap-datepicker.js')
+//  ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
+->prependFile($this->basePath() . '/assets/plugins/validate/jquery.validate.min.js')
+//  ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
+//  ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
+//  ->prependFile($this->basePath() . '/js/inspinia.js');
 
-        <form class="form-horizontal" role="form">
-            <div class="row"> <!-- here need ajax verify to see if the email address is exist, if no show below infor to create a new account -->
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">
-                            <?php echo $this->translate('Email') ?> *</label>
-                        <div class="col-sm-8">
-                            <input type="email" class="form-control" value="" placeholder="
-                            <?php echo $this->translate('Email Address') ?>">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-5 control-label">
-                            <?php echo $this->translate('Need Fapiao') ?> *</label>
-                        <div class="col-sm-7">
-                            <div data-toggle="buttons"> <!-- here IF YES, THEN SHOW TITLE, "NO" = HIDE TITLE, by default "NO"-->
-                                <label class="btn btn-outline btn-primary">
-                                    <input type="radio" name="" value="" /> YES
-                                </label>
-                                <label class="btn btn-outline btn-primary">
-                                    <input type="radio" name="" value="" /> NO
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row"> <!-- here need ajax verify to see if the email address is exist, if no show below infor to create a new account -->
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">
-                            <?php echo $this->translate('Title') ?> *</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" value="" placeholder="
-                            <?php echo $this->translate('Your Chinese Company Title for Issue FAPIAO') ?>">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">
-                            <?php echo $this->translate('Address') ?> *</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" value="" placeholder="
-                            <?php echo $this->translate('Your Mailing Address') ?>">
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">
-                            <?php echo $this->translate('Last Name') ?> *</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" value="" placeholder="
-                            <?php echo $this->translate('Last Name') ?>">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="inputPassword" class="col-sm-4 control-label">
-                            <?php echo $this->translate('First Name') ?> *</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" value="" placeholder="
-                            <?php echo $this->translate('First Name') ?>">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">
-                            <?php echo $this->translate('Password') ?> *</label>
-                        <div class="col-sm-8">
-                            <input type="password" class="form-control" value="" placeholder="
-                            <?php echo $this->translate('Type Your Password') ?>">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">
-                            <?php echo $this->translate('Cellphone') ?> *</label>
-                        <div class="col-sm-8">
-                            <input type="number" class="form-control" value="" placeholder="
-                            <?php echo $this->translate('Your Cellphone/Landline') ?>">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="inputPassword" class="col-sm-4 control-label">
-                            <?php echo $this->translate('Company') ?></label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" value="" placeholder="
-                            <?php echo $this->translate('Your Company Full Name') ?>">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="inputPassword" class="col-sm-4 control-label">
-                            <?php echo $this->translate('Country') ?></label>
-                        <div class="col-sm-8">
-                            <select class="form-control">
-                                <option></option>
-                                <option>China</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <hr>
-        <div class="text-center"> <!-- if second step choose NO to translate graphic, then show this button -->
-            <button id="" class="btn btn-primary btn-lg">
-                <?php echo $this->translate('Pay and Start to Translate') ?></button>
-        </div>
-        <div class="text-center"> <!-- if second step choose yes to translate graphic, then show this button -->
-            <button id="" class="btn btn-primary btn-lg">
-                <?php echo $this->translate('Request a Quote') ?></button>
-        </div>
-    </div>
+->prependFile($this->basePath() . '/assets/js/inspinia.js')
+->prependFile($this->basePath() . '/assets/plugins/pace/pace.min.js')
+->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.ui.widget.js')
+->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.iframe-transport.js')
+->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.fileupload.js')
+->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.fileupload-validate.js');
 
+
+
+?>
+
+<?php
+$this->inlineScript()
+->prependScript("
+		var LANG_CODE = '" . $this->lang_code . "';
+		");
+?>
+
+<style type="text/css">
+.wizard>.content {
+	min-height: 1000px;
+}
+
+.note-editor {
+	height: 150px;
+}
+
+.nav-pills>li.active>a,.nav-pills>li.active>a:hover,.nav-pills>li.active>a:focus
+	{
+	background-color: #19aa8d;
+}
+
+.nav>li.active {
+	border-left: 4px solid #19aa8d;
+	background: #19aa8d;
+}
+
+.form-group label.btn-outline {
+	margin-right: 0.3em;
+}
+
+.main-content {
+	padding: 50px 0 0;
+}
+
+.btn-primary {
+	background-color: #1ab394;
+	border-color: #1ab394;
+	color: #ffffff;
+}
+
+.btn-primary:hover {
+	background-color: #158E76;
+	border-color: #158E76;
+	color: #ffffff;
+}
+
+.btn-primary.active {
+	background-color: #1ab394;
+	border-color: #1ab394;
+	color: #ffffff;
+}
+
+.btn-custom {
+	background-color: #F5F5F5;
+	border-color: #1ab394;
+	color: #1ab394;
+}
+
+.btn-custom.active>i.fa {
+	color: #1ab394 !important;
+}
+
+.progress-bar {
+	background-color: #1ab394;
+}
+
+.label-primary {
+	background-color: #1ab394;
+}
+
+.open>.dropdown-toggle.btn-primary {
+	background-color: #1ab394;
+	border-color: #1ab394;
+	color: #fff;
+}
+</style>
+
+<div class="main-content" ng-controller="OrderNoSignin">
+	<div class="banner">
+		<div class="container">
+			<div class="row">
+				<h1 class="text-center" style="font-size: 60px;">
+					<strong>ORDER YOUR TRANSLATION</strong>
+				</h1>
+				<h3 class="text-center">PLEASE FOLLOW THE STEPS TO PLACE AN ORDER</h3>
+				<br> <br>
+			</div>
+		</div>
+	</div>
+	<div id="features" class="features">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					
+
+						<div class=" form-group">
+							<div class="col-md-12">
+								<ul class="nav nav-pills nav-justified thumbnail setup-panel">
+									<li class="active"><a href="#step-1">
+											<h4 class="list-group-item-heading">Step 1</h4>
+											<p class="list-group-item-text">Upload the file(s)</p>
+									</a></li>
+									<li class="disabled"><a href="#step-2">
+											<h4 class="list-group-item-heading">Step 2</h4>
+											<p class="list-group-item-text">Select Languages and Quality</p>
+									</a></li>
+									<li class="disabled"><a href="#step-3">
+											<h4 class="list-group-item-heading">Step 3</h4>
+											<p class="list-group-item-text">Confirm Your Information</p>
+									</a></li>
+								</ul>
+							</div>
+						</div>
+
+
+						<?php include "order/step1.phtml"?>
+						<?php include "order/step2.phtml"?>
+						<?php include "order/step3.phtml"?>
+
+					
+				</div>
+				<?php include "order/orderinfo.phtml"?>
+			</div>
+
+		</div>
+	</div>
 </div>
 
-</form>
-</div>
-<div class="col-lg-4 well">
-    <h1 class="text-center">
-        <?php echo $this->translate('Order Information') ?></h1>
-    <br>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>3 iterms</th> <!-- before iterms, put the number of files uploaded -->
-            <th class="text-right"> 888 words</th>
-        </tr>
-        <tr>
-            <th><?php echo $this->translate('Languages') ?></th>
-            <th class="text-right">4</th> <!-- target languages number -->
-        </tr>
-        <tr>
-            <th><?php echo $this->translate('Quality Level') ?></th>
-            <th class="text-right"><span class="label label-primary">Business</span> CNY 0.12/Word</th>
-        </tr>
-        </thead>
-    </table>
-    <br><br>
-    <table class="table">
-        <thead>
-        <tr>
-            <th><?php echo $this->translate('Iterms Total') ?></th>
-            <th class="text-right">CNY 1200.88</th>
-        </tr>
-        <tr>
-            <th><?php echo $this->translate('Tax') ?></th>
-            <th class="text-right">CNY 200.88</th>
-        </tr>
-        <tr style="font-size: 22px;">
-            <th><?php echo $this->translate('Total') ?></th>
-            <th class="text-right">CNY 1200.88</th>
-        </tr>
-        </thead>
-    </table>
-    <p><?php echo $this->translate('Estimated delivery <strong>34 hours.</strong>') ?></p> <!-- this hour based on the word count of the files, algorithm is estimate time = total word count / 2000 = number of hours, if the result is 1.2, then show 2, if 1.7, show 2 also-->
-</div>
-</div>
+<script>
+      $(document).ready(function() {
+          
+          var navListItems = $('ul.setup-panel li a'),
+              allWells = $('.setup-content');
 
-</div>
-</div>
+          allWells.hide();
+
+          navListItems.click(function(e)
+          {
+              e.preventDefault();
+              var $target = $($(this).attr('href')),
+                  $item = $(this).closest('li');
+              
+              if (!$item.hasClass('disabled')) {
+                  navListItems.closest('li').removeClass('active');
+                  $item.addClass('active');
+                  allWells.hide();
+                  $target.show();
+              }
+          });
+          
+          $('ul.setup-panel li.active a').trigger('click');
+          
+          // DEMO ONLY //
+          /*
+          $('#activate-step-2').on('click', function(e) {
+              $('ul.setup-panel li:eq(1)').removeClass('disabled');
+              $('ul.setup-panel li a[href="#step-2"]').trigger('click');
+              //$(this).remove();
+          }) 
+          */
+          /*   
+          $('#activate-step-3').on('click', function(e) {
+              
+              $('ul.setup-panel li:eq(2)').removeClass('disabled');
+              console.info('currency',$scope.project.currency);
+              //checkValidStep2();
+              //$('ul.setup-panel li a[href="#step-3"]').trigger('click');
+              //$(this).remove();
+
+              return false;
+          })   
+          */
+
+          
+
+          jQuery.validator.setDefaults({
+    		  debug: false,
+    		  success: "valid"
+    		});
+  		
+    		$( "#formStep2" ).validate(); 
+    		$( "#formStep3" ).validate(); 
+    		console.info('formStep2',$( "#formStep2" ).validate());
+			/*
+			alert('hi');
+    		function checkValidStep2(){
+    	          if($( "#formStep2" ).valid()){
+    	              alert('true');
+    	          } else{
+    	        	  alert('false');
+    	          }
+    	    }
+    	    */
+    	    
+    	    
+      });
+
+      function StrDate(dateIn) {
+      	   var yyyy = dateIn.getFullYear();
+      	   var mm = dateIn.getMonth()+1; // getMonth() is zero-based
+      	   var dd  = dateIn.getDate();
+      	   var hh = dateIn.getHours();
+      	   var mi = dateIn.getMinutes();
+      	   var ss = dateIn.getSeconds();
+      	   return String(yyyy +'-'+ mm +'-'+ dd + ' '+ hh +':'+ mi + ':' + ss); // Leading zeros for mm and dd
+      	 }
+
+  		function PrevStep3(){
+  			$('ul.setup-panel li a[href="#step-2"]').trigger('click');
+  		}
+
+  		function PrevStep2(){
+  			$('ul.setup-panel li a[href="#step-1"]').trigger('click');
+  		}
+     
+      
+    </script>

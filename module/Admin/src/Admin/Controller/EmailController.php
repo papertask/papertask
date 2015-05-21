@@ -11,6 +11,8 @@ namespace Admin\Controller;
 
 use Application\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
+
 use Admin\Form\EmailTemplateForm;
 use Admin\Form\TemplateTypeForm;
 use Zend\Json\Json;
@@ -142,5 +144,24 @@ class EmailController extends AbstractActionController
         }
 
         return $this->redirect()->toUrl('/admin/email');
+    }
+    
+    public function checkAction(){
+    	$email = $this->params()->fromQuery('email');
+    	$haveEmail = false;
+    	$entityManager = $this->getEntityManager();
+
+            $repository = $entityManager->getRepository('User\Entity\User');
+            $user = $repository->findOneBy( array('email'=>$email) );
+            if($user){
+            	
+            	if($user->getEmployer()){
+            		$haveEmail = true;
+            	}
+            }
+    	
+    	return new JsonModel(array(
+    			 'haveEmail' => $haveEmail
+    	));
     }
 }

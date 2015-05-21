@@ -10,6 +10,7 @@
 namespace Admin\Controller;
 
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 use Zend\View\Renderer\PhpRenderer;
 use Application\Controller\AbstractActionController;
 use User\Entity\File;
@@ -683,4 +684,14 @@ class ProjectController extends AbstractActionController
     }
     
 	
+    public function wordcountAction(){
+    	$file_id = $this->params()->fromQuery('fileId');
+    	$file = $this->find('User\Entity\File',$file_id);
+    	//var_dump($file);
+    	$datawordcount = $file->file_word_count();
+    	return new JsonModel(array(
+    			'datawordcount' => $datawordcount
+    	));
+    }
+
 }
