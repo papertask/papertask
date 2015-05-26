@@ -160,6 +160,8 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     			currency: $scope.freelancer.currency,
     			phone: $scope.freelancer.phone,
     			gender: $scope.freelancer.gender,
+				lang_code : LANG_CODE,
+				
 				resources: $scope.resorce_tmp,
 				
 				translationspecialisms : ($scope.translation == 1)?$scope.TranslationSpecialisms_tmp:null,

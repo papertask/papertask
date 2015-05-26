@@ -72,7 +72,7 @@ class LoginForm extends Form
      * @param \Application\Controller\AbstractActionController $controller
      * @return bool
      */
-    public function validate($controller){
+    public function validate($controller,$lang){
         $entityManager = $controller->getEntityManager();
         $translator = $controller->getTranslator();
 
@@ -90,7 +90,7 @@ class LoginForm extends Form
             } else {
                 $msg = $translator->translate('You must confirm your email to be able to login');
                 $controller->flashMessenger()->addErrorMessage($msg);
-                $controller->redirect()->toUrl("/user/register/confirm?email=" . $email);
+                $controller->redirect()->toUrl('/'.$lang."/user/register/confirm?email=" . $email);
                 return false;
             }
         } else {

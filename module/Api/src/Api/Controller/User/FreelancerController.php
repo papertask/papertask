@@ -49,7 +49,7 @@ class FreelancerController extends AbstractRestfulController
 			$user = new User();
             $user->setData( $data );
             $user->save($entityManager);
-			$user->createFreelancer( $this, $data, $entityManager);
+			$user->createFreelancer( $this, $data, $entityManager, $pdata['lang_code']);
 			
 			$freelancer = $user->getFreelancer();
 	        $tmp = array('Resources'=>$pdata['resources'], 'DesktopCatTools'=>$pdata['desktopcattools'], 'DesktopOperatingSystems'=>$pdata['desktopoperatingsystems'], 'InterpretingSpecialisms'=>$pdata['interpretingspecialisms'], 'TranslationCatTools'=>$pdata['translationcattools'], 'TranslationSpecialisms'=>$pdata['translationspecialisms']);

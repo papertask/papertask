@@ -37,7 +37,7 @@ class LoginController extends AbstractActionController
         if($request->isPost()){
             $form->setData($request->getPost());
             if($form->isValid()){
-                if($form->validate($this)){
+                if($form->validate($this,$lang)){
                     $next ='/admin/dashboard';
                     if($request->getQuery('next')){
                         $next = $request->getQuery('next');

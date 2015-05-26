@@ -58,7 +58,7 @@ class EmployerController extends AbstractRestfulController
 			$user = new User();
             $user->setData( $data );
             $user->save($entityManager);
-			$user->createEmployer( $this, $data, $entityManager);
+			$user->createEmployer( $this, $data, $entityManager, $pdata['lang_code']);
 			$employer = $user->getEmployer();
 			$employer->updateData(array(
                 'position'=>$pdata['position'],

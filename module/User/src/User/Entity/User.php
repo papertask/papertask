@@ -416,7 +416,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function sendConfirmationEmail($controller,$lang_code=''){
         // initial data for email template
 
-        $confirmLink = $controller->getBaseUrl(). $lang_code . '/user/register/confirm?token=' . $this->token;
+        $confirmLink = $controller->getBaseUrl(). '/'. $lang_code . '/user/register/confirm?token=' . $this->token;
 		$data = array(
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
@@ -661,6 +661,7 @@ class User extends Entity implements InputFilterAwareInterface{
             'firstName' => $data['firstName'],
             'lastLogin' => new \DateTime('now'),
             'createdTime' => new \DateTime('now'),
+			'token' => $this->generateToken(),
             'alias' => $strAlias,
         	'password' => $data['password'],
         );
@@ -682,6 +683,7 @@ class User extends Entity implements InputFilterAwareInterface{
             'firstName' => $data['firstName'],
             'lastLogin' => new \DateTime('now'),
             'createdTime' => new \DateTime('now'),
+			'token' => $this->generateToken(),
 			'alias' => $strAlias,
         	'password' => $data['password'],
         );

@@ -149,7 +149,8 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
                 pm: $scope.employer.pm,
                 sales: $scope.employer.sales,
                 cellphone: $scope.userInfo.cellphone,
-                name: $scope.employer.username
+                name: $scope.employer.username,
+				lang_code : LANG_CODE,
     	};
 
     	$http.post("/api/user/employer", ptr_employer)
