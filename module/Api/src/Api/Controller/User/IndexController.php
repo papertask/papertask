@@ -66,10 +66,10 @@ class IndexController extends AbstractRestfulController
 
     public function update($id, $data){
         if(isset($data['password']) && strlen($data['password']) > 5){
-            $user = $this->getUserById((int)$id);
+			$user = $this->getUserById((int)$id);
             $user->encodePassword($data['password']);
             $user->save($this->getEntityManager());
-
+			$user->sendResetPasswordEmail($this,$user,$data['password']);	
             return new JsonModel(['success' => 1]);
         }
         $data['country'] = $this->getEntityManager()->find('\User\Entity\Country', (int)$data['country']['id']);

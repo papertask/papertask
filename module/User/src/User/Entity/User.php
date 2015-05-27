@@ -450,6 +450,20 @@ class User extends Entity implements InputFilterAwareInterface{
         );
         Mail::sendMail($controller, "USER_RESET", $this->email, $data);
     }
+	
+	/**
+     * @param \Application\Controller\AbstractActionController $controller
+     */
+	public function sendResetPasswordEmail($controller,$user,$newpass){
+	//var_dump($user->email);
+        // initial data for email template
+        $data = array(
+            'firstName' => $user->firstName,
+            'lastName' => $user->lastName,
+            'newpass' => $newpass,
+        );
+        Mail::sendMail($controller, "ADMIN_RESET", $user->email, $data);
+    }
 
     public function getData(){
         return array(
