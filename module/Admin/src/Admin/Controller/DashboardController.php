@@ -37,11 +37,28 @@ class DashboardController extends AbstractActionController
     }
 	public function clientDashboardAction()
 	{	
-		//error_reporting(E_ALL);
-		//ini_set('display_errors', 1);
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		//get all project
+		$user = $this->getCurrentUser();
+		
+		$entityManager = $this->getEntityManager();
+		$projectList = $entityManager->getRepository('User\Entity\Project');
+		$qb = $projectList->createQueryBuilder('project');
+		 
+		$qb->select('count(project.id)');
+		$qb->where('project.is_deleted = 0');
+		$qb->andWhere(
+                $qb->expr()->eq('project.client', $user->getId())
+        );
+		
+		$count = $qb->getQuery()->getSingleScalarResult();
+		//var_dump($count);exit;
+		
 		$lang_code = $this->params()->fromRoute('lang');
         return new ViewModel([
-			"lang_code" => $lang_code
+			"lang_code" => $lang_code,
+			"numberproject" => $count
         ]);
 	}
 	public function freelancerDashboardAction(){

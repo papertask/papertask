@@ -178,8 +178,10 @@ class TaskController extends AbstractActionController
     	$data = array();
 
     	foreach($paginator as $task){  
-    		
-    		$data[] = $task->getData(); 			
+    		$task_data = $task->getData();
+    		$project = $this->find('User\Entity\Project',$task_data['project']);
+    		$task_data['project'] = $project->getData();
+    		$data[] = $task_data; 			
     	}
     	
     	return new JsonModel(array(
@@ -243,8 +245,10 @@ class TaskController extends AbstractActionController
     	$data = array();
 
     	foreach($paginator as $task){  
-    		
-    		$data[] = $task->getData(); 			
+    		$task_data = $task->getData();
+    		$project = $this->find('User\Entity\Project',$task_data['project']);
+    		$task_data['project'] = $project->getData();
+    		$data[] = $task_data; 			
     	}
     	
     	return new JsonModel(array(

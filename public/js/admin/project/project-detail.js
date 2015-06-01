@@ -433,7 +433,7 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
     function attachData($task){
         $task.type = ProjectType.get($task.type);
         $task.status = TaskStatus.get($task.status);
-        $task.files = [];
+		$task.files = [];
 
         // var mockC = Object.create(templateCorrection);
         // mockC.language = $task.language;
@@ -451,7 +451,9 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
             newTask.dueDate = $scope.project.dueDate.date;
             newTask.project_id = $scope.project.id;
             newTask.status = TaskStatus.unassigned;
-
+			console.log("check newtask");
+			console.log(newTask);
+			console.log($scope.project);
             TaskApi.create(newTask, function($newTask){
                 attachData($newTask);
                 $scope.newTask = {};

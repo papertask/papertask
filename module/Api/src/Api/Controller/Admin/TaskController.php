@@ -32,7 +32,10 @@ class TaskController extends AbstractRestfulJsonController
     }
 
     public function create($data){
-        $this->clearData($data);
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+        
+		$this->clearData($data);
 
         $task = new Task();
         $task->setData($data);

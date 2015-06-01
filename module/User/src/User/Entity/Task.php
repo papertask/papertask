@@ -109,7 +109,7 @@ class Task extends Entity{
             'is_deleted' => $this->is_deleted,
             'is_specialism_pool' => $this->is_specialism_pool,
             'language' => $this->language->getData(),
-            'project' => $this->project->getData(),
+            'project' => $this->project->getId(),
             'status' => $this->status,
             'type' => $this->type,
 			'dueDate' => $this->dueDate,

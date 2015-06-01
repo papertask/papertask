@@ -32,10 +32,13 @@
                 <a href="<?php echo $this->url('admin', array('controller' => 'project',
                     'action' => 'client-quotes',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-files-o"></i> <span class="nav-label">Quotes</span></a>
             </li>
-
+<?php
+$children = $this->viewModel()->getCurrent()->getChildren();
+$child = $children[0];
+?>
             <li> <!-- admin, sales director, operation manager can see full info, sales manager and pm can only see clients belong to them -->
                 <a href="<?php echo $this->url('admin', array('controller' => 'project',
-                    'action' => 'client-projects',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-archive"></i> <span class="nav-label">Projects</span> <span class="fa arrow"></span> <span class="label label-warning">16</span></a>
+                    'action' => 'client-projects',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-archive"></i> <span class="nav-label">Projects</span> <span class="fa arrow"></span> <span class="label label-warning"><?php echo $child->numberproject?></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="<?php echo $this->url('admin', array('controller' => 'project',
 'action' => 'client-projects',"lang"=>$this->translate('lang','Application'))) ?>">All Projects</a></li>

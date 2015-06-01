@@ -309,6 +309,18 @@ class EmployerController extends AbstractRestfulController
             $userData = $user->getData();
             $userData['employer'] = $user->getEmployer()->getData();
             $userData['createdTime'] = $helper->formatDate($userData['createdTime']);
+            // Count TaskDone
+            $taskCount = $entityManager->getRepository('User\Entity\Task');
+            $taskQueryBuilder = $taskCount->createQueryBuilder('task');
+            $taskQueryBuilder->select('COUNT(task.id)');
+            $taskQueryBuilder->innerJoin('User\Entity\Project','p','WITH','task.project = p.id');
+            $taskQueryBuilder->andWhere('p.client = ?1')->setParameter(1, $userData['id']); // user.id
+            $taskQueryBuilder->andWhere('task.status = ?2')->setParameter(2, 1);
+            $taskquery = $taskQueryBuilder->getQuery();
+            $task_result = $taskquery->getArrayResult();
+            $userData['taskDone']=$task_result[0][1];
+            // End Count TaskDone
+            
             $data[] = $userData;
         }
         return new JsonModel(array(

@@ -84,7 +84,7 @@ class ProjectController extends AbstractRestfulJsonController
         }
         $data['targetLanguages'] = $targetLanguages;
 		
-		if($data['status'] == 1){
+		if($data['status'] == 2){//set odered
 			$data['quote_no'] = "QUO-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
 		}
 		
