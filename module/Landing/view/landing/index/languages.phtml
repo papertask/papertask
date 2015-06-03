@@ -4,17 +4,19 @@
 echo $this->headScript()
     ->prependFile($this->basePath() . '/js/landing/languages.js')
     ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
-    ->prependScript("angularApp = angular.module('languages', []);")
+    ->prependScript("angularApp = angular.module('project', []);")
     ->prependFile($this->basePath() . '/js/angular.min.js')
 ?>
 <?php
-$this->inlineScript()
+echo $this->inlineScript()
     ->prependScript("
-    <script>if(typeof(angular) != 'undefined' && typeof(angularApp) == 'undefined'){
+    
+	
+	if(typeof(angular) != 'undefined' && typeof(angularApp) == 'undefined'){
         var angularApp = angularApp || angular.module('languages', []);
 	  }
    
-	 </script>
+	 
     ");
 echo $this->inlineScript()
     ->prependScript("
