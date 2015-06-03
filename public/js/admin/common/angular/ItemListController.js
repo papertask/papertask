@@ -29,6 +29,7 @@ angularApp.controller('ItemListController', function($scope, $location, $timeout
     function loadItems(page, func){
         var params = $scope.filter;
         params.page = page;
+		console.log(params);
         $scope.items = [];
         $scope.ItemApi.list(params, function($items, $pages){
             $scope.items = $items;

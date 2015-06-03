@@ -7,6 +7,7 @@ $allow_all = array(
 	'index\languages',
 	'index\freelancer',
 	'index\contact',
+	
 
 	'index\contact-post',
 
@@ -175,7 +176,7 @@ return array(
 		'register\social',
 		'register\employer',
 		'register\freelancer',
-
+		'project\uploadFile',
 		// API
 		'api/common',
 		'api/papertask',

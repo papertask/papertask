@@ -300,7 +300,8 @@ class ProjectController extends AbstractRestfulJsonController
     public function getList(){
 		//error_reporting(E_ALL);
 		//ini_set('display_errors', 1);
-        $entityManager = $this->getEntityManager();
+        
+		$entityManager = $this->getEntityManager();
 
         // Get freelancer group
         $projectList = $entityManager->getRepository('User\Entity\Project');
@@ -308,6 +309,17 @@ class ProjectController extends AbstractRestfulJsonController
         $queryBuilder = $projectList->createQueryBuilder('project');
         $queryBuilder->andWhere('project.is_deleted = 0');
 
+		if($q = $this->params()->fromQuery('q')){
+			$queryBuilder->andWhere($queryBuilder->expr()->orX(
+				$queryBuilder->expr()->like('project.reference',$queryBuilder->expr()->literal("%$q%")),
+				$queryBuilder->expr()->like('project.id',$queryBuilder->expr()->literal("%$q%"))
+			)
+		
+            //$queryBuilder->andWhere("project.reference like %?% OR project.id like %?%", array($q, $q)
+			
+			);
+        }
+		
         /** start filter */
         if($project_id = $this->params()->fromQuery('project_id')){
             $queryBuilder->andWhere($queryBuilder->expr()->eq('project.id', $project_id));
@@ -391,6 +403,7 @@ class ProjectController extends AbstractRestfulJsonController
         }
         /** end filter */
 		$queryBuilder->orderBy('project.id', 'DESC');
+		//echo $queryBuilder->getQuery()->getSQL();exit;
         $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
 		 
