@@ -107,6 +107,14 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
         }).error(function($e){
             alert('error');
         });
+		
+		// Get Country
+        $http.get("/api/common/country/")
+        .success(function($data){
+       	 jQuery.extend(true, $scope, $data);  // copy data to scope
+   			console.info('contr',$scope);
+        });
+		
 		//get company info
 		$http.get("/api/papertask/companyinfo").success(function($data){
             $scope.companyinfo = $data['companyinfo'];
@@ -380,6 +388,8 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
                 }
             });
         };
+        
+        
     }
 
     function getListTranslation(){

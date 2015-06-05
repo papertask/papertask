@@ -190,9 +190,9 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	         .success(function($data){
 	        	 //$('#PayAndStartTrans').remove();
 	             if($data.success){
-	                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
+	            	 location.href = "/" + LANG_CODE + "/landing/index";
 	             } else {
-	                 location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
+	            	 location.href = "/" + LANG_CODE + "/landing/index";
 	             }
 	         })
 	         .error(function($data){
@@ -221,14 +221,15 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	         .success(function($data){		
 	        	 //$('#RequestQuote').remove();
 	             if($data.success){
-	                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
+	                 location.href = "/" + LANG_CODE + "/landing/index";
 	             } else {
-	                 location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
+	            	 location.href = "/" + LANG_CODE + "/landing/index";
 	             }
 	         })
 	         .error(function($data){
 
 	         });
+	         
 	         
          } else{
              return false;
@@ -238,17 +239,19 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 $scope.haveEmail = false;
 	 
 	 $('#emailAddress').blur(function(){
-		 if($scope.project.fapiaoEmail){
+		 if($scope.project.newClient.Email){
 			 
-			 $http.get("/" + LANG_CODE + "/admin/email/check?email="+$scope.project.fapiaoEmail)
+			 $http.get("/" + LANG_CODE + "/admin/email/check?email="+$scope.project.newClient.Email)
 	         .success( function ( $data ) {
 	        	 
 	        	 
 	        	 
 	        	 if($data.haveEmail == true){
 	        		 $scope.haveEmail = true;
+	        		 $scope.project.client = $data.client;
 	        	 } else {
 	        		 $scope.haveEmail = false;
+	        		 $scope.project.client = null;
 	        	 }
 	        	 
 	         }).error(function($e){
@@ -322,7 +325,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 */
 	 
 	 $scope.wordcount = function(fileId){
-		 var words = $http.get("/" + LANG_CODE + "/admin/project/wordcount?fileId="+fileId)
+		 var words = $http.get("/" + LANG_CODE + "/landing/file/wordcount?fileId="+fileId)
          .success( function ( $data ) {
         	 $scope.totalwords = $scope.totalwords + $data.datawordcount.wordcount;
         	 $scope.refreshwithoutWordCount();
@@ -542,7 +545,7 @@ angularApp.factory("TableItemListService", function(){
 
 angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', '$http', function($scope, FileUploader, $timeout, $http) {
     var uploader = $scope.uploader = new FileUploader({
-        url: "/" + LANG_CODE + "/admin/project/uploadFile"
+        url: "/" + LANG_CODE + "/landing/file/uploadFile"
     });
     
     
@@ -586,7 +589,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', '$
             return;
         }
         
-        $http.get("/" + LANG_CODE + "/admin/project/wordcount?fileId="+response.file.id)
+        $http.get("/" + LANG_CODE + "/landing/file/wordcount?fileId="+response.file.id)
         .success( function ( $data ) {
         	
         	fileItem.projectFile = {

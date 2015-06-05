@@ -28,7 +28,7 @@ angularApp.run(function($rootScope){
     //});
 });
 
-angularApp.filter('dateFormat', function($filter)
+angularApp.filter('DateFormatter', function($filter)
 {
  return function(input)
  {
@@ -40,7 +40,7 @@ angularApp.filter('dateFormat', function($filter)
 
  };
 });
-angularApp.controller('ProjectDetailController', function($scope, $http, $location, ProjectApi, DateFormatter, ProjectStatus,
+angularApp.controller('ProjectDetailController', function($scope, $rootScope, $http, $location, ProjectApi, DateFormatter, ProjectStatus,
                                                           ProjectServiceLevel, ProjectPriority, StaffApi, ClientApi,
                                                           FieldApi, ProjectType, TaskApi, TaskStatus,
                                                           FeedbackQuality, FeedbackTime,
@@ -66,6 +66,7 @@ angularApp.controller('ProjectDetailController', function($scope, $http, $locati
         activitiesNum: 0,
     };
 	$scope.telephone = [];
+	
 	
 	$scope.itermtm = [];
 	$scope.subtotal_tmp = 0;
@@ -445,18 +446,18 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
 
     function createTask(){
         if(jQuery("#tasks form").valid()){
-            var newTask = $scope.newTask;
-            newTask.name = newTask.name ? newTask.name : "";
-            newTask.startDate = $scope.project.startDate.date;
-            newTask.dueDate = $scope.project.dueDate.date;
-            newTask.project_id = $scope.project.id;
-            newTask.status = TaskStatus.unassigned;
+            var newTaskTml = $scope.newTask;
+            newTaskTml.name = newTaskTml.name ? newTaskTml.name : "";
+            newTaskTml.startDate = $scope.project.startDate.date;
+            newTaskTml.dueDate = $scope.project.dueDate.date;
+            newTaskTml.project_id = $scope.project.id;
+            newTaskTml.status = TaskStatus.unassigned;
 			console.log("check newtask");
-			console.log(newTask);
+			console.log(newTaskTml);
 			console.log($scope.project);
-            TaskApi.create(newTask, function($newTask){
-                attachData($newTask);
-                $scope.newTask = {};
+            TaskApi.create(newTaskTml, function($newTask){
+                attachData($newTaskTml);
+                $scope.newTaskTml = {};
                 $scope.items.push($newTask);
                 $scope.project.tasksNum = $scope.items.length;
             });
@@ -716,7 +717,7 @@ angularApp.controller("ProjectCorrectionController", function($scope, Correction
     });
 });
 
-angularApp.controller("ProjectFilesController", function($scope, $http, $window, FileUploader, TaskApi, FeedbackApi, CorrectionApi){
+angularApp.controller("ProjectFilesController", function($scope, $rootScope, $http, $window, FileUploader, TaskApi, FeedbackApi, CorrectionApi){
 
     function attachUploaders(){
         $scope.project.targetLanguages.forEach(function(lang, i) {
@@ -900,12 +901,14 @@ angularApp.controller("ProjectFilesController", function($scope, $http, $window,
     function init(){
         $http.get("/" + LANG_CODE + "/admin/project/getFilesList?project_id="+projectId)
             .success( function ( $data ) {
+        	 
                 $scope.files = $data.filter(function(file){
                     return !file.task && !file.language;
                 });
                 $scope.langFiles = $data.filter(function(file){
                     return !!file.language;
                 });
+             $rootScope.filesLength = $scope.files.length;
             });
     }
 

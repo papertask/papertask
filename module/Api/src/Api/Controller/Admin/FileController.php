@@ -42,7 +42,7 @@ class FileController extends AbstractRestfulJsonController
     }
 
     public function get($id){
-		
+		echo 'hi get';exit;
     }
 
     public function delete($id){
@@ -98,5 +98,9 @@ class FileController extends AbstractRestfulJsonController
         return new JsonModel([
             'project' => $project->getData(),
         ]);
+    }
+    
+    public function uploadfileAction(){
+    	echo 'hi';
     }
 }

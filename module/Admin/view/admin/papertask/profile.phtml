@@ -849,12 +849,12 @@ $this->inlineScript()->appendScript("
                             </div>
                             <div class="form-group">
                                 <label>Country *</label>
-                                <select class="form-control required" id="country" name="country" value="">
+                                <select class="form-control required" id="country" name="country" value=""
+                                ng-options="country.name for country in countries"
+								ng-model="Company.Country"
+								required
+								ng-change="">
                                     <option value=""><?php echo $this->translate('Please select') ?></option>
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -916,12 +916,12 @@ $this->inlineScript()->appendScript("
                             </div>
                             <div class="form-group">
                                 <label>Country *</label>
-                                <select class="form-control required" id="country" name="country" value="">
+                                <select class="form-control required" id="country" name="country" value=""
+                                ng-options="country.name for country in countries"
+								ng-model="EditBankAccount.Country"
+								required
+								ng-change="">
                                     <option value=""><?php echo $this->translate('Please select') ?></option>
-                                    <option>option 1</option>
-                                    <option>option 2</option>
-                                    <option>option 3</option>
-                                    <option>option 4</option>
                                 </select>
                             </div>
                             <div class="form-group">

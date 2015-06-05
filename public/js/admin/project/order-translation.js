@@ -171,6 +171,8 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 
 		 if(isvalid){
 		     $('#activate-step-3').remove();
+		     console.info('$params',$params);
+		    
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){				
 	             if($data.success){
@@ -199,6 +201,8 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 
 		 if(isvalid){
 		     $('#activate-step-3').remove();
+		     console.info('$params',$params);
+		     
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){				
 	             if($data.success){
@@ -210,6 +214,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	         .error(function($data){
 
 	         });
+	         
 	         
 		 } 	else {
 				//alert('unvalid');

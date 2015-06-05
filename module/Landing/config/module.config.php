@@ -113,7 +113,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Landing\Controller\Index' => 'Landing\Controller\IndexController'
+            'Landing\Controller\Index' => 'Landing\Controller\IndexController',
+        	'Landing\Controller\File' => 'Landing\Controller\FileController',
         ),
     ),
     'view_manager' => array(

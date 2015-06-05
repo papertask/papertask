@@ -134,6 +134,12 @@ class FinanceController extends AbstractActionController {
 	public function getTransactionListAction() {
 		error_reporting(E_ALL);
 		ini_set('display_errors', 1);
+		
+		$currentUserId = User::currentLoginId();
+		$currentUser = $this->find('User\Entity\User',$currentUserId);
+		$employer = ($currentUser->getEmployer())?$currentUser->getEmployer():null;
+		//var_dump($currentUser); exit;
+		
 		$entityManager = $this->getEntityManager();
 		$transactionList = $entityManager->getRepository('User\Entity\Transaction');
 		$queryBuilder = $transactionList->createQueryBuilder('transaction');
@@ -174,6 +180,7 @@ class FinanceController extends AbstractActionController {
 			  ->andWhere('project.is_deleted = 0')
 			  ->andWhere('project.payStatus = 1')
 			  ->andWhere('project.currency = ?1')->setParameter(1, 'cny');
+			if($employer) $num_pu->andWhere('project.client = :pu_cny_client')->setParameter('pu_cny_client', $currentUser); //$currentUser
 		$count_pu_cny = $num_pu->getQuery()->getResult();
 		
 		$num_pu = $countProjectUnpaid->createQueryBuilder('project')
@@ -181,6 +188,7 @@ class FinanceController extends AbstractActionController {
 			  ->andWhere('project.is_deleted = 0')
 			  ->andWhere('project.payStatus = 1')
 			  ->andWhere('project.currency = ?1')->setParameter(1, 'usd');
+			if($employer) $num_pu->andWhere('project.client = :pu_usd_client')->setParameter('pu_usd_client', $currentUser);
 		$count_pu_usd = $num_pu->getQuery()->getResult();
 		
 		$countProjectPaid = $entityManager->getRepository('User\Entity\Project');
@@ -190,13 +198,17 @@ class FinanceController extends AbstractActionController {
 			  ->andWhere('project.is_deleted = 0')
 			  ->andWhere('project.payStatus = 2')
 			  ->andWhere('project.currency = ?1')->setParameter(1, 'cny');
+			if($employer) $num_pp->andWhere('project.client = :pp_cny_client')->setParameter('pp_cny_client', $currentUser);
 		$count_pp_cny = $num_pp->getQuery()->getResult();
+		
 		$num_pp = $countProjectPaid->createQueryBuilder('project')
 			  ->select('COUNT(project.id) as num_pp, SUM(project.total_tmp) as balance_pp ')
 			  ->andWhere('project.is_deleted = 0')
 			  ->andWhere('project.payStatus = 2')
 			  ->andWhere('project.currency = ?1')->setParameter(1, 'usd');
+			if($employer) $num_pp->andWhere('project.client = :pp_usd_client')->setParameter('pp_usd_client', $currentUser);
 		$count_pp_usd = $num_pp->getQuery()->getResult();
+		
 		
 		//$dql = "SELECT SUM(e.total_tmp) AS balance FROM 'User\Entity\Project project " .
 		//	   "WHERE project.account = ?1";

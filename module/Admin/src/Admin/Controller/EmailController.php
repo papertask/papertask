@@ -35,6 +35,8 @@ class EmailController extends AbstractActionController
         return $form;
     }
 
+    
+    
     public function editAction(){
         //$this->layout('layout/admin');
 		error_reporting(E_ALL);
@@ -148,7 +150,7 @@ class EmailController extends AbstractActionController
     
     public function checkAction(){
     	$email = $this->params()->fromQuery('email');
-    	$haveEmail = false;
+
     	$entityManager = $this->getEntityManager();
 
             $repository = $entityManager->getRepository('User\Entity\User');
@@ -157,11 +159,20 @@ class EmailController extends AbstractActionController
             	
             	if($user->getEmployer()){
             		$haveEmail = true;
+            		$client =  $user->getEmployer()->getData();
+            	} else {
+            		$haveEmail = false;
+            		$client =  null;
             	}
             }
+            $answer = [
+            'haveEmail' => $haveEmail,
+            'client' => $client,
+            'success' => true,
+            ];
+            $json = json_encode( $answer );
     	
-    	return new JsonModel(array(
-    			 'haveEmail' => $haveEmail
-    	));
+            echo $json;
+            die;
     }
 }

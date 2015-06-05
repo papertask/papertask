@@ -25,6 +25,7 @@ use User\Entity\Invoice;
 
 use User\Entity\Activity;
 use User\Entity\User;
+use User\Entity\Company;
 
 class ProjectController extends AbstractRestfulJsonController
 {
@@ -89,7 +90,82 @@ class ProjectController extends AbstractRestfulJsonController
 		}
 		
 		$project = new Project();
-		//var_dump($data);exit;
+		if(($data['client'] == null || $data['client'] == '')&&$data['newClient']!=null){			
+			// Create User
+			$Udata = array();
+			$Udata['isActive'] = 1;
+			$Udata['profileUpdated'] = null;
+			$Udata['city'] = null;
+			
+			$Udata['currency'] = $data['currency'];
+			$Udata['createdTime'] = new \DateTime('now');
+			$Udata['lastLogin'] = new \DateTime('now');
+			$Udata['email'] = $data['newClient']['Email'];
+			$Udata['firstName'] = $data['newClient']['FirstName'];
+			$Udata['lastName'] = $data['newClient']['LastName'];
+			$Udata['password'] = $data['newClient']['Pass'];
+			$Udata['phone'] = $data['newClient']['CellPhone'];
+			$Udata['cellphone'] = $data['newClient']['CellPhone'];
+			$Udata['gender'] = null;
+			$Udata['comments'] = null;
+			$Udata['position'] = null;
+			$Udata['contracted'] = 0;
+			$Udata['name'] = $data['newClient']['Email'];
+			$UserEntityManager = $this->getEntityManager();
+			$Udata['company_id'] = $UserEntityManager->getRepository('User\Entity\Company')->findOneBy(array('name' => $data['newClient']['CompanyName']));
+			if(!$Udata['company_id']){
+				$Udata['company_id'] =  null;
+			}
+			$Udata['country'] = $UserEntityManager->getRepository('User\Entity\Country')->findOneBy(array('id' => $data['newClient']['Country']['id']));
+			$Udata['pm'] = null;
+			$Udata['sales'] = null;
+			$userExist = $UserEntityManager->getRepository('User\Entity\User')->findOneBy(array('email'=>$data['newClient']['Email']));
+				
+			if ( $userExist ) {
+				
+				$data['client'] = $userExist;				
+				$userExist->createEmployer( $this, $Udata, $UserEntityManager, null);				
+				$employer = $userExist->getEmployer();
+				$employer->updateData(array(
+						'position'=>null,
+						'company'=>$data['company_id'],
+						'defaultServiceLevel'=>null,
+						'comments'=>null,
+						'contracted'=> '0',
+						'pm' => null,
+						'name' => $data['newClient']['Email'],
+						'sales' => null,
+				));
+				$employer->save($UserEntityManager);
+				
+			} else {
+				$user = new User();
+				$user->setData( $Udata );
+				$user->save($UserEntityManager);								
+				$user->createEmployer( $this, $Udata, $UserEntityManager, null);
+				
+				$employer = $user->getEmployer();
+				$employer->updateData(array(
+						'position'=>null,
+						'company'=>$data['company_id'],
+						'defaultServiceLevel'=>null,
+						'comments'=>null,
+						'contracted'=> '0',
+						'pm' => null,
+						'name' => $data['newClient']['Email'],
+						'sales' => null,
+						));
+				$employer->save($UserEntityManager);
+				$data['client'] = $user;
+			}
+			// End Create User
+		} else {
+			$employer = $this->find('User\Entity\Employer', $data['client']->getId());
+			$client = $this->getEntityManager()->getRepository('User\Entity\User')->findOneBy(array('employer' => $employer));			
+			$data['client'] = $client;
+		}
+		
+
         $project->setData($data);
 		$project->save($this->getEntityManager());
         $files = [];
@@ -300,7 +376,6 @@ class ProjectController extends AbstractRestfulJsonController
     public function getList(){
 		//error_reporting(E_ALL);
 		//ini_set('display_errors', 1);
-        
 		$entityManager = $this->getEntityManager();
 
         // Get freelancer group
@@ -403,7 +478,6 @@ class ProjectController extends AbstractRestfulJsonController
         }
         /** end filter */
 		$queryBuilder->orderBy('project.id', 'DESC');
-		//echo $queryBuilder->getQuery()->getSQL();exit;
         $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
 		 

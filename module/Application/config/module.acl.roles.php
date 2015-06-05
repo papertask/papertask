@@ -8,7 +8,6 @@ $allow_all = array(
 	'index\freelancer',
 	'index\contact',
 	
-
 	'index\contact-post',
 
 	'index\order',
@@ -71,6 +70,7 @@ $allow_all = array(
 	'project\client-quotes',
 	'project\quote-detail',
 	'project\wordcount',
+	'project\uploadtemp',
 	
 	
 	// -- Freelancer
@@ -150,6 +150,8 @@ return array(
     		
     	// Project Order	
     	'project',
+    	'project/uploadFile',
+		
     	'admin',
     	'admin/project',
     	'admin/project/wordcount',
@@ -176,12 +178,16 @@ return array(
 		'register\social',
 		'register\employer',
 		'register\freelancer',
-		'project\uploadFile',
+		
 		// API
 		'api/common',
 		'api/papertask',
     	'api/data',
     	'api/admin',
+     		
+     	// Landing
+		'landing/file',
+     		'file/wordcount',
     ),
 	'Freelancer'=> $allow_all,
 	'Employer'=> $allow_all,
