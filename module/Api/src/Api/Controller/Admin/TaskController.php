@@ -6,6 +6,7 @@ use Zend\View\Model\JsonModel;
 use Api\Controller\AbstractRestfulJsonController;
 use User\Entity\Task;
 use User\Entity\Activity;
+use User\Entity\Language;
 
 class TaskController extends AbstractRestfulJsonController
 {
@@ -13,8 +14,10 @@ class TaskController extends AbstractRestfulJsonController
         if(isset($data['type'])){
             $data['type'] = $data['type']['id'];
         }
-        if(isset($data['language'])){
+        if(isset($data['language']['id'])){
             $data['language'] = $this->getReference('\User\Entity\Language', $data['language']['id']);
+        } else if(isset($data['language'])){
+        	$data['language'] = $this->getReference('\User\Entity\Language', $data['language']);
         }
         if(isset($data['project_id'])){
             $data['project'] = $this->getReference('\User\Entity\Project', $data['project_id']);
@@ -37,6 +40,7 @@ class TaskController extends AbstractRestfulJsonController
         
 		$this->clearData($data);
 
+		
         $task = new Task();
         $task->setData($data);
         $task->save($this->getEntityManager());

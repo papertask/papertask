@@ -224,6 +224,7 @@ class ProjectController extends AbstractActionController
             foreach ($files as $file){
                 $d = $file->getData();
                 $json[] = [
+                	'id'  => $d['id'],
                     'token' => $d['token'],
         			"name" => $d['name'],
         			"time" => $d['time'],

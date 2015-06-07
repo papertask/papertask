@@ -1,4 +1,4 @@
-<form class="form-horizontal" ng-submit="createTask()">
+<form class="form-horizontal" >
     <input type="hidden" name="project_id" value="{{ project.id }}" />
     <div class="form-group">
         <div class="col-sm-12">
@@ -16,7 +16,7 @@
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn btn-primary" type="submit">
+                    <button class="btn btn-primary" type="button" ng-click="createTask()">
                         <?php echo $this->translate("Create New Task") ?>
                     </button>
                 </div>

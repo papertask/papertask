@@ -420,7 +420,7 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 });
 
 
-angularApp.controller("ProjectTasksController", function($scope, TaskStatus, ProjectType, TaskApi){
+angularApp.controller("ProjectTasksController", function($scope, $http, TaskStatus, ProjectType, TaskApi){
     $scope.newTask = {};
 
     $scope.setItemApi(TaskApi);
@@ -445,22 +445,35 @@ angularApp.controller("ProjectTasksController", function($scope, TaskStatus, Pro
     }
 
     function createTask(){
+    	console.info('createTask');
         if(jQuery("#tasks form").valid()){
-            var newTaskTml = $scope.newTask;
-            newTaskTml.name = newTaskTml.name ? newTaskTml.name : "";
-            newTaskTml.startDate = $scope.project.startDate.date;
-            newTaskTml.dueDate = $scope.project.dueDate.date;
-            newTaskTml.project_id = $scope.project.id;
-            newTaskTml.status = TaskStatus.unassigned;
+            var newTask = $scope.newTask;
+            newTask.name = newTask.name ? newTask.name : "";
+            newTask.startDate = $scope.project.startDate.date;
+            newTask.dueDate = $scope.project.dueDate.date;
+            newTask.project_id = $scope.project.id;
+            newTask.status = TaskStatus.unassigned;
+            newTask.language = newTask.language.id;
+            if(!newTask.type){
+            	newTask.type = { 'id' : 0};
+            }
 			console.log("check newtask");
-			console.log(newTaskTml);
+			console.log(newTask);
 			console.log($scope.project);
-            TaskApi.create(newTaskTml, function($newTask){
-                attachData($newTaskTml);
-                $scope.newTaskTml = {};
+			/*
+            TaskApi.create(newTask, function($newTask){
+                attachData($newTask);
+                $scope.newTask = {};
                 $scope.items.push($newTask);
                 $scope.project.tasksNum = $scope.items.length;
             });
+            */
+			
+			 $http.post("/api/admin/task/", newTask)
+				.success( function ( $data ) {
+					
+			});
+			
         }
     }
 
@@ -590,6 +603,7 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
     }
 
     $scope.custom.afterLoadItems = function($feedbacks){
+    	
         $scope.project.targetLanguages.forEach(function(lang){
             if(!$feedbacks.some(function(fb){
                 if(fb.language.id == lang.id){
@@ -609,6 +623,7 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
         $scope.project.feedbacksNum = $feedbacks.length;
         fb_loaded = true && fb_refreshed;
         fb_refreshed = true;
+        
     }
 
     $scope.$watch(function(){
@@ -719,6 +734,75 @@ angularApp.controller("ProjectCorrectionController", function($scope, Correction
 
 angularApp.controller("ProjectFilesController", function($scope, $rootScope, $http, $window, FileUploader, TaskApi, FeedbackApi, CorrectionApi){
 
+	
+	
+	// Raw
+		var Fuploader = $scope.uploader = new FileUploader({
+	        url: "/" + LANG_CODE + "/admin/project/uploadFile",formData: [{ projectId: PROJECT_ID, }]
+	    });
+	      
+	    // FILTERS
+	
+	    Fuploader.filters.push({
+	        name: 'customFilter',
+	        fn: function(item /*{File|FileLikeObject}*/, options) {
+	            return this.queue.length < 10;
+	        }
+	    });
+	
+	    
+	    // CALLBACKS
+	
+	    Fuploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+	        console.info('onWhenAddingFileFailed', item, filter, options);
+	    };
+	    Fuploader.onAfterAddingFile = function(fileItem) {
+	        fileItem.upload();
+	    };
+	    Fuploader.onAfterAddingAll = function(addedFileItems) {
+	        console.info('onAfterAddingAll', addedFileItems);
+	    };
+	    Fuploader.onBeforeUploadItem = function(item) {
+	        console.info('onBeforeUploadItem', item);
+	    };
+	    Fuploader.onProgressItem = function(fileItem, progress) {
+	        console.info('onProgressItem', fileItem, progress);
+	    };
+	    Fuploader.onProgressAll = function(progress) {
+	        console.info('onProgressAll', progress);
+	    };
+	    Fuploader.onSuccessItem = function(fileItem, response, status, headers) {
+	    	console.log('rawUpload');
+	    	console.log('fileItem'); console.log(fileItem);
+	        if(!response.success){
+	            fileItem.file.name += " - Uploading error";
+	            $timeout(function(){
+	                fileItem.remove();
+	            }, 1000);
+	            return;
+	        }
+	        fileItem.projectFile = {
+	            name: fileItem.file.name,
+	            id: response.file.id
+	        };
+	        
+	        init();
+
+	    };
+	    Fuploader.onErrorItem = function(fileItem, response, status, headers) {
+	        console.info('onErrorItem', fileItem, response, status, headers);
+	    };
+	    Fuploader.onCancelItem = function(fileItem, response, status, headers) {
+	        console.info('onCancelItem', fileItem, response, status, headers);
+	    };
+	    Fuploader.onCompleteItem = function(fileItem, response, status, headers) {
+	    };
+	    Fuploader.onCompleteAll = function() {
+	        console.info('onCompleteAll');
+	    };
+	// End Raw
+   
+	
     function attachUploaders(){
         $scope.project.targetLanguages.forEach(function(lang, i) {
             var uploader = lang.uploader = new FileUploader({
@@ -757,6 +841,7 @@ angularApp.controller("ProjectFilesController", function($scope, $rootScope, $ht
                 console.info('onProgressAll', lang.code, progress);
             };
             uploader.onSuccessItem = function(fileItem, response, status, headers) {
+            	console.info('lang.uploader');
                 if(!response.success){
                     fileItem.file.name += " - Uploading error";
                     $timeout(function(){
@@ -804,6 +889,8 @@ angularApp.controller("ProjectFilesController", function($scope, $rootScope, $ht
     };
 
     $scope.removeItem = function(item){
+
+    	console.info('item',item);
         if(item.isSuccess){
             if(item.projectFile.lang){
                 var token = item.token;
@@ -899,6 +986,7 @@ angularApp.controller("ProjectFilesController", function($scope, $rootScope, $ht
     }
 
     function init(){
+    	console.log('File Init()');
         $http.get("/" + LANG_CODE + "/admin/project/getFilesList?project_id="+projectId)
             .success( function ( $data ) {
         	 
@@ -921,6 +1009,14 @@ angularApp.controller("ProjectFilesController", function($scope, $rootScope, $ht
         console.log("File deleted");
         // $window.open("/" + LANG_CODE + "/admin/project/downloadFile?token="+token, '_blank');
     };
+
+    $scope.removeFile = function(file){
+    	$http.delete("/api/admin/file/"+file.id)
+        .success( function ( $data ) {
+        	$scope.files.splice(file, 1);
+        	$rootScope.filesLength = $scope.files.length;
+        });
+    }
 
     init();
 

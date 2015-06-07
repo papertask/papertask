@@ -19,12 +19,30 @@
                 <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
                 <td>{{file.size | filesize}}</td>
                 <td>{{ DateFormatter.format(file.time) }}</td>
-                <td><i class="fa fa-trash"></i></td>
+                <td><a><i class="fa fa-trash" ng-click="removeFile(file)"></i></a></td>
+            </tr>
+            <tr ng-repeat="item in uploader.queue" ng-show="item.isUploading">
+                                        <td>{{$index + files.length + 1 }}</td>
+                                        
+                                        <td>{{ item.file.name }}
+                                            <div class="progress" style="margin-bottom: 0" ng-show="item.isUploading">
+                                                <div class="progress-bar" role="progressbar"
+                                                     ng-style="{ 'width': uploader.progress + '%' }" style="width: 0%;">{{ item.file.name }}</div>
+                                            </div>
+                                        </td>
+                                        <td class="text-right">{{ item.file.size | filesize }}</td>
+                                        <td>{{ DateFormatter.format(item._file.lastModified) }}</td>
+                                        <td class="text-center child-is-link">
+                                            <a href="#"><i ng-click="removeFile(item)" class="fa fa-trash-o text-danger"></i></a>
+                                        </td>
             </tr>
         </tbody>
     </table>
     <div class="text-right m-t-md">
-        <a href="#" class="btn btn-xs btn-primary"><i class="fa fa-cloud-upload"></i> <?php echo $this->translate('Upload Source files') ?></a>
+    
+        <input type="file" nv-file-select="" uploader="uploader" multiple="multiple" class="filestyle" data-options = '{ "input": false, "buttonText": " Upload Source files", "iconName": "glyphicon-cloud-upload", "buttonText": "Upload Source files", "buttonName": "btn btn-sm btn-primary", "badge": false}'/> 
+    	
+    	<!--   <input id="fileupload" type="file" name="files[]" nv-file-select="" uploader="Fuploader" multiple> -->
     </div>
     <div class="hr-line-dashed"></div>
     <h4><?php echo $this->translate('Files For Client Review') ?></h4>
@@ -71,7 +89,7 @@
                                         <td class="text-right">{{ item.file.size | filesize }}</td>
                                         <td>{{ DateFormatter.format(item._file.lastModified) }}</td>
                                         <td class="text-center child-is-link">
-                                            <i ng-click="removeItem(item)" class="fa fa-trash-o text-danger"></i>
+                                            <a href="#"><i ng-click="removeItem(item)" class="fa fa-trash-o text-danger"></i></a>
                                         </td>
                                 </tr>
                             </tbody>
