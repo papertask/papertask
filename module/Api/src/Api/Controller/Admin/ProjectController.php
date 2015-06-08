@@ -160,9 +160,9 @@ class ProjectController extends AbstractRestfulJsonController
 			}
 			// End Create User
 		} else {
-			$employer = $this->find('User\Entity\Employer', $data['client']->getId());
-			$client = $this->getEntityManager()->getRepository('User\Entity\User')->findOneBy(array('employer' => $employer));			
-			$data['client'] = $client;
+			//$employer = $this->find('User\Entity\Employer', $data['client']->getId());
+			//$client = $this->getEntityManager()->getRepository('User\Entity\User')->findOneBy(array('employer' => $employer));			
+			//$data['client'] = $client;
 		}
 		
 
