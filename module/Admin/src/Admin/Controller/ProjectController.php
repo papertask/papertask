@@ -109,6 +109,26 @@ class ProjectController extends AbstractActionController
     
     public function newAction()
     {
+    	
+    	$lang_code = $this->params()->fromRoute('lang');
+    	 
+    	$currentUserId = User::currentLoginId();
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);
+    	
+    	if($currentUser->isAdmin()){
+    		$view =  new ViewModel(array(
+    				"lang_code" => $lang_code,
+    		));
+    		$view->setTemplate('admin/project/new.phtml');
+    		return $view;
+    	} else if ($currentUser->isEmployer()){
+    		$view =  new ViewModel(array(
+    				"lang_code" => $lang_code,
+    		));
+    		$view->setTemplate('admin/project/client-new.phtml');
+    		return $view;
+    	}
+    	
         $lang_code = $this->params()->fromRoute('lang');
 		return new ViewModel(array(
 			"lang_code" => $lang_code,
