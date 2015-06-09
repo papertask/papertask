@@ -267,13 +267,26 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 	}
 	$scope.quoteAccepted= function ( ) {
 		
-		console.log($scope.project);
+		console.info('before removing',$scope.project);
+		$scope.project.targetLanguages = null;
+		/*
+		for(var i=0; i<$scope.project.targetLanguages.length; i++){
+			//$scope.project.targetLanguages[i] = $scope.project.targetLanguages[i].id;
+			//var index = $scope.project.targetLanguages[i].indexOf(feedback);
+			$scope.project.targetLanguages[i].feedback = null;
+		}
+		*/
+		
+		console.info('after removing',$scope.project);
+		
+		
 		var updateInvoiceDate = $http.put("/api/admin/project/" + $scope.project.id + "?action=2", $scope.project)
 		.success( function ( $data ) {
 			//show tap
 			location.reload();
 			//$project.status = ProjectStatus.get(2);
 		});	
+		
 	}
 	$scope.setinvoiceDate = function ( ){
 				
