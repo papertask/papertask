@@ -193,6 +193,7 @@ class Project extends Entity{
 			'total_tmp' => $this->total_tmp,
             'types' => $this->types,
             'transGraph' => $this->transGraph,
+            'payStatus' => $this->payStatus,
         ];
     }
 	

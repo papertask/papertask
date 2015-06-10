@@ -11,7 +11,7 @@
                     <td class="project-title">
                         <strong><?php echo $this->translate("project") ?> {{ project.reference }} </strong>
                         <br>
-                        <strong class="text-info">{{ project.project_no }}-{{ task.id }}</strong>
+                        <strong class="text-info">{{ project.id }}-{{ task.id }}</strong>
                         |
                         <code>{{ project.sourceLanguage.name }}</code>
                         <i class="fa fa-arrow-right"></i>
@@ -32,7 +32,7 @@
                         <div class="tooltip-demo">
                             <code  data-toggle="tooltip"  tooltip-placement="top"  tooltip="{{task.type.tootip}}"  ng-bind-html="task.type.name_task" compile-template> </code>
                             |
-                            {{ DateFormatter.short(project.startDate) }} - {{ DateFormatter.short(project.dueDate) }}
+                            {{formatDate(task.startDate.date) | date:'yyyy.MMM.dd'}} - {{ formatDate(task.dueDate.date) | date:'yyyy.MMM.dd' }}
                         </div>
                     </td>
                     <td class="project-actions">

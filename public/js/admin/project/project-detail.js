@@ -40,11 +40,29 @@ angularApp.filter('DateFormatter', function($filter)
 
  };
 });
+
+
 angularApp.controller('ProjectDetailController', function($scope, $rootScope, $http, $location, ProjectApi, DateFormatter, ProjectStatus,
                                                           ProjectServiceLevel, ProjectPriority, StaffApi, ClientApi,
                                                           FieldApi, ProjectType, TaskApi, TaskStatus,
                                                           FeedbackQuality, FeedbackTime,
                                                           $q){
+
+	$scope.formatDate = function(date){
+		var dateString = date; //'17-09-2013 10:08'  	"2015-04-30 15:00:00"
+		if(typeof dateString !== 'undefined'){
+			var dateParts = dateString.split(' ');
+		    var timeParts = dateParts[1].split(':');
+		    var date;
+
+		    dateParts = dateParts[0].split('-');
+			date = new Date(dateParts[0], parseInt(dateParts[1], 10) - 1, dateParts[2], timeParts[0], timeParts[1], timeParts[2]);
+	        return date.getTime();
+		} else {
+			return date;
+		}
+	    
+	};
 
     $scope.q_values = FeedbackQuality.all();
     $scope.t_values = FeedbackTime.all();
@@ -151,15 +169,22 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 
         $q.all([project_listener, field_listener, pm_listener, sales_listener, client_listener, companyinfo])
             .then(function(){
+            	if($scope.project.field){
                 $scope.project.field = search_by_id($scope.fields, $scope.project.field.id);
+            	}
 				console.log("project.pm");	
 				console.log($scope.project.pm);	
 				console.log($scope.pms);	
+				if($scope.project.pm){
                 $scope.project.pm = search_by_id($scope.pms, $scope.project.pm.id);
+				}
+				
 				if($scope.project.sale)
 					$scope.project.sale = search_by_id($scope.sales, $scope.project.sale.id);
-				
+				if(  $scope.project.client) {
                 $scope.project.client = search_by_id($scope.clients, $scope.project.client.id);
+				}
+                
 				console.log("$scope.project.client");	
 				console.log($scope.project.client);	
                 $http.get('/api/admin/projectitermnotm?projectId='+ projectId).success(function($data) {
@@ -209,6 +234,7 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 				
 				$http.get('/api/admin/invoice?projectId='+ projectId).success(function($data) {
 					$scope.invoice = $data['invoices'];
+					if($scope.invoice)
 					if($scope.invoice.invoiceDate)
 						$scope.invoice.invoiceDate = $scope.invoice.invoiceDate.date;
 					
@@ -430,13 +456,27 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
     $scope.update = update;
 
     init();
+    
+  
 });
 
 
-angularApp.controller("ProjectTasksController", function($scope, $http, TaskStatus, ProjectType, TaskApi){
+angularApp.controller("ProjectTasksController", function($scope, $http, TaskStatus, ProjectType, TaskApi, DateFormatter){
     $scope.newTask = {};
-
+    $scope.DateFormatter = DateFormatter;
     $scope.setItemApi(TaskApi);
+
+    $scope.formatDate = function(date){
+		var dateString = date, //'17-09-2013 10:08'  	"2015-04-30 15:00:00"
+	    dateParts = dateString.split(' '),
+	    timeParts = dateParts[1].split(':'),
+	    date;
+
+	    dateParts = dateParts[0].split('-');
+		date = new Date(dateParts[0], parseInt(dateParts[1], 10) - 1, dateParts[2], timeParts[0], timeParts[1], timeParts[2]);
+        return date.getTime();
+	};
+	
 
     var templateCorrection = {
         options: {},
@@ -484,7 +524,8 @@ angularApp.controller("ProjectTasksController", function($scope, $http, TaskStat
 			
 			 $http.post("/api/admin/task/", newTask)
 				.success( function ( $data ) {
-					
+					$scope.filter.project_id = $scope.project.id;
+	                $scope.refresh();
 			});
 			
         }
@@ -528,11 +569,13 @@ angularApp.controller("ProjectTasksController", function($scope, $http, TaskStat
         return $scope.project;
     }, function(){
         if(typeof($scope.project.id) != 'undefined'){
-			var str = $scope.project.quote_no;
-			var res = str.split("-");
-			$scope.project.project_no = res[1];
+        	
+        		//var str = $scope.project.quote_no;
+    			//var res = str.split("-");
+    			//$scope.project.project_no = res[1];
             $scope.filter.project_id = $scope.project.id;
             $scope.refresh();
+        				
         }
     });
 });

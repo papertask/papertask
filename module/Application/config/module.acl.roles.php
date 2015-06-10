@@ -105,6 +105,7 @@ $allow_all = array(
 	'finance\getClientUnpaid',
 	'finance\getFreelancerUnpaid',
 	'finance\transaction',
+	'finance\report',
 	'finance\getTransactionList',
 	'finance\incomming-detail',
 	'finance\outgoing-detail',

@@ -21,8 +21,8 @@
             <dt><?php echo $this->translate('Client Contact'); ?>:</dt> <dd><a href="#" class="text-navy"> {{ project.client.name }}</a></dd>
             <dt><?php echo $this->translate('Client Company'); ?>:</dt> <dd>{{ project.client.company.name }}</dd>
             <br>
-            <dt><?php echo $this->translate('Start Date'); ?>:</dt> <dd>{{ DateFormatter.format(project.startDate) }}</dd>
-            <dt><?php echo $this->translate('Due Date'); ?>:</dt> <dd>{{ DateFormatter.format(project.dueDate) }}</dd>
+            <dt><?php echo $this->translate('Start Date'); ?>:</dt> <dd>{{ formatDate(project.startDate.date) | date:'dd MMMM yyyy - h:mm a' }}</dd>
+            <dt><?php echo $this->translate('Due Date'); ?>:</dt> <dd>{{ formatDate(project.dueDate.date) | date:'dd MMMM yyyy - h:mm a' }}</dd>
             <dt><?php echo $this->translate('PO No'); ?>:</dt> <dd>{{ project.po }}</dd>
             <br>
             <dt><?php echo $this->translate('Source Language'); ?>:</dt> <dd><code>{{ project.sourceLanguage.name }}</code></dd>

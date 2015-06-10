@@ -43,6 +43,14 @@ class FinanceController extends AbstractActionController {
         ));
 
     } 
+    
+    public function reportAction() {
+    	$lang_code = $this->params()->fromRoute('lang');
+    	return new ViewModel(array(
+    			"lang_code" => $lang_code
+    	));
+    
+    }
 	public function incommingDetailAction(){
 		error_reporting(E_ALL);
 		ini_set('display_errors', 1);

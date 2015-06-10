@@ -134,6 +134,7 @@ return array(
 			'admin/finance/add-incomming' => __DIR__ . '/../view/admin/finance/add-incomming-transaction-record.phtml',
 			'admin/finance/add-outgoing' => __DIR__ . '/../view/admin/finance/add-outgoing-transaction-record.phtml',
 			'admin/finance/transaction' => __DIR__ . '/../view/admin/finance/transaction.phtml',
+        	'admin/finance/report' => __DIR__ . '/../view/admin/finance/report.phtml',
 			'admin/finance/incomming-detail' => __DIR__ . '/../view/admin/finance/incomming-detail.phtml',
 			'admin/finance/outgoing-detail' => __DIR__ . '/../view/admin/finance/outgoing-detail.phtml',
         	'admin/finance/freelancer-transaction' => __DIR__ . '/../view/admin/finance/freelancer-transaction.phtml',
