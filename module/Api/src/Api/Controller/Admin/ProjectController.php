@@ -78,7 +78,9 @@ class ProjectController extends AbstractRestfulJsonController
 		//error_reporting(E_ALL);
 		//ini_set('display_errors', 1);
         
+    	
 		$this->cleanData($data);
+
         $targetLanguages = [];
         foreach($data['targetLanguages'] as $targetLanguage){
             $targetLanguages[$targetLanguage['id']] = $this->getReference('\User\Entity\Language', $targetLanguage['id']);

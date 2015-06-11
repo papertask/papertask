@@ -16,7 +16,7 @@
                             <div class="col-sm-9">
                                 <div class="input-append date form_datetime" >
                                     <input class="form-control" type="text"
-                                           value="{{ DateFormatter.format(project.startDate) }}" readonly>
+                                           value="{{ formatDate(project.startDate.date) | date:'dd MMMM yyyy - h:mm a' }}" readonly>
                                     <span class="add-on"><i class="icon-remove"></i></span>
                                     <span class="add-on"><i class="icon-th"></i></span>
                                 </div>
@@ -70,7 +70,7 @@
                             <div class="col-sm-9">
                                 <div class="input-append date form_datetime" >
                                     <input class="form-control" type="text"
-                                           value="{{ DateFormatter.format(project.dueDate) }}" readonly>
+                                           value="{{ formatDate(project.dueDate.date) | date:'dd MMMM yyyy - h:mm a' }}" readonly>
                                     <span class="add-on"><i class="icon-remove"></i></span>
                                     <span class="add-on"><i class="icon-th"></i></span>
                                 </div>

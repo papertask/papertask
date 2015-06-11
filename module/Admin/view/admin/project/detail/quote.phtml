@@ -28,8 +28,8 @@
 
     <div class="col-xs-6 text-right">
         <p>
-            <span><strong>Quote Date:</strong>{{ DateFormatter.format(project.startDate) }}</span><br/>
-            <span><strong>Due Date:</strong>{{  DateFormatter.format(project.dueDate) }}</span>
+            <span><strong>Quote Date:</strong>{{ formatDate(project.startDate.date) | date:'dd MMMM yyyy - h:mm a' }}</span><br/>
+            <span><strong>Due Date:</strong>{{ formatDate(project.dueDate.date) | date:'dd MMMM yyyy - h:mm a' }}</span>
         </p>
         <h5>To:</span></h5>
         <strong>{{ project.client.name }}</strong><br>

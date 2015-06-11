@@ -44,8 +44,8 @@
 
     <div class="col-xs-6 text-right">
         <p>
-            <span><strong>Invoice Date:</strong>{{ DateFormatter.format1(invoice.invoiceDate) }}</span><br/>
-            <span><strong>Due Date:</strong>{{  DateFormatter.format1(invoice.dueDate) }}</span>
+            <span><strong>Invoice Date:</strong>{{ formatDate(invoice.invoiceDate.date) | date:'dd MMMM yyyy' }}</span><br/>
+            <span><strong>Due Date:</strong>{{ formatDate(invoice.dueDate.date) | date:'dd MMMM yyyy' }}</span>
         </p>
         <h5>To:</span></h5>
         <strong>{{ project.client.name }}</strong><br>
@@ -217,7 +217,7 @@
 </table>
 <div class="hr-line-dashed"></div>
 <div class="m-t">
-                                                    <h2 class="text-center text-danger">Due Date: {{  DateFormatter.format(invoice.dueDate) }}</h2>
+                                                    <h2 class="text-center text-danger">Due Date: {{ formatDate(invoice.dueDate.date) | date:'dd MMMM yyyy' }}</h2>
                                                     <br>
                                                     <div class="row">
                                                         <div class="col-lg-6">

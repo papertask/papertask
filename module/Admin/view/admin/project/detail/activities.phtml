@@ -3,7 +3,7 @@
         <div class="feed-activity-list">
             <div class="feed-element" ng-repeat="activity in items">
                 <div class="media-body ">
-                    <small class="pull-right">{{ DateFormatter.format(activity.activityDate.date) }}</small>
+                    <small class="pull-right">{{ formatDate(activity.activityDate.date) | date:'dd MMMM yyyy - h:mm a' }}</small>
                     <strong ng-class="{'text-navy': activity.sender.group.isFreelancer}">{{activity.sender.firstName}} {{activity.sender.lastName}}</strong> {{activity.type}}
                     <br>
                     <div class="well" ng-show="activity.message">

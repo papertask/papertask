@@ -19,7 +19,7 @@
                     <td>{{$index + 1}}</td>
                     <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
                     <td>{{file.size | filesize}}</td>
-                    <td>{{ DateFormatter.format(file.time) }}</td>
+                    <td>{{ formatDate(file.time.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
                 </tr>
             </tbody>
         </table>
@@ -53,7 +53,7 @@
                                         <td>{{$index + 1}}</td>
                                         <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
                                         <td>{{file.size | filesize}}</td>
-                                        <td>{{ DateFormatter.format(file.time) }}</td>
+                                        <td>{{ formatDate(file.time.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
                                     </tr>
                                 </tbody>
                             </table>

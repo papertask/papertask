@@ -18,7 +18,7 @@
                 <td>{{$index + 1}}</td>
                 <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
                 <td>{{file.size | filesize}}</td>
-                <td>{{ DateFormatter.format(file.time) }}</td>
+                <td>{{ formatDate(file.time.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
                 <td><a><i class="fa fa-trash" ng-click="removeFile(file)"></i></a></td>
             </tr>
             <tr ng-repeat="item in uploader.queue" ng-show="item.isUploading">
@@ -31,7 +31,7 @@
                                             </div>
                                         </td>
                                         <td class="text-right">{{ item.file.size | filesize }}</td>
-                                        <td>{{ DateFormatter.format(item._file.lastModified) }}</td>
+                                        <td>{{ formatDate(item._file.lastModified.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
                                         <td class="text-center child-is-link">
                                             <a href="#"><i ng-click="removeFile(item)" class="fa fa-trash-o text-danger"></i></a>
                                         </td>
@@ -74,7 +74,7 @@
                                         <td>{{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ lang.name }}</td>
                                         <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
                                         <td>{{file.size | filesize}}</td>
-                                        <td>{{ DateFormatter.format(file.time) }}</td>
+                                        <td>{{ formatDate(file.time.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
                                         <td><i class="fa fa-trash" ng-click="deleteFile(file.token)"></i></td>
                                     </tr>
                                     <tr ng-repeat="item in lang.uploader.queue" ng-show="item.isUploading">
@@ -87,7 +87,7 @@
                                             </div>
                                         </td>
                                         <td class="text-right">{{ item.file.size | filesize }}</td>
-                                        <td>{{ DateFormatter.format(item._file.lastModified) }}</td>
+                                        <td>{{ formatDate(item._file.lastModified.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
                                         <td class="text-center child-is-link">
                                             <a href="#"><i ng-click="removeItem(item)" class="fa fa-trash-o text-danger"></i></a>
                                         </td>

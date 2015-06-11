@@ -36,6 +36,7 @@ $this->inlineScript()
     ->prependScript("
 		var LANG_CODE = '" . $this->lang_code . "';
         var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+    	var TASKNUM = '" . $this->taskNum . "';
     ");
 ?>
 					
@@ -181,6 +182,7 @@ $this->inlineScript()
 </div>
  <script>
  $(document).ready(function(){
+	 $('#taskNumber').html(TASKNUM);
 
      $('#loading-example-btn').click(function () {
          btn = $(this);

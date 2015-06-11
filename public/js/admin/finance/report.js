@@ -5,11 +5,11 @@ angularApp.run( function ( $rootScope ) {
 angularApp.controller('ReportController', function($scope, $http, $timeout, $q, StaffApi, PayStatus, LanguageApi, 
 		ProjectType, ProjectStatus,ProjectField, DateFormatter, Currency, FieldApi) {
 	$scope.DateFormatter = DateFormatter;
-	$scope.ProjectStatus = ProjectStatus;
+	$scope.ProjectStatus = ProjectStatus.all();
 	$scope.StaffApi = StaffApi;
 	$scope.LanguageApi = LanguageApi;
 	$scope.FieldApi = FieldApi;
-	$scope.PayStatus = PayStatus;
+	$scope.PayStatus = PayStatus.all();
 	$scope.Currency = Currency;
 	$scope.ProjectField = ProjectField;
 	$scope.companies 	= [];
@@ -185,10 +185,12 @@ angularApp.controller('ReportController', function($scope, $http, $timeout, $q, 
 	
 	$scope.selectPage = function($page){
 		var $params = $scope.searchParams;
-		console.info('$params',$params);
-		//$http.get("/api/admin/project&page="+$page, {
-		$http.get("/api/admin/project/?page="+$page, {
-            params: $params
+		$params['page']=1;
+		//console.info('$params',$params);
+		//console.info('jQuery.param($params)',jQuery.param($params));
+
+		$http.get("/api/admin/project/?"+jQuery.param($params), {
+            
         }).success(function($data){
         	$scope.projects = [];
  			angular.forEach($data.projects, function(element) {
@@ -210,8 +212,9 @@ angularApp.controller('ReportController', function($scope, $http, $timeout, $q, 
 	
 	$scope.onBtnPreviousClicked = function () {
 		var $params = $scope.searchParams;
-		$http.get("/api/admin/project/?page="+$scope.pages.previous, {
-            params: $params
+		$params['page']=$scope.pages.previous;
+		$http.get("/api/admin/project/?"+jQuery.param($params), {
+            
         }).success(function($data){
         	$scope.projects = [];
  			angular.forEach($data.projects, function(element) {
@@ -233,8 +236,9 @@ angularApp.controller('ReportController', function($scope, $http, $timeout, $q, 
 	
 	$scope.onBtnGoto = function ( int_index ) {
 		var $params = $scope.searchParams;
-		$http.get("/api/admin/project/?page="+ (int_index*1 + 1) , {
-            params: $params
+		$params['page']=(int_index*1 + 1);
+		$http.get("/api/admin/project/?"+jQuery.param($params), {
+            
         }).success(function($data){
         	$scope.projects = [];
  			angular.forEach($data.projects, function(element) {
@@ -255,8 +259,9 @@ angularApp.controller('ReportController', function($scope, $http, $timeout, $q, 
 	}
 	$scope.onBtnNextClicked = function () {
 		var $params = $scope.searchParams;
-		$http.get("/api/admin/project/?page="+ $scope.pages.next, {
-            params: $params
+		$params['page']=$scope.pages.next;
+		$http.get("/api/admin/project/?"+jQuery.param($params), {
+            
         }).success(function($data){
         	$scope.projects = [];
  			angular.forEach($data.projects, function(element) {

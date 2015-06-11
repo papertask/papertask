@@ -1029,10 +1029,32 @@ angularApp.factory("DateFormatter", function(){
     var month_names_full = [ "January", "February", "March", "April", "May", "June",
                              "July", "August", "September", "October", "November", "December" ];
     function short($date){
+    	if(!$date)
+			return "";
+        if(typeof($date) == 'undefined'){
+            return "";
+        }
 		var date;
-		if($date.date)
-			date = new Date($date.date);
-		else 	date  = new Date($date);
+
+		if($date.date){
+			var tem = $date.date;
+			if(typeof tem !== 'undefined'){
+				var tempDate = tem.split(' ');
+				date = new Date(tempDate[0]+'T'+tempDate[1]);
+			} else {
+				return "";
+			}
+		}
+		else {
+			var tem = $date;
+			if(typeof tem !== 'undefined'){
+				var tempDate = tem.split(' ');
+				date = new Date(tempDate[0]+'T'+tempDate[1]);
+			} else {
+				return "";
+			}
+		}
+
         // 2014.Oct.10
         return date.getFullYear() + "." + month_names_short[date.getMonth()] + "." + date.getDate();
     }
@@ -1044,9 +1066,25 @@ angularApp.factory("DateFormatter", function(){
             return "";
         }
 		var date
-		if($date.date)
-			date = new Date($date.date);
-		else date = new Date($date);
+		
+		if($date.date){
+			var tem = $date.date;
+			if(typeof tem !== 'undefined'){
+				var tempDate = tem.split(' ');
+				date = new Date(tempDate[0]+'T'+tempDate[1]);
+			} else {
+				return "";
+			}
+		}
+		else {
+			var tem = $date;
+			if(typeof tem !== 'undefined'){
+				var tempDate = tem.split(' ');
+				date = new Date(tempDate[0]+'T'+tempDate[1]);
+			} else {
+				return "";
+			}
+		}
         //15 October 2014 - 11:04 AM
         var hour = date.getHours();
         var t = "AM";
@@ -1065,9 +1103,24 @@ angularApp.factory("DateFormatter", function(){
         }
 		var date;
 		
-		if($date.date)
-			date = new Date($date.date);
-		else date = new Date($date);
+		if($date.date){
+			var tem = $date.date;
+			if(typeof tem !== 'undefined'){
+				var tempDate = tem.split(' ');
+				date = new Date(tempDate[0]+'T'+tempDate[1]);
+			} else {
+				return "";
+			}
+		}
+		else {
+			var tem = $date;
+			if(typeof tem !== 'undefined'){
+				var tempDate = tem.split(' ');
+				date = new Date(tempDate[0]+'T'+tempDate[1]);
+			} else {
+				return "";
+			}
+		}
         //15 October 2014 - 11:04 AM
 
         return date.getDate() + " " + month_names_full[date.getMonth()] + " " + date.getFullYear();

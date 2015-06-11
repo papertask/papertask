@@ -31,7 +31,7 @@
                         <div class="tooltip-demo">
                             <code {{ task.type.inline_attrs }}>{{ task.type.name_short }}</code>
                             |
-                            {{ DateFormatter.short(project.startDate) }} - {{ DateFormatter.short(project.dueDate) }}
+                            {{formatDate(task.startDate.date) | date:'yyyy.MMM.dd'}} - {{ formatDate(task.dueDate.date) | date:'yyyy.MMM.dd' }}
                         </div>
                     </td>
                     <!-- <td class="project-actions" >
