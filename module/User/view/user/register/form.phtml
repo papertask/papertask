@@ -9,7 +9,7 @@
 
     <p><?php echo ($this->u == 'freelancer') ? $this->translate('I want to find translation works','User') : $this->translate('I need translation services','User') ?></p>
 
-    <form class="m-t" method="post" role="form" action="">
+    <form class="m-t" method="post" role="form" action="" id="registerform">
         <input type="hidden" name="u" value="<?php echo $this->u ?>" />
         <?php
         foreach($this->form->getElements() as $element): 
@@ -27,7 +27,7 @@
             <div class="form-group<?php if($messages) echo " has-error" ?>">
                 <?php if($messages): ?>
                     <?php foreach($messages as $message): ?>
-                        <div class="alert-danger"><?php echo $message; ?></div>
+                        <div class="alert-danger" id="alertMessage"><?php echo $message; ?></div>
                     <?php endforeach;?>
                 <?php endif; ?>
                 <?php echo $this->formInput($element); ?>
@@ -36,7 +36,7 @@
         <div class="form-group">
             <div class="checkbox i-checks">
                 <label>
-                    <input name="agree" type="checkbox" value="1" ><i></i> &nbsp;
+                    <input name="agree" type="checkbox" value="1" required="required"><i></i> &nbsp;
                     <?php echo $this->translate('Agree the ','User');?><a href="<?php echo $this->url('terms');?>" class="color-green"><?php echo $this->translate('Terms and Conditions.','User');?></a>
                 </label>
             </div>

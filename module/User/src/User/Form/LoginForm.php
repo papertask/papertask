@@ -86,12 +86,20 @@ class LoginForm extends Form
         if($user && $user->checkPassword($password)){
             if($user->isActivated()){
                 $user->authenticate();
+                $user->lastLogin($entityManager);
                 return true;
             } else {
+            	if($user->getLastLogin() == null){
                 $msg = $translator->translate('You must confirm your email to be able to login');
                 $controller->flashMessenger()->addErrorMessage($msg);
                 $controller->redirect()->toUrl('/'.$lang."/user/register/confirm?email=" . $email);
                 return false;
+            	} else {
+            		$msg = $translator->translate('Your account has been blocked, Please contact your Admin');
+            		$controller->flashMessenger()->addErrorMessage($msg);
+            		$controller->redirect()->toUrl('/'.$lang."/user/register/confirm?email=" . $email);
+            		return false;
+            	}   
             }
         } else {
             $this->addNonElementMessage('danger', $translator->translate('Wrong username or password'));

@@ -45,6 +45,7 @@ angularApp.controller('ProjectIndexController', function($scope, StaffApi, Langu
         type: 1
     }, function($sales){
         $scope.sales = $sales;
+        console.info('sales',$scope.sales);
     });
 
     LanguageApi.list({}, function($languages){

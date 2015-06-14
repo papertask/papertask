@@ -56,7 +56,7 @@ class User extends Entity implements InputFilterAwareInterface{
     /** @ORM\Column(type="string", nullable=true) */
     protected $phone;
 
-    /** @ORM\Column(type="datetime") */
+    /** @ORM\Column(type="datetime", nullable=true) */
     protected $lastLogin;
 
     /** @ORM\Column(type="datetime") */
@@ -396,6 +396,13 @@ class User extends Entity implements InputFilterAwareInterface{
         if($this->isFreelancer()) $sessionContainer->user_isSenior = $this->getFreelancer()->getData()['isSenior'];
     }
 
+    public function lastLogin($entityManager){
+    	$this->lastLogin = new \DateTime('now');
+    	$entityManager->persist($this);
+    	$entityManager->flush();
+    	return true;
+    }
+
     /**
      * Get current login user id
      * @return int
@@ -416,7 +423,7 @@ class User extends Entity implements InputFilterAwareInterface{
     public function sendConfirmationEmail($controller,$lang_code=''){
         // initial data for email template
 
-        $confirmLink = $controller->getBaseUrl(). '/'. $lang_code . '/user/register/confirm?token=' . $this->token;
+        $confirmLink = $controller->getBaseUrl(). ''. $lang_code . '/user/register/confirm?token=' . $this->token;
 		$data = array(
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
@@ -506,6 +513,11 @@ class User extends Entity implements InputFilterAwareInterface{
      */
     public function getStaff(){
         return $this->staff;
+    }
+
+    
+    public function getLastLogin(){
+    	return $this->lastLogin;
     }
 
     /**
@@ -686,7 +698,7 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager->persist($this);
         $entityManager->flush();
 
-        $this->sendConfirmationEmail( $controller, $lang_code );
+        //$this->sendConfirmationEmail( $controller, $lang_code );
     }
 	public function createFreelancer( $controller, $data, $entityManager,$lang_code='' )
     {
@@ -695,7 +707,7 @@ class User extends Entity implements InputFilterAwareInterface{
             'email' => $data['email'],
             'lastName' => $data['lastName'],
             'firstName' => $data['firstName'],
-            'lastLogin' => new \DateTime('now'),
+            'lastLogin' => null,
             'createdTime' => new \DateTime('now'),
 			'token' => $this->generateToken(),
 			'alias' => $strAlias,

@@ -81,7 +81,7 @@ class UserForm extends Form
         $data = array();
 
         $data['createdTime'] = new \DateTime('now');
-        $data['lastLogin'] = new \DateTime('now');
+        //$data['lastLogin'] = new \DateTime('now');
 
         $user->setData($data);
         $user->setGroupByName($userType, $entityManager);

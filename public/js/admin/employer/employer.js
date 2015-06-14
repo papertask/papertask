@@ -152,7 +152,8 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
                 name: $scope.employer.username,
 				lang_code : LANG_CODE,
     	};
-
+    	console.info('ptr_employer',ptr_employer);
+    	/*
     	$http.post("/api/user/employer", ptr_employer)
         	.success(function($data){
                 if ( $data.success == 'failed') {
@@ -161,6 +162,7 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
                 }
 	            location.href="/" + LANG_CODE + "/admin/employer/detail?id=" + $data.user.id;
         });
+        */
     };
     
     /**
