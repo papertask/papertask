@@ -32,10 +32,10 @@ angularApp.controller('listFreelancerController', function($scope, $http, $timeo
     };
 
     function init(){
-        selectPage(1);
+        $scope.selectPage(1);
         jQuery(document).ready(function(){
            $('.pager.btn-group button').click(function(){
-              selectPage(parseInt($(this).data('page')));
+              $scope.selectPage(parseInt($(this).data('page')));
            });
         });
 
@@ -45,7 +45,7 @@ angularApp.controller('listFreelancerController', function($scope, $http, $timeo
                 if(result == true){
                     $http.delete('/api/user/'+$id+'/freelancer').success(function($data){
                         console.log('Deleted user with id %s', $id);
-                        selectPage($scope.pages.current);
+                        $scope.selectPage($scope.pages.current);
                     });
                 }
             });
@@ -54,30 +54,15 @@ angularApp.controller('listFreelancerController', function($scope, $http, $timeo
         // get freelancer data
         getFreelancerData();
 
-        // search submit
-        $scope.advancedSearch = function(){
-            selectPage(1);
-        }
+
     }
 
-    function selectPage($page){
+    $scope.selectPage = function($page){
         // check search
         var search = 0;
-        for(var key in $scope.searchParams) {
-            var obj = $scope.searchParams[key];
-            if (obj != null) {
-                search++;
-            }
-        };
-        if(search > 0){
-            $scope.searchParams.page = $page;
-            $scope.searchParams.search = 1;
             var $params = $scope.searchParams;
-            console.log('search');
-        }else{
-            var $params = {page: $page};
-            console.log('no search');
-        }
+        $params.page = $page;
+        console.info('$params',$params);
 
         $http.get("/api/user/freelancer", {
             params: $params
@@ -95,95 +80,62 @@ angularApp.controller('listFreelancerController', function($scope, $http, $timeo
 	$scope.onBtnPreviousClicked = function () {
 		// check search
         var search = 0;
-        for(var key in $scope.searchParams) {
-            var obj = $scope.searchParams[key];
-            if (obj != null) {
-                search++;
-            }
-        };
-		if(search > 0){
-            $scope.searchParams.page = $scope.pages.previous;
-            $scope.searchParams.search = 1;
+        
+            
             var $params = $scope.searchParams;
-            console.log('search');
+            $params.page = $scope.pages.previous;
+            console.info('$params',$params);
+            
 			$http.get("/api/user/freelancer",{
 				params: $params
 			}).success(function($data){
 					$scope.pages = $data['pages'];
 					$scope.list = $data['freelancerList'];
-			});	
+					if($data['pages']){
+		                var N = $scope.pages.pageCount;
+		                $scope.rangeCustom = Array.apply(null, {length: N}).map(Number.call, Number);
         }
-		else {
-			$http.get("/api/user/freelancer?page="+ $scope.pages.previous)
-	        .success(function($data){
-	            $scope.pages = $data['pages'];
-	            $scope.list = $data['freelancerList'];
 			});
-		}
-		
 		
 	}
 	
 	$scope.onBtnGoto = function ( int_index ) {
 		// check search
-        var search = 0;
-        for(var key in $scope.searchParams) {
-            var obj = $scope.searchParams[key];
-            if (obj != null) {
-                search++;
-            }
-        };
-		if(search > 0){
-            $scope.searchParams.page = int_index*1 + 1;
-            $scope.searchParams.search = 1;
+     
             var $params = $scope.searchParams;
-            console.log('search');
+            $params.page =  int_index*1 + 1;
+            console.info('$params',$params);
+
 			$http.get("/api/user/freelancer",{
             params: $params
 			}).success(function($data){
 	            $scope.pages = $data['pages'];
 	            $scope.list = $data['freelancerList'];
-			});
+	            if($data['pages']){
+	                var N = $scope.pages.pageCount;
+	                $scope.rangeCustom = Array.apply(null, {length: N}).map(Number.call, Number);
         }
-		else {
-			$http.get("/api/user/freelancer?page="+ (int_index*1 + 1))
-	        .success(function($data){
-	            $scope.pages = $data['pages'];
-	            $scope.list = $data['freelancerList'];
 			});
-		}
+       
 		
 	}
 	
 	$scope.onBtnNextClicked = function () {
-		// check search
-        var search = 0;
-        for(var key in $scope.searchParams) {
-            var obj = $scope.searchParams[key];
-            if (obj != null) {
-                search++;
-            }
-        };
-		if(search > 0){
-			$scope.searchParams.page = $scope.pages.next;
-            $scope.searchParams.search = 1;
             var $params = $scope.searchParams;
-            console.log('search');
+            $params.page =  $scope.pages.next;
+            console.info('$params',$params);
+            
 			$http.get("/api/user/freelancer",{
             params: $params
 			}).success(function($data){
 	            $scope.pages = $data['pages'];
 	            $scope.list = $data['freelancerList'];
-			});
+	            if($data['pages']){
+	                var N = $scope.pages.pageCount;
+	                $scope.rangeCustom = Array.apply(null, {length: N}).map(Number.call, Number);
 		}
-		else{
-			$http.get("/api/user/freelancer?page="+ $scope.pages.next)
-				.success(function($data){
-					$scope.pages = $data['pages'];
-					$scope.list = $data['freelancerList'];
 			});
 		}	
-	}
 
     function getFreelancerData(){
         $http.get('/api/user/freelancer-data').success(function($data){
@@ -201,6 +153,61 @@ angularApp.controller('listFreelancerController', function($scope, $http, $timeo
             console.log($data);
             console.log($scope.sources);
         });
+    }
+
+    $scope.advancedSearch = function(){
+    	$scope.searchParams = {
+    	        'search': 1,
+    	        'name': $scope.filter.name,
+    	        'idFreelancer': $scope.filter.idFreelancer,
+    	        'email': $scope.filter.email,
+    	        'type': $scope.filter.type,
+    	        'source': $scope.filter.source,
+    	        'target': $scope.filter.target,
+    	        'rate': $scope.filter.rate,
+    	        'specialism': $scope.filter.specialism,
+    	        'country': $scope.filter.country,
+    	        'includeInactive': $scope.filter.includeInactive,
+    	        'specialismTested': $scope.filter.specialismTested,
+    	        'senior': $scope.filter.senior,
+    	        'page': null
+    	    };
+    	
+    	$scope.selectPage(1);
+    }
+    
+    $scope.reset = function(){
+    	$scope.searchParams = {
+    	        'search': null,
+    	        'name': null,
+    	        'idFreelancer': null,
+    	        'email': null,
+    	        'type': null,
+    	        'source': null,
+    	        'target': null,
+    	        'rate': null,
+    	        'specialism': null,
+    	        'country': null,
+    	        'includeInactive': null,
+    	        'specialismTested': null,
+    	        'senior': null,
+    	        'page': null
+    	    };
+    	$scope.filter.name = null;
+        $scope.filter.idFreelancer = null;
+        $scope.filter.email = null;
+        $scope.filter.type = null;
+        $scope.filter.source = null;
+        $scope.filter.target = null;
+        $scope.filter.rate = null;
+        $scope.filter.specialism = null;
+        $scope.filter.country = null;
+        $scope.filter.includeInactive = null;
+        $scope.filter.specialismTested = null;
+        $scope.filter.senior = null;
+        
+        $scope.selectPage(1);
+    	
     }
 
     // init

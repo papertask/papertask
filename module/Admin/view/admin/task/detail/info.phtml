@@ -2,9 +2,11 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="m-b-md">
+			<?php if ($this->isStaff==1) {?>
             <button class="btn btn-danger btn-xs pull-right" ng-click="showEdit()">
                 <i class="fa fa-edit"></i><?php echo $this->translate('Edit Task') ?>
             </button>
+			<?php } ?>
             <h2><span class="text-info">{{ project.project_no }}-{{ task.id }}</span><?php echo ' '; ?>
                 {{ task.name }}</h2>
         </div>

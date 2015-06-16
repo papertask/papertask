@@ -31,14 +31,14 @@ $this->inlineScript()
                             <div class="form-group">
                                 <label class="col-sm-3 control-label"><?php echo $this->translate('Name') ?></label>
                                 <div class="col-sm-9">
-                                    <input ng-model="searchParams.name" name="name" type="text" class="form-control" />
+                                    <input ng-model="filter.name" name="name" type="text" class="form-control" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label"><?php echo $this->translate('Type') ?></label>
 
                                 <div class="col-sm-9">
-                                    <select ng-model="searchParams.type" name="type" class="form-control" >
+                                    <select ng-model="filter.type" name="type" class="form-control" >
                                         <option value=""></option>
                                         <option ng-repeat="resource in resources" value="{{resource.group.id}}">
                                             {{resource.group.name}}
@@ -51,7 +51,7 @@ $this->inlineScript()
                                     <?php echo $this->translate('Rating') ?></label>
 
                                 <div class="col-sm-9">
-                                    <select ng-model="searchParams.rate" class="form-control" name="rate">
+                                    <select ng-model="filter.rate" class="form-control" name="rate">
                                         <option value=""></option>
                                         <option ng-repeat="rate in ratings" value="{{rate.value}}">
                                             {{rate.name}}
@@ -64,7 +64,7 @@ $this->inlineScript()
 
                                 <div class="col-sm-10">
                                     <label class="checkbox-inline">
-                                        <input ng-model="searchParams.includeInactive" type="checkbox"
+                                        <input ng-model="filter.includeInactive" type="checkbox"
                                                name="includeInactive" value="1"> &nbsp;&nbsp;&nbsp;
                                         <strong><?php echo $this->translate('Include inactive accounts') ?></strong>
                                 </div>
@@ -75,14 +75,14 @@ $this->inlineScript()
                                 <label class="col-sm-3 control-label">ID</label>
 
                                 <div class="col-sm-9">
-                                    <input ng-model="searchParams.idFreelancer" name="idFreelancer" type="text"
+                                    <input ng-model="filter.idFreelancer" name="idFreelancer" type="text"
                                            class="form-control"></div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label"><?php echo $this->translate('Source') ?></label>
 
                                 <div class="col-sm-9">
-                                    <select ng-model="searchParams.source" class="form-control" name="source">
+                                    <select ng-model="filter.source" class="form-control" name="source">
                                         <option value=""></option>
                                         <option ng-repeat="source in sources" value="{{source.id}}">
                                             {{source.name}}
@@ -94,7 +94,7 @@ $this->inlineScript()
                                 <label class="col-sm-3 control-label"><?php echo $this->translate('Specialism') ?></label>
 
                                 <div class="col-sm-9">
-                                    <select ng-model="searchParams.specialism" class="form-control" name="specialism">
+                                    <select ng-model="filter.specialism" class="form-control" name="specialism">
                                         <option value=""></option>
                                         <option ng-repeat="specialism in specialisms" value="{{specialism.id}}">
                                             {{specialism.name}}
@@ -107,7 +107,7 @@ $this->inlineScript()
 
                                 <div class="col-sm-10">
                                     <label class="checkbox-inline">
-                                        <input ng-model="searchParams.specialismTested" type="checkbox"
+                                        <input ng-model="filter.specialismTested" type="checkbox"
                                                value="1" id="specialismTested"> &nbsp;&nbsp;&nbsp;
                                         <strong><?php echo $this->translate('Specialism tested') ?></strong>
                                     </label>
@@ -118,14 +118,14 @@ $this->inlineScript()
                             <div class="form-group">
                                 <label class="col-sm-3 control-label"><?php echo $this->translate('Email') ?></label>
 
-                                <div class="col-sm-9"><input ng-model="searchParams.email" name="email"
+                                <div class="col-sm-9"><input ng-model="filter.email" name="email"
                                                              type="email" class="form-control"></div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label"><?php echo $this->translate('Target') ?></label>
 
                                 <div class="col-sm-9">
-                                    <select ng-model="searchParams.target" class="form-control" name="target">
+                                    <select ng-model="filter.target" class="form-control" name="target">
                                         <option></option>
                                         <option value="">Translation</option>
                                         <option value="">Interpreting</option>
@@ -137,7 +137,7 @@ $this->inlineScript()
                                 <label class="col-sm-3 control-label"><?php echo $this->translate('Country') ?></label>
 
                                 <div class="col-sm-9">
-                                    <select ng-model="searchParams.country" class="form-control" name="country">
+                                    <select ng-model="filter.country" class="form-control" name="country">
                                         <option value=""></option>
                                         <option ng-repeat="country in countries" value="{{country.id}}">
                                             {{country.name}}
@@ -150,7 +150,7 @@ $this->inlineScript()
 
                                 <div class="col-sm-10">
                                     <label class="checkbox-inline">
-                                        <input ng-model="searchParams.senior" type="checkbox"
+                                        <input ng-model="filter.senior" type="checkbox"
                                                value="1" name="senior"> &nbsp;&nbsp;&nbsp;
                                         <strong><?php echo $this->translate('Senior account') ?></strong>
                                     </label>
@@ -162,7 +162,7 @@ $this->inlineScript()
                         <button ng-click="advancedSearch()" name="submit" type="submit" class="btn btn-sm btn-primary">
                             <i class="fa fa-search"></i>
                             <?php echo $this->translate('Search') ?></button>
-                        <button class="btn btn-white btn-sm" type="reset"><i class="fa fa-times"></i>
+                        <button class="btn btn-white btn-sm" type="reset" ng-click="reset()"><i class="fa fa-times"></i>
                             <?php echo $this->translate('Reset') ?></button>
                     </div>
                 </form>

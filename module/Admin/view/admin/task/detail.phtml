@@ -58,8 +58,10 @@ $this->inlineScript()
 			<?php include "detail/miniform.phtml"; ?>
 			<div class="hr-line-dashed"></div>
             <?php include "detail/files.phtml";?>   
+			
+			<?php if ($this->isStaff==1) {?>
 			<div class="hr-line-dashed"></div>			
-			<div class="row m-t-sm">
+			<div class="row m-t-sm" >
 				<div class="col-lg-12">
 				<div class="panel blank-panel">
 					<div class="panel-heading">
@@ -81,6 +83,7 @@ $this->inlineScript()
 				</div>
 				</div>
 			</div>
+			<?php } ?>
 		</div>
 	</div>
 </div>
