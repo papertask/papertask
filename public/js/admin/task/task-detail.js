@@ -95,13 +95,14 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				
                 $scope.task = $task.task;
 				$scope.language = $scope.task.language;
+				console.log("scope.tempTask");
 				console.log($scope.task);
 				$scope.projectId = $scope.task.project;
 				$scope.task.type = ProjectType.get($scope.task.type);
 				$scope.task.status = TaskStatus.get($scope.task.status);
 				
 				jQuery.extend($scope.tempTask, $scope.task);
-				console.log("scope.tempTask");
+				
 				var dueDate = new Date($scope.task.dueDate.date);
 				var month = dueDate.getMonth() + 1;
 				$scope.tempTask.dueDate = dueDate.getDate() + '-' + month + '-' + dueDate.getFullYear() +  ' ' + dueDate.getHours() + ':' + dueDate.getSeconds() ;
@@ -1319,7 +1320,16 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
     }
     $scope.showEdit = showEdit;
     $scope.update = update;
+	$scope.formatDate = function(date){
+		var dateString = date, //'17-09-2013 10:08'  	"2015-04-30 15:00:00"
+	    dateParts = dateString.split(' '),
+	    timeParts = dateParts[1].split(':'),
+	    date;
 
+	    dateParts = dateParts[0].split('-');
+		date = new Date(dateParts[0], parseInt(dateParts[1], 10) - 1, dateParts[2], timeParts[0], timeParts[1], timeParts[2]);
+        return date.getTime();
+	};
     init();
 });
 

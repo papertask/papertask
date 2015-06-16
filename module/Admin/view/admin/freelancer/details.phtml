@@ -6,6 +6,7 @@ $this->headLink()
 	
 $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/freelancer/details.js' )
 					->prependFile ( $this->basePath () . '/js/admin/bootstrap-modal.js' )
+					->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
 					->prependFile($this->basePath() . '/js/angular-filter.js')
 					->prependScript ( "angularApp = angular.module('project', ['summernote','angular.filter']);" )
 					->prependFile ( $this->basePath () . '/js/plugins/summernote/summernote.min.js' )
@@ -22,6 +23,7 @@ $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/freelancer/d
 $this->inlineScript()
     ->prependScript("
         var USER_ID = '" . $user['id'] . "';
+		var FREELANCER_ID = '" . $freelancer['id'] . "';
 		var LANG_CODE = '" . $this->lang_code . "';
 		var EXITS_CONFIRM_TEXT = '" . $this->translate('This client was existed') . "';
         var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
@@ -76,7 +78,8 @@ $this->inlineScript()
                 <?php
                     foreach ( $cvfiles as $k => $v ) {                        
                         ?>
-                        <i class="fa fa-file-text"></i><a href="<?php echo '../../../'.$v['path'];?>" class="text-info"> &nbsp; <?php echo $v['name'];?></a>
+						
+                        <i class="fa fa-file-text"></i><a href="#" target="_self" ng-click="download(<?php echo $v['id']?>)"  class="text-info"> &nbsp; <?php echo $v['name'];?></a>
                         <?php
                     } 
                 ?>                
@@ -942,53 +945,47 @@ $this->inlineScript()
 								<div class="project-list">
 									<table class="table table-hover">
 										<tbody>
-											<tr>
-												<td class="project-status" width="1%">
-													<span class="label label-default">Completed</span>
+											<tr ng-repeat="task in tasks">
+												<td class="project-status"><span
+													class="label label-{{ task.status.decorator }}">{{
+														task.status.name }}</span>
 												</td>
 												<td class="project-title">
-													<a href="#">88888888</a>
+													<strong>{{ task.project.id }}-{{ task.id }}</strong> 
 												</td>
 
 												</td>
 												<td class="project-title">
-													<strong>Project Name dfadsfja;kfja;dkfja;dfadsfja;kfja;dkfja;</strong>
+													<strong>{{ task.project.reference }}</strong>
 													<br />
-													<small>2014.Sep.08 -  2014.Oct.28</small>
+													<small>{{formatDate(task.project.startDate.date) | date:'yyyy.MMM.dd'}} -  {{formatDate(task.dueDate.date) | date:'yyyy.MMM.dd'}}</small>
 												</td>
 												<td class="project-title text-info">
-													<strong>CNY 868.88</strong>
+													<strong>{{task.project.currency}} {{task.total}}</strong>
 												</td>
 											</tr>
-											<tr>
-												<td class="project-status" width="1%">
-													<span class="label label-primary">Ongoing</span>
-												</td>
-												<td class="project-title">
-													<a href="#">88887366</a>
-												</td>
-												<td class="project-title">
-													<strong>Project Name</strong>
-													<br />
-													<small>2014.Sep.08 -  2014.Oct.28</small>
-												</td>
-												<td class="project-title text-info">
-													<strong>CNY 1868.88</strong>
-												</td>
-											</tr>
+											
 										</tbody>
 									</table>
 								</div>
+								
 								<div class="btn-group text-right">
-									<button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i></button>
-									<button class="btn btn-white">1</button>
-									<button class="btn btn-white  active">2</button>
-									<button class="btn btn-white">3</button>
-									<button class="btn btn-white">4</button>
-									<button type="button" class="btn btn-white"><i class="fa fa-chevron-right"></i> </button>
+									<button type="button" class="btn btn-white" ng-class="pages.previous?'':'disabled'" ng-click="onBtnPreviousClicked()"><i class="fa fa-chevron-left"></i></button>
+									<button ng-repeat="page in pages.pagesInRange" class="btn btn-white" ng-class="page==pages.current?'active':''" ng-click="onBtnGoto(page-1)">{{page}}</button>
+									<button type="button" class="btn btn-white"	ng-class="pages.next?'':'disabled'" ng-click="onBtnNextClicked()"><i class="fa fa-chevron-right"></i></button>						
+
 								</div>
+					
+								
 							</div>
 						</div>
+					</div>
+					<div id="tab-4" class="tab-pane">
+						<div class="ibox float-e-margins">
+                                        <div class="ibox-content">
+                                            <p>Comming soon</p>
+                                        </div>
+                        </div>
 					</div>
 					<div id="tab-5" class="tab-pane">
 

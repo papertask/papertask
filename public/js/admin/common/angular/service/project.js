@@ -1060,17 +1060,23 @@ angularApp.factory("DateFormatter", function(){
     }
 
     function format($date){
+	console.log("check_date");
+		console.log($date);
+		
 		if(!$date)
 			return "";
         if(typeof($date) == 'undefined'){
             return "";
         }
-		var date
+		var date;
 		
 		if($date.date){
 			var tem = $date.date;
 			if(typeof tem !== 'undefined'){
+				
 				var tempDate = tem.split(' ');
+				if(tempDate[0]=='-0001-11-30')
+					return 'undefined';
 				date = new Date(tempDate[0]+'T'+tempDate[1]);
 			} else {
 				return "";
@@ -1107,6 +1113,8 @@ angularApp.factory("DateFormatter", function(){
 			var tem = $date.date;
 			if(typeof tem !== 'undefined'){
 				var tempDate = tem.split(' ');
+				if(tempDate[0]=='-0001-11-30')
+					return 'undefined';
 				date = new Date(tempDate[0]+'T'+tempDate[1]);
 			} else {
 				return "";

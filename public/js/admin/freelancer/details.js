@@ -2,8 +2,13 @@ angularApp.run( function ( $rootScope ) {
 $(".summernote").summernote();
 $('.note-toolbar.btn-toolbar').remove();
 }) 
+angularApp.config(['$compileProvider',
+    function ($compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
+}]);
 
-angularApp.controller('FreelancerController', function($scope, $http, $timeout, $q) {
+
+angularApp.controller('FreelancerController', function($scope, $window, $http, $timeout, $q,  TaskStatus, ProjectType) {
     $scope.pagetype = 'detail';
 	$scope.countries 		= [];
 	$scope.companies		= [];
@@ -147,6 +152,30 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
 				console.log($scope.clientsinterpreting);
 	    });
 		
+		$http.get("/" + LANG_CODE + "/admin/task/getFreelancerTaskList?page="+'1'+"&freelancer_id="+FREELANCER_ID, {
+            //params: $params
+        }).success(function($data){
+        	$scope.tasks_tmp = $data.tasks;
+ 			$scope.tasks = [];
+ 			angular.forEach($scope.tasks_tmp, function(element) {
+ 				  //$scope.tasks.push(element);
+ 				var task =  [];
+ 				task["status"] = TaskStatus.get(element.status);
+ 				task["id"] = element.id;
+ 				task["language"] = element.language;
+ 				task["project"] = element.project;
+ 				task["type"] = ProjectType.get(element.type);
+ 				task["dueDate"] = element.dueDate;
+				task["total"] = element.total;
+ 				//alert(task);
+ 				//console.log(task);
+ 				$scope.tasks.push(task);
+ 			});
+			console.log("task begin");
+			console.log($scope.tasks);	
+            $scope.pages = $data.pages;
+        });
+		
 	}
 	//translation
 	$scope.addClientTrans = function (employer, client_id) {
@@ -190,74 +219,99 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
 		console.log($scope.clientsTranslation);
     }
 	
-	$scope.advancedSearchTranslation = function () {
-        $scope.selectPage( 1 );
-    }
-	$scope.resetTranslation = function () {
-        $scope.searchParamsTranslation = {
-            'search': null,
-            'name': null,
-            'idEmployer': null,
-            'email': null,
-            'country': null,
-            'includeInactive': null,
-            'currency': null,
-            'page': null,
-            'company': null
-        };
-        $scope.selectPage(1);
-    }
-	
 	$scope.selectPage = function($page){
-        // check search
-        var search = 0;
-        for(var key in $scope.searchParamsTranslation) {
-            var obj = $scope.searchParamsTranslation[key];
-            if (obj != null) {
-                search++;
-            }
-        };
-        if(search > 0){
-            $scope.searchParamsTranslation.page = $page;
-            $scope.searchParamsTranslation.search = 1;
-            var $params = $scope.searchParamsTranslation;
-        }else{
-            var $params = {page: $page};
-        }
-
-        $http.get("/api/user/employer", {
+		var $params = $scope.searchParams;
+		$http.get("/" + LANG_CODE + "/admin/task/getFreelancerTaskList?page="+$page+"&freelancer_id="+FREELANCER_ID, {
             params: $params
         }).success(function($data){
-            $scope.translation_employers = $data.employers;
-            $scope.pagesTranslation = $data.pages;
-            if($data['pages']){
-                var N = $scope.pagesTranslation.pageCount;
-                $scope.rangeCustom = Array.apply(null, {length: N}).map(Number.call, Number);
-            }
+        	$scope.tasks_tmp = $data.tasks;
+ 			$scope.tasks = [];
+ 			angular.forEach($scope.tasks_tmp, function(element) {
+ 				  //$scope.tasks.push(element);
+ 				var task =  [];
+ 				task["status"] = TaskStatus.get(element.status);
+ 				task["id"] = element.id;
+ 				task["language"] = element.language;
+ 				task["project"] = element.project;
+ 				task["type"] = ProjectType.get(element.type);
+ 				task["dueDate"] = element.dueDate;
+				task["total"] = element.total;
+ 				$scope.tasks.push(task);
+ 			});
+
+            $scope.pages = $data.pages;
         });
     }
-	$scope.onBtnPreviousTranslationClicked = function () {
-		$http.get("/api/user/employer?page="+ $scope.pagesTranslation.previous)
-	        .success(function($data){
-	            $scope.pagesTranslation = $data.pages;
-	            $scope.translation_employers = $data.employers;
-	    });
+	
+	$scope.onBtnPreviousClicked = function () {
+		var $params = $scope.searchParams;
+		$http.get("/" + LANG_CODE + "/admin/task/getFreelancerTaskList?page="+$scope.pages.previous+"&freelancer_id="+FREELANCER_ID, {
+            params: $params
+        }).success(function($data){
+        	$scope.tasks_tmp = $data.tasks;
+ 			$scope.tasks = [];
+ 			angular.forEach($scope.tasks_tmp, function(element) {
+ 				  //$scope.tasks.push(element);
+ 				var task =  [];
+ 				task["status"] = TaskStatus.get(element.status);
+ 				task["id"] = element.id;
+ 				task["language"] = element.language;
+ 				task["project"] = element.project;
+ 				task["type"] = ProjectType.get(element.type);
+ 				task["dueDate"] = element.dueDate;
+				task["total"] = element.total;
+ 				$scope.tasks.push(task);
+ 			});
+
+            $scope.pages = $data.pages;
+        });
 	}
 	
-	$scope.onBtnGotoTranslation = function ( int_index ) {
-		$http.get("/api/user/employer?page="+ (int_index*1 + 1))
-	        .success(function($data){
-	            $scope.pagesTranslation = $data.pages;
-	            $scope.translation_employers = $data.employers;
-	    });
+	$scope.onBtnGoto = function ( int_index ) {
+		var $params = $scope.searchParams;
+		$http.get("/" + LANG_CODE + "/admin/task/getFreelancerTaskList?page="+ (int_index*1 + 1) +"&freelancer_id="+FREELANCER_ID, {
+            params: $params
+        }).success(function($data){
+        	$scope.tasks_tmp = $data.tasks;
+ 			$scope.tasks = [];
+ 			angular.forEach($scope.tasks_tmp, function(element) {
+ 				  //$scope.tasks.push(element);
+ 				var task =  [];
+ 				task["status"] = TaskStatus.get(element.status);
+ 				task["id"] = element.id;
+ 				task["language"] = element.language;
+ 				task["project"] = element.project;
+ 				task["type"] = ProjectType.get(element.type);
+ 				task["dueDate"] = element.dueDate;
+				task["total"] = element.total;
+ 				$scope.tasks.push(task);
+ 			});
+
+            $scope.pages = $data.pages;
+        });
 	}
-	
-	$scope.onBtnNextTranslationClicked = function () {
-		$http.get("/api/user/employer?page="+ $scope.pages.next)
-	        .success(function($data){
-	            $scope.pagesTranslation = $data.pages;
-	            $scope.translation_employers = $data.employers;
-	    });
+	$scope.onBtnNextClicked = function () {
+		var $params = $scope.searchParams;
+		$http.get("/" + LANG_CODE + "/admin/task/getFreelancerTaskList?page="+ $scope.pages.next +"&freelancer_id="+FREELANCER_ID, {
+            params: $params
+        }).success(function($data){
+        	$scope.tasks_tmp = $data.tasks;
+ 			$scope.tasks = [];
+ 			angular.forEach($scope.tasks_tmp, function(element) {
+ 				  //$scope.tasks.push(element);
+ 				var task =  [];
+ 				task["status"] = TaskStatus.get(element.status);
+ 				task["id"] = element.id;
+ 				task["language"] = element.language;
+ 				task["project"] = element.project;
+ 				task["type"] = ProjectType.get(element.type);
+ 				task["dueDate"] = element.dueDate;
+				task["total"] = element.total;
+ 				$scope.tasks.push(task);
+ 			});
+
+            $scope.pages = $data.pages;
+        });
 	}
 	//desktop
 	$scope.addClientDesktop = function (employer , client_id) {
@@ -715,5 +769,21 @@ angularApp.controller('FreelancerController', function($scope, $http, $timeout, 
          });
 		
     };
+	$scope.formatDate = function(date){
+		var dateString = date, //'17-09-2013 10:08'  	"2015-04-30 15:00:00"
+	    dateParts = dateString.split(' '),
+	    timeParts = dateParts[1].split(':'),
+	    date;
+
+	    dateParts = dateParts[0].split('-');
+		date = new Date(dateParts[0], parseInt(dateParts[1], 10) - 1, dateParts[2], timeParts[0], timeParts[1], timeParts[2]);
+        return date.getTime();
+	};
 	
+	$scope.download = function(path){
+		$window.open("/" + LANG_CODE + "/admin/freelancer/download?path="+path, '_blank');
+		
+	};
 });
+
+

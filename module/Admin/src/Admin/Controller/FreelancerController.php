@@ -22,6 +22,9 @@ use User\Entity\UserGroup;
 
 use Zend\View\Model\JsonModel;
 
+use Zend\Http\Headers;
+use Zend\Http\Response\Stream;
+
 class FreelancerController extends AbstractActionController
 {
     protected $requiredLogin = true;
@@ -110,7 +113,6 @@ class FreelancerController extends AbstractActionController
         } else {
             $user = $this->getCurrentUser();
         }
-
         // Get Interpreting Price
         $repository = $entityManager->getRepository('User\Entity\UserInterpretingPrice');
         $interPretingPrices = $repository->findBy( array('user'=>$user) );
@@ -271,4 +273,83 @@ class FreelancerController extends AbstractActionController
             'freelancerslist' => $result
         ]);
     }
+	
+	public function downloadAction(){
+	//error_reporting(E_ALL);
+	//ini_set('display_errors', 1);
+	//ignore_user_abort(true);
+	set_time_limit(0); // disable the time limit for this script
+	$id_file = $this->getRequest()->getQuery('path');
+	$entityManager = $this->getEntityManager();
+	$cvfile = $entityManager->getRepository('\User\Entity\CvFile')
+                        ->findBy(['id' => $id_file]);
+	foreach ( $cvfile as $k => $v ) {
+            $cvfiles[$k] = $v->getData();
+        }					
+	$path = BASE_PATH . '/public/uploads/'.$cvfiles[0]['name'];
+	if (!is_readable($path))
+    die('File is not readable or not exists!');
+ 
+	$filename = pathinfo($path, PATHINFO_BASENAME);
+	 
+	// get mime type of file by extension
+	$mime_type = $this->getMimeType($filename);
+	 
+	// set headers
+	header('Pragma: public');
+	header('Expires: -1');
+	header('Cache-Control: public, must-revalidate, post-check=0, pre-check=0');
+	header('Content-Transfer-Encoding: binary');
+	header("Content-Disposition: attachment; filename=\"$filename\"");
+	header("Content-Length: " . filesize($path));
+	header("Content-Type: $mime_type");
+	header("Content-Description: File Transfer");
+	 
+	// read file as chunk
+	if ( $fp = fopen($path, 'rb') ) {
+		ob_end_clean();
+	 
+		while( !feof($fp) and (connection_status()==0) ) {
+			print(fread($fp, 8192));
+			flush();
+		}
+	 
+		@fclose($fp);
+		exit;
+	}
+	}
+	
+	public function getMimeType($filename){
+		$ext = pathinfo($filename, PATHINFO_EXTENSION);
+		$ext = strtolower($ext);
+	 
+		$mime_types=array(
+			"pdf" => "application/pdf",
+			"txt" => "text/plain",
+			"html" => "text/html",
+			"htm" => "text/html",
+			"exe" => "application/octet-stream",
+			"zip" => "application/zip",
+			"doc" => "application/msword",
+			"xls" => "application/vnd.ms-excel",
+			"ppt" => "application/vnd.ms-powerpoint",
+			"gif" => "image/gif",
+			"png" => "image/png",
+			"jpeg"=> "image/jpg",
+			"jpg" =>  "image/jpg",
+			"php" => "text/plain",
+			"csv" => "text/csv",
+			"xlsx" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+			"pptx" => "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+			"docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+		);
+	 
+		if(isset($mime_types[$ext])){
+			return $mime_types[$ext];
+		} else {
+			return 'application/octet-stream';
+		}
+	}
+
+
 }

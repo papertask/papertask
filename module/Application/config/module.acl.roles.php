@@ -75,6 +75,8 @@ $allow_all = array(
 	
 	// -- Freelancer
 	'freelancer\index',
+	'freelancer\download',
+	
 	'freelancer\new',
 	'freelancer\detail',
 	'freelancer\edit-profile',

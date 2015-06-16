@@ -41,11 +41,12 @@ angularApp.controller('FreelancerTaskView', function($scope, $http, $timeout, $q
  				task["project"] = element.project;
  				task["type"] = ProjectType.get(element.type);
  				task["dueDate"] = element.dueDate;
+				task["startDate"] = element.startDate;
  				//alert(task);
- 				//console.log(task);
+ 				
  				$scope.tasks.push(task);
  			});
-
+			
             $scope.pages = $data.pages;
         });
   	}
