@@ -69,9 +69,11 @@ class InvoiceController extends AbstractRestfulJsonController
 			if(isset($data['dueDate'])){
 				$data['dueDate'] = new \DateTime($data['dueDate']);
 			}
+	
 			$invoice->setData([
 				'invoiceDate' =>  $data['invoiceDate'],
 				'dueDate' =>  $data['dueDate'],
+					'invoice_no' => $data['invoice_no']
 			]);
 			$invoice->save($this->getEntityManager());
         }

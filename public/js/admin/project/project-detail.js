@@ -50,7 +50,8 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 
 	$scope.formatDate = function(date){
 		var dateString = date; //'17-09-2013 10:08'  	"2015-04-30 15:00:00"
-		if(typeof dateString !== 'undefined'){
+		if((typeof dateString !== 'undefined')&&(typeof dateString != null)){
+			
 			var dateParts = dateString.split(' ');
 		    var timeParts = dateParts[1].split(':');
 		    var date;
@@ -58,6 +59,8 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 		    dateParts = dateParts[0].split('-');
 			date = new Date(dateParts[0], parseInt(dateParts[1], 10) - 1, dateParts[2], timeParts[0], timeParts[1], timeParts[2]);
 	        return date.getTime();
+	        
+			//return date;
 		} else {
 			return date;
 		}
@@ -235,8 +238,10 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 				$http.get('/api/admin/invoice?projectId='+ projectId).success(function($data) {
 					$scope.invoice = $data['invoices'];
 					if($scope.invoice)
-					if($scope.invoice.invoiceDate)
-						$scope.invoice.invoiceDate = $scope.invoice.invoiceDate.date;
+					if($scope.invoice.invoiceDate){
+						//$scope.invoice.invoiceDate = $scope.invoice.invoiceDate.date;
+					}
+						
 					
 					console.log("scope.invoice");
 					//console.log($data);	
@@ -315,14 +320,28 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 		
 	}
 	$scope.setinvoiceDate = function ( ){
-				
+				console.info('$scope.invoice.invoiceDate_tmp',$scope.invoice.invoiceDate_tmp);
 				
 				//var d = new Date($scope.invoice.invoiceDate_tmp);
 				var dt  = $scope.invoice.invoiceDate_tmp.split(/\-|\s/);
-				d = new Date(dt.slice(0,3).reverse().join('/')+' '+dt[3]);
+				//d = new Date(dt.slice(0,3).reverse().join('/')+' '+dt[3]);
+				var d = $scope.invoice.invoiceDate_tmp;
+				//d = new Date($scope.invoice.invoiceDate_tmp, "d-m-Y g:i");
+				//16-06-2015 18:34
+				d = d.split(' ');
+				var date = d[0];
+				date = date.split('-');
+				var hour = d[1];
+				hour = hour.split(':');
+				console.info('date',date);
+				console.info('hour',hour);
+				d = new Date(date[2], date[1], date[0], hour[0], hour[1]);
+				
 				
 				//var d = new Date.parseDate($scope.invoice.invoiceDate_tmp, "d-m-Y g:i");
-				$scope.invoice.invoiceDate = d;
+				console.info('d',d);
+				//return;
+				//$scope.invoice.invoiceDate = d;
 				var dd = d.getDate()
 				if (dd<10) dd= '0'+dd;
 				var mm = d.getMonth() + 1  // now moths are 1-12
@@ -330,11 +349,19 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 				var yy = d.getFullYear();
 				
 				$scope.invoice.invoice_no = "INV-" +  yy + mm + dd  + Math.floor((Math.random()*9000) + 1000);
-				$scope.invoice.dueDate = new Date(new Date(d).setMonth(d.getMonth()+1));
-				console.log($scope.invoice);
-				//return;
+				
+				
+				
+				$scope.invoice.invoiceDate = d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':00',
+				$scope.invoice.dueDate = $scope.invoice.dueDate.date;
+				//$scope.invoice.invoiceDate = $scope.invoice.invoiceDate_tmp;
+				console.info('after modify, before api',$scope.invoice);
+				//return false;
 				var updateinvoiceDate = $http.put("/api/admin/invoice/" + $scope.invoice.id + "?action=1", $scope.invoice)
 					.success( function ( $data ) {
+						console.info('$data',$data);
+						$scope.invoice = $data.invoice;
+						console.info('invoice',$scope.invoice);
 				});			
 	}
 	$scope.printInvoice = function ( ){
@@ -465,18 +492,22 @@ angularApp.controller("ProjectTasksController", function($scope, $http, TaskStat
     $scope.newTask = {};
     $scope.DateFormatter = DateFormatter;
     $scope.setItemApi(TaskApi);
-
+    /*
     $scope.formatDate = function(date){
-		var dateString = date, //'17-09-2013 10:08'  	"2015-04-30 15:00:00"
-	    dateParts = dateString.split(' '),
-	    timeParts = dateParts[1].split(':'),
-	    date;
+    	var dateString = date; //'17-09-2013 10:08'  	"2015-04-30 15:00:00"
+		if((typeof dateString !== 'undefined')&&(typeof dateString != null)){
+			var dateParts = dateString.split(' ');
+		    var timeParts = dateParts[1].split(':');
+		    var date;
 
 	    dateParts = dateParts[0].split('-');
 		date = new Date(dateParts[0], parseInt(dateParts[1], 10) - 1, dateParts[2], timeParts[0], timeParts[1], timeParts[2]);
         return date.getTime();
+		} else {
+			return date;
+		}
 	};
-	
+	*/
 
     var templateCorrection = {
         options: {},

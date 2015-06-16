@@ -198,8 +198,7 @@ $this->inlineScript()
                         <?php echo $this->translate('Tasks done') ?>: {{user.tasksDone}}</small>
                     <br/>
                     <small><?php echo $this->translate('Rating') ?>:
-                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                            class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i></small>
+                        <i class="fa fa-star" ng-repeat="i in getNumber(user.rating)"></i><i class="fa fa-star-o" ng-repeat="i in getNumber(6 - user.rating)"></i></small>
                 </td>
                 <td class="project-actions">
                     <a href="<?php echo $this->url('admin', ['controller'=>'freelancer', 'action'=>'detail']) ?>?id={{user.id}}"

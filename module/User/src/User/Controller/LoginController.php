@@ -51,16 +51,79 @@ class LoginController extends AbstractActionController
 
     public function socialAction(){
         $config = $this->getServiceLocator()->get('Config');
+        //var_dump($config);exit;
+        $config = array(
+							//"base_url" => "http://papertask.local/vendor/hybridauth/hybridauth/src",
+					
+							"providers" => array (
+										// openid providers
+										"OpenID" => array (
+											"enabled" => true
+										),
+							
+										"Yahoo" => array (
+											"enabled" => true,
+											"keys"    => array ( "key" => "", "secret" => "" ),
+										),
+							
+										"AOL"  => array (
+											"enabled" => true
+										),
+							
+										"Google" => array (
+											"enabled" => true,
+											"keys"    => array ( "id" => "", "secret" => "" ),
+										),
+							
+										"Facebook" => array (
+											"enabled" => true,
+											"keys"    => array ( "id" => "", "secret" => "" ),
+											"trustForwarded" => false
+										),
+							
+										"Twitter" => array (
+											"enabled" => true,
+											"keys"    => array ( "key" => "", "secret" => "" )
+										),
+							
+										// windows live
+										"Live" => array (
+											"enabled" => true,
+											"keys"    => array ( "id" => "", "secret" => "" )
+										),
+							
+										"LinkedIn" => array (
+											"enabled" => true,
+											"keys"    => array ( "key" => "", "secret" => "" )
+										),
+							
+										"Foursquare" => array (
+											"enabled" => true,
+											"keys"    => array ( "id" => "", "secret" => "" )
+										),
+									),
+							
+									// If you want to enable logging, set 'debug_mode' to true.
+									// You can also set it to
+									// - "error" To log only error messages. Useful in production
+									// - "info" To log info and error messages (ignore debug messages)
+									"debug_mode" => false,
+							
+									// Path to file writable by the web server. Required if 'debug_mode' is not false
+									"debug_file" => "",
+								);
+        //var_dump($config);exit; 
         if($provider = $this->getRequest()->getQuery('provider')){
             try{
                 // create an instance for Hybridauth with the configuration file path as parameter
-                $hybridauth = new Hybridauth($config['hybrid_auth']);
+                //$hybridauth = new Hybridauth($config['hybrid_auth']);
+                $hybridauth = new Hybridauth($config);
 
                 // try to authenticate the user with twitter,
                 // user will be redirected to Twitter for authentication,
                 // if he already did, then Hybridauth will ignore this step and return an instance of the adapter
                 $auth = $hybridauth->authenticate($provider);
-
+				var_dump($auth); exit;
                 // get the user profile
                 $profile = $auth->getUserProfile();
 

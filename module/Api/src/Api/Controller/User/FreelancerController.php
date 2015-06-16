@@ -140,7 +140,7 @@ class FreelancerController extends AbstractRestfulController
 		$freelancerList = $entityManager->getRepository('User\Entity\User');
                                 //->findBy(array('group' => $freelancerGroup));
         $queryBuilder = $freelancerList->createQueryBuilder('user')
-			->innerJoin("user.freelancer f")
+			->innerJoin("user.freelancer","f")
             ->where("user.group = :group1")->setParameter('group1', $freelancerGroup);
 
         // check search condition
@@ -224,6 +224,18 @@ class FreelancerController extends AbstractRestfulController
             foreach($paginator as $user){
                 $userData = $user->getData();
                 $userData['createdTime'] = $helper->formatDate($userData['createdTime']);
+                $userData['rating'] = $user->getFreelancer()->getRating();
+                
+                // Get Tasks done
+	                $entityManager = $this->getEntityManager();
+	                $taskList = $entityManager->createQueryBuilder()
+	                ->select("COUNT(task.id)")
+	                ->from('User\Entity\Task','task')
+	                ->where("task.assignee=?1")->setParameter(1, $user->getFreelancer()->getId())
+	                ->andWhere('task.is_deleted = 0')
+	                ->andWhere('task.status = 1');
+	                $taskNum = $taskList->getQuery()->getSingleScalarResult();
+	            $userData['tasksDone'] = $taskNum;
                 $data[] = $userData;
             }
             return new JsonModel(array(

@@ -69,7 +69,7 @@ class TaskController extends AbstractActionController
     	$taskList = $entityManager->createQueryBuilder()
     					->select("COUNT(task.id)")
     					->from('User\Entity\Task','task')
-    					->where("task.assignee=?1")->setParameter(1, 2)
+    					->where("task.assignee=?1")->setParameter(1, $freelancer->getId())
     					->andWhere('task.is_deleted = 0');
     	$taskNum = $taskList->getQuery()->getSingleScalarResult();
     	
