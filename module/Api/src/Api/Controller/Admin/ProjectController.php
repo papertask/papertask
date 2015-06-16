@@ -376,8 +376,8 @@ class ProjectController extends AbstractRestfulJsonController
     }
 
     public function getList(){
-		//error_reporting(E_ALL);
-		//ini_set('display_errors', 1);
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
 		$entityManager = $this->getEntityManager();
 
         // Get freelancer group
