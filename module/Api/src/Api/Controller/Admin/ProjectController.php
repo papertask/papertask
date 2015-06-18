@@ -101,7 +101,7 @@ class ProjectController extends AbstractRestfulJsonController
 			
 			$Udata['currency'] = $data['currency'];
 			$Udata['createdTime'] = new \DateTime('now');
-			$Udata['lastLogin'] = new \DateTime('now');
+			//$Udata['lastLogin'] = new \DateTime('now');
 			$Udata['email'] = $data['newClient']['Email'];
 			$Udata['firstName'] = $data['newClient']['FirstName'];
 			$Udata['lastName'] = $data['newClient']['LastName'];
@@ -529,6 +529,22 @@ class ProjectController extends AbstractRestfulJsonController
             'is_deleted' => true
         ]);
         $project->save($this->getEntityManager());
+        
+        // Delete Task
+        $entityManager = $this->getEntityManager();
+        //$tasks = $entityManager->getRepository('User\Entity\Task');
+        //->findBy(array('group' => $freelancerGroup));
+        $queryBuilder = $entityManager->createQueryBuilder()
+        				->update('\User\Entity\Task', 'task')
+        				->set('task.is_deleted', 1)
+        				->where('task.project = :project')
+        				->setParameter('project', $id);
+        $result = $queryBuilder->getQuery()->execute();
+        
+        //var_dump($result);
+        			
+        			
+        
         return new JsonModel([
             'project' => $project->getData(),
         ]);

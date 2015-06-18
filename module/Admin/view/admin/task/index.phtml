@@ -1,0 +1,323 @@
+<?php $this->headTitle($this->translate('Task List')) ?>
+<!-- Scripts -->
+<?php $this->headLink()
+->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
+//->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
+//->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
+//->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
+//->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+?>
+
+<?php
+$this->headScript ()
+->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
+->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
+->prependFile($this->basePath() . '/js/admin/task/index.js')
+//->prependFile($this->basePath() . '/js/admin/common/angular/ItemListController.js')
+//->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
+//->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
+//->prependFile($this->basePath() . '/js/admin/angular-steps.js')
+//->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
+->prependScript("angularApp = angular.module('project', []);")
+
+//->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+//->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-tpls-0.11.2.min.js')
+//->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-0.11.2.min.js')
+//->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
+//->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
+//->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
+//->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
+//->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
+//->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
+->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
+->prependFile($this->basePath() . '/js/inspinia.js');
+
+$this->inlineScript()
+->prependScript("
+		var LANG_CODE = '" . $this->lang_code . "';
+		var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+		var TASKNUM = '" . $this->taskNum . "';
+		");
+?>
+
+<div class="row" ng-controller="TaskIndex" ng-init="init()">
+	<div class="col-lg-12">
+		<div class="wrapper wrapper-content animated fadeInUp">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h5>Task List</h5>
+				</div>
+
+				<div class="ibox-content">
+
+					<div class="row m-b-sm m-t-sm">
+						<div class="col-md-10">
+							<div class="input-group">
+								<input type="text" placeholder="Search"
+									class="input-sm form-control" ng-model="filter.bsearch"> <span
+									class="input-group-btn">
+									<button type="button" class="btn btn-sm btn-primary"
+										ng-click='search()'>Search</button>
+								</span>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<a data-toggle="collapse" href="#adv_search"
+								class="btn btn-sm btn-primary"><i class="fa fa-search"></i>
+								Advance Search</a>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-12">
+							<div id="adv_search" class="panel-collapse collapse faq-answer">
+								<form method="" class="form-horizontal">
+									<div class="row">
+										<div class="col-lg-4">
+											<div class="form-group">
+												<label class="col-sm-3 control-label"> ID</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control"
+														ng-model="filter.taskId">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Source</label>
+												<div class="col-sm-9">
+													<select class="form-control" name="source" ng-model="filter.source"
+                            ng-options="language.name for language in languages">
+                        <option value=""></option>
+                    </select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Start</label>
+												<div class="col-sm-9">
+													<div class="input-group date">
+														<span class="input-group-addon"><i class="fa fa-calendar"></i>
+														</span> <input type="text" data-field="datetime"
+															class="form-control" name="startDate"
+															ng-model="filter.startDate">
+													</div>
+													<div class="dtbox"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<!-- if PM login, this dont show -->
+												<label class="col-sm-3 control-label">PM</label>
+												<div class="col-sm-9">
+													<select class="form-control" name="pm" ng-model="filter.pm"
+                            ng-options="staff.name for staff in pms">
+                        <option value=""></option>
+                    </select>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div class="form-group">
+												<label class="col-sm-3 control-label"> Reference</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control"
+														ng-model="filter.reference">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Target</label>
+												<div class="col-sm-9">
+													<select class="form-control" name="source" ng-model="filter.target"
+                            ng-options="language.name for language in languages">
+                        <option value=""></option>
+                    </select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Completed</label>
+												<div class="col-sm-9">
+													<div class="input-group date">
+														<span class="input-group-addon"><i class="fa fa-calendar"></i>
+														</span> <input type="text" data-field="datetime"
+															class="form-control" name="dueDate"
+															ng-model="filter.dueDate">
+													</div>
+													<div class="dtbox"></div>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-4">
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Field</label>
+												<div class="col-sm-9">
+													<select class="form-control" name="field" ng-model="filter.field"
+                            ng-options="field.name for field in ProjectField.all()">
+                        <option value=""></option>
+                    </select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Status</label>
+												<div class="col-sm-9">
+													<select class="form-control" name=""
+														ng-model="filter.taskStatus"
+														ng-options="status.name for status in staskStatuses">>
+														<option></option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">Pay Status</label>
+												<div class="col-sm-9">
+													<select class="form-control" name="pay_status" ng-model="filter.payStatus"
+                            ng-options="status.name for status in PayStatus.all()">
+                        <option value=""></option>
+                    </select>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="text-right tooltip-demo">
+										<a class="btn btn-sm btn-primary" ng-click="advancedSearch()"><i
+											class="fa fa-search"></i> Search</a> <a
+											class="btn btn-white btn-sm" type="reset" ng-click="reset()"><i
+											class="fa fa-times"></i> Reset</a>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="project-list">
+						<table class="table table-hover">
+							<tbody>
+								<tr ng-repeat="task in tasks">
+									<td class="project-status"><span
+										class="label label-{{ task.status.decorator }}">{{
+											task.status.name }}</span> <!--<i class="fa fa-usd"></i>-->
+									</td>
+									<td class="project-title"><strong><?php echo $this->translate("project") ?>
+											{{ task.project.reference }} </strong> <br> <strong
+										class="text-info">{{ task.project.id }}-{{ task.id }}</strong> | <code>{{
+											task.project.sourceLanguage.name }}</code> <i
+										class="fa fa-arrow-right"></i> <code>{{ task.language.name }}</code>
+										<i class="fa fa-paperclip" ng-show="task.uploaded"></i> <!-- paperclip means freelancer uploaded the translated file -->
+									</td>
+
+									</td>
+									<td class="project-title"><span
+										ng-clock="showProfile(task.assignee)" ng-show="task.assignee"><strong>{{
+												task.assignee.name }}</strong> </span> <span
+										class="text-warning" ng-show="task.is_specialism_pool"><strong><?php echo $this->translate('Assigned to Specialism Pool') ?>
+										</strong> </span> <span class="text-warning"
+										ng-show="task.is_client_pool"><strong><?php echo $this->translate('Assigned to Client\'s Resource Pool') ?>
+										</strong> </span> <span
+										ng-show="!task.assignee && !task.is_specialism_pool && !task.is_client_pool"
+										class="text-danger"><strong><?php echo $this->translate("Un-Assigned") ?>
+										</strong> </span>
+										<span
+										ng-show="task.assignee"
+										><strong>Freelancer, {{task.assignee.firstName}} {{task.assignee.lastName}}
+										</strong> </span>
+										</strong> </span> <span
+										ng-show="task.is_specialism_pool"
+										class="text-warning"><strong><?php echo $this->translate("Assigned to Specialism Pool") ?>
+										</strong> </span>
+										<div class="tooltip-demo">
+											<code data-toggle="tooltip" tooltip-placement="top"
+												tooltip="{{task.type.tootip}}"
+												ng-bind-html="task.type.name_task" compile-template> </code>
+												 
+											| {{formatDate(task.startDate.date) | date:'yyyy.MMM.dd'}} -
+											{{ formatDate(task.dueDate.date) | date:'yyyy.MMM.dd' }}  
+										</div>
+									</td>
+									<td class="project-actions">
+										<div class="tooltip-demo">
+											<button ng-show="!task.is_specialism_pool" data-toggle="tooltip"
+												data-placement="top" title=""
+												tooltip="Send to Specialism Pool"
+												class="btn btn-success btn-xs"
+												ng-click="sendToSpecialismPool(task)">
+												<i class="fa fa-users"></i> S
+											</button>
+											<button ng-show="!task.is_client_pool" data-toggle="tooltip"
+												data-placement="top" title=""
+												tooltip="Send to Client's Resource Pool"
+												class="btn btn-info btn-xs"
+												ng-click="sendToClientPool(task)">
+												<i class="fa fa-users"></i> C
+											</button>
+											<button href="#" data-toggle="tooltip" data-placement="top"
+												title="" tooltip="View Task Details"
+												class="btn btn-white btn-xs" ng-click="viewtaskdetail(task)">
+												<i class="fa fa-folder"></i>
+											</button>
+											<button ng-hide="task.is_completed"
+												class="btn btn-white btn-xs" ng-click="remove(task)">
+												<i class="fa fa-trash-o"></i>
+											</button>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="btn-group text-right">
+						<button type="button" class="btn btn-white"
+							ng-class="pages.previous?'':'disabled'"
+							ng-click="onBtnPreviousClicked()">
+							<i class="fa fa-chevron-left"></i>
+						</button>
+						<button ng-repeat="page in pages.pagesInRange"
+							class="btn btn-white" ng-class="page==pages.current?'active':''"
+							ng-click="onBtnGoto(page-1)">{{page}}</button>
+						<button type="button" class="btn btn-white"
+							ng-class="pages.next?'':'disabled'" ng-click="onBtnNextClicked()">
+							<i class="fa fa-chevron-right"></i>
+						</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+ $(document).ready(function(){
+	 $('#taskNumber').html(TASKNUM);
+
+     $('#loading-example-btn').click(function () {
+         btn = $(this);
+         simpleLoad(btn, true)
+
+         // Ajax example
+//         $.ajax().always(function () {
+//             simpleLoad($(this), false)
+//         });
+
+         simpleLoad(btn, false)
+     });
+ });
+
+ function simpleLoad(btn, state) {
+     if (state) {
+         btn.children().addClass('fa-spin');
+         btn.contents().last().replaceWith(" Loading");
+     } else {
+         setTimeout(function () {
+             btn.children().removeClass('fa-spin');
+             btn.contents().last().replaceWith(" Refresh");
+         }, 2000);
+     }
+ }
+    $(document).ready(function(){
+        $('.dtbox').DateTimePicker();
+
+        // trigger datetime picker when click to calendar icon
+        // TODO: this is not working
+        $('i.fa.fa-calendar').on('click', function(e){
+            console.log('clicked');
+            e.preventDefault();
+
+            $(this).parents('.input-group').find('input[readonly]').click();
+        });
+    });
+</script>

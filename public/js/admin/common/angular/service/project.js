@@ -1060,8 +1060,8 @@ angularApp.factory("DateFormatter", function(){
     }
 
     function format($date){
-	console.log("check_date");
-		console.log($date);
+	//console.log("check_date");
+		//console.log($date);
 		
 		if(!$date)
 			return "";

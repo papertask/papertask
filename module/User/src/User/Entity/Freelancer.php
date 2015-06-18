@@ -171,4 +171,6 @@ class Freelancer extends Entity{
     public function getRating(){
     	return Func::getReferenceIds($this->Rating);
     }
+    
+    
 } 

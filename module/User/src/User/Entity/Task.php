@@ -115,6 +115,7 @@ class Task extends Entity{
 			'dueDate' => $this->dueDate,
 			'startDate' => $this->startDate,
 			'total' => $this->total,
+			'assignee' => ($this->assignee)?$this->assignee->getData():null,
         ];
     }
     

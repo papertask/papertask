@@ -1216,6 +1216,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
 			.success( function ( $data ) {
 				$scope.task = $data.task;
+				$scope.task.status = TaskStatus.get($scope.task.status);
 				bootbox.alert(ASSIGN_SUCCESSFUL);
 			});	
 		}

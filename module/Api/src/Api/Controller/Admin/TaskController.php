@@ -2,11 +2,16 @@
 namespace Api\Controller\Admin;
 
 use Zend\View\Model\JsonModel;
+use Zend\Paginator\Paginator;
+
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 
 use Api\Controller\AbstractRestfulJsonController;
 use User\Entity\Task;
 use User\Entity\Activity;
 use User\Entity\Language;
+use User\Entity\User;
 
 class TaskController extends AbstractRestfulJsonController
 {
@@ -61,7 +66,6 @@ class TaskController extends AbstractRestfulJsonController
     }
 	
 	public function get($id){
-		
 		$entityManager = $this->getEntityManager();
         $task = $this->find('User\Entity\Task', $id);
 		return new JsonModel([
@@ -72,6 +76,18 @@ class TaskController extends AbstractRestfulJsonController
 	
     public function getList(){
         $projectId = $this->params()->fromQuery('project_id');
+        
+        $params = $this->getRequest()->getQuery();
+        
+        foreach($params as $key => $value){
+        	if (strpos( $value,'{') !== false) {
+        		$params->$key = json_decode($value);
+        	}
+        }
+        
+        //var_dump($params); exit;
+        
+        if($projectId){
         $tasks = $this->getAllDataBy('\User\Entity\Task', [
             'is_deleted' => false,
             'project' => $projectId
@@ -79,6 +95,102 @@ class TaskController extends AbstractRestfulJsonController
         return new JsonModel([
             'tasks' => $tasks,
         ]);
+        } else {
+
+        	$entityManager = $this->getEntityManager();
+        	$projectList = $entityManager->getRepository('User\Entity\task');
+        	//->findBy(array('group' => $freelancerGroup));
+        	$queryBuilder = $projectList->createQueryBuilder('task');
+        	$queryBuilder->andWhere('task.is_deleted = 0');
+        	
+        	if($params->search == 1){
+        		// Unpaid Task
+        		if($params->payStatus !=null && $params->payStatus != ''){
+        			$queryBuilder->andWhere('task.payStatus = :paystatus');
+        			$queryBuilder->setParameter('paystatus', $params->payStatus->id);
+        			 
+        		}
+        		//get task base on status
+        		if($params->status !=null && $params->statustask != ''){
+        			$queryBuilder->andWhere('task.status = :status');
+        			$queryBuilder->setParameter('status', $params->status);
+        		}
+        		
+        		if($params->task_id !=null && $params->task_id != ''){
+        			$queryBuilder->andWhere('task.id = :task_id');
+        			$queryBuilder->setParameter('task_id', $params->task_id);
+        			//$queryBuilder_tmp->distinct();
+        		}
+        		
+        		if($params->startDate !=null && $params->startDate != ''){
+        			$time=strtotime($params->startDate);
+        			$time = date("Y-m-d", $time);
+        			$begin = $time." 00:00:00";
+        			$end = $time." 23:59:59";
+        			$queryBuilder->andWhere('task.startDate BETWEEN ?6 AND ?7')
+        			->setParameter(6, $begin)
+        			->setParameter(7, $end);
+        		}
+        		 
+        		if($params->dueDate !=null && $params->dueDate != ''){
+        			$time=strtotime($params->dueDate);
+        			$time = date("Y-m-d", $time);
+        			$begin = $time." 00:00:00";
+        			$end = $time." 23:59:59";
+        			$queryBuilder->andWhere('task.dueDate BETWEEN ?8 AND ?9')
+        			->setParameter(8, $begin)
+        			->setParameter(9, $end);
+        		}
+        		
+        		
+        		if(($params->reference !=null && $params->reference != '')) {
+        			$entityManagerP = $this->getEntityManager();
+        			$ProjectList = $entityManagerP->getRepository('User\Entity\Project');
+        			$queryBuilderProject = $ProjectList->createQueryBuilder('project');
+        			$queryBuilderProject->where("project.reference LIKE :reference")->setParameter('reference', '%'.$params->reference.'%');
+        			$queryProject = $queryBuilderProject->getQuery();
+        			$resultProject = $queryProject->getArrayResult();
+        			$statement = "";
+        			foreach($resultProject as $project){
+        				//echo $project['id'];
+        				$statement = $statement."task.project = ".$project['id']." OR ";
+        			}
+        			$statement = substr($statement, 0, -3);
+        			$queryBuilder->andWhere($statement);
+        			//var_dump($statement); exit;
+        		}
+        	}
+        	
+        	$adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
+        	$paginator = new Paginator($adapter);
+        		
+        	
+        	$paginator->setDefaultItemCountPerPage(10);
+        	
+        	$page = (int)$this->getRequest()->getQuery('page');
+        	if($page) $paginator->setCurrentPageNumber($page);
+        	$data = array();
+        	//$helper = new Helper();
+        	foreach($paginator as $task){
+        		$userData = $task->getData();
+        		// Get Employer
+        		$freelancerId = $userData['assignee']['id'];
+        		$user = $entityManager->getRepository('User\Entity\User')->findOneBy(array('freelancer'=>$freelancerId));
+        		$userData['assignee'] = $user->getData();
+        		
+        		$project = $this->find('User\Entity\Project',$userData['project']);
+        		$userData['project'] = $project->getData();
+        		// Get Project
+        		//var_dump($user); exit;
+        		$data[] = $userData;
+        	}
+        	//var_dump($paginator);die;
+        	return new JsonModel(array(
+        			'tasks' => $data,
+        			'pages' => $paginator->getPages()
+        	));
+        }
+        
     }
 
     public function delete($id){
@@ -110,6 +222,7 @@ class TaskController extends AbstractRestfulJsonController
 		{
 			$freelancer = $this->find('\User\Entity\Freelancer', $data['freelancerid']);
 			$task->setData([
+					'status' => 6,
 				'assignee' => $freelancer,
 				'total' => $data['total'],
 			]);
