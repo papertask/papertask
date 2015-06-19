@@ -43,7 +43,8 @@ $this->inlineScript()
 					<div class="row">
                         <div class="col-lg-6">
                             <div class="widget style1 navy-bg">
-                                <a href="" style="color: #fff;">
+                                <a href="<?php echo $this->url('admin', array('controller' => 'project',
+                    'action' => 'order-translation',"lang"=>$this->translate('lang','Application'))) ?>" style="color: #fff;">
                                 <div class="row">
                                     <div class="col-xs-4">
                                         <i class="fa fa-archive fa-5x"></i>
@@ -58,7 +59,8 @@ $this->inlineScript()
                         </div>
                         <div class="col-lg-6">
                             <div class="widget style1 lazur-bg">
-                                <a href="" style="color: #fff;">
+                                <a href="<?php echo $this->url('admin', array('controller' => 'project',
+                    'action' => 'client-quotes',"lang"=>$this->translate('lang','Application'))) ?>" style="color: #fff;">
                                 <div class="row">
                                     <div class="col-xs-4">
                                         <i class="fa fa-files-o fa-5x"></i>
@@ -97,7 +99,9 @@ $this->inlineScript()
 										<br/>
 										<div class="tooltip-demo">
 											<span ng-repeat="type in project.types">
-												<code {{ TypeList.getTypeAttrs(type) }}>{{ type.name_short }}</code>
+												<code data-original-title="{{ ProjectType.get(type).name }}"
+												 title="" data-placement="top" data-toggle="tooltip">{{ ProjectType.get(type).name_short }}</code>
+												<!-- <code {{ ProjectType.get(type) }}>{{ type.name_short }}</code> -->
 											</span>
 										</div>
 									</td>
@@ -112,9 +116,9 @@ $this->inlineScript()
 										{{ project.client.company.name }}
 									</td>
 									<td class="project-actions">
-										<a href="#" class="btn btn-white btn-sm"
-										   ng-click="goToDetail(project)"><i class="fa fa-folder"></i> View </a>
-										<a href="#" class="btn btn-primary btn-sm"
+										<a href="" class="btn btn-white btn-sm"
+										   ng-click="goToQuote(project)"><i class="fa fa-folder"></i> View </a>
+										<a href="" class="btn btn-primary btn-sm"
 										   ng-click="quoteAccepted(project)"><i class="fa fa-check-square-o"></i> Accept  </a>
 									</td>
 								</tr>

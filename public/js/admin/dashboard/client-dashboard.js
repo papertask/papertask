@@ -3,7 +3,7 @@
  */
 
 angularApp.controller('DashboardProjectController', function($scope, ProjectServiceLevel,
-                                                         ProjectStatus, DateFormatter, CurrentUser, PayStatus,
+                                                         ProjectStatus, ProjectType, DateFormatter, CurrentUser, PayStatus,
                                                          ProjectField, $http){
 
     $scope.CurrentUser = CurrentUser;
@@ -12,6 +12,7 @@ angularApp.controller('DashboardProjectController', function($scope, ProjectServ
     $scope.ProjectStatus = ProjectStatus;
     $scope.PayStatus = PayStatus;
     $scope.ProjectField = ProjectField;
+    $scope.ProjectType = ProjectType;
 
     /** This is for listing item controller **/
 	 
