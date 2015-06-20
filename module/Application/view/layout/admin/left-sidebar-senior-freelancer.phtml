@@ -12,8 +12,7 @@
                     'action' => 'profile',"lang"=>$this->translate('lang','Application'))) ?>">Profile</a></li>
                         <li><a href="<?php echo $this->url('admin', array('controller' => 'resetpassword',
                     'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>">Reset Password</a></li>
-                        <li><a href="<?php echo $this->url('admin', array('controller' => 'email',
-                    'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>">Mailbox</a></li>
+                        
                         <li class="divider"></li>
                         <li><a href="<?php echo $this->url('user', array('controller' => 'logout',
                     'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>/logout">Logout</a></li>
@@ -52,9 +51,7 @@
             </li>
 
 
-            <li> <!-- only admin can see the mail system -->
-                <a href="#"><i class="fa fa-envelope"></i> <span class="nav-lable">Mail</span></a>
-            </li>
+         
 
             <li>
                 <a href="<?php echo $this->url('admin', array('controller' => 'papertask', 'action' => 'profile',"lang"=>$this->translate('lang','Application'))) ?>">

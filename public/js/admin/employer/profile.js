@@ -96,8 +96,11 @@ angularApp.controller('PapertaskEmployerProfileController', function($scope, $ht
 		}                     
         
 		$http.put("/api/user/"+USER_ID, pParam).success(function(){
+			$http.put("/api/user/" + EMPLOYER_ID + "/employer?user_id="+USER_ID, pParam).success(function(){
+				location.reload();
 			
 		});
-		$http.put("/api/user/" + EMPLOYER_ID + "/employer?user_id="+USER_ID, pParam).success(function(){});
+		});
+		
 	}
 });

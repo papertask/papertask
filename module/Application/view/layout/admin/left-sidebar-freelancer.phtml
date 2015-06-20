@@ -59,9 +59,12 @@ $user = $child->user;
             </li>
 
 
-            <li> <!-- only admin can see the mail system -->
+			<!-- only admin can see the mail system -->
+			<!-- 
+            <li> 
                 <a href="#"><i class="fa fa-envelope"></i> <span class="nav-lable">Mail</span></a>
             </li>
+			 -->
 
             <li>
                 <a href="<?php echo $this->url('admin', array('controller' => 'papertask', 'action' => 'profile',"lang"=>$this->translate('lang','Application'))) ?>">
