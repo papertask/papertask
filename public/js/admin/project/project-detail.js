@@ -311,7 +311,7 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 		console.info('after removing',$scope.project);
 		
 		
-		var updateInvoiceDate = $http.put("/api/admin/project/" + $scope.project.id + "?action=2", $scope.project)
+		var updateInvoiceDate = $http.put("/api/admin/project/" + $scope.project.id + "?action=2&lang_code=" + LANG_CODE, $scope.project)
 		.success( function ( $data ) {
 			//show tap
 			location.reload();

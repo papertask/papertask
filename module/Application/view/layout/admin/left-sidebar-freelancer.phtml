@@ -11,8 +11,8 @@ $user = $child->user;
 
                 <div class="dropdown profile-element">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $user['firstName'] . ' ' . $user['lastName'];?></strong>
-                             </span> <span class="text-muted text-xs block"><?php echo $this->userData()['role']; ?> <b class="caret"></b></span> </span> </a>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $this->userData()['name'] ?></strong>
+                             </span> <span class="text-muted text-xs block"><?php echo $this->userData()['role_name'] ?> <b class="caret"></b></span> </span> </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
 						<li><a href="<?php echo $this->url('admin', array('controller' => 'freelancer',
                         'action' => 'detail',"lang"=>$this->translate('lang','Application'))) ?>">Profile</a></li>

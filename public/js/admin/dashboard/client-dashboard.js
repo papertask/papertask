@@ -63,7 +63,7 @@ angularApp.controller('DashboardProjectController', function($scope, ProjectServ
 	
 	$scope.quoteAccepted= function ($project) {
 		console.log($project);
-		var updateInvoiceDate = $http.put("/api/admin/project/" + $project.id + "?action=2", $project)
+		var updateInvoiceDate = $http.put("/api/admin/project/" + $project.id + "?action=2&lang_code=" + LANG_CODE, $project)
 		.success( function ( $data ) {
 			//show tap
 			location.reload();

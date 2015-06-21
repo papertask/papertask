@@ -551,6 +551,7 @@ class ProjectController extends AbstractRestfulJsonController
     }
 
     public function update($id, $data){
+    	$lang_code = $this->params()->fromQuery('lang_code');
 		$action = $this->params()->fromQuery('action');
 		$project = $this->find('\User\Entity\Project', $id);
 		if($action==1)
@@ -576,6 +577,8 @@ class ProjectController extends AbstractRestfulJsonController
                 'sender' => $this->getReference('\User\Entity\User', $data['userid'])
             ]);
             $activity->save($this->getEntityManager());
+            //$activity->sendNewActivityMail($this,$lang_code);
+            $activity->sendNewActivityMail($this,$lang_code);
 		}
 		if($action==3){
 			 $arr = [];

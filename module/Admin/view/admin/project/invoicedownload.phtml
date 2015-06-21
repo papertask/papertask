@@ -56,27 +56,27 @@
 			<table class="table table-bordered invoice-table" style="border: 1px solid #ddd;width: 100%;max-width: 100%;margin-bottom: 20px;border-spacing: 0px;">
 				<thead>
 				<tr style="border-left: 1px solid #e7e7e7;">
-					<th width="50%" style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['sourceLanguage']['name']; ?> to <?php echo $targetLanguage['name'] ?> - task</th>
-					<th width="10%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Unit</th>
+					<th width="40%" style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['sourceLanguage']['name']; ?> to <?php echo $targetLanguage['name'] ?> - task</th>
+					<th width="13%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Unit</th>
 					<th width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Unit Price</th>
-					<th width="10%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Quantity</th>
-					<th width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Total Price</th>
+					<th width="12%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Quantity</th>
+					<th width="20%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Total Price</th>
 				</tr>
 				</thead>
 				<tbody>
 				<!-- this is only for translation use TM -->
 				<?php if($iterm_translationtms[$targetLanguage['id']]) { ?>
 				<tr style="border-left: 1px solid #e7e7e7;">
-					<td style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><a data-toggle="collapse" href="#use_tm1"><i class="fa fa-eye"></i> <strong><?php echo $iterm_translationtms[$targetLanguage['id']]['name'];?></strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
-					<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Source Word</td>
-					<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_translationtms[$targetLanguage['id']]['rate'];?></td>
-					<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo 	$iterm_translationtms[$targetLanguage['id']]['sourcerepetitions'] + 
+					<td width="40%" style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><a data-toggle="collapse" href="#use_tm1"><i class="fa fa-eye"></i> <strong><?php echo $iterm_translationtms[$targetLanguage['id']]['name'];?></strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
+					<td width="13%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Source Word</td>
+					<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_translationtms[$targetLanguage['id']]['rate'];?></td>
+					<td width="12%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo 	$iterm_translationtms[$targetLanguage['id']]['sourcerepetitions'] + 
 									$iterm_translationtms[$targetLanguage['id']]['sourceyibai'] +
 									$iterm_translationtms[$targetLanguage['id']]['sourcejiuwu'] +
 									$iterm_translationtms[$targetLanguage['id']]['sourcebawu'] +
 									$iterm_translationtms[$targetLanguage['id']]['sourceqiwu'] +
 									$iterm_translationtms[$targetLanguage['id']]['sourcewushi'];?></td>
-					<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_translationtms[$targetLanguage['id']]['total'];?></td>
+					<td width="20%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_translationtms[$targetLanguage['id']]['total'];?></td>
 				</tr>
 				<tr style="border-left: 1px solid #e7e7e7;"> <!-- this is only for translation use TM -->
 					<td colspan="5" style="border: 1px solid #e7e7e7;">

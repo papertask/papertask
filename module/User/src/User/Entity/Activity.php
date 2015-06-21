@@ -59,11 +59,13 @@ class Activity extends Entity{
     /**
      * @param \Application\Controller\AbstractActionController $controller
      */
-    public function sendNewActivityMail($controller){
+    public function sendNewActivityMail($controller,$lang_code = ''){
         // initial data for email template
-        $lang_code = $controller->params()->fromRoute('lang');
+        //$lang_code = $controller->params()->fromRoute('lang');
 
-        $projectLink = $controller->getBaseUrl(). $lang_code . '/admin/project/detail?id=' . $this->project->getId();
+        $projectLink = $controller->getBaseUrl().'/'. $lang_code . '/admin/project/detail?id=' . $this->project->getId();
+		
+        var_dump($projectLink); exit;
 
         $data = array(
             'project' => $this->project->getData(),
