@@ -357,16 +357,20 @@ class ProjectController extends AbstractRestfulJsonController
 		}	
 		}
 		
-        $activity = new Activity();
-        $activity->setData([
+		$ActiDataArr = [
             'activityDate' => new \DateTime('NOW'),
             'project' => $project,
             'type' => "create_quote",
-            'sender' => $data['pm'],
-            // message should be equal to project description
-            // project description isn't showed now
-            'message' => $data['description'],
-        ]);
+		];
+		
+		if( array_key_exists('pm', $data))
+			$ActiDataArr['sender'] = $data['pm'];
+		if( array_key_exists('description', $data))
+			$ActiDataArr['message'] = $data['description'];
+		
+		
+        $activity = new Activity();
+        $activity->setData($ActiDataArr);
         //$activity->save($this->getEntityManager());
 		//var_dump($project); exit;
         return new JsonModel([

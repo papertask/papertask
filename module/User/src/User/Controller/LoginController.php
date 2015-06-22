@@ -8,6 +8,8 @@
 
 namespace User\Controller;
 
+use Hybridauth\Adapter\Template\OAuth1\Endpoints;
+
 use Zend\View\Model\ViewModel;
 
 use Application\Controller\AbstractActionController;
@@ -53,66 +55,39 @@ class LoginController extends AbstractActionController
         $config = $this->getServiceLocator()->get('Config');
         //var_dump($config);exit;
         $config = array(
-							//"base_url" => "http://papertask.local/vendor/hybridauth/hybridauth/src",
+							"base_url" => "http://104.237.159.59/en-US/user/login/social",
 					
 							"providers" => array (
 										// openid providers
-										"OpenID" => array (
-											"enabled" => true
-										),
-							
-										"Yahoo" => array (
+									"Google" => array (
 											"enabled" => true,
-											"keys"    => array ( "key" => "", "secret" => "" ),
+											"keys"    => array ( "id" => "131581937601-sj40188ms1s9kuv20ff7j54kcunbclkg.apps.googleusercontent.com", "secret" => "54sj6EaYfwxQ0d8lwHsoEuQl" ),
 										),
 							
-										"AOL"  => array (
-											"enabled" => true
-										),
 							
-										"Google" => array (
-											"enabled" => true,
-											"keys"    => array ( "id" => "", "secret" => "" ),
-										),
 							
 										"Facebook" => array (
 											"enabled" => true,
-											"keys"    => array ( "id" => "", "secret" => "" ),
-											"trustForwarded" => false
+											"keys"    => array ( "id" => "869805579739468", "secret" => "57865f2e5be88ba15ee4e581d91367af" ),
+											"scope" => "email, user_about_me, user_birthday, user_hometown",
+											"trustForwarded" => false,
+							
 										),
 							
-										"Twitter" => array (
-											"enabled" => true,
-											"keys"    => array ( "key" => "", "secret" => "" )
-										),
 							
-										// windows live
-										"Live" => array (
-											"enabled" => true,
-											"keys"    => array ( "id" => "", "secret" => "" )
-										),
-							
-										"LinkedIn" => array (
-											"enabled" => true,
-											"keys"    => array ( "key" => "", "secret" => "" )
-										),
-							
-										"Foursquare" => array (
-											"enabled" => true,
-											"keys"    => array ( "id" => "", "secret" => "" )
-										),
 									),
 							
 									// If you want to enable logging, set 'debug_mode' to true.
 									// You can also set it to
 									// - "error" To log only error messages. Useful in production
 									// - "info" To log info and error messages (ignore debug messages)
-									"debug_mode" => false,
+									"debug_mode" => true,
 							
 									// Path to file writable by the web server. Required if 'debug_mode' is not false
 									"debug_file" => "",
 								);
-        //var_dump($config);exit; 
+        //var_dump($_REQUEST);exit; 
+        
         if($provider = $this->getRequest()->getQuery('provider')){
             try{
                 // create an instance for Hybridauth with the configuration file path as parameter
@@ -123,7 +98,7 @@ class LoginController extends AbstractActionController
                 // user will be redirected to Twitter for authentication,
                 // if he already did, then Hybridauth will ignore this step and return an instance of the adapter
                 $auth = $hybridauth->authenticate($provider);
-				var_dump($auth); exit;
+				//var_dump($auth); exit;
                 // get the user profile
                 $profile = $auth->getUserProfile();
 
@@ -151,9 +126,16 @@ class LoginController extends AbstractActionController
                 $this->flashMessenger()->addErrorMessage($translator->translate('Cannot login by social account.'));
             }
         }
+        /*
+        var_dump($_REQUEST);exit;
+        $endpoint =  new Endpoints();
+        $endpoint->process();
+        */
         if (isset($_REQUEST['hauth_start']) || isset($_REQUEST['hauth_done']))
         {
-            (new Endpoint())->process();
+	        	//echo 'helo';exit;
+	        	$endpoint =  new Endpoint();
+	            $endpoint->process();
 
         }
         return new ViewModel();
