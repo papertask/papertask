@@ -486,7 +486,7 @@ class ProjectController extends AbstractActionController
 		$pdf->writeHTML($content, true, false, true, false, '');
 		$pdf->lastPage();
 		$pdf->Output("pdf-name.pdf", 'D');
-		//exit;
+		exit;
     }
 	public function invoiceprintAction(){
 		//error_reporting(E_ALL);
