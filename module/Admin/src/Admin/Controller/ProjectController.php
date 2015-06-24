@@ -293,8 +293,8 @@ class ProjectController extends AbstractActionController
         return $viewModel;
     }
 	public function quotedownloadAction(){
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
 		$renderer = new PhpRenderer();
 		//whole TCPDF's settings goes here
 		$id = $this->params()->fromQuery('id');
@@ -453,7 +453,7 @@ class ProjectController extends AbstractActionController
 				'startDate' => $startDate
 				))
 				->setTerminal(true);
-		return $viewModel;
+		//return $viewModel;
 		$content = $view->render($viewModel);
 		// set array for viewer preferences
 		$pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -703,7 +703,7 @@ class ProjectController extends AbstractActionController
 		$pdf->writeHTML($content, true, false, true, false, '');
 		$pdf->lastPage();
 		$pdf->Output("pdf-name.pdf", 'D');
-		//exit;
+		exit;
     }
     
 	
