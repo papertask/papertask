@@ -201,11 +201,18 @@ class FreelancerController extends AbstractRestfulController
                     ->setParameter(1, $rate);
             }
 			//search specialism
-			if($specialism = $this->params()->fromQuery('specialism')){
+			/*if($specialism = $this->params()->fromQuery('specialism')){
                 $queryBuilder->innerJoin("f.InterpretingSpecialisms i")
 							->andWhere("i.id = ?1")
 							->innerJoin("f.TranslationSpecialisms t")
 							->orWhere("t.id = ?1")
+							->setParameter(1, $specialism);
+            }*/
+			
+			if($specialism = $this->params()->fromQuery('specialism')){
+                $queryBuilder->innerJoin("f.InterpretingSpecialisms i")
+							->innerJoin("f.TranslationSpecialisms t")
+							->andWhere("i.id = ?1 or t.id = ?1")
 							->setParameter(1, $specialism);
             }
 			
