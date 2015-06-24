@@ -653,7 +653,7 @@ class ProjectController extends AbstractActionController
 				'lang_code' => $lang_code,
 				'project' => $project->getData(),
 				'companyinfo' => $companyinfo->getData(),
-				'bankinfo' => $bankinfo->getData(),
+				'bankinfo' => $bankinfo?$bankinfo->getData():null,
 				'hasTypeTranslationNoTM' => $hasTypeTranslationNoTM,
 				'hasTypeTranslationUseTM' => $hasTypeTranslationUseTM,
 				'hasTypeDesktopPublishingWin' => $hasTypeDesktopPublishingWin,
