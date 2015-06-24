@@ -212,13 +212,23 @@ class FreelancerController extends AbstractRestfulController
 			if($specialism = $this->params()->fromQuery('specialism')){
                 $queryBuilder->innerJoin("f.InterpretingSpecialisms i")
 							->innerJoin("f.TranslationSpecialisms t")
-							->andWhere("i.id = ?1 or t.id = ?1")
+							->andWhere(
+								$queryBuilder->expr()->orX(
+										$queryBuilder->expr()->eq('i.id', '?1'),
+										$queryBuilder->expr()->eq('t.id ', '?1')
+									)
+							)
 							->setParameter(1, $specialism);
             }
 			
         }
 		
         $queryBuilder->orderBy('user.createdTime', 'ASC');
+		//$vvd = $queryBuilder->getSql();
+		
+		//var_dump($vvd);exit;
+		
+		
         $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
         $paginator->setDefaultItemCountPerPage(10);
