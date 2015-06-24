@@ -210,8 +210,8 @@ class FreelancerController extends AbstractRestfulController
             }*/
 			
 			if($specialism = $this->params()->fromQuery('specialism')){
-                $queryBuilder->innerJoin("f.InterpretingSpecialisms i")
-							->innerJoin("f.TranslationSpecialisms t")
+                $queryBuilder->leftJoin("f.InterpretingSpecialisms i")
+							->leftJoin("f.TranslationSpecialisms t")
 							->andWhere(
 								$queryBuilder->expr()->orX(
 										$queryBuilder->expr()->eq('i.id', '?1'),
