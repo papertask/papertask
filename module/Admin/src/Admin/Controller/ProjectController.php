@@ -453,7 +453,7 @@ class ProjectController extends AbstractActionController
 				'startDate' => $startDate
 				))
 				->setTerminal(true);
-		//return $viewModel;
+		return $viewModel;
 		$content = $view->render($viewModel);
 		// set array for viewer preferences
 		$pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
