@@ -500,8 +500,8 @@ class ProjectController extends AbstractActionController
     }
 	
 	public function invoicedownloadAction(){
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
 		$renderer = new PhpRenderer();
 		//whole TCPDF's settings goes here
 		$id = $this->params()->fromQuery('id');
