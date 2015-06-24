@@ -9,7 +9,7 @@
                              </span> <span class="text-muted text-xs block"><?php echo $this->userData()['role_name'] ?> <b class="caret"></b></span> </span> </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="<?php echo $this->url('admin', array('controller' => 'freelancer',
-                    'action' => 'profile',"lang"=>$this->translate('lang','Application'))) ?>">Profile</a></li>
+                    'action' => 'detail',"lang"=>$this->translate('lang','Application'))) ?>">Profile</a></li>
                         <li><a href="<?php echo $this->url('admin', array('controller' => 'resetpassword',
                     'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>">Reset Password</a></li>
                         

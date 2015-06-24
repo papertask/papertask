@@ -391,14 +391,32 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
         setModalControllerData('softwares', $scope.softwares);
         setModalControllerData('engineeringCategories', $scope.engineeringCategories);       
     }
+    
+    $scope.deleteFileArr = [];
+
+    
+    
+    $scope.deleteCVFiles = function(FileArr){
+    	console.info('FileArr',FileArr);
+    	for(var i=0; i<FileArr.length; i++){
+    		$http.get("/" + LANG_CODE +"/admin/staff/deleteFile?fid=" + FileArr[i]);
+    	}
+    }
+    
     function init(){
 		// submit
 		$scope.editProfile = function(){
             
+            
 			$('form[name=editProfileForm]').validate();
             var validate = $('form[name=editProfileForm]').valid();
             if(validate == true){
+            	
+            	$scope.deleteCVFiles($scope.deleteFileArr);
+            	//return false;
+            	
  			if ( $scope.userInfo.tmRatios && $scope.userInfo.tmRatios.id ) {
+ 				//alert('hihi'); return false;
 				var requesttm =  $http.put("/api/user/" + $scope.userInfo.tmRatios.id + "/tmratio", {
 					userId: USER_ID,
 					repetitions: $scope.userInfo.tmRatios.repetitions,
@@ -834,6 +852,8 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
         //console.info($scope.cvfiles);
     };
     
+    
+    
     $scope.deleteFile = function ( cid ) 
     {
         bootbox.confirm('Are you sure!', function ( bFlag ) {
@@ -848,7 +868,8 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
                             break;
                         }
                     }
-                    $http.get("/" + LANG_CODE +"/admin/staff/deleteFile?fid=" + cid);
+                    $scope.deleteFileArr.push(cid);
+                    // $http.get("/" + LANG_CODE +"/admin/staff/deleteFile?fid=" + cid);
                     // $http.delete("/api/user/" + cid + "/cv-files");
                 }, 100);                    
             }

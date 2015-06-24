@@ -52,10 +52,12 @@ class LoginController extends AbstractActionController
     }
 
     public function socialAction(){
+    	$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REDIRECT_URL'];
+  
         $config = $this->getServiceLocator()->get('Config');
         //var_dump($config);exit;
         $config = array(
-							"base_url" => "http://104.237.159.59/en-US/user/login/social",
+							"base_url" => $url,
 					
 							"providers" => array (
 										// openid providers
