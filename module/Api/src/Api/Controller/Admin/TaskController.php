@@ -98,7 +98,7 @@ class TaskController extends AbstractRestfulJsonController
         } else {
 
         	$entityManager = $this->getEntityManager();
-        	$projectList = $entityManager->getRepository('User\Entity\task');
+        	$projectList = $entityManager->getRepository('User\Entity\Task');
         	//->findBy(array('group' => $freelancerGroup));
         	$queryBuilder = $projectList->createQueryBuilder('task');
         	$queryBuilder->andWhere('task.is_deleted = 0');
