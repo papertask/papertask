@@ -28,6 +28,12 @@ angularApp.run(function($rootScope){
     //});
 });
 
+angularApp.filter("parsehtml", ['$sce', function($sce) {
+	  return function(htmlCode){
+	    return $sce.trustAsHtml(htmlCode);
+	  }
+	}]);
+
 angularApp.filter('DateFormatter', function($filter)
 {
  return function(input)
@@ -611,7 +617,7 @@ angularApp.controller("ProjectTasksController", function($scope, $http, TaskStat
     });
 });
 
-angularApp.controller("ProjectActivitiesController", function($scope, ActivityApi){
+angularApp.controller("ProjectActivitiesController", function($scope, ActivityApi, $sce){
     var templateActivity = {
         type: "message"
     };
@@ -620,6 +626,15 @@ angularApp.controller("ProjectActivitiesController", function($scope, ActivityAp
     $scope.setItemApi(ActivityApi);
 
     $scope.sendMessage = function(){
+    	//console.info('newActivity',$scope.newActivity);
+    	var str = $scope.newActivity.message;
+    	var endstr = str.substring(str.length - 4);
+    	//console.info('endstr',endstr);
+    	if(endstr == '<br>')
+    		str = str.substring(0,str.length - 4);	
+    	$scope.newActivity.message = str;
+    	//console.info('str',str);
+    	//return false;
         var newActivity = $scope.newActivity;
         newActivity.project_id = $scope.project.id;
 

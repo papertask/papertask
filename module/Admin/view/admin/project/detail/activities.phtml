@@ -6,8 +6,8 @@
                     <small class="pull-right">{{ formatDate(activity.activityDate.date) | date:'dd MMMM yyyy - h:mm a' }}</small>
                     <strong ng-class="{'text-navy': activity.sender.group.isFreelancer}">{{activity.sender.firstName}} {{activity.sender.lastName}}</strong> {{activity.type}}
                     <br>
-                    <div class="well" ng-show="activity.message">
-                        {{activity.message}}
+                    <div class="well" ng-show="activity.message" data-ng-bind-html="activity.message | parsehtml">
+                        
                     </div>
                 </div>
             </div>
