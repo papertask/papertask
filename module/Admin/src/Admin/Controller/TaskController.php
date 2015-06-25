@@ -211,13 +211,41 @@ class TaskController extends AbstractActionController
     }
     
     public function FreelancerAcceptTaskAction(){
-    	$taskId = (int)$this->getRequest()->getQuery('id');
-    	$currentTask = $this->find('User\Entity\Task',$taskId);
-    	$currentTask->setStatus(2);
-    	$entityManager = $this->getEntityManager();
-    	$entityManager->persist($currentTask);
-    	$entityManager->flush();
-    	exit;
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		$currentUserId = User::currentLoginId();
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);
+    	$freelancer = $currentUser->getFreelancer();
+    	$freelancer_id = $freelancer->getId();
+		//get task accept
+		$entityManager = $this->getEntityManager();
+		$freelancerList = $entityManager->getRepository('User\Entity\Task');
+    	$queryBuilder = $freelancerList->createQueryBuilder('task');
+    	$queryBuilder->where("task.status=?1")->setParameter(1, '2'); // 2 = accept
+    	$queryBuilder->where("task.assignee=?1")->setParameter(1, $freelancer_id);
+    	$queryBuilder->andWhere('task.is_deleted = 0');
+		$query = $queryBuilder->getQuery();
+		$result = $query->getArrayResult();
+		if(count($result) > 1){
+			return new JsonModel(array(
+    			'status' => "fail",
+			));
+		}
+			
+    	else{
+			$taskId = (int)$this->getRequest()->getQuery('id');
+			$currentTask = $this->find('User\Entity\Task',$taskId);
+			$currentTask->setStatus(2);
+			
+			$entityManager->persist($currentTask);
+			$entityManager->flush();
+			return new JsonModel(array(
+    			'status' => "ok",
+			));
+		}
+		return new JsonModel(array(
+    			'status' => "fail",
+			));
     }
     
     public function FreelancerAcceptPoolingTaskAction(){

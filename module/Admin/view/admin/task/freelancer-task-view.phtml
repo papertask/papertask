@@ -28,14 +28,15 @@ $this->headScript ()
     //->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
     //->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
     //->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
-    //->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
     ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
-    ->prependFile($this->basePath() . '/js/inspinia.js');
+	->prependFile($this->basePath() . '/js/inspinia.js');
 
 $this->inlineScript()
     ->prependScript("
 		var LANG_CODE = '" . $this->lang_code . "';
         var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+        var ACCEPT_TASK_FAIL = '" . $this->translate('You have other going task so you can not accept this task') . "';
     	var TASKNUM = '" . $this->taskNum . "';
     ");
 ?>
@@ -156,8 +157,7 @@ $this->inlineScript()
 											| Due: {{formatDate(task.dueDate.date) | date:'yyyy.MMM.dd'}}
 										</div>
 									</td>
-									<td class="project-title">Client's alias <br /> <small>Client's
-											Companykjffja...</small>
+									<td class="project-title">{{task.client.name}} <br /> <small>{{task.client.company.name}}</small>
 									</td>
 									<td class="project-actions"><a href=""
 										ng-if="task.status.id == 6" ng-click="Accept(task.id)"

@@ -31,8 +31,10 @@ angularApp.controller('FreelancerTaskView', function($scope, $http, $timeout, $q
             //params: $params
         }).success(function($data){
         	$scope.tasks_tmp = $data.tasks;
+			console.log($data.tasks);
  			$scope.tasks = [];
  			angular.forEach($scope.tasks_tmp, function(element) {
+				
  				  //$scope.tasks.push(element);
  				var task =  [];
  				task["status"] = TaskStatus.get(element.status);
@@ -42,7 +44,10 @@ angularApp.controller('FreelancerTaskView', function($scope, $http, $timeout, $q
  				task["type"] = ProjectType.get(element.type);
  				task["dueDate"] = element.dueDate;
 				task["startDate"] = element.startDate;
- 				//alert(task);
+ 				
+				task["client"] = element.project.client;
+				
+				//alert(task);
  				
  				$scope.tasks.push(task);
  			});
@@ -60,12 +65,18 @@ angularApp.controller('FreelancerTaskView', function($scope, $http, $timeout, $q
 		$http.get("/" + LANG_CODE + "/admin/task/FreelancerAcceptTask?id="+ task_id, {
            // params: $params
         }).success(function($data){
-        	angular.forEach($scope.tasks, function(element,key) {
-				 if(element.id==task_id){
-					 $scope.tasks[key]["status"] = TaskStatus.get(2);
-				 } 
+			console.log($data);
+			if($data.status=="fail"){
+				bootbox.alert( ACCEPT_TASK_FAIL);
+			}	
+			else {
+				angular.forEach($scope.tasks, function(element,key) {
+					 if(element.id==task_id){
+						 $scope.tasks[key]["status"] = TaskStatus.get(2);
+					 } 
 
-			});
+				});
+			}
         });
 	}
 	
