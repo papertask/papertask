@@ -69,6 +69,13 @@ class ProjectController extends AbstractActionController
 			"lang_code" => $lang_code,
         ));
 	}
+	public function quoteAction()
+	{
+		$lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code,
+        ));
+	}
 	public function quoteDetailAction()
 	{	
 		$id = $this->params()->fromQuery('id');
