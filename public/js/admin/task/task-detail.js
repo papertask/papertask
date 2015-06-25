@@ -175,8 +175,10 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					
 					$scope.project = $project;
 					var str = $scope.project.quote_no;
-					var res = str.split("-");
-					$scope.project.project_no = res[1];
+					if(str){
+						var res = str.split("-");
+						$scope.project.project_no = res[1];
+					}
 					
 					$scope.USER_ID = $scope.project.userid;
 					$scope.currency = $scope.project.currency;

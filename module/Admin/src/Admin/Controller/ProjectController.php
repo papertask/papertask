@@ -138,8 +138,8 @@ class ProjectController extends AbstractActionController
 
 
     public function uploadFileAction(){
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
 		$this->requiredLogin = false;
 		//$projectId = $this->params()->fromQuery('projectId');
 		//$taskId = $this->params()->fromQuery('taskId');
