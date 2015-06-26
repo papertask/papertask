@@ -495,6 +495,7 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 
 
 angularApp.controller("ProjectTasksController", function($scope, $http, TaskStatus, ProjectType, TaskApi, DateFormatter){
+	$scope.filter.project_id = PROJECT_ID;
     $scope.newTask = {};
     $scope.DateFormatter = DateFormatter;
     $scope.setItemApi(TaskApi);
@@ -618,6 +619,7 @@ angularApp.controller("ProjectTasksController", function($scope, $http, TaskStat
 });
 
 angularApp.controller("ProjectActivitiesController", function($scope, ActivityApi, $sce){
+	$scope.filter.project_id = PROJECT_ID;
     var templateActivity = {
         type: "message"
     };
@@ -660,6 +662,7 @@ angularApp.controller("ProjectActivitiesController", function($scope, ActivityAp
 });
 
 angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi){
+	$scope.filter.project_id = PROJECT_ID;
     var fb_dump = [], fb_loaded = false, fb_refreshed = false;
 
     var prepare = function(feedback){
@@ -770,6 +773,7 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
 });
 
 angularApp.controller("ProjectCorrectionController", function($scope, CorrectionApi){
+	$scope.filter.project_id = PROJECT_ID;
     var c_dump = [], c_empty = false, c_refreshed = false, c_loaded = false;
 
     var prepare = function(correction){

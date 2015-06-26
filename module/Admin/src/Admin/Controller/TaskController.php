@@ -124,8 +124,8 @@ class TaskController extends AbstractActionController
     		}
     		
     		if($params->task_id !=null && $params->task_id != ''){
-    			$queryBuilder->andWhere('task.id = :task_id');
-    			$queryBuilder->setParameter('task_id', $params->task_id);
+    			$queryBuilder->andWhere('task.task_number = :task_number');
+    			$queryBuilder->setParameter('task_number', $params->task_id);
     			//$queryBuilder_tmp->distinct();
     		}
     		

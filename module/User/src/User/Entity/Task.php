@@ -25,6 +25,7 @@ class Task extends Entity{
 	/** @ORM\Column(type="string") */
     protected $name;
     
+    
 	/**
      * @var \User\Entity\Project
      * @ORM\ManyToOne(targetEntity="Project")
@@ -100,6 +101,12 @@ class Task extends Entity{
      */
     protected $total = 0.00;
 
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    protected $task_number;
+
     public function getData(){
         return [
             'id' => $this->id,
@@ -116,6 +123,7 @@ class Task extends Entity{
 			'startDate' => $this->startDate,
 			'total' => $this->total,
 			'assignee' => ($this->assignee)?$this->assignee->getData():null,
+			'task_number' => $this->task_number,
         ];
     }
     
@@ -134,6 +142,12 @@ class Task extends Entity{
     public function getProject()
     {
     	return $this->project;
+    	//return $this;
+    }
+    
+    public function getTaskNumber()
+    {
+    	return $this->task_number;
     	//return $this;
     }
 }

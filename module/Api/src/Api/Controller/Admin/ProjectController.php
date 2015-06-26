@@ -182,6 +182,26 @@ class ProjectController extends AbstractRestfulJsonController
                 }
             }
         }
+        // Create new Tasks
+        $i = 0;
+        foreach ($targetLanguages as $key => $targetLang){
+        	$i++;
+        	$task = new Task();
+        	$taskArrData = array(
+        		'type' => $data['types'][0],        		
+        		'language' => 	$targetLang,
+        		'status' => 3, // unassigned
+        		'project' => $project,
+        		'startDate' => $data['startDate'],
+        		'dueDate' => $data['dueDate'],
+        		'name' => $data['reference'],
+        		'task_number' => $project->getId().'-'.$i,
+        		
+        	);
+        	$task->setData( $taskArrData );
+			$task->save($this->getEntityManager());
+        }
+        
 		//invoice
 		$invoice = new Invoice();
 		$invoice_no = "INV-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);

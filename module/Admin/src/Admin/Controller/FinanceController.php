@@ -278,6 +278,7 @@ class FinanceController extends AbstractActionController {
 			$taskList = $entityManager->getRepository('User\Entity\Task');
 			//->findBy(array('group' => $freelancerGroup));
 			$queryBuilder_tmp = $taskList->createQueryBuilder('task');
+			//$queryBuilder_tmp->select('task.project');
 			$queryBuilder_tmp->andWhere('task.is_deleted = 0');
 			$queryBuilder_tmp->andWhere('task.payStatus = 1');
 			$queryBuilder_tmp->andWhere('task.assignee = ?1')->setParameter(1, $user->getFreelancer());	//
@@ -288,8 +289,8 @@ class FinanceController extends AbstractActionController {
 			}
 			
 			if($params->task_id !=null && $params->task_id != ''){
-				$queryBuilder_tmp->andWhere('task.id = :task_id');
-				$queryBuilder_tmp->setParameter('task_id', $params->task_id);
+				$queryBuilder_tmp->andWhere('task.task_number = :task_number');
+				$queryBuilder_tmp->setParameter('task_number', $params->task_id);
 				$queryBuilder_tmp->distinct();
 			}
 			
@@ -335,9 +336,13 @@ class FinanceController extends AbstractActionController {
     			$queryBuilder_tmp->andWhere('p.sale = :sale')->setParameter('sale', $params->sale->id);//
     		}
     		
+    		
+    		
 			$query = $queryBuilder_tmp->getQuery();
 			//var_dump($query); exit;
+			//var_dump($query); exit;
 			$result = $query->getArrayResult();
+			//var_dump($result); exit;
 			if($result!= null){
 			$data[$userdata['id']]['task'] = $result;
 			$data[$userdata['id']]['freelancer'] = $userdata;
@@ -741,7 +746,7 @@ class FinanceController extends AbstractActionController {
     	$freelancer = $currentUser->getFreelancer();
     
     	return new ViewModel([
-    			'freelancer_id' => $freelancer->getId(),
+    			'freelancer_id' => ($freelancer)?$freelancer->getId():null,
     			"lang_code" => $lang_code
     			]);
     }

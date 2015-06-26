@@ -43,8 +43,25 @@ class TaskController extends AbstractRestfulJsonController
 		error_reporting(E_ALL);
 		ini_set('display_errors', 1);
         
+		
+        
 		$this->clearData($data);
 
+		
+		// Get Highest of Current task_number
+		$project = $data['project'];
+		$taskList = $this->getEntityManager()->getRepository('User\Entity\Task')->findBy(array('project' => $project));
+		$taskOrderArr = array();
+		foreach ($taskList as $task){
+			$order = explode('-',$task->getTaskNumber());
+			$order = $order[1];
+			$taskOrderArr[] = (int)$order;
+		}		
+		$max = max($taskOrderArr);
+		$max++;
+		
+		//var_dump($max); exit;
+		$data['task_number'] = $project->getId().'-'.$max;
 		
         $task = new Task();
         $task->setData($data);

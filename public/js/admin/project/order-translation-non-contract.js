@@ -62,7 +62,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		
 	 };
 	 
-	 $scope.removeLangFSML  = function(lang = null){
+	 $scope.removeLangFSML  = function(lang){
 		 $scope.modifiedTarLangs = [];
 		 var lang = $scope.project.sourceLanguage;
 		 var id = lang.id;
@@ -103,7 +103,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 $scope.currencys = Currency.all();
 	 
 	 $scope.ProjectServiceLevels = ProjectServiceLevel.all();
-	 
+	 $scope.project.serviceLevel = ProjectServiceLevel.get(1);
 	 // Default Currency => USA
 	 $scope.project.currency = Currency.get(1);	
 	 $scope.CurrentCurrency = $scope.project.currency.name;
@@ -152,7 +152,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 $scope.isFapiao = false;
 			 
 		 }			 
-		 $scope.refreshInfo();
+		 $scope.refreshwithoutWordCount();
 		 console.info(' $scope.project.fapiao',  $scope.project.fapiao);
 	 }
 	 
@@ -252,7 +252,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	     } 
 		 
 		 
-		 $scope.refreshInfo();		 
+		 $scope.refreshwithoutWordCount();		 
 	
 		 console.log($scope.project);
 	 }
@@ -266,7 +266,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			  $scope.hidetargetLang = false;
 			  $scope.project.targetLanguage= "";
 		  }
-		  $scope.refreshInfo();
+		  $scope.refreshwithoutWordCount();
 	 }	 
 
 	 $scope.ProjectServiceLevels = ProjectServiceLevel.all(); 
@@ -296,16 +296,78 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	     });	 
 	 }
 	 
+	 $scope.wordcount = function(fileId){
+		 var words = $http.get("/" + LANG_CODE + "/admin/project/wordcount?fileId="+fileId)
+         .success( function ( $data ) {
+        	 $scope.totalwordFiles = $scope.totalwordFiles + $data.datawordcount.wordcount;
+        	 $scope.refreshwithoutWordCount();
+         }).error(function($e){
+             return 0;
+         });
+	 }
+	 
+	 $('#sourcetext').keyup(function(){
+		 /*
+		 console.info('sourcetext blur');
+		 	var words = $('#sourcetext').val().split(' ');
+		 	console.info('word length',words.length);
+		 		$scope.totalwords = $scope.totalwords + words.length;
+		 		console.info('$scope.totalwords',$scope.totalwords);
+		 		*/
+		 	 $scope.refreshwithoutWordCount();
+	});
+	 
 	 $scope.refreshInfo = function(){
+		 console.log($scope.project);
 		 $scope.totalitems = $scope.project.files.length;
+		 $scope.totalwordFiles = 0;
+		 for(var key=0; key<$scope.totalitems; key++){
+			 $scope.totalwordFiles = $scope.totalwordFiles + $scope.project.files[key].count;
+		 }
+		 console.info('$scope.totalwords',$scope.totalwords);
+		 
+		 var words = $('#sourcetext').val().split(' ');
+		 //$scope.totalwords = $scope.project.sourcetext.split(' ').length +  $scope.totalwordFiles;
+		 if($scope.totalwordFiles){
+			 console.info('have files');
+			 $scope.totalwords = words.length +  $scope.totalwordFiles;
+		 } else {
+			 console.info('dont have files');
+			 $scope.totalwords = words.length;
+		 }
+		 $scope.refreshwithoutWordCount();
+	 }
+	 
+	 $scope.refreshwithoutWordCount = function(){
+		 var words = $('#sourcetext').val().split(' ');
+		 //$scope.totalwords = $scope.project.sourcetext.split(' ').length +  $scope.totalwordFiles;
+		 if($scope.totalwordFiles){
+			 console.info('have files');
+			 $scope.totalwords = words.length +  $scope.totalwordFiles;
+		 } else {
+			 console.info('dont have files');
+			 $scope.totalwords = words.length;
+		 }
+		 
+		 console.info('$scope.totalwordFiles',  $scope.totalwordFiles);
+		 console.info('refreshwithoutWordCount',  $scope.totalwords);
+		 
 		 $scope.numberLangs = $scope.project.targetLanguages.length;
 		 //$scope.price = ($scope.numberLangs > 0)? $scope.project.targetLanguages[0].price : 0 ;
+		 
 		 if($scope.numberLangs > 0) {
+			 if($scope.project.targetLanguages[0].price == 0){
+				 if($scope.project.currency.id==1)
+					 $scope.project.targetLanguages[0].price = 0.25;
+				 else if ($scope.project.currency.id==2)
+					 $scope.project.targetLanguages[0].price = 0.25*$scope.currencyrate;
+			 }	
 			 $scope.price = $scope.project.targetLanguages[0].price;
+			 
 		 } else {
 			 $scope.price = 0;
 		 }
-		 $scope.totalwords = $scope.wordsperitem*$scope.totalitems;
+		 
 		 $scope.ItermsTotal = $scope.price*$scope.totalwords*$scope.numberLangs;
 		 $scope.tax = $scope.taxRate*$scope.ItermsTotal;
 		 $scope.total = $scope.ItermsTotal + $scope.tax;
@@ -361,7 +423,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 				} 
 				TableItemListService.translationPrices = tempTrans;
 			}	
-			$scope.refreshInfo();	
+			$scope.refreshwithoutWordCount();	
 		 }
 });
 
@@ -477,7 +539,7 @@ angularApp.factory("TableItemListService", function(){
     }
 });
 
-angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', function($scope, FileUploader, $timeout) {
+angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', '$http', function($scope, FileUploader, $timeout, $http) {
     var uploader = $scope.uploader = new FileUploader({
         url: "/" + LANG_CODE + "/admin/project/uploadFile"
     });
@@ -522,11 +584,27 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
             }, 1000);
             return;
         }
+        
+        $http.get("/" + LANG_CODE + "/admin/project/wordcount?fileId="+response.file.id)
+        .success( function ( $data ) {
+        	
+        	fileItem.projectFile = {
+                    name: fileItem.file.name,
+                    id: response.file.id,
+                    count: $data.datawordcount.wordcount
+            };
+             $scope.project.files.push(fileItem.projectFile);       	 
+	       	 $scope.refreshInfo();
+        }).error(function($e){
         fileItem.projectFile = {
             name: fileItem.file.name,
-            id: response.file.id
+                    id: response.file.id,
+                    count: 0
         };
         $scope.project.files.push(fileItem.projectFile);
+	       	 $scope.refreshInfo();
+        });
+        
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
         console.info('onErrorItem', fileItem, response, status, headers);
@@ -536,10 +614,9 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
     };
-    uploader.onCompleteAll = function() {
+    uploader.onCompleteAll = function(fileItem, response, status, headers) {
         console.info('onCompleteAll');
-        //console.info('$scope.project.files',$scope.project.files);
-        $scope.refreshInfo();
+        
     };
 
     console.info('uploader', uploader);

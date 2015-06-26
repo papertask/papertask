@@ -30,7 +30,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
          }); 		 
 	 };
 	 
-	 $scope.removeLangFSML  = function(lang = null){
+	 $scope.removeLangFSML  = function(lang){
 		 $scope.modifiedTarLangs = [];
 		 var lang = $scope.project.sourceLanguage;
 		 var id = lang.id;

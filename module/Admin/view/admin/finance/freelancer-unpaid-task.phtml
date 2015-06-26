@@ -115,7 +115,7 @@ $this->inlineScript()
                                     </thead>
                                     <tbody>
 	                                    <tr ng-repeat="task in tasks">
-	                                        <td>{{ task.project.id }}-{{ task.id }}</td>
+	                                        <td>{{ task.task_number }}</td>
 	                                        <td>{{ task.project.reference }}</td>
 	                                        <td>{{task.status.name }}</td>
 	                                        <td>{{formatDate(task.dueDate.date) | date:'yyyy.MMM.dd'}}</td>
