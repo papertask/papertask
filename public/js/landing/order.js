@@ -606,7 +606,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', '$
                     count: 0
             };
              $scope.project.files.push(fileItem.projectFile);       	 
-	       	 //$scope.refreshInfo();
+	       	
         });
         
     };
