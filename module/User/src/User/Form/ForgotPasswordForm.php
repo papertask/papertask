@@ -14,6 +14,8 @@ use Zend\InputFilter;
 use Zend\Session\Container;
 use Zend\Validator;
 
+use User\Entity\User;
+
 
 class ForgotPasswordForm extends Form
 {
@@ -57,18 +59,23 @@ class ForgotPasswordForm extends Form
      * @param \Application\Controller\AbstractActionController $controller
      */
     function process($controller){
+    	
         $entityManager = $controller->getEntityManager();
         $email = $this->getData()['email'];
-        /**
-         *
-         */
+
         $user = $controller->getUser(array('email' => $email));
+ 
         if($user){
+        	
             $user->generateToken();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $user->sendForgotPasswordEmail($controller);
+        	$lang_code = $controller->params()->fromRoute('lang');
+            $user->sendForgotPasswordEmail($controller, $lang_code);
+            return true;
+        } else{
+        	return false;
         }
     }
 }

@@ -448,9 +448,9 @@ class User extends Entity implements InputFilterAwareInterface{
     /**
      * @param \Application\Controller\AbstractActionController $controller
      */
-    public function sendForgotPasswordEmail($controller){
+    public function sendForgotPasswordEmail($controller, $lang = 'en-US'){//$lang = 'en-US'
         // initial data for email template
-        $forgotLink = $controller->getBaseUrl() . '/user/forgotPassword/reset?token=' . $this->token;
+        $forgotLink = $controller->getBaseUrl() .'/'.$lang. '/user/forgotPassword/reset?token=' . $this->token;
         $data = array(
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,

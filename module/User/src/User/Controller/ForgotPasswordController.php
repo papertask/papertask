@@ -32,14 +32,25 @@ class ForgotPasswordController extends AbstractActionController
         $userSession = new UserSession();
         $form = $this->getForm();
         $request = $this->getRequest();
+
         if(!$userSession->isLoggedIn()){
             if($request->isPost()){
                 $form->setData($request->getPost());
                 if($form->isValid()){
-                    $form->process($this);
-
+                    $process = $form->process($this);
+					if($process){
+						//Email exist
                     // create message send email success
                     $this->flashMessenger()->addSuccessMessage($translator->translate('Please check your email.'));
+						header("Location: http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+						exit;
+					} else{
+						// Email dont exist		
+						$this->flashMessenger()->addErrorMessage($translator->translate('Your Email dont exist. Pls check again or Create a new account'));
+						header("Location: http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+						exit;
+					}
+                    
                 }
             }
         }
