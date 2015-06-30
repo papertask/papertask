@@ -95,22 +95,24 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				
                 $scope.task = $task.task;
 				$scope.language = $scope.task.language;
-				console.log("scope.tempTask");
-				console.log($scope.task);
+				
 				$scope.projectId = $scope.task.project;
 				$scope.task.type = ProjectType.get($scope.task.type);
 				$scope.task.status = TaskStatus.get($scope.task.status);
 				
 				jQuery.extend($scope.tempTask, $scope.task);
 				
-				var dueDate = new Date($scope.task.dueDate.date);
+				var dueDateArr = $scope.task.dueDate.date.split(" ");
+				var dueDateStr =  dueDateArr[0]+'T'+dueDateArr[1];
+				var dueDate = new Date(dueDateStr);
 				var month = dueDate.getMonth() + 1;
 				$scope.tempTask.dueDate = dueDate.getDate() + '-' + month + '-' + dueDate.getFullYear() +  ' ' + dueDate.getHours() + ':' + dueDate.getSeconds() ;
-				var startDate = new Date($scope.task.startDate.date);
-				var startmonth = dueDate.getMonth() + 1;
+				
+				var startDateArr = $scope.task.startDate.date.split(" ");
+				var startDateStr =  startDateArr[0]+'T'+startDateArr[1];
+				var startDate = new Date(startDateStr);
+				var startmonth = startDate.getMonth() + 1;
 				$scope.tempTask.startDate = startDate.getDate() + '-' + startmonth + '-' + startDate.getFullYear() +  ' ' + startDate.getHours() + ':' + startDate.getSeconds() ;
-				//$scope.tempTask.startDate = $scope.tempTask.startDate.date;
-				console.log($scope.tempTask);
 				
             });
 		

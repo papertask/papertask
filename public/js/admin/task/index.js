@@ -59,7 +59,7 @@ angularApp.controller('TaskIndex', function($scope, $http, $timeout, $q, TaskApi
 	
 	$scope.remove = function(task){
 		$http.delete("/api/admin/task/"+task['id'], {
-            params: $params
+           // params: $params
         }).success(function($data){
         	var index = $scope.tasks.indexOf(task);
         	  $scope.tasks.splice(index, 1);
