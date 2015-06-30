@@ -479,8 +479,17 @@ class ProjectController extends AbstractRestfulJsonController
             );
         }
 		if($getQuote = $this->params()->fromQuery('quote')){
-            $queryBuilder->andWhere("project.status = 1 or project.status = 0"
+			//echo 'hi'; exit;
+			if($getQuote == 1){
+				$queryBuilder->andWhere("project.status = 1 or project.status = 0");
+			} else {
+				$queryBuilder->andWhere(
+						$queryBuilder->expr()->like('project.status', $getQuote)
             );
+        }
+		
+			//$queryBuilder->andWhere("project.status = 2");
+			
         }
 		
 		
@@ -517,8 +526,10 @@ class ProjectController extends AbstractRestfulJsonController
         if($page) $paginator->setCurrentPageNumber($page);
         $data = array();
         $helper = new Helper();
+        
         foreach($paginator as $user){
             $userData = $user->getData();
+           // var_dump($userData); exit;
             $data[] = $userData;
         }
         //var_dump($paginator);die;

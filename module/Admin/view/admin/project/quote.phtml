@@ -1,4 +1,4 @@
-<?php $this->headTitle($this->translate('Projects list')) ?>
+<?php $this->headTitle($this->translate('Quotes list')) ?>
 <!-- Le styles -->
 <?php $this->headLink()
     ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
@@ -45,7 +45,7 @@ $this->inlineScript()
 <div class="ibox-title">
     <h5> Projects List</h5>
     <div class="ibox-tools">
-        <a href="<?php echo $this->url('admin', ['controller' => 'project', 'action' => 'new']) ?>" class="btn btn-primary btn-xs">Create new project</a>
+        <a href="<?php echo $this->url('admin', ['controller' => 'quote', 'action' => 'new']) ?>" class="btn btn-primary btn-xs">Create new quote</a>
     </div>
 </div>
 <div class="ibox-content" ng-controller="ProjectIndexController">
@@ -86,34 +86,33 @@ $this->inlineScript()
                                 <span class="label label-{{ ProjectStatus.get(project.status).decorator }}"
                                     >{{ ProjectStatus.get(project.status).name }}</span>
                             </td>
-                            <td class="project-status">
-                                <span class="btn btn-outline btn-{{ ProjectServiceLevel.get(project.serviceLevel).decorator }}
-                                btn-sm">{{ ProjectServiceLevel.get(project.serviceLevel).name }}</span>
-                            </td>
+                            
                             <td class="project-title">
-                                <strong><?php echo $this->translate('Contract with') ?> {{ project.client.company.name }}</strong>
+                                 <strong>Contract with {{project.client.company.name}}</strong>
                                 <br/>
                                 <div class="tooltip-demo">
-                                    <span ng-repeat="type in project.types">
-                                        <code {{ TypeList.getTypeAttrs(type) }}>{{ type.name_short }}</code>
-                                    </span>
+									<code ng-repeat="type in project.types" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{ProjectType.get(type).tootip}}">{{ProjectType.get(type).name_short}}</code> 
                                 </div>
                             </td>
+	                                        
+
+                            
                             <td class="project-title">
                                 <span class="">{{ project.quote_no }}</span>
                                 <br/>
                                 <small>Quote Date: {{ DateFormatter.short(project.startDate) }}</small>
                             </td>
-                            <td class="project-status">
-                                <strong class="text-danger">{{ project.currency }}  {{ project.total_tmp | number:2 }}</strong>
+                            
+                            <td class="project-title">
+	                                            {{project.client.name}}
+	                                            <br/>
+	                                            {{project.client.company.name}}
                             </td>
                             <td class="project-actions">
-								<a href="#" class="btn btn-primary btn-sm"
-									ng-click="quoteAccepted(project)"><i class="fa fa-check-square-o"></i> Accept </a>
-
-                                <a href="#" class="btn btn-white btn-sm"
-                                   ng-click="goToQuote(project)"><i class="fa fa-folder"></i> View </a>
+	                              <a href="#" ng-click="ViewProject(project)" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
+	                              <a href="#" ng-click="EditProject(project)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
                             </td>
+             
                         </tr>
                         </tbody>
                     </table>
@@ -131,3 +130,35 @@ $this->inlineScript()
 </div>
 </div>
 </div>
+
+<script>
+        $(document).ready(function(){
+        	$('.dtbox').DateTimePicker();
+        	
+            $('#loading-example-btn').click(function () {
+                btn = $(this);
+                simpleLoad(btn, true)
+
+                // Ajax example
+//                $.ajax().always(function () {
+//                    simpleLoad($(this), false)
+//                });
+
+                simpleLoad(btn, false)
+            });
+
+            
+        });
+
+        function simpleLoad(btn, state) {
+            if (state) {
+                btn.children().addClass('fa-spin');
+                btn.contents().last().replaceWith(" Loading");
+            } else {
+                setTimeout(function () {
+                    btn.children().removeClass('fa-spin');
+                    btn.contents().last().replaceWith(" Refresh");
+                }, 2000);
+            }
+        }
+    </script>

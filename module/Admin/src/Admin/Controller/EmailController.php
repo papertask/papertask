@@ -125,6 +125,7 @@ class EmailController extends AbstractActionController
 
     public function deleteAction(){
         $type = (int)$this->request->getQuery('type');
+        $lang_code = $this->params()->fromRoute('lang');
         if(null === $type) {
             return $this->redirect()->toRoute('mail');
         }
@@ -145,7 +146,7 @@ class EmailController extends AbstractActionController
             $this->flashMessenger()->addErrorMessage($translator->translate('System template cannot be deleted.'));
         }
 
-        return $this->redirect()->toUrl('/admin/email');
+        return $this->redirect()->toUrl("/$lang_code/admin/email");
     }
     
     public function checkAction(){

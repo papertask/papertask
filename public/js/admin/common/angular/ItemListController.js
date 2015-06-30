@@ -47,6 +47,14 @@ angularApp.controller('ItemListController', function($scope, $location, $timeout
         $scope.loadItems(1);
     }
 
+    function reset($quote = null){
+    	$scope.filter = {
+    			page : 1,
+    			quote : $quote,
+    	}
+    	$scope.loadItems(1);
+    }
+
     function pageChanged(){
         $scope.loadItems($scope.page);
         console.log("Change to page " + $scope.page);
@@ -74,6 +82,7 @@ angularApp.controller('ItemListController', function($scope, $location, $timeout
     $scope.pageChanged = pageChanged;
     $scope.remove = remove;
     $scope.search = search;
+    $scope.reset = reset;
     $scope.loadItems = loadItems;
     $scope.refresh = refresh;
 

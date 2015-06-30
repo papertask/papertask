@@ -2,7 +2,7 @@
  * Created by eastagile on 11/11/14.
  */
 
-angularApp.controller('ProjectIndexController', function($scope, StaffApi, LanguageApi, ProjectApi, ProjectServiceLevel,
+angularApp.controller('ProjectIndexController', function($scope, StaffApi, LanguageApi, ProjectApi, ProjectType, ProjectServiceLevel,
                                                          ProjectStatus, DateFormatter, CurrentUser, PayStatus,
                                                          ProjectField, $http){
 
@@ -14,6 +14,9 @@ angularApp.controller('ProjectIndexController', function($scope, StaffApi, Langu
     $scope.PayStatus = PayStatus;
     $scope.ProjectField = ProjectField;
     $scope.StaffApi = StaffApi;
+    $scope.ProjectType = ProjectType;
+    
+    $scope.ProjectStatusEdited = [ProjectStatus.get(0), ProjectStatus.get(1)];
 
     /** This is for listing item controller **/
 	 
@@ -25,8 +28,12 @@ angularApp.controller('ProjectIndexController', function($scope, StaffApi, Langu
     $scope.pms = {};
     $scope.sales = {};
 
-    $scope.goToQuote = function($project){
-        location.href = "/" + LANG_CODE + "/admin/project/quote-detail?id=" + $project.id;
+    $scope.ViewProject = function($project){
+        location.href = "/" + LANG_CODE + "/admin/project/detail?id=" + $project.id;
+    };
+    
+    $scope.EditProject = function($project){
+    	 location.href = "/" + LANG_CODE + "/admin/project/detail?id=" + $project.id;
     };
 
 	
@@ -39,6 +46,8 @@ angularApp.controller('ProjectIndexController', function($scope, StaffApi, Langu
 			//$project.status = ProjectStatus.get(2);
 		});	
 	}
+
+
 
     StaffApi.list({
         type: 2

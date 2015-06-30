@@ -129,13 +129,13 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
         });
 		//get bank info
 		$http.get("/api/papertask/bankinfo").success(function($data){
-            $scope.bankinfo = $data['bankinfo'];
-			$scope.bankinfo1 = $scope.bankinfo[0];
-			$scope.bankinfo2 = $scope.bankinfo[1];
-			
-			console.log("bankinfo");
-			console.log($scope.bankinfo1);
-			console.log($scope.bankinfo2);
+            $scope.bankinfos = $data['bankinfo'];
+			//$scope.bankinfo1 = $scope.bankinfo[0];
+			//$scope.bankinfo2 = $scope.bankinfo[1];
+			console.info('bankinfo',$scope.bankinfos);
+			//console.log("bankinfo");
+			//console.log($scope.bankinfo1);
+			//console.log($scope.bankinfo2);
         }).error(function($e){
             alert('error');
         });
@@ -440,6 +440,46 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
             scrollTop: jQuery('#' + divId).position().top
         }, 500);
     }
+
+    $scope.SaveEditBankAccount = function(){
+    			
+    		console.info('EditBankAccount',$scope.EditBankAccount);
+    		console.info('Edit');
+        	$http.put("/api/papertask/bankinfo/"+ $scope.EditBankAccount.id +"/", $scope.EditBankAccount)
+    		.success( function ( $data ) {
+    			for(var i=0; i< $scope.bankinfos.length; i++){
+    				if($scope.bankinfos[i].id == $data.bankinfo.id){
+    					$scope.bankinfos[i] = $data.bankinfo;
+    					break;
+    				}
+    			}
+    			$('#modal-editbank').modal('hide');
+    		});
+    		
+    	return false;
+    }
+    
+    $scope.SaveAddBankAccount = function(){
+    
+    		console.info('AddBankAccount',$scope.AddBankAccount);
+    		console.info('Create');
+        	$http.post("/api/papertask/bankinfo/", $scope.AddBankAccount)
+    		.success( function ( $data ) {
+    			$scope.bankinfos.push($data.bankinfo);
+    			$('#modal-addbank').modal('hide');
+    		});
+    
+    		
+    	return false;
+    }
+
+    
+    //EditBankAccount(bankinfo)
+    $scope.EditBankAccountBut = function (bankinfo){
+    	$scope.EditBankAccount = angular.copy(bankinfo);    	
+    	console.info('EditBankAccount',$scope.EditBankAccount);
+    }
+
 
     init();
 });

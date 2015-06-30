@@ -101,7 +101,7 @@ $(document).ready(function(){
                         title="<?php echo $this->translate('Save') ?>">
                     <i class="fa fa-save"></i> <?php echo $this->translate('Save') ?>
                 </button>
-                <button type="reset" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top"
+                <button type="reset" onclick="location.reload()" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top"
                         title="<?php echo $this->translate('Discard') ?>">
                     <i class="fa fa-times"></i> <?php echo $this->translate('Discard') ?>
                 </button>
@@ -110,3 +110,4 @@ $(document).ready(function(){
         <div class="clearfix"></div>
     </div>
 </div>
+

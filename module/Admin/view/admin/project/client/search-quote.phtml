@@ -1,0 +1,103 @@
+<form method="" class="form-horizontal">
+	<div class="row">
+		<div class="col-lg-4">
+			<div class="form-group">
+				<label class="col-sm-3 control-label"> QUO No.</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" ng-model="filter.quote">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Source</label>
+				<div class="col-sm-9">
+					<select class="form-control" name="source" ng-model="filter.target"
+                            ng-options="language.name for language in languages">
+                        <option value=""></option>
+                    </select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Quote Date</label>
+				<div class="col-sm-9">
+                    <div class="input-group date">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input type="text" data-field="datetime"
+                               class="form-control" name="dueDate" ng-model="filter.dueDate">
+                    </div>
+                    <div class="dtbox"></div>
+                </div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">PM</label>
+				<div class="col-sm-9">
+					 <select class="form-control" name="pm" ng-model="filter.pm"
+                            ng-options="staff.name for staff in pms">
+                        <option value=""></option>
+                    </select>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Reference</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" ng-model="filter.reference">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Target</label>
+				<div class="col-sm-9">
+					<select class="form-control" name="source" ng-model="filter.target"
+                            ng-options="language.name for language in languages">
+                        <option value=""></option>
+                    </select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label"> Client ID</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" ng-model="filter.clientID">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Sales</label>
+				<div class="col-sm-9">
+					<select class="form-control" name="sale" ng-model="filter.sale"
+                            ng-options="staff.name for staff in sales">
+                        <option value=""></option>
+                    </select>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Field</label>
+				<div class="col-sm-9">
+                    <select class="form-control" name="field" ng-model="filter.field"
+                            ng-options="field.name for field in ProjectField.all()">
+                        <option value=""></option>
+                    </select>
+                </div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Status</label>
+				<div class="col-sm-9">
+					<select class="form-control" name="status" ng-model="filter.status"
+                            ng-options="status.name for status in ProjectStatusEdited">
+                        <option value=""></option>
+                    </select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label"> Company</label>
+				<div class="col-sm-9">
+					<input type="text" class="form-control" ng-model="filter.company">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="text-right tooltip-demo">
+		<a href="#" class="btn btn-sm btn-primary" ng-click="search()"><i class="fa fa-search"></i> Search</a>
+        <a href="#" class="btn btn-white btn-sm" type="reset" ng-click="reset(1)"><i class="fa fa-times"></i> Reset</a>
+	</div>
+</form>

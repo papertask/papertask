@@ -118,6 +118,7 @@ return array(
         	'admin/project/order-translation-non-contract' => __DIR__ . '/../view/admin/project/order-translation-non-contract.phtml',
 			
             'admin/quote/detail' => __DIR__ . '/../view/admin/quote/detail.phtml',
+        	'admin/quote/detail' => __DIR__ . '/../view/admin/quote/detail.phtml',
             'admin/staff/edit-payment-info' => __DIR__ . '/../view/admin/freelancer/edit-payment-info.phtml',
             'admin/staff/edit-profile' => __DIR__ . '/../view/admin/staff/edit-profile.phtml',
             'admin/staff/index' => __DIR__ . '/../view/admin/staff/index.phtml',

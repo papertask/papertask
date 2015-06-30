@@ -31,7 +31,7 @@ angularApp.factory("ProjectStatus", function(){
 	{
         'id': 0,
         'name': 'Quoting',
-        'decorator': 'info'
+        'decorator': 'warning'
     },{
         'id': 1,
         'name': 'Quoted',
@@ -275,16 +275,79 @@ angularApp.factory("ProjectPriority", function(){
 angularApp.factory("ProjectField", function(){
     var fields = [{
         'id': 1,
-        'name': 'Field 1'
+        'name': 'Accounting'
     },{
         'id': 2,
-        'name': 'Field 2'
+        'name': 'Aero Engineering'
     },{
         'id': 3,
-        'name': 'Field 3'
+        'name': 'Aerospace'
     },{
         'id': 4,
-        'name': 'Field 4'
+        'name': 'Ad-hoc Interpreting'
+    },{
+        'id': 5,
+        'name': 'Advertising'
+    },{
+        'id': 6,
+        'name': 'Advertising(marketing)'
+    },{
+        'id': 7,
+        'name': 'Advertising(media)'
+    },{
+        'id': 8,
+        'name': 'Agriculture'
+    },{
+        'id': 9,
+        'name': 'Annual Reports'
+    },{
+        'id': 10,
+        'name': 'Archaeology'
+    },{
+        'id': 11,
+        'name': 'Architecture & Town Planning'
+    },{
+        'id': 12,
+        'name': 'Art/literary'
+    },{
+        'id': 13,
+        'name': 'Automobile'
+    },{
+        'id': 14,
+        'name': 'Automotive'
+    },{
+        'id': 15,
+        'name': 'Aviation'
+    },{
+        'id': 16,
+        'name': 'Banking'
+    },{
+        'id': 17,
+        'name': 'Behavioural Sciences'
+    },{
+        'id': 18,
+        'name': 'Biochemistry'
+    },{
+        'id': 19,
+        'name': 'Biology'
+    },{
+        'id': 20,
+        'name': 'Biomedicine'
+    },{
+        'id': 21,
+        'name': 'Biotechnology'
+    },{
+        'id': 22,
+        'name': 'Brewing & Distilling'
+    },{
+        'id': 23,
+        'name': 'Broadcasting'
+    },{
+        'id': 24,
+        'name': 'Building'
+    },{
+        'id': 25,
+        'name': 'Cartography'
     }];
     return {
         get: function ($id) {

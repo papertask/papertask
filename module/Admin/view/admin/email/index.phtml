@@ -35,7 +35,7 @@ $this->inlineScript()->appendScript("
                     <?php foreach($this->templates as $template): ?>
                         <tr>
                             <td class="project-title">
-                                <a href="<?php echo $template->getEditUrl() ?>"><?php echo $template->getName() ?></a>
+                                <a href="<?php  echo '/' . $lang_code . $template->getEditUrl()  ?>"><?php echo $template->getName() ?></a>
                                 <br/>
                                 <small><?php echo $this->translate('Create/update'). ' ' .$template->getTouchTime() ?></small>
                             </td>
@@ -47,7 +47,7 @@ $this->inlineScript()->appendScript("
                                     <i class="fa fa-pencil"></i> <?php echo $this->translate('Edit') ?>
                                 </a>
                                 <?php if(!$template->getCode()): ?>
-                                    <a href="<?php echo $template->getDeleteUrl() ?>" class="btn btn-danger btn-sm btn-delete">
+                                    <a href="<?php echo '/' . $lang_code . $template->getDeleteUrl() ?>" class="btn btn-danger btn-sm btn-delete">
                                         <i class="fa fa-remove"></i> <?php echo $this->translate('Delete') ?>
                                     </a>
                                 <?php endif; ?>

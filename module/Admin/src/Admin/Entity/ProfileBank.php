@@ -9,6 +9,7 @@
 namespace Admin\Entity;
 
 use Common\Entity;
+use User\Entity\Country;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -51,7 +52,7 @@ class ProfileBank extends Entity{
     protected $city;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\ManyToOne(targetEntity="\User\Entity\Country")
      */
     protected $country;
 
@@ -91,12 +92,12 @@ class ProfileBank extends Entity{
             'account' => $this->account,
             'address' => $this->address,
             'city' => $this->city,
-            'country' => $this->country,
+            'country' => $this->country->getData(),
             'name' => $this->name,
             'accountNo' => $this->accountNo,
             'swift' => $this->swift,
             'routingNumber' => $this->routingNumber,
-			'beneficiar_name'=> $this->name,
+			'beneficiar_name'=> $this->beneficiar_name,
 			'note'=> $this->note,
         ];
     }
