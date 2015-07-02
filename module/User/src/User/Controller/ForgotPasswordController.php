@@ -60,11 +60,16 @@ class ForgotPasswordController extends AbstractActionController
 
     public function resetAction(){
         $request = $this->getRequest();
+        $token = $request->getQuery()->token;
+        $lang_code = $this->params()->fromRoute('lang');
         $form = new ResetForm();
         if($request->isPost()){
             $form->setData($request->getPost());
             if($form->isValid()){
-                $form->reset($this);
+            	if( $token != null){
+            		$form->reset($this,$token);
+            		return $this->redirect()->toUrl('/'.$lang_code."/user/login");
+            	}             
             }
         }
 

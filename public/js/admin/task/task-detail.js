@@ -100,7 +100,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				$scope.task.type = ProjectType.get($scope.task.type);
 				$scope.task.status = TaskStatus.get($scope.task.status);
 				
-				jQuery.extend($scope.tempTask, $scope.task);
+				jQuery.extend($scope.tempTask, $scope.task);;
 				
 				var dueDateArr = $scope.task.dueDate.date.split(" ");
 				var dueDateStr =  dueDateArr[0]+'T'+dueDateArr[1];

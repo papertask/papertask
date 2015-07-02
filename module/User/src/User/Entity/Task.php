@@ -22,7 +22,7 @@ class Task extends Entity{
      */
     protected $id;
 	
-	/** @ORM\Column(type="string") */
+	/** @ORM\Column(type="string", nullable=true) */
     protected $name;
     
     
@@ -40,7 +40,7 @@ class Task extends Entity{
 
     /**
      * @var integer
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $type;
 

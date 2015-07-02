@@ -70,8 +70,8 @@ angularApp.controller('newStaffController', function($scope, $http, $timeout, $q
     
     $scope.submit = function () {
         $http.post("/api/user/staff", $scope.userInfo).success( function( $data ){
-            if ( $data.length == 0 ) {
-                bootbox.alert('Failed to save');
+            if ( $data.error == 'User Exist' ) {
+                bootbox.alert(  'Failed to save <br>'+ $data.email + ' has been exist');
                 return;
             }
             var strUserId = $data.id;

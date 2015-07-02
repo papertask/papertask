@@ -222,13 +222,14 @@ class TaskController extends AbstractActionController
 		$freelancerList = $entityManager->getRepository('User\Entity\Task');
     	$queryBuilder = $freelancerList->createQueryBuilder('task');
     	$queryBuilder->where("task.status=?1")->setParameter(1, '2'); // 2 = accept
-    	$queryBuilder->where("task.assignee=?1")->setParameter(1, $freelancer_id);
+    	$queryBuilder->andWhere("task.assignee=?2")->setParameter(2, $freelancer_id);
     	$queryBuilder->andWhere('task.is_deleted = 0');
 		$query = $queryBuilder->getQuery();
 		$result = $query->getArrayResult();
+	
 		if(count($result) > 1){
 			return new JsonModel(array(
-    			'status' => "fail",
+    			'status' => "have ongoing task",
 			));
 		}
 			

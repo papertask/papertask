@@ -188,16 +188,20 @@ class ProjectController extends AbstractRestfulJsonController
         	$i++;
         	$task = new Task();
         	$taskArrData = array(
-        		'type' => $data['types'][0],        		
+        		//'type' => $data['types'][0],        		
         		'language' => 	$targetLang,
         		'status' => 3, // unassigned
         		'project' => $project,
         		'startDate' => $data['startDate'],
         		'dueDate' => $data['dueDate'],
-        		'name' => $data['reference'],
+        		//'name' => $data['reference'],
         		'task_number' => $project->getId().'-'.$i,
         		
         	);
+        	
+        	$taskArrData['type'] = (is_array($data['types'])&&count($data['types'])>0)?$data['types'][0]: null;
+        	$taskArrData['name'] = (array_key_exists('reference',$data))?$data['reference']:'nul';
+        	
         	$task->setData( $taskArrData );
 			$task->save($this->getEntityManager());
         }

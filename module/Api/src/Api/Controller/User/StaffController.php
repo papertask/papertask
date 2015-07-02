@@ -60,7 +60,10 @@ class StaffController extends AbstractRestfulController
 
 			return new JsonModel( $user->getData() );
 		}
-		return new JsonModel( [] );
+		return new JsonModel( [
+				'error' => 'User Exist',
+				'email' => $data['email']
+				] );
 	}
 	
     public function get( $id ){

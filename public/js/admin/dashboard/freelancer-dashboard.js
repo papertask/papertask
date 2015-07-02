@@ -71,10 +71,18 @@ angularApp.controller('DashboardFreelancerTaskControler', function($scope, $http
 	}
 	
 	$scope.Accept = function(task_id){
+		//bootbox.alert(  'Failed to save <br>'+ $data.email + ' has been exist');
 		$http.get("/" + LANG_CODE + "/admin/task/FreelancerAcceptTask?id="+ task_id, {
            // params: $params
         }).success(function($data){
+        	if($data.status=="have ongoing task"){
+        		bootbox.alert(  'You are having an ongoing task. You cannot Accept any more');
+        		return false;
+        	} else if ($data.status=='ok'){
+        		bootbox.alert(  'You accepted task successfully');
         	location.reload();
+        	}
+        	//location.reload();
         });
 	}
 	
