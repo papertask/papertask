@@ -184,6 +184,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 console.log('$scope.project');
 			 console.log($params);
 			 
+			 
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){
 	        	 //$('#PayAndStartTrans').remove();
@@ -196,6 +197,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	         .error(function($data){
 
 	         });
+	         
 			 return false;
          } else{
              return false;
@@ -226,6 +228,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	         .error(function($data){
 
 	         });
+	        
          } else{
              return false;
          }
@@ -237,6 +240,12 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 data.serviceLevel = data.serviceLevel.id;
 		 data.transGraph = data.transGraph.id;
 		 data.currency = $scope.CurrentCurrency;
+		 data.invoiceinfo = {
+				 'subtotal' : $scope.ItermsTotal,
+				 'tax': $scope.tax,
+				 'discount' : 0,
+				 'total': $scope.total,
+		 }
 		 return data;
 	 }
 	 

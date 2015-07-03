@@ -64,6 +64,9 @@ class ProjectController extends AbstractRestfulJsonController
         if(isset($data['serviceLevel'])) {
             $data['serviceLevel'] = $data['serviceLevel'];
         }
+        if(isset($data['invoiceinfo'])) {
+        	$data['invoiceinfo'] = $data['invoiceinfo'];
+        }
         if(isset($data['types'])){
             $arr = [];
             foreach($data['types'] as $type){
@@ -80,6 +83,7 @@ class ProjectController extends AbstractRestfulJsonController
         
     	
 		$this->cleanData($data);
+
 
         $targetLanguages = [];
         foreach($data['targetLanguages'] as $targetLanguage){
@@ -213,6 +217,10 @@ class ProjectController extends AbstractRestfulJsonController
 		[
 			'invoice_no' => $invoice_no,
 			'dueDate' => $data['dueDate'],
+			'subtotal' => $data['invoiceinfo']['subtotal'],
+			'tax' => $data['invoiceinfo']['tax'],
+			'discount' => $data['invoiceinfo']['discount'],
+			'total' => $data['invoiceinfo']['total'],
 		]);
 		$invoice->setProject($project);
 		$invoice->save($this->getEntityManager());

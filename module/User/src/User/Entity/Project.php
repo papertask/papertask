@@ -204,4 +204,15 @@ class Project extends Entity{
     public function getCurrency(){
     	return $this->currency;
     }
+    
+    public function getFiles($controller){
+    	$entityManager = $controller->getEntityManager();
+    	$repository = $entityManager->getRepository('User\Entity\File');
+    	$files = $repository->findBy( array('project'=>$this->id) );
+    	$filesArray = Array();
+    	foreach($files as $file){
+    		$filesArray[] = ($file)?$file->getData():null;
+    	}
+    	return $filesArray;
+    }
 }

@@ -47,7 +47,7 @@ angularApp.controller('ItemListController', function($scope, $location, $timeout
         $scope.loadItems(1);
     }
 
-    function reset($quote = null){
+    function reset($quote){
     	$scope.filter = {
     			page : 1,
     			quote : $quote,

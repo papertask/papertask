@@ -43,6 +43,30 @@ class Invoice extends Entity{
      */
     protected $dueDate;
 	
+    /**
+     * @var float
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $subtotal = 0.00;
+    
+    /**
+     * @var float
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $tax = 0.00;
+    
+    /**
+     * @var float
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $discount = 0.00;
+    
+    /**
+     * @var float
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $total = 0.00;
+	
 	
 	public function getProject(){
         return $this->project;
@@ -57,7 +81,11 @@ class Invoice extends Entity{
 			'id' => $this->id,
             'invoice_no' => $this->invoice_no,
             'invoiceDate' => $this->invoiceDate,
-			'dueDate' => $this->dueDate
+			'dueDate' => $this->dueDate,
+			'subtotal' => $this->subtotal,
+			'tax' => $this->tax,
+			'discount' => $this->discount,
+			'total' => $this->total,
         ];
     }
 

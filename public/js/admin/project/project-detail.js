@@ -248,6 +248,11 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 						//$scope.invoice.invoiceDate = $scope.invoice.invoiceDate.date;
 					}
 						
+					$scope.subtotal = $scope.invoice.subtotal;
+					$scope.tax = $scope.invoice.tax;
+					$scope.project.discount = $scope.invoice.discount;
+					$scope.total = $scope.invoice.total;
+					$scope.project.tax = 	Math.round(($scope.tax / $scope.subtotal)*100);
 					
 					console.log("scope.invoice");
 					//console.log($data);	
