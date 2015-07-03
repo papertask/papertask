@@ -554,8 +554,11 @@ class ProjectController extends AbstractRestfulJsonController
             $Itermnotms[$k] = $v->getData();
         }*/
 		//var_dump($Itermnotms);exit;
+        $projectData = $project->getData();
+        //$files = $project->getFiles($this);
+        //$projectData ['files'] = $files;
 		return new JsonModel([
-            'project' => $project->getData(),
+            'project' => $projectData,
 			//'itermnotms' => $Itermnotms,
 			
         ]);

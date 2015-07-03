@@ -10,6 +10,7 @@ namespace User\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Common\Entity;
+use User\Entity\File;
 
 
 /** @ORM\Entity */

@@ -246,7 +246,35 @@ class TaskController extends AbstractActionController
 		}
 		return new JsonModel(array(
     			'status' => "fail",
+				//'task' => $currentTask->getData();
 			));
+    }
+    
+    public function submitTaskAction(){
+    	$currentUserId = User::currentLoginId();
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);
+    	$freelancer = $currentUser->getFreelancer();
+    	
+    	// only Freelancer Can submit
+    	if($freelancer){
+    		$taskId = (int)$this->getRequest()->getQuery('id');
+    		$currentTask = $this->find('User\Entity\Task',$taskId);
+    		$currentTask->setStatus(7);
+    		
+    		$entityManager = $this->getEntityManager();
+    		$entityManager->persist($currentTask);
+    		$entityManager->flush();
+    		return new JsonModel(array(
+    				'status' => "ok",
+    				//'task' => 
+    		));
+    	}
+    	
+    	return new JsonModel(array(
+    			'status' => "error",
+    			//'task' =>
+    	));
+    	
     }
     
     public function FreelancerAcceptPoolingTaskAction(){

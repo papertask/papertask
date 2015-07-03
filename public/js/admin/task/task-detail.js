@@ -192,6 +192,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					console.log("project.pm");	
 					console.log($scope.project.pm);	
 					console.log($scope.pms);	
+					if($scope.project.pm)
 					$scope.project.pm = search_by_id($scope.pms, $scope.project.pm.id);
 					if($scope.project.sale)
 						$scope.project.sale = search_by_id($scope.sales, $scope.project.sale.id);
@@ -375,6 +376,46 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				setModalControllerData('softwares', $scope.softwares);
         });		
     }
+
+    $scope.Accept = function(task_id){
+		$http.get("/" + LANG_CODE + "/admin/task/FreelancerAcceptTask?id="+ task_id, {
+           // params: $params
+        }).success(function($data){
+        	
+        	if($data.status=="have ongoing task"){
+        		bootbox.alert(  'You are having an ongoing task. You cannot Accept any more');
+        		return false;
+        	} else if ($data.status=='ok'){
+        		bootbox.alert(  'You accepted task successfully');
+        		$scope.task["status"] = TaskStatus.get(2);
+        	}
+        	
+        });
+	}
+    
+    $scope.SubmitReview = function(task_id){
+    	if($scope.taskfiles.length = 0){
+    		bootbox.alert(  'You need to add final file before submiting');
+    		return false;
+    	}
+		
+		
+		bootbox.confirm('You need to add final file before submiting', function() {
+			$http.get("/" + LANG_CODE + "/admin/task/submitTask?id="+ task_id, {
+		           // params: $params
+		        }).success(function($data){
+		        	
+		        	if($data.status=="error"){
+		        		bootbox.alert(  'There are some error');
+		        		return false;
+		        	} else if ($data.status=='ok'){
+		        		bootbox.alert(  'Task is submited successfully');
+		        		$scope.task["status"] = TaskStatus.get(7);
+		        	}
+		        	
+		        });
+	    });
+	}
 
 /**
      * Translation Prices
@@ -1159,6 +1200,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		for(var i = 0; i < $scope.project.targetLanguages.length; i++)
 		{
 			$scope.itermtmnew[$scope.project.targetLanguages[i].id] = [];
+			if(Itemr)
 			for(var j = 0; j < Itemr.length; j++){
 				if(Itemr[j].language.id == $scope.project.targetLanguages[i].id){
 					$scope.subtotal_tmp = $scope.subtotal_tmp + parseFloat(Itemr[j].total);

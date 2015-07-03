@@ -52,6 +52,10 @@ $this->inlineScript()
         margin-right: 0.3em;
     }
 </style>
+<?php 
+	$user = $this->userData();
+	//var_dump($user);
+?>
 <div class="row">
 <div class="col-lg-12">
 	<div class="ibox" ng-controller="TaskDetailController" id="TaskDetailController">
@@ -59,9 +63,16 @@ $this->inlineScript()
 			<?php include "detail/info.phtml"; ?>
 			<?php include "detail/miniform.phtml"; ?>
 			<div class="hr-line-dashed"></div>
-            <?php include "detail/files.phtml";?>   
 			
-			<?php if ($this->isStaff==1) {?>
+			<!-- Project File -->
+            <?php if($user['role'] == 'Admin') 
+            			include "detail/files.phtml";
+            	else if ($user['role'] == 'Freelancer') 
+            			include "detail/files_freelancer.phtml";
+            
+            ?>   
+			
+			<?php //if ($this->isStaff==1) {?>
 			<div class="hr-line-dashed"></div>			
 			<div class="row m-t-sm" >
 				<div class="col-lg-12">
@@ -71,7 +82,7 @@ $this->inlineScript()
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasksNum }}</span> <?php echo $this->translate("Task Allocation"); ?></a></li>
 								
-								<li class="" ng-show="1 == 0"><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> Messages & Activities</a></li>
+								<li class="" ng-show="1 == 1"><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> Messages & Activities</a></li>
 								
 							</ul>
 						</div>
@@ -79,13 +90,13 @@ $this->inlineScript()
 					<div class="panel-body">
 						<div class="tab-content">	
 							<?php include "detail/order_information.phtml"; ?>
-							<?php //include "detail/activities.phtml"; ?>
+							<?php include "detail/activities.phtml"; ?>
 						</div>
 					</div>	
 				</div>
 				</div>
 			</div>
-			<?php } ?>
+			<?php //} ?>
 		</div>
 	</div>
 </div>

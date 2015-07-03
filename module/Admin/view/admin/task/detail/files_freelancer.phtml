@@ -1,0 +1,18 @@
+<div class="row">
+	<div class="col-lg-5">
+		<dl class="dl-horizontal">
+			<dt>Project Files:</dt>
+			<dd>
+				<ul class="list-unstyled project-files tooltip-demo" >
+				<li ng-repeat="file in files">
+					<a href="{{file.path}}" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{ file.size/1024/1024|number:2 }} MB | {{ file.date }}"><i class="fa fa-file"></i> {{ file.name }}</a>
+					<a href="#" ng-click="calTo('#modal-file','#TaskDetailController',
+	                                           'removeItem', file)"><i class="fa fa-trash"></i></a>
+					
+					
+				</li>
+            </ul>
+			</dd>
+		</dl>
+	</div>
+</div>

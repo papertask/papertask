@@ -80,7 +80,7 @@ class File extends Entity{
         return [
             'id' => $this->id,
 			'name' => $this->name,
-			// 'path' => $this->path,
+			'path' => $this->path,
 			'size' => $this->size,
 			'project' => ($this->project)?$this->project->getData():null,
 			'task' => ($this->task)?$this->task->getData():null,

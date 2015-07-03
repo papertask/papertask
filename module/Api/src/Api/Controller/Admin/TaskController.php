@@ -192,6 +192,7 @@ class TaskController extends AbstractRestfulJsonController
         		$userData = $task->getData();
         		// Get Employer
         		$freelancerId = $userData['assignee']['id'];
+        		if($freelancerId != null){
         		$user = $entityManager->getRepository('User\Entity\User')->findOneBy(array('freelancer'=>$freelancerId));
         		$userData['assignee'] = $user->getData();
         		
@@ -199,7 +200,9 @@ class TaskController extends AbstractRestfulJsonController
         		$userData['project'] = $project->getData();
         		// Get Project
         		//var_dump($user); exit;
+        		}
         		$data[] = $userData;
+        		
         	}
         	//var_dump($paginator);die;
         	return new JsonModel(array(

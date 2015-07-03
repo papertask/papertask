@@ -46,6 +46,7 @@ $allow_all = array(
 	'task\freelancer-task-view',
 	'task\getFreelancerTaskList',
 	'task\FreelancerAcceptTask',
+	'task\submitTask',
 	'task\task-pool',
 	'task\getTaskPoolList',
 	'task\freelancer-unpaid-task',
