@@ -40,6 +40,7 @@ $allow_all = array(
 	'dashboard\index',
 	'dashboard\client-dashboard',
 	'dashboard\freelancer-dashboard',
+	'dashboard\admin-pm-dashboard',
 	// -- Task
 	'task\index',
 	'task\detail',
@@ -86,12 +87,14 @@ $allow_all = array(
 	'freelancer\edit-payment-info',
 	'freelancer\edit-price',
 	'freelancer\finishRegistration',
+	
 	// -- Employer (Client)
 	'employer\list',
 	'employer\new',
 	'employer\profile',
 	'employer\detail',
 	'employer\edit',
+	'employer\removeTranslatorPool',
 	// -- Staff
 	'staff\index',
 	'staff\new',

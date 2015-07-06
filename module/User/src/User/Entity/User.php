@@ -19,6 +19,9 @@ use Common\Mail;
 use Common\Func;
 use Common\Entity;
 use User\Entity\UserGroup;
+use User\Entity\User;
+use User\Entity\Freelancer;
+use User\Entity\Task;
 
 /** @ORM\Entity */
 class User extends Entity implements InputFilterAwareInterface{
@@ -117,6 +120,24 @@ class User extends Entity implements InputFilterAwareInterface{
      * @ORM\Column(type="string", nullable=true)
      */
     protected $cellphone;
+
+    /**
+     * @var int
+     * @ORM\Column(type="array", length=255)
+     */
+    protected $translator_pool = array();
+    
+    /**
+     * @var int
+     * @ORM\Column(type="array", length=255)
+     */
+    protected $client_pool = array();
+    
+    /**
+     * @var int
+     * @ORM\Column(type="array", length=255)
+     */
+    protected $types = array();
 
     // class variables
     protected $inputFilter;
@@ -491,7 +512,9 @@ class User extends Entity implements InputFilterAwareInterface{
             "phone" => $this->phone,
             "profileUpdated" => $this->profileUpdated,
             "alias" => $this->alias,
-            "cellphone" => $this->cellphone
+            "cellphone" => $this->cellphone,
+        	//"translator_pool" =>($this->isEmployer())?$this->translator_pool : null,
+        	//"client_pool" => ($this->isFreelancer())?$this->client_pool : null,
         );
     }
 
@@ -500,6 +523,52 @@ class User extends Entity implements InputFilterAwareInterface{
      */
     public function getFreelancer(){
         return $this->freelancer;
+    }
+
+    public function getTranslatorPool($controller){
+    	
+    	//$files = $repository->findBy( array('project'=>$this->id) );
+    	if($this->isEmployer()){
+    		$freelancers =  $this->translator_pool;
+    		
+    		$freelancerArray = array();
+    		foreach ($freelancers as $id){
+    			$userArr = array();
+    			$user= $controller->getEntityManager()->find('User\Entity\User',$id);
+    			
+    			// Get Freelancer for Resource
+    			$freelancer = $user->getFreelancer();
+    			
+    			// Count Done	
+    			$entityManager = $controller->getEntityManager();
+    			$taskList = $entityManager->createQueryBuilder()
+    					->select("COUNT(task.id)")
+    					->from('User\Entity\Task','task')
+    					->where("task.assignee=?1")->setParameter(1, $freelancer)
+    					->andWhere('task.is_deleted = 0')
+    					->andWhere('task.status = 1');
+    					$taskNum = $taskList->getQuery()->getSingleScalarResult();
+    			
+    			$userArr=$user->getData();
+    			$userArr['freelancer']=$freelancer->getData();
+    			$userArr['taskdone']=$taskNum;
+    			
+    			$freelancerArray[] = $userArr;
+    		}   		
+    		return $freelancerArray;
+    	} else{
+    		return null;
+    	}
+    	
+    }
+    
+    public function removeTranslatorPool($freelancer_id, $controller){
+    	$FreelancerArr = $this->translator_pool;
+    	    	
+    	if(($key = array_search($freelancer_id, $FreelancerArr)) !== false) {
+    		unset($FreelancerArr[$key]);
+    	}  	
+    	$this->translator_pool = $FreelancerArr; 	
     }
 
     /**

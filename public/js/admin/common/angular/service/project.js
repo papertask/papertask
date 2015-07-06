@@ -56,6 +56,14 @@ angularApp.factory("ProjectStatus", function(){
         'id': 6,
         'name': 'Rejected',
         'decorator': 'danger'
+    },{
+        'id': 7,
+        'name': 'Un-assigned',
+        'decorator': 'danger'
+    },{
+        'id': 8,
+        'name': 'Pooling',
+        'decorator': 'warning'
     }];
 
     return {
@@ -153,9 +161,7 @@ angularApp.factory("TaskStatus", function(){
         'id': 7,
         'name': 'Reviewing',
         'decorator': 'warning'
-    }
-	
-	];
+    }];
 
     return {
         get: function ($id) {
@@ -169,6 +175,80 @@ angularApp.factory("TaskStatus", function(){
             return statuses;
         },
         unassigned: unassigned
+    }
+});
+
+angularApp.factory("ResourceType", function(){
+    var values = [{
+        'id': 1,
+        'name': 'Translator',
+        'resourceGroup': 1,       
+    },{
+        'id': 2,
+        'name': 'Proofreader',
+        'resourceGroup': 1,       
+    },{
+        'id': 3,
+        'name': 'Desktop Publishing',
+        'resourceGroup': 2,       
+    },{
+        'id': 4,
+        'name': 'Simultaneous',
+        'resourceGroup': 3,  
+    },{
+        'id': 5,
+        'name': 'Consecutive',
+        'resourceGroup': 3,
+    },{
+        'id': 6,
+        'name': 'Business Escort',
+        'resourceGroup': 3,       
+    },{
+        'id': 7,
+        'name': 'Tourism Escort',
+        'resourceGroup': 3,      
+    }];
+
+    return {
+        get: function ($id) {
+            for (var i = 0; i < values.length; i++) {
+                if (values[i].id == $id) {
+                    return values[i];
+                }
+            }
+        },
+        all: function () {
+            return values;
+        }
+    }
+});
+
+angularApp.factory("ResourceGroup", function(){
+    var values = [{
+        'id': 1,
+        'name': 'Translation',  
+        'icon' : 'fa-coffee'
+    },{
+        'id': 2,
+        'name': 'Desktop Publishing',      
+        'icon' : 'fa-desktop'
+    },{
+        'id': 3,
+        'name': 'Interpreting',   
+        'icon' : 'fa-comments-o'
+    }];
+
+    return {
+        get: function ($id) {
+            for (var i = 0; i < values.length; i++) {
+                if (values[i].id == $id) {
+                    return values[i];
+                }
+            }
+        },
+        all: function () {
+            return values;
+        }
     }
 });
 

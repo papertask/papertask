@@ -32,6 +32,9 @@ class DashboardController extends AbstractActionController
 		else if($user->isEmployer()){
 			$url = "/" . $lang_code . '/admin/dashboard/client-dashboard';
 			$this->redirect()->toUrl($url);
+		} else if($user->isAdmin()){
+			$url = "/" . $lang_code . '/admin/dashboard/admin-pm-dashboard';
+			$this->redirect()->toUrl($url);
 		}
         return new ViewModel(array());
     }
@@ -61,6 +64,34 @@ class DashboardController extends AbstractActionController
 			"numberproject" => $count
         ]);
 	}
+	
+	public function adminpmDashboardAction()
+	{
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		//get all project
+		$user = $this->getCurrentUser();
+	
+		$entityManager = $this->getEntityManager();
+		$projectList = $entityManager->getRepository('User\Entity\Project');
+		$qb = $projectList->createQueryBuilder('project');
+			
+		$qb->select('count(project.id)');
+		$qb->where('project.is_deleted = 0');
+		$qb->andWhere(
+				$qb->expr()->eq('project.client', $user->getId())
+		);
+	
+		$count = $qb->getQuery()->getSingleScalarResult();
+		//var_dump($count);exit;
+	
+		$lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel([
+				"lang_code" => $lang_code,
+				"numberproject" => $count
+				]);
+	}
+	
 	public function freelancerDashboardAction(){
     	$lang_code = $this->params()->fromRoute('lang');
     	//$currentUserId = User::currentLoginId();

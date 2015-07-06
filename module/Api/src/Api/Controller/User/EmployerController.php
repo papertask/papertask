@@ -306,6 +306,7 @@ class EmployerController extends AbstractRestfulController
         $helper = new Helper();
         
         foreach($paginator as $user){
+        	
             $userData = $user->getData();
             $userData['employer'] = $user->getEmployer()->getData();
             $userData['createdTime'] = $helper->formatDate($userData['createdTime']);
@@ -322,6 +323,7 @@ class EmployerController extends AbstractRestfulController
             // End Count TaskDone
             
             $data[] = $userData;
+            
         }
         return new JsonModel(array(
             'employers'=>$data,

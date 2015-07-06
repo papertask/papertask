@@ -127,4 +127,15 @@ class EmployerController extends AbstractActionController {
 				"lang_code" => $lang_code
         ));
     }
+    
+    public function removeTranslatorPoolAction(){
+    	
+    	$id = $this->params()->fromQuery('id');
+    	$freelancer_id = $this->params()->fromQuery('freelancer_id');
+    	
+    	$user= $this->getEntityManager()->find('User\Entity\User',$id);
+    	$user->removeTranslatorPool($freelancer_id, $this);
+    	$user->save($this->getEntityManager());
+    	return new JsonModel();
+    }
 }

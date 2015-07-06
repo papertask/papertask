@@ -16,6 +16,12 @@ class IndexController extends AbstractRestfulController
     public function get($id){
         $user = $this->getUserById($id);
         $userData = $user->getData();
+        
+        // Pool
+        if($user->isEmployer()){
+        	$userData['translator_pool'] = $user->getTranslatorPool($this);
+        }
+        
         $userData['isAdmin'] = $this->getCurrentUser()->isAdmin();
 
         $desktopPriceData = $this->getAllDataBy('\User\Entity\UserDesktopPrice', [

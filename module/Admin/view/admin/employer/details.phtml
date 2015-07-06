@@ -1,6 +1,7 @@
 <!-- Scripts -->
 <?php
 $this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/details.js' )
+					->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
 					->prependFile ( $this->basePath () . '/js/admin/bootstrap-modal.js' )
 					->prependScript ( "angularApp = angular.module('project', []);" )
 					->prependFile ( $this->basePath () . '/js/plugins/summernote/summernote.min.js' )
@@ -281,27 +282,14 @@ $this->inlineScript()
 									</tr>
 									</thead>
 									<tbody>
-									<tr>
-										<td>1</td>
-										<td><a href="">Doe, John</a></td>
-										<td><i class="fa fa-coffee"> Translation</i></td>
-										<td>88</td>
-										<td><a href=""><i class="fa fa-trash-o text-danger"></i></a></td>
+									<tr ng-repeat="translator in userInfo.translator_pool">
+										<td>{{$index +1}}</td>
+										<td><a href="">{{translator.firstName}}, {{translator.lastName}}</a></td>
+										<td><i class="fa {{ResourceGroup.get(ResourceType.get(translator.freelancer.Resources[0]).resourceGroup).icon}}"> {{ResourceGroup.get(ResourceType.get(translator.freelancer.Resources[0]).resourceGroup).name}}</i></td>
+										<td>{{translator.taskdone}}</td>
+										<td><a href="" ng-click="removeResource(translator)"><i class="fa fa-trash-o text-danger"></i></a></td>
 									</tr>
-									<tr>
-										<td>2</td>
-										<td><a href="">Leo, Jacob</a></td>
-										<td><i class="fa fa-desktop"> Desktop Publishing</i></td>
-										<td>68</td>
-										<td><a href=""><i class="fa fa-trash-o text-danger"></i></a></td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td><a href="">Leo, Jacob</a></td>
-										<td><i class="fa fa-comments-o"> Interpreting</i></td>
-										<td>68</td>
-										<td><a href=""><i class="fa fa-trash-o text-danger"></i></a></td>
-									</tr>
+									
 									</tbody>
 								</table>
 							</div>

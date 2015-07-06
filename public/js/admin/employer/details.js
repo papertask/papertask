@@ -2,7 +2,7 @@ angularApp.run( function ( $rootScope ) {
 
 }) 
 
-angularApp.controller('PapertaskEmployerDetailController', function($scope, $http, $timeout, $q) {
+angularApp.controller('PapertaskEmployerDetailController', function($scope, $http, $timeout, $q, ResourceGroup, ResourceType) {
     $scope.pagetype = 'detail';
 	$scope.countries 	= [];
 	$scope.pages 		= [];
@@ -11,6 +11,9 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
     $scope.interpretingPrices = [];
     $scope.engineeringPrices = [];
     $scope.tmRatios = {};
+    
+    $scope.ResourceGroup = ResourceGroup;
+    $scope.ResourceType = ResourceType;
     
     $scope.password = null;
     $scope.passwordChanged = 0;
@@ -52,6 +55,7 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
         $http.get("/api/user/" + USER_ID + "")
             .success(function ( $data ) {
                 $scope.userInfo = {
+                	id : $data.user.id,
                     isActive: $data.user.isActive,
                     profileUpdated: $data.user.profileUpdated,
                     email: $data.user.email,
@@ -63,7 +67,8 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
                     country: $data.user.country,
                     currency: $data.user.currency,
                     tmRatios: $data.tmRatios,
-                    alias: $data.user.alias
+                    alias: $data.user.alias,
+                    translator_pool : $data.user.translator_pool,
                 };
                 $scope.tmRatios = $data.tmRatios;
                 $scope.translationPrices = $data.translationPrices;
@@ -106,6 +111,18 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
                 $scope.passwordChanged = 1;
             }
         });
+    }
+	
+    $scope.removeResource = function(freelancer){
+    	 
+    		
+		$http.get("/" + LANG_CODE + "/admin/employer/removeTranslatorPool?id="+$scope.userInfo.id+'&freelancer_id='+freelancer.id)
+		.success(function($data){
+			var index = $scope.userInfo.translator_pool.indexOf(freelancer);
+    		$scope.userInfo.translator_pool.splice(index, 1);
+        }).error(function($e){
+            alert('error');
+        });	
     }
 	
 });
