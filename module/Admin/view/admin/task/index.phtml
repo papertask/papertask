@@ -203,11 +203,11 @@ $this->inlineScript()
 
 									</td>
 									<td class="project-title"><span
-										ng-clock="showProfile(task.assignee)" ng-show="task.assignee"><strong>{{
+										ng-click="showProfile(task.assignee)" ng-show="task.assignee"><strong>{{
 												task.assignee.name }}</strong> </span> <span
-										class="text-warning" ng-show="task.is_specialism_pool"><strong><?php echo $this->translate('Assigned to Specialism Pool') ?>
+										class="text-warning" ng-show="task.is_specialism_pool && !task.assignee"><strong><?php echo $this->translate('Assigned to Specialism Pool') ?>
 										</strong> </span> <span class="text-warning"
-										ng-show="task.is_client_pool"><strong><?php echo $this->translate('Assigned to Client\'s Resource Pool') ?>
+										ng-show="task.is_client_pool && !task.assignee"><strong><?php echo $this->translate('Assigned to Client\'s Resource Pool') ?>
 										</strong> </span> <span
 										ng-show="!task.assignee && !task.is_specialism_pool && !task.is_client_pool"
 										class="text-danger"><strong><?php echo $this->translate("Un-Assigned") ?>
@@ -215,10 +215,8 @@ $this->inlineScript()
 										<span
 										ng-show="task.assignee"
 										><strong>Freelancer, {{task.assignee.firstName}} {{task.assignee.lastName}}
-										</strong> </span>
-										</strong> </span> <span
-										ng-show="task.is_specialism_pool"
-										class="text-warning"><strong><?php echo $this->translate("Assigned to Specialism Pool") ?>
+											</strong> 
+										</span>
 										</strong> </span>
 										<div class="tooltip-demo">
 											<code data-toggle="tooltip" tooltip-placement="top"

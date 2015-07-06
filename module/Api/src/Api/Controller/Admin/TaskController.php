@@ -102,7 +102,6 @@ class TaskController extends AbstractRestfulJsonController
         	}
         }
         
-        //var_dump($params); exit;
         
         if($projectId){
         $tasks = $this->getAllDataBy('\User\Entity\Task', [
@@ -188,8 +187,11 @@ class TaskController extends AbstractRestfulJsonController
         	if($page) $paginator->setCurrentPageNumber($page);
         	$data = array();
         	//$helper = new Helper();
+        	
         	foreach($paginator as $task){
+ 
         		$userData = $task->getData();
+        		
         		// Get Employer
         		$freelancerId = $userData['assignee']['id'];
         		if($freelancerId != null){
@@ -199,12 +201,12 @@ class TaskController extends AbstractRestfulJsonController
         		$project = $this->find('User\Entity\Project',$userData['project']);
         		$userData['project'] = $project->getData();
         		// Get Project
-        		//var_dump($user); exit;
+        			//var_dump($user); 		
         		}
         		$data[] = $userData;
         		
         	}
-        	//var_dump($paginator);die;
+
         	return new JsonModel(array(
         			'tasks' => $data,
         			'pages' => $paginator->getPages()

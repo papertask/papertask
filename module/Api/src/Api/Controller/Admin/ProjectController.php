@@ -85,6 +85,7 @@ class ProjectController extends AbstractRestfulJsonController
 		$this->cleanData($data);
 
 
+
         $targetLanguages = [];
         foreach($data['targetLanguages'] as $targetLanguage){
             $targetLanguages[$targetLanguage['id']] = $this->getReference('\User\Entity\Language', $targetLanguage['id']);
@@ -213,15 +214,19 @@ class ProjectController extends AbstractRestfulJsonController
 		//invoice
 		$invoice = new Invoice();
 		$invoice_no = "INV-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
-		$invoice->setData(
-		[
+		$invoiceDataArr = array(
 			'invoice_no' => $invoice_no,
 			'dueDate' => $data['dueDate'],
-			'subtotal' => $data['invoiceinfo']['subtotal'],
-			'tax' => $data['invoiceinfo']['tax'],
-			'discount' => $data['invoiceinfo']['discount'],
-			'total' => $data['invoiceinfo']['total'],
-		]);
+		);
+		if(array_key_exists ( 'invoiceinfo' , $data )){
+			//var_dump($data['invoiceinfo']);
+			$invoiceDataArr['subtotal'] = $data['invoiceinfo']['subtotal'];
+			$invoiceDataArr['tax'] = $data['invoiceinfo']['tax'];
+			$invoiceDataArr['discount'] = $data['invoiceinfo']['discount'];
+			$invoiceDataArr['total'] = $data['invoiceinfo']['total'];
+		}
+
+		$invoice->setData($invoiceDataArr);
 		$invoice->setProject($project);
 		$invoice->save($this->getEntityManager());
 		//

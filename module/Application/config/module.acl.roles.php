@@ -74,6 +74,10 @@ $allow_all = array(
 	'project\wordcount',
 	'project\uploadtemp',
 	
+	// -- Quote	
+	'quote\detail',
+	'quote\new',
+	
 	
 	// -- Freelancer
 	'freelancer\index',

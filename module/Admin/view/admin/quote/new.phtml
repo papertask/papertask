@@ -1,0 +1,103 @@
+<?php $this->headTitle($this->translate('Add New Project')) ?>
+<!-- Le styles -->
+<?php $this->headLink()
+    ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
+    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
+    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
+    ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
+    ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+?>
+
+<!-- Scripts -->
+<?php $this->headScript()
+    ->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
+    ->prependFile($this->basePath() . '/js/admin/quote/new-quote.js')
+    ->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
+    ->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
+    ->prependFile($this->basePath() . '/js/admin/angular-steps.js')
+    ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
+    ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload']);")
+    ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
+    ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
+    //->prependFile($this->basePath() . '/js/plugins/datapicker/bootstrap-datepicker.js')
+    ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
+    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
+    ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
+    ->prependFile($this->basePath() . '/js/inspinia.js');
+?>
+<?php
+$this->inlineScript()
+    ->prependScript("
+		var LANG_CODE = '" . $this->lang_code . "';
+    ");
+?>
+<style>
+    .form-group label.btn-outline {
+        margin-right: 0.3em;
+    }
+    input[readonly][data-field=datetime]{
+        background-color: #fff;
+    }
+    input[readonly][data-field=datetime]:hover,
+    i.fa.fa-calendar:hover{
+        cursor: pointer;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5><i class="fa fa-archive"></i> Create Project</h5>
+            </div>
+            <div class="ibox-content">
+                <form id="form" action="#" class="wizard-big" ng-controller="CreateProjectController">
+                    <h1>Project Information</h1>
+                    <fieldset>
+                        <?php include "new/type_and_status.phtml" ?>
+                        <?php include "new/files.phtml" ?>
+                        <?php include "new/languages.phtml" ?>
+                        <?php include "new/info.phtml" ?>
+                    </fieldset>
+                    <h1>Quote Information</h1>
+                    <fieldset>
+                        <?php include "new/service_and_duration.phtml" ?>
+                        <?php include "new/order_information.phtml" ?>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-controller="ModalController" id="modalContainer">
+    <?php include "new/modal/interpreting_modal.phtml" ?>
+    <?php include "new/modal/engineering_modal.phtml" ?>
+    <?php include "new/modal/desktop_publishing_modal.phtml" ?>
+    <?php include "new/modal/translation_modal.phtml" ?>
+</div>
+<script>
+    var edit = function() {
+        $('.click2edit').summernote({focus: true});
+    };
+    var save = function() {
+        var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+        $('.click2edit').destroy();
+    };
+
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.dtbox').DateTimePicker();
+
+        // trigger datetime picker when click to calendar icon
+        // TODO: this is not working
+        $('i.fa.fa-calendar').on('click', function(e){
+            console.log('clicked');
+            e.preventDefault();
+
+            $(this).parents('.input-group').find('input[readonly]').click();
+        });
+    });
+</script>

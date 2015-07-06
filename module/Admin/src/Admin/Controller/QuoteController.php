@@ -25,7 +25,10 @@ class QuoteController extends AbstractActionController
 
     public function newAction()
     {
-        return new ViewModel(array());
+        $lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code,
+        ));
     }
 
     public function uploadFileAction(){
