@@ -54,7 +54,7 @@ $this->inlineScript()
 <div class="ibox" ng-controller="ProjectDetailController" id="ProjectDetailController">
 <div class="ibox-content">
     <?php include "detail/info.phtml"; ?>
-    <?php include "detail/miniform.phtml"; ?>
+	<?php if (!$this->isemployer) { include "detail/miniform.phtml"; } ?>
 
 
 <div class="row m-t-sm">
