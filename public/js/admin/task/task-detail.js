@@ -176,6 +176,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					$project.tasks = [];
 					
 					$scope.project = $project;
+					console.log("project cxcx");
+					console.log($scope.project);
 					var str = $scope.project.quote_no;
 					if(str){
 						var res = str.split("-");
@@ -197,9 +199,9 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					if($scope.project.sale)
 						$scope.project.sale = search_by_id($scope.sales, $scope.project.sale.id);
 					
-					$scope.project.client = search_by_id($scope.clients, $scope.project.client.id);
-					console.log("$scope.project.client");	
-					console.log($scope.project.client);	
+					//$scope.project.client = search_by_id($scope.clients, $scope.project.client.id);
+					//console.log("$scope.project.client");	
+					//console.log($scope.project.client);	
 					//get all file
 					$http.get('/api/admin/file?projectId='+ $scope.projectId).success(function($data) {
 							console.log("scope.files");
