@@ -2,7 +2,9 @@
 <div class="row">
  <div class="row">
                                                     <div class="col-lg-6">
+														
                                                         <form class="form-horizontal">
+														<?php if (!$this->isemployer) {?>
                                                             <div class="form-group" id="inv_data">
                                                                 <label class="col-sm-3 control-label">Invoice Date *</label>
 
@@ -17,6 +19,7 @@
 																<div class="dtbox"></div>
 
                                                             </div>
+														<?php } ?>	
                                                     </div>
                                                     <div class="col-lg-6" align="right">
                                                         <a ng-href="{{url_downloadInvoice}}" target="_blank"  class="btn btn-white" ng-click="downloadInvoice()"><i class="fa fa-file-pdf-o " ></i> Download </a>
