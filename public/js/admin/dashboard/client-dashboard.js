@@ -59,6 +59,10 @@ angularApp.controller('DashboardProjectController', function($scope, ProjectServ
         location.href = "/" + LANG_CODE + "/admin/project/client-completed-projects/";
     };
 	
+    $scope.gotoUnpaidProject = function(){
+        location.href = "/" + LANG_CODE + "/admin/project/client-unpaid/";
+    };
+	
 	
 	
 	$scope.quoteAccepted= function ($project) {

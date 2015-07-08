@@ -313,6 +313,29 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
             $scope.pages = $data.pages;
         });
 	}
+	
+	$scope.removeResource = function(client){
+
+		$http.get("/" + LANG_CODE + "/admin/employer/removeResource?client_id="+client.id+'&freelancer_id='+$scope.userInfo.id)
+		.success(function($data){
+			var index = $scope.userInfo.client_pool.indexOf(client);
+    		$scope.userInfo.client_pool.splice(index, 1);
+        }).error(function($e){
+            alert('error');
+        });	
+    }
+	
+	$scope.addResource = function(client){
+
+		$http.get("/" + LANG_CODE + "/admin/employer/addResource?client_id="+client.id+'&freelancer_id='+$scope.userInfo.id)
+		.success(function($data){
+			client.client = client.employer;
+    		$scope.userInfo.client_pool.push(client);
+        }).error(function($e){
+            alert('error');
+        });	
+    }
+	
 	//desktop
 	$scope.addClientDesktop = function (employer , client_id) {
 		console.log(client_id);
@@ -552,7 +575,10 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
                     phone: $data.user.phone,
                     country: $data.user.country,
                     currency: $data.user.currency,
-					tmRatios: $data.tmRatios
+					tmRatios: $data.tmRatios,
+					client_pool: $data.user.client_pool,
+					id: $data.user.id,
+					
                 };
 				$scope.tmRatios = $data.tmRatios;
                 $scope.translationPrices = $data.translationPrices;

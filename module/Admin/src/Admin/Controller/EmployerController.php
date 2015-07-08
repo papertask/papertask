@@ -128,14 +128,36 @@ class EmployerController extends AbstractActionController {
         ));
     }
     
-    public function removeTranslatorPoolAction(){
+    public function removeResourceAction(){
     	
-    	$id = $this->params()->fromQuery('id');
+    	$client_id = $this->params()->fromQuery('client_id');
     	$freelancer_id = $this->params()->fromQuery('freelancer_id');
     	
-    	$user= $this->getEntityManager()->find('User\Entity\User',$id);
-    	$user->removeTranslatorPool($freelancer_id, $this);
-    	$user->save($this->getEntityManager());
+    	$client= $this->getEntityManager()->find('User\Entity\User',$client_id);
+    	$client->removeTranslatorPool($freelancer_id);
+    	$client->save($this->getEntityManager());
+    	
+    	$freelancer= $this->getEntityManager()->find('User\Entity\User',$freelancer_id);
+    	$freelancer->removeClientPool($client_id);
+    	$freelancer->save($this->getEntityManager());
+    	
+    	return new JsonModel();
+
+    }
+    
+    public function addResourceAction(){
+    	 
+    	$client_id = $this->params()->fromQuery('client_id');
+    	$freelancer_id = $this->params()->fromQuery('freelancer_id');
+    	 
+    	$client= $this->getEntityManager()->find('User\Entity\User',$client_id);
+    	$client->addTranslatorPool($freelancer_id);
+    	$client->save($this->getEntityManager());
+    	 
+    	$freelancer= $this->getEntityManager()->find('User\Entity\User',$freelancer_id);
+    	$freelancer->addClientPool($client_id);
+    	$freelancer->save($this->getEntityManager());
+    	 
     	return new JsonModel();
     }
 }

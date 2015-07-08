@@ -116,7 +116,7 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
     $scope.removeResource = function(freelancer){
     	 
     		
-		$http.get("/" + LANG_CODE + "/admin/employer/removeTranslatorPool?id="+$scope.userInfo.id+'&freelancer_id='+freelancer.id)
+		$http.get("/" + LANG_CODE + "/admin/employer/removeResource?client_id="+$scope.userInfo.id+'&freelancer_id='+freelancer.id)
 		.success(function($data){
 			var index = $scope.userInfo.translator_pool.indexOf(freelancer);
     		$scope.userInfo.translator_pool.splice(index, 1);

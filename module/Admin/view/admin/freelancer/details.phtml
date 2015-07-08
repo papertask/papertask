@@ -257,7 +257,7 @@ $this->inlineScript()
 																			<small>{{employer.country.name}}</small>
 																		</td>
 																		<td class="project-actions">
-																			<a href="#" class="btn btn-white btn-sm" ng-click="addClientTrans(employer.employer,employer.id)" ><?php echo $this->translate('Add') ?></a>
+																			<a href="#" class="btn btn-white btn-sm" ng-click="addResource(employer); addClientTrans(employer.employer,employer.id)" ><?php echo $this->translate('Add') ?></a>
 																		</td>
 																	</tr>
                                                                 </tbody>
@@ -285,12 +285,12 @@ $this->inlineScript()
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-												<tr ng-repeat="employer in clientsTranslation">
+												<tr ng-repeat="client in userInfo.client_pool">
 													<td>{{$index + 1}}</td>
-													<td><a href="">{{employer.client.name}}&nbsp</a></td>
-													<td>{{employer.client.company.name}}</td>
-													<td>88</td>
-													<td><a href=""><i class="fa fa-trash-o text-danger" ng-click="deleteClientTrans(employer , employer.id)"></i></a></td>
+													<td><a href="">{{client.firstName}} {{client.lastName}}</a></td>
+													<td>{{client.client.company.name}}</td>
+													<td>{{client.taskdone}}</td>
+													<td><a href=""><i class="fa fa-trash-o text-danger" ng-click="removeResource(client)"></i></a></td>
 												</tr>
                                                 </tbody>
                                             </table>

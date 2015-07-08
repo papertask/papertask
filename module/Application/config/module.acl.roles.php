@@ -98,7 +98,8 @@ $allow_all = array(
 	'employer\profile',
 	'employer\detail',
 	'employer\edit',
-	'employer\removeTranslatorPool',
+	'employer\removeResource',
+	'employer\addResource',
 	// -- Staff
 	'staff\index',
 	'staff\new',

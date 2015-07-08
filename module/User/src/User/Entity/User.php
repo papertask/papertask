@@ -562,7 +562,45 @@ class User extends Entity implements InputFilterAwareInterface{
     	
     }
     
-    public function removeTranslatorPool($freelancer_id, $controller){
+    public function getClientPool($controller){
+    	 
+    	//$files = $repository->findBy( array('project'=>$this->id) );
+    	if($this->isFreelancer()){
+    		$clients =  $this->client_pool;
+    
+    		$clientArray = array();
+    		foreach ($clients as $id){
+    			$userArr = array();
+    			$user= $controller->getEntityManager()->find('User\Entity\User',$id);
+    			 
+    			// Get Freelancer for Resource
+    			$client = $user->getEmployer();
+    			 
+    			// Count Done
+    			$entityManager = $controller->getEntityManager();
+    			$taskList = $entityManager->createQueryBuilder()
+    			->select("COUNT(task.id)")
+    			->from('User\Entity\Task','task')
+    			->innerJoin("User\Entity\Project", "p", "WITH", "task.project = p")
+    			->where("p.client=?1")->setParameter(1, 130);
+    			//->andWhere('task.is_deleted = 0')
+    			//->andWhere('task.status = 1');
+    			$taskNum = $taskList->getQuery()->getSingleScalarResult();
+  			
+    			$userArr=$user->getData();
+    			$userArr['client']=$client->getData();
+    			$userArr['taskdone']=$taskNum;
+    			 
+    			$clientArray[] = $userArr;
+    		}
+    		return $clientArray;
+    	} else{
+    		return null;
+    	}
+    	 
+    }
+    
+    public function removeTranslatorPool($freelancer_id){
     	$FreelancerArr = $this->translator_pool;
     	    	
     	if(($key = array_search($freelancer_id, $FreelancerArr)) !== false) {
@@ -570,6 +608,34 @@ class User extends Entity implements InputFilterAwareInterface{
     	}  	
     	$this->translator_pool = $FreelancerArr; 	
     }
+
+    public function removeClientPool($client_id){
+    	$ClientArr = $this->client_pool;
+    
+    	if(($key = array_search($client_id, $ClientArr)) !== false) {
+    		unset($ClientArr[$key]);
+    	}
+    	$this->client_pool = $ClientArr;
+    }
+    
+    public function addTranslatorPool($freelancer_id){
+    	$FreelancerArr = $this->translator_pool;
+    
+    	if(!in_array($freelancer_id, $FreelancerArr)) {
+    		$FreelancerArr[]=$freelancer_id;
+    	}
+    	$this->translator_pool = $FreelancerArr;
+    }
+    
+    public function addClientPool($client_id){
+    	$ClientArr = $this->client_pool;
+    
+    	if(!in_array($client_id, $ClientArr)) {
+    		$ClientArr[]=$client_id;
+    	}
+    	$this->client_pool = $ClientArr;
+    }
+    
 
     /**
      * @return Employer

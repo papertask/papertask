@@ -22,6 +22,10 @@ class IndexController extends AbstractRestfulController
         	$userData['translator_pool'] = $user->getTranslatorPool($this);
         }
         
+        if($user->isFreelancer()){
+        	$userData['client_pool'] = $user->getClientPool($this);
+        }
+        
         $userData['isAdmin'] = $this->getCurrentUser()->isAdmin();
 
         $desktopPriceData = $this->getAllDataBy('\User\Entity\UserDesktopPrice', [
