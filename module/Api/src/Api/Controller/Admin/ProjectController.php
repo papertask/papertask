@@ -67,6 +67,9 @@ class ProjectController extends AbstractRestfulJsonController
         if(isset($data['invoiceinfo'])) {
         	$data['invoiceinfo'] = $data['invoiceinfo'];
         }
+        if(isset($data['createType'])) {
+        	$data['createType'] = $data['createType'];
+        }
         if(isset($data['types'])){
             $arr = [];
             foreach($data['types'] as $type){
@@ -187,7 +190,8 @@ class ProjectController extends AbstractRestfulJsonController
                 }
             }
         }
-        // Create new Tasks
+        // Create new Tasks for OrderTranslation & OrderTranslation Non Contract
+        if(isset($data['createType'])&&($data['createType']=='orderTranslation'||$data['createType']=='orderTranslationNonContract')){
         $i = 0;
         foreach ($targetLanguages as $key => $targetLang){
         	$i++;
@@ -210,6 +214,8 @@ class ProjectController extends AbstractRestfulJsonController
         	$task->setData( $taskArrData );
 			$task->save($this->getEntityManager());
         }
+        }
+        
         
 		//invoice
 		$invoice = new Invoice();
@@ -259,7 +265,7 @@ class ProjectController extends AbstractRestfulJsonController
 					$iterm->setProject($project);
 					$iterm->setData([
 						'name' => $iterms['itemtm']['name'],
-						'file' => $files[$item['file']['id']],
+						//'file' => $files[$item['file']['id']],
 						'sourcebawu' => $iterms['itemtm']['sourcebawu'],
 						'sourcejiuwu' => $iterms['itemtm']['sourcejiuwu'],
 						'sourcenomatch' => $iterms['itemtm']['sourcenomatch'],

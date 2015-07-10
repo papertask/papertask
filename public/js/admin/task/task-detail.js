@@ -483,7 +483,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	$scope.editTranslationTM = function ( index, tid, laguageid ) {
     	$scope.editTm = index;
 		$scope.laguageid = laguageid;
-		
+		console.info('laguageid',$scope.laguageid );
+		console.info('$scope.itemtms',$scope.itemtms );
 		$scope.itemtm = $scope.itemtms[laguageid][0];
 		$scope.itemtm.rate_tmp = Number($scope.itemtms[laguageid][0].rate_tmp);
     	setModalControllerData('itemtm', $scope.itemtm);

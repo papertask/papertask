@@ -167,8 +167,13 @@ class Project extends Entity{
 	
 
     public function getData(){
+    	
+    	$client = ($this->client)?( $this->client->getEmployer()?$this->client->getEmployer()->getData():null):null;
+    	if($client){
+    		$client['types'] = $this->client->getTypes();
+    	}
         return [
-            'client' => ($this->client)?( ($this->client->getEmployer())?$this->client->getEmployer()->getData():null):null,
+            'client' => $client,
 			'user' => ($this->client)?$this->client->getData():null,
 			'userid' => $this->client->getId(),
             'dueDate' => $this->dueDate,

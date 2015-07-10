@@ -13,6 +13,26 @@ angularApp.run(function($rootScope){
     });
 });
 
+angularApp.filter('breakword', function () {
+    return function (value, wordwise, max, tail) {
+        if (!value) return '';
+
+        max = parseInt(max, 10);
+        if (!max) return value;
+        if (value.length <= max) return value;
+
+        value = value.substr(0, max);
+        if (wordwise) {
+            var lastspace = value.lastIndexOf(' ');
+            if (lastspace != -1) {
+                value = value.substr(0, lastspace);
+            }
+        }
+
+        return value + (tail || ' …');
+    };
+});
+
 angularApp.controller('CreateProjectController', function($scope, $http, $timeout, $q, $sce, CurrentUser,
                                                           TableItemListService, ProjectType, CurrentcyRate){
     $scope.ProjectType = ProjectType;
@@ -477,6 +497,12 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
     $scope.submit = function(){
 	
         $scope.project.data = TableItemListService.data();
+        /*
+        for(var i =0; i < $scope.project.data.length; i++){
+        	if($scope.project.data[i].itemtm){
+        		$scope.project.data[i].itemtm.rate = $scope.vartms.itemtm.rate;
+        	}
+        }*/
 		console.log("$scope.project");
 		console.log($scope.project);
 		
@@ -492,6 +518,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
             .error(function($data){
 
             });
+      
       
     };
 
@@ -619,6 +646,7 @@ angularApp.factory("TableItemListService", function(){
                 return;
             }
             if(isNew){
+            	console.info('vartms.itemtm',vartms.itemtm);
                 listener.addtm(vartms.itemtm);
             }
             $(modalId).modal("hide");
@@ -633,6 +661,7 @@ angularApp.factory("TableItemListService", function(){
 			
             setListener($scope);
             vartms.itemtm = $itemtm;
+            console.info('vartms.itemtm',vartms.itemtm);
 			if(modalId == "#modal-translation-TM")
 			{
 				//find rate

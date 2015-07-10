@@ -309,6 +309,10 @@ class User extends Entity implements InputFilterAwareInterface{
         return $this;
     }
 
+    public function getTypes(){
+    	return $this->types;
+    }
+
     /**
      * Get password hash
      * @return string

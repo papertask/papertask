@@ -180,7 +180,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 $scope.project.startDate = StrDate(new Date());
 			 $scope.project.dueDate =  $scope.project.startDate;
 			 var $params = $scope.prepareData($scope.project);
-			 
+			 $parmas.createType = 'orderTranslationNonContract';
 			 console.log('$scope.project');
 			 console.log($params);
 			 
@@ -212,7 +212,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 $scope.project.startDate = StrDate(new Date());
 			 $scope.project.dueDate =  $scope.project.startDate;
 			 var $params = $scope.prepareData($scope.project);
-			 
+			 $parmas.createType = 'orderTranslationNonContract';
 			 console.log('$scope.project');
 			 console.log($params);
 

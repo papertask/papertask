@@ -24,14 +24,14 @@
                     <tbody>
                     <tbody>
                     <tr ng-repeat="item in items">
-                        <td>{{ $index + 1 }}</td>
-						<td>{{ item.name }}</td>
-                        <td>{{ item.file.name }}</td>
-                        <td><?php echo $this->translate("Source word") ?></td>
-                        <td>{{ CurrentUser.price(item.rate, currency) }}</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>{{ CurrentUser.price(item.total, currency) }}</td>
-                        <td>
+                        <td class="col-md-1">{{ $index + 1 }}</td>
+						<td class="col-md-2">{{ item.name }}</td>
+                        <td class="col-md-3" style="word-wrap: break-word;">{{ item.file.name |  breakword:true:70:' ...'}}</td>
+                        <td class="col-md-2"><?php echo $this->translate("Source word") ?></td>
+                        <td class="col-md-1">{{ CurrentUser.price(item.rate, currency) }}</td>
+                        <td class="col-md-1">{{ item.quantity }}</td>
+                        <td class="col-md-1">{{ CurrentUser.price(item.total, currency) }}</td>
+                        <td class="col-md-1">
                         <span ng-click="showModal(item)">
                             <i class="fa fa-edit"></i>
                         </span> &nbsp;&nbsp;

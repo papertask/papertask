@@ -140,7 +140,7 @@ class Itermtm extends Entity{
         return [
 			'id' => $this->id,
             'name' => $this->name,
-            'file' => $this->file,
+            //'file' => $this->file,
 			'language' => $this->language->getData(),
 			'rate' => $this->rate,
 			'sourcerepetitions' => $this->sourcerepetitions,
