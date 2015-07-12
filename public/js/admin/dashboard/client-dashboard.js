@@ -60,7 +60,7 @@ angularApp.controller('DashboardProjectController', function($scope, ProjectServ
     };
 	
     $scope.gotoUnpaidProject = function(){
-        location.href = "/" + LANG_CODE + "/admin/project/client-unpaid/";
+        location.href = "/" + LANG_CODE + "/admin/finance/client-unpaid-project/";
     };
 	
 	

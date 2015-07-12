@@ -210,6 +210,10 @@ class Project extends Entity{
     	return $this->currency;
     }
     
+    public function getClient(){
+    	return $this->client;
+    }
+    
     public function getFiles($controller){
     	$entityManager = $controller->getEntityManager();
     	$repository = $entityManager->getRepository('User\Entity\File');

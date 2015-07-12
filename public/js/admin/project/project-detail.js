@@ -593,12 +593,12 @@ angularApp.controller("ProjectTasksController", function($scope, $http, TaskStat
     }
 
     function sendToSpecialismPool($task){
-        update($task, {is_specialism_pool: 1});
+        update($task, {is_specialism_pool: 1, status_id: 6});
     }
     $scope.sendToSpecialismPool = sendToSpecialismPool;
 
     function sendToClientPool($task){
-        update($task, {is_client_pool: 1});
+        update($task, {is_client_pool: 1, status_id: 6});
     }
 	function viewtaskdetail($task){
 		console.log("redirect");

@@ -210,6 +210,37 @@ class TaskController extends AbstractActionController
     	));
     }
     
+    public function getFreelancerAssigningTaskListAction(){
+    	$freelancerId = (int)$this->getRequest()->getQuery('freelancer_id');
+    	
+    	
+    	$entityManager = $this->getEntityManager();
+    	
+    	$freelancer = $entityManager->getRepository('User\Entity\User')->findOneBy(array('freelancer'=>$freelancerId));
+    	//var_dump($freelancer); exit;
+    	
+    	$taskEntity = $entityManager->getRepository('User\Entity\Task');
+    	
+    	$tasks =  $taskEntity->findBy(array('status'=>6));
+    	$taskArr = array();
+    	foreach ($tasks as $task){
+    		$project = $task->getProject();
+    		$client = $project->getClient();
+    		$FreelancerPool = $client->getFreelancerPool();
+    		if(in_array($freelancer->getId(), $FreelancerPool)){
+    			$data = $task->getData();
+    			$data['project'] = $project->getData();
+    			$taskArr[]=$data;
+    		}
+    		//var_dump($client->getFreelancerPool()); 
+    	}
+    	
+    	return new JsonModel(array(
+    			'tasks' => $taskArr
+    	));
+    	
+    }
+    
     public function FreelancerAcceptTaskAction(){
 		error_reporting(E_ALL);
 		ini_set('display_errors', 1);
@@ -236,10 +267,22 @@ class TaskController extends AbstractActionController
     	else{
 			$taskId = (int)$this->getRequest()->getQuery('id');
 			$currentTask = $this->find('User\Entity\Task',$taskId);
-			$currentTask->setStatus(2);
+			//$currentTask->setStatus(2);
+			$currentTask->setData([
+					'status' => 2,
+					'assignee' => $freelancer,
+					]);
 			
 			$entityManager->persist($currentTask);
 			$entityManager->flush();
+			
+			$project = $currentTask->getProject();
+			$project->setData([
+					'status' => 3,
+					]);
+			$project->save($entityManager);
+			
+
 			return new JsonModel(array(
     			'status' => "ok",
 			));

@@ -25,7 +25,7 @@ angularApp.controller('DashboardFreelancerTaskControler', function($scope, $http
 	
 	function init(){	
 		//get assinging task
-  		$http.get("/" + LANG_CODE + "/admin/task/getFreelancerTaskList?statustask=6&page="+'1'+"&freelancer_id="+FREELANCER_ID, {
+  		$http.get("/" + LANG_CODE + "/admin/task/getFreelancerAssigningTaskList?statustask=6&page="+'1'+"&freelancer_id="+FREELANCER_ID, {
             //params: $params
         }).success(function($data){
         	$scope.assigingtasks = $data.tasks;
@@ -80,7 +80,8 @@ angularApp.controller('DashboardFreelancerTaskControler', function($scope, $http
         		return false;
         	} else if ($data.status=='ok'){
         		bootbox.alert(  'You accepted task successfully');
-        	location.reload();
+        		init();
+        		//location.reload();
         	}
         	//location.reload();
         });

@@ -17,6 +17,11 @@ use User\Entity\File;
 use User\Entity\User;
 use Application\Controller\AbstractRestfulController;
 
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Doctrine\ORM\Query\ResultSetMapping;
+use Zend\Paginator\Paginator;
+
 class ProjectController extends AbstractActionController
 {
     protected $requiredLogin = true;
@@ -202,15 +207,17 @@ class ProjectController extends AbstractActionController
     }
 
     public function downloadFileAction(){
+    	
         if ( $token = $this->params()->fromQuery('token') ) {
+        	
             $entityManager = $this->getEntityManager();
             $file = $entityManager->getRepository('\User\Entity\File')->findOneBy(
     array('token' => $token));
 
             $downloadPath = $file->getPath();
+            //var_dump($downloadPath);
             // ob_end_clean();
 
-            // var_dump($downloadPath);
             if(!is_file($downloadPath)) {
                 $answer = ['success' => false];
                 $json = json_encode( $answer );
@@ -725,6 +732,119 @@ class ProjectController extends AbstractActionController
     	$datawordcount = $file->file_word_count();
     	return new JsonModel(array(
     			'datawordcount' => $datawordcount
+    	));
+    }
+
+    function getClientProjectListAction(){
+    
+    	$currentUserId = User::currentLoginId();
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);
+    	$employer = $currentUser->getEmployer();
+    	if($employer) {
+    		$user_id = $currentUser->getId();
+    	} else {
+    		$user_id = null;
+    	}
+    		
+    	$params = $this->getRequest()->getQuery();
+    	foreach($params as $key => $value){
+    		if (strpos( $value,'{') !== false) {
+    			$params->$key = json_decode($value);
+    		}
+    	}
+    	//var_dump($params); exit;
+    		
+    	$entityManager = $this->getEntityManager();
+    	$projectList = $entityManager->getRepository('User\Entity\Project');
+    	$queryBuilder = $projectList->createQueryBuilder('project');
+    	// Sửa lại chổ này, tạm để đó
+    	$queryBuilder->where("project.client=?1")->setParameter(1, $user_id);
+    	$queryBuilder->andWhere('project.is_deleted = 0');
+    		
+    	// Unpaid Task
+    	if($params->payStatus !=null && $params->payStatus != ''){
+    		$queryBuilder->andWhere('project.payStatus = :payStatus');
+    		$queryBuilder->setParameter('payStatus', $params->payStatus);
+    
+    	}
+    		
+    	if($params->bsearch !=null && $params->bsearch != ''){
+    		$queryBuilder->andWhere('project.reference LIKE :reference');
+    		$queryBuilder->setParameter('reference', "%".$params->bsearch."%");
+    
+    	} else {
+    		// Advance Search
+    		if($params->reference !=null && $params->reference != ''){
+    			$queryBuilder->andWhere('project.reference LIKE :reference');
+    			$queryBuilder->setParameter('reference', "%".$params->reference."%");
+    		}
+    
+    		if($params->projectId !=null && $params->projectId != ''){
+    			$queryBuilder->andWhere('project.id LIKE :projectId');
+    			$queryBuilder->setParameter('projectId', "%".$params->projectId."%");
+    		}
+    
+    		if($params->startDate !=null && $params->startDate != ''){
+    			$time=strtotime($params->startDate);
+    			$time = date("Y-m-d", $time);
+    			$begin = $time." 00:00:00";
+    			$end = $time." 23:59:59";
+    			$queryBuilder->andWhere('project.startDate BETWEEN ?6 AND ?7')
+    			->setParameter(6, $begin)
+    			->setParameter(7, $end);
+    		}
+    
+    		if($params->dueDate !=null && $params->dueDate != ''){
+    			$time=strtotime($params->dueDate);
+    			$time = date("Y-m-d", $time);
+    			$begin = $time." 00:00:00";
+    			$end = $time." 23:59:59";
+    			$queryBuilder->andWhere('project.dueDate BETWEEN ?8 AND ?9')
+    			->setParameter(8, $begin)
+    			->setParameter(9, $end);
+    		}
+    
+    		if($params->dueMonth !=null && $params->dueMonth != ''){
+    			$time=strtotime($params->dueMonth);
+    			//$time = date("Y-m-d", $time);
+    			$begin = date("Y-m-d", $time)." 00:00:00";
+    			$end = date("Y-m-t", $time)." 23:59:59";
+    				
+    				
+    				
+    			//var_dump($begin); var_dump($end); exit;
+    				
+    			$queryBuilder->andWhere('project.dueDate BETWEEN :begin AND :end')
+    			->setParameter('begin', $begin)
+    			->setParameter('end', $end);
+    		}
+    
+    			
+    	}
+    		
+    		
+    		
+    		
+    	$query = $queryBuilder->getQuery();
+    	//$result = $query->getArrayResult();
+    	//var_dump($result); exit;
+    		
+    	$adapter = new DoctrineAdapter(new ORMPaginator($query));
+    	$paginator = new Paginator($adapter);
+    	$paginator->setDefaultItemCountPerPage(10);
+    		
+    	$page = (int)$this->getRequest()->getQuery('page');
+    	if($page) $paginator->setCurrentPageNumber($page);
+    	$data = array();
+    
+    	foreach($paginator as $project){
+    
+    		$data[] = $project->getData();
+    	}
+    		
+    	return new JsonModel(array(
+    			'projects' => $data,
+    			'pages' => $paginator->getPages()
     	));
     }
 

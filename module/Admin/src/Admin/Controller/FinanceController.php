@@ -431,10 +431,11 @@ class FinanceController extends AbstractActionController {
     }
 
 	public function getClientUnpaidAction() {
+		$user = $this->getCurrentUser();
+		if($user->isEmployer()){
 	
-		$userId = (int)$this->getRequest()->getQuery('id');
         $entityManager = $this->getEntityManager();
-        $user = $this->getUserById($userId);
+			
 		//get all project
 		$projectList = $entityManager->getRepository('User\Entity\Project');
 		$queryBuilder_tmp = $projectList->createQueryBuilder('project');
@@ -443,10 +444,21 @@ class FinanceController extends AbstractActionController {
 		$queryBuilder_tmp->andWhere('project.client = ?1')->setParameter(1, $user);	
 		$query = $queryBuilder_tmp->getQuery();
 		$result = $query->getArrayResult();
+		} else{
+			$result = null;
+		}
+		
 		return new JsonModel(array(
             'projectlist' => $result,
         ));
 		
+	}
+	
+	public function clientUnpaidProjectAction(){
+		$lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+				"lang_code" => $lang_code
+		));
 	}
 	public function getFreelancerUnpaidAction() {
 	

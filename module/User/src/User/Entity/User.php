@@ -529,6 +529,10 @@ class User extends Entity implements InputFilterAwareInterface{
         return $this->freelancer;
     }
 
+    public function getFreelancerPool(){
+    	return $this->translator_pool;
+    }
+    
     public function getTranslatorPool($controller){
     	
     	//$files = $repository->findBy( array('project'=>$this->id) );

@@ -51,6 +51,7 @@ $allow_all = array(
 	'task\task-pool',
 	'task\getTaskPoolList',
 	'task\freelancer-unpaid-task',
+		'task\getFreelancerAssigningTaskList',
 		
 	// -- Project
 	'project\index',
@@ -73,6 +74,7 @@ $allow_all = array(
 	'project\quote-detail',
 	'project\wordcount',
 	'project\uploadtemp',
+	'project\getClientProjectList',
 	
 	// -- Quote	
 	'quote\detail',
@@ -110,6 +112,7 @@ $allow_all = array(
 	'staff\uploadFile',
 	//finance
 	'finance\client-unpaid',
+		'finance\client-unpaid-project',
 	'finance\freelancer-unpaid',
 	'finance\add-incomming',
 	'finance\add-outgoing',
