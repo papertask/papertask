@@ -156,7 +156,8 @@ $this->inlineScript()
 										<br/>
 										<div class="tooltip-demo">
 											<span ng-repeat="type in project.client.types">
-												<code {{ TypeList.getTypeAttrs(type) }}>{{ type.name_short }}</code>
+												<code data-original-title="{{ ProjectType.get(type).name }}"
+												 title="" data-placement="top" data-toggle="tooltip">{{ ProjectType.get(type).name_short }}</code>
 											</span>
 										</div>
 									</td>
@@ -209,7 +210,8 @@ $this->inlineScript()
 										<br/>
 										<div class="tooltip-demo">
 											<span ng-repeat="type in project.client.types">
-												<code {{ TypeList.getTypeAttrs(type) }}>{{ type.name_short }}</code>
+												<code data-original-title="{{ ProjectType.get(type).name }}"
+												 title="" data-placement="top" data-toggle="tooltip">{{ ProjectType.get(type).name_short }}</code>
 											</span>
 										</div>
 									</td>
