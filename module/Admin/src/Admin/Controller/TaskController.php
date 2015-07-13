@@ -258,7 +258,7 @@ class TaskController extends AbstractActionController
 		$query = $queryBuilder->getQuery();
 		$result = $query->getArrayResult();
 	
-		if(count($result) > 1){
+		if(count($result) > 0){
 			return new JsonModel(array(
     			'status' => "have ongoing task",
 			));

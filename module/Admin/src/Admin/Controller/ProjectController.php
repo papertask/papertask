@@ -498,6 +498,7 @@ class ProjectController extends AbstractActionController
 
 		// set pdf viewer preferences
 		$pdf->setViewerPreferences($preferences);
+		$pdf->SetAutoPageBreak(TRUE, 0);
 		// add a page
 		$pdf->AddPage();
 		// output the HTML content
