@@ -86,9 +86,6 @@ class ProjectController extends AbstractRestfulJsonController
         
     	
 		$this->cleanData($data);
-
-
-
         $targetLanguages = [];
         foreach($data['targetLanguages'] as $targetLanguage){
             $targetLanguages[$targetLanguage['id']] = $this->getReference('\User\Entity\Language', $targetLanguage['id']);
@@ -191,7 +188,9 @@ class ProjectController extends AbstractRestfulJsonController
             }
         }
         // Create new Tasks for OrderTranslation & OrderTranslation Non Contract
-        if(isset($data['createType'])&&($data['createType']=='orderTranslation'||$data['createType']=='orderTranslationNonContract')){
+        
+        if(isset($data['createType'])){
+        	if($data['createType']=='orderTranslation'||$data['createType']=='orderTranslationNonContract'){
         $i = 0;
         foreach ($targetLanguages as $key => $targetLang){
         	$i++;
@@ -214,6 +213,8 @@ class ProjectController extends AbstractRestfulJsonController
         	$task->setData( $taskArrData );
 			$task->save($this->getEntityManager());
         }
+        
+        	}
         }
         
         
@@ -244,6 +245,7 @@ class ProjectController extends AbstractRestfulJsonController
 			if ($type == 'translationNoTM'){
 				
 				foreach($iterms['items'] as $item){
+					//var_dump($item); exit;
 					$iterm = new Itermnotm();
 					$iterm->setProject($project);
 					$iterm->setData([
@@ -361,7 +363,9 @@ class ProjectController extends AbstractRestfulJsonController
 			}
         }
         $project->save($this->getEntityManager());
+        $i = 0;
 		foreach($data['data'] as $iterms){
+			$i++;
             $identifier = $iterms['identifier'];
             $type = $identifier[0];
 			if ($type == 'translationNoTM'){
@@ -394,6 +398,7 @@ class ProjectController extends AbstractRestfulJsonController
 					'name' => $data['reference'] . '-' . $identifier[0],
 					'startDate' => $data['startDate'],
 					'dueDate' => $data['dueDate'], 
+					'task_number' => $project->getId().'-'.$i,
 					
                 ]);
 			$task->save($this->getEntityManager());

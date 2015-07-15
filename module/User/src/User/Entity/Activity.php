@@ -59,13 +59,12 @@ class Activity extends Entity{
     /**
      * @param \Application\Controller\AbstractActionController $controller
      */
-    public function sendNewActivityMail($controller,$lang_code = ''){
+    public function sendNewActivityMail($controller,$lang_code = 'en-US'){
         // initial data for email template
         //$lang_code = $controller->params()->fromRoute('lang');
 
         $projectLink = $controller->getBaseUrl().'/'. $lang_code . '/admin/project/detail?id=' . $this->project->getId();
 		
-        var_dump($projectLink); exit;
 
         $data = array(
             'project' => $this->project->getData(),
@@ -98,7 +97,7 @@ class Activity extends Entity{
         }
         
         foreach ($emails as $email) {
-            Mail::sendMail($controller, $tpl, $email, $data);
+            //Mail::sendMail($controller, $tpl, $email, $data);
         }
     }
 

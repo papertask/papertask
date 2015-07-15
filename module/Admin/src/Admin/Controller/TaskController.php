@@ -307,6 +307,11 @@ class TaskController extends AbstractActionController
     		$entityManager = $this->getEntityManager();
     		$entityManager->persist($currentTask);
     		$entityManager->flush();
+    		$project = $currentTask->getProject();
+    		$project->setData([
+    					'status' => 4,
+    				]);
+    		$project->save($entityManager);
     		return new JsonModel(array(
     				'status' => "ok",
     				//'task' => 

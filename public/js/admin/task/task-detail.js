@@ -25,6 +25,12 @@ angularApp.run(function($rootScope){
     });
 });
 
+angularApp.filter("parsehtml", ['$sce', function($sce) {
+	  return function(htmlCode){
+	    return $sce.trustAsHtml(htmlCode);
+	  }
+	}]);
+
 angularApp.controller('TaskDetailController', function($scope, $http, $timeout, $location, ProjectApi, DateFormatter, ProjectStatus, LangGroup,
                                                           ProjectServiceLevel, ProjectPriority, StaffApi, ClientApi,
                                                           FieldApi, ProjectType, TaskApi, TaskStatus, FileListService, $q){
@@ -396,13 +402,14 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	}
     
     $scope.SubmitReview = function(task_id){
-    	if($scope.taskfiles.length = 0){
+    	
+    	if($scope.taskfiles.length == 0){
     		bootbox.alert(  'You need to add final file before submiting');
     		return false;
     	}
 		
 		
-		bootbox.confirm('You need to add final file before submiting', function() {
+		bootbox.confirm('Do you want to submit task for reviewing?', function() {
 			$http.get("/" + LANG_CODE + "/admin/task/submitTask?id="+ task_id, {
 		           // params: $params
 		        }).success(function($data){

@@ -87,6 +87,10 @@ angularApp.controller('DashboardFreelancerTaskControler', function($scope, $http
         });
 	}
 	
+	$scope.gotoUnpaidTask = function(){
+        location.href = "/" + LANG_CODE + "/admin/finance/freelancer-unpaid-task/";
+    };
+	
 	
 	
 	
