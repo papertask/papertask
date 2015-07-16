@@ -224,4 +224,8 @@ class Project extends Entity{
     	}
     	return $filesArray;
     }
+    
+    public function setTotal($total){
+    	$this->total_tmp = $total;
+    }
 }

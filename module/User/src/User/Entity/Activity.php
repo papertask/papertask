@@ -97,7 +97,7 @@ class Activity extends Entity{
         }
         
         foreach ($emails as $email) {
-            //Mail::sendMail($controller, $tpl, $email, $data);
+            Mail::sendMail($controller, $tpl, $email, $data);
         }
     }
 

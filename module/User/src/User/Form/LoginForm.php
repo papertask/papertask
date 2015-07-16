@@ -92,12 +92,12 @@ class LoginForm extends Form
             	if($user->getLastLogin() == null){
                 $msg = $translator->translate('You must confirm your email to be able to login');
                 $controller->flashMessenger()->addErrorMessage($msg);
-                $controller->redirect()->toUrl('/'.$lang."/user/register/confirm?email=" . $email);
+                $controller->redirect()->toUrl('/'.$lang."/user/register/confirm?email=" . $email.'&type=needConfirm');
                 return false;
             	} else {
             		$msg = $translator->translate('Your account has been blocked, Please contact your Admin');
             		$controller->flashMessenger()->addErrorMessage($msg);
-            		$controller->redirect()->toUrl('/'.$lang."/user/register/confirm?email=" . $email);
+            		$controller->redirect()->toUrl('/'.$lang."/user/register/confirm?email=" . $email.'&type=accBlook');
             		return false;
             	}   
             }

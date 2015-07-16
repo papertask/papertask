@@ -268,8 +268,9 @@ class ProjectController extends AbstractActionController
                 ];
                 // $json[] = $d;
             }
-
+			//var_dump($json); exit;
             $json = json_encode( $json );
+            
             echo $json;
             die;
         } else {

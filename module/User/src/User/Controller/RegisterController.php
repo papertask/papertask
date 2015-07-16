@@ -72,6 +72,7 @@ class RegisterController extends AbstractActionController
         $request = $this->getRequest();
         $token = $request->getQuery('token');
         $email = $request->getQuery('email');
+        $type = $request->getQuery('type');
 		$lang_code = $this->params()->fromRoute('lang');
         if($token){
             $entityManager = $this->getEntityManager();
@@ -97,7 +98,8 @@ class RegisterController extends AbstractActionController
         }
 
         return new ViewModel(array(
-            'email' => $email
+            'email' => $email,
+        		'type' => $type,
             )
         );
     }

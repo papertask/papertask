@@ -180,7 +180,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 $scope.project.startDate = StrDate(new Date());
 			 $scope.project.dueDate =  $scope.project.startDate;
 			 var $params = $scope.prepareData($scope.project);
-			 $parmas.createType = 'orderTranslationNonContract';
+			 $params['createType'] = 'orderTranslationNonContract';
 			 console.log('$scope.project');
 			 console.log($params);
 			 
@@ -212,10 +212,11 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 $scope.project.startDate = StrDate(new Date());
 			 $scope.project.dueDate =  $scope.project.startDate;
 			 var $params = $scope.prepareData($scope.project);
-			 $parmas.createType = 'orderTranslationNonContract';
+			 $params['createType'] = 'orderTranslationNonContract';
 			 console.log('$scope.project');
 			 console.log($params);
 
+			
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){		
 	        	 //$('#RequestQuote').remove();
@@ -225,6 +226,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	                 location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
 	             }
 	         })
+	         
 	         .error(function($data){
 
 	         });
@@ -246,6 +248,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 				 'discount' : 0,
 				 'total': $scope.total,
 		 }
+		 console.info('data', data);
 		 return data;
 	 }
 	 

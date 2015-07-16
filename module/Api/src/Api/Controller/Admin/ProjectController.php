@@ -84,6 +84,7 @@ class ProjectController extends AbstractRestfulJsonController
 		//error_reporting(E_ALL);
 		//ini_set('display_errors', 1);
         
+		$projectTotal = 0;
     	
 		$this->cleanData($data);
         $targetLanguages = [];
@@ -192,6 +193,7 @@ class ProjectController extends AbstractRestfulJsonController
         if(isset($data['createType'])){
         	if($data['createType']=='orderTranslation'||$data['createType']=='orderTranslationNonContract'){
         $i = 0;
+        		$langLength = count($targetLanguages);
         foreach ($targetLanguages as $key => $targetLang){
         	$i++;
         	$task = new Task();
@@ -203,10 +205,11 @@ class ProjectController extends AbstractRestfulJsonController
         		'startDate' => $data['startDate'],
         		'dueDate' => $data['dueDate'],
         		//'name' => $data['reference'],
+        					'total' =>  round($data['invoiceinfo']['total']/$langLength, 2),
         		'task_number' => $project->getId().'-'.$i,
         		
         	);
-        	
+        			 $projectTotal = $projectTotal + floatval(round($data['invoiceinfo']['total']/$langLength, 2));
         	$taskArrData['type'] = (is_array($data['types'])&&count($data['types'])>0)?$data['types'][0]: null;
         	$taskArrData['name'] = (array_key_exists('reference',$data))?$data['reference']:'nul';
         	
@@ -257,6 +260,7 @@ class ProjectController extends AbstractRestfulJsonController
 						'total' => $item['total'],
 						'language' => $targetLanguages[$languageId]
 					]);
+					$projectTotal = $projectTotal + floatval($item['total']);
 				}
 				$iterm->save($this->getEntityManager());
 			}
@@ -286,6 +290,7 @@ class ProjectController extends AbstractRestfulJsonController
 						'rate' => $iterms['itemtm']['rate'],
 						'language' => $targetLanguages[$languageId]
 					]);
+					$projectTotal = $projectTotal + floatval($iterms['itemtm']['total']);
 				//}
 				$iterm->save($this->getEntityManager());
 			}
@@ -304,6 +309,7 @@ class ProjectController extends AbstractRestfulJsonController
 						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']), //$item['software'],
 						'language' => $targetLanguages[$languageId],
 					]);
+					$projectTotal = $projectTotal + floatval( $item['total']);
 				}
 				$iterm->save($this->getEntityManager());
 			
@@ -323,6 +329,7 @@ class ProjectController extends AbstractRestfulJsonController
 						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']), 
 						'language' => $targetLanguages[$languageId],
 					]);
+					$projectTotal = $projectTotal + floatval( $item['total']);
 				}
 				$iterm->save($this->getEntityManager());
 			}
@@ -341,6 +348,7 @@ class ProjectController extends AbstractRestfulJsonController
 						'engineeringcategory' => $this->getReference('\Common\Entity\EngineeringCategory', $item['category']['id']), 
 						'language' => $targetLanguages[$languageId],
 					]);
+					$projectTotal = $projectTotal + floatval( $item['total']);
 				}
 				$iterm->save($this->getEntityManager());
 			}
@@ -358,10 +366,13 @@ class ProjectController extends AbstractRestfulJsonController
 						'total' => $item['total'],
 						'language' => $targetLanguages[$languageId],
 					]);
+					$projectTotal = $projectTotal + floatval( $item['total']);
 				}
 				$iterm->save($this->getEntityManager());
 			}
         }
+       
+       
         $project->save($this->getEntityManager());
         $i = 0;
 		foreach($data['data'] as $iterms){
@@ -419,6 +430,13 @@ class ProjectController extends AbstractRestfulJsonController
 		
         $activity = new Activity();
         $activity->setData($ActiDataArr);
+        
+		$project->setData([
+				'total_tmp' => $projectTotal,
+				]);
+        $project->save($this->getEntityManager());
+        
+        
         //$activity->save($this->getEntityManager());
 		//var_dump($project); exit;
         return new JsonModel([
