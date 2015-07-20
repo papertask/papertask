@@ -56,6 +56,9 @@ angularApp.controller('DashboardProjectController', function($scope, ProjectServ
 	$scope.gotoQuotingProject = function(){
         location.href = "/" + LANG_CODE + "/admin/project/client-quotes/";
     };
+    $scope.gotoOngoignProject = function(){
+        location.href = "/" + LANG_CODE + "/admin/project/client-ongoing-projects/";
+    };
 	$scope.gotoReviewProject = function(){
         location.href = "/" + LANG_CODE + "/admin/project/client-review-projects/";
     };

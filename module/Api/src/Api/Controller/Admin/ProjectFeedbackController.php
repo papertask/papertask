@@ -39,6 +39,15 @@ class ProjectFeedbackController extends AbstractRestfulJsonController
 
     public function create($data){
         $this->clearData($data);
+        $entityManager = $this->getEntityManager();
+        
+        $project =  $data['project'];
+        $project->setData(['status'=> 5,]);
+        $project->save($entityManager);
+        
+        $task = $entityManager->getRepository('User\Entity\Task')->findOneBy(array('project'=>$project,'language' => $data['targetLanguage']));
+        $task->setData(['status'=> 1,]);
+        $task->save($entityManager);
 
         $feedback = new ProjectFeedback();
         $feedback->setData($data);
@@ -75,11 +84,20 @@ class ProjectFeedbackController extends AbstractRestfulJsonController
 
     public function update($id, $data){
         $feedback = $this->find('\User\Entity\ProjectFeedback', $id);
+        $entityManager = $this->getEntityManager();
         $this->clearData($data);
         $updateData = $data;
 
         $feedback->setData($updateData);
         $feedback->save($this->getEntityManager());
+
+        $project =  $data['project'];
+        $project->setData(['status'=> 5,]);
+        $project->save($entityManager);
+        
+        $task = $entityManager->getRepository('User\Entity\Task')->findOneBy(array('project'=>$project,'language' => $data['targetLanguage']));
+        $task->setData(['status'=> 1,]);
+        $task->save($entityManager);
 
         return new JsonModel([
             'feedback' => $feedback->getData(),

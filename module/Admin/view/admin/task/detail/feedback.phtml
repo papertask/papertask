@@ -1,0 +1,68 @@
+<div class="tab-pane" id="feedback">
+	<div class="panel">
+		<div class="panel-collapse">
+			<div class="panel">
+				<div class="panel-body">
+					<hr />
+
+					<div class="panel panel-default tooltip-demo">
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="control-label"><?php echo $this->translate('Quality') ?>
+								</label>
+								<table class="table table-bordered table-hover table-striped">
+									<tbody>
+										<tr>
+											<td ng-repeat="val in q_values" class="tooltip-test"
+												data-toggle="tooltip" data-placement="top" title=""
+												data-original-title="{{val.title}}" width="20%"><label
+												class="label-radio inline"> <input type="radio"
+													ng-model="feedback.quality" value="{{val.id}}"
+													ng-checked="feedback.quality == val.id"> <span
+													class="custom-radio"></span> {{val.name}}
+											</label></td>
+
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- /form-group -->
+							<div class="form-group">
+								<label class="control-label"><?php echo $this->translate('Turn Around Time') ?>
+								</label>
+								<table class="table table-bordered table-hover table-striped">
+									<tbody>
+										<tr>
+											<td ng-repeat="val in t_values" class="tooltip-test"
+												data-toggle="tooltip" data-placement="top" title=""
+												data-original-title="{{val.title}}" width="20%"><label
+												class="label-radio inline"> <input type="radio"
+													ng-model="feedback.turnAroundTime" value="{{val.id}}"
+													ng-checked="feedback.turnAroundTime == val.id"> <span
+													class="custom-radio"></span> {{val.name}}
+											</label></td>
+
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- /form-group -->
+							<div class="form-group">
+								<label class="control-label"><?php echo $this->translate('Feed back to Translator and Project Manager') ?>
+								</label>
+								<div class="form-control"
+									>{{feedback.message}}</div>
+							</div>
+							<!-- /form-group -->
+
+							
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

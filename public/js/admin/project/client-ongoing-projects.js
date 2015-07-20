@@ -4,7 +4,7 @@
 
 angularApp.controller('ProjectIndexController', function($scope, StaffApi, LanguageApi, ProjectApi, ProjectServiceLevel,
                                                          ProjectStatus, DateFormatter, CurrentUser, PayStatus,
-                                                         ProjectField){
+                                                         ProjectField, ProjectType){
 
     $scope.CurrentUser = CurrentUser;
     $scope.DateFormatter = DateFormatter;
@@ -14,6 +14,7 @@ angularApp.controller('ProjectIndexController', function($scope, StaffApi, Langu
     $scope.PayStatus = PayStatus;
     $scope.ProjectField = ProjectField;
     $scope.StaffApi = StaffApi;
+    $scope.ProjectType = ProjectType;
 
     /** This is for listing item controller **/
 	 

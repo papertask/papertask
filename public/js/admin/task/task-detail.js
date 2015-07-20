@@ -33,6 +33,7 @@ angularApp.filter("parsehtml", ['$sce', function($sce) {
 
 angularApp.controller('TaskDetailController', function($scope, $http, $timeout, $location, ProjectApi, DateFormatter, ProjectStatus, LangGroup,
                                                           ProjectServiceLevel, ProjectPriority, StaffApi, ClientApi,
+                                                          FeedbackQuality, FeedbackTime, 
                                                           FieldApi, ProjectType, TaskApi, TaskStatus, FileListService, $q){
 
     $scope.DateFormatter = DateFormatter;
@@ -40,6 +41,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
     $scope.ProjectServiceLevel = ProjectServiceLevel;
     $scope.ProjectPriority = ProjectPriority;
     $scope.FieldApi = FieldApi;
+    $scope.q_values = FeedbackQuality.all();
+    $scope.t_values = FeedbackTime.all();
 	$scope.currency = null;
     $scope.tempProject = {};
 	$scope.files = [];
@@ -318,6 +321,52 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					
 					
 				});
+				
+				
+				var PROJECT_ID = $scope.projectId;
+		    	var LANG_ID = $scope.language.id;
+		    	//alert(PROJECT_ID); alert(LANG_ID);
+		    	//get Correction
+				$http.get("/api/admin/projectcorrection/?project_id=" + PROJECT_ID).success(function($data){
+					$scope.havecorrection = false;
+					console.info('$data.corrections.length',$data.corrections.length);
+		            for(var i=0; i< $data.corrections.length; i++){
+		            	
+		            	console.info('$data.corrections[i]',$data.corrections[i]);
+		            	if($data.corrections[i].language.id == LANG_ID){
+		            		
+		            		$scope.correction = $data.corrections[i];
+		            		$scope.havecorrection = true;
+		            		break;
+		            	}
+		            }
+		            console.info('$scope.correction',$scope.correction);
+		        }).error(function($e){
+
+		        	$scope.havecorrection = false;
+		        });
+				
+				//get Feedback
+				$http.get("/api/admin/projectfeedback/?project_id=" + PROJECT_ID).success(function($data){
+					$scope.havefeedback = false;
+					
+		            for(var i=0; i< $data.feedbacks.length; i++){
+		            	
+		            	console.info('$data.feedbacks[i]',$data.feedbacks[i]);
+		            	if($data.feedbacks[i].language == LANG_ID){
+		            		
+		            		$scope.feedback = $data.feedbacks[i];
+		            		$scope.havefeedback = true;
+		            		break;
+		            	}
+		            }
+		            console.info('$scope.feedback',$scope.feedback);
+		        }).error(function($e){
+
+		        	$scope.havefeedback = false;
+		        });
+				
+				
             });
 		// Get list translationTM
        $http.get("/api/papertask/translationtm").success(function($data){
@@ -1438,7 +1487,31 @@ angularApp.factory("FileListService", function(){
 
 
 });
+/*
+angularApp.controller("TaskCorrectionController", function($scope,  $http, $q, $timeout, CorrectionApi){
 
+	
+	$q.all([task_listener])
+    .then(function(){
+       
+    	var PROJECT_ID = $scope.projectId;
+    	//var LANG_ID = $scope.language.id;
+    	
+    	alert(PROJECT_ID); 
+    	//alert(LANG_ID);
+    	
+    	$http.get("/api/papertask/projectcorrection/?project_id=" + PROJECT_ID).success(function($data){
+            for(var i=0; i< $data.corrections.length; i++){
+            	//if($data.corrections[i]=)
+            }
+        }).error(function($e){
+            
+        });
+		
+    });
+   
+});
+*/
 angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', function($scope, FileUploader, $timeout) {
     var uploader = $scope.uploader = new FileUploader({
 		scope: true, 

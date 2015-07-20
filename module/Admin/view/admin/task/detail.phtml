@@ -83,6 +83,8 @@ $this->inlineScript()
 								<li class="active"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasksNum }}</span> <?php echo $this->translate("Task Allocation"); ?></a></li>
 								
 								<li class="" ng-show="1 == 1"><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> Messages & Activities</a></li>
+								<li class="" ng-show="havecorrection"><a href="#correction" data-toggle="tab">Correction</a></li>
+								<li class="" ng-show="havefeedback"><a href="#feedback" data-toggle="tab">Feedback</a></li>
 								
 							</ul>
 						</div>
@@ -91,6 +93,8 @@ $this->inlineScript()
 						<div class="tab-content">	
 							<?php include "detail/order_information.phtml"; ?>
 							<?php include "detail/activities.phtml"; ?>
+							<?php include "detail/correction.phtml"; ?>
+							<?php include "detail/feedback.phtml"; ?>
 						</div>
 					</div>	
 				</div>

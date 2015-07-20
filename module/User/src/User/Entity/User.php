@@ -829,7 +829,7 @@ class User extends Entity implements InputFilterAwareInterface{
             'email' => $data['email'],
             'lastName' => $data['lastName'],
             'firstName' => $data['firstName'],
-            'lastLogin' => new \DateTime('now'),
+            'lastLogin' => null,
             'createdTime' => new \DateTime('now'),
 			'token' => $this->generateToken(),
             'alias' => $strAlias,
@@ -842,7 +842,7 @@ class User extends Entity implements InputFilterAwareInterface{
         $entityManager->persist($this);
         $entityManager->flush();
 
-        //$this->sendConfirmationEmail( $controller, $lang_code );
+        $this->sendConfirmationEmail( $controller, $lang_code );
     }
 	public function createFreelancer( $controller, $data, $entityManager,$lang_code='' )
     {

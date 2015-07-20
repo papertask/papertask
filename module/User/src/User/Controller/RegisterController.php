@@ -46,6 +46,8 @@ class RegisterController extends AbstractActionController
             if($form->isValid() && $request->getPost('agree') == 1){
                 $translator = $this->getTranslator();
                 $entityManager = $this->getEntityManager();
+                //var_dump($form); exit;
+                $data = $request->getPost();
                 $userExist = $entityManager
                     ->getRepository('User\Entity\User')
                     ->findOneBy(array(
@@ -53,9 +55,10 @@ class RegisterController extends AbstractActionController
                     ));
                 if($userExist){
                     $this->flashMessenger()->addErrorMessage($translator->translate('This email has been registered already.'));
+                    return $this->redirect()->toUrl($userType);
                 } else {
 					$lang_code = '/'.$lang_code;
-                    $form->save($this, $userType, $lang_code);
+                    $form->save($this, $data, $userType, $lang_code);
 					return $this->redirect()->toUrl($lang_code.'/user/register/confirm?email=' . $request->getPost('email'));
                 }
 

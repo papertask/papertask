@@ -44,8 +44,11 @@ trait ControllerMethods{
                 $this->flashMessenger()->addErrorMessage($msg);
                 /** @var \Zend\Uri\Http $url */
                 $uri = $request->getUri();
+            
+                $langArr = explode('/', $uri->getPath());
+                $lang = $langArr[1];
                 $requestUri = $uri->getPath() . ($uri->getQuery() ? "?" . $uri->getQuery() : "");
-                return $this->redirect()->toUrl("/user/login?next=" . $requestUri);
+                return $this->redirect()->toUrl("/$lang/user/login?next=" . $requestUri);
             }
         }
         return parent::dispatch($request, $response);

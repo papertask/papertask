@@ -675,7 +675,7 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
         feedback.qualityTitle = $scope.q_values[Number(feedback.quality)-1].name;
         feedback.timeTitle = $scope.q_values[Number(feedback.turnAroundTime)-1].name;
         // console.log($scope.q_values[feedback.quality].name);
-        fb_dump[feedback.language.id] = feedback;
+        fb_dump[feedback.language] = feedback;
     };
 
     var templateFeedback = {
@@ -763,7 +763,10 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
             }
         });
             fb_dump = "done";
+        console.info('$scope.project.targetLanguages',$scope.project.targetLanguages);
         }
+        
+        
     }
 
     $scope.$watch(function(){

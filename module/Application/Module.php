@@ -126,11 +126,14 @@ class Module
     public function checkAcl(MvcEvent $e)
     {
         $params = $e->getRouteMatch()->getParams();
+       
         if(isset($params['__CONTROLLER__']) && isset($params['action']))
         $route = $params['__CONTROLLER__']."\\".$params['action'];
         else
         $route = $e->getRouteMatch()->getMatchedRouteName();
         $route = strtolower($route);
+
+      
 
         //set role here
         $userSession = new Container('user');
@@ -139,9 +142,11 @@ class Module
         if (!$e -> getViewModel() -> acl ->hasResource($route) || !$e -> getViewModel() -> acl -> isAllowed($userRole, $route))
         {
             $response = $e -> getResponse();
+            
             //location to page or what ever
             $response -> getHeaders() -> addHeaderLine('Location', $e -> getRequest() -> getBaseUrl() . '/404');
             $response -> setStatusCode(404);
+
         }
     }
 }

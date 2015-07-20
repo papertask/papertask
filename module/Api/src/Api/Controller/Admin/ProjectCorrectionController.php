@@ -28,10 +28,19 @@ class ProjectCorrectionController extends AbstractRestfulJsonController
 
     public function create($data){
         $this->clearData($data);
+		$entityManager = $this->getEntityManager();
 
         $correction = new ProjectCorrection();
         $correction->setData($data);
-        $correction->save($this->getEntityManager());
+        $correction->save($entityManager);
+        
+        $project =  $data['project'];
+        $project->setData(['status'=> 3,]);
+        $project->save($entityManager);
+        
+        $task = $entityManager->getRepository('User\Entity\Task')->findOneBy(array('project'=>$project,'language' => $data['targetLanguage']));
+		$task->setData(['status'=> 2,]);
+		$task->save($entityManager);
 
         return new JsonModel([
             'correction' => $correction->getData(),
@@ -64,11 +73,20 @@ class ProjectCorrectionController extends AbstractRestfulJsonController
 
     public function update($id, $data){
         $correction = $this->find('\User\Entity\ProjectCorrection', $id);
+        $entityManager = $this->getEntityManager();
         $this->clearData($data);
         $updateData = $data;
 
         $correction->setData($updateData);
         $correction->save($this->getEntityManager());
+
+        $project =  $data['project'];
+        $project->setData(['status'=> 3,]);
+        $project->save($entityManager);
+        
+        $task = $entityManager->getRepository('User\Entity\Task')->findOneBy(array('project'=>$project,'language' => $data['targetLanguage']));
+        $task->setData(['status'=> 2,]);
+        $task->save($entityManager);
 
         return new JsonModel([
             'correction' => $correction->getData(),

@@ -44,7 +44,7 @@ class LoginController extends AbstractActionController
                     if($request->getQuery('next')){
                         $next = $request->getQuery('next');
                     }
-                    return $this->redirect()->toUrl("/".$lang.$next);
+                    return $this->redirect()->toUrl($next);
                 }
             }
         }

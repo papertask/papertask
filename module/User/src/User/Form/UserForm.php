@@ -72,16 +72,18 @@ class UserForm extends Form
      * @param \Application\Controller\AbstractActionController $controller
      * @param $userType
      */
-    public function save($controller, $userType, $lang_code = ''){
+    public function save($controller, $data, $userType, $lang_code = ''){
         /**
          * @var $user \User\Entity\User
          */
         $user = $this->getObject();
         $entityManager = $controller->getEntityManager();
-        $data = array();
+        $data = (array) $data;
+
 
         $data['createdTime'] = new \DateTime('now');
         //$data['lastLogin'] = new \DateTime('now');
+
 
         $user->setData($data);
         $user->setGroupByName($userType, $entityManager);
@@ -92,7 +94,8 @@ class UserForm extends Form
         $user->save($entityManager);
 		if($userType == 'freelancer')
 			$user->createFreelancer( $controller, $data, $entityManager, $lang_code);
-		else 	$user->createEmployer( $controller, $data, $entityManager, $lang_code);
+		else 	
+			$user->createEmployer( $controller, $data, $entityManager, $lang_code);
 
         //$user->sendConfirmationEmail($controller);
     }

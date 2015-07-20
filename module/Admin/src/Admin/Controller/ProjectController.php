@@ -360,12 +360,15 @@ class ProjectController extends AbstractActionController
 		//get iterm translation
         $repository = $entityManager->getRepository('User\Entity\Itermnotm');
         $iterm_translation = $repository->findBy( array('project'=>$project) );
+       
         $iterm_translations = array();
         foreach ( $iterm_translation as $k => $v ) {
             $iterm_translations[$k] = $v->getData();
 			if($hasTypeTranslationNoTM == 1)
 				$subtotal = $subtotal +  $iterm_translations[$k]['total'];
         } 
+
+        //var_dump($iterm_translations); exit;
 
 		//get iterm translationtm
         $repository = $entityManager->getRepository('User\Entity\Itermtm');
@@ -472,7 +475,9 @@ class ProjectController extends AbstractActionController
 				'startDate' => $startDate
 				))
 				->setTerminal(true);
-		//return $viewModel;
+		return $viewModel;
+		
+		
 		$content = $view->render($viewModel);
 		// set array for viewer preferences
 		$pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -581,6 +586,7 @@ class ProjectController extends AbstractActionController
 		//get iterm translation
         $repository = $entityManager->getRepository('User\Entity\Itermnotm');
         $iterm_translation = $repository->findBy( array('project'=>$project) );
+        
         $iterm_translations = array();
         foreach ( $iterm_translation as $k => $v ) {
             $iterm_translations[$k] = $v->getData();
