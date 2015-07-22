@@ -48,6 +48,9 @@ trait ControllerMethods{
                 $langArr = explode('/', $uri->getPath());
                 $lang = $langArr[1];
                 $requestUri = $uri->getPath() . ($uri->getQuery() ? "?" . $uri->getQuery() : "");
+                $requestUriArr = explode('/', $requestUri);
+                unset($requestUriArr[1]);
+                $requestUri = implode($requestUriArr, '/');
                 return $this->redirect()->toUrl("/$lang/user/login?next=" . $requestUri);
             }
         }

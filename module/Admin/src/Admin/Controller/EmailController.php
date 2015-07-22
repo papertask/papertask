@@ -160,7 +160,7 @@ class EmailController extends AbstractActionController
             	
             	if($user->getEmployer()){
             		$haveEmail = true;
-            		$client =  $user->getEmployer()->getData();
+            		$client =  $user->getData();
             	} else {
             		$haveEmail = false;
             		$client =  null;

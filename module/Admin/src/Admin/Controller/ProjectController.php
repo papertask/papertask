@@ -475,7 +475,7 @@ class ProjectController extends AbstractActionController
 				'startDate' => $startDate
 				))
 				->setTerminal(true);
-		return $viewModel;
+		//return $viewModel;
 		
 		
 		$content = $view->render($viewModel);

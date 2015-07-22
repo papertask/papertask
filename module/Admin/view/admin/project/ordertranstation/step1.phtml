@@ -14,8 +14,7 @@
 							<div class="panel-options">
 								<ul class="nav nav-tabs">
 									<li class="active"><a href="#tab-1" data-toggle="tab">Upload
-											Files</a>
-									</li>
+											Files</a></li>
 									<li class=""><a href="#tab-2" data-toggle="tab">Paste Text</a>
 									</li>
 								</ul>
@@ -33,9 +32,9 @@
 													We accept the following files, under <span
 														class="text-danger">50MB</span> size:
 												</h4>
-												<p>Allowed file types are "txt, zip, rar,
-													gif, jpeg, jpg, png, doc, docx, ppt, pptx, pdf, chm, xls,
-													xlsx, txt, zip, rar".</p>
+												<p>Allowed file types are "txt, zip, rar, gif, jpeg, jpg,
+													png, doc, docx, ppt, pptx, pdf, chm, xls, xlsx, txt, zip,
+													rar".</p>
 												<p>
 													<span class="text-danger">If files are bigger then 50MB,
 														pleasae put the download link into the "Project
@@ -82,14 +81,12 @@
 																	<div class="progress-bar" role="progressbar"
 																		ng-style="{ 'width': uploader.progress + '%' }"
 																		style="width: 0%;">{{ item.file.name }}</div>
-																</div>
-															</td>
+																</div></td>
 															<td>{{ item.file.size/1024/1024|number:2 }} Mb</td>
 															<td>{{ getTime(item) }}</td>
 															<td class="text-center child-is-link"><i
 																ng-click="removeItem(item)"
-																class="fa fa-trash-o text-danger"></i>
-															</td>
+																class="fa fa-trash-o text-danger"></i></td>
 														</tr>
 													</tbody>
 												</table>
@@ -114,8 +111,8 @@
 			</div>
 		</div>
 		<div class="text-center">
-			<button id="activate-step-2" type="button" class="btn btn-primary btn-lg"
-				ng-click="initStep2()">Next</button>
+			<button id="activate-step-2" type="button"
+				class="btn btn-primary btn-lg" ng-click="initStep2()">Next</button>
 			<!-- next button show after at least one file is uploaded -->
 		</div>
 	</div>

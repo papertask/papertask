@@ -107,6 +107,7 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 
     var projectId = PROJECT_ID;
     function init(){
+    	$scope.Total_tmp = 0;
 		$("*[rel=tooltip]").tooltip();
         var project_listener = ProjectApi.get(projectId, function($project){
             $project.priority = ProjectPriority.get($project.priority);

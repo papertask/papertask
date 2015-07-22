@@ -72,9 +72,11 @@ class EmployerController extends AbstractRestfulController
 			$employer->save($entityManager);
 	
 			$ret_data = $user->getData();
-
+			$projectType = array();
 			// Set Translation Price
 			foreach ( $pdata['translationPrices'] as $k => $v ) {
+				if(!in_array(1, $projectType))
+					$projectType[] =1;
 				$translationPrice = array(
 						'user' => $user,
 						'sourceLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v['sourceLanguage']['id'])),
@@ -88,6 +90,15 @@ class EmployerController extends AbstractRestfulController
 	
 			// Set Desktop Prices
 			foreach ( $pdata['desktopPrices'] as $k => $v) {
+				if( $v['priceMac'] != 0 || $v['priceHourMac'] != 0){
+					if(!in_array(4, $projectType))
+						$projectType[] =4;
+				}
+				
+				if( $v['pricePc'] != 0 || $v['priceHourPc'] != 0){
+					if(!in_array(5, $projectType))
+						$projectType[] =5;
+				} 
 				
                 $desktopPrice = array (
 						'user'=> $user,
@@ -105,6 +116,14 @@ class EmployerController extends AbstractRestfulController
 	
 			// Set Interpreting Price
 			foreach ( $pdata['interpretingPrices'] as $k=>$v) {
+				if(!in_array(7, $projectType)){
+					$projectType[] =7;
+					$projectType[] =8;
+					$projectType[] =9;
+					$projectType[] =10;
+				}
+					
+				
 				$interpretingPrice = array(
 						'user' => $user,
 						'sourceLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v['sourceLanguage']['id'])),
@@ -119,6 +138,10 @@ class EmployerController extends AbstractRestfulController
 			}
 	
 			// Set TM Ratio
+			if( $pdata['tmRatio'] != null){
+				if(!in_array(2, $projectType))
+					$projectType[] = 2;
+			}
 			$pTmRatio = new UserTmRatio();
 			$tmRatio = array(
 					'repetitions'    => $pdata['tmRatio']['repetitions'],
@@ -136,8 +159,12 @@ class EmployerController extends AbstractRestfulController
 	
 			// Set Engineering Price
 			foreach ( $pdata['engineeringPrices'] as $k=>$v ) {
+				if( $pdata['tmRatio'] != null){
+					if(!in_array(6, $projectType))
+						$projectType[] = 6;
+				}
 				$engineeringPrice = array(
-						'engineeringcategory'=> $entityManager->getRepository('Common\Entity\EngineeringCategory')->findOneBy(array('id' => $v['engineeringCategory']['id'])),
+						'engineeringcategory'=> $entityManager->getRepository('Common\Entity\EngineeringCategory')->findOneBy(array('id' => $v['engineeringcategory']['id'])),
 						'unit'=> $entityManager->getRepository('Common\Entity\Unit')->findOneBy(array('id' => $v['unit']['id'])),
 						'price'=> $v['price'],
 						'user'=> $user
@@ -146,6 +173,10 @@ class EmployerController extends AbstractRestfulController
 				$pEngineeringPrices->setData( $engineeringPrice );
 				$pEngineeringPrices->save( $entityManager );
 			}
+	
+			$user->setData(array('types'=> $projectType));
+			$user->save($entityManager);
+			//var_dump($projectType); exit;
 	
 			return new JsonModel(['user'=>$ret_data, 'success'=>'success']);
 		}

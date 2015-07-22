@@ -24,9 +24,14 @@
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.total }}</td>
                         <td>
-                        <span ng-click="editTranslationNoTMPrice($index, item.id, language.id)">
-                            <i class="fa fa-edit"></i>
-                        </span> &nbsp;&nbsp;
+                	
+                        
+                        <?php if (!($user['role'] == 'Freelancer')) { ?>
+							  <span ng-click="editTranslationNoTMPrice($index, item.id, language.id)"><i class="fa fa-edit"></i></span> 
+                        <?php } ?>
+                      
+                            
+                            &nbsp;&nbsp;
                             <span ng-click="deleteTranslationNoTMPrice($index, item.id, language.id)"><i class="fa fa-trash-o text-danger"></i></span>
                         </td>
                     </tr>
@@ -61,9 +66,9 @@
                         <td>{{ itemtms[language.id][0].sourcerepetitions + itemtms[language.id][0].sourceyibai + itemtms[language.id][0].sourcejiuwu + itemtms[language.id][0].sourcebawu + itemtms[language.id][0].sourceqiwu + itemtms[language.id][0].sourcewushi}}</td>
                         <td>{{ itemtms[language.id][0].total }}</td>
                         <td>
-							
+							<?php if (!($user['role'] == 'Freelancer')) { ?>
                             <a data-toggle="modal" ng-click="editTranslationTM(1, item.id, language.id)"><i class="fa fa-edit"></i></a> &nbsp;&nbsp;
-
+							<?php } ?>
                             <a data-toggle="collapse" href="#use_tm_{{language.id}}"><i class="fa fa-eye"></i></a>
                         </td>
                     </tr>

@@ -173,7 +173,7 @@ class ProjectController extends AbstractRestfulJsonController
 			//$data['client'] = $client;
 		}
 		
-
+		//var_dump($data); exit;
         $project->setData($data);
 		$project->save($this->getEntityManager());
         $files = [];
@@ -217,10 +217,6 @@ class ProjectController extends AbstractRestfulJsonController
 			$task->save($this->getEntityManager());
         }
         
-        	}
-        }
-        
-        
 		//invoice
 		$invoice = new Invoice();
 		$invoice_no = "INV-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
@@ -239,6 +235,12 @@ class ProjectController extends AbstractRestfulJsonController
 		$invoice->setData($invoiceDataArr);
 		$invoice->setProject($project);
 		$invoice->save($this->getEntityManager());
+        
+        	}
+        }
+        
+        
+		
 		//
 		 if(isset($data['data'])){
         foreach($data['data'] as $iterms){
@@ -371,6 +373,22 @@ class ProjectController extends AbstractRestfulJsonController
 				$iterm->save($this->getEntityManager());
 			}
         }
+       
+        // Create Invoice forData
+        $invoice = new Invoice();
+        $invoice_no = "INV-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
+        $invoiceDataArr = array(
+        		'invoice_no' => $invoice_no,
+        		'dueDate' => $data['dueDate'],
+        		'subtotal' => $projectTotal,
+        		'tax' => 0,
+        		'discount' => 0,
+        		'total' => $projectTotal,
+        );
+        
+        $invoice->setData($invoiceDataArr);
+        $invoice->setProject($project);
+        $invoice->save($this->getEntityManager());
        
        
         $project->save($this->getEntityManager());

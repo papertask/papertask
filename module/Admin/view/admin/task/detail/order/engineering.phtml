@@ -25,9 +25,10 @@
 						<td>{{ item.quantity }}</td>
 						<td>{{ item.total }}</td>
 						<td>
+						<?php if (!($user['role'] == 'Freelancer')) { ?>
 											<span ng-click="editEng($index, item.id, language.id)">
 												<i class="fa fa-edit"></i>
-											</span> &nbsp;&nbsp;
+											</span> <?php  } ?>&nbsp;&nbsp;
 							<span ng-click="deleteEngineering($index, item.id, language.id)"><i class="fa fa-trash-o text-danger"></i></span>
 						</td>
 					</tr>                

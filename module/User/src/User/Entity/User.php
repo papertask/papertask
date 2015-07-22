@@ -182,7 +182,8 @@ class User extends Entity implements InputFilterAwareInterface{
             'isActive',
             'profileUpdated',
             'alias',
-            'cellphone'
+            'cellphone',
+        	'types',
         );
         foreach($keys as $key){
             if(isset($arr[$key])){
@@ -517,6 +518,7 @@ class User extends Entity implements InputFilterAwareInterface{
             "profileUpdated" => $this->profileUpdated,
             "alias" => $this->alias,
             "cellphone" => $this->cellphone,
+        	//'types' => $this->types,
         	//"translator_pool" =>($this->isEmployer())?$this->translator_pool : null,
         	//"client_pool" => ($this->isFreelancer())?$this->client_pool : null,
         );

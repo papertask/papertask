@@ -94,8 +94,9 @@ $this->inlineScript()
                                 <strong><?php echo $this->translate('Contract with') ?> {{ project.client.company.name }}</strong>
                                 <br/>
                                 <div class="tooltip-demo">
-                                    <span ng-repeat="type in project.types">
-                                        <code {{ TypeList.getTypeAttrs(type) }}>{{ type.name_short }}</code>
+                                    <span ng-repeat="type in project.client.types">
+                                        <code data-original-title="{{ ProjectType.get(type).name }}"
+												 title="" data-placement="top" data-toggle="tooltip">{{ ProjectType.get(type).name_short }}</code>
                                     </span>
                                 </div>
                             </td>
