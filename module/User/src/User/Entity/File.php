@@ -459,15 +459,36 @@ class File extends Entity{
 
 
 	public function word_counter($plain) {
+		
+		
+		
+
+		// CHeck chinese
+		preg_match("/\p{Han}+/u", $plain, $matches);
+		
+		if(count($matches) > 0){
+			// Is Chinese
 		$seq = '/[\s\.,;:!\? ]+/mu';
 		$plain = preg_replace('#\{{{.*?\}}}#su', "", $plain);
 		$str = preg_replace($seq, '', $plain);
 		$chars = count(preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY));
-		//var_dump($chars);
 		$words = count(preg_split($seq, $plain, -1, PREG_SPLIT_NO_EMPTY));
-		//var_dump($words);
+		
+
+			return mb_strlen($str, 'utf8');
+		} else{
+			// No Chinese
+			$seq = '/[\s\.,;:!\? ]+/mu';
+			$plain = preg_replace('#\{{{.*?\}}}#su', "", $plain);
+			$str = preg_replace($seq, '', $plain);
+			$chars = count(preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY));
+			$words = count(preg_split($seq, $plain, -1, PREG_SPLIT_NO_EMPTY));
+
 		if ($words === 0) return $chars;
 		if ($chars / $words > 12) $words = $chars;
 		return $words;
+	}
+				
+		
 	}
 }

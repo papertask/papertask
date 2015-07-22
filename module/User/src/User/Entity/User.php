@@ -449,8 +449,15 @@ class User extends Entity implements InputFilterAwareInterface{
      */
     public function sendConfirmationEmail($controller,$lang_code=''){
         // initial data for email template
+		$url = $controller->getBaseUrl();
+		$lastChar = $url[strlen($url) - 1];
+		if($lastChar == '/'){
+			$url = substr($url, 0 , -1);
+		}
+		$lang_code = str_replace('/', '', $lang_code);
+        $confirmLink = $url. '/'. $lang_code . '/user/register/confirm?token=' . $this->token;
+		
 
-        $confirmLink = $controller->getBaseUrl(). ''. $lang_code . '/user/register/confirm?token=' . $this->token;
 		$data = array(
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
@@ -592,9 +599,9 @@ class User extends Entity implements InputFilterAwareInterface{
     			->select("COUNT(task.id)")
     			->from('User\Entity\Task','task')
     			->innerJoin("User\Entity\Project", "p", "WITH", "task.project = p")
-    			->where("p.client=?1")->setParameter(1, 130);
-    			//->andWhere('task.is_deleted = 0')
-    			//->andWhere('task.status = 1');
+    			->where("p.client=?1")->setParameter(1, 130)
+    			->andWhere('task.is_deleted = 0')
+    			->andWhere('task.status = 1');
     			$taskNum = $taskList->getQuery()->getSingleScalarResult();
   			
     			$userArr=$user->getData();

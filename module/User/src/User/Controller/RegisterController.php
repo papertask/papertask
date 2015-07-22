@@ -57,9 +57,8 @@ class RegisterController extends AbstractActionController
                     $this->flashMessenger()->addErrorMessage($translator->translate('This email has been registered already.'));
                     return $this->redirect()->toUrl($userType);
                 } else {
-					$lang_code = '/'.$lang_code;
                     $form->save($this, $data, $userType, $lang_code);
-					return $this->redirect()->toUrl($lang_code.'/user/register/confirm?email=' . $request->getPost('email'));
+					return $this->redirect()->toUrl('/'.$lang_code.'/user/register/confirm?email=' . $request->getPost('email'));
                 }
 
             }
