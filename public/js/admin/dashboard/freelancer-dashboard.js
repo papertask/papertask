@@ -46,6 +46,20 @@ angularApp.controller('DashboardFreelancerTaskControler', function($scope, $http
         	$scope.reviewingtasks = $data.tasks;
         });
 		
+  		//get rejected task
+  		$http.get("/" + LANG_CODE + "/admin/task/getFreelancerTaskList?statustask=8&page="+'1'+"&freelancer_id="+FREELANCER_ID, {
+            //params: $params
+        }).success(function($data){
+        	$scope.rejectedtasks = $data.tasks;
+        });
+  		
+  		//get rejected task
+  		$http.get("/" + LANG_CODE + "/admin/task/getFreelancerTaskList?statustask=1&page="+'1'+"&freelancer_id="+FREELANCER_ID, {
+            //params: $params
+        }).success(function($data){
+        	$scope.completedtasks = $data.tasks;
+        });
+		
 		//get unpaid tasks
 		$http.get("/" + LANG_CODE + "/admin/task/getFreelancerTaskList?paystatus=1&page="+'1'+"&freelancer_id="+FREELANCER_ID, {
             //params: $params
@@ -67,6 +81,14 @@ angularApp.controller('DashboardFreelancerTaskControler', function($scope, $http
 		location.href = "/" + LANG_CODE + "/admin/task/freelancer-task-view";
 	}
 	$scope.gotoOngoingTask = function(task_id){
+		location.href = "/" + LANG_CODE + "/admin/task/freelancer-task-view";
+	}
+	
+	$scope.gotoRejectedTask = function(task_id){
+		location.href = "/" + LANG_CODE + "/admin/task/freelancer-task-view";
+	}
+	
+	$scope.gotoCompletedTask = function(task_id){
 		location.href = "/" + LANG_CODE + "/admin/task/freelancer-task-view";
 	}
 	

@@ -35,11 +35,11 @@ class ProjectCorrectionController extends AbstractRestfulJsonController
         $correction->save($entityManager);
         
         $project =  $data['project'];
-        $project->setData(['status'=> 3,]);
+        $project->setData(['status'=> 6,]);
         $project->save($entityManager);
         
         $task = $entityManager->getRepository('User\Entity\Task')->findOneBy(array('project'=>$project,'language' => $data['targetLanguage']));
-		$task->setData(['status'=> 2,]);
+		$task->setData(['status'=> 8,]);
 		$task->save($entityManager);
 
         return new JsonModel([

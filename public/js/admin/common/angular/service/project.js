@@ -161,6 +161,11 @@ angularApp.factory("TaskStatus", function(){
         'id': 7,
         'name': 'Reviewing',
         'decorator': 'warning'
+    }
+    ,{
+        'id': 8,
+        'name': 'Rejected',
+        'decorator': 'danger'
     }];
 
     return {

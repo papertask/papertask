@@ -38,12 +38,21 @@ angularApp.controller('DashboardProjectController', function($scope, ProjectServ
 	            
 	});
 	
+	$http.get("/api/admin/project/?statusproject=6&number=5&page=1")
+    .success(function($data){
+        $scope.rejectedprojects = $data.projects;
+		console.log($scope.rejectedprojects);
+            
+});
+	
 	$http.get("/api/admin/project/?unpay=1&number=5&page=1")
 	    .success(function($data){
 	        $scope.unpayprojects = $data.projects;
 			console.log($scope.unpayprojects);
 	            
 	});
+
+	
 
     $scope.goToQuote = function($project){
         location.href = "/" + LANG_CODE + "/admin/project/quote-detail?id=" + $project.id;
@@ -64,6 +73,10 @@ angularApp.controller('DashboardProjectController', function($scope, ProjectServ
     };
 	$scope.gotoCompleteProject = function(){
         location.href = "/" + LANG_CODE + "/admin/project/client-completed-projects/";
+    };
+	
+    $scope.gotoRejectedProject = function(){
+        location.href = "/" + LANG_CODE + "/admin/project/index/";
     };
 	
     $scope.gotoUnpaidProject = function(){
