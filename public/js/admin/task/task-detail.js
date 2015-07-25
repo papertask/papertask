@@ -291,6 +291,15 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 						console.log($scope.engineeringPrices);
 					});
 					
+					//Get Client Info
+					
+					var ajaxUserInfo = $http.get("/api/user/" + $scope.USER_ID + "")
+		            .success ( function ( $data ) {
+		            	
+		            	$scope.clientTmRatios = $data.tmRatios;
+		            	console.info('$scope.clientTmRatios',$scope.clientTmRatios);		          						
+		            });	
+					
 					
 					/** order information condition **/
 					$scope.hasTypeTranslationNoTM = function(){
@@ -488,6 +497,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			//return;
 			
 			//$scope.iterm_notm.rate_tmp = $scope.iterm_notm.rate;
+			
+		if ( itemtm.id ) {
 			itemtm.total_tmp = 	($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratebawu)/100)*$scope.iterm_tm.sourcebawu
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratejiuwu)/100)*$scope.iterm_tm.sourcejiuwu
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratenomatch)/100)*$scope.iterm_tm.sourcenomatch
@@ -498,7 +509,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			$scope.iterm_tm.total = itemtm.total_tmp;
 			$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 			$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-		if ( itemtm.id ) {
+			
 			$http.put("/api/admin/projectitermtm/" + itemtm.id, 
 				{
     				languageid: $scope.laguageid,
@@ -518,14 +529,51 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
     			});
 				
     	} else {
+    		
+    		console.info('$scope.clientTmRatios',$scope.clientTmRatios);	
+    		
+    		itemtm.total_tmp = 	($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.bawu)/100)*$scope.iterm_tm.sourcebawu
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.jiuwu)/100)*$scope.iterm_tm.sourcejiuwu
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.nomatch)/100)*$scope.iterm_tm.sourcenomatch
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.qiwu)/100)*$scope.iterm_tm.sourceqiwu
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.repetitions)/100)*$scope.iterm_tm.sourcerepetitions
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.wushi)/100)*$scope.iterm_tm.sourcewushi
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.yibai)/100)*$scope.iterm_tm.sourceyibai;
+    		$scope.iterm_tm.total = itemtm.total_tmp;
+    		$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    		$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    		
+    		console.info('itemtm',itemtm);
+    		
 			$http.post("/api/admin/projectitermtm?projectid="+$scope.projectId, 
 					{
+						//languageid: $scope.laguageid,
+						//rate: itemtm.rate_tmp, 
+						//quantity: itemtm.quantity, 
+						//total: itemtm.total_tmp,
+						//name : itemtm.name,
+						//file : itemtm.file
+						
 						languageid: $scope.laguageid,
 						rate: itemtm.rate_tmp, 
-						quantity: itemtm.quantity, 
+						sourcebawu: itemtm.sourcebawu, 
+						sourcejiuwu: itemtm.sourcejiuwu,
+						sourcenomatch: itemtm.sourcenomatch,
+						sourceqiwu: itemtm.sourceqiwu,
+						sourcerepetitions: itemtm.sourcerepetitions,
+						sourcewushi: itemtm.sourcewushi,
+						sourceyibai: itemtm.sourceyibai,
 						total: itemtm.total_tmp,
 						name : itemtm.name,
-						file : itemtm.file
+						file : itemtm.file,
+						
+						raterepetitions :  $scope.clientTmRatios.repetitions,
+						rateyibai : $scope.clientTmRatios.yibai,
+						ratejiuwu : $scope.clientTmRatios.jiuwu,
+						ratebawu : $scope.clientTmRatios.bawu,
+						rateqiwu : $scope.clientTmRatios.qiwu,
+						ratewushi : $scope.clientTmRatios.wushi ,
+						ratenomatch : $scope.clientTmRatios.nomatch,
 						
 					}).success(function( data ) {
 						$scope.iterm_tm.id = data.iterm.id;
@@ -541,9 +589,11 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.laguageid = laguageid;
 		console.info('laguageid',$scope.laguageid );
 		console.info('$scope.itemtms',$scope.itemtms );
+		if($scope.itemtms[laguageid][0]){
 		$scope.itemtm = $scope.itemtms[laguageid][0];
 		$scope.itemtm.rate_tmp = Number($scope.itemtms[laguageid][0].rate_tmp);
     	setModalControllerData('itemtm', $scope.itemtm);
+		}
     	jQuery("#modal-translation-TM").modal("show");
     }
 	$scope.addTranslationNoTM = function(laguageid){

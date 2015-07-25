@@ -487,6 +487,8 @@ class ProjectController extends AbstractRestfulJsonController
 			);
         }
 		
+       
+		
         /** start filter */
         if($project_id = $this->params()->fromQuery('project_id')){
             $queryBuilder->andWhere($queryBuilder->expr()->eq('project.id', $project_id));

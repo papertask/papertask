@@ -36,13 +36,17 @@ class ProjectItermtmController extends AbstractRestfulJsonController
     {
 		$projectid = $this->getRequest()->getQuery('projectid');
 		$iterm = new Itermtm();
+		
+		if(array_key_exists('file', $data)){
 		if($data['file']['id'])
 			$file = $this->find('\User\Entity\File', $data['file']['id']);
+		}
+		
 		$project = $this->find('User\Entity\Project', $projectid);
 		$iterm->setProject($project);
 		$language = $this->find('User\Entity\Language', $data['languageid']);
 		
-		$iterm->setData([
+		$DataArr = array(
 			'name' => $data['name'],
 			'rate' => $data['rate'],
 			'sourcebawu' => $data['sourcebawu'],
@@ -52,22 +56,29 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 			'sourcerepetitions' => $data['sourcerepetitions'],
 			'sourcewushi' => $data['sourcewushi'],
 			'sourceyibai' => $data['sourceyibai'],
+				'total' => $data['total'],
+				'language' => $language,
 
-			'raterepetitions' => $data['raterepetitions'],
-			'rateyibai' => $data['rateyibai'],
-			'ratejiuwu' => $data['ratejiuwu'],
-			'ratebawu' => $data['ratebawu'],
-			'rateqiwu' => $data['rateqiwu'],
-			'ratewushi' => $data['ratewushi'],
-			'ratenomatch' => $data['ratenomatch'],
 
-			'total' => $data['total'],
-		]);
+		);
+		
+		$DataArr['raterepetitions'] = ($data['raterepetitions'] != null)? 	$data['raterepetitions'] : 0;
+		$DataArr['rateyibai'] = ($data['rateyibai'] != null)? 	$data['rateyibai'] : 0;
+		$DataArr['ratejiuwu'] = ($data['ratejiuwu'] != null)? 	$data['ratejiuwu'] : 0;
+		$DataArr['ratebawu'] = ($data['ratebawu'] != null)? 	$data['ratebawu'] : 0;
+		$DataArr['rateqiwu'] = ($data['rateqiwu'] != null)? 	$data['rateqiwu'] : 0;
+		$DataArr['ratewushi'] = ($data['ratewushi'] != null)? 	$data['ratewushi'] : 0;
+		$DataArr['ratenomatch'] = ($data['ratenomatch'] != null)? 	$data['ratenomatch'] : 0;
+		
+		$iterm->setData($DataArr);
+		
 		$iterm->save($this->getEntityManager());
 		//add task if have not
 		$entityManager = $this->getEntityManager();
 		$repository = $entityManager->getRepository('User\Entity\Task');
         $task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>2));
+        
+        //var_dump($task);
 		if(!$task){
 			$task = new Task();
 			$task->setData([
