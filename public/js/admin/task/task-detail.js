@@ -345,6 +345,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		            	if($data.corrections[i].language.id == LANG_ID){
 		            		
 		            		$scope.correction = $data.corrections[i];
+		            		if( $scope.task.status.id == 8 )
 		            		$scope.havecorrection = true;
 		            		break;
 		            	}
@@ -365,6 +366,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		            	if($data.feedbacks[i].language == LANG_ID){
 		            		
 		            		$scope.feedback = $data.feedbacks[i];
+		            		if( $scope.task.status.id == 1 )
 		            		$scope.havefeedback = true;
 		            		break;
 		            	}

@@ -80,6 +80,12 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
         });
 		$q.all([project_listener])
             .then(function(){
+            	var ajaxUserInfo = $http.get("/api/user/" + $scope.USER_ID + "")
+	            .success ( function ( $data ) {
+	            	
+	            	$scope.clientTmRatios = $data.tmRatios;
+	            	console.info('$scope.clientTmRatios',$scope.clientTmRatios);		          						
+	            });	
 				//get all file
 				$http.get('/api/admin/file?projectId='+ projectId).success(function($data) {
 						$scope.files = $data['files'];
@@ -321,6 +327,18 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 			$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		if ( itemtm.id ) {
+			
+			itemtm.total_tmp = 	($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratebawu)/100)*$scope.iterm_tm.sourcebawu
+						+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratejiuwu)/100)*$scope.iterm_tm.sourcejiuwu
+						+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratenomatch)/100)*$scope.iterm_tm.sourcenomatch
+						+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.rateqiwu)/100)*$scope.iterm_tm.sourceqiwu
+						+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.raterepetitions)/100)*$scope.iterm_tm.sourcerepetitions
+						+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratewushi)/100)*$scope.iterm_tm.sourcewushi
+						+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.rateyibai)/100)*$scope.iterm_tm.sourceyibai;
+			$scope.iterm_tm.total = itemtm.total_tmp;
+			$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			
 			$http.put("/api/admin/projectitermtm/" + itemtm.id, 
 				{
     				languageid: $scope.laguageid,
@@ -340,14 +358,52 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
     			});
 				
     	} else {
+    		
+    		console.info('$scope.clientTmRatios',$scope.clientTmRatios);	
+    		
+    		itemtm.total_tmp = 	($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.bawu)/100)*$scope.iterm_tm.sourcebawu
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.jiuwu)/100)*$scope.iterm_tm.sourcejiuwu
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.nomatch)/100)*$scope.iterm_tm.sourcenomatch
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.qiwu)/100)*$scope.iterm_tm.sourceqiwu
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.repetitions)/100)*$scope.iterm_tm.sourcerepetitions
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.wushi)/100)*$scope.iterm_tm.sourcewushi
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.yibai)/100)*$scope.iterm_tm.sourceyibai;
+    		$scope.iterm_tm.total = itemtm.total_tmp;
+    		$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    		$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    		
+    		console.info('itemtm',itemtm);
+    		
 			$http.post("/api/admin/projectitermtm?projectid="+projectId, 
 					{
+						//languageid: $scope.laguageid,
+						//rate: itemtm.rate_tmp, 
+						//quantity: itemtm.quantity, 
+						//total: itemtm.total_tmp,
+						//name : itemtm.name,
+						//file : itemtm.file
+						
+						
 						languageid: $scope.laguageid,
 						rate: itemtm.rate_tmp, 
-						quantity: itemtm.quantity, 
+						sourcebawu: itemtm.sourcebawu, 
+						sourcejiuwu: itemtm.sourcejiuwu,
+						sourcenomatch: itemtm.sourcenomatch,
+						sourceqiwu: itemtm.sourceqiwu,
+						sourcerepetitions: itemtm.sourcerepetitions,
+						sourcewushi: itemtm.sourcewushi,
+						sourceyibai: itemtm.sourceyibai,
 						total: itemtm.total_tmp,
 						name : itemtm.name,
-						file : itemtm.file
+						file : itemtm.file,
+						
+						raterepetitions :  $scope.clientTmRatios.repetitions,
+						rateyibai : $scope.clientTmRatios.yibai,
+						ratejiuwu : $scope.clientTmRatios.jiuwu,
+						ratebawu : $scope.clientTmRatios.bawu,
+						rateqiwu : $scope.clientTmRatios.qiwu,
+						ratewushi : $scope.clientTmRatios.wushi ,
+						ratenomatch : $scope.clientTmRatios.nomatch,
 						
 					}).success(function( data ) {
 						$scope.iterm_tm.id = data.iterm.id;
@@ -361,10 +417,14 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	$scope.editTranslationTM = function ( index, tid, laguageid ) {
     	$scope.editTm = index;
 		$scope.laguageid = laguageid;
-		
+		console.info('$scope.itemtms[laguageid][0]', $scope.itemtms[laguageid][0]);
+		if($scope.itemtms[laguageid][0]){
+			console.info('$scope.itemtms[laguageid][0]', $scope.itemtms[laguageid][0]);
 		$scope.itemtm = $scope.itemtms[laguageid][0];
 		$scope.itemtm.rate_tmp = Number($scope.itemtms[laguageid][0].rate_tmp);
     	setModalControllerData('itemtm', $scope.itemtm);
+		}
+		
     	jQuery("#modal-translation-TM").modal("show");
     }
 	$scope.addTranslationNoTM = function(laguageid){

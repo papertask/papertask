@@ -86,6 +86,10 @@ class ProjectItermtmController extends AbstractRestfulJsonController
                     'language' => $language,
                     'type' => 2,
                     'status' => 3,
+					'startDate' => new \DateTime('now'),
+					'dueDate' => $project->getDueDate(),
+					'total' => $data['total'],
+					'task_number' => $project->getId() . '-1',
                 ]);
 			$task->save($this->getEntityManager());
 		}

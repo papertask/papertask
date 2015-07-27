@@ -254,6 +254,7 @@ class TaskController extends AbstractRestfulJsonController
 			$task->setData([
 				'is_specialism_pool' => 1,
 				'is_client_pool' => 0,
+				'status' => 6,
 			]);
         }
 		else if($action==4)//sendToClientPool
@@ -261,6 +262,7 @@ class TaskController extends AbstractRestfulJsonController
 			$task->setData([
 				'is_specialism_pool' => 0,
 				'is_client_pool' => 1,
+				'status' => 6,
 			]);
         }
         if(isset($data['is_specialism_pool'])){

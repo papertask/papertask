@@ -228,4 +228,8 @@ class Project extends Entity{
     public function setTotal($total){
     	$this->total_tmp = $total;
     }
+    
+    public function getDueDate(){
+    	return $this->dueDate;
+    }
 }

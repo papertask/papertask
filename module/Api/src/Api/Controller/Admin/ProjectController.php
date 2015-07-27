@@ -589,6 +589,7 @@ class ProjectController extends AbstractRestfulJsonController
         $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
 		 
+		 
 		$number = $this->params()->fromQuery('number'); 
 		if(!$number){
             $number = 10;

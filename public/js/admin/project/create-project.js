@@ -634,7 +634,12 @@ angularApp.factory("TableItemListService", function(){
 			if(modalId == "#modal-translation-noTM")
 			{
 				//find rate
+				if($scope.TableItemListService.translationPrices){
 				vars.item.rate = Number($scope.TableItemListService.translationPrices[$scope.identifier[1].id]);
+				} else {
+					vars.item.rate = vartms.itemtm.rate;
+				}
+				
 			}
             itemCloned = {};
             jQuery.extend(true, itemCloned, $item);
@@ -646,12 +651,16 @@ angularApp.factory("TableItemListService", function(){
                 return;
             }
             if(isNew){
+            	//setListener($scope);
             	console.info('vartms.itemtm',vartms.itemtm);
+            	console.info('rate',vartms.itemtm.rate);
+            	console.info('vartms.itemtm after',vartms.itemtm);
                 listener.addtm(vartms.itemtm);
             }
             $(modalId).modal("hide");
         },
 		showModalTM: function($scope, $itemtm){
+			console.info('$itemtm',$itemtm);
             if($itemtm === false){
                 $itemtm = {};
                 isNew = true;
@@ -661,11 +670,17 @@ angularApp.factory("TableItemListService", function(){
 			
             setListener($scope);
             vartms.itemtm = $itemtm;
-            console.info('vartms.itemtm',vartms.itemtm);
+            console.info('vartms.itemtm-showModalTM',vartms.itemtm);
+            console.info('modalId',modalId);
 			if(modalId == "#modal-translation-TM")
 			{
-				//find rate
+				console.info('$scope.TableItemListService.translationPrices', $scope.TableItemListService.translationPrices);
+				if($scope.TableItemListService.translationPrices[$scope.identifier[1].id]){
 				vartms.itemtm.rate = Number($scope.TableItemListService.translationPrices[$scope.identifier[1].id]);
+				} else {
+					vartms.itemtm.rate = null;
+				}
+
 			}
             itemCloned = {};
             jQuery.extend(true, itemCloned, $itemtm);
