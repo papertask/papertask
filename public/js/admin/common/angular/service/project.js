@@ -39,19 +39,19 @@ angularApp.factory("ProjectStatus", function(){
     },{
         'id': 2,
         'name': 'Ordered',
-        'decorator': 'danger'
+        'decorator': 'warning'
     },{
         'id': 3,
         'name': 'Ongoing',
-        'decorator': 'danger'
+        'decorator': 'info'
     },{
         'id': 4,
         'name': 'Reviewing',
-        'decorator': 'danger'
+        'decorator': 'warning'
     },{
         'id': 5,
         'name': 'Completed',
-        'decorator': 'danger'
+        'decorator': 'info'
     },{
         'id': 6,
         'name': 'Rejected',

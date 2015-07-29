@@ -2,7 +2,10 @@ angularApp.run( function ( $rootScope ) {
 
 }) 
 
-angularApp.controller('PapertaskEmployerDetailController', function($scope, $http, $timeout, $q, ResourceGroup, ResourceType) {
+angularApp.controller('PapertaskEmployerDetailController', function($scope, $http, $timeout, $q, ResourceGroup, ResourceType,
+																	
+															        ProjectStatus, ProjectType, DateFormatter, 
+															        ProjectField ) {
     $scope.pagetype = 'detail';
 	$scope.countries 	= [];
 	$scope.pages 		= [];
@@ -11,6 +14,9 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
     $scope.interpretingPrices = [];
     $scope.engineeringPrices = [];
     $scope.tmRatios = {};
+    $scope.ProjectStatus = ProjectStatus;
+    $scope.ProjectType = ProjectType;
+    $scope.DateFormatter = DateFormatter;
     
     $scope.ResourceGroup = ResourceGroup;
     $scope.ResourceType = ResourceType;
@@ -48,8 +54,53 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
 	
 	$scope.init = function (str_uid) {
 		$scope.getUserInfo();
+		$scope.selectPage();
 
 	}
+    
+	$scope.getProject = function(){
+		 $http.get("/api/admin/project/?number=5&clientId=" + USER_ID )
+         .success(function ( $data ) {
+        	 $scope.projects = $data.projects;
+        	 $scope.pages = $data.pages;
+         })
+	}
+	
+	$scope.selectPage = function($page){
+		
+		$http.get("/api/admin/project/?number=5&clientId=" + USER_ID )
+        .success(function($data){
+        	$scope.projects = $data.projects;
+       	 	$scope.pages = $data.pages;
+        });
+    }
+	
+	$scope.onBtnPreviousClicked = function () {
+		
+		$http.get("/api/admin/project/?number=5&clientId=" + USER_ID + "&page="+$scope.pages.previous)
+		.success(function($data){
+        	$scope.projects = $data.projects;
+   	 		$scope.pages = $data.pages;
+   	 	});
+	}
+	
+	$scope.onBtnGoto = function ( int_index ) {
+		
+		$http.get("/api/admin/project/?number=5&clientId=" + USER_ID + "&page="+ (int_index*1 + 1) )
+		.success(function($data){
+        	$scope.projects = $data.projects;
+       	 	$scope.pages = $data.pages;
+        });
+	}
+	$scope.onBtnNextClicked = function () {
+		
+		$http.get("/api/admin/project/?number=5&clientId=" + USER_ID + "&page="+ $scope.pages.next )
+		.success(function($data){
+        	$scope.projects = $data.projects;
+       	 	$scope.pages = $data.pages;
+        });
+	}
+	
     
     $scope.getUserInfo = function() {
         $http.get("/api/user/" + USER_ID + "")
@@ -85,6 +136,8 @@ angularApp.controller('PapertaskEmployerDetailController', function($scope, $htt
                 $scope.getEmployerInfo();
             });
     }
+    
+    
     
     $scope.getEmployerInfo = function () {
         $http.get("/api/user/" + USER_ID + "/employer")

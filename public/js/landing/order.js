@@ -270,6 +270,13 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 		 data.serviceLevel = data.serviceLevel.id;
 		 data.transGraph = data.transGraph.id;
 		 data.currency = $scope.CurrentCurrency;
+		 data.invoiceinfo = {
+				 'subtotal' : $scope.ItermsTotal,
+				 'tax': $scope.tax,
+				 'discount' : 0,
+				 'total': $scope.total,
+		 }
+		 data.createType = 'landingOrder';
 		 return data;
 	 }
 	 

@@ -191,7 +191,7 @@ class ProjectController extends AbstractRestfulJsonController
         // Create new Tasks for OrderTranslation & OrderTranslation Non Contract
         
         if(isset($data['createType'])){
-        	if($data['createType']=='orderTranslation'||$data['createType']=='orderTranslationNonContract'){
+        	if($data['createType']=='orderTranslation'||$data['createType']=='orderTranslationNonContract' || $data['createType'] == 'landingOrder'){
         $i = 0;
         		$langLength = count($targetLanguages);
         foreach ($targetLanguages as $key => $targetLang){

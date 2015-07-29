@@ -62,10 +62,10 @@
 			<table class="table table-bordered invoice-table" style="border: 1px solid #ddd;width: 100%;max-width: 100%;margin-bottom: 20px;border-spacing: 0px;">
 				<thead>
 				<tr style="border-left: 1px solid #e7e7e7;">
-					<th width="50%" style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['sourceLanguage']['name']; ?> to <?php echo $targetLanguage['name'] ?> - task</th>
-					<th width="10%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Unit</th>
-					<th width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Unit Price</th>
-					<th width="10%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Quantity</th>
+					<th width="35%" style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['sourceLanguage']['name']; ?> to <?php echo $targetLanguage['name'] ?> - task</th>
+					<th width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Unit</th>
+					<th width="20%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Unit Price</th>
+					<th width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Quantity</th>
 					<th width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Total Price</th>
 				</tr>
 				</thead>
@@ -73,16 +73,16 @@
 				<!-- this is only for translation use TM -->
 				<?php if($this->hasTypeTranslationUseTM > 0) { ?>
 				<tr style="border-left: 1px solid #e7e7e7;">
-					<td style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><a data-toggle="collapse" href="#use_tm1"><i class="fa fa-eye"></i> <strong><?php echo $iterm_translationtms[$targetLanguage['id']]['name'];?></strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
-					<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Source Word</td>
-					<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_translationtms[$targetLanguage['id']]['rate'];?></td>
-					<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo 	$iterm_translationtms[$targetLanguage['id']]['sourcerepetitions'] + 
+					<td width="35%" style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><a data-toggle="collapse" href="#use_tm1"><i class="fa fa-eye"></i> <strong><?php echo $iterm_translationtms[$targetLanguage['id']]['name'];?></strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
+					<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Source Word</td>
+					<td width="20%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_translationtms[$targetLanguage['id']]['rate'];?></td>
+					<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo 	$iterm_translationtms[$targetLanguage['id']]['sourcerepetitions'] + 
 									$iterm_translationtms[$targetLanguage['id']]['sourceyibai'] +
 									$iterm_translationtms[$targetLanguage['id']]['sourcejiuwu'] +
 									$iterm_translationtms[$targetLanguage['id']]['sourcebawu'] +
 									$iterm_translationtms[$targetLanguage['id']]['sourceqiwu'] +
 									$iterm_translationtms[$targetLanguage['id']]['sourcewushi'];?></td>
-					<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_translationtms[$targetLanguage['id']]['total'];?></td>
+					<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_translationtms[$targetLanguage['id']]['total'];?></td>
 				</tr>
 				<tr style="border-left: 1px solid #e7e7e7;"> <!-- this is only for translation use TM -->
 					<td colspan="5" style="border: 1px solid #e7e7e7;">
@@ -170,11 +170,11 @@
 					<?php foreach($this->iterm_translations as $iterm_translations) { 
 					if($iterm_translations['language']['id'] == $targetLanguage['id']) {?>
 						<tr>
-							<td style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><strong> <?php echo $iterm_translations['name'];?></strong> - <span class="text-navy"> Translation (No TM)</span></div></td>
-							<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Source Word</td>
-							<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_translations['rate'];?></td>
-							<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_translations['quantity'];?></td>
-							<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_translations['total'];?></td>
+							<td width="35%" style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><strong> <?php echo $iterm_translations['name'];?></strong> - <span class="text-navy"> Translation (No TM)</span></div></td>
+							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;">Source Word</td>
+							<td width="20%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_translations['rate'];?></td>
+							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_translations['quantity'];?></td>
+							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_translations['total'];?></td>
 						</tr>
 					<?php } ?>	
 				<?php }} ?>
@@ -184,10 +184,10 @@
 					<?php foreach($this->iterm_dtpmacs as $iterm_dtpmac) { 
 					if($iterm_dtpmac['language']['id'] == $targetLanguage['id']) {?>
 						<tr>
-							<td width="50%" style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><strong> <?php echo $iterm_dtpmac['name'];?></strong> - <span class="text-info">DTP <i class="fa fa-apple"></i></span></div></td>
-							<td width="10%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_dtpmac['unit'];?> </td>
-							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_dtpmac['rate'];?></td>
-							<td width="10%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_dtpmac['quantity'];?></td>
+							<td width="35%" style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><strong> <?php echo $iterm_dtpmac['name'];?></strong> - <span class="text-info">DTP <i class="fa fa-apple"></i></span></div></td>
+							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_dtpmac['unit'];?> </td>
+							<td width="20%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_dtpmac['rate'];?></td>
+							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_dtpmac['quantity'];?></td>
 							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_dtpmac['total'];?></td>
 						</tr>
 					<?php } ?>	
@@ -197,10 +197,10 @@
 					<?php foreach($this->iterm_dtppcs as $iterm_dtppc) { 
 					if($iterm_dtppc['language']['id'] == $targetLanguage['id']) {?>
 						<tr>
-							<td width="50%" style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><strong> <?php echo $iterm_dtppc['name'];?></strong> - <span class="text-info">DTP <i class="fa fa-windows"></i></span></div></td>
-							<td width="10%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_dtppc['unit'];?> </td>
-							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_dtppc['rate'];?></td>
-							<td width="10%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_dtppc['quantity'];?></td>
+							<td width="35%" style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><strong> <?php echo $iterm_dtppc['name'];?></strong> - <span class="text-info">DTP <i class="fa fa-windows"></i></span></div></td>
+							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_dtppc['unit'];?> </td>
+							<td width="20%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_dtppc['rate'];?></td>
+							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_dtppc['quantity'];?></td>
 							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_dtppc['total'];?></td>
 						</tr>
 					<?php } ?>	
@@ -210,11 +210,11 @@
 					<?php foreach($this->iterm_engineerings as $iterm_engineering) { 
 					if($iterm_engineering['language']['id'] == $targetLanguage['id']) {?>
 						<tr>
-							<td style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><strong> <?php echo $iterm_engineering['name'];?></strong> - <span class="text-info">Engineering </span></div></td>
-							<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_engineering['unit'];?> </td>
-							<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_engineering['rate'];?></td>
-							<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_engineering['quantity'];?></td>
-							<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_engineering['total'];?></td>
+							<td width="35%" style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><strong> <?php echo $iterm_engineering['name'];?></strong> - <span class="text-info">Engineering </span></div></td>
+							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_engineering['unit'];?> </td>
+							<td width="20%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_engineering['rate'];?></td>
+							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_engineering['quantity'];?></td>
+							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_engineering['total'];?></td>
 						</tr>
 					<?php } ?>	
 				<?php }} ?>
@@ -223,11 +223,11 @@
 					<?php foreach($this->iterm_interpretings as $iterm_interpreting) { 
 					if($iterm_interpreting['language']['id'] == $targetLanguage['id']) {?>
 						<tr>
-							<td style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><strong> <?php echo $iterm_interpreting['name'];?></strong> - <span class="text-info">iterm_interpreting </span></div></td>
-							<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_interpreting['unit'];?> </td>
-							<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_interpreting['rate'];?></td>
-							<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_interpreting['quantity'];?></td>
-							<td style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?>  <?php echo $iterm_interpreting['total'];?></td>
+							<td width="35%" style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><strong> <?php echo $iterm_interpreting['name'];?></strong> - <span class="text-info">iterm_interpreting </span></div></td>
+							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_interpreting['unit'];?> </td>
+							<td width="20%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?> <?php echo $iterm_interpreting['rate'];?></td>
+							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $iterm_interpreting['quantity'];?></td>
+							<td width="15%" style="text-align: right;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?>  <?php echo $iterm_interpreting['total'];?></td>
 						</tr>
 					<?php } ?>	
 				<?php }} ?>

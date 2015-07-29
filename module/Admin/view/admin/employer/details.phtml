@@ -301,50 +301,34 @@ $this->inlineScript()
 								<div class="project-list">
 									<table class="table table-hover">
 										<tbody>
-											<tr>
+											<tr ng-repeat = "project in projects">
 												<td class="project-status" width="1%">
-													<span class="label label-default">Completed</span>
+													<span class="label label-{{ ProjectStatus.get(project.status).decorator }}"
+															>{{ ProjectStatus.get(project.status).name }}</span>
 												</td>
 												<td class="project-title">
-													<a href="#">88888888</a>
+													<a href="#">{{project.id}}</a>
 												</td>
 
 												</td>
 												<td class="project-title">
-													<strong>Project Name dfadsfja;kfja;dkfja;dfadsfja;kfja;dkfja;</strong>
+													<strong>{{project.reference}}</strong>
 													<br />
-													<small>2014.Sep.08 -  2014.Oct.28</small>
+													<small>{{ DateFormatter.short(project.startDate) }} - {{ DateFormatter.short(project.dueDate) }}</small>
 												</td>
 												<td class="project-title text-info">
-													<strong>CNY 868.88</strong>
+													<strong>{{project.currency | uppercase}} {{project.total_tmp}}</strong>
 												</td>
 											</tr>
-											<tr>
-												<td class="project-status" width="1%">
-													<span class="label label-primary">Ongoing</span>
-												</td>
-												<td class="project-title">
-													<a href="#">88887366</a>
-												</td>
-												<td class="project-title">
-													<strong>Project Name</strong>
-													<br />
-													<small>2014.Sep.08 -  2014.Oct.28</small>
-												</td>
-												<td class="project-title text-info">
-													<strong>CNY 1868.88</strong>
-												</td>
-											</tr>
+											
 										</tbody>
 									</table>
 								</div>
 								<div class="btn-group text-right">
-									<button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i></button>
-									<button class="btn btn-white">1</button>
-									<button class="btn btn-white  active">2</button>
-									<button class="btn btn-white">3</button>
-									<button class="btn btn-white">4</button>
-									<button type="button" class="btn btn-white"><i class="fa fa-chevron-right"></i> </button>
+									<button type="button" class="btn btn-white" ng-class="pages.previous?'':'disabled'" ng-click="onBtnPreviousClicked()"><i class="fa fa-chevron-left"></i></button>
+									<button ng-repeat="page in pages.pagesInRange" class="btn btn-white" ng-class="page==pages.current?'active':''" ng-click="onBtnGoto(page-1)">{{page}}</button>
+									<button type="button" class="btn btn-white"	ng-class="pages.next?'':'disabled'" ng-click="onBtnNextClicked()"><i class="fa fa-chevron-right"></i></button>						
+			
 								</div>
 							</div>
 						</div>
