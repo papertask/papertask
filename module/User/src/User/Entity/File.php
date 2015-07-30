@@ -232,7 +232,7 @@ class File extends Entity{
 		$document = "";
 		$stack = array();
 		$j = -1;
-		// Read the data character-by- character�
+		// Read the data character-by- character…
 		for ($i = 0, $len = strlen($text); $i < $len; $i++) {
 			$c = $text[$i];
 			 
@@ -258,7 +258,7 @@ class File extends Entity{
 							$document .= html_entity_decode("&#".hexdec($hex).";");
 						//Shift the pointer.
 						$i += 2;
-						// Since, we�ve found the alphabetic character, the next characters are control word
+						// Since, we’ve found the alphabetic character, the next characters are control word
 						// and, possibly, some digit parameter.
 					} elseif ($nc >= 'a' && $nc <= 'z' || $nc >= 'A' && $nc <= 'Z') {
 						$word = "";
@@ -268,7 +268,7 @@ class File extends Entity{
 						for ($k = $i + 1, $m = 0; $k < strlen($text); $k++, $m++) {
 							$nc = $text[$k];
 							// If the current character is a letter and there were no digits before it,
-							// then we�re still reading the control word. If there were digits, we should stop
+							// then we’re still reading the control word. If there were digits, we should stop
 							// since we reach the end of the control word.
 							if ($nc >= 'a' && $nc <= 'z' || $nc >= 'A' && $nc <= 'Z') {
 								if (empty($param))
@@ -291,7 +291,7 @@ class File extends Entity{
 						// Shift the pointer on the number of read characters.
 						$i += $m - 1;
 
-						// Start analyzing what we�ve read. We are interested mostly in control words.
+						// Start analyzing what we’ve read. We are interested mostly in control words.
 						$toText = "";
 						switch (strtolower($word)) {
 							// If the control word is "u", then its parameter is the decimal notation of the
@@ -349,7 +349,7 @@ class File extends Entity{
 					array_pop($stack);
 					$j--;
 					break;
-					// Skip �trash�.
+					// Skip “trash”.
 				case '\0': case '\r': case '\f': case '\n': break;
 				// Add other data to the output stream if required.
 				default:
@@ -468,14 +468,39 @@ class File extends Entity{
 		
 		if(count($matches) > 0){
 			// Is Chinese
-		$seq = '/[\s\.,;:!\? ]+/mu';
-		$plain = preg_replace('#\{{{.*?\}}}#su', "", $plain);
-		$str = preg_replace($seq, '', $plain);
-		$chars = count(preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY));
-		$words = count(preg_split($seq, $plain, -1, PREG_SPLIT_NO_EMPTY));
-		
+			//$seq = '/[\s\.,;:!\? ]+/mu';
+			//$plain = preg_replace('#\{{{.*?\}}}#su', "", $plain);
+			//$str = preg_replace($seq, '', $plain);
+			//$chars = count(preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY));
+			//$words = count(preg_split($seq, $plain, -1, PREG_SPLIT_NO_EMPTY));
+			
+			$str = $plain;
+			
+			$temStr = $str;
+			$str1 = preg_replace("/[^\x{4e00}-\x{9fa5}]+/u", '', $temStr); // 入酒店的
+			$countChinese = mb_strlen($str1, 'UTF-8');
 
-			return mb_strlen($str, 'utf8');
+			$str2 = preg_replace("/\p{Han}+/u", ' ', $temStr);
+			
+			$seq = '/[\s\.,;:!\?) ]+/mu';
+			$plain = preg_replace('#\{{{.*?\}}}#su', "", $str2);
+			$strNew = preg_replace($seq, '', $plain);
+			$chars = count(preg_split('//u', $strNew, -1, PREG_SPLIT_NO_EMPTY));
+			$wordsArr = preg_split($seq, $plain, -1, PREG_SPLIT_NO_EMPTY);
+			
+			
+			$matchesArr = array('[',']','(',')',' ','"','。',',','.','1','2','3','4',
+									'5','6','7','8','9','0',
+									'{','}','!','@','，','“','”','（','）','​​');
+			$newArr = array();
+			foreach ($wordsArr as $key=>$val){
+				$wordsArr[$key] = str_replace($matchesArr, '',$val);
+				if($wordsArr[$key] != '') $newArr[] = $wordsArr[$key];
+			}
+			//var_dump($newArr); exit;
+			return $countChinese + count($newArr);
+			
+			
 		} else{
 			// No Chinese
 			$seq = '/[\s\.,;:!\? ]+/mu';
@@ -484,10 +509,10 @@ class File extends Entity{
 			$chars = count(preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY));
 			$words = count(preg_split($seq, $plain, -1, PREG_SPLIT_NO_EMPTY));
 
-		if ($words === 0) return $chars;
-		if ($chars / $words > 12) $words = $chars;
-		return $words;
-	}
+			if ($words === 0) return $chars;
+			if ($chars / $words > 12) $words = $chars;
+			return $words;
+		}
 				
 		
 	}
