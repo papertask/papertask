@@ -52,16 +52,14 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
 		var companyinfo = $http.get("/api/papertask/companyinfo").success(function($data){
             $scope.companyinfo = $data['companyinfo'];
 			$scope.companyinfo1 = $scope.companyinfo[0];
-			console.log("companyinfo");
-			console.log($scope.companyinfo1);
+
         }).error(function($e){
             alert('error');
         });	
 		//get bank info
 		$http.get("/api/papertask/bankinfo").success(function($data){
             $scope.bankinfos = $data['bankinfo'];
-			console.log("bankinfo");
-			console.log($scope.bankinfo);
+
         }).error(function($e){
             alert('error');
         });		
@@ -73,7 +71,7 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
 				angular.forEach($scope.tus_tmp, function(element) {
 				  $scope.tus.push(element);
 				});	
-				console.log($scope.tus);
+
             });
 
 	}
@@ -93,7 +91,7 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
                     currency: $data.user.currency,
                     alias: $data.user.alias
                 };
-				console.log($scope.userInfo);
+
                 // Get freelancer Information
                 $scope.getFreelancerInfo();
             });
@@ -111,7 +109,7 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
 						city: $data.freelancer.city,
 						telephone: $data.freelancer.telephone,
 					};
-					console.log($scope.freelancer);
+
 				});
 		}
 
@@ -120,7 +118,6 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
 	 */
 	$scope.toggleResource = function($id){
 	
-        console.log($scope.outtransaction.itemlist);
         var $index = $scope.outtransaction.itemlist.indexOf($id);
 		
         if($index == -1){
@@ -143,7 +140,6 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
 		$scope.outtransaction.total = total;
 		$scope.outtransaction.total_show = $scope.userInfo.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		
-		console.log($scope.outtransaction.tasklist);
 	}
 	//
 	$scope.changefee = function(){
@@ -163,7 +159,6 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
      * Submit the form
      */
     $scope.submit = function(){
-    	console.log($scope.outtransaction);
 		//return;
 		$scope.outtransaction.typeStatus = 2; 
     	$http.post("/api/admin/transaction", $scope.outtransaction)

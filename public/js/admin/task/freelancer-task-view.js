@@ -31,7 +31,7 @@ angularApp.controller('FreelancerTaskView', function($scope, $http, $timeout, $q
             //params: $params
         }).success(function($data){
         	$scope.tasks_tmp = $data.tasks;
-			console.log($data.tasks);
+			
  			$scope.tasks = [];
  			angular.forEach($scope.tasks_tmp, function(element) {
 				
@@ -65,7 +65,7 @@ angularApp.controller('FreelancerTaskView', function($scope, $http, $timeout, $q
 		$http.get("/" + LANG_CODE + "/admin/task/FreelancerAcceptTask?id="+ task_id, {
            // params: $params
         }).success(function($data){
-			console.log($data);
+			
 			if($data.status=="fail"){
 				bootbox.alert( ACCEPT_TASK_FAIL);
 			}	
@@ -183,7 +183,7 @@ angularApp.controller('FreelancerTaskView', function($scope, $http, $timeout, $q
 			        'dueDate': null,
 			        'status' : null,
 		 };
-		 console.info('params',$scope.searchParams)
+		 
 	        $scope.selectPage( 1 );
 	 }
 	 
@@ -197,7 +197,7 @@ angularApp.controller('FreelancerTaskView', function($scope, $http, $timeout, $q
 				        'dueDate': $scope.filter.dueDate,
 				        'status' : $scope.filter.taskStatus,
 			 };
-			 console.info('params',$scope.searchParams)
+			 
 	        $scope.selectPage(1);
 	}
 	

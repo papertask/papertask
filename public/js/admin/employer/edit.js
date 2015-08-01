@@ -133,8 +133,6 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
                 });
                 $q.all([ajaxPmInfo, ajaxSalesInfo, ajaxEmployerInfo])
                     .then ( function() {
-					console.log("employer.pm");
-					console.log($scope.employer.pm);
                     $scope.employer.pm = findOptionById( $scope.pmlist, $scope.employer.pm);
                     $scope.employer.sales = findOptionById( $scope.saleslist, $scope.employer.sales);
                 });
@@ -282,7 +280,6 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     
     $scope.editTranslationPrice = function ( index, tid ) {
     	$scope.editTranslation = index;
-				console.log($scope.translationPrices[index]);
 
     	setModalControllerData('translationPrice', $scope.translationPrices[index]);
     	jQuery("#modal-translation").modal("show");
@@ -361,7 +358,6 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     	};
     }
     $scope.saveInterpretingPrice = function ( interpretingPrice ) {
-    	console.log ( interpretingPrice);
     	if ( $scope.editInterpreting == -1) {
     		$http.post("/api/user/interpretingprice", {
     			userId: USER_ID,
@@ -431,7 +427,6 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     }
     
     $scope.saveEngineeringPrice = function( engineerPrice ) {
-    	console.log ( $scope.engineeringPrices );
         if ( $scope.editEngineering == -1) {
     		$http.post("/api/user/engineeringprice", {
     			userId: USER_ID,
@@ -439,7 +434,6 @@ angularApp.controller('PapertaskEmployerEditController', function($scope, $http,
     			unit: engineerPrice.unit,
     			price: engineerPrice.price
     		}).success(function ( data ) {
-    		  console.log ( data );
     			$scope.engineeringPrices.push ( data.engineeringPrice );
     		});
     	} else {

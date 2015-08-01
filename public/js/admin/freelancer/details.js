@@ -117,8 +117,7 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 	            $scope.translation_employers = $data.employers;
 				$scope.desktop_employers = $data.employers;
 				$scope.interpreting_employers = $data.employers;
-				console.log("translation_employers");
-				console.log($scope.translation_employers);
+
 	    });
 
 		$http.get("/api/common/country")
@@ -133,23 +132,19 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 		$http.get("/api/user/clienttranslation?userId="+ USER_ID)
 	        .success(function($data){
 	            $scope.clientsTranslation = $data['transClients'];
-				console.log("clientsTranslation");
-				console.log($scope.clientsTranslation);
-				console.log($scope.clientsTranslation[0].client);
+
 	    });
 		//get client desktop
 		$http.get("/api/user/clientdesktop?userId="+ USER_ID)
 	        .success(function($data){
 	            $scope.clientsDesktop = $data['desktopClients'];
-				console.log("clientsDesktop");
-				console.log($scope.clientsDesktop);
+
 	    });
 		//get client interpreting
 		$http.get("/api/user/clientinterpreting?userId="+ USER_ID)
 	        .success(function($data){
 	            $scope.clientsInterpreting = $data['interpretingClients'];
-				console.log("clientsinterpreting");
-				console.log($scope.clientsinterpreting);
+
 	    });
 		
 		$http.get("/" + LANG_CODE + "/admin/task/getFreelancerTaskList?page="+'1'+"&freelancer_id="+FREELANCER_ID, {
@@ -168,23 +163,22 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
  				task["dueDate"] = element.dueDate;
 				task["total"] = element.total;
  				//alert(task);
- 				//console.log(task);
+ 
  				$scope.tasks.push(task);
  			});
-			console.log("task begin");
-			console.log($scope.tasks);	
+	
             $scope.pages = $data.pages;
         });
 		
 	}
 	//translation
 	$scope.addClientTrans = function (employer, client_id) {
-		//console.log(client_id);
+
 		var addToArray=true;
 		for(var i=0;i<$scope.clientsTranslation.length;i++){
 			if($scope.clientsTranslation[i].client.id == employer.id){
 				addToArray=false;
-				console.log("exits");
+
 			}
 		}
 		if(addToArray){
@@ -195,19 +189,16 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 			}).success(function( data ) {
 				$scope.clienttmpTranslation = data["clientTranslation"];
 				$scope.clientsTranslation.push( $scope.clienttmpTranslation );
-				console.log("data.clientTranlation");
-				console.log($scope.clienttmpTranslation);
+
 			});
 		}
 		else{
 			bootbox.alert( EXITS_CONFIRM_TEXT);
 		}
-        console.log($scope.clientsTranslation);
+
     }
 	$scope.deleteClientTrans = function (ind , id) {
-		console.log(id);
-		console.log($scope.clientsTranslation);
-		console.log(ind);
+
 		bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
             if ( bflag ){
                 $http.delete("/api/user/" + id + "/clienttranslation").success(function( data ) {       
@@ -216,7 +207,7 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
                 });    
 			}	
         });
-		console.log($scope.clientsTranslation);
+
     }
 	
 	$scope.selectPage = function($page){
@@ -338,14 +329,12 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 	
 	//desktop
 	$scope.addClientDesktop = function (employer , client_id) {
-		console.log(client_id);
-		console.log($scope.clientsDesktop);
-		console.log(employer);
+
 		var addToArray=true;
 		for(var i=0;i<$scope.clientsDesktop.length;i++){
 			if($scope.clientsDesktop[i].client.id == employer.id){
 				addToArray=false;
-				console.log("exits");
+
 			}
 		}
 		if(addToArray){
@@ -361,8 +350,7 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 				else {	
 					$scope.clienttmpDesktop = data["clientDesktop"];
 					$scope.clientsDesktop.push( $scope.clienttmpDesktop );
-					console.log("data.clientsDesktop");
-					console.log($scope.clienttmpDesktop);
+
 				}
 			});
 		}
@@ -371,7 +359,7 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 		}
     }
 	$scope.deleteClientDesktop = function (ind , id) {
-		console.log(id);
+
 		 bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
             if ( bflag )
                 $http.delete("/api/user/" + id + "/clientdesktop").success(function( data ) { 
@@ -451,12 +439,12 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 	}
     //interpreting
 	$scope.addClientInterpreting = function (employer, client_id) {
-		//console.log(client_id);
+
 		var addToArray=true;
 		for(var i=0;i<$scope.clientsInterpreting.length;i++){
 			if($scope.clientsInterpreting[i].client.id == employer.id){
 				addToArray=false;
-				console.log("exits");
+
 			}
 		}
 		if(addToArray){
@@ -467,17 +455,16 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 			}).success(function( data ) {
 				$scope.clienttmpInterpreting = data["clientInterpreting"];
 				$scope.clientsInterpreting.push( $scope.clienttmpInterpreting );
-				console.log("data.clientsInterpreting");
-				console.log($scope.clienttmpInterpreting);
+
 			});
 		}
 		else{
 			bootbox.alert( EXITS_CONFIRM_TEXT);
 		}	
-        console.log($scope.clientsInterpreting);
+
     }
 	$scope.deleteClientInterpreting = function (ind , id) {
-		console.log(id);
+
 		 bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
             if ( bflag )
                 $http.delete("/api/user/" + id + "/clientinterpreting").success(function( data ) {
@@ -559,9 +546,9 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
     $scope.getUserInfo = function() {
         $http.get("/api/user/" + USER_ID + "")
             .success(function ( $data ) {
-						console.log("getUserInfo");
+						
 
-			console.log($data);
+			
                 $scope.userInfo = {
                     isActive: $data.user.isActive,
 					alias : $data.user.alias,
@@ -603,8 +590,7 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
             .success(function($data){
                 $scope.freelancer = $data['freelancer'];
 				$scope.rating = $scope.freelancer.Rating;
-                console.log("TranslationSpecialismsP");
-				console.log($scope.freelancer.TranslationSpecialismsP);
+                
 				// get data after freelancer was loaded
 				getFreelancerData();
 				getFreelancerResume();
@@ -618,21 +604,19 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
         $http.get('/api/user/' + USER_ID + '/resume').success(function($data){
             $scope.resume = $data['resume'];
 			 $("#objComment").html($scope.resume.papertaskComments);
-            console.log($scope.resume);
+
         });
     }
 	function getBankInfo(){
         $http.get('/api/user/' + USER_ID + '/bank-info').success(function($data){
             if($data['bankInfo']){
                 $scope.bankInfo = $data['bankInfo'];
-                console.log($scope.bankInfo);
+
             }
         });
     }
     function findResourcesGroup($resourceGroups, $ids){
-		console.log("resourceGroups");
-		console.log($resourceGroups);
-		console.log($ids);
+
         var resourcesgroup = [];
 		resourcesgroup.translation = 0;
 		resourcesgroup.deesktop = 0;
@@ -641,7 +625,7 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
             for(var j = 0; j < $resourceGroups[i].resources.length; j++){
                 var resource = $resourceGroups[i].resources[j];
                 if($ids.indexOf(resource.id) != -1  ){
-					console.log(resource);
+
 					if($resourceGroups[i].group.name == "Translation")
 							resourcesgroup.translation = 1;
                     if($resourceGroups[i].group.name == "Desktop Publishing")
@@ -667,16 +651,14 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
                 }
             }
         }
-		console.log("resource");
-		console.log(resourcesgroup);
+
         return resourcesgroup;
     }
 	
 	function getFreelancerData(){
         $http.get('/api/user/freelancer-data').success(function($data){
             $scope.freelancerData = $data;
-			console.log("freelancerData");
-            console.log($scope.freelancerData);
+
             // get resource group
 			$scope.resources = $data['resources'];
 			$scope.freelancer.ResourcesGroup = findResourcesGroup($scope.resources, $scope.freelancer.Resources);
@@ -721,8 +703,7 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 			$scope.freelancer.TranslationSpecialismsP = findOptions($scope.freelancerData.specialisms,
                 $scope.freelancer.TranslationSpecialismsP);
             
-			console.log("InterpretingSpecialisms");
-			console.log($scope.InterpretingSpecialisms);
+
 			for(i=0 ; i < $scope.freelancer.InterpretingSpecialisms.length; i++) 
 			{
 				var tmp1 = 0;
@@ -735,7 +716,7 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
             $scope.freelancer.InterpretingSpecialismsP = findOptions($scope.freelancerData.specialisms,
                 $scope.freelancer.InterpretingSpecialismsP);
 				
-			console.log($scope.freelancer.InterpretingSpecialismsP);	
+	
 			// get desktop translation cat tools
 			//con
             //$scope.TranslationCatToolsP = findOptions($scope.freelancerData.catTools,
@@ -760,38 +741,38 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
         });
     }
 	$scope.setTestTranslationSpecialisms = function($id){
-        console.log($scope.freelancer.TranslationSpecialismsP);
+        
         var $index = $scope.freelancer.TranslationSpecialismsP.indexOf($id);
         if($index == -1){
             $scope.freelancer.TranslationSpecialismsP.push($id);
         } else {
             $scope.freelancer.TranslationSpecialismsP.splice($index, 1);
         }
-		console.log($scope.freelancer.TranslationSpecialismsP);
+		
 		//update data TranslationSpecialismsP
 		 var requestResources = $http.put("/api/user/" + USER_ID + "/freelancer/" + $scope.freelancer.id, {
 					'TranslationSpecialismsP': getIds($scope.freelancer.TranslationSpecialismsP),
 					'InterpretingSpecialismsP': getIds($scope.freelancer.InterpretingSpecialismsP)
 				}).success(function($data){
-					console.log("Update Resources");
+					
          });
 		
     };
 	$scope.setTestInterpretingSpecialisms = function($id){
-        console.log($scope.freelancer.InterpretingSpecialismsP);
+        
         var $index = $scope.freelancer.InterpretingSpecialismsP.indexOf($id);
         if($index == -1){
             $scope.freelancer.InterpretingSpecialismsP.push($id);
         } else {
             $scope.freelancer.InterpretingSpecialismsP.splice($index, 1);
         }
-		console.log($scope.freelancer.InterpretingSpecialismsP);
+		
 		//update data TranslationSpecialismsP
 		 var requestResources = $http.put("/api/user/" + USER_ID + "/freelancer/" + $scope.freelancer.id, {
 					'TranslationSpecialismsP': getIds($scope.freelancer.TranslationSpecialismsP),
 					'InterpretingSpecialismsP': getIds($scope.freelancer.InterpretingSpecialismsP)
 				}).success(function($data){
-					console.log("Update Resources");
+					
          });
 		
     };

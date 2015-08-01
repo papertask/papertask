@@ -19,7 +19,7 @@ angularApp.controller('editBankInfoController', function($scope, $http){
         $http.get('/api/user/' + USER_ID + '/bank-info').success(function($data){
             if($data['bankInfo']){
                 $scope.bankInfo = $data['bankInfo'];
-                console.log($scope.bankInfo);
+ 
             }
         });
     }
@@ -41,11 +41,11 @@ angularApp.controller('editBankInfoController', function($scope, $http){
         if(validate == true){
             if($scope.bankInfo.id > 0){  // update
                 $http.put('/api/user/' + USER_ID + '/bank-info', $scope.bankInfo).success(function($data){
-                    console.log($data);
+
                 });
             }else{  // create
                 $http.post('/api/user/' + USER_ID + '/bank-info', $scope.bankInfo).success(function($data){
-                    console.log($data);
+
                 });
             }
             $scope.updated = true;

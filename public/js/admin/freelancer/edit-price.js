@@ -103,20 +103,20 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     function getCountriesList(){
         $http.get('/api/common/country').success(function($data){
             $scope.countries = $data['countries'];
-            console.log($scope.countries)
+   
         });
     }
 	function getRatingsList(){
         $http.get('/api/common/rating').success(function($data){
             $scope.ratings = $data['ratings'];
-            console.log($scope.ratings)
+         
         });
     }
 
 	function getFreelancerData(){
         $http.get('/api/user/freelancer-data').success(function($data){
             $scope.freelancerData = $data;
-            console.log($scope.freelancerData);
+          
             // get resource group
             $.each($scope.freelancerData.resources, function(){
                 var that = this;
@@ -145,7 +145,6 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
             $scope.Ratings = findOptions($scope.freelancerData.ratings,
                 $scope.freelancer.Ratings);
 
-            console.log($scope.InterpretingSpecialisms);
         });
     }
 	/**
@@ -160,8 +159,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     }
 	$scope.saveTranslationPrice = function( translationPrice ){
     	if ( $scope.editTranslation == -1 ) {
-			console.log("translationPrice_first");
-			console.log($scope.translationPrices);
+
 			var checkexist = true;
 			for(i=0 ; i < $scope.translationPrices.length; i++)
 			{
@@ -178,8 +176,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 					}).success(function( data ) {
 
 						$scope.translationPrices.push( {sourceLanguage: data.translationPriceP.sourceLanguage, targetLanguage: data.translationPriceP.targetLanguage, price: data.translationPriceP.price, id: data.translationPriceP.id});
-						console.log("translationPrice_after");
-						console.log($scope.translationPrices);
+
 					});
 			}
 			else{
@@ -281,7 +278,6 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     }
     $scope.editDesktopPrice = function ( ind ) {
     	$scope.editDtp = ind;
-		console.log($scope.desktopPrices[ind]);
 		$scope.desktopPrices[ind].priceMac = Number($scope.desktopPrices[ind].priceMac);
 		$scope.desktopPrices[ind].pricePc = Number($scope.desktopPrices[ind].pricePc);
 		$scope.desktopPrices[ind].priceHourMac = Number($scope.desktopPrices[ind].priceHourMac);
@@ -319,7 +315,6 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     	};
     }
     $scope.saveInterpretingPrice = function ( interpretingPrice ) {
-    	console.log ( interpretingPrice);
     	if ( $scope.editInterpreting == -1) {
 			var checkexist = true;
 			for(i=0 ; i < $scope.interpretingPrices.length; i++)
@@ -397,12 +392,9 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
             var requestResources = $scope.userInfo.isAdmin ? $http.put("/api/user/" + USER_ID + "/freelancer/" + $scope.freelancer.freelancerId, {
                 'Resources': getIds($scope.freelancer.Resources)
             }).success(function($data){
-                console.log("Update Resources");
+
             }).error(function(data, status, headers, config) {
-                console.log(data);
-                console.log(status);
-                console.log(headers);
-                console.log(config);
+
             }) : null;
 
             $q.all([ requestResources ])
@@ -434,20 +426,19 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 		$http.get('/api/user/' + USER_ID + '/resume').success(function($data){
             if($data['resume']){
                 $scope.resume = $data['resume'];
-                console.log($scope.resume);
+
             }
         });
         $http.get('/api/user/' + USER_ID + '/bankinfo').success(function($data){
             if($data['bankInfo']){
                 $scope.bankInfo = $data['bankInfo'];
-                console.log($scope.bankInfo);
+
             }
         });
 		var ajaxFreelancerInfo = $http.get("/api/user/" + USER_ID + "/freelancer")
         	.success( function ( $data ) {
 				$scope.freelancer = $data["freelancer"];
-				console.log("freelancer");
-				console.log($scope.freelancer);
+	
         		$scope.freelancer = {
 					Resources : $data.freelancer.Resources,
 					TranslationCatTools : $data.freelancer.TranslationCatTools,
@@ -460,7 +451,6 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 					rating : $data.freelancer.Rating,
 					isSenior : $data.freelancer.isSenior
     			};
-				console.log($scope.freelancer);
 				if($scope.freelancer.rating)
 					$scope.newrating = 0;
 				else $scope.newrating = 1;
@@ -506,27 +496,20 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
 
 		$q.all([ajaxUserInfo, ajaxCountryInfo])
             .then(function(){
-                console.log("country_tmp");
-				console.log($scope.userInfo.country);
+
 				$scope.userInfo.country = findOptionByName($scope.countries, $scope.userInfo.country);
-				console.log($scope.countries);
-				console.log($scope.userInfo.country);
+
             });
 
 
 		var ajaxRatingInfo = $http.get('/api/common/rating').success(function($data){
             $scope.ratings = $data['ratings'];
 			setModalControllerData('ratings', $scope.ratings);
-			console.log("ratings")
-            console.log($scope.ratings)
+
         });
 		$q.all([ajaxFreelancerInfo, ajaxRatingInfo])
             .then(function(){
-                console.log("rating_tmp");
-				console.log($scope.freelancer.rating);
 				$scope.freelancer.rating = findOptionById($scope.ratings, $scope.freelancer.rating);
-				console.log($scope.ratings);
-				console.log($scope.freelancer.rating);
             });
 
     }
@@ -537,30 +520,28 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
      * Toggle resource
      */
     $scope.toggleResource = function($id){
-        console.log($scope.freelancer.Resources);
         var $index = $scope.freelancer.Resources.indexOf($id);
         if($index == -1){
             $scope.freelancer.Resources.push($id);
         } else {
             $scope.freelancer.Resources.splice($index, 1);
         }
-        console.log($scope.freelancer.Resources);
     };
 	$scope.upload = function(){
         $http.post('/admin/freelancer/uploadFile').success(function($data){
-            console.log($data);
+            
         });
     };
 	$scope.remove = function(){
         $http.post('/admin/freelancer/removeFile').success(function($data){
-            console.log("Post OK");
+          
         });
     };
 	function getFreelancerResume(){
         $http.get('/api/user/' + USER_ID + '/resume').success(function($data){
             if($data['resume']){
                 $scope.resume = $data['resume'];
-                console.log($scope.resume);
+                
             }
         });
     }
@@ -568,7 +549,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
         $http.get('/api/user/' + USER_ID + '/bank-info').success(function($data){
             if($data['bankInfo']){
                 $scope.bankInfo = $data['bankInfo'];
-                console.log($scope.bankInfo);
+            
             }
         });
     }
@@ -576,7 +557,6 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
     function getUser(){
         $http.get('/api/user/' + USER_ID).success(function($data){
             $scope.userInfo = $data['user'];
-            console.log($scope.userInfo);
         });
 
 		var ajaxEmployerInfo = $http.get("/api/user/" + USER_ID + "/freelancer")
@@ -595,7 +575,6 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
      * Mark resource active params
      */
     function generateActiveResources(){
-		console.log($scope.freelancer.Resources );
         $scope.freelancer.Resources = $scope.freelancer.Resources;
         for(var i = 0; i < $scope.freelancer.Resources.length; i++){
             $scope.resource_active[$scope.freelancer.Resources[i]] = 'active';
@@ -615,8 +594,7 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
         $info.DesktopCatTools = findOptions($scope.catTools, $info.DesktopCatTools);
         $info.DesktopOperatingSystems = findOptions($scope.operatingSystems, $info.DesktopOperatingSystems);
         $info.InterpretingSpecialisms = findOptions($scope.specialisms, $info.InterpretingSpecialisms);
-		console.log("freelancer");
-		console.log($scope.freelancer);
+
     }
 	function findResources($resourceGroups, $ids){
         var resources = [];
@@ -624,7 +602,6 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
             for(var j = 0; j < $resourceGroups[i].resources.length; j++){
                 var resource = $resourceGroups[i].resources[j];
                 if($ids.indexOf(resource.id) != -1){
-					console.log($resourceGroups[i]);
                     resources.push(resource);
                 }
             }
@@ -635,11 +612,9 @@ angularApp.controller('EditProfileFreelancerController', function($scope, $http,
      * Display activate class
      */
 	 $scope.setSenior = function(a){
-		console.log($scope.freelancer.isSenior);
 		if($scope.freelancer.isSenior)
 			$scope.freelancer.isSenior = false;
 		else $scope.freelancer.isSenior = true;
-		console.log($scope.freelancer.isSenior);
     };
     $scope.active_class = function(a, b){
         return a == b ? 'active' : '';
@@ -703,16 +678,16 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
         fileItem.upload();
     };
     uploader.onAfterAddingAll = function(addedFileItems) {
-        console.info('onAfterAddingAll', addedFileItems);
+        //console.info('onAfterAddingAll', addedFileItems);
     };
     uploader.onBeforeUploadItem = function(item) {
-        console.info('onBeforeUploadItem', item);
+        //console.info('onBeforeUploadItem', item);
     };
     uploader.onProgressItem = function(fileItem, progress) {
-        console.info('onProgressItem', fileItem, progress);
+        //console.info('onProgressItem', fileItem, progress);
     };
     uploader.onProgressAll = function(progress) {
-        console.info('onProgressAll', progress);
+        //console.info('onProgressAll', progress);
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
         if(!response.success){

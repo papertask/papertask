@@ -222,14 +222,14 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
      * Toggle resource
      */
     $scope.toggleResource = function($id){
-        console.log($scope.userInfo.resources);
+    
         var $index = $scope.userInfo.resources.indexOf($id);
         if($index == -1){
             $scope.userInfo.resources.push($id);
         } else {
             $scope.userInfo.resources.splice($index, 1);
         }
-        console.log($scope.userInfo.resources);
+       
     }
 
     /**
@@ -244,7 +244,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
      * @param translationPrice
      */
     $scope.saveTranslationPrice = function(translationPrice){
-        console.log(translationPrice);
+    
     }
 
     /**
@@ -252,7 +252,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
      * @param desktopPrice
      */
     $scope.saveDesktopPrice = function(desktopPrice){
-        console.log(desktopPrice);
+        
     }
 
     /**
@@ -260,10 +260,10 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
      * @param interpretingPrice
      */
     $scope.saveInterpretingPrice = function(interpretingPrice){
-        console.log(interpretingPrice);
+        
     }
 
     $scope.test = function(){
-        console.log($scope.userInfo);
+        
     }
 });

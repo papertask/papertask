@@ -27,7 +27,7 @@ angularApp.controller('contactController', function($scope, $http) {
                     data: $scope.form,
                     success: function($data){
                         $scope.submitted = true;
-                        console.log($data);
+                        
                         $scope.form = $data.data;
                         $scope.response.result = $data.result;
                         $scope.response.message = $data.message;
@@ -38,7 +38,7 @@ angularApp.controller('contactController', function($scope, $http) {
                     },
                     complete: function(){
                         $scope.submitted = true;
-                        console.log("Submitted ", $scope.submitted);
+                        
                         var messageClass = ($scope.response.result) ? 'success' : 'danger';
                         var messageContent = $scope.response.message
                         var message = '<div role="alert" class="alert alert-' + messageClass + '">' + messageContent + '</div>';

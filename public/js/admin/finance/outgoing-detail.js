@@ -48,31 +48,29 @@ angularApp.controller('OutgoingDetailController', function($scope, $http, $timeo
 		// get transaction
 		var ajaxTransaction = $http.get("/" + LANG_CODE + "/admin/finance/getTransactionTask?id="+TRANSID)
             .success( function ( $data ) {
-			console.log($data);
+			
 			$scope.transaction = $data.transaction;
-			console.log(format2n(Number($scope.transaction.subtotal)));
+			
 			//if()
 			$scope.subtotal_show =  format2n(Number($scope.transaction.subtotal));
 			
 			$scope.fee_show =  format2n(Number($scope.transaction.fee));
 			$scope.total_show =  format2n(Number($scope.transaction.total));
 			$scope.tasks = $data.tasks;
-			console.log($scope.tus);
+			
         });
 		//get company info 
 		var companyinfo = $http.get("/api/papertask/companyinfo").success(function($data){
             $scope.companyinfo = $data['companyinfo'];
 			$scope.companyinfo1 = $scope.companyinfo[0];
-			console.log("companyinfo");
-			console.log($scope.companyinfo1);
-        }).error(function($e){
+			
+	        }).error(function($e){
             alert('error');
         });	
 		//get bank info
 		$http.get("/api/papertask/bankinfo").success(function($data){
             $scope.bankinfos = $data['bankinfo'];
-			console.log("bankinfo");
-			console.log($scope.bankinfo);
+			
         }).error(function($e){
             alert('error');
         });		

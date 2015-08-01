@@ -223,16 +223,16 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
         fileItem.upload();
     };
     uploader.onAfterAddingAll = function(addedFileItems) {
-        console.info('onAfterAddingAll', addedFileItems);
+        
     };
     uploader.onBeforeUploadItem = function(item) {
-        console.info('onBeforeUploadItem', item);
+        
     };
     uploader.onProgressItem = function(fileItem, progress) {
-        console.info('onProgressItem', fileItem, progress);
+        
     };
     uploader.onProgressAll = function(progress) {
-        console.info('onProgressAll', progress);
+        
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
         if(!response.success){
@@ -261,7 +261,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
     };
     uploader.onCompleteAll = function() {
-        //console.info($scope.cvfiles);
+        
     };
     
     $scope.deleteFile = function ( cid ) 

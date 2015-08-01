@@ -24,7 +24,7 @@ angularApp.controller('TaskPool', function($scope, $http, $timeout, $q, StaffApi
  				task["type"] = ProjectType.get(element.type);
  				task["dueDate"] = element.dueDate;
  				//alert(task);
- 				//console.log(task);
+ 				
  				$scope.tasks.push(task);
  			});
 

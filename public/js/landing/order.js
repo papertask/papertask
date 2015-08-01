@@ -26,7 +26,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 $scope.init = function(){
 		 $http.get("/api/data/project/")
          .success(function($data){
-				//console.log($data);
+				
              jQuery.extend(true, $scope, $data);  // copy data to scope
          
 
@@ -40,12 +40,12 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 		 $http.get("/api/common/country/")
          .success(function($data){
         	 jQuery.extend(true, $scope, $data);  // copy data to scope
-    			//console.info('contr',$scope.countries);
+    			
          });
 		 
 		 $http.get("/api/papertask/translation").success(function($data){
 	         $scope.translation = $data['translation'];
-	         console.log($data['translation']);
+	         
 	     }).error(function($e){
 	         alert('error');
 	     });
@@ -117,7 +117,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 $scope.project.fapiao = Fapiao.get(0);
 	 
 	 $scope.checkCurr = function(){
-		 console.info(' $scope.project.currency', $scope.project.currency);		 
+		 	 
 	 }
 	 
 	 $scope.chooseCurrency = function(currency){
@@ -130,7 +130,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 		 $scope.CurrentCurrency = $scope.project.currency.name;
 		 $scope.changePrice($scope.changeRate);
 		 $scope.refreshwithoutWordCount();
-		 //console.info(' $scope.project.currency', $scope.project.currency);
+		 
 	 }
 	 
 	 $scope.changePrice = function(Rate){
@@ -141,7 +141,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 
 	 $scope.chooseProjectServiceLevel = function(ProjectServiceLevel){
 		 $scope.project.serviceLevel = ProjectServiceLevel;
-		 console.info('$scope.project.serviceLevel', $scope.project.serviceLevel);
+		 
 	 }
 	 $scope.chooseFapiao = function(Fapiao){
 		 $scope.project.fapiao = Fapiao;
@@ -155,7 +155,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 			 
 		 }			 
 		 $scope.refreshwithoutWordCount();
-		 console.info(' $scope.project.fapiao',  $scope.project.fapiao);
+		 
 	 }
 	 
 	
@@ -183,8 +183,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 			 $scope.project.dueDate =  $scope.project.startDate;
 			 var $params = $scope.prepareData($scope.project);
 			 
-			 console.log('$scope.project');
-			 console.log($params);
+			 
 			 
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){
@@ -214,8 +213,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 			 $scope.project.dueDate =  $scope.project.startDate;
 			 var $params = $scope.prepareData($scope.project);
 			 
-			 console.log('$scope.project');
-			 console.log($params);
+			 
 			 
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){		
@@ -262,7 +260,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 		 } else {
 			 $scope.haveEmail = false;
 		 }
-		 console.info('haveEmail',$scope.haveEmail);
+		 
 	}); 
 	 
 	 $scope.prepareData = function(proj){
@@ -294,15 +292,15 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 		 
 		 $scope.refreshwithoutWordCount();		 
 	
-		 console.log($scope.project);
+		 
 	 }
 	 
 	 $scope.removeTargetLang = function(lang){
 		 var index = $scope.project.targetLanguages.indexOf(lang);
 		  $scope.project.targetLanguages.splice(index, 1);  
-		  //console.log($scope.project);
+
 		  if($scope.project.targetLanguages.length == 0){
-			  console.info('$scope.project.targetLanguages ',$scope.project.targetLanguages )
+			  
 			  $scope.hidetargetLang = false;
 			  $scope.project.targetLanguage= "";
 		  }
@@ -342,13 +340,13 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 }
 	 
 	 $scope.refreshInfo = function(){
-		 console.log($scope.project);
+		 
 		 $scope.totalitems = $scope.project.files.length;
 		 $scope.totalwords = 0;
 		 for(var key=0; key<$scope.totalitems; key++){
 			 $scope.totalwords = $scope.totalwords + $scope.project.files[key].count;
 		 }
-		 console.info('$scope.totalwords',$scope.totalwords);				 
+					 
 	 }
 	 
 	 $scope.refreshwithoutWordCount = function(){
@@ -417,7 +415,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 					
 					
 					if(isFind == false){
-						console.info('$scope.project.serviceLevel',$scope.project.serviceLevel);
+						
 						if($scope.project.serviceLevel != null )
 							price = $scope.project.serviceLevel.price.USD;
 						else 
@@ -570,22 +568,22 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', '$
     // CALLBACKS
 
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-        console.info('onWhenAddingFileFailed', item, filter, options);
+        
     };
     uploader.onAfterAddingFile = function(fileItem) {
         fileItem.upload();
     };
     uploader.onAfterAddingAll = function(addedFileItems) {
-        console.info('onAfterAddingAll', addedFileItems);
+        
     };
     uploader.onBeforeUploadItem = function(item) {
-        console.info('onBeforeUploadItem', item);
+        
     };
     uploader.onProgressItem = function(fileItem, progress) {
-        console.info('onProgressItem', fileItem, progress);
+        
     };
     uploader.onProgressAll = function(progress) {
-        console.info('onProgressAll', progress);
+        
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
         if(!response.success){
@@ -618,19 +616,19 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', '$
         
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
-        console.info('onErrorItem', fileItem, response, status, headers);
+        
     };
     uploader.onCancelItem = function(fileItem, response, status, headers) {
-        console.info('onCancelItem', fileItem, response, status, headers);
+        
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
     };
     uploader.onCompleteAll = function(fileItem, response, status, headers) {
-        console.info('onCompleteAll');
+        
         
     };
 
-    console.info('uploader', uploader);
+    
 
 
     // -------------------------------

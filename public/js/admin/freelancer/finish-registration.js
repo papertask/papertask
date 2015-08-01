@@ -61,7 +61,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
         $scope.freelancer.Resources = $scope.freelancer.Resources;
         for(var i = 0; i < $scope.freelancer.Resources.length; i++){
             $scope.resource_active[$scope.freelancer.Resources[i]] = 'active';
-			console.log($scope.freelancer.Resources[i]);
+
         }
 		
     }
@@ -72,7 +72,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
             for(var j = 0; j < $resourceGroups[i].resources.length; j++){
                 var resource = $resourceGroups[i].resources[j];
                 if($ids.indexOf(resource.id) != -1){
-					console.log($resourceGroups[i]);
+
                     resources.push(resource);
 					if($resourceGroups[i].group.id == 1)
 						$scope.translation = 1;
@@ -114,8 +114,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
     function init($userId){
         $http.get("/api/user/" + $userId + "")
             .success(function($data){
-				console.log("data");
-				console.log($data);
+
                 $scope.user = $scope.userInfo = $data['user'];
 				//if()
                 $scope.translationPricesP = $data['translationPricesP'];
@@ -159,10 +158,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
         $http.get("/api/user/" + $scope.user.id + "/freelancer")
             .success(function($data){
                 $scope.freelancer = $data['freelancer'];
-				console.log("freelancer");
-				console.log($scope.freelancer);
-				console.log($scope.freelancer.Resources);
-				console.log($scope.user.id);
+
                 var priceDataRequest = $http.get("/api/user/freelancerData")
                     .success(function($data){
                         /** map data **/
@@ -225,10 +221,8 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
     function updateFreelancer(){
 		
 	
-		console.log($scope.freelancer.Resources);
 		var tmp = getIds($scope.freelancer.Resources);
-		console.log(tmp);
-		console.log($scope.freelancer);		 
+	 
         return $http.put("/api/user/" + $scope.user.id + "/freelancer/" + $scope.freelancer.id, {
             'DesktopCatTools': getIds($scope.freelancer.DesktopCatTools),
             'DesktopOperatingSystems': getIds($scope.freelancer.DesktopOperatingSystems),
@@ -274,8 +268,7 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
      * Toggle resource
      */
     $scope.toggleResource = function($id){
-        console.log($scope.freelancer.Resources);
-		console.log($scope.resources);
+
         var $index = $scope.freelancer.Resources.indexOf($id);
         if($index == -1){
             $scope.freelancer.Resources.push($id);
@@ -290,7 +283,6 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
 			for(var j = 0; j < $scope.resources.length; j++){
 				for (var k = 0; k < $scope.resources[j].resources.length; k++)
 				{
-					console.log($scope.resources[j].resources[k]);
 				
 					if($scope.freelancer.Resources[i].id == $scope.resources[j].resources[k].id )
 					{
@@ -306,7 +298,6 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
 				}	
 			}
 		}
-		console.log($scope.freelancer.Resources);
     };
 	/**
      * Translation Prices
@@ -320,8 +311,6 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
     }
     
     $scope.saveTranslationPrice = function( translationPriceP ){
-		console.log("translationPriceP_1");
-		console.log(translationPriceP);
 		
 		if ( $scope.editTranslation==-1 ) {
 			var checkexist = true;
@@ -366,8 +355,6 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
     	}*/
     	jQuery("#modal-translation").modal("hide");
     	setModalControllerData('translationPriceP', $scope.translationPricePlaceholder);
-		console.log("translationPriceP");
-		console.log(translationPriceP);
     	$scope.editTranslation = -1;
     };
     
@@ -390,14 +377,10 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
 	}
     $scope.editTranslationPrice = function ( index, tid ) {
     	$scope.editTranslation = index;
-		console.log($scope.translationPricesP);
-		
-		console.log($scope.translationPricesP[index]);
+
 		$scope.tmp = $scope.translationPricesP[index];
 		$scope.tmp.price = Number($scope.translationPricesP[index].price);
 		setModalControllerData('translationPriceP', $scope.tmp);
-		console.log($scope.translationPriceP);	
-		console.log($scope.translationPricesP[index]);	
     	jQuery("#modal-translation").modal("show");
     }
     
@@ -415,7 +398,6 @@ angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, 
         };
     }
     $scope.saveDesktopPrice = function (desktopPriceP ) {
-		console.log(desktopPriceP);
     	
 		if ( $scope.editDtp == -1) {
 			var checkexist = true;

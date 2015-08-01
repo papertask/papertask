@@ -28,7 +28,7 @@ angularApp.controller('ClientUnpaidController', function($scope, $http, $timeout
         'company': null
     };
 	$scope.init = function () {
-	console.log($scope.currency);
+	
 		var getCurrencyRate =  $http.get("/api/papertask/currencyrate").success(function($data){
 			$scope.profileservice = $data['profileservice'];
 			$scope.currencyrate_t = $scope.profileservice[0];
@@ -57,14 +57,11 @@ angularApp.controller('ClientUnpaidController', function($scope, $http, $timeout
 					$scope.count_pp_usd.balance_pp = 0;
 				
 				
-				console.log($scope.count_pu_cny);
-				console.log($scope.count_pu_usd);
-				console.log($scope.count_pp_cny);
-				console.log($scope.count_pp_usd);
+				
 
 				
 				$scope.pages = $data.pages;
-				console.log($data);
+				
             });
 		$q.all([getCurrencyRate, ajaxTransactionlist])
             .then(function(){
@@ -107,7 +104,7 @@ angularApp.controller('ClientUnpaidController', function($scope, $http, $timeout
 		return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
 	$scope.gotodetail = function ( transaction ) {  
-		//console.log(transaction);return;
+		
 		if(transaction.typeStatus == 1)
 			document.location.href = "/" + LANG_CODE + "/admin/finance/incomming-detail?id=" + transaction.id;
 		else 	
@@ -138,7 +135,7 @@ angularApp.controller('ClientUnpaidController', function($scope, $http, $timeout
             'payer': $scope.filter.payer,
             'payee':  $scope.filter.payee,
         };
-		//console.log($scope.filter.typeStatus);
+		
 		//return;
         $scope.selectPage( 1 );
     }

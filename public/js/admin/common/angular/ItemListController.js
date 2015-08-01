@@ -28,7 +28,7 @@ angularApp.controller('ItemListController', function($scope, $location, $timeout
 
     function loadItems(page, func){
         var params = $scope.filter;
-        console.info('params',params);
+        //console.info('params',params);
         params.page = page;
         $scope.items = [];
         $scope.ItemApi.list(params, function($items, $pages){
@@ -57,7 +57,7 @@ angularApp.controller('ItemListController', function($scope, $location, $timeout
 
     function pageChanged(){
         $scope.loadItems($scope.page);
-        console.log("Change to page " + $scope.page);
+        //console.log("Change to page " + $scope.page);
     }
 
     function simpleLoad(btn, state){
@@ -89,8 +89,8 @@ angularApp.controller('ItemListController', function($scope, $location, $timeout
     $scope.$watch(function(){
         return $scope.ItemApi;
     }, function(){
-		console.log("$scope.ItemApi");
-		console.log($scope.ItemApi);
+		//console.log("$scope.ItemApi");
+		//console.log($scope.ItemApi);
         if(typeof($scope.ItemApi) != 'undefined'){
 			if($scope.ItemApi.statusproject)
 				$scope.filter.statusproject = $scope.ItemApi.statusproject

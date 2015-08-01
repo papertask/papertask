@@ -37,7 +37,7 @@ angularApp.controller('ResetPasswordController', function($scope, $http, $timeou
         $http.put("/api/user/" + USER_ID, $scope.userInfo)
             .success(function($data){
                 $http.put("/api/user/"+USER_ID+"/resetpassword", data).success(function(result, code){
-                        console.log(result['data']);
+                       
 
                         if(result['data']['success']){
                             //alert();

@@ -45,7 +45,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 
 		 $http.get("/api/papertask/translation").success(function($data){
 	         $scope.translation = $data['translation'];
-	         console.log($data['translation']);
+	         
 	     }).error(function($e){
 	         alert('error');
 	     });
@@ -116,7 +116,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 $scope.project.fapiao = Fapiao.get(0);
 	 
 	 $scope.checkCurr = function(){
-		 console.info(' $scope.project.currency', $scope.project.currency);		 
+		 	 
 	 }
 	 
 	 $scope.chooseCurrency = function(){
@@ -153,7 +153,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 
 		 }			 
 		 $scope.refreshwithoutWordCount();
-		 console.info(' $scope.project.fapiao',  $scope.project.fapiao);
+		 
 	 }
 	 
 	
@@ -181,8 +181,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 $scope.project.dueDate =  $scope.project.startDate;
 			 var $params = $scope.prepareData($scope.project);
 			 $params['createType'] = 'orderTranslationNonContract';
-			 console.log('$scope.project');
-			 console.log($params);
+			 
 			 
 			 
 			 $http.post("/api/admin/project/", $params)
@@ -213,15 +212,14 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 $scope.project.dueDate =  $scope.project.startDate;
 			 var $params = $scope.prepareData($scope.project);
 			 $params['createType'] = 'orderTranslationNonContract';
-			 console.log('$scope.project');
-			 console.log($params);
-
+			 
+			 	
 			
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){		
 	        	 //$('#RequestQuote').remove();
 	             if($data.success){
-	                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
+	                location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
 	             } else {
 	                 location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
 	             }
@@ -248,7 +246,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 				 'discount' : 0,
 				 'total': $scope.total,
 		 }
-		 console.info('data', data);
+		 
 		 return data;
 	 }
 	 
@@ -266,7 +264,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 
 		 $scope.refreshwithoutWordCount();		 
 	
-		 console.log($scope.project);
+		 
 	 }
 	 
 	 $scope.removeTargetLang = function(lang){
@@ -274,7 +272,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		  $scope.project.targetLanguages.splice(index, 1);  
 		  //console.log($scope.project);
 		  if($scope.project.targetLanguages.length == 0){
-			  console.info('$scope.project.targetLanguages ',$scope.project.targetLanguages )
+			  
 			  $scope.hidetargetLang = false;
 			  $scope.project.targetLanguage= "";
 		  }
@@ -319,50 +317,87 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 }
 	 
 	 $('#sourcetext').keyup(function(){
-		 /*
-		 console.info('sourcetext blur');
-		 	var words = $('#sourcetext').val().split(' ');
-		 	console.info('word length',words.length);
-		 		$scope.totalwords = $scope.totalwords + words.length;
-		 		console.info('$scope.totalwords',$scope.totalwords);
-		 		*/
-		 	 $scope.refreshwithoutWordCount();
+
+		 
+		 $scope.$apply($scope.refreshwithoutWordCount());
+		 	 
 	});
 	 
+
+	 
 	 $scope.refreshInfo = function(){
-		 console.log($scope.project);
+		 
 		 $scope.totalitems = $scope.project.files.length;
 		 $scope.totalwordFiles = 0;
 		 for(var key=0; key<$scope.totalitems; key++){
 			 $scope.totalwordFiles = $scope.totalwordFiles + $scope.project.files[key].count;
 		 }
-		 console.info('$scope.totalwords',$scope.totalwords);
+		
 		 
-		 var words = $('#sourcetext').val().split(' ');
-		 //$scope.totalwords = $scope.project.sourcetext.split(' ').length +  $scope.totalwordFiles;
-		 if($scope.totalwordFiles){
-			 console.info('have files');
-			 $scope.totalwords = words.length +  $scope.totalwordFiles;
-		 } else {
-			 console.info('dont have files');
-			 $scope.totalwords = words.length;
+		var str = $('#sourcetext').val();
+		str = str.trim();
+		 var words = str.split(' ');
+		 var wordsArr = new Array();
+			for(var i =0; i< words.length ; i++){
+				if(words[i] != '')
+					wordsArr.push( words[i]);
+			}
+			words = wordsArr;
+		
+		 if(words[(words.length-1)]==''){
+			 words.pop();
 		 }
+		
+		 if($scope.totalwordFiles){
+			 if(words.length == 1 && words[0] == '')
+				 $scope.totalwords =  $scope.totalwordFiles;
+			 else
+				 $scope.totalwords = words.length +  $scope.totalwordFiles;
+		 } else {
+			 
+			 if(words.length == 1 && words[0] == '')
+				 $scope.totalwords =  0;
+			 else
+				 $scope.totalwords = words.length; 
+		 }
+		
+		 
 		 $scope.refreshwithoutWordCount();
 	 }
 	 
 	 $scope.refreshwithoutWordCount = function(){
-		 var words = $('#sourcetext').val().split(' ');
-		 //$scope.totalwords = $scope.project.sourcetext.split(' ').length +  $scope.totalwordFiles;
-		 if($scope.totalwordFiles){
-			 console.info('have files');
-			 $scope.totalwords = words.length +  $scope.totalwordFiles;
-		 } else {
-			 console.info('dont have files');
-			 $scope.totalwords = words.length;
+		 var str = $('#sourcetext').val();
+		str = str.trim();
+		var words = str.split(' ');
+		var wordsArr = new Array();
+		for(var i =0; i< words.length ; i++){
+			if(words[i] != '')
+				wordsArr.push( words[i]);
+		}
+		words = wordsArr;
+		
+		 if(words[(words.length-1)]==''){
+			 words.pop();
 		 }
-		 
-		 console.info('$scope.totalwordFiles',  $scope.totalwordFiles);
-		 console.info('refreshwithoutWordCount',  $scope.totalwords);
+		
+		 if($scope.totalwordFiles){
+			 if(words.length == 1 && words[0] == ''){
+		
+				 $scope.totalwords =  $scope.totalwordFiles; 
+			 }
+				
+			 else{
+			
+				 $scope.totalwords = words.length +  $scope.totalwordFiles;
+			 }
+				 
+		 } else {
+			 if(words.length == 1 && words[0] == '')
+				 $scope.totalwords =  0;
+			 else
+				 $scope.totalwords = words.length;
+		 }
+		
 		 
 		 $scope.numberLangs = $scope.project.targetLanguages.length;
 		 //$scope.price = ($scope.numberLangs > 0)? $scope.project.targetLanguages[0].price : 0 ;
@@ -418,7 +453,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 					
 					
 					if(isFind == false){
-						console.info('$scope.project.serviceLevel',$scope.project.serviceLevel);
+						
 						if($scope.project.serviceLevel != null )
 							price = $scope.project.serviceLevel.price.USD;
 						else 
@@ -571,22 +606,22 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', '$
     // CALLBACKS
 
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-        console.info('onWhenAddingFileFailed', item, filter, options);
+        //console.info('onWhenAddingFileFailed', item, filter, options);
     };
     uploader.onAfterAddingFile = function(fileItem) {
         fileItem.upload();
     };
     uploader.onAfterAddingAll = function(addedFileItems) {
-        console.info('onAfterAddingAll', addedFileItems);
+        //console.info('onAfterAddingAll', addedFileItems);
     };
     uploader.onBeforeUploadItem = function(item) {
-        console.info('onBeforeUploadItem', item);
+        //console.info('onBeforeUploadItem', item);
     };
     uploader.onProgressItem = function(fileItem, progress) {
-        console.info('onProgressItem', fileItem, progress);
+        //console.info('onProgressItem', fileItem, progress);
     };
     uploader.onProgressAll = function(progress) {
-        console.info('onProgressAll', progress);
+        //console.info('onProgressAll', progress);
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
         if(!response.success){
@@ -619,19 +654,19 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', '$
         
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
-        console.info('onErrorItem', fileItem, response, status, headers);
+        //console.info('onErrorItem', fileItem, response, status, headers);
     };
     uploader.onCancelItem = function(fileItem, response, status, headers) {
-        console.info('onCancelItem', fileItem, response, status, headers);
+       // console.info('onCancelItem', fileItem, response, status, headers);
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
     };
     uploader.onCompleteAll = function(fileItem, response, status, headers) {
-        console.info('onCompleteAll');
+        //console.info('onCompleteAll');
         
     };
 
-    console.info('uploader', uploader);
+    ///console.info('uploader', uploader);
 
 
     // -------------------------------

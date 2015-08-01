@@ -22,7 +22,7 @@ angularApp.controller('languagesController', function($scope, $rootScope, $http,
                         $scope.price = this;
                     }
                 });
-                console.log($scope.price);
+                
                 $('#features').removeClass('hidden');
                 $('body, html').animate({
                     scrollTop: $('#features').position().top
@@ -34,12 +34,12 @@ angularApp.controller('languagesController', function($scope, $rootScope, $http,
     function getListTranslation(){
         $http.get("/api/papertask/translation").success(function($data){
             $scope.translation = $data['translation'];
-            console.log($data['translation']);
+            
 
             // get list languages
             $http.get("/api/common/language").success(function($data){
 			$scope.languages = $data;
-			console.log(LANG_CODE);
+			
 			if(LANG_CODE == 'zh-CN')
 			{
 				$rootScope.currentLanguage = 'zh-CN';
@@ -49,7 +49,7 @@ angularApp.controller('languagesController', function($scope, $rootScope, $http,
 				$rootScope.currentLanguage = 'en-US';
                 
 			}	
-                console.log($data);
+                
             });
 
             // get list source languages
@@ -58,7 +58,7 @@ angularApp.controller('languagesController', function($scope, $rootScope, $http,
                     $scope.sourceLanguages.push(this.sourceLanguage.toString());
                 }
             });
-            console.log($scope.sourceLanguages);
+            
 
             $scope.updateTargetLanguages = function(){
                 $.each($scope.translation, function(){
@@ -67,7 +67,7 @@ angularApp.controller('languagesController', function($scope, $rootScope, $http,
                     }
                 });
             }
-            console.log($scope.targetLanguages);
+            
         }).error(function($e){
             alert('error');
         });
@@ -91,90 +91,90 @@ angularApp.filter('i18n', ['$rootScope', function($rootScope) {
     return function (input) {
         var translations = {
             'zh-CN' : {
-                'Afrikaans' : '南非荷兰语',
-                'Arabic' : '阿拉伯语',
-                'Belarusian' : '白俄罗斯语',
-                'Bosnian' : '波斯尼亚语',
-                'Bulgarian' : '保加利亚语',
-                'Burmese' : '缅甸语',
-                'Chinese (Hong Kong)' : '繁体中文（香港）',
-                'Chinese (Simplified)' : '简体中文',
-                'Chinese (Traditional)' : '繁体中文（台湾）',
-                'Croatian' : '克罗地亚语',
-                'Czech' : '捷克语',
-                'Danish' : '丹麦语',
-                'Dinka' : '丁卡语',
-                'Dutch' : '荷兰语',
-                'Dutch (Belgium)' : '荷兰语（比利时）',
-                'English' : '英语',
-                'English (British)' : '英语（英国）',
-                'English (United States)' : '英语（美国）',
-                'Estonian' : '爱沙尼亚语',
-                'Finnish' : '芬兰语',
-                'Flemish' : '佛兰芒语',
-                'French' : '法语',
-                'French (Algeria)' : '法语（阿尔及利亚）',
-                'French (Belgium)' : '法语（比利时）',
-                'French (Canada)' : '法语（加拿大）',
-                'French (Switzerland)' : '法语（瑞士）',
-                'German' : '德语',
-                'German (Austria)' : '德语（奥地利）',
-                'German (Switzerland)' : '德语（瑞士）',
-                'Greek' : '希腊语',
-                'Hebrew' : '希伯来语',
-                'Hindi' : '印地语',
-                'Hmong' : '苗语',
-                'Hungarian' : '匈牙利语',
-                'Icelandic' : '冰岛语',
-                'Indonesian' : '印度尼西亚语',
-                'Italian' : '意大利语',
-                'Japanese' : '日本语',
-                'Javanese' : '爪哇语',
-                'Kazakh' : '哈萨克语',
-                'Khmer' : '高棉语',
-                'Korean' : '韩国语',
-                'Laothian' : '老挝语',
-                'Latvian' : '拉脱维亚语',
-                'Lithuanian' : '立陶宛语',
-                'Macedonian' : '马其顿语',
-                'Malay' : '马来语',
-                'Maltese' : '马耳他语',
-                'Maori' : '毛利语',
-                'Mongolian' : '蒙古语',
-                'Norwegian' : '挪威语',
-                'Persian/Farsi' : '波斯语',
-                'Polish' : '波兰语',
-                'Portuguese' : '葡萄牙语',
-                'Portuguese (Brazil)' : '葡萄牙语（巴西）',
-                'Romanian' : '罗马尼亚语',
-                'Russian' : '俄罗斯语',
-                'Samoan' : '萨摩亚语',
-                'Serbian' : '塞尔维亚语',
-                'Slovak' : '斯洛伐克语',
-                'Slovenian' : '斯洛文尼亚语',
-                'Somali' : '索马里语',
-                'Spanish' : '西班牙语',
-                'Spanish (Chile)' : '西班牙语（智利）',
-                'Spanish (Colombia)' : '西班牙语（哥伦比亚）',
-                'Spanish (International)' : '西班牙语（国际）',
-                'Spanish (Latin America)' : '西班牙语（拉丁美洲）',
-                'Spanish (Mexico)' : '西班牙语（墨西哥）',
-                'Spanish (Panama)' : '西班牙语（巴拿马）',
-                'Spanish (Peru)' : '西班牙语（秘鲁）',
-                'Sundanese' : '巽他语',
-                'Swedish' : '瑞典语',
-                'Tagalog' : '菲律宾塔加洛语',
-                'Tamil' : '泰米尔语',
-                'Thai' : '泰国语',
-                'Tibetan' : '藏语',
-                'Tonga' : '汤加语',
-                'Turkish' : '土耳其语',
-                'Ukrainian' : '乌克兰语',
-                'Uzbek' : '乌兹别克语',
-                'Vietnamese' : '越南语',
-                'Welsh' : '威尔士语',
-                'Xhosa' : '科萨语',
-                'Zulu' : '祖鲁语',
+                'Afrikaans' : 'å�—é�žè�·å…°è¯­',
+                'Arabic' : 'é˜¿æ‹‰ä¼¯è¯­',
+                'Belarusian' : 'ç™½ä¿„ç½—æ–¯è¯­',
+                'Bosnian' : 'æ³¢æ–¯å°¼äºšè¯­',
+                'Bulgarian' : 'ä¿�åŠ åˆ©äºšè¯­',
+                'Burmese' : 'ç¼…ç”¸è¯­',
+                'Chinese (Hong Kong)' : 'ç¹�ä½“ä¸­æ–‡ï¼ˆé¦™æ¸¯ï¼‰',
+                'Chinese (Simplified)' : 'ç®€ä½“ä¸­æ–‡',
+                'Chinese (Traditional)' : 'ç¹�ä½“ä¸­æ–‡ï¼ˆå�°æ¹¾ï¼‰',
+                'Croatian' : 'å…‹ç½—åœ°äºšè¯­',
+                'Czech' : 'æ�·å…‹è¯­',
+                'Danish' : 'ä¸¹éº¦è¯­',
+                'Dinka' : 'ä¸�å�¡è¯­',
+                'Dutch' : 'è�·å…°è¯­',
+                'Dutch (Belgium)' : 'è�·å…°è¯­ï¼ˆæ¯”åˆ©æ—¶ï¼‰',
+                'English' : 'è‹±è¯­',
+                'English (British)' : 'è‹±è¯­ï¼ˆè‹±å›½ï¼‰',
+                'English (United States)' : 'è‹±è¯­ï¼ˆç¾Žå›½ï¼‰',
+                'Estonian' : 'çˆ±æ²™å°¼äºšè¯­',
+                'Finnish' : 'èŠ¬å…°è¯­',
+                'Flemish' : 'ä½›å…°èŠ’è¯­',
+                'French' : 'æ³•è¯­',
+                'French (Algeria)' : 'æ³•è¯­ï¼ˆé˜¿å°”å�Šåˆ©äºšï¼‰',
+                'French (Belgium)' : 'æ³•è¯­ï¼ˆæ¯”åˆ©æ—¶ï¼‰',
+                'French (Canada)' : 'æ³•è¯­ï¼ˆåŠ æ‹¿å¤§ï¼‰',
+                'French (Switzerland)' : 'æ³•è¯­ï¼ˆç‘žå£«ï¼‰',
+                'German' : 'å¾·è¯­',
+                'German (Austria)' : 'å¾·è¯­ï¼ˆå¥¥åœ°åˆ©ï¼‰',
+                'German (Switzerland)' : 'å¾·è¯­ï¼ˆç‘žå£«ï¼‰',
+                'Greek' : 'å¸Œè…Šè¯­',
+                'Hebrew' : 'å¸Œä¼¯æ�¥è¯­',
+                'Hindi' : 'å�°åœ°è¯­',
+                'Hmong' : 'è‹—è¯­',
+                'Hungarian' : 'åŒˆç‰™åˆ©è¯­',
+                'Icelandic' : 'å†°å²›è¯­',
+                'Indonesian' : 'å�°åº¦å°¼è¥¿äºšè¯­',
+                'Italian' : 'æ„�å¤§åˆ©è¯­',
+                'Japanese' : 'æ—¥æœ¬è¯­',
+                'Javanese' : 'çˆªå“‡è¯­',
+                'Kazakh' : 'å“ˆè�¨å…‹è¯­',
+                'Khmer' : 'é«˜æ£‰è¯­',
+                'Korean' : 'éŸ©å›½è¯­',
+                'Laothian' : 'è€�æŒ�è¯­',
+                'Latvian' : 'æ‹‰è„±ç»´äºšè¯­',
+                'Lithuanian' : 'ç«‹é™¶å®›è¯­',
+                'Macedonian' : 'é©¬å…¶é¡¿è¯­',
+                'Malay' : 'é©¬æ�¥è¯­',
+                'Maltese' : 'é©¬è€³ä»–è¯­',
+                'Maori' : 'æ¯›åˆ©è¯­',
+                'Mongolian' : 'è’™å�¤è¯­',
+                'Norwegian' : 'æŒªå¨�è¯­',
+                'Persian/Farsi' : 'æ³¢æ–¯è¯­',
+                'Polish' : 'æ³¢å…°è¯­',
+                'Portuguese' : 'è‘¡è�„ç‰™è¯­',
+                'Portuguese (Brazil)' : 'è‘¡è�„ç‰™è¯­ï¼ˆå·´è¥¿ï¼‰',
+                'Romanian' : 'ç½—é©¬å°¼äºšè¯­',
+                'Russian' : 'ä¿„ç½—æ–¯è¯­',
+                'Samoan' : 'è�¨æ‘©äºšè¯­',
+                'Serbian' : 'å¡žå°”ç»´äºšè¯­',
+                'Slovak' : 'æ–¯æ´›ä¼�å…‹è¯­',
+                'Slovenian' : 'æ–¯æ´›æ–‡å°¼äºšè¯­',
+                'Somali' : 'ç´¢é©¬é‡Œè¯­',
+                'Spanish' : 'è¥¿ç�­ç‰™è¯­',
+                'Spanish (Chile)' : 'è¥¿ç�­ç‰™è¯­ï¼ˆæ™ºåˆ©ï¼‰',
+                'Spanish (Colombia)' : 'è¥¿ç�­ç‰™è¯­ï¼ˆå“¥ä¼¦æ¯”äºšï¼‰',
+                'Spanish (International)' : 'è¥¿ç�­ç‰™è¯­ï¼ˆå›½é™…ï¼‰',
+                'Spanish (Latin America)' : 'è¥¿ç�­ç‰™è¯­ï¼ˆæ‹‰ä¸�ç¾Žæ´²ï¼‰',
+                'Spanish (Mexico)' : 'è¥¿ç�­ç‰™è¯­ï¼ˆå¢¨è¥¿å“¥ï¼‰',
+                'Spanish (Panama)' : 'è¥¿ç�­ç‰™è¯­ï¼ˆå·´æ‹¿é©¬ï¼‰',
+                'Spanish (Peru)' : 'è¥¿ç�­ç‰™è¯­ï¼ˆç§˜é²�ï¼‰',
+                'Sundanese' : 'å·½ä»–è¯­',
+                'Swedish' : 'ç‘žå…¸è¯­',
+                'Tagalog' : 'è�²å¾‹å®¾å¡”åŠ æ´›è¯­',
+                'Tamil' : 'æ³°ç±³å°”è¯­',
+                'Thai' : 'æ³°å›½è¯­',
+                'Tibetan' : 'è—�è¯­',
+                'Tonga' : 'æ±¤åŠ è¯­',
+                'Turkish' : 'åœŸè€³å…¶è¯­',
+                'Ukrainian' : 'ä¹Œå…‹å…°è¯­',
+                'Uzbek' : 'ä¹Œå…¹åˆ«å…‹è¯­',
+                'Vietnamese' : 'è¶Šå�—è¯­',
+                'Welsh' : 'å¨�å°”å£«è¯­',
+                'Xhosa' : 'ç§‘è�¨è¯­',
+                'Zulu' : 'ç¥–é²�è¯­',
             },
             'en-US' : {
                 'Afrikaans' : 'Afrikaans',

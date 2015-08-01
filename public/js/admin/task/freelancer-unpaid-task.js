@@ -39,7 +39,7 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
  				task["dueDate"] = element.dueDate;
  				task["total"] = element.total;
  				//alert(task);
- 				//console.log(task);
+ 				
  				$scope.tasks.push(task);
  			});
 
@@ -170,7 +170,7 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
 			        'reference': null,
 			        'dueMonth': null,
 		 };
-		 console.info('params',$scope.searchParams)
+		 
 	        $scope.selectPage( 1 );
 	 }
 	 
@@ -182,7 +182,7 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
 				        'reference': $scope.filter.reference,
 				        'dueMonth': $scope.filter.dueMonth,
 			 };
-			 console.info('params',$scope.searchParams)
+			 
 	        $scope.selectPage(1);
 	}
 	

@@ -52,16 +52,12 @@ angularApp.controller('AddIncomeController', function($scope, $http, $timeout, $
 		var companyinfo = $http.get("/api/papertask/companyinfo").success(function($data){
             $scope.companyinfo = $data['companyinfo'];
 			$scope.companyinfo1 = $scope.companyinfo[0];
-			console.log("companyinfo");
-			console.log($scope.companyinfo1);
         }).error(function($e){
             alert('error');
         });	
 		//get bank info
 		$http.get("/api/papertask/bankinfo").success(function($data){
             $scope.bankinfos = $data['bankinfo'];
-			console.log("bankinfo");
-			console.log($scope.bankinfo);
         }).error(function($e){
             alert('error');
         });		
@@ -73,7 +69,6 @@ angularApp.controller('AddIncomeController', function($scope, $http, $timeout, $
 				angular.forEach($scope.pus_tmp, function(element) {
 				  $scope.pus.push(element);
 				});	
-				console.log($scope.pus);
             });
 
 	}
@@ -93,7 +88,6 @@ angularApp.controller('AddIncomeController', function($scope, $http, $timeout, $
                     currency: $data.user.currency,
                     alias: $data.user.alias
                 };
-				console.log($scope.userInfo);
                 // Get Employer Information
                 $scope.getClientInfo();
             });
@@ -112,7 +106,6 @@ angularApp.controller('AddIncomeController', function($scope, $http, $timeout, $
 						pm: $data.employer.pm,
 						sales: $data.employer.sales
 					};
-					console.log($scope.client);
 				});
 		}
 
@@ -121,7 +114,6 @@ angularApp.controller('AddIncomeController', function($scope, $http, $timeout, $
 	 */
 	$scope.toggleResource = function($id){
 	
-        console.log($scope.intransaction.itemlist);
         var $index = $scope.intransaction.itemlist.indexOf($id);
 		
         if($index == -1){
@@ -144,7 +136,6 @@ angularApp.controller('AddIncomeController', function($scope, $http, $timeout, $
 		$scope.intransaction.total = total;
 		$scope.intransaction.total_show = $scope.userInfo.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		
-		console.log($scope.intransaction.itemlist);
 	}
 	//
 	$scope.changefee = function(){
@@ -167,7 +158,6 @@ angularApp.controller('AddIncomeController', function($scope, $http, $timeout, $
     	
 		//return;
 		$scope.intransaction.typeStatus = 1; 
-		//console.log($scope.intransaction);
 		//return;
     	$http.post("/api/admin/transaction", $scope.intransaction)
         	.success(function($data){

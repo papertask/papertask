@@ -52,8 +52,7 @@ angularApp.controller('TaskIndex', function($scope, $http, $timeout, $q, TaskApi
   	}
 	
 	$scope.viewtaskdetail = function($task){
-		console.log("redirect");
-		console.log($task);
+		
         location.href = '/' + LANG_CODE + "/admin/task/detail?id="+$task.id;
     }
 	
@@ -112,7 +111,7 @@ angularApp.controller('TaskIndex', function($scope, $http, $timeout, $q, TaskApi
         		$scope.tasks[i]["status"] = TaskStatus.get($scope.tasks[i].status);
         		$scope.tasks[i]["type"] = ProjectType.get($scope.tasks[i].type);
         	}
-			console.info('$scope.tasks',$scope.tasks);
+			
 
             $scope.pages = $data.pages;
         });
@@ -128,7 +127,7 @@ angularApp.controller('TaskIndex', function($scope, $http, $timeout, $q, TaskApi
         		$scope.tasks[i]["status"] = TaskStatus.get($scope.tasks[i].status);
         		$scope.tasks[i]["type"] = ProjectType.get($scope.tasks[i].type);
         	}
-			console.info('$scope.tasks',$scope.tasks);
+			
 
             $scope.pages = $data.pages;
         });
@@ -144,7 +143,7 @@ angularApp.controller('TaskIndex', function($scope, $http, $timeout, $q, TaskApi
         		$scope.tasks[i]["status"] = TaskStatus.get($scope.tasks[i].status);
         		$scope.tasks[i]["type"] = ProjectType.get($scope.tasks[i].type);
         	}
-			console.info('$scope.tasks',$scope.tasks);
+			
             $scope.pages = $data.pages;
         });
 	}
@@ -158,7 +157,7 @@ angularApp.controller('TaskIndex', function($scope, $http, $timeout, $q, TaskApi
         		$scope.tasks[i]["status"] = TaskStatus.get($scope.tasks[i].status);
         		$scope.tasks[i]["type"] = ProjectType.get($scope.tasks[i].type);
         	}
-			console.info('$scope.tasks',$scope.tasks);
+			
 
             $scope.pages = $data.pages;
         });
@@ -175,7 +174,7 @@ angularApp.controller('TaskIndex', function($scope, $http, $timeout, $q, TaskApi
 			        'dueDate': null,
 			        'status' : null,
 		 };
-		 console.info('params',$scope.searchParams)
+		 
 	        $scope.selectPage( 1 );
 	 }
 	 
@@ -193,7 +192,7 @@ angularApp.controller('TaskIndex', function($scope, $http, $timeout, $q, TaskApi
 				        'field' : $scope.filter.field,
 				        'pm' : $scope.filter.pm,
 			 };
-			 console.info('params',$scope.searchParams)
+			 
 	        $scope.selectPage(1);
 	}
 	

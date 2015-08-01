@@ -124,7 +124,7 @@ angularApp.controller('ClientUnpaidProject', function($scope, $http, $timeout, $
 			        'startDate': null,
 			        'dueDate': null,
 		 };
-		 console.info('params',$scope.searchParams)
+
 	        $scope.selectPage( 1 );
 	 }
 	 
@@ -137,7 +137,7 @@ angularApp.controller('ClientUnpaidProject', function($scope, $http, $timeout, $
 				        'startDate': $scope.filter.startDate,
 				        'dueDate': $scope.filter.dueDate,
 			 };
-			 console.info('params',$scope.searchParams)
+
 	        $scope.selectPage(1);
 	}
 	

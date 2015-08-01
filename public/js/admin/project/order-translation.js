@@ -13,15 +13,14 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 $scope.init = function(){		 
 		 $http.get("/api/data/project/")
          .success(function($data){
-				console.log($data);
+				
              jQuery.extend(true, $scope, $data);  // copy data to scope
              var shareData = ['interpretingUnits', 'engineeringUnits', 'dtpUnits'];
              for(var i = 0; i < shareData.length; i++){
                  var key = shareData[i];
                  setModalControllerData(key, $scope[key]);
              }
-             console.log('scope');
-             console.log($scope);	
+            	
 
              $scope.project.targetLanguages = [];
              $timeout(function(){
@@ -54,8 +53,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 $scope.isGraph = true;
 		 
 		 
-		 //console.log('$scope.transGraphs');  console.log($scope.transGraphs);
-		 //console.info( '$scope.modifiedTarLangs',$scope.modifiedTarLangs);
+	
 	 }
 	 
 	 $scope.changeTransGraphs = function(){
@@ -77,7 +75,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 $scope.removeTargetLang = function(lang){
 		 var index = $scope.project.targetLanguages.indexOf(lang);
 		  $scope.project.targetLanguages.splice(index, 1);  
-		  //console.log($scope.project);
+		  
 	 }	 
 
 	 $scope.ProjectServiceLevel = ProjectServiceLevel.all(); 
@@ -155,7 +153,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 
 	 $http.get("/api/papertask/translation").success(function($data){
          $scope.translation = $data['translation'];
-         console.log($data['translation']);
+        
      }).error(function($e){
          alert('error');
      });
@@ -172,7 +170,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 
 		 if(isvalid){
 		     $('#activate-step-3').remove();
-		     console.info('$params',$params);
+		     
 		    
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){				
@@ -202,7 +200,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 $parmas.createType = 'orderTranslation';
 		 if(isvalid){
 		     $('#activate-step-3').remove();
-		     console.info('$params',$params);
+		    
 		     
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){				
@@ -365,22 +363,22 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
     // CALLBACKS
 
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-        console.info('onWhenAddingFileFailed', item, filter, options);
+        //console.info('onWhenAddingFileFailed', item, filter, options);
     };
     uploader.onAfterAddingFile = function(fileItem) {
         fileItem.upload();
     };
     uploader.onAfterAddingAll = function(addedFileItems) {
-        console.info('onAfterAddingAll', addedFileItems);
+        //console.info('onAfterAddingAll', addedFileItems);
     };
     uploader.onBeforeUploadItem = function(item) {
-        console.info('onBeforeUploadItem', item);
+        //console.info('onBeforeUploadItem', item);
     };
     uploader.onProgressItem = function(fileItem, progress) {
-        console.info('onProgressItem', fileItem, progress);
+        //console.info('onProgressItem', fileItem, progress);
     };
     uploader.onProgressAll = function(progress) {
-        console.info('onProgressAll', progress);
+        //console.info('onProgressAll', progress);
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
     	//console.log('fileItem'); console.log(fileItem);
@@ -398,18 +396,18 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
         $scope.project.files.push(fileItem.projectFile);
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
-        console.info('onErrorItem', fileItem, response, status, headers);
+        //console.info('onErrorItem', fileItem, response, status, headers);
     };
     uploader.onCancelItem = function(fileItem, response, status, headers) {
-        console.info('onCancelItem', fileItem, response, status, headers);
+        //console.info('onCancelItem', fileItem, response, status, headers);
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
     };
     uploader.onCompleteAll = function() {
-        console.info('onCompleteAll');
+        //console.info('onCompleteAll');
     };
 
-    console.info('uploader', uploader);
+    
 
 
     // -------------------------------

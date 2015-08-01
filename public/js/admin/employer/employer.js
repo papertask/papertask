@@ -152,7 +152,6 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
                 name: $scope.employer.username,
 				lang_code : LANG_CODE,
     	};
-    	console.info('ptr_employer',ptr_employer);
     	
     	$http.post("/api/user/employer", ptr_employer)
         	.success(function($data){
@@ -184,10 +183,7 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     	}
 		
     	jQuery("#modal-translation").modal("hide");
-    	console.log("translationPricePlaceholder");
-    	console.log($scope.translationPricePlaceholder);
 		setModalControllerData('translationPrice', []);
-		console.log(translationPrice);
     	$scope.editTranslation = -1;
     };
     
@@ -316,7 +312,7 @@ angularApp.controller('PapertaskEmployerController', function($scope, $http, $ti
     	return {};
     }
     $scope.saveCompany = function(company){
-        // console.log ( company );
+
         var $data = jQuery.extend(true, {}, company);
         $data.country = $data.country.name;
         $http.post("/api/common/company", $data)

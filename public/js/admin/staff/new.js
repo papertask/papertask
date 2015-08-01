@@ -75,8 +75,7 @@ angularApp.controller('newStaffController', function($scope, $http, $timeout, $q
                 return;
             }
             var strUserId = $data.id;
-			console.log(strUserId);
-			console.log($data);
+			
         	$scope.bankInfo.user_id = $data.id;
             $scope.resume.user_id = $data.id;
             $scope.resume.cvfiles = sharedInstance.getcvfiles();
@@ -118,16 +117,16 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
         fileItem.upload();
     };
     uploader.onAfterAddingAll = function(addedFileItems) {
-        // console.info('onAfterAddingAll', addedFileItems);
+        
     };
     uploader.onBeforeUploadItem = function(item) {
-        // console.info('onBeforeUploadItem', item);
+        
     };
     uploader.onProgressItem = function(fileItem, progress) {
-        // console.info('onProgressItem', fileItem, progress);
+        
     };
     uploader.onProgressAll = function(progress) {
-        // console.info('onProgressAll', progress);
+        
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
         if(!response.success){
@@ -146,15 +145,15 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$http', '$tim
         sharedInstance.addcvfile( fileItem.cvFile );
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
-        //console.info('onErrorItem', fileItem, response, status, headers);
+        
     };
     uploader.onCancelItem = function(fileItem, response, status, headers) {
-        //console.info('onCancelItem', fileItem, response, status, headers);
+        
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
     };
     uploader.onCompleteAll = function() {
-        //console.info($scope.cvfiles);
+        
     };
     
     $scope.deleteFile = function ( cid ) 

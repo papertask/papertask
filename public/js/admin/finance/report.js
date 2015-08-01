@@ -65,7 +65,7 @@ angularApp.controller('ReportController', function($scope, $http, $timeout, $q, 
 	
 	
 	$scope.init = function () {
-	console.log($scope.currency);
+	
 		var getCurrencyRate =  $http.get("/api/papertask/currencyrate").success(function($data){
 			$scope.profileservice = $data['profileservice'];
 			$scope.currencyrate_t = $scope.profileservice[0];
@@ -94,14 +94,11 @@ angularApp.controller('ReportController', function($scope, $http, $timeout, $q, 
 					$scope.count_pp_usd.balance_pp = 0;
 				
 				
-				console.log($scope.count_pu_cny);
-				console.log($scope.count_pu_usd);
-				console.log($scope.count_pp_cny);
-				console.log($scope.count_pp_usd);
+				
 
 				
 				$scope.pages = $data.pages;
-				console.log($data);
+			
             });
 		$q.all([getCurrencyRate, ajaxTransactionlist])
             .then(function(){
@@ -132,13 +129,13 @@ angularApp.controller('ReportController', function($scope, $http, $timeout, $q, 
 		LanguageApi.list({
 		}, function($languages){
 			$scope.languages = $languages;
-			//console.info('languages',$scope.languages );
+			
 		});
 		
 		FieldApi.list({
 		}, function($fields){
 			$scope.Fields = $fields;
-			//console.info('$scope.Fields',$scope.Fields );
+			
 		});
 		
 		$http.get("/api/common/country")
@@ -176,8 +173,7 @@ angularApp.controller('ReportController', function($scope, $http, $timeout, $q, 
 
             $scope.pages = $data.pages;
             
-            //console.info('projects',$scope.projects);
-            //console.info('pages', $scope.pages);
+            
             
     });
 	}
@@ -186,8 +182,7 @@ angularApp.controller('ReportController', function($scope, $http, $timeout, $q, 
 	$scope.selectPage = function($page){
 		var $params = $scope.searchParams;
 		$params['page']=1;
-		//console.info('$params',$params);
-		//console.info('jQuery.param($params)',jQuery.param($params));
+	
 
 		$http.get("/api/admin/project/?"+jQuery.param($params), {
             
@@ -296,7 +291,7 @@ angularApp.controller('ReportController', function($scope, $http, $timeout, $q, 
 		return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
 	$scope.gotodetail = function ( transaction ) {  
-		//console.log(transaction);return;
+		
 		if(transaction.typeStatus == 1)
 			document.location.href = "/" + LANG_CODE + "/admin/finance/incomming-detail?id=" + transaction.id;
 		else 	
@@ -336,7 +331,7 @@ angularApp.controller('ReportController', function($scope, $http, $timeout, $q, 
     	        'reportEnd': $scope.filter.reportEnd,
     	        'monthSelect': $scope.filter.monthSelect,
     	    };
-		//console.log($scope.filter.typeStatus);
+		
 		//return;
         $scope.selectPage( 1 );
     }

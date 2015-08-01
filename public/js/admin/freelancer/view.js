@@ -34,7 +34,6 @@ angularApp.controller('viewFreelancerController', function($scope, $http, $timeo
         $http.get('/api/user/' + USER_ID + '/bank-info').success(function($data){
             if($data['bankInfo']){
                 $scope.bankInfo = $data['bankInfo'];
-                console.log($scope.bankInfo);
             }
         });
     }
@@ -43,14 +42,12 @@ angularApp.controller('viewFreelancerController', function($scope, $http, $timeo
     function getUser(){
         $http.get('/api/user/' + USER_ID).success(function($data){
             $scope.user = $data;
-            console.log($scope.user);
         });
     }
 
     function getFreelancer(){
         $http.get('/api/user/' + USER_ID + '/freelancer').success(function($data){
             $scope.freelancer = $data['freelancer'];
-            console.log($scope.freelancer);
 
             // get data after freelancer was loaded
             getFreelancerData();
@@ -62,7 +59,6 @@ angularApp.controller('viewFreelancerController', function($scope, $http, $timeo
     function getFreelancerData(){
         $http.get('/api/user/freelancer-data').success(function($data){
             $scope.freelancerData = $data;
-            console.log($scope.freelancerData);
             // get resource group
             $.each($scope.freelancerData.resources, function(){
                 var that = this;
@@ -88,14 +84,12 @@ angularApp.controller('viewFreelancerController', function($scope, $http, $timeo
             $scope.InterpretingSpecialisms = findOptions($scope.freelancerData.specialisms,
                 $scope.freelancer.InterpretingSpecialisms);
 
-            console.log($scope.InterpretingSpecialisms);
         });
     }
 
     function getFreelancerResume(){
         $http.get('/api/user/' + USER_ID + '/resume').success(function($data){
             $scope.resume = $data['resume'];
-            console.log($scope.resume);
         });
     }
 
@@ -105,7 +99,6 @@ angularApp.controller('viewFreelancerController', function($scope, $http, $timeo
                 if($data.success == 1){
                     $scope.password = null;
                     $scope.passwordChanged = 1;
-                    console.log($data);
                 }
             });
         }

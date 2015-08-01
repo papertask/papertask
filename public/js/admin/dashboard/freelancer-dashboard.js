@@ -29,7 +29,6 @@ angularApp.controller('DashboardFreelancerTaskControler', function($scope, $http
             //params: $params
         }).success(function($data){
         	$scope.assigingtasks = $data.tasks;
-			console.log($scope.assigingtasks);
         });
 		
 		//get ongoing task

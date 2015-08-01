@@ -20,35 +20,30 @@ angularApp.controller('DashboardProjectController', function($scope, ProjectServ
 	$http.get("/api/admin/project/?quote=1&number=5&page=1")
 	    .success(function($data){
 	        $scope.quoteprojects = $data.projects;
-			console.log($scope.quoteprojects);
 	            
 	});
 	
 	$http.get("/api/admin/project/?statusproject=3&number=5&page=1")
 	    .success(function($data){
 	        $scope.ongoingprojects = $data.projects;
-			console.log($scope.ongoingprojects);
 	            
 	});
 	
 	$http.get("/api/admin/project/?statusproject=4&number=5&page=1")
 	    .success(function($data){
 	        $scope.reviewprojects = $data.projects;
-			console.log($scope.reviewprojects);
 	            
 	});
 	
 	$http.get("/api/admin/project/?statusproject=6&number=5&page=1")
     .success(function($data){
         $scope.rejectedprojects = $data.projects;
-		console.log($scope.rejectedprojects);
             
 });
 	
 	$http.get("/api/admin/project/?unpay=1&number=5&page=1")
 	    .success(function($data){
 	        $scope.unpayprojects = $data.projects;
-			console.log($scope.unpayprojects);
 	            
 	});
 
@@ -86,7 +81,6 @@ angularApp.controller('DashboardProjectController', function($scope, ProjectServ
 	
 	
 	$scope.quoteAccepted= function ($project) {
-		console.log($project);
 		var updateInvoiceDate = $http.put("/api/admin/project/" + $project.id + "?action=2&lang_code=" + LANG_CODE, $project)
 		.success( function ( $data ) {
 			//show tap

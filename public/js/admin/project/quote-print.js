@@ -41,8 +41,7 @@ angularApp.controller('QuotePrintController', function($scope, $http, $location,
 			
             $scope.project = $project;
 			$scope.currency = $scope.project.currency;
-			console.log("scope.project");
-			console.log($scope.project);
+			
 
             jQuery.extend($scope.tempProject, $scope.project);
         });
@@ -62,8 +61,7 @@ angularApp.controller('QuotePrintController', function($scope, $http, $location,
 		 var companyinfo = $http.get("/api/papertask/companyinfo").success(function($data){
             $scope.companyinfo = $data['companyinfo'];
 			$scope.companyinfo1 = $scope.companyinfo[0];
-			console.log("companyinfo");
-			console.log($scope.companyinfo1);
+			
         }).error(function($e){
             alert('error');
         });	
@@ -73,9 +71,7 @@ angularApp.controller('QuotePrintController', function($scope, $http, $location,
 			$scope.bankinfo1 = $scope.bankinfo[0];
 			$scope.bankinfo2 = $scope.bankinfo[1];
 			
-			console.log("bankinfo");
-			console.log($scope.bankinfo1);
-			console.log($scope.bankinfo2);
+			
         }).error(function($e){
             alert('error');
         });		
@@ -91,56 +87,44 @@ angularApp.controller('QuotePrintController', function($scope, $http, $location,
         $q.all([project_listener, field_listener, pm_listener, sales_listener, client_listener, companyinfo])
             .then(function(){
                 $scope.project.field = search_by_id($scope.fields, $scope.project.field.id);
-				console.log("project.pm");	
-				console.log($scope.project.pm);	
-				console.log($scope.pms);	
+				
                 $scope.project.pm = search_by_id($scope.pms, $scope.project.pm.id);
 				if($scope.project.sale)
 					$scope.project.sale = search_by_id($scope.sales, $scope.project.sale.id);
 				
                 $scope.project.client = search_by_id($scope.clients, $scope.project.client.id);
-				console.log("$scope.project.client");	
-				console.log($scope.project.client);	
+				
                 var itemnotm_listener = $http.get('/api/admin/projectitermnotm?projectId='+ projectId).success(function($data) {
 					$scope.itermnotms = $data['Itermnotms'];
 					
 					// arrange itermnotms based language
 					
 					$scope.itermnotmsnews = arrangeItem($data['Itermnotms']);
-					console.log("scope.itermnotms");
-					console.log($scope.itermnotms);	
-					
-					console.log("scope.itermnotmsnews");
-					console.log($scope.itermnotmsnews);			
+							
 				});
 				var itemtm_listener = $http.get('/api/admin/projectitermtm?projectId='+ projectId).success(function($data) {
 					$scope.itemtms = arrangeItem($data['Itermtms']);
-					console.log("scope.itemtms");
-					console.log($scope.itemtms);		
+						
 				});
 				
 				var itermdtpmacs_listener = $http.get('/api/admin/projectitermdtpmac?projectId='+ projectId).success(function($data) {
 					$scope.itermdtpmacs = arrangeItem($data['Itermdtpmacs'], 'dtpUnits');
-					console.log("scope.itermdtpmacs");
-					console.log($scope.itermdtpmacs);		
+						
 				});
 				
 				var itermdtppcs_listener = $http.get('/api/admin/projectitermdtppc?projectId='+ projectId).success(function($data) {
 					$scope.itermdtppcs = arrangeItem($data['Itermdtppcs'], 'dtpUnits');
-					console.log("scope.itermdtppcs");
-					console.log($scope.itermdtppcs);			
+								
 				});
 				
 				var itermengineerings_listener = $http.get('/api/admin/projectitermengineering?projectId='+ projectId).success(function($data) {
 					$scope.itermengineerings = arrangeItem($data['Itermengineerings'], 'engineeringUnits');
-					console.log("scope.itermengineerings");
-					console.log($scope.itermengineerings);			
+								
 				});
 				
 				var iterminterpretings_listener = $http.get('/api/admin/projectiterminterpreting?projectId='+ projectId).success(function($data) {
 					$scope.iterminterpretings = arrangeItem($data['Iterminterpretings'], 'interpretingUnits');
-					console.log("scope.iterminterpretings");
-					console.log($scope.iterminterpretings);			
+							
 				});
 				
 				var invoice_listener = $http.get('/api/admin/invoice?projectId='+ projectId).success(function($data) {
@@ -148,9 +132,7 @@ angularApp.controller('QuotePrintController', function($scope, $http, $location,
 					if($scope.invoice.invoiceDate)
 					$scope.invoice.invoiceDate = $scope.invoice.invoiceDate.date;
 					
-					console.log("scope.invoice");
-					//console.log($data);	
-					console.log($scope.invoice);			
+								
 				});
 				
 				$scope.project.types = ProjectType.find($scope.project.types.sort())
@@ -160,7 +142,7 @@ angularApp.controller('QuotePrintController', function($scope, $http, $location,
 					return existsIdInArray($scope.project.types, 1);
 				};
 				$scope.hasTypeTranslationUseTM = function(item){
-					console.log(item);
+					
 					if(!item)
 						return false;
 					else	
@@ -214,9 +196,9 @@ angularApp.controller('QuotePrintController', function($scope, $http, $location,
 					var total = Number(Itemr[j].total);
 					var rate = Number(Itemr[j].rate);
 					var subtotal_tmp = Number($scope.subtotal_tmp);
-					console.log(total);					
+									
 					Itemr[j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
-					console.log(Itemr[j].total);
+					
 					Itemr[j].rate_tmp = Itemr[j].rate;
 					Itemr[j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					//set unit

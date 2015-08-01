@@ -36,7 +36,6 @@ angularApp.controller('ClientUnpaidController', function($scope, $http, $timeout
 				  $scope.pus.push(element);
 				});	
 				$scope.pages = $data.pages;
-				console.log($scope.pus);
             });
 	
 		StaffApi.list({
@@ -179,7 +178,6 @@ angularApp.controller('ClientUnpaidController', function($scope, $http, $timeout
         } */
 		
 		var $params = $scope.searchParams;	
-		console.log($params)
 
         $http.get("/" + LANG_CODE + "/admin/finance/getProjectUnpaidList?page="+$page, {
             params: $params
@@ -198,8 +196,7 @@ angularApp.controller('ClientUnpaidController', function($scope, $http, $timeout
     }
 	$scope.onBtnPreviousClicked = function () {
 		
-		var $params = $scope.searchParams;
-		console.log($params);  
+		var $params = $scope.searchParams;  
 		
 		$http.get("/" + LANG_CODE + "/admin/finance/getProjectUnpaidList?page="+ $scope.pages.previous, {
             params: $params
@@ -217,8 +214,7 @@ angularApp.controller('ClientUnpaidController', function($scope, $http, $timeout
 	
 	$scope.onBtnGoto = function ( int_index ) {
 		
-		var $params = $scope.searchParams;
-		console.log($params);  
+		var $params = $scope.searchParams;  
 		
 		$http.get("/" + LANG_CODE + "/admin/finance/getProjectUnpaidList?page="+ (int_index*1 + 1), {
             params: $params
@@ -235,8 +231,7 @@ angularApp.controller('ClientUnpaidController', function($scope, $http, $timeout
 	}
 	$scope.onBtnNextClicked = function () {
 		
-		var $params = $scope.searchParams;
-		console.log($params);  
+		var $params = $scope.searchParams; 
 		
 		$http.get("/" + LANG_CODE + "/admin/finance/getProjectUnpaidList?page="+ $scope.pages.next, {
             params: $params

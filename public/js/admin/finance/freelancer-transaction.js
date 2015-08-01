@@ -127,7 +127,7 @@ angularApp.controller('FreelancerTransaction', function($scope, $http, $timeout,
 			        'outtrId': null,
 			        'payMonth': null,
 		 };
-		 console.info('params',$scope.searchParams)
+		 
 	        $scope.selectPage( 1 );
 	 }
 	 
@@ -139,7 +139,7 @@ angularApp.controller('FreelancerTransaction', function($scope, $http, $timeout,
 				        'outtrId':  $scope.filter.outtrId,
 				        'payMonth':  $scope.filter.payMonth,
 			 };
-			 console.info('params',$scope.searchParams)
+			 
 	        $scope.selectPage(1);
 	}
 	

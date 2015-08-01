@@ -28,14 +28,14 @@ angularApp.controller('FreelancerUnpaidController', function($scope, $http, $tim
 		
 		var ajaxProjectUnpaidlist = $http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList")
             .success( function ( $data ) {
-			console.log($data);
+			
 			$scope.pages = $data.pages;
                 $scope.tus_tmp = $data.tus;
 				$scope.tus = [];
 				angular.forEach($scope.tus_tmp, function(element) {
 				  $scope.tus.push(element);
 				});	
-				console.log($scope.tus);
+				
             });
 	
 		StaffApi.list({
@@ -173,8 +173,7 @@ angularApp.controller('FreelancerUnpaidController', function($scope, $http, $tim
         */
 		var $params = $scope.searchParams;
 		
-		console.log($params);
-
+		
         $http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList?page="+$page, {
             params: $params
         }).success(function($data){
@@ -193,7 +192,7 @@ angularApp.controller('FreelancerUnpaidController', function($scope, $http, $tim
 	$scope.onBtnPreviousClicked = function () {
 		
 		var $params = $scope.searchParams;
-		console.log($params);
+		
 		
 		$http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList?page="+ $scope.pages.previous,{
             params: $params
@@ -211,7 +210,7 @@ angularApp.controller('FreelancerUnpaidController', function($scope, $http, $tim
 	$scope.onBtnGoto = function ( int_index ) {
 		
 		var $params = $scope.searchParams;
-		console.log($params);
+		
 		
 		$http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList?page="+ (int_index*1 + 1),{
             params: $params
@@ -229,7 +228,7 @@ angularApp.controller('FreelancerUnpaidController', function($scope, $http, $tim
 	$scope.onBtnNextClicked = function () {
 		
 		var $params = $scope.searchParams;
-		console.log($params);
+		
 		
 		$http.get("/" + LANG_CODE + "/admin/finance/getTaskUnpaidList?page="+ $scope.pages.next,{
             params: $params

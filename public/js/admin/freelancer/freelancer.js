@@ -100,7 +100,6 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
 
         $http.get("/api/common/country")
             .success(function($data){
-				console.log($data['countries']);
                 $scope.countries = $data['countries'];
                 setModalControllerData('countries', $scope.countries);
                 if($scope.freelancer.country){
@@ -140,12 +139,7 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
 		$scope.DesktopCatTools_tmp = getIds($scope.freelancer.DesktopCatTools);
 		$scope.InterpretingSpecialisms_tmp = getIds($scope.freelancer.InterpretingSpecialisms);
 		
-		console.log($scope.resorce_tmp);
-		console.log($scope.TranslationSpecialisms_tmp);
-		console.log($scope.TranslationCatTools_tmp);
-		console.log($scope.DesktopOperatingSystems_tmp);
-		console.log($scope.DesktopCatTools_tmp);
-		console.log($scope.InterpretingSpecialisms_tmp);
+
     	var ptr_freelancer = {
     			isActive: $scope.freelancer.isActive,
     			profileUpdated: $scope.freelancer.profileUpdated,
@@ -180,10 +174,7 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     			interpretingPrices: ($scope.interpreting == 1)?$scope.interpretingPrices:[],
     			//engineeringPrices: $scope.engineeringPrices
     	};
-    	console.log('translationPrices');
-		console.log($scope.translationPrices);
-		console.log($scope.desktopPrices);
-		console.log($scope.interpretingPrices);
+
     	
 		$http.post("/api/user/freelancer", ptr_freelancer)
         	.success(function($data){
@@ -210,8 +201,7 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     $scope.saveTranslationPrice = function( translationPrice ){
     	if ( $scope.editTranslation == -1 ) {
 			//check existed options
-			console.log($scope.translationPrices);
-			console.log(translationPrice);
+
 			
 			var checkexist = true;
 			for(i=0 ; i < $scope.translationPrices.length; i++)
@@ -228,9 +218,7 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
     		$scope.translationPrices[$scope.editTranslation] = {sourceLanguage: translationPrice.sourceLanguage, targetLanguage: translationPrice.targetLanguage, price: translationPrice.price}
     	}
     	jQuery("#modal-translation").modal("hide");
-		console.log("translationPricePlaceholder");
-    	console.log($scope.translationPricePlaceholder);
-		console.log($scope.languages[0]);
+
     	setModalControllerData('translationPrice', $scope.translationPricePlaceholder);
     	$scope.editTranslation = -1;
     };
@@ -460,8 +448,7 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
      * Toggle resource
      */
     $scope.toggleResource = function($id){
-        console.log($scope.freelancer.Resources);
-		console.log($scope.resources);
+
         var $index = $scope.freelancer.Resources.indexOf($id);
         if($index == -1){
             $scope.freelancer.Resources.push($id);
@@ -476,7 +463,6 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
 			for(var j = 0; j < $scope.resources.length; j++){
 				for (var k = 0; k < $scope.resources[j].resources.length; k++)
 				{
-					console.log($scope.resources[j].resources[k]);
 				
 					if($scope.freelancer.Resources[i].id == $scope.resources[j].resources[k].id )
 					{
@@ -492,6 +478,5 @@ angularApp.controller('FreelancertController', function($scope, $http, $timeout,
 				}	
 			}
 		}
-		console.log($scope.freelancer.Resources);
     };
 });

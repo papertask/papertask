@@ -71,10 +71,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			generateActiveResources();
 			$scope.currency = $scope.project.currency;
 			$scope.project.types = ProjectType.find($scope.project.types);
-			console.log("scope.project");
-			console.log($scope.project);
-			console.log($scope.project.types);
-			//console.log($scope.serviceLevel);
+			
+			
 
             jQuery.extend($scope.tempProject, $scope.project);
         });
@@ -84,56 +82,47 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	            .success ( function ( $data ) {
 	            	
 	            	$scope.clientTmRatios = $data.tmRatios;
-	            	console.info('$scope.clientTmRatios',$scope.clientTmRatios);		          						
+	            			          						
 	            });	
 				//get all file
 				$http.get('/api/admin/file?projectId='+ projectId).success(function($data) {
 						$scope.files = $data['files'];
 						setModalControllerData('files', $scope.files);
-						console.log("scope.files");
-						console.log($scope.files);			
+									
 				});
 				$http.get('/api/admin/projectitermnotm?projectId='+ projectId).success(function($data) {
 					$scope.itermnotms = $data['Itermnotms'];
 					// arrange itermnotms based language
 					$scope.itermnotmsnews = arrangeItem($data['Itermnotms']);
-					console.log("scope.itermnotms");
-					console.log($scope.itermnotms);	
 					
-					console.log("scope.itermnotmsnews");
-					console.log($scope.itermnotmsnews);			
+							
 				});
 				$http.get('/api/admin/projectitermtm?projectId='+ projectId).success(function($data) {
 					$scope.itemtms = arrangeItem($data['Itermtms']);
 					//if($scope.itemtm)
 					//	$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
-					console.log("scope.itemtms");
-					console.log($scope.itemtms);	
+						
 					
 				});
 				
 				$http.get('/api/admin/projectitermdtpmac?projectId='+ projectId).success(function($data) {
 					$scope.itermdtpmacs = arrangeItem($data['Itermdtpmacs'], 'dtpUnits');
-					console.log("scope.itermdtpmacs");
-					console.log($scope.itermdtpmacs);		
+							
 				});
 				
 				$http.get('/api/admin/projectitermdtppc?projectId='+ projectId).success(function($data) {
 					$scope.itermdtppcs = arrangeItem($data['Itermdtppcs'], 'dtpUnits');
-					console.log("scope.itermdtppcs");
-					console.log($scope.itermdtppcs);			
+							
 				});
 				
 				$http.get('/api/admin/projectitermengineering?projectId='+ projectId).success(function($data) {
 					$scope.itermengineerings = arrangeItem($data['Itermengineerings'], 'engineeringUnits');
-					console.log("scope.itermengineerings");
-					console.log($scope.itermengineerings);			
+								
 				});
 				
 				$http.get('/api/admin/projectiterminterpreting?projectId='+ projectId).success(function($data) {
 					$scope.iterminterpretings = arrangeItem($data['Iterminterpretings'], 'interpretingUnits');
-					console.log("scope.iterminterpretings");
-					console.log($scope.iterminterpretings);			
+							
 				});
 				//get private price 	
 				$http.get('/api/user/translationprice?userId='+ $scope.USER_ID).success(function($data) {
@@ -141,13 +130,11 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 				});	
 				$http.get('/api/user/desktopprice?userId='+$scope.USER_ID).success(function($data) {
 					$scope.desktopPrices = $data['desktopPrices'];
-					console.log("$scope.desktopPrices");
-					console.log($scope.desktopPrices);
+					
 				});	
 				$http.get('/api/user/engineeringprice?userId=' + $scope.USER_ID).success(function($data) {
 					$scope.engineeringPrices = $data['engineeringPrices'];
-					console.log("$scope.engineeringPrices");
-					console.log($scope.engineeringPrices);
+					
 				});
 				
 				
@@ -157,7 +144,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 				$scope.type_active[$scope.project.types[i]] = 'active';
 				
 			}
-			console.log($scope.type_active);
+			
 		}
 		function arrangeItem(Itemr, unit) {
 		$scope.itermtmnew = [];
@@ -170,9 +157,9 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 						var total = Number(Itemr[j].total);
 						var rate = Number(Itemr[j].rate);
 						var subtotal_tmp = Number($scope.subtotal_tmp);
-						console.log(total);					
+											
 						Itemr[j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
-						console.log(Itemr[j].total);
+						
 						Itemr[j].rate_tmp = Number(Itemr[j].rate);
 						Itemr[j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 						//set unit
@@ -224,7 +211,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		
         $http.get("/api/data/project/")
             .success(function($data){
-				console.log($data);
+				
                 jQuery.extend(true, $scope, $data);  // copy data to scope
                 var shareData = ['interpretingUnits', 'engineeringUnits', 'dtpUnits'];
                 for(var i = 0; i < shareData.length; i++){
@@ -250,38 +237,34 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		// Get list translationTM
        $http.get("/api/papertask/translationtm").success(function($data){
            $scope.translationTM = $data['translationTM'];
-            console.log('translationTM');
-			console.log($data['translationTM']);
+            
         }).error(function($e){
            alert('error');
         });
 		
 		$http.get("/api/papertask/translation").success(function($data){
             $scope.translation = $data['translation'];
-            console.log($data['translation']);
+            
         }).error(function($e){
             alert('error');
         });
 		
 		$http.get("/api/papertask/interpreting").success(function($data){
             $scope.interpretingPPrices = $data['interpreting'];
-            console.log($scope.interpretingPPrices);
-            console.log('Got list interpreting prices');
+            
         }).error(function($e){
             alert('error');
         });
 		
 		$http.get("/api/papertask/engineering").success(function($data){
 				$scope.engineeringPPrices = $data['engineering'];
-				console.log('Got list engineering prices');
-				console.log($scope.engineeringPPrices);
+				
 			}).error(function($e){
 				alert('error');
 		});
 		$http.get("/api/papertask/desktop-publishing").success(function($data){
 				$scope.softwarePrices = $data['softwarePrices'];
-				console.log('Got list software prices');
-				console.log($scope.softwarePrices);
+				
 				
 			}).error(function($e){
 				alert('error');
@@ -310,8 +293,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	$scope.saveTranslationTM = function( itemtm ){
 			$scope.iterm_tm =[];
 			$scope.iterm_tm = itemtm;
-			console.log("scope.iterm_tm");
-			console.log($scope.iterm_tm);
+			
 			//$scope.itemtms[$scope.laguageid][0] = $scope.iterm_tm;
 			//return;
 			
@@ -359,7 +341,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 				
     	} else {
     		
-    		console.info('$scope.clientTmRatios',$scope.clientTmRatios);	
+    			
     		
     		itemtm.total_tmp = 	($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.bawu)/100)*$scope.iterm_tm.sourcebawu
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.jiuwu)/100)*$scope.iterm_tm.sourcejiuwu
@@ -372,7 +354,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
     		$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     		$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     		
-    		console.info('itemtm',itemtm);
+    		
     		
 			$http.post("/api/admin/projectitermtm?projectid="+projectId, 
 					{
@@ -417,12 +399,12 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	$scope.editTranslationTM = function ( index, tid, laguageid ) {
     	$scope.editTm = index;
 		$scope.laguageid = laguageid;
-		console.info('$scope.itemtms[laguageid][0]', $scope.itemtms[laguageid][0]);
+		
 		if($scope.itemtms[laguageid][0]){
-			console.info('$scope.itemtms[laguageid][0]', $scope.itemtms[laguageid][0]);
-		$scope.itemtm = $scope.itemtms[laguageid][0];
-		$scope.itemtm.rate_tmp = Number($scope.itemtms[laguageid][0].rate_tmp);
-    	setModalControllerData('itemtm', $scope.itemtm);
+			
+			$scope.itemtm = $scope.itemtms[laguageid][0];
+			$scope.itemtm.rate_tmp = Number($scope.itemtms[laguageid][0].rate_tmp);
+	    	setModalControllerData('itemtm', $scope.itemtm);
 		}
 		
     	jQuery("#modal-translation-TM").modal("show");
@@ -493,9 +475,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		$scope.translationNoTM = [];
 		//get auto rate here
 		if($scope.project.client.defaultServiceLevel == $scope.project.serviceLevel){
-			console.log("scope.translationPrices");
-			console.log($scope.translationPrices);
-			console.log($scope.translation);
+			
 			for(i=0;i<$scope.translationPrices.length;i++){
 				if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id &&  $scope.translationPrices[i].targetLanguage.id == laguageid){
 					$scope.translationNoTM.rate_tmp = Number($scope.translationPrices[i].price);
@@ -606,8 +586,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		$scope.laguageid = laguageid;
 		$scope.desktopMac = $scope.itermdtpmacs[laguageid][index];
 		$scope.desktopMac.rate_tmp = Number($scope.itermdtpmacs[laguageid][index].rate_tmp);
-		console.log("scope.desktopMac");
-		console.log($scope.desktopMac);
+		
 		
     	setModalControllerData('desktopMac', $scope.desktopMac);
     	jQuery("#modal-dtp-mac").modal("show");
@@ -684,8 +663,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		$scope.laguageid = laguageid;
 		$scope.desktopPc = $scope.itermdtppcs[laguageid][index];
 		$scope.desktopPc.rate_tmp = Number($scope.itermdtppcs[laguageid][index].rate_tmp);
-		console.log("scope.desktopPc");
-		console.log($scope.desktopPc);
+		
 		
     	setModalControllerData('desktopPc', $scope.desktopPc);
     	jQuery("#modal-dtp-pc").modal("show");
@@ -762,8 +740,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		$scope.laguageid = laguageid;
 		$scope.engineering = $scope.itermengineerings[laguageid][index];
 		$scope.engineering.rate_tmp = Number($scope.itermengineerings[laguageid][index].rate_tmp);
-		console.log("scope.engineering");
-		console.log($scope.engineering);
+		
 		
     	setModalControllerData('engineering', $scope.engineering);
     	jQuery("#modal-eng").modal("show");
@@ -875,13 +852,11 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			if($item.software && $item.unit)
 			{
 				$scope.desktopMac = $item;
-				console.log("start get dtp");
-				console.log( $scope.desktopPrices );
-				console.log($item);
+				
 				//get private
 				if( $scope.desktopPrices)
 				{
-					console.log($scope.laguageid);
+					
 					for(i=0;i<$scope.desktopPrices.length;i++)
 					{
 						if($scope.laguageid == $scope.desktopPrices[i].language.id 
@@ -900,10 +875,9 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 							}	
 						}
 					}
-					console.log("lang_group");
+					
 					$lang_group = LangGroup.get($scope.laguageid);
-					console.log($lang_group);
-					console.log($scope.softwarePrices);
+					
 					for(j=0;j<$scope.softwarePrices.length;j++)
 						{
 							if($scope.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  $scope.softwarePrices[j].desktopSoftware.id){
@@ -926,7 +900,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 				}
 				else {//if not get paper task
 						//get group language
-						console.log("lang_group");
+						
 						$lang_group  =    LangGroup.get($scope.laguageid);
 						for(j=0;j<$scope.softwarePrices.length;j++)
 						{
@@ -953,14 +927,12 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	$scope.getRateDtpPc = function($item){
 			if($item.software && $item.unit)
 			{
-				console.log("start get dtp pc");
-				console.log( $scope.desktopPrices );
-				console.log($item);
+				
 				$scope.desktopPc = $item;
 				//get private
 				if( $scope.desktopPrices)
 				{
-					console.log($scope.laguageid);
+					
 					for(i=0;i<$scope.desktopPrices.length;i++)
 					{
 						if($scope.laguageid == $scope.desktopPrices[i].language.id 
@@ -980,10 +952,9 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 							}	
 						}
 					}
-					console.log("lang_group");
+					
 					$lang_group = LangGroup.get($scope.laguageid);
-					console.log($lang_group);
-					console.log($scope.softwarePrices);
+					
 					for(j=0;j<$scope.softwarePrices.length;j++)
 						{
 							if($scope.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  $scope.softwarePrices[j].desktopSoftware.id){
@@ -1006,7 +977,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 				}
 				else {//if not get paper task
 						//get group language
-						console.log("lang_group");
+						
 						$lang_group  =    LangGroup.get($scope.laguageid);
 						for(j=0;j<$scope.softwarePrices.length;j++)
 						{
@@ -1031,16 +1002,13 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	}
 	// get auto end price
 	$scope.getRateEng = function($item){
-		console.log($item);
+		
 		
 		if($item.engineeringcategory && $item.unit)
 		{
 			$scope.engineering = $item;
 			//get private
-			console.log("start get eng");
-			console.log( $scope.engineeringPrices );
-			console.log( $item.engineeringcategory );
-			console.log( $item.unit );	
+			
 			if( $scope.engineeringPrices.length)
 			{
 				for(i=0;i<$scope.engineeringPrices.length;i++){
@@ -1052,14 +1020,10 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 						return;
 					}
 				}	
-				console.log("engineeringPPrices");
-				console.log($scope.engineeringPPrices);
-				console.log($item.engineeringcategory.id);
-				console.log($item.unit.id);
+				
 				for(j=0;j<$scope.engineeringPPrices.length;j++)
 					{
-						console.log($scope.engineeringPPrices[j].engineeringCategory.id );
-						console.log($scope.engineeringPPrices[j].unit.id);
+						
 						
 						if($item.engineeringcategory.id == $scope.engineeringPPrices[j].engineeringCategory.id 
 							&&  $item.unit.id == $scope.engineeringPPrices[j].unit.id){
@@ -1093,8 +1057,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	}
 	
 	$scope.getRateInt = function($item){
-		console.log($item);
-		console.log($scope.interpretingPrices);
+		
 		if($scope.interpretingPrices){
 			if($item.unit.id == 1)
 			{
@@ -1122,10 +1085,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		if($scope.interpreting){
 			$http.get('/api/user/interpretingprice?userId=' + USER_ID).success(function($data) {
 				$scope.interpretingPrices = $data['interpretingPrices'];
-				console.log("interpretingPrices");
-				console.log($scope.interpretingPrices);
-				console.log($scope.interpretingPPrices);
-				console.log($scope.interpreting);
+				
 				$scope.interpretingPrices={};
 				for(i=0;i<$scope.interpretingPrices.length;i++){
 					for(j=0;j<$scope.project.targetLanguages.length;j++){
@@ -1157,8 +1117,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 					}
 				
 				}
-				console.log("interpretingPrices");
-				console.log($scope.interpretingPrices);
+				
 				
 			});
 			
@@ -1174,9 +1133,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
         jQuery(".project-types .active").removeClass("active");
         $scope.project.types = [$interpreting];
         $scope.interpreting = $interpreting;
-		console.log("scope.interpreting");
-		console.log($scope.interpreting);
-		console.log($scope.project.types);
+		
     };
 
     $scope.clearInterpreting =function (){
@@ -1193,8 +1150,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
         } else {
             $scope.project.types.splice($index, 1);
         }
-		console.log("scope.project.types");
-		console.log($scope.project.types);
+		
     };
 
     $scope.addFile = function($fileInput){
@@ -1223,8 +1179,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
     $scope.submit = function(){
 	
         $scope.project.data = TableItemListService.data();
-		console.log("$scope.project");
-		console.log($scope.project);
+		
         $http.post("/api/admin/project/", $scope.project)
             .success(function($data){
 				

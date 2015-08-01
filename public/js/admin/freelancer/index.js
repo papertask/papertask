@@ -44,7 +44,7 @@ angularApp.controller('listFreelancerController', function($scope, $http, $timeo
             bootbox.confirm(DELETE_CONFIRM_TEXT, function(result) {
                 if(result == true){
                     $http.delete('/api/user/'+$id+'/freelancer').success(function($data){
-                        console.log('Deleted user with id %s', $id);
+
                         $scope.selectPage($scope.pages.current);
                     });
                 }
@@ -62,7 +62,6 @@ angularApp.controller('listFreelancerController', function($scope, $http, $timeo
         var search = 0;
             var $params = $scope.searchParams;
         $params.page = $page;
-        console.info('$params',$params);
 
         $http.get("/api/user/freelancer", {
             params: $params
@@ -73,7 +72,6 @@ angularApp.controller('listFreelancerController', function($scope, $http, $timeo
                 var N = $scope.pages.pageCount;
                 $scope.rangeCustom = Array.apply(null, {length: N}).map(Number.call, Number);
             }
-            console.log($data);
         });
     }
 	
@@ -84,7 +82,6 @@ angularApp.controller('listFreelancerController', function($scope, $http, $timeo
             
             var $params = $scope.searchParams;
             $params.page = $scope.pages.previous;
-            console.info('$params',$params);
             
 			$http.get("/api/user/freelancer",{
 				params: $params
@@ -104,7 +101,6 @@ angularApp.controller('listFreelancerController', function($scope, $http, $timeo
      
             var $params = $scope.searchParams;
             $params.page =  int_index*1 + 1;
-            console.info('$params',$params);
 
 			$http.get("/api/user/freelancer",{
             params: $params
@@ -123,7 +119,6 @@ angularApp.controller('listFreelancerController', function($scope, $http, $timeo
 	$scope.onBtnNextClicked = function () {
             var $params = $scope.searchParams;
             $params.page =  $scope.pages.next;
-            console.info('$params',$params);
             
 			$http.get("/api/user/freelancer",{
             params: $params
@@ -150,8 +145,6 @@ angularApp.controller('listFreelancerController', function($scope, $http, $timeo
                     $scope.sources.push(this);
                 });
             });
-            console.log($data);
-            console.log($scope.sources);
         });
     }
 

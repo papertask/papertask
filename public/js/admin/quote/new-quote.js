@@ -53,7 +53,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 		
         $http.get("/api/data/project/")
             .success(function($data){
-				console.log($data);
+		
                 jQuery.extend(true, $scope, $data);  // copy data to scope
                 var shareData = ['interpretingUnits', 'engineeringUnits', 'dtpUnits'];
                 for(var i = 0; i < shareData.length; i++){
@@ -79,23 +79,21 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 		// Get list translationTM
        $http.get("/api/papertask/translationtm").success(function($data){
            $scope.translationTM = $data['translationTM'];
-            console.log('translationTM');
-			console.log($data['translationTM']);
+   
         }).error(function($e){
            alert('error');
         });
 		
 		$http.get("/api/papertask/translation").success(function($data){
             $scope.translation = $data['translation'];
-            console.log($data['translation']);
+            
         }).error(function($e){
             alert('error');
         });
 		
 		$http.get("/api/papertask/interpreting").success(function($data){
             $scope.interpretingPPrices = $data['interpreting'];
-            console.log($scope.interpretingPPrices);
-            console.log('Got list interpreting prices');
+            
         }).error(function($e){
             alert('error');
         });
@@ -104,8 +102,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 		$http.get("/api/papertask/desktop-publishing").success(function($data){
 						$scope.softwarePrices = $data['softwarePrices'];
 						TableItemListService.softwarePrices = $scope.softwarePrices;
-						console.log($data['softwarePrices']);
-						console.log('Got list software prices');
+						
 					}).error(function($e){
 						alert('error');
 					});	
@@ -114,8 +111,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 		$http.get("/api/papertask/engineering").success(function($data){
 				$scope.engineeringPPrices = $data['engineering'];
 				TableItemListService.engineeringPPrices = $scope.engineeringPPrices;
-				console.log($scope.engineeringPPrices);
-				console.log('Got list engineering prices');
+				
 			}).error(function($e){
 				alert('error');
 		});
@@ -152,18 +148,12 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 				$http.get('/api/user/translationprice?userId='+ $scope.USER_ID).success(function($data) {
 					$scope.translationPrices = $data['translationPrices'];
 				//find 
-				console.log($scope.translationPrices);
-				console.log($scope.project.sourceLanguage);
-				console.log($scope.project.targetLanguages);
+				
 				TableItemListService.translationPrices={};
 				
 				for(i=0;i<$scope.translationPrices.length;i++){
 					for(j=0;j<$scope.project.targetLanguages.length;j++){
-						console.log($scope.translationPrices[i].sourceLanguage.id );
 						
-						console.log($scope.translationPrices[i].targetLanguage.id );
-						
-						console.log($scope.project.targetLanguages[j].id);
 					
 						if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  ){
 							
@@ -189,7 +179,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 					
 				}
 					//TableItemListService.translationPrices = $scope.translationPrices;
-					console.log(TableItemListService.translationPrices);
+				
 				});
 			}
 		}
@@ -209,7 +199,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 	};
 	
     $scope.change_client = function(client){
-       console.log(client);
+     
 	   //get translation no tm
 	    if(!client) return null;
 	    var USER_ID = client.id;
@@ -242,8 +232,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 				$scope.currency = $data.user.currency;
 				$scope.project.currency = $scope.currency;
 				TableItemListService.currency = $data.user.currency;
-				console.log("currency");
-				console.log($scope.currency);
+				
 				if($scope.currency == 'usd')
 				{
 					//change papertask
@@ -259,10 +248,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 		if($scope.interpreting){
 			$http.get('/api/user/interpretingprice?userId=' + USER_ID).success(function($data) {
 				$scope.interpretingPrices = $data['interpretingPrices'];
-				console.log("interpretingPrices");
-				console.log($scope.interpretingPrices);
-				console.log($scope.interpretingPPrices);
-				console.log($scope.interpreting);
+				
 				TableItemListService.interpretingPrices={};
 				for(i=0;i<$scope.interpretingPrices.length;i++){
 					for(j=0;j<$scope.project.targetLanguages.length;j++){
@@ -294,8 +280,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 					}
 				
 				}
-				console.log("interpretingPrices");
-				console.log(TableItemListService.interpretingPrices);
+				
 				
 			});
 			
@@ -314,18 +299,12 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 			$http.get('/api/user/translationprice?userId='+ USER_ID).success(function($data) {
 				$scope.translationPrices = $data['translationPrices'];
 			//find 
-			console.log($scope.translationPrices);
-			console.log($scope.project.sourceLanguage);
-			console.log($scope.project.targetLanguages);
+			
 			TableItemListService.translationPrices={};
 			
 			for(i=0;i<$scope.translationPrices.length;i++){
 				for(j=0;j<$scope.project.targetLanguages.length;j++){
-					console.log($scope.translationPrices[i].sourceLanguage.id );
-					
-					console.log($scope.translationPrices[i].targetLanguage.id );
-					
-					console.log($scope.project.targetLanguages[j].id);
+				
 				
 					if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  ){
 						
@@ -352,7 +331,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 				
 			}
 				//TableItemListService.translationPrices = $scope.translationPrices;
-				console.log(TableItemListService.translationPrices);
+				
 			});
 		}
 		if($scope.hasTypeTranslationUseTM){
@@ -360,9 +339,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 			$http.get("/api/user/" + USER_ID + "")
 				.success ( function ( $data ) {
 				   TableItemListService.tmRatios =  $data.tmRatios;
-				    console.log("tmRatios");
-				   console.log($data.tmRatios);
-				   console.log($scope.translationTM);
+				    
 				   if(!$data.tmRatios)
 				   {
 						TableItemListService.tmRatios = [];
@@ -374,23 +351,17 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 						TableItemListService.tmRatios.wushi = Number($scope.translationTM[5].rate*100);
 						TableItemListService.tmRatios.nomatch = Number($scope.translationTM[6].rate*100);
 				   }
-				   console.log(TableItemListService.tmRatios);
+				   
 			})
 			if(!$scope.hasTypeTranslationNoTM){
 				$http.get('/api/user/translationprice?userId='+ USER_ID).success(function($data) {
 					$scope.translationPrices = $data['translationPrices'];
 					//find 
-					console.log($scope.translationPrices);
-					console.log($scope.project.sourceLanguage);
-					console.log($scope.project.targetLanguages);
+					
 					TableItemListService.translationPrices={};
 					for(i=0;i<$scope.translationPrices.length;i++){
 						for(j=0;j<$scope.project.targetLanguages.length;j++){
-							console.log($scope.translationPrices[i].sourceLanguage.id );
 							
-							console.log($scope.translationPrices[i].targetLanguage.id );
-							
-							console.log($scope.project.targetLanguages[j].id);
 						
 							if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  ){
 								
@@ -415,7 +386,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 						
 					}
 						//TableItemListService.translationPrices = $scope.translationPrices;
-						console.log(TableItemListService.translationPrices);
+						
 				});
 			}
 			
@@ -432,7 +403,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         jQuery(".project-types .active").removeClass("active");
         $scope.project.types = [$interpreting];
         $scope.interpreting = $interpreting;
-		console.log($scope.interpreting);
+		
     };
 
     $scope.clearInterpreting =function (){
@@ -483,7 +454,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         		'name' : "Quote",
         };
 		
-		console.info('$scope.project',$scope.project);
+		
 		
 		
         $http.post("/api/admin/project/", $scope.project)
@@ -547,8 +518,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
     $scope.init();
 
     $scope.test = function(){
-        console.log($scope.project);
-        console.log($scope.order);
+       
     };
 });
 
@@ -684,7 +654,7 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 	
 	$scope.setRateTm = function(){
         if(TableItemListService.tmRatios){
-			console.log(TableItemListService.tmRatios);
+			
 			$scope.itemtm.raterepetitions = $scope.raterepetitions =  (TableItemListService.tmRatios.repetitions)?TableItemListService.tmRatios.repetitions:0;
 			$scope.itemtm.rateyibai = $scope.rateyibai =  (TableItemListService.tmRatios.yibai)?TableItemListService.tmRatios.yibai:0;
 			$scope.itemtm.ratejiuwu = $scope.ratejiuwu =  (TableItemListService.tmRatios.jiuwu)?TableItemListService.tmRatios.jiuwu:0;
@@ -707,14 +677,11 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 	
 			if($item.software && $item.unit)
 			{
-				console.log("start get dtp");
-				console.log( TableItemListService.desktopPrices );
-				console.log( $item.software );
-				console.log( $item.unit );
+				
 				//get private
 				if( TableItemListService.desktopPrices.length)
 				{
-					console.log($scope.identifier);
+					
 					for(i=0;i<TableItemListService.desktopPrices.length;i++)
 					{
 						if($scope.identifier[1].id == $scope.TableItemListService.desktopPrices[i].language.id 
@@ -741,11 +708,10 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 					}	
 					//	else {
 							//get group language
-							console.log("lang_group");
+							
 							$lang_group  =    LangGroup.get($scope.identifier[1].id);
 							
-							console.log($lang_group);
-							console.log(TableItemListService.softwarePrices);
+							
 							for(j=0;j<TableItemListService.softwarePrices.length;j++)
 							{
 								if(TableItemListService.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  TableItemListService.softwarePrices[j].desktopSoftware.id){
@@ -772,7 +738,7 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 							
 						
 						//}
-						console.log($item);
+						
 							
 					//}
 						
@@ -780,11 +746,10 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 				else {//if not get paper task
 							
 							//get group language
-							console.log("lang_group");
+							
 							$lang_group  =    LangGroup.get($scope.identifier[1].id);
 							
-							console.log($lang_group);
-							console.log(TableItemListService.softwarePrices);
+							
 							for(j=0;j<TableItemListService.softwarePrices.length;j++)
 							{
 								if(TableItemListService.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  TableItemListService.softwarePrices[j].desktopSoftware.id){
@@ -815,10 +780,7 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 		if($item.category && $item.unit)
 		{
 			//get private
-			console.log("start get dtp");
-			console.log( TableItemListService.engineeringPrices );
-			console.log( $item.category );
-			console.log( $item.unit );	
+				
 			if( TableItemListService.engineeringPrices.length)
 			{
 				for(i=0;i<TableItemListService.engineeringPrices.length;i++){
@@ -830,14 +792,10 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 					}
 				}	
 				//	else {
-						console.log("engineeringPPrices");
-						console.log(TableItemListService.engineeringPPrices);
-						console.log($item.category.id);
-						console.log($item.unit.id);
+						
 						for(j=0;j<TableItemListService.engineeringPPrices.length;j++)
 						{
-							console.log(TableItemListService.engineeringPPrices[j].engineeringCategory.id );
-							console.log(TableItemListService.engineeringPPrices[j].unit.id);
+							
 							
 							if($item.category.id == TableItemListService.engineeringPPrices[j].engineeringCategory.id 
 							&&  $item.unit.id == TableItemListService.engineeringPPrices[j].unit.id){
@@ -866,9 +824,7 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 	
 	}
 	$scope.getRateInt = function($item){
-		console.log($item);
-		console.log($scope.identifier);
-		console.log(TableItemListService.interpretingPrices);
+		
 		if(TableItemListService.interpretingPrices){
 			if($item.unit.id == 1)
 			{
@@ -890,8 +846,7 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 							+($scope.itemtm.rate * $scope.ratewushi / 100) * $scope.itemtm.sourcewushi
 							+($scope.itemtm.rate * $scope.ratenomatch / 100) * $scope.itemtm.sourcenomatch
 		
-		console.log("item_tm");
-		console.log($scope.itemtm);
+		
     };
     $scope.remove = function($index){
         $scope.items.splice($index, 1);
@@ -961,22 +916,22 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
     // CALLBACKS
 
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-        console.info('onWhenAddingFileFailed', item, filter, options);
+        
     };
     uploader.onAfterAddingFile = function(fileItem) {
         fileItem.upload();
     };
     uploader.onAfterAddingAll = function(addedFileItems) {
-        console.info('onAfterAddingAll', addedFileItems);
+        
     };
     uploader.onBeforeUploadItem = function(item) {
-        console.info('onBeforeUploadItem', item);
+        
     };
     uploader.onProgressItem = function(fileItem, progress) {
-        console.info('onProgressItem', fileItem, progress);
+        
     };
     uploader.onProgressAll = function(progress) {
-        console.info('onProgressAll', progress);
+        
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
         if(!response.success){
@@ -993,18 +948,18 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
         $scope.project.files.push(fileItem.projectFile);
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
-        console.info('onErrorItem', fileItem, response, status, headers);
+        
     };
     uploader.onCancelItem = function(fileItem, response, status, headers) {
-        console.info('onCancelItem', fileItem, response, status, headers);
+        
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
     };
     uploader.onCompleteAll = function() {
-        console.info('onCompleteAll');
+        
     };
 
-    console.info('uploader', uploader);
+    
 
 
     // -------------------------------
