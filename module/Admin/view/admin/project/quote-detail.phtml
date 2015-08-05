@@ -232,7 +232,7 @@ $this->inlineScript()
         <td><strong>Sub Total :</strong></td>
         <td>{{ subtotal }}</td>
     </tr>
-    <tr>
+    <tr ng-show="project.discount > 0">
         <td><strong>(-) Discount :</strong></td>
         <td><span class="text-danger"><strong>-</strong></span> {{currency}} {{ project.discount }}</td>
     </tr>

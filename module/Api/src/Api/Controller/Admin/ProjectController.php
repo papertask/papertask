@@ -96,7 +96,7 @@ class ProjectController extends AbstractRestfulJsonController
 		if($data['status'] == 2){//set odered
 			$data['quote_no'] = "QUO-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
 		}
-		
+		$data['project_no'] = date("Ymd").$this->generateRandomNumber();
 		$project = new Project();
 		if(($data['client'] == null || $data['client'] == '')&&$data['newClient']!=null){			
 			// Create User
@@ -107,7 +107,9 @@ class ProjectController extends AbstractRestfulJsonController
 			
 			$Udata['currency'] = $data['currency'];
 			$Udata['createdTime'] = new \DateTime('now');
-			//$Udata['lastLogin'] = new \DateTime('now');
+			
+			
+			
 			$Udata['email'] = $data['newClient']['Email'];
 			$Udata['firstName'] = $data['newClient']['FirstName'];
 			$Udata['lastName'] = $data['newClient']['LastName'];
@@ -205,13 +207,13 @@ class ProjectController extends AbstractRestfulJsonController
         		'startDate' => $data['startDate'],
         		'dueDate' => $data['dueDate'],
         		//'name' => $data['reference'],
-        					'total' =>  round($data['invoiceinfo']['total']/$langLength, 2),
+        		'total' =>  round($data['invoiceinfo']['total']/$langLength, 2),
         		'task_number' => $project->getId().'-'.$i,
         		
         	);
-        			 $projectTotal = $projectTotal + floatval(round($data['invoiceinfo']['total']/$langLength, 2));
+        	$projectTotal = $projectTotal + floatval(round($data['invoiceinfo']['total']/$langLength, 2));
         	$taskArrData['type'] = (is_array($data['types'])&&count($data['types'])>0)?$data['types'][0]: null;
-        	$taskArrData['name'] = (array_key_exists('reference',$data))?$data['reference']:'nul';
+        	$taskArrData['name'] = (array_key_exists('reference',$data))?$data['reference']:'null';
         	
         	$task->setData( $taskArrData );
 			$task->save($this->getEntityManager());
@@ -424,7 +426,7 @@ class ProjectController extends AbstractRestfulJsonController
                     'language' => $targetLanguages[$languageId],
                     'type' => $type,
                     'status' => 3,
-					'name' => $data['reference'] . '-' . $identifier[0],
+					'name' => $data['reference'],// . '-' . $identifier[0],
 					'startDate' => $data['startDate'],
 					'dueDate' => $data['dueDate'], 
 					'task_number' => $project->getId().'-'.$i,
@@ -464,8 +466,8 @@ class ProjectController extends AbstractRestfulJsonController
     }
 
     public function getList(){
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
 		$entityManager = $this->getEntityManager();
 
 		//var_dump($this->params()->fromQuery()); exit;
@@ -711,5 +713,14 @@ class ProjectController extends AbstractRestfulJsonController
         return new JsonModel([
             'project' => $project->getData(),
         ]);
+    }
+	
+	public function generateRandomNumber ( $length = 4 ) {
+        $characters = '01234567890';
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $randomString;
     }
 }

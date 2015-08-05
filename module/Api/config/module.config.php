@@ -21,6 +21,7 @@ return array(
                             'route'    => '/admin/[:controller[/[:id[/]]]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+								'id' => '[0-9]*',
                             ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'Api\Controller\Admin',

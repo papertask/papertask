@@ -10,7 +10,9 @@
                         <th>Unit Price</th>
                         <th>Quantity</th>
                         <th>Total</th>
+						<?php if (!($user['role'] == 'Freelancer')) { ?>
                         <th>Action</th>
+						<?php } ?>	
                     </tr>
                     </thead>
                     <tbody>
@@ -23,25 +25,30 @@
                         <td>{{ item.rate }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.total }}</td>
-                        <td>
+                        <?php if (!($user['role'] == 'Freelancer')) { ?>
+						<td>
                 	
                         
-                        <?php if (!($user['role'] == 'Freelancer')) { ?>
+                        
 							  <span ng-click="editTranslationNoTMPrice($index, item.id, language.id)"><i class="fa fa-edit"></i></span> 
-                        <?php } ?>
+                        
                       
                             
                             &nbsp;&nbsp;
                             <span ng-click="deleteTranslationNoTMPrice($index, item.id, language.id)"><i class="fa fa-trash-o text-danger"></i></span>
+							
                         </td>
+						<?php } ?>
                     </tr>
                     </tbody>
                 </table>
             </div>
+			<?php if (!($user['role'] == 'Freelancer')) { ?>
             <div class="text-center">
                 <a class="btn btn-outline btn-primary"
                    ng-click="addTranslationNoTMPrice(language.id)">Add Iterm</a>
             </div>
+			<?php } ?>
             <div class="hr-line-dashed"></div>
         </div>
             <div  ng-show="task.type.id==2" class="table-responsive">
@@ -54,7 +61,8 @@
                         <th>Unit Price</th>
                         <th>Quantity</th>
                         <th>Total</th>
-                        <th>Action</th>
+						<th>Action</th>
+						
                     </tr>
                     </thead>
                     <tbody>
@@ -70,6 +78,7 @@
                             <a data-toggle="modal" ng-click="editTranslationTM(1, item.id, language.id)"><i class="fa fa-edit"></i></a> &nbsp;&nbsp;
 							<?php } ?>
                             <a data-toggle="collapse" href="#use_tm_{{language.id}}"><i class="fa fa-eye"></i></a>
+							
                         </td>
                     </tr>
                     <tr>

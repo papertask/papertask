@@ -7,6 +7,11 @@
     <!-- Le styles -->
 	 
 </head>
+<style>
+body {
+    font-family: "open sans", "Helvetica Neue", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+}
+</style>
 <body class="white-bg" style="background-color: #ffffff;">
     <div class="wrapper wrapper-content p-xl" style="padding: 20px 10px 40px;padding: 40px;">
 		<div class="ibox-content p-xl" style="">
@@ -243,10 +248,12 @@
 				<td width="85%" style="text-align: right; padding: 8px;line-height: 1.42857;"><strong>Sub Total :</strong></td>
 				<td width="15%" style="text-align: right;  border-bottom: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?>  <?php echo $this->subtotal; ?></td>
 			</tr>
+			<?php if($this->project['discount'] > 0){?>
 			<tr>
 				<td width="85%" style="text-align: right; padding: 8px;line-height: 1.42857;"><strong>(-) Discount :</strong></td>
 				<td  width="15%" style="text-align: right;  border-bottom: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><span class="text-danger"><strong>-</strong></span><?php echo $this->project['currency']; ?> <?php echo $this->project['discount']; ?></td>
 			</tr>
+			<?php } ?>
 			<tr>
 				<td width="85%" style="text-align: right; padding: 8px;line-height: 1.42857;"><strong>TAX ( <?php echo $this->project['tax']; ?> %):</strong></td>
 				<td  width="15%" style="text-align: right;  border-bottom: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><?php echo $this->project['currency']; ?>  <?php echo ($this->subtotal  - $this->project['discount'])* $this->project['tax']/100; ?> </td>

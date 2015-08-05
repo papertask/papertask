@@ -9,7 +9,9 @@
                     <th>Unit Price</th>
                     <th>Quantity</th>
                     <th>Total</th>
+					<?php if (!($user['role'] == 'Freelancer')) { ?>
                     <th>Action</th>
+					<?php } ?>	
                 </tr>
                 </thead>
                 <tbody>
@@ -20,21 +22,26 @@
 						<td>{{ item.rate }}</td>
 						<td>{{ item.quantity }}</td>
 						<td>{{ item.total }}</td>
-						<td>
 						<?php if (!($user['role'] == 'Freelancer')) { ?>
+						<td>
+						
 											<span ng-click="editInt($index, item.id, language.id)">
 												<i class="fa fa-edit"></i>
 											</span>
-						<?php } ?>					
+											
 											 &nbsp;&nbsp;
 							<span ng-click="deleteInt($index, item.id, language.id)"><i class="fa fa-trash-o text-danger"></i></span>
+						
 						</td>
+						<?php } ?>	
 					</tr>                
 				</tbody>
             </table>
         </div>
+		<?php if (!($user['role'] == 'Freelancer')) { ?>
         <div class="text-center">
             <a class="btn btn-outline btn-primary"
                    ng-click="addInt(language.id)">Add Iterm</a>
         </div>
+		<?php } ?>	
 	</div>	

@@ -312,8 +312,8 @@ class ProjectController extends AbstractActionController
         return $viewModel;
     }
 	public function quotedownloadAction(){
-		//error_reporting(E_ALL);
-		//ini_set('display_errors', 1);
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
 		$renderer = new PhpRenderer();
 		//whole TCPDF's settings goes here
 		$id = $this->params()->fromQuery('id');
@@ -481,6 +481,12 @@ class ProjectController extends AbstractActionController
 		$content = $view->render($viewModel);
 		// set array for viewer preferences
 		$pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		//$pdf = new \TCPDF("L", "mm", "A4", true, "UTF-8" );
+		$font = new \TCPDF_FONTS();
+		$fontx = $font->addTTFfont('vendor/tecnick.com/tcpdf/fonts/MicrosoftYaHei.ttf');
+		//$pdf->SetFont($fontx, '', 12, '', false);
+		$pdf->SetFont($fontx , '', 12,'',false);
+		
 		$preferences = array(
 			'HideToolbar' => true,
 			'HideMenubar' => true,

@@ -91,17 +91,17 @@ $this->inlineScript()
                                 btn-sm">{{ ProjectServiceLevel.get(project.serviceLevel).name }}</span>
                             </td>
                             <td class="project-title">
-                                <strong><?php echo $this->translate('Contract with') ?> {{ project.client.company.name }}</strong>
+                                <strong>{{ project.reference }}</strong>
                                 <br/>
                                 <div class="tooltip-demo">
-                                    <span ng-repeat="type in project.client.types">
+                                    <span ng-repeat="type in project.types">
                                         <code data-original-title="{{ ProjectType.get(type).name }}"
 												 title="" data-placement="top" data-toggle="tooltip">{{ ProjectType.get(type).name_short }}</code>
                                     </span>
                                 </div>
                             </td>
                             <td class="project-title">
-                                <span class="">{{ project.reference }}</span>
+                                <span class="">{{ project.project_no }}</span>
                                 <br/>
                                 <small>{{ DateFormatter.short(project.startDate) }} - {{ DateFormatter.short(project.dueDate) }}</small>
                             </td>
@@ -115,8 +115,7 @@ $this->inlineScript()
                                    ng-click="goToDetail(project)"><i class="fa fa-folder"></i> </a>
                                 <a href="#" class="btn btn-white btn-sm"
                                    ng-click="goToEdit(project)"><i class="fa fa-pencil"></i> </a>
-                                <a href="#" class="btn btn-danger btn-sm"
-                                   ng-show="CurrentUser.is_admin()" ng-click="remove($index)"><i class="fa fa-trash"></i> </a>
+                               
                             </td>
                         </tr>
                         </tbody>

@@ -22,6 +22,8 @@ class Project extends Entity{
      * @ORM\Column(type="integer")
      */
     protected $id;
+	
+	
 
     /**
      * @var integer
@@ -46,6 +48,12 @@ class Project extends Entity{
      * @ORM\Column(type="string", nullable=True)
      */
     protected $quote_no;
+	
+	/**
+     * @var string
+     * @ORM\Column(type="string", nullable=True)
+     */
+    protected $project_no;
 
     /**
      * @var string
@@ -178,6 +186,7 @@ class Project extends Entity{
 			'userid' => $this->client->getId(),
             'dueDate' => $this->dueDate,
 			'quote_no' => $this->quote_no,
+			'project_no' => $this->project_no,
 			'tax' => $this->tax,
 			'discount' => $this->discount,
             'duration' => $this->duration,

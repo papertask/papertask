@@ -204,7 +204,7 @@ return array(
      		
      	// Landing
 		'landing/file',
-     		'file/wordcount',
+   		'file/wordcount',
     ),
 	'Freelancer'=> $allow_all,
 	'Employer'=> $allow_all,
