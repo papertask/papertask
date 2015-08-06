@@ -218,7 +218,74 @@ class EmployerController extends AbstractRestfulController
         $user = $this->getUserById($userId);
         
         $employer = $user->getEmployer();
-        
+		// Remove UserClientTranslation
+        $repository = $entityManager->getRepository('User\Entity\UserClientTranslation');
+        $interPretingPrices = $repository->findBy( array('client'=>$user) );
+        foreach ($interPretingPrices as $k=>$v) {
+            $interPretingPrice = $repository->find($v->getId());
+            $entityManager->remove($interPretingPrice);
+            $entityManager->flush();
+        }
+        // Remove Project
+        $repository_project = $entityManager->getRepository('User\Entity\Project');
+        $projects = $repository_project->findBy( array('client'=>$user) );
+				
+
+        foreach ($projects as $k=>$v) {
+			
+			//remove Itermnotm
+			$repository_Itermnotm = $entityManager->getRepository('User\Entity\Itermnotm');
+			$Itermnotms = $repository_Itermnotm->findBy( array('project'=>$v) );
+			 
+			foreach ($Itermnotms as $k_Itermnotm=>$v_Itermnotm) {
+					//remove file Itermnotm
+					$Itermnotm = $repository_Itermnotm->find($v_Itermnotm->getId());
+					//var_dump($Itermnotm);exit;
+					$entityManager->remove($Itermnotm);
+					$entityManager->flush();
+					
+					
+					$repository_file_Itermnotm = $entityManager->getRepository('User\Entity\File');
+					//var_dump($v_Itermnotm->getData());exit;
+					$file_Itermnotm = $repository_file_Itermnotm->find($v_Itermnotm->getFile()->getId());
+					//var_dump($file_Itermnotm);exit;
+					$entityManager->remove($file_Itermnotm);
+					$entityManager->flush();
+						
+					
+				}
+			//remove file
+			$repository_file = $entityManager->getRepository('User\Entity\File');
+			$files = $repository_file->findBy( array('project'=>$v) );
+			 
+			foreach ($files as $k_file=>$v_file) {
+					$file = $repository_file->find($v_file->getId());
+					$entityManager->remove($file);
+					$entityManager->flush();
+				}
+			//remove invoice
+			$repository_invoice = $entityManager->getRepository('User\Entity\Invoice');
+			$invoices = $repository_invoice->findBy( array('project'=>$v) );
+			 
+			foreach ($invoices as $k_invoice=>$v_invoices) {
+					$invoice = $repository_invoice->find($v_invoices->getId());
+					$entityManager->remove($invoice);
+					$entityManager->flush();
+				}	
+			//remove tesk
+			$repository_task = $entityManager->getRepository('User\Entity\Task');
+			$tasks = $repository_task->findBy( array('project'=>$v) );
+			 
+			foreach ($tasks as $k_task=>$v_task) {
+					$task = $repository_task->find($v_task->getId());
+					$entityManager->remove($task);
+					$entityManager->flush();
+				}		
+			//remove project
+            $project = $repository_project->find($v->getId());
+            $entityManager->remove($project);
+            $entityManager->flush();
+        }
         // Remove Interpreting Price
         $repository = $entityManager->getRepository('User\Entity\UserInterpretingPrice');
         $interPretingPrices = $repository->findBy( array('user'=>$user) );

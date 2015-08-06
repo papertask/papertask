@@ -25,12 +25,18 @@ class UserClientTranslation extends Entity{
     /**
      * @var \User\Entity\User
      * @ORM\ManyToOne(targetEntity="User")
+	 * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="freelancer_id", referencedColumnName="id", onDelete="cascade")
+     * })
      */
     protected $freelancer;
 	
 	/**
      * @var \User\Entity\User
      * @ORM\ManyToOne(targetEntity="User")
+	 * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="client_id", referencedColumnName="id", onDelete="cascade")
+     * })
      */
     protected $client;
 	

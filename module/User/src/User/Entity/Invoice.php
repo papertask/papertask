@@ -88,5 +88,7 @@ class Invoice extends Entity{
 			'total' => $this->total,
         ];
     }
-
+	public function getId(){
+        return $this->id;
+    }
 }

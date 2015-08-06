@@ -155,4 +155,7 @@ class Task extends Entity{
     	return $this->task_number;
     	//return $this;
     }
+	public function getId(){
+        return $this->id;
+    }
 }

@@ -27,6 +27,7 @@ class Itermnotm extends Entity{
      * @ORM\ManyToOne(targetEntity="Project")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true)
      */
+	 
     protected $project;
 	
 	/** @ORM\Column(type="string") */
@@ -85,6 +86,12 @@ class Itermnotm extends Entity{
             'unit' => $this->unit,
 			'total' => $this->total
         ];
+    }
+	public function getId(){
+        return $this->id;
+    }
+	public function getFile(){
+        return $this->file;
     }
 
 }
