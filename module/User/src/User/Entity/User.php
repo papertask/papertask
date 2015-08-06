@@ -584,12 +584,12 @@ class User extends Entity implements InputFilterAwareInterface{
     	//$files = $repository->findBy( array('project'=>$this->id) );
     	if($this->isFreelancer()){
     		$clients =  $this->client_pool;
-    
+			
     		$clientArray = array();
     		foreach ($clients as $id){
     			$userArr = array();
     			$user= $controller->getEntityManager()->find('User\Entity\User',$id);
-    			 
+    			 if($user){
     			// Get Freelancer for Resource
     			$client = $user->getEmployer();
     			 
@@ -609,6 +609,7 @@ class User extends Entity implements InputFilterAwareInterface{
     			$userArr['taskdone']=$taskNum;
     			 
     			$clientArray[] = $userArr;
+				}
     		}
     		return $clientArray;
     	} else{

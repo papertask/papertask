@@ -312,8 +312,7 @@ class ProjectController extends AbstractActionController
         return $viewModel;
     }
 	public function quotedownloadAction(){
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		
 		$renderer = new PhpRenderer();
 		//whole TCPDF's settings goes here
 		$id = $this->params()->fromQuery('id');
