@@ -15,8 +15,7 @@ class IndexController extends AbstractRestfulController
 {
     public function get($id){
 		
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		
         $user = $this->getUserById($id);
         $userData = $user->getData();
         
@@ -80,6 +79,8 @@ class IndexController extends AbstractRestfulController
     }
 
     public function update($id, $data){
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
         if(isset($data['password']) && strlen($data['password']) > 5){
 			$user = $this->getUserById((int)$id);
             $user->encodePassword($data['password']);

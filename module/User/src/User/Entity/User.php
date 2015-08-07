@@ -213,9 +213,9 @@ class User extends Entity implements InputFilterAwareInterface{
             'cellphone'
         );
 
-        if(isset($arr['currency']) and !in_array($arr['currency'], ['usd', 'cny'])){
-            throw new \Exception("Invalid currency '{$arr['currency']}'");
-        }
+        //if(isset($arr['currency']) and !in_array($arr['currency'], ['usd', 'cny'])){
+        //    throw new \Exception("Invalid currency '{$arr['currency']}'");
+        //}
 
         foreach($keys as $key){
             if(isset($arr[$key])){

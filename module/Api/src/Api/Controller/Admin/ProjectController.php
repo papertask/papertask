@@ -429,7 +429,7 @@ class ProjectController extends AbstractRestfulJsonController
 					'name' => $data['reference'],// . '-' . $identifier[0],
 					'startDate' => $data['startDate'],
 					'dueDate' => $data['dueDate'], 
-					'task_number' => $project->getId().'-'.$i,
+					'task_number' => $data['project_no'].'-'.$i,
 					
                 ]);
 			$task->save($this->getEntityManager());

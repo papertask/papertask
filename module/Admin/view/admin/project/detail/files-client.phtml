@@ -59,7 +59,7 @@
                             </table>
 
                             <!-- <div ng-show="lang.feedback.needToCreate && !!lang.files.length">  -->
-                            	<div ng-show=" !!lang.files.length">
+                            <div ng-show=" !!lang.files.length && project.status.id != 5">
                                 <div class="col-md-6">
                                     <p><?php echo $this->translate('Happy with your translation? Formally approve it here.') ?></p>
                                     <a data-toggle="collapse" data-parent="#preview_lang{{$index}}" href="#approve_lang{{$index}}" class="btn btn-primary"><i class="fa fa-check-square-o"></i> <?php echo $this->translate('Approve') ?></a> <!-- if user click the approve button(all languages), the approve button and request correct button should hide, and project status should change to completed -->

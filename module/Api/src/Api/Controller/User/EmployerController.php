@@ -212,6 +212,8 @@ class EmployerController extends AbstractRestfulController
     }
     
     public function delete($id) {
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
         $userId = $this->getEvent()->getRouteMatch()->getParam('id');
         $entityManager = $this->getEntityManager();
         
@@ -247,10 +249,12 @@ class EmployerController extends AbstractRestfulController
 					
 					$repository_file_Itermnotm = $entityManager->getRepository('User\Entity\File');
 					//var_dump($v_Itermnotm->getData());exit;
-					$file_Itermnotm = $repository_file_Itermnotm->find($v_Itermnotm->getFile()->getId());
-					//var_dump($file_Itermnotm);exit;
-					$entityManager->remove($file_Itermnotm);
-					$entityManager->flush();
+					if($v_Itermnotm->getFile()){
+						$file_Itermnotm = $repository_file_Itermnotm->find($v_Itermnotm->getFile()->getId());
+						//var_dump($file_Itermnotm);exit;
+						$entityManager->remove($file_Itermnotm);
+						$entityManager->flush();
+					}
 						
 					
 				}
@@ -272,7 +276,7 @@ class EmployerController extends AbstractRestfulController
 					$entityManager->remove($invoice);
 					$entityManager->flush();
 				}	
-			//remove tesk
+			//remove task
 			$repository_task = $entityManager->getRepository('User\Entity\Task');
 			$tasks = $repository_task->findBy( array('project'=>$v) );
 			 
@@ -280,7 +284,16 @@ class EmployerController extends AbstractRestfulController
 					$task = $repository_task->find($v_task->getId());
 					$entityManager->remove($task);
 					$entityManager->flush();
-				}		
+				}	
+			//remove activity
+			$repository_activity = $entityManager->getRepository('User\Entity\Activity');
+			$activitys = $repository_activity->findBy( array('project'=>$v) );
+			 
+			foreach ($activitys as $k_activity=>$v_activity) {
+					$activity = $repository_activity->find($v_activity->getId());
+					$entityManager->remove($activity);
+					$entityManager->flush();
+				}			
 			//remove project
             $project = $repository_project->find($v->getId());
             $entityManager->remove($project);

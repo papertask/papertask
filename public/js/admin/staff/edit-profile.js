@@ -58,6 +58,7 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
 
     $scope.getBankInfo = function(){
         $http.get('/api/user/' + USER_ID + '/bank-info').success(function($data){
+			
             if($data['bankInfo']){
                 $scope.bankInfo = $data['bankInfo'];
             }
@@ -68,6 +69,7 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
         $http.get('/api/user/' + USER_ID + '/staff').success( function ( $data ) {
             if ( $data['staff']) {
                 $scope.staff = $data['staff'];
+				console.log($scope.staff);
                 $scope.userInfo.type = $scope.staff.type.id;
                 $scope.userInfo.name = $scope.staff.name;
                 $scope.loadStaffType();
@@ -121,6 +123,7 @@ angularApp.controller('editProfileController', function($scope, $http, $timeout,
         $('form[name=editProfileForm]').validate();
         var validate = $('form[name=editProfileForm]').valid();
         if(validate == true){
+			console.log($scope.userInfo);
             // $scope.userInfo.type = $scope.staff.type.id;
             // update user info
             var ajaxUpdateUser = $http.put('/api/user/'+USER_ID+'', $scope.userInfo).success(function($data){
