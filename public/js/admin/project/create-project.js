@@ -378,9 +378,9 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 								if($scope.project.serviceLevel==1)
 									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):format2n(Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate);
 								else if($scope.project.serviceLevel==2)
-									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'usd')?Number($scope.translation[k].businessPrice):format2n(Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate);
+									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].businessPrice):format2n(Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate);
 								else
-									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'usd')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);		
+									TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);		
 								}
 						}
 			}	
