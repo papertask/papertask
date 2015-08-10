@@ -276,6 +276,16 @@ class EmployerController extends AbstractRestfulController
 					$entityManager->remove($invoice);
 					$entityManager->flush();
 				}	
+			//project feedback
+			$repository_feedback = $entityManager->getRepository('User\Entity\ProjectFeedback');
+			$feedbacks = $repository_feedback->findBy( array('project'=>$v) );
+			 
+			foreach ($feedbacks as $k_feedback=>$v_feedback) {
+					$feedback = $repository_feedback->find($v_feedback->getId());
+					$entityManager->remove($feedback);
+					$entityManager->flush();
+				}		
+				
 			//remove activity
 			$repository_activity = $entityManager->getRepository('User\Entity\Activity');
 			$activitys = $repository_activity->findBy( array('project'=>$v) );
