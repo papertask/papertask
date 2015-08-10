@@ -60,4 +60,7 @@ class ProjectFeedback extends Entity{
             'message' => $this->message,
         ];
     }
+	public function getId(){
+        return $this->id;
+    }
 }
