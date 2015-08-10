@@ -212,8 +212,8 @@ class EmployerController extends AbstractRestfulController
     }
     
     public function delete($id) {
-		//error_reporting(E_ALL);
-		//ini_set('display_errors', 1);
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
         $userId = $this->getEvent()->getRouteMatch()->getParam('id');
         $entityManager = $this->getEntityManager();
         
