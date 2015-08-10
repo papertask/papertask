@@ -244,7 +244,7 @@ class TaskController extends AbstractRestfulJsonController
 		{
 			$freelancer = $this->find('\User\Entity\Freelancer', $data['freelancerid']);
 			$task->setData([
-					'status' => 6,
+				'status' => 6,
 				'assignee' => $freelancer,
 				'total' => $data['total'],
 			]);

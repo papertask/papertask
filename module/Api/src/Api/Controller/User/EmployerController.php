@@ -276,15 +276,6 @@ class EmployerController extends AbstractRestfulController
 					$entityManager->remove($invoice);
 					$entityManager->flush();
 				}	
-			//remove task
-			$repository_task = $entityManager->getRepository('User\Entity\Task');
-			$tasks = $repository_task->findBy( array('project'=>$v) );
-			 
-			foreach ($tasks as $k_task=>$v_task) {
-					$task = $repository_task->find($v_task->getId());
-					$entityManager->remove($task);
-					$entityManager->flush();
-				}	
 			//remove activity
 			$repository_activity = $entityManager->getRepository('User\Entity\Activity');
 			$activitys = $repository_activity->findBy( array('project'=>$v) );
@@ -294,6 +285,16 @@ class EmployerController extends AbstractRestfulController
 					$entityManager->remove($activity);
 					$entityManager->flush();
 				}			
+			//remove task
+			$repository_task = $entityManager->getRepository('User\Entity\Task');
+			$tasks = $repository_task->findBy( array('project'=>$v) );
+			 
+			foreach ($tasks as $k_task=>$v_task) {
+					$task = $repository_task->find($v_task->getId());
+					$entityManager->remove($task);
+					$entityManager->flush();
+				}	
+			
 			//remove project
             $project = $repository_project->find($v->getId());
             $entityManager->remove($project);
