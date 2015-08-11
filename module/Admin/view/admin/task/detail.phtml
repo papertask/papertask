@@ -12,7 +12,6 @@
     ->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
     
 	//->prependFile($this->basePath() . '/js/plugins/datetimepicker/bootstrap-datetimepicker.min.js')
-    ->prependFile($this->basePath() . '/js/admin/task/task-detail.js')
     ->prependFile($this->basePath() . '/js/admin/common/angular/ItemListController.js')
     ->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
     ->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
@@ -43,6 +42,23 @@ $this->inlineScript()
 		var ASSIGN_SUCCESSFUL =  '" . $this->translate('Assign successful') . "';
     ");
 ?>
+<?php 
+	$user = $this->userData();
+	//var_dump($user);exit;
+?>
+ <?php if($user['role'] == 'Freelancer') {
+ $this->inlineScript()
+    ->prependScript("
+		var Freelancer_user_id = '" . $user['id'] . "';
+		
+    ")
+	->prependFile($this->basePath() . '/js/admin/task/task-detail-freelancer.js');
+ } else {
+	$this->inlineScript()->prependFile($this->basePath() . '/js/admin/task/task-detail.js');
+ }
+    
+            
+            ?>   
 <style>
 .note-editor {
     height: 150px;
@@ -52,10 +68,7 @@ $this->inlineScript()
         margin-right: 0.3em;
     }
 </style>
-<?php 
-	$user = $this->userData();
-	//var_dump($user);
-?>
+
 <div class="row">
 <div class="col-lg-12">
 	<div class="ibox" ng-controller="TaskDetailController" id="TaskDetailController">

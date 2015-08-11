@@ -93,6 +93,7 @@ $allow_all = array(
 	'freelancer\edit-payment-info',
 	'freelancer\edit-price',
 	'freelancer\finishRegistration',
+	'freelancer\getuserbyfreelancerid',
 	
 	// -- Employer (Client)
 	'employer\list',

@@ -748,7 +748,7 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
     TableItemListService.addScope($scope);
 	
 	function format2n(n) {
-		return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		return n.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
 	
 	$scope.setRateTm = function(){
@@ -814,24 +814,36 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 							
 							for(j=0;j<TableItemListService.softwarePrices.length;j++)
 							{
+								console.log("check dtp");
+								console.log(TableItemListService);
+								console.log($lang_group);
+								console.log($item);
 								if(TableItemListService.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  TableItemListService.softwarePrices[j].desktopSoftware.id){
-								
-								if($item.unit.id == 1 && $scope.identifier[0] == "dtpMac"){
-									$item.rate = (TableItemListService.currency == 'cny')?Number(TableItemListService.softwarePrices[j].priceApplePerHour):format2n(Number(TableItemListService.softwarePrices[j].priceApplePerHour)/$scope.CurrentcyRate);
-									return;
-								}
-								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpMac"){	
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage)/$scope.CurrentcyRate);
-									return;
-								}
-								else if ($item.unit.id == 1 && $scope.identifier[0] == "dtpPc")	{
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour)/$scope.CurrentcyRate);	
-									return;
-								}
-								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpPc")	{
-									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage)/$scope.CurrentcyRate);	
-									return;
-								}
+									console.log("check dtp more");
+									console.log($item.unit);
+									console.log($scope.identifier[0]);
+									if($item.unit.id == 1 && $scope.identifier[0] == "dtpMac"){
+										
+										$item.rate = (TableItemListService.currency == 'cny')?Number(TableItemListService.softwarePrices[j].priceApplePerHour):format2n(Number(TableItemListService.softwarePrices[j].priceApplePerHour)/$scope.CurrentcyRate);
+										$item.rate = Number($item.rate);
+										console.log($item.rate);
+										return;
+									}
+									else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpMac"){	
+										$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage)/$scope.CurrentcyRate);
+										$item.rate = Number($item.rate);
+										return;
+									}
+									else if ($item.unit.id == 1 && $scope.identifier[0] == "dtpPc")	{
+										$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour)/$scope.CurrentcyRate);	
+										$item.rate = Number($item.rate);
+										return;
+									}
+									else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpPc")	{
+										$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage)/$scope.CurrentcyRate);	
+										$item.rate = Number($item.rate);
+										return;
+									}
 								}
 							}
 							// TableItemListService.softwarePrices.length
@@ -856,18 +868,22 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 								
 								if($item.unit.id == 1 && $scope.identifier[0] == "dtpMac"){
 									$item.rate = (TableItemListService.currency == 'cny')?Number(TableItemListService.softwarePrices[j].priceApplePerHour):format2n(Number(TableItemListService.softwarePrices[j].priceApplePerHour)/$scope.CurrentcyRate);
+									$item.rate = Number($item.rate);
 									return;
 								}
 								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpMac"){	
 									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceApplePerPage)/$scope.CurrentcyRate);
+									$item.rate = Number($item.rate);
 									return;
 								}
 								else if ($item.unit.id == 1 && $scope.identifier[0] == "dtpPc")	{
 									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerHour)/$scope.CurrentcyRate);	
+									$item.rate = Number($item.rate);
 									return;
 								}
 								else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpPc")	{
 									$item.rate = (TableItemListService.currency == 'cny')?Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage):format2n(Number($scope.TableItemListService.softwarePrices[j].priceWindowPerPage)/$scope.CurrentcyRate);	
+									$item.rate = Number($item.rate);
 									return;
 								}
 								}
@@ -901,6 +917,7 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 							&&  $item.unit.id == TableItemListService.engineeringPPrices[j].unit.id){
 								
 								$item.rate =  (TableItemListService.currency == 'cny')?Number(TableItemListService.engineeringPPrices[j].price):format2n(Number(TableItemListService.engineeringPPrices[j].price)/$scope.CurrentcyRate);
+								$item.rate = Number($item.rate);
 								return;
 							}
 						}
@@ -914,6 +931,7 @@ angularApp.controller('TableItemController', function($scope, CurrentUser, Table
 					if($item.category.id == TableItemListService.engineeringPPrices[j].engineeringCategory.id 
 					&&  $item.unit.id == TableItemListService.engineeringPPrices[j].unit.id){
 						$item.rate =  (TableItemListService.currency == 'cny')?Number(TableItemListService.engineeringPPrices[j].price):format2n(Number(TableItemListService.engineeringPPrices[j].price)/$scope.CurrentcyRate);
+						$item.rate = Number($item.rate);
 						return;
 					}
 				}

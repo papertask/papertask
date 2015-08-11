@@ -93,60 +93,6 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	function format2n(n) {
 		return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
-	function showiterm(){
-	$http.get('/api/admin/file?projectId='+ $scope.projectId).success(function($data) {
-								
-							arrangeFile($data['files']);
-							//$scope.files = $data['files'];
-							$scope.project.files = $scope.files;
-							setModalControllerData('files', $scope.files);
-									
-						});
-						
-					if($scope.task.type.id == 1){
-						$http.get('/api/admin/projectitermnotm?projectId='+ $scope.projectId).success(function($data) {
-							$scope.itermnotms = $data['Itermnotms'];
-							
-							// arrange itermnotms based language
-							
-							$scope.itermnotmsnews = arrangeItem($data['Itermnotms']);
-									
-						});
-					}
-					if($scope.task.type.id == 2){
-						$http.get('/api/admin/projectitermtm?projectId='+ $scope.projectId).success(function($data) {
-							$scope.itemtms = arrangeItem($data['Itermtms']);
-							//if($scope.itemtm)
-							//	$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
-								
-							
-						});
-					}	
-					if($scope.task.type.id == 4){
-						$http.get('/api/admin/projectitermdtpmac?projectId='+ $scope.projectId).success(function($data) {
-							$scope.itermdtpmacs = arrangeItem($data['Itermdtpmacs'], 'dtpUnits');
-									
-						});
-					}
-					if($scope.task.type.id == 5){
-						$http.get('/api/admin/projectitermdtppc?projectId='+ $scope.projectId).success(function($data) {
-							$scope.itermdtppcs = arrangeItem($data['Itermdtppcs'], 'dtpUnits');
-										
-						});
-					}
-					if($scope.task.type.id == 6){
-						$http.get('/api/admin/projectitermengineering?projectId='+ $scope.projectId).success(function($data) {
-							$scope.itermengineerings = arrangeItem($data['Itermengineerings'], 'engineeringUnits');
-										
-						});
-					}
-					if($scope.task.type.id > 6){
-						$http.get('/api/admin/projectiterminterpreting?projectId='+ $scope.projectId).success(function($data) {
-							$scope.iterminterpretings = arrangeItem($data['Iterminterpretings'], 'interpretingUnits');
-										
-						});
-					}
-	}
     var taskId = TASK_ID;
 	$scope.taskId = taskId;
     function init(){
@@ -177,7 +123,12 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				var startmonth = startDate.getMonth() + 1;
 				$scope.tempTask.startDate = startDate.getDate() + '-' + startmonth + '-' + startDate.getFullYear() +  ' ' + startDate.getHours() + ':' + startDate.getSeconds() ;
 				
-            });
+				var ajaxUserInfo = $http.get("/api/user/" + $scope.task.assignee.id + "")
+					.success ( function ( $data ) {
+						$scope.currency = $data.user.currency;
+					});	
+            
+			});
 		
         
 		var pm_listener = $http.get("/" + LANG_CODE + "/admin/staff/getPmList")
@@ -243,21 +194,61 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					
 					$scope.USER_ID = $scope.project.userid;
 					
-					if($scope.task.assignee.id > 0)
-					{
-						$http.get("/" + LANG_CODE + '/admin/freelancer/getuserbyfreelancerid?idfreelancer='+ $scope.task.assignee.id).success(function($data) {	
-							$scope.currency = $data.freelancer_user.currency;
-							//console.log($data.freelancer_user);
-							showiterm();
-							
-						})						
-					}
-					else {
-						$scope.currency = $scope.project.currency;
-						showiterm();
-					}	
+					//$scope.currency = $scope.project.currency;
 					//get user login
+					console.log($scope.task);
+					//if()
+					if(Freelancer_user_id)
+						
+					var ajaxUserInfo = $http.get("/api/user/" + Freelancer_user_id + "")
+					.success ( function ( $data ) {
+						$scope.currency = $data.user.currency;
+						if($scope.task.type.id == 1){
+						$http.get('/api/admin/projectitermnotm?projectId='+ $scope.projectId).success(function($data) {
+							$scope.itermnotms = $data['Itermnotms'];
+							
+							// arrange itermnotms based language
+							
+							$scope.itermnotmsnews = arrangeItem($data['Itermnotms']);
+									
+						});
+					}
+					if($scope.task.type.id == 2){
+						$http.get('/api/admin/projectitermtm?projectId='+ $scope.projectId).success(function($data) {
+							$scope.itemtms = arrangeItem($data['Itermtms']);
+							//if($scope.itemtm)
+							//	$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
+								
+							
+						});
+					}	
+					if($scope.task.type.id == 4){
+						$http.get('/api/admin/projectitermdtpmac?projectId='+ $scope.projectId).success(function($data) {
+							$scope.itermdtpmacs = arrangeItem($data['Itermdtpmacs'], 'dtpUnits');
+									
+						});
+					}
+					if($scope.task.type.id == 5){
+						$http.get('/api/admin/projectitermdtppc?projectId='+ $scope.projectId).success(function($data) {
+							$scope.itermdtppcs = arrangeItem($data['Itermdtppcs'], 'dtpUnits');
+										
+						});
+					}
+					if($scope.task.type.id == 6){
+						$http.get('/api/admin/projectitermengineering?projectId='+ $scope.projectId).success(function($data) {
+							$scope.itermengineerings = arrangeItem($data['Itermengineerings'], 'engineeringUnits');
+										
+						});
+					}
+					if($scope.task.type.id > 6){
+						$http.get('/api/admin/projectiterminterpreting?projectId='+ $scope.projectId).success(function($data) {
+							$scope.iterminterpretings = arrangeItem($data['Iterminterpretings'], 'interpretingUnits');
+										
+						});
+					}
 					
+						
+					});
 					
 					
 					
@@ -272,7 +263,15 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					//console.log("$scope.project.client");	
 					//console.log($scope.project.client);	
 					//get all file
-					
+					$http.get('/api/admin/file?projectId='+ $scope.projectId).success(function($data) {
+								
+							arrangeFile($data['files']);
+							//$scope.files = $data['files'];
+							$scope.project.files = $scope.files;
+							setModalControllerData('files', $scope.files);
+									
+						});
+						
 					
 					//get private price 	
 					$http.get('/api/user/translationprice?userId='+ $scope.USER_ID).success(function($data) {

@@ -13,6 +13,14 @@ use User\Entity\Activity;
 use User\Entity\Language;
 use User\Entity\User;
 
+use User\Entity\Iterm;
+use User\Entity\Itermdtpmac;
+use User\Entity\Itermdtppc;
+use User\Entity\Itermengineering;
+use User\Entity\Iterminterpreting;
+use User\Entity\Itermtm;
+use User\Entity\Itermnotm;
+
 class TaskController extends AbstractRestfulJsonController
 {
     protected function clearData(&$data){
@@ -242,12 +250,30 @@ class TaskController extends AbstractRestfulJsonController
         }
 		else if($action==2)
 		{
+		
 			$freelancer = $this->find('\User\Entity\Freelancer', $data['freelancerid']);
 			$task->setData([
 				'status' => 6,
 				'assignee' => $freelancer,
-				'total' => $data['total'],
+				//'total' => $data['total'],
 			]);
+			//update item
+			if($data['type'] == 1)
+			{
+				//var_dump($data['itermnotmsnews']);exit;
+				
+				foreach($data['itermnotmsnews'] as $itermnotm){
+					$itermnotm_update = $this->find('\User\Entity\Itermnotm', $itermnotm['id']);
+					//data = $itermnotm_update
+					//var_dump($itermnotm_update);exit;
+					$itermnotm_update->setData([
+						'rate_freelancer' => $itermnotm['rate_freelancer'],
+						'total_freelancer' => $itermnotm['total_freelancer'],
+					]);
+					//
+					$itermnotm_update->save($this->getEntityManager());
+				}
+			}
         }
 		else if($action==3)//sendToSpecialismPool
 		{

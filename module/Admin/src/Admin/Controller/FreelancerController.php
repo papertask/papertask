@@ -252,6 +252,29 @@ class FreelancerController extends AbstractActionController
             ]);
         }
     }
+	public function getuserbyfreelanceridAction() {
+		$idfreelancer = $this->getRequest()->getQuery('idfreelancer');
+        $entityManager = $this->getEntityManager();
+		$freelancerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::FREELANCER_GROUP_ID);
+
+		$freelancerList = $entityManager->getRepository('User\Entity\User');
+                                //->findBy(array('group' => $freelancerGroup));
+        $queryBuilder = $freelancerList->createQueryBuilder('user');
+		$queryBuilder->select(array('user.currency','user.firstName','user.id userid','user.lastName','freelancer.id freelancerid'));
+		$queryBuilder->innerJoin('user.freelancer', 'freelancer');
+        $queryBuilder->where("user.group = :group1")->setParameter('group1', $freelancerGroup);
+		$queryBuilder->andWhere("freelancer.id = :id")->setParameter('id', $idfreelancer);
+		$queryBuilder->andWhere("user.isActive = ?1")->setParameter(1, 1);
+					
+		
+		
+        $query = $queryBuilder->getQuery();
+        $result = $query->getArrayResult();
+        return new JsonModel([
+            'freelancer_user' => $result[0]
+        ]);
+    }
+	
 	public function getFreelancesListAction() {
         $entityManager = $this->getEntityManager();
 		$freelancerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::FREELANCER_GROUP_ID);
