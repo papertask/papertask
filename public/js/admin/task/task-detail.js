@@ -242,8 +242,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					}
 					
 					$scope.USER_ID = $scope.project.userid;
-					
-					if($scope.task.assignee.id > 0)
+					console.log($scope.task);
+					if($scope.task.assignee)
 					{
 						$http.get("/" + LANG_CODE + '/admin/freelancer/getuserbyfreelancerid?idfreelancer='+ $scope.task.assignee.id).success(function($data) {	
 							$scope.currency = $data.freelancer_user.currency;
@@ -1369,7 +1369,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			});
 			$q.all([ajaxUserInfo])
                 .then(function(){
-                 if($scope.task.type.id == 1){//translationNoTM
+            
+			if($scope.task.type.id == 1){//translationNoTM
 				$http.get('/api/user/translationprice?userId='+ $scope.task.freelancerassign.userid).success(function($data) {
 				
 					$scope.translationPrices = $data['translationPrices'];
@@ -1407,11 +1408,39 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			
 			}
 			else if($scope.task.type.id == 3){
-			
+				
 			
 			}
 			else if($scope.task.type.id == 4){
-			
+				$http.get('/api/user/desktopprice?userId=' + $scope.task.freelancerassign.userid).success(function($data) {
+					$scope.desktopPrices = $data['desktopPrices'];
+					console.log($scope.desktopPrices );
+					/*for(i=0;i<$scope.desktopPrices.length;i++)
+					{
+						if($scope.identifier[1].id == $scope.desktopPrices[i].language.id 
+						&& $item.software.id == $scope.TableItemListService.desktopPrices[i].software.id){
+						
+							if($item.unit.id == 1 && $scope.identifier[0] == "dtpMac"){
+								$item.rate = Number($scope.TableItemListService.desktopPrices[i].priceHourMac);
+								return;
+							}	
+							else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpMac"){	
+								$item.rate = Number($scope.TableItemListService.desktopPrices[i].priceMac);
+								return;
+							}	
+							
+							else if ($item.unit.id == 1 && $scope.identifier[0] == "dtpPc")	{
+								$item.rate = Number($scope.TableItemListService.desktopPrices[i].priceHourPc);	
+								return;
+							}	
+							else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpPc")	{
+								$item.rate = Number($scope.TableItemListService.desktopPrices[i].pricePc);
+								return;
+							}								
+						}
+					}*/	
+					
+				});
 			
 			}
 			else if($scope.task.type.id == 5){

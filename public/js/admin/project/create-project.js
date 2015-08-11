@@ -417,32 +417,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 					//find 
 			
 					TableItemListService.translationPrices={};
-					/*for(i=0;i<$scope.translationPrices.length;i++){
-						for(j=0;j<$scope.project.targetLanguages.length;j++){
-						
-						
-							if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  ){
-								
-								TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = $scope.translationPrices[i].price;
-							}
-							else {
-							//get default papertask
-								for(k=0;k<$scope.translation.length;k++){
-									if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage)
-										if($scope.project.serviceLevel==1)
-											TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):format2n(Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate);
-										else if($scope.project.serviceLevel==2)
-											TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].businessPrice):format2n(Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate);
-										else
-											TableItemListService.translationPrices[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);		
-								
-								}
-									
-							}		
-						}
-						
-						
-					}*/
+					
 					for(j=0;j<$scope.project.targetLanguages.length;j++){
 						for(i=0;i<$scope.translationPrices.length;i++){
 							if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  ){
