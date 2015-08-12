@@ -56,6 +56,7 @@ angularApp.controller('DashboardFreelancerTaskControler', function($scope, $http
   		$http.get("/" + LANG_CODE + "/admin/task/getFreelancerTaskList?statustask=1&page="+'1'+"&freelancer_id="+FREELANCER_ID, {
             //params: $params
         }).success(function($data){
+			console.log($data);
         	$scope.completedtasks = $data.tasks;
         });
 		
