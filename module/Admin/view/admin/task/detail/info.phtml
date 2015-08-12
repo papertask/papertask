@@ -20,7 +20,14 @@
             <dd><span class="label label-{{ task.status.decorator }}">{{ task.status.name }} </span>
             </dd>
             <br>
-            <dt><?php echo $this->translate('Client Contact'); ?>:</dt> <dd><a href="#" class="text-navy"> {{ project.client.name }}</a></dd>
+            <dt><?php echo $this->translate('Client Contact'); ?>:</dt> 
+			<dd><a href="#" class="text-navy">
+				<?php if (!$this->isStaff) {?>
+					{{ project.user.alias }}
+				<?php }else { ?>
+					{{ project.client.name }}
+				<?php } ?>
+			</a></dd>
             <dt><?php echo $this->translate('Client Company'); ?>:</dt> <dd>{{ project.client.company.name }}</dd>
             <br>
             <dt><?php echo $this->translate('Start Date'); ?>:</dt> <dd>{{ DateFormatter.format(task.startDate) }}</dd>

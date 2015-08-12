@@ -185,6 +185,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					$project.tasks = [];
 					
 					$scope.project = $project;
+					console.log($scope.project);
 					
 					var str = $scope.project.quote_no;
 					if(str){
