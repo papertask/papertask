@@ -33,7 +33,7 @@
             <?php include "detail/quote.phtml"; ?>
         </div>
 
-        <div class="tab-pane" id="invoice" ng-show="project.status.id!=0 && project.status.id!=1">
+        <div class="tab-pane" id="invoice" ng-hide="project.status.id==0 && project.status.id==1">
             <?php include "detail/invoice.phtml"; ?>
         </div>
 
