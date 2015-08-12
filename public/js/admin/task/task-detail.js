@@ -1293,7 +1293,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 									
 					Itemr[j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
 					
-					Itemr[j].rate_tmp = Itemr[j].rate;
+					Itemr[j].rate_tmp = Itemr[j].rate_freelancer;
 					/*if(rate == 0){
 						total = 0;
 						Itemr[j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
@@ -1302,27 +1302,60 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 						
 					//set unit
 					if(unit == 'interpretingUnits'){
-						if(Itemr[j].unit == 1) 
-							Itemr[j].unit = 'Day';
-						else Itemr[j].unit = 'Half Day';
+						if(Itemr[j].unit == 1) {
+							Itemr[j].unit = {};
+							Itemr[j].unit.name = 'Day';
+							Itemr[j].unit.id = 1;
+						}
+						else {
+							Itemr[j].unit = {};
+							Itemr[j].unit.id = 2;
+							Itemr[j].unit.name = 'Half Day';
+						}	
 					}	
 					else if(unit == 'engineeringUnits'){
-						if(Itemr[j].unit == 1) 
-							Itemr[j].unit = 'Hour';
-						else if(Itemr[j].unit == 2) 
-							Itemr[j].unit = 'Day';
-						else if(Itemr[j].unit == 3) 
-							Itemr[j].unit = 'Month';
-						else  if(Itemr[j].unit == 4) 
-							Itemr[j].unit = 'Word';	
-						else  if(Itemr[j].unit == 5) 
-							Itemr[j].unit = 'Graphic';				
-						else Itemr[j].unit = 'Page';
+						if(Itemr[j].unit == 1) {
+							Itemr[j].unit = {};
+							Itemr[j].unit.id = 1;
+							Itemr[j].unit.name = 'Hour';
+						}	
+						else if(Itemr[j].unit == 2) {
+							Itemr[j].unit = {};	
+							Itemr[j].unit.id = 2;
+							Itemr[j].unit.name = 'Day';
+						}	
+						else if(Itemr[j].unit == 3) {
+							Itemr[j].unit = {};
+							Itemr[j].unit.id = 3;
+							Itemr[j].unit.name = 'Month';
+						}	
+						else  if(Itemr[j].unit == 4) {
+							Itemr[j].unit = {};
+							Itemr[j].unit.id = 4;
+							Itemr[j].unit.name = 'Word';	
+						}
+						else  if(Itemr[j].unit == 5) {
+							Itemr[j].unit = {};
+							Itemr[j].unit.id = 5;
+							Itemr[j].unit.name = 'Graphic';
+						}	
+						else {
+							Itemr[j].unit = {};
+							Itemr[j].unit.id = 6;
+							Itemr[j].unit.name = 'Page';
+						}	
 					}		
 					else if(unit == 'dtpUnits'){
-						if(Itemr[j].unit == 1) 
-							Itemr[j].unit = 'Hour';
-						else Itemr[j].unit = 'Page';
+						if(Itemr[j].unit == 1) {
+							Itemr[j].unit = {};
+							Itemr[j].unit.id = 1;
+							Itemr[j].unit.name = 'Hour';
+						}	
+						else{
+							Itemr[j].unit = {};
+							Itemr[j].unit.id = 2;
+							Itemr[j].unit.name  = 'Page';
+						}	
 					}
 					$scope.subtotal = $scope.currency + " " + subtotal_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					var tax = Number((subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
@@ -1412,44 +1445,188 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			
 			}
 			else if($scope.task.type.id == 4){
+			var ajaxUserInfo = $http.get("/api/user/" + $scope.task.freelancerassign.userid + "")
+            .success ( function ( $data ) {
+				$scope.currency = $data.user.currency;
+			});
+			$q.all([ajaxUserInfo])
+                .then(function(){
 				$http.get('/api/user/desktopprice?userId=' + $scope.task.freelancerassign.userid).success(function($data) {
 					$scope.desktopPrices = $data['desktopPrices'];
 					console.log($scope.desktopPrices );
-					/*for(i=0;i<$scope.desktopPrices.length;i++)
+					console.log($scope.itermdtpmacs);
+					for(i=0;i<$scope.desktopPrices.length;i++)
 					{
-						if($scope.identifier[1].id == $scope.desktopPrices[i].language.id 
-						&& $item.software.id == $scope.TableItemListService.desktopPrices[i].software.id){
+						if($scope.desktopPrices[i].language.id == $scope.task.language.id){
 						
-							if($item.unit.id == 1 && $scope.identifier[0] == "dtpMac"){
-								$item.rate = Number($scope.TableItemListService.desktopPrices[i].priceHourMac);
-								return;
+							for(j=0;i<$scope.itermdtpmacs[$scope.task.language.id].length;i++)
+							{
+								if($scope.itermdtpmacs[$scope.task.language.id][j].software.id == $scope.desktopPrices[i].software.id){
+								
+									if($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Hour"){
+										var rate = Number($scope.desktopPrices[i].priceHourMac);
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate_tmp = rate;
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].total_tmp = rate * $scope.itermdtpmacs[$scope.task.language.id][j].quantity;
+										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate_freelancer = rate;
+										$scope.itermdtpmacs[$scope.task.language.id][j].total_freelancer = $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp;
+										
+										//return;
+									}	
+									else if ($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Page"){	
+										var rate = Number($scope.desktopPrices[i].priceMac);
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate_tmp = rate;
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].total_tmp = rate * $scope.itermdtpmacs[$scope.task.language.id][j].quantity;
+										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate_freelancer = rate;
+										$scope.itermdtpmacs[$scope.task.language.id][j].total_freelancer = $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp;
+										//return;
+									}	
+								}
+								
 							}	
-							else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpMac"){	
-								$item.rate = Number($scope.TableItemListService.desktopPrices[i].priceMac);
-								return;
-							}	
-							
-							else if ($item.unit.id == 1 && $scope.identifier[0] == "dtpPc")	{
-								$item.rate = Number($scope.TableItemListService.desktopPrices[i].priceHourPc);	
-								return;
-							}	
-							else if ($item.unit.id == 2 && $scope.identifier[0] == "dtpPc")	{
-								$item.rate = Number($scope.TableItemListService.desktopPrices[i].pricePc);
-								return;
-							}								
 						}
-					}*/	
+					}	
+					
+					$scope.task.freelancerassign.itermdtpmacs = $scope.itermdtpmacs[$scope.task.language.id];
+					console.log($scope.task.freelancerassign);
+					
+					var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
+					.success( function ( $data ) {
+						//$scope.task = $data.task;
+						//$scope.task.status = TaskStatus.get($scope.task.status);
+						bootbox.alert(ASSIGN_SUCCESSFUL);
+					});	
 					
 				});
+				})
 			
 			}
 			else if($scope.task.type.id == 5){
+				
+			var ajaxUserInfo = $http.get("/api/user/" + $scope.task.freelancerassign.userid + "")
+            .success ( function ( $data ) {
+				$scope.currency = $data.user.currency;
+			});
+			$q.all([ajaxUserInfo])
+                .then(function(){
+				$http.get('/api/user/desktopprice?userId=' + $scope.task.freelancerassign.userid).success(function($data) {
+					$scope.desktopPrices = $data['desktopPrices'];
+					console.log($scope.desktopPrices );
+					console.log($scope.itermdtppcs);
+					for(i=0;i<$scope.desktopPrices.length;i++)
+					{
+						if($scope.desktopPrices[i].language.id == $scope.task.language.id){
+						
+							for(j=0;i<$scope.itermdtppcs[$scope.task.language.id].length;i++)
+							{
+								if($scope.itermdtppcs[$scope.task.language.id][j].software.id == $scope.desktopPrices[i].software.id){
+								
+									if($scope.itermdtppcs[$scope.task.language.id][j].unit.name == "Hour"){
+										var rate = Number($scope.desktopPrices[i].priceHourPc);
+										$scope.itermdtppcs[$scope.task.language.id][j].rate_tmp = rate;
+										$scope.itermdtppcs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtppcs[$scope.task.language.id][j].total_tmp = rate * $scope.itermdtppcs[$scope.task.language.id][j].quantity;
+										$scope.itermdtppcs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtppcs[$scope.task.language.id][j].total_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtppcs[$scope.task.language.id][j].rate_freelancer = rate;
+										$scope.itermdtppcs[$scope.task.language.id][j].total_freelancer = $scope.itermdtppcs[$scope.task.language.id][j].total_tmp;
+										
+										//return;
+									}	
+									else if ($scope.itermdtppcs[$scope.task.language.id][j].unit.name == "Page"){	
+										var rate = Number($scope.desktopPrices[i].pricePc);
+										$scope.itermdtppcs[$scope.task.language.id][j].rate_tmp = rate;
+										$scope.itermdtppcs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtppcs[$scope.task.language.id][j].total_tmp = rate * $scope.itermdtppcs[$scope.task.language.id][j].quantity;
+										$scope.itermdtppcs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtppcs[$scope.task.language.id][j].total_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtppcs[$scope.task.language.id][j].rate_freelancer = rate;
+										$scope.itermdtppcs[$scope.task.language.id][j].total_freelancer = $scope.itermdtppcs[$scope.task.language.id][j].total_tmp;
+										//return;
+									}	
+								}
+								
+							}	
+						}
+					}	
+					
+					$scope.task.freelancerassign.itermdtpmacs = $scope.itermdtpmacs[$scope.task.language.id];
+					console.log($scope.task.freelancerassign);
+					
+					var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
+					.success( function ( $data ) {
+						//$scope.task = $data.task;
+						//$scope.task.status = TaskStatus.get($scope.task.status);
+						bootbox.alert(ASSIGN_SUCCESSFUL);
+					});	
+					
+				});
+				})
 			
 			
 			}
-			else if($scope.task.type.id == 6){
+			else if($scope.task.type.id == 6){//engineering
 			
+			var ajaxUserInfo = $http.get("/api/user/" + $scope.task.freelancerassign.userid + "")
+            .success ( function ( $data ) {
+				$scope.currency = $data.user.currency;
+			});
+			$q.all([ajaxUserInfo])
+                .then(function(){
+				$http.get('/api/user/engineeringprice?userId=' + $scope.task.freelancerassign.userid).success(function($data) {
+					$scope.engineeringPrices = $data['engineeringPrices'];
+					console.log($scope.engineeringPrices );
+					console.log($scope.itermdtpmacs);
+					/*for(i=0;i<$scope.engineeringPrices.length;i++)
+					{
+						if($scope.desktopPrices[i].language.id == $scope.task.language.id){
+						
+							for(j=0;i<$scope.itermdtpmacs[$scope.task.language.id].length;i++)
+							{
+								if($scope.itermdtpmacs[$scope.task.language.id][j].software.id == $scope.desktopPrices[i].software.id){
+								
+									if($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Hour"){
+										var rate = Number($scope.desktopPrices[i].priceHourMac);
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate_tmp = rate;
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].total_tmp = rate * $scope.itermdtpmacs[$scope.task.language.id][j].quantity;
+										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate_freelancer = rate;
+										$scope.itermdtpmacs[$scope.task.language.id][j].total_freelancer = $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp;
+										
+										//return;
+									}	
+									else if ($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Page"){	
+										var rate = Number($scope.desktopPrices[i].priceMac);
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate_tmp = rate;
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].total_tmp = rate * $scope.itermdtpmacs[$scope.task.language.id][j].quantity;
+										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate_freelancer = rate;
+										$scope.itermdtpmacs[$scope.task.language.id][j].total_freelancer = $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp;
+										//return;
+									}	
+								}
+								
+							}	
+						}
+					}	
+					
+					$scope.task.freelancerassign.itermdtpmacs = $scope.itermdtpmacs[$scope.task.language.id];
+					console.log($scope.task.freelancerassign);
+					
+					var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
+					.success( function ( $data ) {
+						//$scope.task = $data.task;
+						//$scope.task.status = TaskStatus.get($scope.task.status);
+						bootbox.alert(ASSIGN_SUCCESSFUL);
+					});	*/
+					
+				});
+				})
 			
+				
 			}
 			else{
 			

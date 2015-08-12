@@ -65,11 +65,22 @@ class Itermdtpmac extends Entity{
      * @ORM\Column(type="decimal", scale=2, precision=6)
      */
     protected $rate = 0.00;
+	
+	/**
+     * @var decimal
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $rate_freelancer = 0.00;
 	  /**
      * @var float
      * @ORM\Column(type="decimal", scale=2, precision=6)
      */
     protected $total = 0.00;
+	  /**
+     * @var float
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $total_freelancer = 0.00;
 	
 	 public function getProject(){
         return $this->project;
@@ -85,10 +96,12 @@ class Itermdtpmac extends Entity{
             'file' => ($this->file)?$this->file->getData():null,
 			'language' => $this->language->getData(),
 			'rate' => $this->rate,
+			'rate_freelancer' => $this->rate_freelancer,
 			'quantity' => $this->quantity,
             'unit' => $this->unit,
 			'software' => $this->software->getData(),
-			'total' => $this->total
+			'total' => $this->total,
+			'total_freelancer' => $this->total_freelancer
         ];
     }
 }

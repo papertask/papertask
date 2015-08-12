@@ -274,6 +274,21 @@ class TaskController extends AbstractRestfulJsonController
 					$itermnotm_update->save($this->getEntityManager());
 				}
 			}
+			else if($data['type'] == 4)
+			{
+				
+				foreach($data['itermdtpmacs'] as $itermdtpmac){
+					$itermdtpmac_update = $this->find('\User\Entity\Itermdtpmac', $itermdtpmac['id']);
+					//data = $itermnotm_update
+					//var_dump($itermdtpmac);exit;
+					$itermdtpmac_update->setData([
+						'rate_freelancer' => $itermdtpmac['rate_freelancer'],
+						'total_freelancer' => $itermdtpmac['total_freelancer'],
+					]);
+					//
+					$itermdtpmac_update->save($this->getEntityManager());
+				}
+			}
         }
 		else if($action==3)//sendToSpecialismPool
 		{
