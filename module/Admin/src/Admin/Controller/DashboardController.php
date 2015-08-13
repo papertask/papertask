@@ -101,6 +101,7 @@ class DashboardController extends AbstractActionController
 		//var_dump($freelancer->getId());exit;
     	return new ViewModel([
     			'freelancer_id' => $freelancer->getId(),
+				'user_id' => $user->getId(),
     			"lang_code" => $lang_code
     	]);
     }

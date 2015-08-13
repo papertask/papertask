@@ -66,6 +66,10 @@ angularApp.controller('DashboardFreelancerTaskControler', function($scope, $http
         }).success(function($data){
         	$scope.unpaidtasks = $data.tasks;
         });
+		var ajaxUserInfo = $http.get("/api/user/" + USER_FREELANCER_ID + "")
+            .success ( function ( $data ) {
+				$scope.currency = $data.user.currency;
+			});
 		
   	}
   	

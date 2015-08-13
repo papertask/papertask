@@ -265,8 +265,9 @@ class ProjectController extends AbstractRestfulJsonController
 						'language' => $targetLanguages[$languageId]
 					]);
 					$projectTotal = $projectTotal + floatval($item['total']);
+					$iterm->save($this->getEntityManager());
 				}
-				$iterm->save($this->getEntityManager());
+				
 			}
 			else if ($type == 'translationTM'){
 				
@@ -314,8 +315,9 @@ class ProjectController extends AbstractRestfulJsonController
 						'language' => $targetLanguages[$languageId],
 					]);
 					$projectTotal = $projectTotal + floatval( $item['total']);
+					$iterm->save($this->getEntityManager());
 				}
-				$iterm->save($this->getEntityManager());
+				
 			
 			}
 			else if ($type == 'dtpPc'){
@@ -334,8 +336,9 @@ class ProjectController extends AbstractRestfulJsonController
 						'language' => $targetLanguages[$languageId],
 					]);
 					$projectTotal = $projectTotal + floatval( $item['total']);
+					$iterm->save($this->getEntityManager());
 				}
-				$iterm->save($this->getEntityManager());
+				
 			}
 			else if ($type == 'engineering'){
 				
@@ -353,8 +356,9 @@ class ProjectController extends AbstractRestfulJsonController
 						'language' => $targetLanguages[$languageId],
 					]);
 					$projectTotal = $projectTotal + floatval( $item['total']);
+					$iterm->save($this->getEntityManager());
 				}
-				$iterm->save($this->getEntityManager());
+				
 			}
 			else{
 				
@@ -371,8 +375,9 @@ class ProjectController extends AbstractRestfulJsonController
 						'language' => $targetLanguages[$languageId],
 					]);
 					$projectTotal = $projectTotal + floatval( $item['total']);
+					$iterm->save($this->getEntityManager());
 				}
-				$iterm->save($this->getEntityManager());
+				
 			}
         }
        

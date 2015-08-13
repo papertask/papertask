@@ -100,12 +100,19 @@ class Task extends Entity{
      * @ORM\Column(type="decimal", scale=2, precision=6)
      */
     protected $total = 0.00;
+	/**
+     * @var float
+     * @ORM\Column(type="decimal", scale=2, precision=6)
+     */
+    protected $total_freelancer = 0.00;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
     protected $task_number;
+	/** @ORM\Column(type="string", nullable=true) */
+    protected $currency = null;
 
     public function getData(){
         return [
@@ -122,8 +129,10 @@ class Task extends Entity{
 			'dueDate' => $this->dueDate,
 			'startDate' => $this->startDate,
 			'total' => $this->total,
+			'total_freelancer' => $this->total_freelancer,
 			'assignee' => ($this->assignee)?$this->assignee->getData():null,
 			'task_number' => $this->task_number,
+			'currency' => $this->currency
         ];
     }
     

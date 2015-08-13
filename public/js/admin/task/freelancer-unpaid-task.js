@@ -38,11 +38,12 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
  				task["type"] = ProjectType.get(element.type);
  				task["dueDate"] = element.dueDate;
  				task["total"] = element.total;
+				task["total_freelancer"] = element.total_freelancer;
  				//alert(task);
  				
  				$scope.tasks.push(task);
  			});
-
+			
             $scope.pages = $data.pages;
         });
   	}

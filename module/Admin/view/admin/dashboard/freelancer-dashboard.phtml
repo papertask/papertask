@@ -19,6 +19,7 @@ $this->headScript ()
     ->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-tpls-0.11.2.min.js')
     ->prependScript("angularApp = angular.module('project', []);")
     ->prependScript("FREELANCER_ID = {$this->freelancer_id};")
+	->prependScript("USER_FREELANCER_ID = {$this->user_id};")
     ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
     ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
     ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
@@ -276,11 +277,11 @@ $this->inlineScript()
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="task in unpaidtasks">
-                                        <td>{{task.project.id}}-{{task.id}}</td>
+                                        <td>{{ task.project.project_no }}-{{ task.id }}</td>
                                         <td>{{ task.name }}</td>
                                         <td>{{ TaskStatus.get(task.status).name }}</td>
                                         <td> {{ DateFormatter.short(task.dueDate) }}</td>
-                                        <td>{{ task.project.currency }} {{ task.total | number:2 }}</td>
+                                        <td>{{ currency }} {{ task.total_freelancer | number:2 }}</td>
                                     </tr>
                                     </tbody>
                                 </table>

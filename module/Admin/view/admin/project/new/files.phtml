@@ -26,8 +26,8 @@
                                  ng-style="{ 'width': uploader.progress + '%' }" style="width: 0%;">{{ item.file.name }}</div>
                         </div>
                     </td>
-                    <td class="text-right">{{ item.file.size/1024/1024|number:2 }} Mb</td>
-                    <td>{{ DateFormatter.format(item._file.lastModified) }}</td>
+                    <td class="text-right">{{ item.file.size/1024|number:2 }} Kb</td>
+                    <td>{{ DateFormatter.format(item.file.lastModified) }}</td>
                     <td class="text-center child-is-link">
                         <i ng-click="removeItem(item)" class="fa fa-trash-o text-danger"></i>
                     </td>

@@ -50,6 +50,7 @@ angularApp.controller('FreelancerTaskView', function($scope, $http, $timeout, $q
 				//alert(task);
  				
  				$scope.tasks.push(task);
+				console.log($scope.tasks);
  			});
 			
             $scope.pages = $data.pages;
