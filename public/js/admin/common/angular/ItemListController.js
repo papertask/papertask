@@ -33,6 +33,7 @@ angularApp.controller('ItemListController', function($scope, $location, $timeout
         $scope.items = [];
         $scope.ItemApi.list(params, function($items, $pages){
             $scope.items = $items;
+			
             $scope.pages =$pages;
             if(typeof(func) == 'function'){
                 func();

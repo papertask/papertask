@@ -674,6 +674,7 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
     $scope.newFeedback = Object.create(templateFeedback);
 
     $scope.setItemApi(FeedbackApi);
+	
 
     $scope.sendFeedback = function(newFeedback){
         //var newFeedback = $scope.newFeedback;
@@ -716,12 +717,12 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
         });
 
         $feedbacks.forEach(prepare);
+		console.log($feedbacks);
         $scope.project.feedbacksNum = $feedbacks.length;
         fb_loaded = true && fb_refreshed;
         fb_refreshed = true;
         
     }
-
     $scope.$watch(function(){
         return $scope.project;
     }, function(){
@@ -746,8 +747,12 @@ angularApp.controller("ProjectFeedbackController", function($scope, FeedbackApi)
                     lang.feedback = mockFb;
                     lang.feedback.quality = mockFb.quality;
                     lang.feedback.turnAroundTime = mockFb.turnAroundTime;
+					
+
               }
+			  console.log(lang);
         });
+		
         fb_dump = "done";
         
         }

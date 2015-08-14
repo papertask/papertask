@@ -55,6 +55,7 @@ class ProjectFeedback extends Entity{
             'createdDate' => $this->createdDate,
             'project' => $this->project->getId(),
             'language' => $this->targetLanguage->getId(),
+			'language_data' => $this->targetLanguage->getData(),
             'quality' => $this->quality,
             'turnAroundTime' => $this->turnAroundTime,
             'message' => $this->message,
