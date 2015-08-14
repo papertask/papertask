@@ -40,11 +40,13 @@ class ProfileInfo extends Entity{
     /** @ORM\Column(type="string") */
     protected $city;
 
-    /** @ORM\Column(type="string",nullable=true) */
-    protected $country = null;
+	/**
+     * @ORM\ManyToOne(targetEntity="\User\Entity\Country")
+     */
+    protected $country;
 
     /** @ORM\Column(type="string") */
-    protected $website;
+    protected $website='';
 	/** @ORM\Column(type="string") */
     protected $note='';
 
@@ -56,7 +58,7 @@ class ProfileInfo extends Entity{
 			'fax' => $this->fax,
 			'address' => $this->address,
 			'city' => $this->city,
-			'country' => $this->country,
+			'country' => ($this->country)?$this->country->getData():null,
             'website' => $this->website,
 			'note' => $this->note
         );

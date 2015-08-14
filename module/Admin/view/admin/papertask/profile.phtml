@@ -717,87 +717,52 @@ $this->inlineScript()->appendScript("
             <h5>Office Information</h5>
         </div>
         <div class="ibox-content">
-            <table class="table table-bordered">
+            <table class="table table-bordered" ng-repeat="companyinfo in companyinfos">
+			
                 <thead>
-                <tr>
-                    <th width="50%"># 1</th>
-                    <td><a data-toggle="modal" href="#modal-company" type="button"
-                           class="btn btn-primary btn-xs">Edit</a></td>
+				 <tr>
+										<th width="50%"># {{$index + 1}}</th>
+										<td><a data-toggle="modal" href="#modal-editcompany" type="button"
+											class="btn btn-primary btn-xs"  ng-click="EditCompanyBut(companyinfo)">Edit</a>
+                    </td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <th>Company Name</th>
-                    <td>{{companyinfo1.name }}</td>
+                    <td>{{companyinfo.name }}</td>
                 </tr>
                 <tr>
                     <th>Phone</th>
-                    <td>{{ companyinfo1.telephone }}</td>
+                    <td>{{ companyinfo.telephone }}</td>
                 </tr>
                 <tr>
                     <th>Fax</th>
-                    <td>{{ companyinfo1.fax }}</td>
+                    <td>{{ companyinfo.fax }}</td>
                 </tr>
                 <tr>
                     <th>Address</th>
-                    <td>{{ companyinfo1.address }}</td>
+                    <td>{{ companyinfo.address }}</td>
                 </tr>
                 <tr>
                     <th>City</th>
-                    <td>{{ companyinfo1.city }}</td>
+                    <td>{{ companyinfo.city }}</td>
                 </tr>
                 <tr>
                     <th>Country</th>
-                    <td>{{ companyinfo1.country }}</td>
+                    <td>{{ companyinfo.country.name }}</td>
                 </tr>
                 <tr>
                     <th>Note</th>
-                    <td>{{ companyinfo2.note }}</td>
+                    <td>{{ companyinfo.note }}</td>
                 </tr>
                 </tbody>
             </table>
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th  width="50%"># 2</th>
-                    <td><a data-toggle="modal" href="#modal-company" type="button"
-                           class="btn btn-primary btn-xs">Edit</a></td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th>Company Name</th>
-                    <td>{{companyinfo2.name }}</td>
-                </tr>
-                <tr>
-                    <th>Phone</th>
-                    <td>{{ companyinfo2.telephone }}</td>
-                </tr>
-                <tr>
-                    <th>Fax</th>
-                    <td>{{ companyinfo2.fax }}</td>
-                </tr>
-                <tr>
-                    <th>Address</th>
-                    <td>{{ companyinfo2.address }}</td>
-                </tr>
-                <tr>
-                    <th>City</th>
-                    <td>{{ companyinfo2.city }}</td>
-                </tr>
-                <tr>
-                    <th>Country</th>
-                    <td>{{ companyinfo2.country }}</td>
-                </tr>
-                <tr>
-                    <th>Note</th>
-                    <td>{{ companyinfo2.note }}</td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="text-center">
+            
+			
+			<div class="text-center">
 								<a data-toggle="modal" class="btn btn-outline btn-primary"
-									href="#modal-company">Add Office Information</a>
+									href="#modal-addcompany" ng-click="AddCompanyButton()">Add Office Information</a>
             </div>
 
         </div>
@@ -894,7 +859,7 @@ $this->inlineScript()->appendScript("
 </div>
 
 <!-- add office info of Papertask -->
-<div id="modal-company" class="modal fade" aria-hidden="true">
+<div id="modal-addcompany" class="modal fade" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -908,51 +873,126 @@ $this->inlineScript()->appendScript("
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group">
-									<label>Company Name *</label> <input id="c-name" name="c-name"
-										type="text" class="form-control required">
+								<label>Company Name *</label> <input id="c-name" name="c-name"
+									type="text" class="form-control required" ng-model="AddCompany.name">
                             </div>
+							
+							
+										
                             <div class="form-group">
 									<label>Telephone </label> <input id="c-tel" name="c-tel"
-										type="text" class="form-control">
+										type="text" class="form-control" ng-model="AddCompany.telephone">
                             </div>
                             <div class="form-group">
 									<label>Fax </label> <input id="c-fax" name="c-fax" type="text"
-										class="form-control">
+										class="form-control" ng-model="AddCompany.fax">
                             </div>
                             <div class="form-group">
 									<label>Address *</label> <input id="c-address" name="c-address"
-										type="text" class="form-control">
+										type="text" class="form-control" ng-model="AddCompany.address">
                             </div>
                             <div class="form-group">
 									<label>City *</label> <input id="c-city" name="c-city"
-										type="text" class="form-control required">
+										type="text" class="form-control required" ng-model="AddCompany.city">
                             </div>
-                            <div class="form-group">
+                           
+							
+							<div class="form-group">
 									<label>Country *</label> <select class="form-control required"
 										id="country" name="country" value=""
-                                ng-options="country.name for country in countries"
-										ng-model="Company.Country" required ng-change="">
+										ng-options="country.name for country in countries"
+										ng-model="AddCompany.country" required ng-change="">
 										<option value="">
 											<?php echo $this->translate('Please select') ?>
 										</option>
-                                </select>
-                            </div>
+									</select>
+							</div>
                             <div class="form-group">
                                 <label>Note </label>
-                                <textarea class="form-control"></textarea>
+                                <textarea class="form-control" ng-model="AddCompany.note"></textarea>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
+			
+			<div class="modal-footer">
 					<button type="button" class="btn btn-w-m btn-white"
 						data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-w-m btn-primary">Save changes</button>
+					<button type="button" class="btn btn-w-m btn-primary"
+						ng-click="SaveAddCompany()">Save changes</button>
+            </div>
+			
+        </div>
+    </div>
+</div>
+<div id="modal-editcompany" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+                <h4 class="modal-title" id="myModalLabel">Add Company</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+								<label>Company Name *</label> <input id="c-name" name="c-name"
+									type="text" class="form-control required" ng-model="EditCompany.name">
+                            </div>
+							
+							
+										
+                            <div class="form-group">
+									<label>Telephone </label> <input id="c-tel" name="c-tel"
+										type="text" class="form-control" ng-model="EditCompany.telephone">
+                            </div>
+                            <div class="form-group">
+									<label>Fax </label> <input id="c-fax" name="c-fax" type="text"
+										class="form-control" ng-model="EditCompany.fax">
+                            </div>
+                            <div class="form-group">
+									<label>Address *</label> <input id="c-address" name="c-address"
+										type="text" class="form-control" ng-model="EditCompany.address">
+                            </div>
+                            <div class="form-group">
+									<label>City *</label> <input id="c-city" name="c-city"
+										type="text" class="form-control required" ng-model="EditCompany.city">
+                            </div>
+                           
+							
+							<div class="form-group">
+									<label>Country *</label> <select class="form-control required"
+										id="country" name="country" value=""
+										ng-options="country.name for country in countries"
+										ng-model="EditCompany.country" required ng-change="">
+										<option value="">
+											<?php echo $this->translate('Please select') ?>
+										</option>
+									</select>
+							</div>
+                            <div class="form-group">
+                                <label>Note </label>
+                                <textarea class="form-control" ng-model="EditCompany.note"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+			
+			<div class="modal-footer">
+					<button type="button" class="btn btn-w-m btn-white"
+						data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-w-m btn-primary"
+						ng-click="SaveEditCompany()">Save changes</button>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- add Bank account of Papertask -->
 	<div id="modal-addbank" class="modal fade" aria-hidden="true">

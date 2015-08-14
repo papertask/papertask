@@ -109,9 +109,9 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
 		
 		//get company info
 		$http.get("/api/papertask/companyinfo").success(function($data){
-            $scope.companyinfo = $data['companyinfo'];
-			$scope.companyinfo1 = $scope.companyinfo[0];
-			$scope.companyinfo2 = $scope.companyinfo[1];
+            $scope.companyinfos = $data['companyinfo'];
+			//$scope.companyinfo1 = $scope.companyinfo[0];
+			//$scope.companyinfo2 = $scope.companyinfo[1];
 			
         }).error(function($e){
             alert('error');
@@ -429,6 +429,22 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
     		
     	return false;
     }
+	
+	 $scope.SaveEditCompany = function(){
+
+        	$http.put("/api/papertask/companyinfo/"+ $scope.EditCompany.id +"/", $scope.EditCompany)
+    		.success( function ( $data ) {
+    			for(var i=0; i< $scope.companyinfos.length; i++){
+    				if($scope.companyinfos[i].id == $data.companyinfo.id){
+    					$scope.companyinfos[i] = $data.companyinfo;
+    					break;
+    				}
+    			}
+    			$('#modal-editcompany').modal('hide');
+    		});
+    		
+    	return false;
+    }
     
     $scope.SaveAddBankAccount = function(){
 
@@ -441,11 +457,28 @@ angularApp.controller('PapertaskProfileController', function($scope, $http, $tim
     		
     	return false;
     }
+	
+	$scope.SaveAddCompany = function(){
+
+        	$http.post("/api/papertask/companyinfo/", $scope.AddCompany)
+    		.success( function ( $data ) {
+    			$scope.companyinfos.push($data.companyinfo);
+    			$('#modal-addcompany').modal('hide');
+    		});
+    
+    		
+    	return false;
+    }
 
     
     //EditBankAccount(bankinfo)
     $scope.EditBankAccountBut = function (bankinfo){
     	$scope.EditBankAccount = angular.copy(bankinfo);    	
+
+    }
+	
+	$scope.EditCompanyBut = function (companyinfo){
+    	$scope.EditCompany = angular.copy(companyinfo);    	
 
     }
 
