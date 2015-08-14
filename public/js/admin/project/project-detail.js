@@ -345,8 +345,15 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 				
 				
 				
-				$scope.invoice.invoiceDate = d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':00',
-				$scope.invoice.dueDate = $scope.invoice.dueDate.date;
+				$scope.invoice.invoiceDate = d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':00';
+				if(d.getMonth()<12)
+					$scope.invoice.dueDate = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':00';
+				else
+					$scope.invoice.dueDate = (d.getFullYear()+1)+'-01-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':00';
+				console.log($scope.invoice.invoiceDate);
+				
+				console.log($scope.invoice.dueDate);
+				//$scope.invoice.dueDate = $scope.invoice.dueDate.date;
 				//$scope.invoice.invoiceDate = $scope.invoice.invoiceDate_tmp;
 				
 				//return false;

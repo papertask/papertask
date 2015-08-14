@@ -1371,17 +1371,18 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
         return $scope.itermtmnew;
     }
 	function rearrangeItem(Itemr, targetLanguagesid, newrate) {
-		if(Itemr)
+		if(Itemr){
 			for(var j = 0; j < Itemr[targetLanguagesid].length; j++){
 					var rate = Number(newrate);
 					var total = rate * Itemr[targetLanguagesid][j].quantity;
 					Itemr[targetLanguagesid][j].rate_freelancer = rate;
-					Itemr[targetLanguagesid][j].total_freelancer = total
+					Itemr[targetLanguagesid][j].total_freelancer = total + Itemr[targetLanguagesid][j].total_freelancer;
 					Itemr[targetLanguagesid][j].rate_tmp = rate;
 					Itemr[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
 					Itemr[targetLanguagesid][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					
 			}
+		}	
         return Itemr;
     }
 	// update task
@@ -1422,16 +1423,31 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					console.log($scope.itermnotmsnews[$scope.task.language.id][0].quantity);
 					console.log($scope.task.freelancerassign);
 					
-					$scope.itermnotmsnews = rearrangeItem($scope.itermnotmsnews,$scope.task.language.id,$scope.task.freelancerassign.rate_freelancer);
-					$scope.task.freelancerassign.itermnotmsnews = $scope.itermnotmsnews[$scope.task.language.id];
-					console.log($scope.task.freelancerassign);
+					//$scope.itermnotmsnews = rearrangeItem($scope.itermnotmsnews,$scope.task.language.id,$scope.task.freelancerassign.rate_freelancer);
+					var total_task_freelancer = 0;
+					var targetLanguagesid = $scope.task.language.id;
+					for(var j = 0; j < $scope.itermnotmsnews[targetLanguagesid].length; j++){
+							var rate = Number($scope.task.freelancerassign.rate_freelancer);
+							var total = rate * $scope.itermnotmsnews[targetLanguagesid][j].quantity;
+							$scope.itermnotmsnews[targetLanguagesid][j].rate_freelancer = rate;
+							total_task_freelancer = total_task_freelancer + total;
+							$scope.itermnotmsnews[targetLanguagesid][j].rate_tmp = rate;
+							$scope.itermnotmsnews[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+							$scope.itermnotmsnews[targetLanguagesid][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+							
+					}
 					
+					$scope.task.freelancerassign.itermnotmsnews = $scope.itermnotmsnews[$scope.task.language.id];
+					$scope.task.total_task_freelancer = total_task_freelancer;
+					console.log($scope.task.freelancerassign);
+					console.log($scope.task.total_task_freelancer);
+					/*
 					var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
 					.success( function ( $data ) {
 						$scope.task = $data.task;
 						$scope.task.status = TaskStatus.get($scope.task.status);
 						bootbox.alert(ASSIGN_SUCCESSFUL);
-					});	
+					});*/	
 					
 				});	
 			

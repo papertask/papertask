@@ -100,6 +100,9 @@ class TaskController extends AbstractRestfulJsonController
     }
 	
     public function getList(){
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		
         $projectId = $this->params()->fromQuery('project_id');
         
         $params = $this->getRequest()->getQuery();
@@ -255,7 +258,8 @@ class TaskController extends AbstractRestfulJsonController
 			$task->setData([
 				'status' => 6,
 				'assignee' => $freelancer,
-				//'total' => $data['total'],
+				'total_freelancer' => $data['total_feelancer'],
+				'currency' => $data['currency'],
 			]);
 			//update item
 			if($data['type'] == 1)

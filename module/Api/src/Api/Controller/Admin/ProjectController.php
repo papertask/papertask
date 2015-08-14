@@ -621,7 +621,8 @@ class ProjectController extends AbstractRestfulJsonController
     }
 
     public function get($id){
-		
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
 		$entityManager = $this->getEntityManager();
         $project = $this->find('User\Entity\Project', $id);
         /*$Itermnotm = $entityManager->getRepository('User\Entity\Itermnotm')->findBy(array('project'=>$project));

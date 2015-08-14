@@ -138,7 +138,7 @@ $this->inlineScript()
 							</thead>
 							<tbody>
 								<tr ng-repeat="project in projects">
-									<td>{{ project.id }}</td>
+									<td>{{ project.project_no }}</td>
 									<td>{{ project.reference }}</td>
 									<td>{{ project.status.name }}</td>
 									<td>{{formatDate(project.dueDate.date) | date:'yyyy.MMM.dd'}}</td>
