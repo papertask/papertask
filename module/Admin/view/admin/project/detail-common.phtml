@@ -2,7 +2,7 @@
 <div class="panel-heading">
     <div class="panel-options">
         <ul class="nav nav-tabs">
-            <li ng-class="active" ng-show="project.status.id == 2"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasksNum }}</span> <?php echo $this->translate("Tasks"); ?></a></li>
+            <li ng-class="active"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasksNum }}</span> <?php echo $this->translate("Tasks"); ?></a></li>
             
 			<li ng-class="{1:'active',2:''}[project.status.id]"><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> <?php echo $this->translate('Messages & Activities') ?></a></li>
             
