@@ -123,6 +123,9 @@ class Freelancer extends Entity{
             'isSenior' => $this->isSenior
         );
     }
+	public function getName($freelancer_id){
+		
+	}
 
     /**
      * @param array $data

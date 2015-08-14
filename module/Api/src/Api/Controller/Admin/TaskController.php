@@ -119,8 +119,20 @@ class TaskController extends AbstractRestfulJsonController
             'is_deleted' => false,
             'project' => $projectId
         ], ['id' => 'ASC']);
+		$data = array();
+		$entityManager = $this->getEntityManager();
+		foreach($tasks as $task){
+			
+			$freelancerId = $task['assignee']['id'];
+			$userData = $task;
+        		if($freelancerId != null){
+					$user = $entityManager->getRepository('User\Entity\User')->findOneBy(array('freelancer'=>$freelancerId));
+					$userData['assignee'] = $user->getData();
+        		}
+				$data[] = $userData;
+		}
         return new JsonModel([
-            'tasks' => $tasks,
+            'tasks' => $data,
         ]);
         } else {
 

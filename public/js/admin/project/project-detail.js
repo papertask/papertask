@@ -567,6 +567,7 @@ angularApp.controller("ProjectTasksController", function($scope, $http, TaskStat
         }
         $scope.project.tasksNum = $tasks.length;
         $scope.project.tasks = $tasks;
+		//console.log($scope.tasks);
     }
     $scope.custom.afterLoadItems = afterLoadItems;
 

@@ -22,7 +22,7 @@
                     </td>
                     <td class="project-title">
                             <span ng-clock="showProfile(task.assignee)"
-                                  ng-show="task.assignee"><strong>{{ task.assignee.name }}</strong></span>
+                                  ng-show="task.assignee"><strong>{{ task.assignee.firstName }}, {{ task.assignee.lastName }}</strong></span>
                             <span class="text-warning"
                                   ng-show="task.is_specialism_pool"><strong><?php echo $this->translate('Assigned to Specialism Pool') ?></strong></span>
                             <span class="text-warning"
