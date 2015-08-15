@@ -29,8 +29,8 @@
                             </div>
                         </div>
 
-                        <div class="panel-body">
-                            <div class="form-group">
+                        <div ng-show="feedback.message" class="panel-body">
+                            <div  class="form-group">
                                 <label class="control-label"><?php echo $this->translate('Feed back to Translator and Project Manager') ?></label>
                                 <p>{{feedback.message}}</p>
                             </div>
