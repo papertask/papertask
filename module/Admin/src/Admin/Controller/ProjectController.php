@@ -592,7 +592,9 @@ class ProjectController extends AbstractActionController
 		
 		//$companyinfo = $entityManager->find('\Admin\Entity\ProfileInfo', 1);
 		//Get bank info
-		$bankinfo = $entityManager->find('\Admin\Entity\ProfileBank', 1);
+		if($project_data['currency']=='cny')
+			$bankinfo = $entityManager->find('\Admin\Entity\ProfileBank', 1);
+		else $bankinfo = $entityManager->find('\Admin\Entity\ProfileBank', 2);	
 		$subtotal = 0;
 		//get iterm translation
         $repository = $entityManager->getRepository('User\Entity\Itermnotm');

@@ -158,8 +158,11 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 		//get bank info
 		$http.get("/api/papertask/bankinfo").success(function($data){
             $scope.bankinfo = $data['bankinfo'];
-			$scope.bankinfo1 = $scope.bankinfo[0];
-			$scope.bankinfo2 = $scope.bankinfo[1];
+			if($scope.currency=='cny')
+				$scope.bankinfo1 = $scope.bankinfo[0];
+			else 	$scope.bankinfo1 = $scope.bankinfo[1];
+			//$scope.bankinfo1 = $scope.bankinfo[0];
+			//$scope.bankinfo2 = $scope.bankinfo[1];
 			
 			
         }).error(function($e){
