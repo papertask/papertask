@@ -60,7 +60,10 @@ angularApp.controller('QuotePrintController', function($scope, $http, $location,
 		//get company info
 		 var companyinfo = $http.get("/api/papertask/companyinfo").success(function($data){
             $scope.companyinfo = $data['companyinfo'];
-			$scope.companyinfo1 = $scope.companyinfo[0];
+			//$scope.companyinfo1 = $scope.companyinfo[0];
+			if($scope.currency=='cny')
+				$scope.companyinfo1 = $scope.companyinfo[0];
+			else 	$scope.companyinfo1 = $scope.companyinfo[1];
 			
         }).error(function($e){
             alert('error');
