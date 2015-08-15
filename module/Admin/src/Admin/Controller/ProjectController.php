@@ -354,7 +354,9 @@ class ProjectController extends AbstractActionController
 		
 		//var_dump($project->getData()->);exit;
 		//Get company info
-		$companyinfo = $entityManager->find('\Admin\Entity\ProfileInfo', 1);
+		if($project_data['currency']=='cny')
+			$companyinfo = $entityManager->find('\Admin\Entity\ProfileInfo', 1);
+		else 	$companyinfo = $entityManager->find('\Admin\Entity\ProfileInfo', 2);
 		$subtotal = 0;
 		//get iterm translation
         $repository = $entityManager->getRepository('User\Entity\Itermnotm');
@@ -584,7 +586,11 @@ class ProjectController extends AbstractActionController
 		if($invoices['dueDate'])
 			$dueDate = $invoices['dueDate']->format('d M Y');
 		//Get company info
-		$companyinfo = $entityManager->find('\Admin\Entity\ProfileInfo', 1);
+		if($project_data['currency']=='cny')
+			$companyinfo = $entityManager->find('\Admin\Entity\ProfileInfo', 1);
+		else 	$companyinfo = $entityManager->find('\Admin\Entity\ProfileInfo', 2);
+		
+		//$companyinfo = $entityManager->find('\Admin\Entity\ProfileInfo', 1);
 		//Get bank info
 		$bankinfo = $entityManager->find('\Admin\Entity\ProfileBank', 1);
 		$subtotal = 0;
