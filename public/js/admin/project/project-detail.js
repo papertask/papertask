@@ -1029,6 +1029,8 @@ angularApp.controller("ProjectFilesController", function($scope, $rootScope, $ht
         var newFeedback = lang.feedback;
         newFeedback.language = {id: lang.id};
         newFeedback.project_id = $scope.project.id;
+		newFeedback.language_data = {id: lang.id};
+		
 
         /**
          * Update smth. status set to appreved!
