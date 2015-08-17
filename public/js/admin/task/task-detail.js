@@ -1432,6 +1432,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 							$scope.itermnotmsnews[targetLanguagesid][j].rate_freelancer = rate;
 							total_task_freelancer = total_task_freelancer + total;
 							$scope.itermnotmsnews[targetLanguagesid][j].rate_tmp = rate;
+							$scope.itermnotmsnews[targetLanguagesid][j].total_freelancer = total;
 							$scope.itermnotmsnews[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
 							$scope.itermnotmsnews[targetLanguagesid][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 							
