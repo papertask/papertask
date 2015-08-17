@@ -207,19 +207,20 @@
     <tbody>
     <tr>
         <td><strong>Sub Total :</strong></td>
-        <td>{{currency | uppercase}} {{ subtotal | currency : '' : 2 }}</td>
+        <td>{{ subtotal }}</td>
     </tr>
-    <tr>
+	
+    <tr ng-show="project.discount > 0">
         <td><strong>(-) Discount :</strong></td>
-        <td>{{currency | uppercase}}  <span class="text-danger"><strong>-</strong></span>{{ project.discount | currency : '' : 2 }}</td>
+        <td><span class="text-danger"><strong>-</strong></span> {{currency}} {{ project.discount }}</td>
     </tr>
     <tr>
         <td><strong>TAX ({{ project.tax }} %):</strong></td>
-        <td>{{currency | uppercase}}  {{ tax | currency : '' : 2 }}</td>
+        <td> {{ tax }}</td>
     </tr>
     <tr>
         <td><strong>TOTAL :</strong></td>
-        <td>{{currency | uppercase}}  {{ total | currency : '' : 2 }}</td>
+        <td>{{ total }}</td>
     </tr>
     </tbody>
 </table>

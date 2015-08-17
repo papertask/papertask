@@ -116,6 +116,7 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
             $project.tasks = [];
 			
             $scope.project = $project;
+			console.log($scope.project);
 			$scope.currency = $scope.project.currency;
 			
 		
@@ -232,7 +233,7 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 							
 				});
 				
-				$http.get('/api/admin/invoice?projectId='+ projectId).success(function($data) {
+				/*$http.get('/api/admin/invoice?projectId='+ projectId).success(function($data) {
 					$scope.invoice = $data['invoices'];
 					if($scope.invoice)
 					if($scope.invoice.invoiceDate){
@@ -241,12 +242,12 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 						
 					$scope.subtotal = $scope.invoice.subtotal;
 					$scope.tax = $scope.invoice.tax;
-					$scope.project.discount = $scope.invoice.discount;
+					//$scope.project.discount = $scope.invoice.discount;
 					$scope.total = $scope.invoice.total;
 					$scope.project.tax = 	Math.round(($scope.tax / $scope.subtotal)*100);
 					
 								
-				});
+				});*/
 				
 				$scope.project.types = ProjectType.find($scope.project.types.sort())
 				
