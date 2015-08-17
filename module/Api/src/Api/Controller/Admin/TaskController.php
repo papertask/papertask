@@ -270,7 +270,7 @@ class TaskController extends AbstractRestfulJsonController
 			$task->setData([
 				'status' => 6,
 				'assignee' => $freelancer,
-				'total_freelancer' => $data['total_feelancer'],
+				'total_freelancer' => $data['total_task_freelancer'],
 				'currency' => $data['currency'],
 			]);
 			//update item

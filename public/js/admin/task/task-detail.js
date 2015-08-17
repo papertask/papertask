@@ -1438,16 +1438,17 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					}
 					
 					$scope.task.freelancerassign.itermnotmsnews = $scope.itermnotmsnews[$scope.task.language.id];
-					$scope.task.total_task_freelancer = total_task_freelancer;
+					$scope.task.freelancerassign.total_task_freelancer = total_task_freelancer;
+					$scope.task.freelancerassign.currency = $scope.currency;
 					console.log($scope.task.freelancerassign);
 					console.log($scope.task.total_task_freelancer);
-					/*
+					
 					var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
 					.success( function ( $data ) {
 						$scope.task = $data.task;
 						$scope.task.status = TaskStatus.get($scope.task.status);
 						bootbox.alert(ASSIGN_SUCCESSFUL);
-					});*/	
+					});	
 					
 				});	
 			
