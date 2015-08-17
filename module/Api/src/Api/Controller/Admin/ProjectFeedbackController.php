@@ -45,7 +45,7 @@ class ProjectFeedbackController extends AbstractRestfulJsonController
         $project->setData(['status'=> 5,]);
         $project->save($entityManager);
         
-        $task = $entityManager->getRepository('User\Entity\Task')->findOneBy(array('project'=>$project,'language' => $data['targetLanguage']));
+        $task = $entityManager->getRepository('User\Entity\Task')->findOneBy(array('project'=>$project,'language' => $data['language_data']));
         $task->setData(['status'=> 1,]);
         $task->save($entityManager);
 
@@ -95,7 +95,7 @@ class ProjectFeedbackController extends AbstractRestfulJsonController
         $project->setData(['status'=> 5,]);
         $project->save($entityManager);
         
-        $task = $entityManager->getRepository('User\Entity\Task')->findOneBy(array('project'=>$project,'language' => $data['targetLanguage']));
+        $task = $entityManager->getRepository('User\Entity\Task')->findOneBy(array('project'=>$project,'language' => $data['language_data']));
         $task->setData(['status'=> 1,]);
         $task->save($entityManager);
 
