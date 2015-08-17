@@ -20,8 +20,8 @@ class ProjectFeedbackController extends AbstractRestfulJsonController
          * Need to set smth. as subject of Feedback
          */
 
-        if(isset($data['language'])){
-            $data['targetLanguage'] = $this->getReference('\User\Entity\Language', $data['language']['id']);
+        if(isset($data['language_data'])){
+            $data['targetLanguage'] = $this->getReference('\User\Entity\Language', $data['language_data']['id']);
             unset($data['language']);
         } else {
              throw new \Exception("No language is set for Feedback");
@@ -45,7 +45,7 @@ class ProjectFeedbackController extends AbstractRestfulJsonController
         $project->setData(['status'=> 5,]);
         $project->save($entityManager);
         
-        $task = $entityManager->getRepository('User\Entity\Task')->findOneBy(array('project'=>$project,'language' => $data['language_data']));
+        $task = $entityManager->getRepository('User\Entity\Task')->findOneBy(array('project'=>$project,'language' => $data['targetLanguage']));
         $task->setData(['status'=> 1,]);
         $task->save($entityManager);
 
@@ -95,7 +95,7 @@ class ProjectFeedbackController extends AbstractRestfulJsonController
         $project->setData(['status'=> 5,]);
         $project->save($entityManager);
         
-        $task = $entityManager->getRepository('User\Entity\Task')->findOneBy(array('project'=>$project,'language' => $data['language_data']));
+        $task = $entityManager->getRepository('User\Entity\Task')->findOneBy(array('project'=>$project,'language' => $data['targetLanguage']));
         $task->setData(['status'=> 1,]);
         $task->save($entityManager);
 
