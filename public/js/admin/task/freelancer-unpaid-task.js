@@ -43,7 +43,7 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
  				
  				$scope.tasks.push(task);
  			});
-			
+			console.log($scope.tasks);
             $scope.pages = $data.pages;
         });
   	}
@@ -84,9 +84,11 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
  				task["type"] = ProjectType.get(element.type);
  				task["dueDate"] = element.dueDate;
  				task["total"] = element.total;
+				task["total_freelancer"] = element.total_freelancer;
+				task["currency"] = element.currency;
  				$scope.tasks.push(task);
  			});
-
+console.log($scope.tasks);
             $scope.pages = $data.pages;
         });
     }
@@ -108,9 +110,11 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
  				task["type"] = ProjectType.get(element.type);
  				task["dueDate"] = element.dueDate;
  				task["total"] = element.total;
+				task["total_freelancer"] = element.total_freelancer;
+				task["currency"] = element.currency;
  				$scope.tasks.push(task);
  			});
-
+console.log($scope.tasks);
             $scope.pages = $data.pages;
         });
 	}
@@ -132,9 +136,11 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
  				task["type"] = ProjectType.get(element.type);
  				task["dueDate"] = element.dueDate;
  				task["total"] = element.total;
+				task["total_freelancer"] = element.total_freelancer;
+				task["currency"] = element.currency;
  				$scope.tasks.push(task);
  			});
-
+console.log($scope.tasks);
             $scope.pages = $data.pages;
         });
 	}
@@ -155,9 +161,11 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
  				task["type"] = ProjectType.get(element.type);
  				task["dueDate"] = element.dueDate;
  				task["total"] = element.total;
+				task["total_freelancer"] = element.total_freelancer;
+				task["currency"] = element.currency;
  				$scope.tasks.push(task);
  			});
-
+console.log($scope.tasks);
             $scope.pages = $data.pages;
         });
 	}

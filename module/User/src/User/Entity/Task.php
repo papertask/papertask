@@ -132,7 +132,8 @@ class Task extends Entity{
 			'total_freelancer' => $this->total_freelancer,
 			'assignee' => ($this->assignee)?$this->assignee->getData():null,
 			'task_number' => $this->task_number,
-			'currency' => $this->currency
+			'currency' => $this->currency,
+			
         ];
     }
     

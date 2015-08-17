@@ -39,6 +39,8 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
  				task["dueDate"] = element.dueDate;
  				task["total"] = element.total;
  				task["task_number"] = element.task_number;
+				task["total_freelancer"] = element.total_freelancer;
+				task["currency"] = element.currency;
  				//alert(task);
  				
  				$scope.tasks.push(task);
@@ -85,6 +87,8 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
  				task["dueDate"] = element.dueDate;
  				task["total"] = element.total;
  				task["task_number"] = element.task_number;
+				task["total_freelancer"] = element.total_freelancer;
+				task["currency"] = element.currency;
  				$scope.tasks.push(task);
  			});
 
@@ -110,6 +114,8 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
  				task["dueDate"] = element.dueDate;
  				task["total"] = element.total;
  				task["task_number"] = element.task_number;
+				task["total_freelancer"] = element.total_freelancer;
+				task["currency"] = element.currency;
  				$scope.tasks.push(task);
  			});
 
@@ -135,6 +141,8 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
  				task["dueDate"] = element.dueDate;
  				task["total"] = element.total;
  				task["task_number"] = element.task_number;
+				task["total_freelancer"] = element.total_freelancer;
+				task["currency"] = element.currency;
  				$scope.tasks.push(task);
  			});
 
@@ -159,6 +167,8 @@ angularApp.controller('FreelancerUnpaidTask', function($scope, $http, $timeout, 
  				task["dueDate"] = element.dueDate;
  				task["total"] = element.total;
  				task["task_number"] = element.task_number;
+				task["total_freelancer"] = element.total_freelancer;
+				task["currency"] = element.currency;
  				$scope.tasks.push(task);
  			});
 
