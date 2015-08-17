@@ -11,15 +11,32 @@ angularApp.controller('languagesController', function($scope, $rootScope, $http,
     };
     $scope.price = [];
     function init(){
+		$http.get("/api/papertask/currencyrate").success(function($data){
+			$scope.profileservice = $data['profileservice'];
+			$scope.currencyrate_t = $scope.profileservice[0];
+			$scope.CurrentcyRate = Number($scope.currencyrate_t.currencyRate);
+			
+        }).error(function($e){
+            alert('error');
+        });
+		
         $('form').validate();
-
+		
         // show price
         $scope.showPrice = function(){
             var validate = $('form[name=showPriceForm]').valid();
             if(validate == true){
                 $.each($scope.translation, function(){
                     if(this.sourceLanguage == $scope.params.sourceLanguage && this.targetLanguage == $scope.params.targetLanguage){
-                        $scope.price = this;
+						console.log(this);
+                        if( $scope.params.currency=='CNY')
+							$scope.price = this;
+						else 	{
+							$scope.price.premiumPrice = this.premiumPrice/$scope.CurrentcyRate;
+							$scope.price.businessPrice = this.businessPrice/$scope.CurrentcyRate;
+							$scope.price.professionalPrice = this.professionalPrice/$scope.CurrentcyRate;
+						}	
+						
                     }
                 });
                 
