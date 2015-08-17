@@ -193,7 +193,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 var isvalid = $("#form").valid();
 		 
 		 $scope.project.client = CurrentUser.info;
-		 $scope.project.status = ProjectStatus.get(1);
+		 $scope.project.status = ProjectStatus.get(2);
 		 $scope.project.startDate = StrDate(new Date());
 		 $scope.project.dueDate =  $scope.project.startDate;
 		 var $params = $scope.prepareData($scope.project);
