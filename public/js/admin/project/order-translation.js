@@ -166,7 +166,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 $scope.project.startDate = StrDate(new Date());
 		 $scope.project.dueDate =  $scope.project.startDate;
 		 var $params = $scope.prepareData($scope.project);
-		 $parmas.createType = 'orderTranslation';
+		 $params.createType = 'orderTranslation';
 		 
 		 if(isvalid){
 		     $('#activate-step-3').remove();
@@ -197,7 +197,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 $scope.project.startDate = StrDate(new Date());
 		 $scope.project.dueDate =  $scope.project.startDate;
 		 var $params = $scope.prepareData($scope.project);
-		 $parmas.createType = 'orderTranslation';
+		 $params.createType = 'orderTranslation';
 		 if(isvalid){
 		     $('#activate-step-3').remove();
 		    
