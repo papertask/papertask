@@ -29,13 +29,17 @@ angularApp.controller('languagesController', function($scope, $rootScope, $http,
                 $.each($scope.translation, function(){
                     if(this.sourceLanguage == $scope.params.sourceLanguage && this.targetLanguage == $scope.params.targetLanguage){
 						console.log(this);
-                        if( $scope.params.currency=='CNY')
-							$scope.price = this;
+                        if( $scope.params.currency == 'CNY'){
+							$scope.price.premiumPrice = this.premiumPrice;
+							$scope.price.businessPrice = this.businessPrice;
+							$scope.price.professionalPrice = this.professionalPrice;
+							}
 						else 	{
 							$scope.price.premiumPrice = this.premiumPrice/$scope.CurrentcyRate;
 							$scope.price.businessPrice = this.businessPrice/$scope.CurrentcyRate;
 							$scope.price.professionalPrice = this.professionalPrice/$scope.CurrentcyRate;
 						}	
+						console.log($scope.price);
 						
                     }
                 });
