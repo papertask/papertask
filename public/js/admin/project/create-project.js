@@ -58,7 +58,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
     $scope.targets = {};
 	
 	function format2n(n) {
-		return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		return n.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
 	
     $scope.init = function(){

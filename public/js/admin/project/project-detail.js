@@ -405,7 +405,7 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 	
 	function format22(n) {
 		n = Number(n)
-		return $scope.currency + " " + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		return $scope.currency + " " + n.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
 	function arrangeItem(Itemr, unit) {
 		$scope.itermtmnew = [];
