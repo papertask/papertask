@@ -226,12 +226,12 @@ class TaskController extends AbstractActionController
     	foreach ($tasks as $task){
     		$project = $task->getProject();
     		$client = $project->getClient();
-    		$FreelancerPool = $client->getFreelancerPool();
-    		if(in_array($freelancer->getId(), $FreelancerPool)){
+    		//$FreelancerPool = $client->getFreelancerPool();
+    		//if(in_array($freelancer->getId(), $FreelancerPool)){
     			$data = $task->getData();
     			$data['project'] = $project->getData();
     			$taskArr[]=$data;
-    		}
+    		//}
     		//var_dump($client->getFreelancerPool()); 
     	}
     	
