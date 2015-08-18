@@ -190,6 +190,8 @@ class ProjectController extends AbstractRestfulJsonController
                 }
             }
         }
+		
+
         // Create new Tasks for OrderTranslation & OrderTranslation Non Contract
         
         if(isset($data['createType'])){
@@ -462,7 +464,7 @@ class ProjectController extends AbstractRestfulJsonController
         $project->save($this->getEntityManager());
         
         
-        //$activity->save($this->getEntityManager());
+        $activity->save($this->getEntityManager());
 		//var_dump($project); exit;
         return new JsonModel([
             'project' => $project->getData(),
