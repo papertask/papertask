@@ -476,13 +476,20 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 
     function update(){
         if(jQuery("#edit_project form").valid()) {
-            var fields = ['client', 'pm', 'sale', 'priority', 'reference', 'field', 'po'];
+			
+			var fields = ['client', 'pm', 'sale', 'priority', 'reference', 'field', 'po'];
             var data = getOnlyFields($scope.tempProject, fields);
-
-            ProjectApi.update($scope.project.id, data, function () {
+			console.log(data);
+			var updateInvoiceDate= $http.put("/api/admin/project/" + $scope.project.id + "?action=4", data)
+			.success( function ( $data ) {
+				jQuery.extend($scope.project, $scope.tempProject);
+                jQuery("#edit_project").collapse("toggle");
+			});	
+		
+            /*ProjectApi.update($scope.project.id, data, function () {
                 jQuery.extend($scope.project, $scope.tempProject);
                 jQuery("#edit_project").collapse("toggle");
-            });
+            });*/
         }
     }
     $scope.showEdit = showEdit;

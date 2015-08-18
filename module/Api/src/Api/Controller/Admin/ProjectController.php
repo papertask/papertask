@@ -716,6 +716,26 @@ class ProjectController extends AbstractRestfulJsonController
 			]);
 			$project->save($this->getEntityManager());
 		}
+		if($action==4){
+			
+			$entityManager = $this->getEntityManager();
+			$employer = $this->getReference('\User\Entity\Employer', $data['client']['id']);
+			
+			$user_client = $entityManager->getRepository('User\Entity\User')
+				->findOneBy(array('employer' => $employer));
+			//var_dump($user_client);exit;	
+			
+			$project->setData([
+				'client' => $this->getReference('\User\Entity\User', $user_client->getId()),
+				'pm' =>  $this->getReference('\User\Entity\Staff', $data['pm']['id']),
+				'sale' =>  $data['sale'],
+				'priority' =>  $data['priority']['id'],
+				'reference' => $data['reference'],
+				'field' => $this->getReference('\User\Entity\Field', $data['field']['id']),
+				'po' => $data['po']
+			]);
+			$project->save($this->getEntityManager());
+		}
         return new JsonModel([
             'project' => $project->getData(),
         ]);
