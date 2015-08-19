@@ -555,7 +555,7 @@ angularApp.controller("ProjectTasksController", function($scope, $http, TaskStat
             if(!newTask.type){
             	newTask.type = { 'id' : 0};
             }
-		
+			console.log(newTask);
 			/*
             TaskApi.create(newTask, function($newTask){
                 attachData($newTask);

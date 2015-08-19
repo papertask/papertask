@@ -71,6 +71,8 @@ class TaskController extends AbstractRestfulJsonController
 		//var_dump($max); exit;
 		$data['task_number'] = $project->getId().'-'.$max;
 		
+		//var_dump($data);exit;
+		
         $task = new Task();
         $task->setData($data);
         $task->save($this->getEntityManager());
