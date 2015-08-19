@@ -419,10 +419,10 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 					var rate = Number(Itemr[j].rate);
 					var subtotal_tmp = Number($scope.subtotal_tmp);
 										
-					Itemr[j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+					Itemr[j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
 					
 					Itemr[j].rate_tmp = Itemr[j].rate;
-					Itemr[j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+					Itemr[j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					//set unit
 					if(unit == 'interpretingUnits'){
 						if(Itemr[j].unit == 1) 
@@ -447,13 +447,13 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 							Itemr[j].unit = 'Hour';
 						else Itemr[j].unit = 'Page';
 					}
-					$scope.subtotal = $scope.currency + " " + subtotal_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+					$scope.subtotal = $scope.currency + " " + subtotal_tmp.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					var tax = Number((subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
-					$scope.tax = $scope.currency + " " + tax.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+					$scope.tax = $scope.currency + " " + tax.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					
 					var total = Number(subtotal_tmp - $scope.project.discount + (subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
 					$scope.project.total_tmp = total;
-					$scope.total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+					$scope.total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					$scope.itermtmnew[$scope.project.targetLanguages[i].id].push(Itemr[j]);
 				}	
 			}
