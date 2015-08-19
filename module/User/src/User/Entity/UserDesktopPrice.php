@@ -45,25 +45,25 @@ class UserDesktopPrice extends Entity{
 
     /**
      * @var float
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $priceMac = 0.00;
 
     /**
      * @var float
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $pricePc = 0.00;
 
     /**
      * @var float
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $priceHourMac = 0.00;
 
     /**
      * @var float
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $priceHourPc = 0.00;
 

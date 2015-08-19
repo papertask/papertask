@@ -36,18 +36,18 @@ class Outtransaction extends Entity{
     protected $fapiao_no;
 	/**
      * @var integer
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $fee=0;
 
 	/**
      * @var float
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $subtotal = 0.00;
 	/**
      * @var float
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $total = 0.00;
 

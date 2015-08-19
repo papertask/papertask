@@ -45,25 +45,25 @@ class Invoice extends Entity{
 	
     /**
      * @var float
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $subtotal = 0.00;
     
     /**
      * @var float
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $tax = 0.00;
     
     /**
      * @var float
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $discount = 0.00;
     
     /**
      * @var float
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $total = 0.00;
 	

@@ -27,6 +27,14 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
              });
              $scope.modifiedTarLangs = $scope.languages;
          }); 		 
+		
+		$http.get("/api/papertask/currencyrate").success(function($data){
+			$scope.profileservice = $data['profileservice'];
+			$scope.currencyrate_t = $scope.profileservice[0];
+			$scope.CurrentcyRate = Number($scope.currencyrate_t.currencyRate);
+        }).error(function($e){
+            alert('error');
+        });
 	 };
 	 
 	 $scope.removeLangFSML  = function(lang){
@@ -82,7 +90,9 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 
 	 
 	 //$scope.USER_ID = $scope.project.client.id;
-	 
+	 function format2n(n) {
+		return n.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+	}
 	 $scope.changePServicePrice = function(){
 		if($scope.project.sourceLanguage != null){
 			
@@ -93,8 +103,11 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 				var price = null;
 				for(i=0; i<$scope.employer.translationPrices.length; i++) {
 					if($scope.project.sourceLanguage.id == $scope.employer.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.employer.translationPrices[i].targetLanguage.id){
-						isFind = true; price = $scope.employer.translationPrices[i].price;
-						tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : $scope.employer.translationPrices[i].price });
+						isFind = true; 
+						
+						price = ($scope.currency == 'cny')?Number($scope.employer.translationPrices[i].price):format2n(Number($scope.interpretingPPrices[k].pricePerDay)/$scope.CurrentcyRate);
+						tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : price });
+						//return;
 					}
 				}
 				if(isFind == false){
@@ -103,16 +116,16 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 						if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage){
 							if($scope.project.serviceLevel.id==1) {
 								
-								price = Number($scope.translation[k].professionalPrice);
-								tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : Number($scope.translation[k].professionalPrice)});
+								price = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):format2n(Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate);
+								tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : price});
 							}	
 							else if($scope.project.serviceLevel.id==2) {
-								price = Number($scope.translation[k].businessPrice);
-								tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : Number($scope.translation[k].businessPrice)});
+								price = ($scope.currency == 'cny')?Number($scope.translation[k].businessPrice):format2n(Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate);
+								tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : price});
 							}
 							else {
-								price = Number($scope.translation[k].premiumPrice);
-								tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : Number($scope.translation[k].premiumPrice)});
+								price = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);
+								tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : price});
 							}
 							isFind = true;
 						}						
