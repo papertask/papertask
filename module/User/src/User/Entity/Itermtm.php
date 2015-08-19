@@ -46,7 +46,7 @@ class Itermtm extends Entity{
 	
 	/**
      * @var integer
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $raterepetitions = 0.00;
 	
@@ -58,37 +58,37 @@ class Itermtm extends Entity{
 	
 	/**
      * @var integer
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $rateyibai = 0.00;
 	
 	/**
      * @var integer
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $ratejiuwu = 0.00;
 	
 	/**
      * @var integer
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $ratebawu = 0.00;
 	
 	/**
      * @var integer
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $rateqiwu = 0.00;
 	
 	/**
      * @var integer
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $ratewushi = 0.00;
 	
 	/**
      * @var integer
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $ratenomatch = 0.00;
 	
@@ -120,12 +120,12 @@ class Itermtm extends Entity{
     protected $sourceyibai;
 	 /**
      * @var decimal
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $rate = 0.00; 
 	 /**
      * @var float
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $total = 0.00;
    

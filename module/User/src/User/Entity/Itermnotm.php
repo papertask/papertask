@@ -58,22 +58,22 @@ class Itermnotm extends Entity{
     protected $unit;
 	/**
      * @var decimal
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $rate = 0.00;
 	/**
      * @var decimal
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $rate_freelancer = 0.00;
 	 /**
      * @var decimal
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $total = 0.00;
 	 /**
      * @var decimal
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $total_freelancer = 0.00;
 	

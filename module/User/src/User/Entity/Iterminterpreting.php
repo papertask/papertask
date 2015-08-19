@@ -55,12 +55,12 @@ class Iterminterpreting extends Entity{
     protected $unit;
 	 /**
      * @var decimal
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $rate = 0.00;
 	 /**
      * @var float
-     * @ORM\Column(type="decimal", scale=2, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $total = 0.00;
 	
