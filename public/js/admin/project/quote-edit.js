@@ -56,7 +56,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
     $scope.targets = {};
 	
 	function format2n(n) {
-		return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		return n.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
 	var projectId = PROJECT_ID;
     $scope.init = function(){
@@ -158,10 +158,10 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 						var rate = Number(Itemr[j].rate);
 						var subtotal_tmp = Number($scope.subtotal_tmp);
 											
-						Itemr[j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+						Itemr[j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
 						
 						Itemr[j].rate_tmp = Number(Itemr[j].rate);
-						Itemr[j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+						Itemr[j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 						//set unit
 						Itemr[j].unit_tmp = Itemr[j].unit;
 						Itemr[j].unit = [];
@@ -189,12 +189,12 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 								Itemr[j].unit.name = 'Hour';
 							else Itemr[j].unit.name = 'Page';
 						}
-						$scope.subtotal = $scope.currency + " " + subtotal_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+						$scope.subtotal = $scope.currency + " " + subtotal_tmp.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 						var tax = Number((subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
-						$scope.tax = $scope.currency + " " + tax.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+						$scope.tax = $scope.currency + " " + tax.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 						
 						var total = Number(subtotal_tmp - $scope.project.discount + (subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
-						$scope.total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+						$scope.total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 						$scope.itermtmnew[$scope.project.targetLanguages[i].id].push(Itemr[j]);
 					}	
 				}
@@ -306,8 +306,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratewushi)/100)*$scope.iterm_tm.sourcewushi
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.rateyibai)/100)*$scope.iterm_tm.sourceyibai;
 			$scope.iterm_tm.total = itemtm.total_tmp;
-			$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-			$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		if ( itemtm.id ) {
 			
 			itemtm.total_tmp = 	($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratebawu)/100)*$scope.iterm_tm.sourcebawu
@@ -318,8 +318,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 						+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratewushi)/100)*$scope.iterm_tm.sourcewushi
 						+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.rateyibai)/100)*$scope.iterm_tm.sourceyibai;
 			$scope.iterm_tm.total = itemtm.total_tmp;
-			$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-			$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 			
 			$http.put("/api/admin/projectitermtm/" + itemtm.id, 
 				{
@@ -351,8 +351,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.wushi)/100)*$scope.iterm_tm.sourcewushi
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.yibai)/100)*$scope.iterm_tm.sourceyibai;
     		$scope.iterm_tm.total = itemtm.total_tmp;
-    		$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-    		$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    		$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    		$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     		
     		
     		
@@ -425,8 +425,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			//$scope.iterm_notm.rate_tmp = $scope.iterm_notm.rate;
 			translationNoTM.total_tmp = $scope.iterm_notm.rate_tmp * $scope.iterm_notm.quantity;
 			$scope.iterm_notm.total = translationNoTM.total_tmp;
-			$scope.iterm_notm.total = $scope.currency + " " + Number($scope.iterm_notm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-			$scope.iterm_notm.rate = $scope.currency + " " + Number($scope.iterm_notm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_notm.total = $scope.currency + " " + Number($scope.iterm_notm.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_notm.rate = $scope.currency + " " + Number($scope.iterm_notm.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		if ( $scope.editTranslation == -1 ) {
 			$http.post("/api/admin/projectitermnotm?projectid="+projectId, 
 					{
@@ -485,15 +485,15 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			for(k=0;k<$scope.translation.length;k++){
 				if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.translation[k].targetLanguage == laguageid){
 					if($scope.project.serviceLevel==1){
-						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].professionalPrice);
+						$scope.translationNoTM.rate_tmp = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):format2n(Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate);
 						break;
 					}	
 					else if($scope.project.serviceLevel==2){
-						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].businessPrice);
+						$scope.translationNoTM.rate_tmp = ($scope.currency == 'cny')?Number($scope.translation[k].businessPrice):format2n(Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate);
 						break;
 					}	
 					else{
-						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].premiumPrice);
+						$scope.translationNoTM.rate_tmp = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);
 						break;
 					}	
 				}			
@@ -503,21 +503,22 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			for(k=0;k<$scope.translation.length;k++){
 				if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.translation[k].targetLanguage == laguageid){
 					if($scope.project.serviceLevel==1){
-						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].professionalPrice);
+						$scope.translationNoTM.rate_tmp = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):format2n(Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate);
 						break;
 					}	
 					else if($scope.project.serviceLevel==2){
-						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].businessPrice);
+						$scope.translationNoTM.rate_tmp = ($scope.currency == 'cny')?Number($scope.translation[k].businessPrice):format2n(Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate);
 						break;
 					}	
 					else{
-						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].premiumPrice);
+						$scope.translationNoTM.rate_tmp = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);
 						break;
 					}	
 				}			
 			}
 		}
-		
+		console.log($scope.translationNoTM);
+		$scope.translationNoTM.rate_tmp = Number($scope.translationNoTM.rate_tmp);
 		setModalControllerData('translationNoTM',$scope.translationNoTM);
 		
 		jQuery("#modal-translation-noTM").modal("show");
@@ -544,8 +545,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		$scope.iterm_dtpmac = desktopMac;
 		desktopMac.total_tmp = $scope.iterm_dtpmac.rate_tmp * $scope.iterm_dtpmac.quantity;
 		$scope.iterm_dtpmac.total = desktopMac.total_tmp;
-		$scope.iterm_dtpmac.total = $scope.currency + " " + Number($scope.iterm_dtpmac.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-		$scope.iterm_dtpmac.rate = $scope.currency + " " + Number($scope.iterm_dtpmac.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_dtpmac.total = $scope.currency + " " + Number($scope.iterm_dtpmac.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_dtpmac.rate = $scope.currency + " " + Number($scope.iterm_dtpmac.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     	if ( $scope.editDtpMac == -1) {
 			$http.post("/api/admin/projectitermdtpmac?projectid="+projectId, 
 					{
@@ -621,8 +622,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		$scope.iterm_dtppc = desktopPc;
 		desktopPc.total_tmp = $scope.iterm_dtppc.rate_tmp * $scope.iterm_dtppc.quantity;
 		$scope.iterm_dtppc.total = desktopPc.total_tmp;
-		$scope.iterm_dtppc.total = $scope.currency + " " + Number($scope.iterm_dtppc.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-		$scope.iterm_dtppc.rate = $scope.currency + " " + Number($scope.iterm_dtppc.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_dtppc.total = $scope.currency + " " + Number($scope.iterm_dtppc.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_dtppc.rate = $scope.currency + " " + Number($scope.iterm_dtppc.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     	if ( $scope.editDtpPc == -1) {
 			$http.post("/api/admin/projectitermdtppc?projectid="+projectId, 
 					{
@@ -698,8 +699,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		$scope.iterm_engineering = engineering;
 		engineering.total_tmp = $scope.iterm_engineering.rate_tmp * $scope.iterm_engineering.quantity;
 		$scope.iterm_engineering.total = engineering.total_tmp;
-		$scope.iterm_engineering.total = $scope.currency + " " + Number($scope.iterm_engineering.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-		$scope.iterm_engineering.rate = $scope.currency + " " + Number($scope.iterm_engineering.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_engineering.total = $scope.currency + " " + Number($scope.iterm_engineering.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_engineering.rate = $scope.currency + " " + Number($scope.iterm_engineering.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     	if ( $scope.editEngineering == -1) {
 			$http.post("/api/admin/projectitermengineering?projectid="+projectId, 
 					{
@@ -773,8 +774,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			$scope.iterm_interpreting = interpreting;
 			interpreting.total_tmp = $scope.iterm_interpreting.rate_tmp * $scope.iterm_interpreting.quantity;
 			$scope.iterm_interpreting.total = interpreting.total_tmp;
-			$scope.iterm_interpreting.total = $scope.currency + " " + Number($scope.iterm_interpreting.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-			$scope.iterm_interpreting.rate = $scope.currency + " " + Number($scope.iterm_interpreting.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_interpreting.total = $scope.currency + " " + Number($scope.iterm_interpreting.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_interpreting.rate = $scope.currency + " " + Number($scope.iterm_interpreting.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		if ( $scope.editInterpreting == -1 ) {
 			$http.post("/api/admin/projectiterminterpreting?projectid="+projectId, 
 					{
