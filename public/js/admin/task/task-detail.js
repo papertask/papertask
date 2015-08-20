@@ -160,6 +160,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				$scope.language = $scope.task.language;
 				
 				$scope.projectId = $scope.task.project;
+				if(!$scope.task.type)
+					$scope.task.type = 1;
 				$scope.task.type = ProjectType.get($scope.task.type);
 				$scope.task.status = TaskStatus.get($scope.task.status);
 				
