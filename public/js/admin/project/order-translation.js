@@ -218,7 +218,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){				
 	             if($data.success){
-	                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
+	                location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
 	             } else {
 	                location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
 	             }

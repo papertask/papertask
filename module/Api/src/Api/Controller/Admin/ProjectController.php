@@ -183,6 +183,7 @@ class ProjectController extends AbstractRestfulJsonController
             foreach($data['files'] as $file){
                 $id = $file['id'];
                 $file = $this->find('\User\Entity\File', $id);
+				
                 if($file->getProject() == null){
                     $file->setProject($project);
                     $file->save($this->getEntityManager());
@@ -210,12 +211,14 @@ class ProjectController extends AbstractRestfulJsonController
         		'dueDate' => $data['dueDate'],
         		//'name' => $data['reference'],
         		'total' =>  round($data['invoiceinfo']['total']/$langLength, 2),
-        		'task_number' => $project->getId().'-'.$i,
+        		'task_number' => $data['project_no'].'-'.$i,
         		
         	);
         	$projectTotal = $projectTotal + floatval(round($data['invoiceinfo']['total']/$langLength, 2));
-        	$taskArrData['type'] = (is_array($data['types'])&&count($data['types'])>0)?$data['types'][0]: null;
-        	$taskArrData['name'] = (array_key_exists('reference',$data))?$data['reference']:'null';
+        	$taskArrData['type'] = (is_array($data['types'])&&count($data['types'])>0)?$data['types'][0]: 1;
+			$name_ref = $data['files'][0]['name'];
+			//var_dump($name_ref);exit;
+        	$taskArrData['name'] = (array_key_exists('reference',$data))?$data['reference']:$name_ref;
         	
         	$task->setData( $taskArrData );
 			$task->save($this->getEntityManager());
@@ -424,6 +427,8 @@ class ProjectController extends AbstractRestfulJsonController
 			else{
 				$type = $data['types'][0]['id'];
 			}
+			//if(!$type)
+			//	$type = 1;
             $languageId = $identifier[1]['id'];
 			
 			$task = new Task();
