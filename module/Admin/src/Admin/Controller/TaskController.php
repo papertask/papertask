@@ -221,7 +221,7 @@ class TaskController extends AbstractActionController
     	
     	$taskEntity = $entityManager->getRepository('User\Entity\Task');
     	
-    	$tasks =  $taskEntity->findBy(array('status'=>6));
+    	$tasks =  $taskEntity->findBy(array('status'=>6,'is_deleted'=>0));
     	$taskArr = array();
     	foreach ($tasks as $task){
     		$project = $task->getProject();
