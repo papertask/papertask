@@ -252,8 +252,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					});
 					
 					
-					
-					$scope.project.field = search_by_id($scope.fields, $scope.project.field.id);
+					if($scope.project.field)
+						$scope.project.field = search_by_id($scope.fields, $scope.project.field.id);
 						
 					if($scope.project.pm)
 					$scope.project.pm = search_by_id($scope.pms, $scope.project.pm.id);
