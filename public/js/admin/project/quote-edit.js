@@ -839,6 +839,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	
 	// save project
 	$scope.saveProject = function(){
+		//console.log($scope.project);
         var updateProject= $http.put("/api/admin/project/" + $scope.project.id + "?action=3", $scope.project)
 		.success( function ( $data ) {
 			//comback project detail/

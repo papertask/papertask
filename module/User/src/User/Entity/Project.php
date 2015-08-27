@@ -76,6 +76,11 @@ class Project extends Entity{
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $total_tmp = 0.00;
+	/**
+     * @var float
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */
+    protected $total = 0.00;
 
     /**
      * @var integer
@@ -206,6 +211,7 @@ class Project extends Entity{
 			'sourcetext' => $this->sourcetext,
 			'currency' =>  $this->currency,
 			'total_tmp' => $this->total_tmp,
+			'total' => $this->total,
             'types' => $this->types,
             'transGraph' => $this->transGraph,
             'payStatus' => $this->payStatus,

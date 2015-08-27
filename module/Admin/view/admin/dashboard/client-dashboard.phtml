@@ -313,11 +313,11 @@ $this->inlineScript()
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="project in unpayprojects">
-                                        <td>{{ project.id }}</td>
+                                        <td>{{ project.project_no }}</td>
                                         <td>{{ project.reference }}</td>
                                         <td>{{ ProjectStatus.get(project.status).name }}</td>
                                         <td>{{ DateFormatter.short(project.dueDate) }}</td>
-                                        <td>{{ project.currency}} {{ project.total_tmp | number:2}}</td>
+                                        <td>{{ project.currency}} {{ project.total_tmp}}</td>
                                     </tr>
                                     
                                     </tbody>
