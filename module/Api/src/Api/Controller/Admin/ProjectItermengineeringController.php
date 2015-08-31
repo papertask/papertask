@@ -39,6 +39,17 @@ class ProjectItermengineeringController extends AbstractRestfulJsonController
 		if($data['file']['id'])
 			$file = $this->find('\User\Entity\File', $data['file']['id']);
 		$project = $this->find('User\Entity\Project', $projectid);
+		$taskList = $this->getEntityManager()->getRepository('User\Entity\Task')->findBy(array('project' => $project));
+		$taskOrderArr = array();
+		foreach ($taskList as $task){
+			$order = explode('-',$task->getTaskNumber());
+			$order = $order[1];
+			$taskOrderArr[] = (int)$order;
+		}		
+		$max = max($taskOrderArr);
+		$max++;
+		$task_number = $project->getProjectNo().'-'.$max;
+		
 		$iterm->setProject($project);
 		$language = $this->find('User\Entity\Language', $data['languageid']);
 		$engineeringcategory = $this->find('\Common\Entity\EngineeringCategory', $data['engineeringcategory']['id']); 
@@ -67,6 +78,7 @@ class ProjectItermengineeringController extends AbstractRestfulJsonController
                     'language' => $language,
                     'type' => 6,
                     'status' => 3,
+					'task_number' => $task_number,
                 ]);
 			$task->save($this->getEntityManager());
 		}

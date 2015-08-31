@@ -12,6 +12,7 @@ use Api\Controller\AbstractRestfulJsonController;
 use User\Entity\Itermnotm;
 use User\Entity\Project;
 use User\Entity\UserGroup;
+use User\Entity\Task;
 
 class ProjectItermnotmController extends AbstractRestfulJsonController
 {
@@ -25,38 +26,53 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 
     public function create($data)
     {
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
 		//var_dump($data['laguageid']);exit;
 		$projectid = $this->getRequest()->getQuery('projectid');
 		$iterm = new Itermnotm();
 		if($data['file']['id'])
 			$file = $this->find('\User\Entity\File', $data['file']['id']);
 		$project = $this->find('User\Entity\Project', $projectid);
+		$taskList = $this->getEntityManager()->getRepository('User\Entity\Task')->findBy(array('project' => $project));
+		$taskOrderArr = array();
+		foreach ($taskList as $task){
+			$order = explode('-',$task->getTaskNumber());
+			$order = $order[1];
+			$taskOrderArr[] = (int)$order;
+		}		
+		$max = max($taskOrderArr);
+		$max++;
+		$task_number = $project->getProjectNo().'-'.$max;
+		
 		$iterm->setProject($project);
 		$language = $this->find('User\Entity\Language', $data['languageid']);
 		
 		$iterm->setData([
 			'name' => $data['name'],
 			'file' => ($file)?$file:null,
-			'rate' => $data['rate'],
+			'rate_freelancer' => $data['rate'],
 			'quantity' => $data['quantity'],
-			'total' => $data['total'],
+			'total_freelancer' => $data['total'],
 			'language' => $language,
 		]);
 		$iterm->save($this->getEntityManager());
 		//add task if have not
 		$entityManager = $this->getEntityManager();
 		$repository = $entityManager->getRepository('User\Entity\Task');
-        $task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>1));
-		if(!$task){
+		
+        //$task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>1));
+		//if(!$task){
 			$task = new Task();
 			$task->setData([
                     'project' => $project,
                     'language' => $language,
                     'type' => 1,
                     'status' => 3,
+					'task_number' => $task_number,
                 ]);
 			$task->save($this->getEntityManager());
-		}
+		//}
 		return new JsonModel([
             'iterm' => $iterm->getData(),
         ]);
@@ -113,9 +129,9 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
            $itermnotm->setData([
 				'name' => $data['name'],
 				'file' => ($file)?$file:null,
-				'rate' => $data['rate'],
+				'rate_freelancer' => $data['rate'],
 				'quantity' => $data['quantity'],
-				'total' => $data['total'],
+				'total_freelancer' => $data['total'],
            ]);
            
            $itermnotm->save($entityManager);

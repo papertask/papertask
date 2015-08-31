@@ -543,6 +543,7 @@ class ProjectController extends AbstractRestfulJsonController
             );
         }
 		$currentUserId = User::currentLoginId();
+		
 		$currentUser = $this->find('User\Entity\User',$currentUserId);
 		if($currentUser->isEmployer()){
 			 $queryBuilder->andWhere(
@@ -600,6 +601,7 @@ class ProjectController extends AbstractRestfulJsonController
         }
         /** end filter */
 		$queryBuilder->orderBy('project.id', 'DESC');
+		
         $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
 		 

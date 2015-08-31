@@ -81,13 +81,13 @@ class Task extends Entity{
     protected $assignee;
 	/**
      * @var string
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=True)
      */
     protected $startDate;
 
     /**
      * @var string
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=True)
      */
     protected $dueDate;
 	/**

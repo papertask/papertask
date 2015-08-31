@@ -66,7 +66,7 @@ echo $this->inlineScript()
 						<span><strong>Due Date:</strong>{{  DateFormatter.format1(invoice.dueDate) }}</span>
 					</p>
 					<h5>To:</span></h5>
-					<strong>{{ project.client.name }}</strong><br>
+					<strong>{{ project.user.lastName}}, {{ project.user.firstName}}</strong><br>
 					<strong>{{ project.client.position }} </strong><br>
 					<address>
 						<strong>{{ project.client.company.name }}</strong><br>

@@ -36,6 +36,17 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
 		$language = $this->find('User\Entity\Language', $data['languageid']);
 		$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']); 
 		
+		$taskList = $this->getEntityManager()->getRepository('User\Entity\Task')->findBy(array('project' => $project));
+		$taskOrderArr = array();
+		foreach ($taskList as $task){
+			$order = explode('-',$task->getTaskNumber());
+			$order = $order[1];
+			$taskOrderArr[] = (int)$order;
+		}		
+		$max = max($taskOrderArr);
+		$max++;
+		$task_number = $project->getProjectNo().'-'.$max;
+		
 		$iterm->setData([
 			'name' => $data['name'],
 			'unit' => $data['unit']['id'],
@@ -59,6 +70,7 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
                     'language' => $language,
                     'type' => 4,
                     'status' => 3,
+					'task_number' => $task_number,
                 ]);
 			$task->save($this->getEntityManager());
 		}

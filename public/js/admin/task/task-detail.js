@@ -91,7 +91,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
         }
     }
 	function format2n(n) {
-		return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		return n.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
 	function showiterm(){
 	$http.get('/api/admin/file?projectId='+ $scope.projectId).success(function($data) {
@@ -502,8 +502,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratewushi)/100)*$scope.iterm_tm.sourcewushi
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.rateyibai)/100)*$scope.iterm_tm.sourceyibai;
 			$scope.iterm_tm.total = itemtm.total_tmp;
-			$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-			$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 			
 			$http.put("/api/admin/projectitermtm/" + itemtm.id, 
 				{
@@ -535,8 +535,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.wushi)/100)*$scope.iterm_tm.sourcewushi
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.yibai)/100)*$scope.iterm_tm.sourceyibai;
     		$scope.iterm_tm.total = itemtm.total_tmp;
-    		$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-    		$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    		$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+    		$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     		
     		
     		
@@ -606,8 +606,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			//$scope.iterm_notm.rate_tmp = $scope.iterm_notm.rate;
 			translationNoTM.total_tmp = $scope.iterm_notm.rate_tmp * $scope.iterm_notm.quantity;
 			$scope.iterm_notm.total = translationNoTM.total_tmp;
-			$scope.iterm_notm.total = $scope.currency + " " + Number($scope.iterm_notm.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-			$scope.iterm_notm.rate = $scope.currency + " " + Number($scope.iterm_notm.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_notm.total = $scope.currency + " " + Number($scope.iterm_notm.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_notm.rate = $scope.currency + " " + Number($scope.iterm_notm.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		if ( $scope.editTranslation == -1 ) {
 			$http.post("/api/admin/projectitermnotm?projectid="+$scope.projectId, 
 					{
@@ -725,8 +725,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.iterm_dtpmac = desktopMac;
 		desktopMac.total_tmp = $scope.iterm_dtpmac.rate_tmp * $scope.iterm_dtpmac.quantity;
 		$scope.iterm_dtpmac.total = desktopMac.total_tmp;
-		$scope.iterm_dtpmac.total = $scope.currency + " " + Number($scope.iterm_dtpmac.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-		$scope.iterm_dtpmac.rate = $scope.currency + " " + Number($scope.iterm_dtpmac.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_dtpmac.total = $scope.currency + " " + Number($scope.iterm_dtpmac.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_dtpmac.rate = $scope.currency + " " + Number($scope.iterm_dtpmac.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     	if ( $scope.editDtpMac == -1) {
 			$http.post("/api/admin/projectitermdtpmac?projectid="+$scope.projectId, 
 					{
@@ -802,8 +802,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.iterm_dtppc = desktopPc;
 		desktopPc.total_tmp = $scope.iterm_dtppc.rate_tmp * $scope.iterm_dtppc.quantity;
 		$scope.iterm_dtppc.total = desktopPc.total_tmp;
-		$scope.iterm_dtppc.total = $scope.currency + " " + Number($scope.iterm_dtppc.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-		$scope.iterm_dtppc.rate = $scope.currency + " " + Number($scope.iterm_dtppc.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_dtppc.total = $scope.currency + " " + Number($scope.iterm_dtppc.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_dtppc.rate = $scope.currency + " " + Number($scope.iterm_dtppc.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     	if ( $scope.editDtpPc == -1) {
 			$http.post("/api/admin/projectitermdtppc?projectid="+$scope.projectId, 
 					{
@@ -879,8 +879,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.iterm_engineering = engineering;
 		engineering.total_tmp = $scope.iterm_engineering.rate_tmp * $scope.iterm_engineering.quantity;
 		$scope.iterm_engineering.total = engineering.total_tmp;
-		$scope.iterm_engineering.total = $scope.currency + " " + Number($scope.iterm_engineering.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-		$scope.iterm_engineering.rate = $scope.currency + " " + Number($scope.iterm_engineering.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_engineering.total = $scope.currency + " " + Number($scope.iterm_engineering.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		$scope.iterm_engineering.rate = $scope.currency + " " + Number($scope.iterm_engineering.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     	if ( $scope.editEngineering == -1) {
 			$http.post("/api/admin/projectitermengineering?projectid="+$scope.projectId, 
 					{
@@ -954,8 +954,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			$scope.iterm_interpreting = interpreting;
 			interpreting.total_tmp = $scope.iterm_interpreting.rate_tmp * $scope.iterm_interpreting.quantity;
 			$scope.iterm_interpreting.total = interpreting.total_tmp;
-			$scope.iterm_interpreting.total = $scope.currency + " " + Number($scope.iterm_interpreting.total).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-			$scope.iterm_interpreting.rate = $scope.currency + " " + Number($scope.iterm_interpreting.rate_tmp).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_interpreting.total = $scope.currency + " " + Number($scope.iterm_interpreting.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+			$scope.iterm_interpreting.rate = $scope.currency + " " + Number($scope.iterm_interpreting.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		if ( $scope.editInterpreting == -1 ) {
 			$http.post("/api/admin/projectiterminterpreting?projectid="+$scope.projectId, 
 					{
@@ -1265,7 +1265,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	
 	function format22(n) {
 		n = Number(n)
-		return $scope.currency + " " + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+		return $scope.currency + " " + n.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
 	function arrangeFile(files) {
 		for(var i = 0; i < files.length; i++)
@@ -1293,14 +1293,14 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					var rate = Number(Itemr[j].rate_freelancer);
 					var subtotal_tmp = Number($scope.subtotal_tmp);
 									
-					Itemr[j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+					Itemr[j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
 					
 					Itemr[j].rate_tmp = Itemr[j].rate_freelancer;
 					/*if(rate == 0){
 						total = 0;
-						Itemr[j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+						Itemr[j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					}*/	
-					Itemr[j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+					Itemr[j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 						
 					//set unit
 					if(unit == 'interpretingUnits'){
@@ -1359,13 +1359,13 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 							Itemr[j].unit.name  = 'Page';
 						}	
 					}
-					$scope.subtotal = $scope.currency + " " + subtotal_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+					$scope.subtotal = $scope.currency + " " + subtotal_tmp.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					var tax = Number((subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
-					$scope.tax = $scope.currency + " " + tax.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+					$scope.tax = $scope.currency + " " + tax.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					
 					var total_tm = Number( (subtotal_tmp - $scope.project.discount)* $scope.project.tax/100 + subtotal_tmp - $scope.project.discount );
 					
-					$scope.total = $scope.currency + " " + total_tm.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+					$scope.total = $scope.currency + " " + total_tm.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					$scope.itermtmnew[$scope.project.targetLanguages[i].id].push(Itemr[j]);
 				}	
 			}
@@ -1380,8 +1380,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					Itemr[targetLanguagesid][j].rate_freelancer = rate;
 					Itemr[targetLanguagesid][j].total_freelancer = total + Itemr[targetLanguagesid][j].total_freelancer;
 					Itemr[targetLanguagesid][j].rate_tmp = rate;
-					Itemr[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
-					Itemr[targetLanguagesid][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+					Itemr[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+					Itemr[targetLanguagesid][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					
 			}
 		}	
@@ -1435,8 +1435,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 							total_task_freelancer = total_task_freelancer + total;
 							$scope.itermnotmsnews[targetLanguagesid][j].rate_tmp = rate;
 							$scope.itermnotmsnews[targetLanguagesid][j].total_freelancer = total;
-							$scope.itermnotmsnews[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
-							$scope.itermnotmsnews[targetLanguagesid][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+							$scope.itermnotmsnews[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+							$scope.itermnotmsnews[targetLanguagesid][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 							
 					}
 					
@@ -1486,9 +1486,9 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 									if($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Hour"){
 										var rate = Number($scope.desktopPrices[i].priceHourMac);
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_tmp = rate;
-										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtpmacs[$scope.task.language.id][j].total_tmp = rate * $scope.itermdtpmacs[$scope.task.language.id][j].quantity;
-										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_freelancer = rate;
 										$scope.itermdtpmacs[$scope.task.language.id][j].total_freelancer = $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp;
 										
@@ -1497,9 +1497,9 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 									else if ($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Page"){	
 										var rate = Number($scope.desktopPrices[i].priceMac);
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_tmp = rate;
-										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtpmacs[$scope.task.language.id][j].total_tmp = rate * $scope.itermdtpmacs[$scope.task.language.id][j].quantity;
-										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_freelancer = rate;
 										$scope.itermdtpmacs[$scope.task.language.id][j].total_freelancer = $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp;
 										//return;
@@ -1547,9 +1547,9 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 									if($scope.itermdtppcs[$scope.task.language.id][j].unit.name == "Hour"){
 										var rate = Number($scope.desktopPrices[i].priceHourPc);
 										$scope.itermdtppcs[$scope.task.language.id][j].rate_tmp = rate;
-										$scope.itermdtppcs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtppcs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtppcs[$scope.task.language.id][j].total_tmp = rate * $scope.itermdtppcs[$scope.task.language.id][j].quantity;
-										$scope.itermdtppcs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtppcs[$scope.task.language.id][j].total_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtppcs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtppcs[$scope.task.language.id][j].total_tmp.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtppcs[$scope.task.language.id][j].rate_freelancer = rate;
 										$scope.itermdtppcs[$scope.task.language.id][j].total_freelancer = $scope.itermdtppcs[$scope.task.language.id][j].total_tmp;
 										
@@ -1558,9 +1558,9 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 									else if ($scope.itermdtppcs[$scope.task.language.id][j].unit.name == "Page"){	
 										var rate = Number($scope.desktopPrices[i].pricePc);
 										$scope.itermdtppcs[$scope.task.language.id][j].rate_tmp = rate;
-										$scope.itermdtppcs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtppcs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtppcs[$scope.task.language.id][j].total_tmp = rate * $scope.itermdtppcs[$scope.task.language.id][j].quantity;
-										$scope.itermdtppcs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtppcs[$scope.task.language.id][j].total_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtppcs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtppcs[$scope.task.language.id][j].total_tmp.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtppcs[$scope.task.language.id][j].rate_freelancer = rate;
 										$scope.itermdtppcs[$scope.task.language.id][j].total_freelancer = $scope.itermdtppcs[$scope.task.language.id][j].total_tmp;
 										//return;
@@ -1609,9 +1609,9 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 									if($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Hour"){
 										var rate = Number($scope.desktopPrices[i].priceHourMac);
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_tmp = rate;
-										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtpmacs[$scope.task.language.id][j].total_tmp = rate * $scope.itermdtpmacs[$scope.task.language.id][j].quantity;
-										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_freelancer = rate;
 										$scope.itermdtpmacs[$scope.task.language.id][j].total_freelancer = $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp;
 										
@@ -1620,9 +1620,9 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 									else if ($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Page"){	
 										var rate = Number($scope.desktopPrices[i].priceMac);
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_tmp = rate;
-										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtpmacs[$scope.task.language.id][j].total_tmp = rate * $scope.itermdtpmacs[$scope.task.language.id][j].quantity;
-										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_freelancer = rate;
 										$scope.itermdtpmacs[$scope.task.language.id][j].total_freelancer = $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp;
 										//return;
