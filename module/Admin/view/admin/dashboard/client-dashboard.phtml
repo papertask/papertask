@@ -206,7 +206,7 @@ $this->inlineScript()
 										btn-sm">{{ ProjectServiceLevel.get(project.serviceLevel).name }}</span>
 									</td>
 									<td class="project-title">
-										<strong><?php echo $this->translate('Contract with') ?> {{ project.client.company.name }}</strong>
+										<strong><{{ project.description }}</strong>
 										<br/>
 										<div class="tooltip-demo">
 											<span ng-repeat="type in project.client.types">
@@ -216,7 +216,7 @@ $this->inlineScript()
 										</div>
 									</td>
 									<td class="project-title">
-										<span class="">{{ project.reference }}</span>
+										<span class="">{{ project.project_no }}</span>
 										<br/>
 										<small>{{ DateFormatter.short(project.startDate) }} - {{ DateFormatter.short(project.dueDate) }}</small>
 									</td>

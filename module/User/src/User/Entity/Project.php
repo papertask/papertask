@@ -174,8 +174,9 @@ class Project extends Entity{
      * @ORM\Column(type="integer")
      */
     protected $transGraph = 0;
-    
-  
+	
+    /** @ORM\Column(type="string", nullable=true) */
+    protected $description;
 	
 	
 
@@ -215,6 +216,7 @@ class Project extends Entity{
             'types' => $this->types,
             'transGraph' => $this->transGraph,
             'payStatus' => $this->payStatus,
+			'description' => $this->description,
         ];
     }
 	
