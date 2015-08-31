@@ -36,7 +36,7 @@ class ProjectItermengineeringController extends AbstractRestfulJsonController
     {
 		$projectid = $this->getRequest()->getQuery('projectid');
 		$iterm = new Itermengineering();
-		if($data['file']['id'])
+		if($data['file'])
 			$file = $this->find('\User\Entity\File', $data['file']['id']);
 		$project = $this->find('User\Entity\Project', $projectid);
 		$taskList = $this->getEntityManager()->getRepository('User\Entity\Task')->findBy(array('project' => $project));

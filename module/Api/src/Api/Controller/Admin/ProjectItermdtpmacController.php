@@ -29,7 +29,7 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
     {
 		$projectid = $this->getRequest()->getQuery('projectid');
 		$iterm = new Itermdtpmac();
-		if($data['file']['id'])
+		if($data['file'])
 			$file = $this->find('\User\Entity\File', $data['file']['id']);
 		$project = $this->find('User\Entity\Project', $projectid);
 		$iterm->setProject($project);
@@ -108,7 +108,7 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
 
     public function update($id, $data){
           $entityManager = $this->getEntityManager();
-		   if($data['file']['id'])
+		   if($data['file'])
 			 $file = $this->find('\User\Entity\File', $data['file']['id']);
 			 
 			$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']); 

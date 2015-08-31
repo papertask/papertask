@@ -29,7 +29,7 @@ class ProjectItermdtppcController extends AbstractRestfulJsonController
     {
 		$projectid = $this->getRequest()->getQuery('projectid');
 		$iterm = new Itermdtppc();
-		if($data['file']['id'])
+		if($data['file'])
 			$file = $this->find('\User\Entity\File', $data['file']['id']);
 		$project = $this->find('User\Entity\Project', $projectid);
 		$taskList = $this->getEntityManager()->getRepository('User\Entity\Task')->findBy(array('project' => $project));
@@ -103,7 +103,7 @@ class ProjectItermdtppcController extends AbstractRestfulJsonController
 
     public function update($id, $data){
 			$entityManager = $this->getEntityManager();
-			if($data['file']['id']){
+			if($data['file']){
 				$file = $this->find('\User\Entity\File', $data['file']['id']);
 			} 
 			$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']); 

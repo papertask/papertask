@@ -26,12 +26,12 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 
     public function create($data)
     {
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
 		//var_dump($data['laguageid']);exit;
 		$projectid = $this->getRequest()->getQuery('projectid');
 		$iterm = new Itermnotm();
-		if($data['file']['id'])
+		if($data['file'])
 			$file = $this->find('\User\Entity\File', $data['file']['id']);
 		$project = $this->find('User\Entity\Project', $projectid);
 		$taskList = $this->getEntityManager()->getRepository('User\Entity\Task')->findBy(array('project' => $project));
