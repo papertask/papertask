@@ -193,9 +193,9 @@ $this->inlineScript()
 										class="label label-{{ task.status.decorator }}">{{
 											task.status.name }}</span> <!--<i class="fa fa-usd"></i>-->
 									</td>
-									<td class="project-title"><strong><?php echo $this->translate("project") ?>
+									<td class="project-title"><strong>
 											{{ task.project.reference }} </strong> <br> <strong
-										class="text-info">{{ task.project.id }}-{{ task.task_number }}</strong> | <code>{{
+										class="text-info">{{ task.task_number }}</strong> | <code>{{
 											task.project.sourceLanguage.name }}</code> <i
 										class="fa fa-arrow-right"></i> <code>{{ task.language.name }}</code>
 										<i class="fa fa-paperclip" ng-show="task.uploaded"></i> <!-- paperclip means freelancer uploaded the translated file -->
