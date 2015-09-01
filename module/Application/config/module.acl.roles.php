@@ -61,7 +61,6 @@ $allow_employer = array(
 	'project\quotedownload',
 	'project\invoiceprint',
 	'project\invoicedownload',
-	'project\quoteedit',
 	'project\order-translation',
 	'project\order-translation-non-contract',
 	'project\client-projects',
