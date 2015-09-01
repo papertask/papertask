@@ -52,6 +52,7 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
 		var companyinfo = $http.get("/api/papertask/companyinfo").success(function($data){
             $scope.companyinfo = $data['companyinfo'];
 			$scope.companyinfo1 = $scope.companyinfo[0];
+			console.log($scope.companyinfo1);
 
         }).error(function($e){
             alert('error');
@@ -71,7 +72,7 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
 				angular.forEach($scope.tus_tmp, function(element) {
 				  $scope.tus.push(element);
 				});	
-
+				console.log($scope.tus);
             });
 
 	}
