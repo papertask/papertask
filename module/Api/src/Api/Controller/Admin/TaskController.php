@@ -69,7 +69,7 @@ class TaskController extends AbstractRestfulJsonController
 		$max++;
 		
 		//var_dump($max); exit;
-		$data['task_number'] = $project->getId().'-'.$max;
+		$data['task_number'] = $project->getProjectNo().'-'.$max;
 		
 		//var_dump($data);exit;
 		
