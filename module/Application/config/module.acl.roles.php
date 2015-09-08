@@ -260,6 +260,7 @@ $allow_all = array(
 	'staff\view',
 	'staff\edit-profile',
 	'staff\uploadFile',
+	'staff\getUserByPm',
 	//finance
 	'finance\client-unpaid',
 		'finance\client-unpaid-project',

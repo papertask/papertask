@@ -52,9 +52,16 @@ class ProjectController extends AbstractRestfulJsonController
         if(isset($data['startDate'])){
             $data['startDate'] = new \DateTime($data['startDate']);
         }
+		else {
+			$data['startDate'] = new \DateTime('now');
+		}
         if(isset($data['dueDate'])){
             $data['dueDate'] = new \DateTime($data['dueDate']);
         }
+		else {
+			//$date_tmp = new \DateTime($data['startDate']);
+			$data['dueDate'] = $data['startDate']->add(new DateInterval('P30D'));
+		}
         if(isset($data['status'])){
             $data['status'] = $data['status']['id'];
         }

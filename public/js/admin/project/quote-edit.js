@@ -67,6 +67,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
             $project.status = ProjectStatus.get($project.status);
             $project.tasks = [];
 			$scope.project = $project;
+			console.log($scope.project);
 			$scope.USER_ID = $scope.project.userid;
 			generateActiveResources();
 			$scope.currency = $scope.project.currency;
@@ -82,8 +83,62 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	            .success ( function ( $data ) {
 	            	
 	            	$scope.clientTmRatios = $data.tmRatios;
+					$http.get('/api/admin/projectitermtm?projectId='+ projectId).success(function($data) {
+						if($data['Itermtms'].length>0)
+						{
+							$scope.itemtms = arrangeItem($data['Itermtms']);
+							console.log("yes");
+						}
+						else{
+							if($scope.clientTmRatios){
+								for(var i = 0; i < $scope.project.targetLanguages.length; i++)
+								{
+									//if(Itemr[j].language.id == $scope.project.targetLanguages[i].id){
+									$scope.itemtms = [];
+									$scope.itemtms[$scope.project.targetLanguages[i].id] =[];
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0] = {};
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].raterepetitions = $scope.clientTmRatios.repetitions;
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].rateyibai = $scope.clientTmRatios.yibai;
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].ratejiuwu = $scope.clientTmRatios.jiuwu;
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].ratebawu = $scope.clientTmRatios.bawu;
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].rateqiwu = $scope.clientTmRatios.qiwu;
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].ratewushi = $scope.clientTmRatios.wushi;
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].ratenomatch = $scope.clientTmRatios.nomatch;
+								}	
+								console.log("no");
+							}
+							else{
+								 $http.get("/api/papertask/translationtm").success(function($data){
+									$scope.translationTM = $data['translationTM'];
+									$scope.itemtms = [];
+									$scope.itemtms[$scope.project.targetLanguages[i].id] =[];
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0] = {};
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].raterepetitions = $scope.translationTM[0].rate;
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].rateyibai = $scope.translationTM[1].rate;
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].ratejiuwu = $scope.translationTM[2].rate;
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].ratebawu = $scope.translationTM[3].rate;
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].rateqiwu = $scope.translationTM[4].rate;
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].ratewushi = $scope.translationTM[5].rate;
+									$scope.itemtms[$scope.project.targetLanguages[i].id][0].ratenomatch = $scope.translationTM[6].rate;
+						  
+								}).error(function($e){
+									alert('error');
+								});
+							}
+						}
+						
+					});
 	            			          						
 	            });	
+				//get papertask
+								 $http.get("/api/papertask/translationtm").success(function($data){
+									$scope.translationTM = $data['translationTM'];
+									console.log("$scope.translationTM");
+									console.log($scope.translationTM);
+						  
+								}).error(function($e){
+									alert('error');
+								});
 				//get all file
 				$http.get('/api/admin/file?projectId='+ projectId).success(function($data) {
 						$scope.files = $data['files'];
@@ -97,13 +152,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 					
 							
 				});
-				$http.get('/api/admin/projectitermtm?projectId='+ projectId).success(function($data) {
-					$scope.itemtms = arrangeItem($data['Itermtms']);
-					//if($scope.itemtm)
-					//	$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
-						
-					
-				});
+				
 				
 				$http.get('/api/admin/projectitermdtpmac?projectId='+ projectId).success(function($data) {
 					$scope.itermdtpmacs = arrangeItem($data['Itermdtpmacs'], 'dtpUnits');
@@ -399,12 +448,16 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	$scope.editTranslationTM = function ( index, tid, laguageid ) {
     	$scope.editTm = index;
 		$scope.laguageid = laguageid;
-		
+		console.log($scope.itemtms);
 		if($scope.itemtms[laguageid][0]){
 			
 			$scope.itemtm = $scope.itemtms[laguageid][0];
 			$scope.itemtm.rate_tmp = Number($scope.itemtms[laguageid][0].rate_tmp);
 	    	setModalControllerData('itemtm', $scope.itemtm);
+		}
+		else {
+			console.log($scope.translationTM);
+			
 		}
 		
     	jQuery("#modal-translation-TM").modal("show");

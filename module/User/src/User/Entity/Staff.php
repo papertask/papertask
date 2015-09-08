@@ -48,7 +48,8 @@ class Staff extends Entity{
             'id' => $this->id,
             'client' => ($this->client)?$this->client->getData():null,
             'name' => $this->name,
-            'type' => ($this->type)?$this->type->getData():null
+            'type' => ($this->type)?$this->type->getData():null,
+			
         ];
     }
     
@@ -67,5 +68,13 @@ class Staff extends Entity{
     
     public function getId() {
         return $this->id;
+    }
+	
+	public function getUser($controller){
+    	$entityManager = $controller->getEntityManager();
+    	$repository = $entityManager->getRepository('User\Entity\User');
+    	$user = $repository->findBy( array('staff'=>$this->id) );
+    	
+    	return ($user)?$user->getData():null;
     }
 }

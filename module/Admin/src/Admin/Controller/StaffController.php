@@ -200,4 +200,22 @@ class StaffController extends AbstractActionController
             'saleslist' => $result
         ]);
     }
+	public function getUserByPmAction() {
+
+		$staffid = $this->getRequest()->getQuery('staffid');
+		$entityManager = $this->getEntityManager();
+		$user = $entityManager->getRepository('User\Entity\User');
+        //->findBy(array('group' => $freelancerGroup));
+        $queryBuilder = $user->createQueryBuilder('user');
+		$queryBuilder->select(array('user.firstName','user.lastName' ));
+		$queryBuilder->leftJoin('user.staff', 'staff')->where('staff.id = '.$staffid);
+		$queryBuilder->andWhere("user.group = 3");
+		$queryBuilder->andWhere("user.isActive='1'");
+		
+        $query = $queryBuilder->getQuery();
+        $result = $query->getArrayResult();
+        return new JsonModel([
+            'user_staff' => $result[0]
+        ]);
+    }
 }

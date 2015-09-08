@@ -115,10 +115,15 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
             $project.status = ProjectStatus.get($project.status);
             $project.tasks = [];
 			
-            $scope.project = $project;
+            
+			$scope.project = $project;
+			var ajaxPmUser = $http.get("/" + LANG_CODE + "/admin/staff/getUserByPm?staffid="+$project.pm.id)
+            .success( function ( $data ) {
+                $scope.project.pm.user = $data.user_staff;
+				
+            });
 			console.log($scope.project);
-			$scope.currency = $scope.project.currency;
-			
+			$scope.currency = $scope.project.currency;	
 		
 
             jQuery.extend($scope.tempProject, $scope.project);

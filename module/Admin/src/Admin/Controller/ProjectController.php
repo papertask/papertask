@@ -617,6 +617,7 @@ class ProjectController extends AbstractActionController
 			if($hasTypeTranslationUseTM == 1)
 				$subtotal = $subtotal +  $iterm_translationtms[$k]['total'];
         } 
+		
 		//get iterm iterm_dtppcs
         $repository = $entityManager->getRepository('User\Entity\Itermdtppc');
         $iterm_dtppc = $repository->findBy( array('project'=>$project) );

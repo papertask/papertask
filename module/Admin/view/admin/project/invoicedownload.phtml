@@ -160,8 +160,9 @@
 				</tr>
 				<?php } ?>
 				
-				<?php if($this->hasTypeTranslationUseTM > 0) { ?>
+				<?php if($this->hasTypeTranslationNoTM > 0) { ?>
 					<?php foreach($this->iterm_translations as $iterm_translations) { 
+					
 					if($iterm_translations['language']['id'] == $targetLanguage['id']) {?>
 						<tr>
 							<td style="text-align: left;  border: 1px solid #e7e7e7; padding: 8px;line-height: 1.42857;"><div><strong> <?php echo $iterm_translations['name'];?></strong> - <span class="text-navy"> Translation (No TM)</span></div></td>

@@ -221,7 +221,7 @@
     <br><br>
     <strong>Turnaround Time</strong>
     <br>
-    It would take approximately <span class="text-navy">3 working days</span> from your accept the quote order to complete the translation work.
+    It would take approximately <span class="text-navy">{{ project.duration }} working days</span> from your accept the quote order to complete the translation work.
     <br><br>
     We strongly recommend that any text be reviewed prior to going to print. We would be happy to liase with any reviewers in country should you require it.
     <br><br>
@@ -237,7 +237,7 @@
     <br><br>
     Yours sincerely,
     <br><br>
-    {{ project.pm.name }}<br>
+    {{ project.pm.user.firstName }} {{ project.pm.user.lastName }}<br>
     Project Manager/Sales Manager<br>
     <strong>PaperTask</strong>
 </div>
