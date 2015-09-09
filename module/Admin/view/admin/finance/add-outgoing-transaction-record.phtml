@@ -119,7 +119,7 @@ $this->inlineScript()
 											
 											<select class="form-control valid" name="" aria-required="true"
 													ng-model="outtransaction.bankinfouser"
-													ng-options="bankinfo.name for bankinfo in bankinfos track by bankinfo.id">
+													ng-options="bankinfo.name for bankinfo in bank_users track by bankinfo.id">
 												<option value=""><?php echo $this->translate("Choose Account") ?></option>
 											</select>
 											
@@ -160,11 +160,11 @@ $this->inlineScript()
 							<tbody>
 									<tr ng-repeat="tu in tus"> 
 										<td><input type="checkbox" class="i-checks" name="input[]" ng-click="toggleResource(tu)"></td>
-										<td>{{tu.id}}</td>
-										<td>{{tu.reference}}</td>
-										<td>{{ ProjectStatus.get(tu.status).name }}</td>
+										<td>{{tu.task_number}}</td>
+										<td>{{tu.project_tmp.reference}}</td>
+										<td>{{ TaskStatus.get(tu.status).name }}</td>
 										<td>{{ DateFormatter.short(tu.startDate) }}</td>
-										<td>{{tu.currency}} {{tu.total}}</td>
+										<td>{{tu.currency}} {{tu.total_freelancer}}</td>
 									</tr>
 								
 							</tbody>

@@ -127,8 +127,17 @@ class Itermtm extends Entity{
      * @var float
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
+	protected $rate_freelancer = 0.00; 
+	 /**
+     * @var float
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */ 
     protected $total = 0.00;
-   
+		 /**
+     * @var float
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */ 
+    protected $total_freelancer = 0.00;
      public function getProject(){
         return $this->project;
     }

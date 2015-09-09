@@ -42,10 +42,12 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	$scope.desktopPrices=[];
 	$scope.engineeringPrices=[]
 	$scope.translationPrices=[];
+	
 	//papertask price
 	$scope.softwarePrices =[];
 	$scope.engineeringPPrices=[];
 	
+	$scope.translationPrices_tmp  = [];
     $scope.order = {};
 	$scope.laguageid = null;
     $scope.project = {
@@ -105,7 +107,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 									$scope.itemtms[$scope.project.targetLanguages[i].id][0].ratewushi = $scope.clientTmRatios.wushi;
 									$scope.itemtms[$scope.project.targetLanguages[i].id][0].ratenomatch = $scope.clientTmRatios.nomatch;
 								}	
-								console.log("no");
+								//console.log("no");
 							}
 							else{
 								 $http.get("/api/papertask/translationtm").success(function($data){
@@ -130,15 +132,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 					});
 	            			          						
 	            });	
-				//get papertask
-								 $http.get("/api/papertask/translationtm").success(function($data){
-									$scope.translationTM = $data['translationTM'];
-									console.log("$scope.translationTM");
-									console.log($scope.translationTM);
-						  
-								}).error(function($e){
-									alert('error');
-								});
+				
 				//get all file
 				$http.get('/api/admin/file?projectId='+ projectId).success(function($data) {
 						$scope.files = $data['files'];
@@ -176,6 +170,47 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 				//get private price 	
 				$http.get('/api/user/translationprice?userId='+ $scope.USER_ID).success(function($data) {
 					$scope.translationPrices = $data['translationPrices'];
+					//console.log("$scope.translationPrices");
+					
+					//console.log($scope.translationPrices);
+					for(j=0;j<$scope.project.targetLanguages.length;j++){
+						for(i=0;i<$scope.translationPrices.length;i++){
+							if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  ){
+								
+								$scope.translationPrices_tmp[$scope.project.targetLanguages[j].id] = $scope.translationPrices[i].price;
+								//console.log($scope.translationPrices_tmp[$scope.project.targetLanguages[j].id]);
+								//console.log($scope.translationPrices[i].price);
+								//break;
+							}
+						}
+					}
+					$http.get("/api/papertask/translation").success(function($data){
+						$scope.translation = $data['translation'];
+						//console.log("$scope.translation");
+						//console.log($scope.translation);
+						for(j=0;j<$scope.project.targetLanguages.length;j++) {
+								//get default papertask
+								if(!$scope.translationPrices_tmp[$scope.project.targetLanguages[j].id])
+									for(k=0;k<$scope.translation.length;k++){
+										if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage 
+											&& $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage)
+											{
+											if($scope.project.serviceLevel==1)
+												$scope.translationPrices_tmp[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):format2n(Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate);
+											else if($scope.project.serviceLevel==2)
+												$scope.translationPrices_tmp[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].businessPrice):format2n(Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate);
+											else
+												$scope.translationPrices_tmp[$scope.project.targetLanguages[j].id] = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);		
+											}
+									}
+						}
+						console.log("$scope.translationPrices_tmp1");
+					console.log($scope.translationPrices_tmp);
+					}).error(function($e){
+						alert('error');
+					});
+					
+					
 				});	
 				$http.get('/api/user/desktopprice?userId='+$scope.USER_ID).success(function($data) {
 					$scope.desktopPrices = $data['desktopPrices'];
@@ -449,14 +484,19 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
     	$scope.editTm = index;
 		$scope.laguageid = laguageid;
 		console.log($scope.itemtms);
-		if($scope.itemtms[laguageid][0]){
+		if($scope.itemtms[laguageid][0].rate_tmp){
 			
 			$scope.itemtm = $scope.itemtms[laguageid][0];
 			$scope.itemtm.rate_tmp = Number($scope.itemtms[laguageid][0].rate_tmp);
 	    	setModalControllerData('itemtm', $scope.itemtm);
+			
 		}
 		else {
-			console.log($scope.translationTM);
+			console.log("$scope.translationPrices_tmp");
+			console.log($scope.translationPrices_tmp);
+			$scope.itemtm = $scope.itemtms[laguageid][0];
+			$scope.itemtm.rate_tmp = Number($scope.translationPrices_tmp[laguageid]);
+			setModalControllerData('itemtm', $scope.itemtm);
 			
 		}
 		
@@ -570,7 +610,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 				}			
 			}
 		}
-		console.log($scope.translationNoTM);
+		//console.log($scope.translationNoTM);
 		$scope.translationNoTM.rate_tmp = Number($scope.translationNoTM.rate_tmp);
 		setModalControllerData('translationNoTM',$scope.translationNoTM);
 		

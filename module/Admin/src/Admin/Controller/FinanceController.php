@@ -461,19 +461,30 @@ class FinanceController extends AbstractActionController {
 		));
 	}
 	public function getFreelancerUnpaidAction() {
-	
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
 		$userId = (int)$this->getRequest()->getQuery('id');
         $entityManager = $this->getEntityManager();
         $user = $this->getUserById($userId);
 		
 		//get all project
-		$taskList = $entityManager->getRepository('User\Entity\Task');
-		$queryBuilder_tmp = $taskList->createQueryBuilder('task');
+		$taskList = $entityManager->getRepository('User\Entity\Task')->findBy(array('is_deleted' => 0,'payStatus'=>1,"assignee"=>$user->getFreelancer()));
+		/*$queryBuilder_tmp = $taskList->createQueryBuilder('task');
 		$queryBuilder_tmp->andWhere('task.is_deleted = 0');
 		$queryBuilder_tmp->andWhere('task.payStatus = 1');
 		$queryBuilder_tmp->andWhere('task.assignee = ?1')->setParameter(1, $user->getFreelancer());	
-		$query = $queryBuilder_tmp->getQuery();
-		$result = $query->getArrayResult();
+		$query = $queryBuilder_tmp->getQuery();*/
+		//var_dump($taskList); exit;
+		foreach ( $taskList as $k => $v ) {
+            
+			$project = $v->getProject()->getData();
+			$result[$k] = $v->getData();
+			$result[$k]["project_tmp"] = $project;
+        }
+		
+		//$result = $query->getArrayResult();
+		
+		
 		return new JsonModel(array(
             'tasklist' => $result,
         ));
@@ -487,8 +498,7 @@ class FinanceController extends AbstractActionController {
 			}
 		}
 		
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		
 		
 		$entityManager = $this->getEntityManager();
         $employerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::EMPLOYER_GROUP_ID);

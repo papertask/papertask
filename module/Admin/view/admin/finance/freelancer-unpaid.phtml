@@ -90,9 +90,9 @@ $this->inlineScript()
 										</td>
 										<td>{{tu.task_number}}</td>
 										<td>{{tu.reference}}</td>
-										<td>{{ ProjectStatus.get(tu.status).name }}</td>
+										<td>{{ TaskStatus.get(tu.status).name }}</td>
 										<td>{{ DateFormatter.short(tu.dueDate) }}</td>
-										<td>{{tu_array.freelancer.currency}} {{pu.total}}</td>
+										<td>{{tu_array.freelancer.currency}} {{tu.total_freelancer}}</td>
 									</tr>
 								
 							</tbody>

@@ -2,9 +2,10 @@ angularApp.run( function ( $rootScope ) {
 	
 }) 
 
-angularApp.controller('FreelancerUnpaidController', function($scope, $http, $timeout, $q, StaffApi, ProjectStatus,ProjectField, DateFormatter) {
+angularApp.controller('FreelancerUnpaidController', function($scope, $http, $timeout, $q, StaffApi, ProjectStatus,TaskStatus,ProjectField, DateFormatter) {
 	$scope.DateFormatter = DateFormatter;
 	$scope.ProjectStatus = ProjectStatus;
+	$scope.TaskStatus = TaskStatus;
 	$scope.StaffApi = StaffApi;
 	$scope.ProjectField = ProjectField;
 	$scope.companies 	= [];

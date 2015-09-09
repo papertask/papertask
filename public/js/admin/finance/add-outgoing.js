@@ -18,9 +18,10 @@ angularApp.run( function ( $rootScope ) {
     });
 }) 
 
-angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, $q, StaffApi, ProjectStatus,ProjectField, DateFormatter) {
+angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, $q, StaffApi, ProjectStatus, TaskStatus, ProjectField, DateFormatter) {
 	$scope.DateFormatter = DateFormatter;
 	$scope.ProjectStatus = ProjectStatus;
+	$scope.TaskStatus = TaskStatus;
 	$scope.StaffApi = StaffApi;
 	$scope.ProjectField = ProjectField;
 	$scope.companies 	= [];
@@ -64,15 +65,26 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
         }).error(function($e){
             alert('error');
         });		
+		//get bank info
+		var bank_user = $http.get("/api/user/" + USER_ID + "/bankinfo").success(function($data){
+            $scope.bank_users = $data['bankInfo'];
+			console.log($scope.bank_users);
+
+        }).error(function($e){
+            alert('error');
+        });	
 		//get task list
 		var ajaxProjectUnpaidlist = $http.get("/" + LANG_CODE + "/admin/finance/getFreelancerUnpaid?id="+ USER_ID)
             .success( function ( $data ) {
                 $scope.tus_tmp = $data.tasklist;
+				console.log("$scope.tus");
+				console.log($scope.tus_tmp);
 				$scope.tus = [];
 				angular.forEach($scope.tus_tmp, function(element) {
-				  $scope.tus.push(element);
+					
+					$scope.tus.push(element);
 				});	
-				console.log($scope.tus);
+				
             });
 
 	}
