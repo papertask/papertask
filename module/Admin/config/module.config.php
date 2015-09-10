@@ -116,6 +116,7 @@ return array(
 			'admin/project/invoiceprint' => __DIR__ . '/../view/admin/project/invoiceprint.phtml',
 			'admin/project/invoicedownload' => __DIR__ . '/../view/admin/project/invoicedownload.phtml',
         	'admin/project/order-translation' => __DIR__ . '/../view/admin/project/order-translation.phtml',
+        	'admin/project/need-quote' => __DIR__ . '/../view/admin/project/need-quote.phtml',
         	'admin/project/order-translation-non-contract' => __DIR__ . '/../view/admin/project/order-translation-non-contract.phtml',
 			
             'admin/quote/detail' => __DIR__ . '/../view/admin/quote/detail.phtml',

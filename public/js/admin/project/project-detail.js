@@ -930,7 +930,7 @@ angularApp.controller("ProjectFilesController", function($scope, $rootScope, $ht
         $scope.project.targetLanguages.forEach(function(lang, i) {
             var uploader = lang.uploader = new FileUploader({
                 url: "/" + LANG_CODE + "/admin/project/uploadFile",
-                formData: [{langId: lang.id, projectId: $scope.project.id}]
+                formData: [{langId: lang.id, projectId: $scope.project.id, filetype: 1}]
             });
 
             // FILTERS

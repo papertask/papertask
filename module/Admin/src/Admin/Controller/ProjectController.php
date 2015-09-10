@@ -111,7 +111,27 @@ class ProjectController extends AbstractActionController
     		return $view;
     	}
     }	
-    
+    public function needQuoteAction(){
+    	$lang_code = $this->params()->fromRoute('lang');
+    	
+    	$currentUserId = User::currentLoginId();
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);
+    	$employer = $currentUser->getEmployer();
+    	$isContracted = $employer->getContract();
+    	if($isContracted == 1){
+    		$view =  new ViewModel(array(
+    				"lang_code" => $lang_code,
+    		));
+    		$view->setTemplate('admin/project/need-quote.phtml');
+    		return $view;
+    	} else{
+    		$view =  new ViewModel(array(
+    			"lang_code" => $lang_code,
+    	));
+    		$view->setTemplate('admin/project/order-translation-non-contract.phtml');
+    		return $view;
+    	}
+    }	
     public function orderTranslationNonContractAction(){
     	$lang_code = $this->params()->fromRoute('lang');
     	return new ViewModel(array(
