@@ -48,6 +48,11 @@ class File extends Entity{
      * @ORM\Column(type="integer")
      */
     protected $size;
+	/**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $filetype=0;
 
     /**
      * @var integer
@@ -87,6 +92,7 @@ class File extends Entity{
 			'language' => ($this->language)?$this->language->getData():null,
             'token' => $this->token,
             'time' => $this->time,
+			'filetype' => $this->filetype,
         ];
     }
 
