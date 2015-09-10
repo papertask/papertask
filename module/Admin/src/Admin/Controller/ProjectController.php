@@ -178,6 +178,7 @@ class ProjectController extends AbstractActionController
 		$projectId = $this->getRequest()->getPost('projectId');
 		$taskId = $this->getRequest()->getPost('taskId');
 		$langId = $this->getRequest()->getPost('langId');
+		$filetype = ($this->getRequest()->getPost('filetype'))?$this->getRequest()->getPost('filetype'):0;
 		//var_dump($projectId);
 		//var_dump($taskId);exit;
 		
@@ -187,6 +188,7 @@ class ProjectController extends AbstractActionController
 		$task = $entityManager->find('\User\Entity\Task', (int)$taskId);
 		
 		$lang = $entityManager->find('\User\Entity\Language', (int)$langId);
+		
 
         if ( !empty( $_FILES ) ) {
 
@@ -208,6 +210,7 @@ class ProjectController extends AbstractActionController
 				'project' => $project,
 				'task' => $task,
 				'language' => $lang,
+				'filetype' => $filetype,
             ]);
             $file->save($this->getEntityManager());
             $answer = [
@@ -285,6 +288,7 @@ class ProjectController extends AbstractActionController
         			"size" => $d['size'],
                     "task" => $d['task'],
                     "language" => $d['language'],
+					"filetype" => $d['filetype'],
                 ];
                 // $json[] = $d;
             }

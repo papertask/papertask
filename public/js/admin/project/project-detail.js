@@ -1101,11 +1101,21 @@ angularApp.controller("ProjectFilesController", function($scope, $rootScope, $ht
     function attachLangFiles(){
         $scope.langFiles.forEach(function(file) {
             $scope.project.targetLanguages.some(function(l){
-                if(l.id == file.task.language.id){
-                    if(!l.files) l.files = [];
-                    l.files.push(file);
-                    return true;
-                }
+				if(file.task){
+					if(l.id == file.task.language.id){
+						if(!l.files) l.files = [];
+						l.files.push(file);
+						return true;
+					}
+				}
+				else{
+					if(file.filetype==1){
+						if(!l.files) l.files = [];
+						l.files.push(file);
+						return true;
+					}
+					
+				}
             });
         });
     }
@@ -1116,11 +1126,13 @@ angularApp.controller("ProjectFilesController", function($scope, $rootScope, $ht
             .success( function ( $data ) {
             	
                 $scope.files = $data.filter(function(file){
+					console.log(file);
                     return !file.task && !file.language;
                 });
                 
                 $scope.langFiles = $data.filter(function(file){
-                    return file.task;
+				console.log(file);
+                    return file.task || file.filetype;
                 });
                 
              $rootScope.filesLength = $scope.files.length;
