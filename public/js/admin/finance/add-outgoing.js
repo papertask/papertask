@@ -137,11 +137,12 @@ angularApp.controller('AddOutcomeController', function($scope, $http, $timeout, 
         } else {
             $scope.outtransaction.itemlist.splice($index, 1);
         }
+		console.log($scope.outtransaction.itemlist);
 		var subtotal = 0;
 		var total = 0;
 		
 		for(var i = 0; i < $scope.outtransaction.itemlist.length; i++){
-			subtotal += Number($scope.outtransaction.itemlist[i].total);
+			subtotal += Number($scope.outtransaction.itemlist[i].total_freelancer);
 			
 		}
 		$scope.outtransaction.subtotal = subtotal;
