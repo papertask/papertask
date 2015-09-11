@@ -138,6 +138,51 @@ class Itermtm extends Entity{
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */ 
     protected $total_freelancer = 0.00;
+	
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */
+    protected $raterepetitions_fl = 0.00;
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */
+    protected $rateyibai_fl = 0.00;
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */
+    protected $ratejiuwu_fl = 0.00;
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */
+    protected $ratebawu_fl = 0.00;
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */
+    protected $rateqiwu_fl = 0.00;
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */
+    protected $ratewushi_fl = 0.00;
+	
+	/**
+     * @var integer
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */
+    protected $ratenomatch_fl = 0.00;
+	
+	
      public function getProject(){
         return $this->project;
     }
@@ -166,7 +211,17 @@ class Itermtm extends Entity{
 			'rateqiwu' => $this->rateqiwu,
 			'ratewushi' => $this->ratewushi,
 			'ratenomatch' => $this->ratenomatch,
-			'total' => $this->total
+			'total' => $this->total,
+			
+			'raterepetitions_fl' => $this->raterepetitions_fl,
+			'rateyibai_fl' => $this->rateyibai_fl,
+			'ratejiuwu_fl' => $this->ratejiuwu_fl,
+			'ratebawu_fl' => $this->ratebawu_fl,
+			'rateqiwu_fl' => $this->rateqiwu_fl,
+			'ratewushi_fl' => $this->ratewushi_fl,
+			'ratenomatch_fl' => $this->ratenomatch_fl,
+			'total_freelancer' => $this->total_freelancer,
+			'rate_freelancer' => $this->rate_freelancer,
 			
         ];
     }	

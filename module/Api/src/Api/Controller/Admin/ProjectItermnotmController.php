@@ -55,6 +55,7 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 			'quantity' => $data['quantity'],
 			'total_freelancer' => $data['total'],
 			'language' => $language,
+			'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
 		]);
 		$iterm->save($this->getEntityManager());
 		//add task if have not

@@ -418,7 +418,7 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 		{
 			$scope.itermtmnew[$scope.project.targetLanguages[i].id] = [];
 			for(var j = 0; j < Itemr.length; j++){
-				if(Itemr[j].language.id == $scope.project.targetLanguages[i].id){
+				if(Itemr[j].language.id == $scope.project.targetLanguages[i].id && Itemr[j].of_freelancer==0){
 					$scope.subtotal_tmp = $scope.subtotal_tmp + parseFloat(Itemr[j].total);
 					var total = Number(Itemr[j].total);
 					var rate = Number(Itemr[j].rate);

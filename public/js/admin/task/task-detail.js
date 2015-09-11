@@ -616,7 +616,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 						quantity: translationNoTM.quantity, 
 						total: translationNoTM.total_tmp,
 						name : translationNoTM.name,
-						file : translationNoTM.file
+						file : translationNoTM.file,
+						of_freelancer : 1,
 						
 					}).success(function( data ) {
 						$scope.iterm_notm.id = data.iterm.id;
@@ -738,6 +739,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 						name : desktopMac.name,
 						file : desktopMac.file,
 						software : desktopMac.software,
+						of_freelancer : 1,
 						
 					}).success(function( data ) {
 						$scope.iterm_dtpmac.id = data.iterm.id;
@@ -815,6 +817,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 						name : desktopPc.name,
 						file : desktopPc.file,
 						software : desktopPc.software,
+						of_freelancer : 1,
 						
 					}).success(function( data ) {
 						$scope.iterm_dtppc.id = data.iterm.id;
@@ -892,6 +895,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 						name : engineering.name,
 						file : engineering.file,
 						engineeringcategory : engineering.engineeringcategory,
+						of_freelancer : 1,
 						
 					}).success(function( data ) {
 						$scope.iterm_engineering.id = data.iterm.id;
@@ -964,7 +968,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 						quantity: interpreting.quantity, 
 						total: interpreting.total_tmp,
 						name : interpreting.name,
-						file : interpreting.file
+						file : interpreting.file,
+						of_freelancer : 1,
 						
 					}).success(function( data ) {
 						$scope.iterm_interpreting.id = data.iterm.id;
@@ -1457,8 +1462,166 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			
 			}
 			else if($scope.task.type.id == 2){
-			
-			
+				var ajaxUserInfo = $http.get("/api/user/" + $scope.task.freelancerassign.userid + "")
+				.success ( function ( $data ) {
+					$scope.currency = $data.user.currency;
+					$scope.tmRatios = $data.tmRatios;
+					
+					console.log($data);
+				});
+				$q.all([ajaxUserInfo])
+                .then(function(){
+					//get rate tm
+					if($scope.tmRatios){
+						$scope.itemtms[$scope.task.language.id][0].raterepetitions_fl = $scope.tmRatios.repetitions;
+						$scope.itemtms[$scope.task.language.id][0].rateyibai_fl = $scope.tmRatios.yibai;
+						$scope.itemtms[$scope.task.language.id][0].ratejiuwu_fl = $scope.tmRatios.jiuwu;
+						$scope.itemtms[$scope.task.language.id][0].ratebawu_fl = $scope.tmRatios.bawu;
+						$scope.itemtms[$scope.task.language.id][0].rateqiwu_fl = $scope.tmRatios.qiwu;
+						$scope.itemtms[$scope.task.language.id][0].ratewushi_fl = $scope.tmRatios.wushi;
+						$scope.itemtms[$scope.task.language.id][0].ratenomatch_fl = $scope.tmRatios.nomatch;
+					}
+					else {
+						// Get list translationTM papertask
+					   $http.get("/api/papertask/translationtm").success(function($data){
+							$scope.translationTM = $data['translationTM'];
+						    $scope.itemtms[$scope.task.language.id][0].raterepetitions_fl = Number($scope.translationTM[0].rate*100);
+							$scope.itemtms[$scope.task.language.id][0].rateyibai_fl = Number($scope.translationTM[1].rate*100);
+							$scope.itemtms[$scope.task.language.id][0].ratejiuwu_fl = Number($scope.translationTM[2].rate*100);
+							$scope.itemtms[$scope.task.language.id][0].ratebawu_fl = Number($scope.translationTM[3].rate*100);
+							$scope.itemtms[$scope.task.language.id][0].rateqiwu_fl = Number($scope.translationTM[4].rate*100);
+							$scope.itemtms[$scope.task.language.id][0].ratewushi_fl = Number($scope.translationTM[5].rate*100);
+							$scope.itemtms[$scope.task.language.id][0].ratenomatch_fl = Number($scope.translationTM[6].rate*100);		
+
+						}).error(function($e){
+						   alert('error');
+						});
+					}
+					//get rate 
+					$http.get('/api/user/translationprice?userId='+ $scope.task.freelancerassign.userid).success(function($data) {
+				
+						$scope.translationPrices = $data['translationPrices'];
+					
+						for(i=0;i<$scope.translationPrices.length;i++){
+							if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.task.language.id == $scope.translationPrices[i].targetLanguage.id  ){
+								$scope.task.freelancerassign.rate_freelancer  = $scope.translationPrices[i].price;
+								var rate_freelancer = Number($scope.task.freelancerassign.rate_freelancer);						
+									$scope.itemtms[$scope.task.language.id][0].rate_tmp = Number($scope.task.freelancerassign.rate_freelancer);
+									var total_freelancer = 
+										($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].raterepetitions_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcerepetitions
+										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].rateyibai_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourceyibai
+										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratejiuwu_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcejiuwu
+										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratebawu_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcebawu
+										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratewushi_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcewushi
+										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratenomatch_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcenomatch;
+										
+										$scope.itemtms[$scope.task.language.id][0].total = $scope.currency + " " + total_freelancer.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+										$scope.itemtms[$scope.task.language.id][0].rate = $scope.currency + " " + rate_freelancer.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itemtms[$scope.task.language.id][0].total_freelancer = total_freelancer; 
+										$scope.itemtms[$scope.task.language.id][0].rate_freelancer = rate_freelancer;
+	
+										
+									$scope.task.freelancerassign.itemtms = $scope.itemtms[$scope.task.language.id];
+									$scope.task.freelancerassign.total_task_freelancer = total_freelancer;
+									$scope.task.freelancerassign.currency = $scope.currency;
+									var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
+									.success( function ( $data ) {
+										$scope.task = $data.task;
+										$scope.task.status = TaskStatus.get($scope.task.status);
+										bootbox.alert(ASSIGN_SUCCESSFUL);
+									});	
+								
+								//console.log($scope.task.freelancerassign.rate_freelancer);
+								//$scope.task.freelancerassign.total_freelancer  = Number($scope.task.freelancerassign.rate_freelancer) * Number($scope.itermnotmsnews[$scope.task.language.id][0].quantity);
+							}
+							
+						}
+						if(!$scope.task.freelancerassign.rate_freelancer){
+							$http.get("/api/papertask/translation").success(function($data){
+									$scope.translation = $data['translation'];
+									console.log($scope.translation);
+									console.log($scope.project);
+									for(j=0;j<$scope.project.targetLanguages.length;j++) {
+									//get default papertask
+										for(k=0;k<$scope.translation.length;k++){
+											if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage 
+												&& $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage){
+												if($scope.project.serviceLevel==1)
+													$scope.task.freelancerassign.rate_freelancer  = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):format2n(Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate);
+												else if($scope.project.serviceLevel==2)
+													$scope.task.freelancerassign.rate_freelancer  = ($scope.currency == 'cny')?Number($scope.translation[k].businessPrice):format2n(Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate);
+												else
+													$scope.task.freelancerassign.rate_freelancer  = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);		
+												}
+										}
+									}
+									var rate_freelancer = Number($scope.task.freelancerassign.rate_freelancer);						
+									$scope.itemtms[$scope.task.language.id][0].rate_tmp = Number($scope.task.freelancerassign.rate_freelancer);
+									var total_freelancer = 
+										($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].raterepetitions_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcerepetitions
+										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].rateyibai_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourceyibai
+										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratejiuwu_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcejiuwu
+										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratebawu_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcebawu
+										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratewushi_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcewushi
+										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratenomatch_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcenomatch;
+										
+										$scope.itemtms[$scope.task.language.id][0].total = $scope.currency + " " + total_freelancer.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+										$scope.itemtms[$scope.task.language.id][0].rate = $scope.currency + " " + rate_freelancer.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+										$scope.itemtms[$scope.task.language.id][0].total_freelancer = total_freelancer; 
+										$scope.itemtms[$scope.task.language.id][0].rate_freelancer = rate_freelancer;
+	
+										
+									$scope.task.freelancerassign.itemtms = $scope.itemtms[$scope.task.language.id];
+									$scope.task.freelancerassign.total_task_freelancer = total_freelancer;
+									$scope.task.freelancerassign.currency = $scope.currency;
+									var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
+									.success( function ( $data ) {
+										$scope.task = $data.task;
+										$scope.task.status = TaskStatus.get($scope.task.status);
+										bootbox.alert(ASSIGN_SUCCESSFUL);
+									});	
+							
+							}).error(function($e){
+								alert('error');
+							});
+						}
+						
+						
+						
+					
+						//$scope.itermnotmsnews = rearrangeItem($scope.itermnotmsnews,$scope.task.language.id,$scope.task.freelancerassign.rate_freelancer);
+						/*var total_task_freelancer = 0;
+						var targetLanguagesid = $scope.task.language.id;
+						for(var j = 0; j < $scope.itermnotmsnews[targetLanguagesid].length; j++){
+								var rate = Number($scope.task.freelancerassign.rate_freelancer);
+								var total = rate * $scope.itermnotmsnews[targetLanguagesid][j].quantity;
+								$scope.itermnotmsnews[targetLanguagesid][j].rate_freelancer = rate;
+								total_task_freelancer = total_task_freelancer + total;
+								$scope.itermnotmsnews[targetLanguagesid][j].rate_tmp = rate;
+								$scope.itermnotmsnews[targetLanguagesid][j].total_freelancer = total;
+								$scope.itermnotmsnews[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+								$scope.itermnotmsnews[targetLanguagesid][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+								
+						}
+					
+						$scope.task.freelancerassign.itermnotmsnews = $scope.itermnotmsnews[$scope.task.language.id];
+						$scope.task.freelancerassign.total_task_freelancer = total_task_freelancer;
+						$scope.task.freelancerassign.currency = $scope.currency;
+						console.log($scope.task.freelancerassign);
+						console.log($scope.task.total_task_freelancer);
+						
+						var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
+						.success( function ( $data ) {
+							$scope.task = $data.task;
+							$scope.task.status = TaskStatus.get($scope.task.status);
+							bootbox.alert(ASSIGN_SUCCESSFUL);
+						});*/	
+					
+				});	
+					/*$http.get('/api/user/translationprice?userId='+ $scope.task.freelancerassign.userid).success(function($data) {
+				
+					}*/
+				})					
 			}
 			else if($scope.task.type.id == 3){
 				

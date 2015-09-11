@@ -69,6 +69,23 @@ class Itermengineering extends Entity{
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $total = 0.00;
+	/**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $of_freelancer=0;
+	 /**
+     * @var float
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */
+    protected $total_freelancer = 0.00;
+	/**
+     * @var decimal
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */
+    protected $rate_freelancer = 0.00;
+	
+	
 	public function getProject(){
         return $this->project;
     }
@@ -87,6 +104,9 @@ class Itermengineering extends Entity{
             'unit' => $this->unit,
 			'engineeringcategory' => $this->engineeringcategory->getData(),
 			'total' => $this->total,
+			'rate_freelancer' => $this->rate_freelancer,
+			'total_freelancer' => $this->total_freelancer,
+			'of_freelancer' => $this->of_freelancer
         ];
     }
 

@@ -292,6 +292,28 @@ class TaskController extends AbstractRestfulJsonController
 					$itermnotm_update->save($this->getEntityManager());
 				}
 			}
+			else if($data['type'] == 2)
+			{
+				foreach($data['itemtms'] as $itemtm){
+					$itermtm_update = $this->find('\User\Entity\Itermtm', $itemtm['id']);
+					//data = $itermnotm_update
+					//var_dump($itermnotm_update);exit;
+					$itermtm_update->setData([
+						'rate_freelancer' => $itemtm['rate_freelancer'],
+						'total_freelancer' => $itemtm['total_freelancer'],
+						'raterepetitions_fl' => $itemtm['raterepetitions_fl'],
+						'rateyibai_fl' => $itemtm['rateyibai_fl'],
+						'ratejiuwu_fl' => $itemtm['ratejiuwu_fl'],
+						'ratebawu_fl' => $itemtm['ratebawu_fl'],
+						'rateqiwu_fl' => $itemtm['rateqiwu_fl'],
+						'ratewushi_fl' => $itemtm['ratewushi_fl'],
+						'ratenomatch_fl' => $itemtm['ratenomatch_fl'],
+						
+					]);
+					//
+					$itermtm_update->save($this->getEntityManager());
+				}
+			}
 			else if($data['type'] == 4)
 			{
 				

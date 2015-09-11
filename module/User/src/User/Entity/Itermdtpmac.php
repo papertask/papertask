@@ -81,6 +81,11 @@ class Itermdtpmac extends Entity{
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $total_freelancer = 0.00;
+	/**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $of_freelancer=0;
 	
 	 public function getProject(){
         return $this->project;
@@ -101,7 +106,8 @@ class Itermdtpmac extends Entity{
             'unit' => $this->unit,
 			'software' => $this->software->getData(),
 			'total' => $this->total,
-			'total_freelancer' => $this->total_freelancer
+			'total_freelancer' => $this->total_freelancer,
+			'of_freelancer' => $this->of_freelancer
         ];
     }
 }

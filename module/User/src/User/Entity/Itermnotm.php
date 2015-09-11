@@ -43,7 +43,11 @@ class Itermnotm extends Entity{
      */
     protected $language;
 
-    
+    /**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $of_freelancer=0;
 
     /**
      * @var integer
@@ -96,7 +100,8 @@ class Itermnotm extends Entity{
 			'quantity' => $this->quantity,
             'unit' => $this->unit,
 			'total' => $this->total,
-			'total_freelancer' => $this->total_freelancer
+			'total_freelancer' => $this->total_freelancer,
+			'of_freelancer' => $this->of_freelancer
         ];
     }
 	public function getId(){

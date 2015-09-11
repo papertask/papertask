@@ -72,6 +72,21 @@ class Itermdtppc extends Entity{
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $total = 0.00;
+	/**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $of_freelancer=0;
+	 /**
+     * @var float
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */
+    protected $total_freelancer = 0.00;
+	/**
+     * @var decimal
+     * @ORM\Column(type="decimal", scale=3, precision=6)
+     */
+    protected $rate_freelancer = 0.00;
 	
 	public function getProject(){
         return $this->project;
@@ -90,7 +105,10 @@ class Itermdtppc extends Entity{
 			'quantity' => $this->quantity,
             'unit' => $this->unit,
 			'software' => $this->software->getData(),
-			'total' => $this->total
+			'total' => $this->total,
+			'total_freelancer' => $this->total_freelancer,
+			'of_freelancer' => $this->of_freelancer,
+			'rate_freelancer' => $this->rate_freelancer,
         ];
     }
 }
