@@ -75,7 +75,7 @@
                                         <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
                                         <td>{{file.size | filesize}}</td>
                                         <td>{{ formatDate(file.time.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
-                                        <td><i class="fa fa-trash" ng-click="deleteFile(file.token)"></i></td>
+                                        <td><i class="fa fa-trash" ng-click="removeFile(file)"></i></td>
                                     </tr>
                                     <tr ng-repeat="item in lang.uploader.queue" ng-show="item.isUploading">
                                         <td>{{$index + lang.files.length + 1 }}</td>

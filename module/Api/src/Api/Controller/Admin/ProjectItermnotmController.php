@@ -30,6 +30,9 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 		//ini_set('display_errors', 1);
 		//var_dump($data['laguageid']);exit;
 		$projectid = $this->getRequest()->getQuery('projectid');
+		
+		$projectid = $this->getRequest()->getQuery('projectid');
+
 		$iterm = new Itermnotm();
 		if($data['file'])
 			$file = $this->find('\User\Entity\File', $data['file']['id']);
@@ -47,16 +50,31 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 		
 		$iterm->setProject($project);
 		$language = $this->find('User\Entity\Language', $data['languageid']);
-		
-		$iterm->setData([
-			'name' => $data['name'],
-			'file' => ($file)?$file:null,
-			'rate_freelancer' => $data['rate'],
-			'quantity' => $data['quantity'],
-			'total_freelancer' => $data['total'],
-			'language' => $language,
-			'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
-		]);
+		if($data['task_id']){
+			$task = $this->find('User\Entity\Task', $data['task_id']);
+			$iterm->setData([
+				'name' => $data['name'],
+				'file' => ($file)?$file:null,
+				'rate_freelancer' => $data['rate'],
+				'quantity' => $data['quantity'],
+				'total_freelancer' => $data['total'],
+				'language' => $language,
+				'task' => $task,
+				'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+			]);
+			
+		}
+		else{
+			$iterm->setData([
+				'name' => $data['name'],
+				'file' => ($file)?$file:null,
+				'rate_freelancer' => $data['rate'],
+				'quantity' => $data['quantity'],
+				'total_freelancer' => $data['total'],
+				'language' => $language,
+				'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+			]);
+		}
 		$iterm->save($this->getEntityManager());
 		//add task if have not
 		$entityManager = $this->getEntityManager();
@@ -82,8 +100,15 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
     public function getList(){
         $entityManager = $this->getEntityManager();
         $projectId = $this->getRequest()->getQuery('projectId');
+        $taskId = $this->getRequest()->getQuery('taskId');
         $project = $entityManager->getRepository('\User\Entity\Project')->find( $projectId );
-        $Itermnotm = $entityManager->getRepository('\User\Entity\Itermnotm')->findBy(array('project'=>$project));
+		if($taskId){
+			$task = $entityManager->getRepository('\User\Entity\Task')->find( $taskId );
+			$Itermnotm = $entityManager->getRepository('\User\Entity\Itermnotm')->findBy(array('project'=>$project,'task'=>$task));
+		}	
+		else {
+	        $Itermnotm = $entityManager->getRepository('\User\Entity\Itermnotm')->findBy(array('project'=>$project));
+		}	
         $Itermnotms = array();
         foreach( $Itermnotm as $k => $v ) 
         {

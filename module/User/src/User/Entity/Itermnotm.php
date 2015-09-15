@@ -30,6 +30,14 @@ class Itermnotm extends Entity{
 	 
     protected $project;
 	
+	/**
+     * @var \User\Entity\Task
+     * @ORM\ManyToOne(targetEntity="task")
+     * @ORM\JoinColumn(name="task_id", referencedColumnName="id", nullable=true)
+     */
+	 
+    protected $task;
+	
 	/** @ORM\Column(type="string") */
     protected $name;
     /**
