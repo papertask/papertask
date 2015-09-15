@@ -1,27 +1,22 @@
 <div class="row">
-	<div class="col-lg-5">
-		<dl class="dl-horizontal">
-			<dt>Project Files:</dt>
-			<dd>
-				<ul class="list-unstyled project-files tooltip-demo" >
-				<li ng-repeat="file in files">
-					<a href="<?php echo $this->url('admin',array('controller'=>'project','action'=>'downloadFile'),array('query'=>array('token'=>'')))?>{{file.token}}" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{ file.size/1024/1024|number:2 }} MB | {{ file.date }}"><i class="fa fa-file"></i> {{ file.name }}</a>
-				</li>
-            </ul>
-			</dd>
-		</dl>
+	<div class="col-lg-12">
+		<table class="table table-bordered">
+				<thead>
+				<tr>
+						<th>#</th>
+						<th>Task Source Files</th>
+						<th>Size</th>
+						<th>Time Stamp</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="file in files">
+						<td>{{$index + 1}}</td>
+						<td><a href="<?php echo $this->url('admin',array('controller'=>'project','action'=>'downloadFile'),array('query'=>array('token'=>'')))?>{{file.token}}"><i class="fa fa-file"></i> {{ file.name }}</a></td>
+						<td>{{ file.size/1024/1024|number:2 }} MB</td>
+						<td>{{ file.date }}</td>
+				</tr>
+				</tbody>
+		</table>
 	</div>
-	<div class="col-lg-7" id="modal-taskfile">
-        <dl class="dl-horizontal">
-            <dt>Final Files:</dt> 
-                <dd>
-					<ul class="list-unstyled project-files tooltip-demo">
-						<li ng-repeat="file in taskfiles">
-							<a href="<?php echo $this->url('admin',array('controller'=>'project','action'=>'downloadFile'),array('query'=>array('token'=>'')))?>{{file.token}}" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{ file.size/1024/1024|number:2 }} MB | {{ file.date }}"><i class="fa fa-file"></i> {{ file.name }}</a>
-							
-						</li>					</ul>
-					
-                </dd>
-            </dl>
-    </div>
 </div>

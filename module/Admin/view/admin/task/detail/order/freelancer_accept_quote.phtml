@@ -16,38 +16,34 @@
 <!-- end of accept button section -->
 <!-- if the task is accepted, then show final fileupload section and Reviewing button, and hide the accept button -->
 <div ng-show="task.status.id == 2 || task.status.id == 8" class="row" ng-controller="AppController" nv-file-drop="" uploader="uploader">
-	<div class="col-lg-5">
-		<dl class="dl-horizontal">
-			<dt>Project Files:</dt>
-			<dd>
-				 <ul class="list-unstyled project-files tooltip-demo" >
-				<li ng-repeat="file in files">
-					<a href="{{file.path}}" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{ file.size/1024/1024|number:2 }} MB | {{ file.date }}"><i class="fa fa-file"></i> {{ file.name }}</a>
-					
-					
-				</li>
-            </ul>
-			</dd>
-		</dl>
+
+	<div class="text-center m-t-md" id="taskfiles">
+		<input type="file" nv-file-select="" uploader="uploadertask" multiple="multiple" />
 	</div>
-	<div class="col-lg-7">
-		<div class="col-lg-7" id="modal-taskfile">
-        <dl class="dl-horizontal">
-            <dt>Final Files:</dt> 
-                <dd>
-					<ul class="list-unstyled project-files tooltip-demo">
-						<li ng-repeat="file in taskfiles">
-							<a href="{{file.path}}" data-toggle="tooltip" data-placement="left" title="" data-original-title="{{ file.size/1024/1024|number:2 }} MB | {{ file.date }}"><i class="fa fa-file"></i> {{ file.name }}</a>
-							<a href="#" ng-click="calTo('#modal-taskfile','#TaskDetailController',
-	                                           'removetaskItem', file)"><i class="fa fa-trash"></i></a>
-						</li>					</ul>
-					<div class="text-center m-t-md" id="taskfiles">
-						<input type="file" nv-file-select="" uploader="uploadertask" multiple="multiple" />
-					</div>
-                </dd>
-            </dl>
-    	</div>
+	<table class="table table-bordered">
+			<thead>
+			<tr>
+					<th>#</th>
+					<th>Final Task Files</th>
+					<th>Size</th>
+					<th>Time Stamp</th>
+					<th>Action</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="file in taskfiles">
+					<td>{{$index + 1}}</td>
+					<td><a href="{{file.path}}"><i class="fa fa-file"></i> {{ file.name }} </a> </td>
+					<td>{{ file.size/1024/1024|number:2 }} MB</td>
+					<td>{{ file.date }}</td>
+					<td><a href="#" ng-click="calTo('#modal-taskfile','#TaskDetailController', 'removetaskItem', file)"> <i class="fa fa-trash"></i></a> </td>
+			</tr>
+			</tbody>
+	</table>
+	<div class="text-center m-t-md">
+		<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-cloud-upload"></i> Upload files</a>
 	</div>
+
 </div>
 <div class="hr-line-dashed" ng-show="task.status.id == 2"></div>
 
@@ -57,7 +53,7 @@
 			<div class="row">
 				<div class="col-md-3"></div>
 				<div class="col-md-6">
-					
+
 					<a href="#" class="btn btn-block btn-success" type="submit" ng-click="SubmitReview(task.id)">Submit
 						for Reviewing</a><!-- if there is no file (at least one file) in the final file upload section, then disable the Reviewing button -->
 				</div>

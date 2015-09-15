@@ -1,4 +1,4 @@
-        <div ng-show="task.type.id==4">    
+        <div ng-show="task.type.id==4">
 			<div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -34,7 +34,7 @@
 								<span ng-click="deleteDesktopMac($index, item.id, language.id)"><i class="fa fa-trash-o text-danger"></i></span>
 								<?php } ?>
 							</td>
-						</tr>                    
+						</tr>
 					</tbody>
                 </table>
             </div>
@@ -42,11 +42,11 @@
             <div class="text-center">
 				 <a class="btn btn-outline btn-primary"
                    ng-click="addDesktopMac(language.id)">Add Iterm</a>
-				   
-                
+
+
             </div>
 			<?php } ?>
-            <div class="hr-line-dashed"></div>
+            
         </div>
         <div ng-show="task.type.id==5">
             <div class="table-responsive">
@@ -82,10 +82,10 @@
 													<i class="fa fa-edit"></i>
 												</span> &nbsp;&nbsp;
 								<span ng-click="deleteDesktopPc($index, item.id, language.id)"><i class="fa fa-trash-o text-danger"></i></span>
-								
+
 							</td>
 							<?php } ?>
-						</tr>                    
+						</tr>
 					</tbody>
                 </table>
             </div>
@@ -95,4 +95,4 @@
                    ng-click="addDesktopPc(language.id)">Add Iterm</a>
             </div>
 			<?php } ?>
-		</div>	
+		</div>

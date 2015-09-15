@@ -4,14 +4,11 @@
     <?php include "order/engineering.phtml" ?>
     <?php include "order/interpreting.phtml" ?>
 
-	<div class="hr-line-dashed"></div>
-	
-    
-    <?php if($user['role'] == 'Admin') 
+
+    <?php if($user['role'] == 'Admin')
             			include "order/admin_assign_task.phtml";
-            	else if ($user['role'] == 'Freelancer') 
+            	else if ($user['role'] == 'Freelancer')
             			include "order/freelancer_accept_quote.phtml";
-            
-     ?> 
+
+     ?>
 </div>
-                    
