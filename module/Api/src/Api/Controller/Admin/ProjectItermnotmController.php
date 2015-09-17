@@ -131,7 +131,7 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
         {
             $Itermnotms[$k] = $v->getData();
         }
-		var_dump($Itermnotms);exit;
+		//var_dump($Itermnotms);exit;
 		return new JsonModel([
             'project' => $project->getData(),
 			'itermnotms' => $Itermnotms,
