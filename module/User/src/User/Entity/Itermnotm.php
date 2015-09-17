@@ -96,12 +96,14 @@ class Itermnotm extends Entity{
     public function setProject($project){
         $this->project = $project;
     }
-	
+	public function setTask($task){
+        $this->task = $task;
+    }
 	public function getData(){
         return [
 			'id' => $this->id,
             'name' => $this->name,
-            'file' => $this->file,
+            'file' => ($this->file)?$this->file->getData2():null,
 			'language' => $this->language->getData(),
 			'rate' => $this->rate,
 			'rate_freelancer' => $this->rate_freelancer,

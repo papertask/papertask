@@ -100,6 +100,7 @@ class ProjectController extends AbstractRestfulJsonController
         }
         $data['targetLanguages'] = $targetLanguages;
 		
+
 		if($data['status'] == 2){//set odered
 			$data['quote_no'] = "QUO-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
 		}
@@ -205,7 +206,10 @@ class ProjectController extends AbstractRestfulJsonController
         if(isset($data['createType'])){
         	if($data['createType']=='orderTranslation'||$data['createType']=='orderTranslationNonContract' || $data['createType'] == 'landingOrder'){
         $i = 0;
-        		$langLength = count($targetLanguages);
+        
+		$langLength = count($targetLanguages);
+		
+		$task_array =  array();
         foreach ($targetLanguages as $key => $targetLang){
         	$i++;
         	$task = new Task();
@@ -229,8 +233,11 @@ class ProjectController extends AbstractRestfulJsonController
         	
         	$task->setData( $taskArrData );
 			$task->save($this->getEntityManager());
+			$task_array[$key] = $task;
+			
         }
-        
+        //var_dump($task_array);
+		//exit;
 		//invoice
 		$invoice = new Invoice();
 		$invoice_no = "INV-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
@@ -257,6 +264,49 @@ class ProjectController extends AbstractRestfulJsonController
 		
 		//
 		 if(isset($data['data'])){
+		 $i = 0;
+		 foreach($data['data'] as $iterms){
+			$i++;
+            $identifier = $iterms['identifier'];
+            $type = $identifier[0];
+			if ($type == 'translationNoTM'){
+				$type = 1;
+			}
+			else if ($type == 'translationTM'){
+				$type = 2;
+			}
+			else if ($type == 'dtpMac'){
+				$type = 4;
+			}
+			else if ($type == 'dtpPc'){
+				$type = 5;
+			}
+			else if ($type == 'engineering'){
+				$type = 6;
+			}
+			else{
+				$type = $data['types'][0]['id'];
+			}
+			//if(!$type)
+			//	$type = 1;
+            $languageId = $identifier[1]['id'];
+			
+			$task = new Task();
+			
+			$task->setData([
+                    'project' => $project,
+                    'language' => $targetLanguages[$languageId],
+                    'type' => $type,
+                    'status' => 3,
+					'name' => $data['reference'],// . '-' . $identifier[0],
+					'startDate' => $data['startDate'],
+					'dueDate' => $data['dueDate'], 
+					'task_number' => $data['project_no'].'-'.$i,
+					
+                ]);
+			$task->save($this->getEntityManager());
+		}	
+
         foreach($data['data'] as $iterms){
             $identifier = $iterms['identifier'];
             $type = $identifier[0];
@@ -267,6 +317,12 @@ class ProjectController extends AbstractRestfulJsonController
 					//var_dump($item); exit;
 					$iterm = new Itermnotm();
 					$iterm->setProject($project);
+					$entityManager = $this->getEntityManager();
+					//$task = $entityManager->getRepository('User\Entity\Task')->findBy(array('project'=>$project,'language'=>$targetLanguages[$languageId]));
+					//var_dump($targetLanguages[$languageId]);
+					//var_dump($project);
+					//var_dump($task);
+					$iterm->setTask($task);
 					$iterm->setData([
 						'name' => $item['name'],
 						'file' => $files[$item['file']['id']],
@@ -279,6 +335,7 @@ class ProjectController extends AbstractRestfulJsonController
 					$projectTotal = $projectTotal + floatval($item['total']);
 					$iterm->save($this->getEntityManager());
 				}
+				//exit;
 				
 			}
 			else if ($type == 'translationTM'){
@@ -411,48 +468,7 @@ class ProjectController extends AbstractRestfulJsonController
        
        
         $project->save($this->getEntityManager());
-        $i = 0;
-		foreach($data['data'] as $iterms){
-			$i++;
-            $identifier = $iterms['identifier'];
-            $type = $identifier[0];
-			if ($type == 'translationNoTM'){
-				$type = 1;
-			}
-			else if ($type == 'translationTM'){
-				$type = 2;
-			}
-			else if ($type == 'dtpMac'){
-				$type = 4;
-			}
-			else if ($type == 'dtpPc'){
-				$type = 5;
-			}
-			else if ($type == 'engineering'){
-				$type = 6;
-			}
-			else{
-				$type = $data['types'][0]['id'];
-			}
-			//if(!$type)
-			//	$type = 1;
-            $languageId = $identifier[1]['id'];
-			
-			$task = new Task();
-			
-			$task->setData([
-                    'project' => $project,
-                    'language' => $targetLanguages[$languageId],
-                    'type' => $type,
-                    'status' => 3,
-					'name' => $data['reference'],// . '-' . $identifier[0],
-					'startDate' => $data['startDate'],
-					'dueDate' => $data['dueDate'], 
-					'task_number' => $data['project_no'].'-'.$i,
-					
-                ]);
-			$task->save($this->getEntityManager());
-		}	
+        
 		}
 		
 		$ActiDataArr = [

@@ -95,7 +95,15 @@ class File extends Entity{
 			'filetype' => $this->filetype,
         ];
     }
-
+	public function getData2(){
+        return [
+            'id' => $this->id,
+			'name' => $this->name,
+			'path' => $this->path,
+			'size' => $this->size,
+			'filetype' => $this->filetype,
+        ];
+    }
     public function getId(){
         return $this->id;
     }

@@ -71,11 +71,31 @@ class TaskController extends AbstractRestfulJsonController
 		//var_dump($max); exit;
 		$data['task_number'] = $project->getProjectNo().'-'.$max;
 		
-		//var_dump($data);exit;
-		
+//		var_dump($data);exit;
+		//var_dump($project);exit;
         $task = new Task();
         $task->setData($data);
         $task->save($this->getEntityManager());
+		if ($data['type'] == 1){
+				$entityManager = $this->getEntityManager();
+				$files = $entityManager->getRepository('User\Entity\File')->findBy(array('project'=>$project));
+				//var_dump($files);exit;
+				foreach($files as $file){
+					//var_dump($item); exit;
+					$iterm = new Itermnotm();
+					$iterm->setProject($project);
+					$iterm->setTask($task);
+					$iterm->setData([
+						'name' => '',
+						'file' => $file,
+						'quantity' => 0,
+						'language' => $data['language']
+					]);
+					$iterm->save($this->getEntityManager());
+				}
+				//exit;
+				
+			}
 
         $activity = new Activity();
         $activity->setData([

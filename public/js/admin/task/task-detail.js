@@ -111,6 +111,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 							// arrange itermnotms based language
 							
 							$scope.itermnotmsnews = arrangeItem($data['Itermnotms']);
+							console.log($scope.itermnotmsnews);
 									
 						});
 					}

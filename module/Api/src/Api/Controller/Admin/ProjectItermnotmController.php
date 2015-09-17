@@ -112,6 +112,9 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
         $Itermnotms = array();
         foreach( $Itermnotm as $k => $v ) 
         {
+			//$data = $v->getData();
+			//var_dump()
+	        //$file = $entityManager->getRepository('\User\Entity\File')->findBy(array('id'=>$data));
             $Itermnotms[$k] = $v->getData();
         }
         return new JsonModel(['Itermnotms'=>$Itermnotms]);
