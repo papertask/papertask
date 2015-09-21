@@ -107,6 +107,10 @@ class File extends Entity{
     public function getId(){
         return $this->id;
     }
+	
+	public function getFiletype(){
+        return $this->filetype;
+    }
 
     public function getPath(){
         return $this->path;

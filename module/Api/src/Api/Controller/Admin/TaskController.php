@@ -78,21 +78,67 @@ class TaskController extends AbstractRestfulJsonController
         $task->save($this->getEntityManager());
 		if ($data['type'] == 1){
 				$entityManager = $this->getEntityManager();
-				$files = $entityManager->getRepository('User\Entity\File')->findBy(array('project'=>$project));
-				//var_dump($files);exit;
-				foreach($files as $file){
-					//var_dump($item); exit;
-					$iterm = new Itermnotm();
-					$iterm->setProject($project);
-					$iterm->setTask($task);
-					$iterm->setData([
-						'name' => '',
-						'file' => $file,
-						'quantity' => 0,
-						'language' => $data['language']
-					]);
-					$iterm->save($this->getEntityManager());
+				$files = $entityManager->getRepository('User\Entity\File')->findBy(array('project'=>$project,'task'=>$task));
+				
+				if(count($files)){
+					//var_dump($files);exit;
+					foreach($files as $file){
+						//if()
+						//var_dump($item); exit;
+						if($file->getFiletype()==0){
+							
+							$items = $entityManager->getRepository('User\Entity\Itermnotm')->findBy(array('project'=>$project,'file'=>$file));
+							$quantity=0;
+							foreach($items as $item){
+								if($item->getQuantity()>0)
+								{
+									$quantity=$item->getQuantity();
+									
+								}	
+							}
+							$iterm = new Itermnotm();
+							$iterm->setProject($project);
+							$iterm->setTask($task);
+							$iterm->setData([
+								'name' => '',
+								'file' => $file,
+								'quantity' => $quantity,
+								'language' => $data['language']
+							]);
+							$iterm->save($this->getEntityManager());
+						}
+					}
 				}
+				else{
+					$files = $entityManager->getRepository('User\Entity\File')->findBy(array('project'=>$project));
+					//var_dump($files);exit;
+					foreach($files as $file){
+						
+						if($file->getFiletype()==0){
+							$items = $entityManager->getRepository('User\Entity\Itermnotm')->findBy(array('project'=>$project,'file'=>$file));
+							$quantity=0;
+							foreach($items as $item){
+								if($item->getQuantity()>0)
+								{
+									$quantity=$item->getQuantity();
+									
+								}	
+							}
+							//var_dump($item); exit;
+							$iterm = new Itermnotm();
+							$iterm->setProject($project);
+							$iterm->setTask($task);
+							$iterm->setData([
+								'name' => '',
+								'file' => $file,
+								'quantity' => $quantity,
+								'language' => $data['language']
+							]);
+							$iterm->save($this->getEntityManager());
+						}
+					}
+
+				}	
 				//exit;
 				
 			}

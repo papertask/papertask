@@ -207,7 +207,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					.success ( function ( $data ) {
 						$scope.currency = $data.user.currency;
 						if($scope.task.type.id == 1){
-						$http.get('/api/admin/projectitermnotm?projectId='+ $scope.projectId).success(function($data) {
+						$http.get('/api/admin/projectitermnotm?projectId='+ $scope.projectId +'&taskId='+TASK_ID).success(function($data) {
 							$scope.itermnotms = $data['Itermnotms'];
 							
 							// arrange itermnotms based language

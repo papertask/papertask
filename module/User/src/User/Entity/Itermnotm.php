@@ -120,5 +120,8 @@ class Itermnotm extends Entity{
 	public function getFile(){
         return $this->file;
     }
+	public function getQuantity(){
+        return $this->quantity;
+    }
 
 }
