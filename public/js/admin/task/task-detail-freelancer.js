@@ -19,8 +19,8 @@ angularApp.run(function($rootScope){
     jQuery(element).filestyle({
         input: false,
         icon: "fa fa-cloud-upload",
-        buttonText: "Upload Final files",
-        buttonName: "btn-xs btn-primary",
+        buttonText: "Upload Final Task files",
+        buttonName: "btn btn-sm btn-primary",
         badge: false
     });
 });
@@ -1271,8 +1271,15 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			var date = new Date(files[i].time*1000);
 			var month = date.getMonth() + 1;	
 			files[i].date = date.getFullYear()  + '-' + month + '-' + date.getDate() +  ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() ;
-			if(files[i].task)
+			//if(files[i].task)
+			//	$scope.taskfiles.push(files[i]); 
+			//else $scope.files.push(files[i]);
+			
+			if(files[i].task && files[i].filetype==1)
 				$scope.taskfiles.push(files[i]); 
+			else if(files[i].task && files[i].filetype==0){
+				//$scope.tasksourcefiles.push(files[i]); 	
+			}	
 			else $scope.files.push(files[i]);
 		}
 		return true;
@@ -1727,7 +1734,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
         
     };
     uploadertask.onBeforeUploadItem = function(item) {
-		item.formData.push({ projectId: $scope.projectId, taskId: $scope.taskId });
+		item.formData.push({ projectId: $scope.projectId, taskId: $scope.taskId,  filetype: 1  });
         
     };
     uploadertask.onProgressItem = function(fileItem, progress) {

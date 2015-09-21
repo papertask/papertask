@@ -17,9 +17,7 @@
 <!-- if the task is accepted, then show final fileupload section and Reviewing button, and hide the accept button -->
 <div ng-show="task.status.id == 2 || task.status.id == 8" class="row" ng-controller="AppController" nv-file-drop="" uploader="uploader">
 
-					<div class="text-center m-t-md" id="taskfiles">
-						<input type="file" nv-file-select="" uploader="uploadertask" multiple="multiple" />
-					</div>
+					
 	<table class="table table-bordered">
 			<thead>
 			<tr>
@@ -40,10 +38,12 @@
 			</tr>
 			</tbody>
 	</table>
-
-	<div class="text-center m-t-md">
-		<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-cloud-upload"></i> Upload final task files</a>
+	<div class="text-center m-t-md" id="taskfiles">
+		<input type="file" nv-file-select="" uploader="uploadertask" multiple="multiple" />
 	</div>
+	<!--<div class="text-center m-t-md">
+		<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-cloud-upload"></i> Upload final task files</a>
+	</div>-->
 </div>
 <div class="hr-line-dashed"></div>
 <div ng-show="task.status.id == 2"></div>

@@ -27,7 +27,7 @@ angularApp.run(function($rootScope){
     jQuery(element).filestyle({
         input: false,
         icon: "fa fa-cloud-upload",
-        buttonText: "Upload Final files",
+        buttonText: "Upload Final Task files",
         buttonName: "btn-xs btn-primary",
         badge: false
     });
