@@ -47,7 +47,9 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
     $scope.tempProject = {};
 	$scope.files = [];
 	$scope.taskfiles = [];
-    $scope.clients = [];
+	$scope.tasksourcefiles = [];
+    $scope.files_tm = [];
+	$scope.clients = [];
     $scope.sales = [];
     $scope.pms = [];
 	$scope.freelancerassign =[];
@@ -1278,10 +1280,17 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			if(files[i].task && files[i].filetype==1)
 				$scope.taskfiles.push(files[i]); 
 			else if(files[i].task && files[i].filetype==0){
-				//$scope.tasksourcefiles.push(files[i]); 	
+				$scope.tasksourcefiles.push(files[i]); 	
 			}	
 			else $scope.files.push(files[i]);
+			
+				
 		}
+		if($scope.tasksourcefiles.length>0)
+			$scope.files_tm = $scope.tasksourcefiles;
+		else 		
+			$scope.files_tm = $scope.files;
+
 		return true;
 	}
 	function arrangeItem(Itemr, unit) {

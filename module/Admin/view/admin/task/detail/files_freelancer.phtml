@@ -10,7 +10,8 @@
 				</tr>
 				</thead>
 				<tbody>
-				<tr ng-repeat="file in files">
+				
+				<tr ng-repeat="file in files_tm">
 						<td>{{$index + 1}}</td>
 						<td><a href="<?php echo $this->url('admin',array('controller'=>'project','action'=>'downloadFile'),array('query'=>array('token'=>'')))?>{{file.token}}"><i class="fa fa-file"></i> {{ file.name }}</a></td>
 						<td>{{ file.size/1024/1024|number:2 }} MB</td>
