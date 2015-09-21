@@ -114,7 +114,7 @@ class TaskController extends AbstractRestfulJsonController
 					//var_dump($files);exit;
 					foreach($files as $file){
 						
-						if($file->getFiletype()==0){
+						if($file->getFiletype()==0 && !$file->getTask()){
 							$items = $entityManager->getRepository('User\Entity\Itermnotm')->findBy(array('project'=>$project,'file'=>$file));
 							$quantity=0;
 							foreach($items as $item){

@@ -1285,15 +1285,21 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		return $scope.currency + " " + n.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
 	function arrangeFile(files) {
+	console.log("files");
+	console.log(files);
 		for(var i = 0; i < files.length; i++)
 		{
 			var date = new Date(files[i].time*1000);
 			var month = date.getMonth() + 1;	
 			files[i].date = date.getFullYear()  + '-' + month + '-' + date.getDate() +  ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() ;
-			if(files[i].task && files[i].filetype==1)
-				$scope.taskfiles.push(files[i]); 
-			else if(files[i].task && files[i].filetype==0)
-				$scope.tasksourcefiles.push(files[i]); 	
+			if(files[i].task && files[i].filetype==1){
+				if(files[i].task.id == TASK_ID)
+					$scope.taskfiles.push(files[i]); 
+			}	
+			else if(files[i].task && files[i].filetype==0){
+				if(files[i].task.id == TASK_ID)	
+					$scope.tasksourcefiles.push(files[i]); 	
+			}	
 			else $scope.files.push(files[i]);
 		}
 		return true;

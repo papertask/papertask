@@ -1276,13 +1276,23 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			//if(files[i].task)
 			//	$scope.taskfiles.push(files[i]); 
 			//else $scope.files.push(files[i]);
+			if(files[i].task && files[i].filetype==1){
+				if(files[i].task.id == TASK_ID)
+					$scope.taskfiles.push(files[i]); 
+			}	
+			else if(files[i].task && files[i].filetype==0){
+				if(files[i].task.id == TASK_ID)	
+					$scope.tasksourcefiles.push(files[i]); 	
+			}	
+			else $scope.files.push(files[i]);
 			
-			if(files[i].task && files[i].filetype==1)
+			
+			/*if(files[i].task && files[i].filetype==1)
 				$scope.taskfiles.push(files[i]); 
 			else if(files[i].task && files[i].filetype==0){
 				$scope.tasksourcefiles.push(files[i]); 	
 			}	
-			else $scope.files.push(files[i]);
+			else $scope.files.push(files[i]);*/
 			
 				
 		}
