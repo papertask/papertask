@@ -55,7 +55,7 @@ $this->inlineScript()
 									</td>
 									<td class="project-title"><strong>{{
 											task.project.reference }} </strong> <br> <strong
-										class="text-info">{{ task.project.project_no }}-{{ task.id }}</strong>
+										class="text-info">{{ task.task_number }}</strong>
 									</td>
 									<td class="project-title">
 										<div class="tooltip-demo">
@@ -100,7 +100,7 @@ $this->inlineScript()
 									</td>
 									<td class="project-title"><strong>{{
 											task.project.reference }} </strong> <br> <strong
-										class="text-info">{{ task.project.project_no }}-{{ task.id }}</strong>
+										class="text-info">{{ task.task_number }}</strong>
 									</td>
 									<td class="project-title">
 										<div class="tooltip-demo">
@@ -144,7 +144,7 @@ $this->inlineScript()
 									</td>
 									<td class="project-title"><strong>{{
 											task.project.reference }} </strong> <br> <strong
-										class="text-info">{{ task.project.project_no }}-{{ task.id }}</strong>
+										class="text-info">{{ task.task_number }}</strong>
 									</td>
 									<td class="project-title">
 										<div class="tooltip-demo">
@@ -187,7 +187,7 @@ $this->inlineScript()
 									</td>
 									<td class="project-title"><strong>{{
 											task.project.reference }} </strong> <br> <strong
-										class="text-info">{{ task.project.project_no }}-{{ task.id }}</strong>
+										class="text-info">{{ task.task_number }}</strong>
 									</td>
 									<td class="project-title">
 										<div class="tooltip-demo">
@@ -230,7 +230,7 @@ $this->inlineScript()
 									</td>
 									<td class="project-title"><strong>{{
 											task.project.reference }} </strong> <br> <strong
-										class="text-info">{{ task.project.project_no }}-{{ task.id }}</strong>
+										class="text-info">{{ task.task_number }}</strong>
 									</td>
 									<td class="project-title">
 										<div class="tooltip-demo">
@@ -277,7 +277,7 @@ $this->inlineScript()
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="task in unpaidtasks">
-                                        <td>{{ task.project.project_no }}-{{ task.id }}</td>
+                                        <td>{{ task.task_number }}</td>
                                         <td>{{ task.name }}</td>
                                         <td>{{ TaskStatus.get(task.status).name }}</td>
                                         <td> {{ DateFormatter.short(task.dueDate) }}</td>
