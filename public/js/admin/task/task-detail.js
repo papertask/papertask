@@ -15,6 +15,14 @@ angularApp.run(function($rootScope){
         buttonName: "btn-xs btn-primary",
         badge: false
     });
+	var element = jQuery("#tasksourcefiles > input")[0];
+    jQuery(element).filestyle({
+        input: false,
+        icon: "fa fa-cloud-upload",
+        buttonText: "Upload Source Task files",
+        buttonName: "btn-xs btn-primary",
+        badge: false
+    });
 	var element = jQuery("#taskfiles > input")[0];
     jQuery(element).filestyle({
         input: false,
@@ -47,6 +55,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
     $scope.tempProject = {};
 	$scope.files = [];
 	$scope.taskfiles = [];
+	$scope.tasksourcefiles = [];
     $scope.clients = [];
     $scope.sales = [];
     $scope.pms = [];
@@ -1281,8 +1290,10 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			var date = new Date(files[i].time*1000);
 			var month = date.getMonth() + 1;	
 			files[i].date = date.getFullYear()  + '-' + month + '-' + date.getDate() +  ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() ;
-			if(files[i].task)
+			if(files[i].task && files[i].filetype==1)
 				$scope.taskfiles.push(files[i]); 
+			else if(files[i].task && files[i].filetype==0)
+				$scope.tasksourcefiles.push(files[i]); 	
 			else $scope.files.push(files[i]);
 		}
 		return true;
@@ -2025,11 +2036,14 @@ angularApp.controller("ProjectActivitiesController", function($scope, ActivityAp
 angularApp.factory("FileListService", function(){
 	var files = [];
 	var taskfiles = [];
+	var tasksourcefiles = [];
 	var projectid = '';
 	var taskid = '';
 	return {
 		files: files,
 		taskfiles: taskfiles,
+		tasksourcefiles: tasksourcefiles,
+		
 		projectid: projectid,
 		taskid :taskid,
 	};
@@ -2068,10 +2082,16 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
 		//formData : [{projectId : $scope.projectId}],
     });
 	
-	var uploadertask = $scope.uploadertask = new FileUploader({
+	var uploadertask = $scope.uploadertask  = new FileUploader({
         url: "/" + LANG_CODE + "/admin/project/uploadFile", 
 		//formData : [{projectId : $scope.projectId, taskid : $scope.taskId}],
     });
+	
+	var uploadertasksource = $scope.uploadertasksource  = new FileUploader({
+        url: "/" + LANG_CODE + "/admin/project/uploadFile", 
+		//formData : [{projectId : $scope.projectId, taskid : $scope.taskId}],
+    });
+
     // FILTERS
 
     uploader.filters.push({
@@ -2082,6 +2102,13 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
     });
 	
 	uploadertask.filters.push({
+        name: 'customFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            return this.queue.length < 10;
+        }
+    });
+	
+	uploadertasksource.filters.push({
         name: 'customFilter',
         fn: function(item /*{File|FileLikeObject}*/, options) {
             return this.queue.length < 10;
@@ -2167,7 +2194,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
         
     };
     uploadertask.onBeforeUploadItem = function(item) {
-		item.formData.push({ projectId: $scope.projectId, taskId: $scope.taskId });
+		item.formData.push({ projectId: $scope.projectId, taskId: $scope.taskId,  filetype: 1 });
         
     };
     uploadertask.onProgressItem = function(fileItem, progress) {
@@ -2210,6 +2237,60 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
     };
 
     
+	// -------------------------------
+	// CALLBACKS FILE TASK SOURCE
+
+    uploadertasksource.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+        
+    };
+    uploadertasksource.onAfterAddingFile = function(fileItem) {
+        fileItem.upload();
+    };
+    uploadertasksource.onAfterAddingAll = function(addedFileItems) {
+        
+    };
+    uploadertasksource.onBeforeUploadItem = function(item) {
+		item.formData.push({ projectId: $scope.projectId, taskId: $scope.taskId, filetype: 0 });
+        
+    };
+    uploadertasksource.onProgressItem = function(fileItem, progress) {
+        
+    };
+    uploadertasksource.onProgressAll = function(progress) {
+        
+    };
+    uploadertasksource.onSuccessItem = function(fileItem, response, status, headers) {
+        if(!response.success){
+            fileItem.file.name += " - Uploading error";
+            $timeout(function(){
+                fileItem.remove();
+            }, 1000);
+            return;
+        }
+		var date = new Date(response.file.time*1000);
+		var month = date.getMonth() + 1;	
+		var dateshow = date.getFullYear()  + '-' + month + '-' + date.getDate() +  ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() ;
+		
+        fileItem.taskFile = {
+            name: fileItem.file.name,
+            id: response.file.id,
+			size : response.file.size,
+			date : dateshow,
+			path : response.file.path,
+        };
+		$scope.tasksourcefiles.push(fileItem.taskFile);
+    };
+    uploadertasksource.onErrorItem = function(fileItem, response, status, headers) {
+        
+    };
+    uploadertasksource.onCancelItem = function(fileItem, response, status, headers) {
+        
+    };
+    uploadertasksource.onCompleteItem = function(fileItem, response, status, headers) {
+    };
+    uploadertasksource.onCompleteAll = function() {
+        
+    };
 
 
     // -------------------------------
