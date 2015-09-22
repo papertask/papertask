@@ -1754,6 +1754,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
     };
     uploadertask.onBeforeUploadItem = function(item) {
 		item.formData.push({ projectId: $scope.projectId, taskId: $scope.taskId,  filetype: 1  });
+		uploadertask.isUploading=1;
         
     };
     uploadertask.onProgressItem = function(fileItem, progress) {
@@ -1782,6 +1783,8 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
 			path : response.file.path,
         };
 		$scope.taskfiles.push(fileItem.taskFile);
+		uploadertask.isUploading=0;
+		uploadertask.queue=[];
     };
     uploadertask.onErrorItem = function(fileItem, response, status, headers) {
         
