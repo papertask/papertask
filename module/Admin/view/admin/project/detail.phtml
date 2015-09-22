@@ -48,6 +48,13 @@ $this->inlineScript()
 .dl-horizontal dt {
   		width: 167px;
 }
+    input[readonly][data-field=datetime]{
+        background-color: #fff;
+    }
+    input[readonly][data-field=datetime]:hover,
+    i.fa.fa-calendar:hover{
+        cursor: pointer;
+    }
 </style>
 <div class="row">
 <div class="col-lg-12">
@@ -94,18 +101,19 @@ $this->inlineScript()
 </div>
 </div>
 </div>
-
+</div>
 <script>
     $(document).ready(function(){
         $('.dtbox').DateTimePicker();
+$('.dtbox1').DateTimePicker();
 
         // trigger datetime picker when click to calendar icon
         // TODO: this is not working
         $('i.fa.fa-calendar').on('click', function(e){
             console.log('clicked');
-            e.preventDefault();
-
-            $(this).parents('.input-group').find('input[readonly]').click();
+            //e.preventDefault();
+			//console.log($(this).parents('.input-group').find('input[readonly]'));
+            //$(this).parents('.input-group').find('input[readonly]').click();
         });
     });
 </script>

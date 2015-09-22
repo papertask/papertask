@@ -932,7 +932,23 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	
 	// save project
 	$scope.saveProject = function(){
-		//console.log($scope.project);
+		console.log($scope.project);
+		var duedate = new Date($scope.project.startDate.date);
+		//duedate.addDays($scope.project.duration);
+		//console.log(duedate);
+		var newdate = new Date(duedate);
+		newdate.setDate(newdate.getDate() + $scope.project.duration);
+		
+		var yyyy = newdate.getFullYear().toString();
+		var mm = (newdate.getMonth()+1).toString(); // getMonth() is zero-based
+		var dd  = newdate.getDate().toString();
+		var hh  = newdate.getHours().toString();
+		var pp  = newdate.getMinutes().toString();
+		var ss  = newdate.getSeconds().toString();
+		
+		$scope.project.dueDate.date = yyyy + '-'+ (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]) + ' ' + (hh[1]?hh:"0"+hh[0]) + ':' + (pp[1]?pp:"0"+pp[0]) +':'+(ss[1]?ss:"0"+ss[0]) ; 
+		console.log($scope.project.dueDate);
+		//exit;
         var updateProject= $http.put("/api/admin/project/" + $scope.project.id + "?action=3", $scope.project)
 		.success( function ( $data ) {
 			//comback project detail/

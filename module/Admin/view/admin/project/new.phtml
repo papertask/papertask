@@ -95,9 +95,10 @@ $this->inlineScript()
         // TODO: this is not working
         $('i.fa.fa-calendar').on('click', function(e){
             console.log('clicked');
-            e.preventDefault();
+            //e.preventDefault();
+			//console.log($(this).parents('.input-group').find('input[readonly]'));
 
-            $(this).parents('.input-group').find('input[readonly]').click();
+            //$(this).parents('.input-group').find('input[readonly]').click();
         });
     });
 </script>

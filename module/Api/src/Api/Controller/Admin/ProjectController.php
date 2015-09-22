@@ -738,13 +738,20 @@ class ProjectController extends AbstractRestfulJsonController
                 $arr[] = $type['id'];
             }
             $data['types'] = $arr;
-			
+			if(isset($data['startDate'])){
+				$data['startDate'] = new \DateTime($data['startDate']['date']);
+			}
+			if(isset($data['dueDate'])){
+				$data['dueDate'] = new \DateTime($data['dueDate']['date']);
+			}
 			$project->setData([
 				'tax' => $data['tax'],
 				'discount' =>  $data['discount'],
 				'duration' =>  $data['duration'],
 				'serviceLevel' =>  $data['serviceLevel'],
 				'types' => $data['types'],
+				'startDate' => $data['startDate'],
+				'dueDate' => $data['dueDate'],
 			]);
 			$project->save($this->getEntityManager());
 		}
@@ -755,8 +762,13 @@ class ProjectController extends AbstractRestfulJsonController
 			
 			$user_client = $entityManager->getRepository('User\Entity\User')
 				->findOneBy(array('employer' => $employer));
-			//var_dump($user_client);exit;	
-			
+			//var_dump($data['startDate']);exit;	
+			if(isset($data['startDate'])){
+				$data['startDate'] = new \DateTime($data['startDate']['date']);
+			}
+			if(isset($data['dueDate'])){
+				$data['dueDate'] = new \DateTime($data['dueDate']['date']);
+			}
 			$project->setData([
 				'client' => $this->getReference('\User\Entity\User', $user_client->getId()),
 				'pm' =>  $this->getReference('\User\Entity\Staff', $data['pm']['id']),
@@ -764,7 +776,9 @@ class ProjectController extends AbstractRestfulJsonController
 				'priority' =>  $data['priority']['id'],
 				'reference' => $data['reference'],
 				'field' => $this->getReference('\User\Entity\Field', $data['field']['id']),
-				'po' => $data['po']
+				'po' => $data['po'],
+				'startDate' => $data['startDate'],
+				'dueDate' => $data['dueDate'],
 			]);
 			$project->save($this->getEntityManager());
 		}

@@ -468,6 +468,8 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 	
     function showEdit(){
         jQuery("#edit_project").collapse("toggle");
+		        //$('.dtbox').DateTimePicker();
+
     }
 
     function getOnlyFields($object, $fields){
@@ -481,8 +483,8 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 
     function update(){
         if(jQuery("#edit_project form").valid()) {
-			
-			var fields = ['client', 'pm', 'sale', 'priority', 'reference', 'field', 'po'];
+			console.log($scope.project);
+			var fields = ['client', 'pm', 'sale', 'priority', 'reference', 'field', 'po','dueDate','startDate'];
             var data = getOnlyFields($scope.tempProject, fields);
 			console.log(data);
 			var updateInvoiceDate= $http.put("/api/admin/project/" + $scope.project.id + "?action=4", data)

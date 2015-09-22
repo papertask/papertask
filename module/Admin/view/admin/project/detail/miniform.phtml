@@ -18,13 +18,8 @@
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									<input data-field="datetime" readonly type="text" name="startDate" ng-model="project.startDate.date"
 										   class="form-control required valid" data-errorplace="element.parent().before(error)"/>
-										   
-                                    <!--<input class="form-control" type="text"
-                                           value="{{ formatDate(project.startDate.date) | date:'dd MMMM yyyy - h:mm a' }}" >
-                                    <span class="add-on"><i class="icon-remove"></i></span>
-                                    <span class="add-on"><i class="icon-th"></i></span>-->
                                 </div>
-								<div class="dtbox"></div>
+								<div class="dtbox1"></div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -78,13 +73,8 @@
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 									<input data-field="datetime" readonly type="text" name="startDate" ng-model="project.dueDate.date" 
 										   class="form-control required valid" data-errorplace="element.parent().before(error)"/>
-									
-                                    <!--<input class="form-control" type="text"
-                                           value="{{ formatDate(project.dueDate.date) | date:'dd MMMM yyyy - h:mm a' }}" >
-                                    <span class="add-on"><i class="icon-remove"></i></span>
-                                    <span class="add-on"><i class="icon-th"></i></span>-->
                                 </div>
-								<div class="dtbox"></div>
+								<div class="dtbox1"></div>
                             </div>
                         </div>
 						<?php if (!$this->isemployer) {?>	
