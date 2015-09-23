@@ -88,9 +88,7 @@
 
 <?php
 $this->inlineScript()
-->prependScript("
-		var LANG_CODE = '" . $this->lang_code . "';
-		");
+->prependScript("var LANG_CODE = '" . $this->lang_code . "';");
 ?>
 
 <style type="text/css">
@@ -108,8 +106,6 @@ $this->inlineScript()
 }
 
 .nav>li.active {
-	border-left: 4px solid #19aa8d;
-	background: #19aa8d;
 }
 
 .form-group label.btn-outline {
@@ -160,6 +156,48 @@ $this->inlineScript()
 	background-color: #1ab394;
 	border-color: #1ab394;
 	color: #fff;
+}
+.banner {
+    background-color: #1ab394;
+    color: #fff;
+    text-align: center;
+    padding: 50px 0 0;
+}
+.features {
+    padding: 50px 0;
+    border-bottom: 1px solid #f3f3f3;
+	background-color: #f3f3f3;
+}
+.thumbnail.setup-panel{
+display: block;
+    padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.42857;
+    background-color: #f3f3f3;
+    border: 1px solid #dddddd;
+    border-radius: 2px;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+h4{
+font-weight: 600;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #555555;
+    background-color: #f3f3f3;
+    border: 1px solid #dddddd;
+    border-bottom-color: transparent;
+    cursor: default;
+}
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857;
+    border: 1px solid transparent;
+    border-radius: 2px 2px 0 0;
+}
+tbody {
+    background-color: #f9f9f9;
 }
 </style>
 
