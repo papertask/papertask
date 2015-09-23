@@ -1,3 +1,6 @@
+
+<div class="hr-line-dashed"></div>
+<br />
 <!-- if the task status is pooling, then show accept button, if the task is accpeted, then hide the accept button, and show upload files section -->
 <form class="form-horizontal" ng-show="task.status.id == 3 || task.status.id == 4 || task.status.id == 6">
 	<div class="form-group">
@@ -52,6 +55,7 @@
                 </tr>
 			</tbody>
 	</table>
+
 	<div class="text-center m-t-md" id="taskfiles">
 		<input type="file" nv-file-select="" uploader="uploadertask" multiple="multiple" />
 	</div>
@@ -60,6 +64,8 @@
 	</div>-->
 </div>
 
+<div class="hr-line-dashed"></div>
+<br />
 <div ng-show="task.status.id == 2"></div>
 
 <form class="form-horizontal" ng-show="task.status.id == 2 || task.status.id == 8">
