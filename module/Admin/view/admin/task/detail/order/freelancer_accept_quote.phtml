@@ -1,3 +1,6 @@
+
+<div class="hr-line-dashed"></div>
+<br />
 <!-- if the task status is pooling, then show accept button, if the task is accpeted, then hide the accept button, and show upload files section -->
 <form class="form-horizontal" ng-show="task.status.id == 3 || task.status.id == 4 || task.status.id == 6">
 	<div class="form-group">
@@ -63,11 +66,15 @@
 	</div><!-- /.row -->
 
 	
+
+
 	<!--<div class="text-center m-t-md">
 		<a href="#" class="btn btn-sm btn-primary"><i class="fa fa-cloud-upload"></i> Upload final task files</a>
 	</div>-->
 </div>
 
+<div class="hr-line-dashed"></div>
+<br />
 <div ng-show="task.status.id == 2"></div>
 
 <form class="form-horizontal" ng-show="task.status.id == 2 || task.status.id == 8">
