@@ -7,53 +7,88 @@
                 <i class="fa fa-edit"></i><?php echo $this->translate('Edit Project') ?>
             </button>
 			<?php } ?>
-            <h2><span class="text-info">{{ project.project_no }}</span> - 
+            <h2><span class="text-info">{{ project.project_no }}</span> -
                 {{ project.reference }}</h2>
         </div>
 
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-5">
-        <dl class="dl-horizontal">
-            <dt><?php echo $this->translate('Status'); ?>:</dt>
-            <dd><span class="label label-{{ project.status.decorator }}">{{ project.status.name }}</span>
-            </dd>
-            <br>
-			<dt><?php echo $this->translate('Client Contact'); ?>:</dt> 
-			<dd><a href="#" class="text-navy"> {{ project.client.name }}
-				
-			</a></dd>
-            
-			<dt><?php echo $this->translate('Client Company'); ?>:</dt> <dd>{{ project.client.company.name }}</dd>
-            <br>
-            <dt><?php echo $this->translate('Start Date'); ?>:</dt> <dd>{{ formatDate(project.startDate.date) | date:'dd MMMM yyyy - h:mm a' }}</dd>
-            <dt><?php echo $this->translate('Due Date'); ?>:</dt> <dd>{{ formatDate(project.dueDate.date) | date:'dd MMMM yyyy - h:mm a' }}</dd>
-            <dt><?php echo $this->translate('PO No'); ?>:</dt> <dd>{{ project.po }}</dd>
-            <br>
-            <dt><?php echo $this->translate('Source Language'); ?>:</dt> <dd><code>{{ project.sourceLanguage.name }}</code></dd>
-            <br>
-        </dl>
+  <div class="ibox-content">
+      <div class="row">
+          <div class="col-sm-6 b-r">
+            <table class="table table-striped table-bordered">
+                <tbody>
+                <tr>
+                    <th width="25%"><?php echo $this->translate('Project ID'); ?></th>
+                    <td class="text-navy"> {{ project.project_no }} </td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Status'); ?>:</th>
+                    <td> <span class="label label-{{ task.status.decorator }}">{{ project.status.name }} </span> </td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Due Date'); ?></th>
+                    <td> {{ formatDate(project.dueDate.date) | date:'dd MMMM yyyy - h:mm a' }} </td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Project Type'); ?></th>
+                    <td>
+                      <div class="tooltip-demo">
+                        <span ng-repeat="type in project.types"><code {{ type.inline_attrs }}>{{ type.name_short }}</code>&nbsp;</span>
+                      </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Source Language'); ?></th>
+                    <td> <code>{{ project.sourceLanguage.name }}</code> </td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Client Contact'); ?></th>
+                    <td>{{ project.client.name }}</td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Sales'); ?></th>
+                    <td class="text-navy"> {{ project.sale.name }} </td>
+                </tr>
+                </tbody>
+            </table>
+          </div>
+          <div class="col-sm-6">
+            <table class="table table-striped table-bordered">
+                <tbody>
+                <tr>
+                    <th width="25%"><?php echo $this->translate('Project Reference'); ?></th>
+                    <td class="text-navy"> {{ project.reference }} </td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Priority'); ?></th>
+                    <td> <span class="label label-{{ project.priority.decorator }}">{{ project.priority.name }}</span> </td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Field'); ?></th>
+                    <td> {{ project.field.name }} </td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('PO No'); ?></th>
+                    <td> {{ project.po }} </td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Languages'); ?></th>
+                    <td> <span ng-repeat="language in project.targetLanguages"><code>{{ language.name }}</code>&nbsp;</span> </td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Client Company'); ?></th>
+                    <td>{{ project.client.company.name }}</td>
+                </tr>
+                <tr>
+                    <th><?php echo $this->translate('Project Manager'); ?></th>
+                    <td> {{ project.pm.name }} </td>
+                </tr>
+                </tbody>
+            </table>
     </div>
-    <div class="col-lg-7">
-        <dl class="dl-horizontal" >
-            <dt><?php echo $this->translate('Priority'); ?>:</dt> <dd><span class="label label-{{ project.priority.decorator }}">{{ project.priority.name }}</span> </dd>
-            <br>
-            <dt><?php echo $this->translate('Sales'); ?>:</dt> <dd>{{ project.sale.name }}</dd>
-            <dt><?php echo $this->translate('Project Manager'); ?>:</dt> <dd>{{ project.pm.name }}</dd>
-            <br>
-            <dt><?php echo $this->translate('Field'); ?>:</dt> <dd>{{ project.field.name }}</dd>
-            <dt><?php echo $this->translate('Project Level'); ?>:</dt> <dd><code>{{ project.serviceLevel.name }}</code> </dd>
-            <dt><?php echo $this->translate('Type'); ?>:</dt>
-            <dd>
-                <div class="tooltip-demo">
-                    <span ng-repeat="type in project.types"><code {{ type.inline_attrs }}>{{ type.name_short }}</code>&nbsp;</span>
                 </div>
-            </dd>
-            <br>
-            <dt><?php echo $this->translate('Target Languages'); ?>:</dt> <dd>
-                <span ng-repeat="language in project.targetLanguages"><code>{{ language.name }}</code>&nbsp;</span>
-            </dd>
-        </dl>
     </div>
+
 </div>
