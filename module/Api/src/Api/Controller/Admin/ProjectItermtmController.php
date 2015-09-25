@@ -46,9 +46,10 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 		$iterm->setProject($project);
 		$language = $this->find('User\Entity\Language', $data['languageid']);
 		
+		if($data['rate_client']){
 		$DataArr = array(
 			'name' => $data['name'],
-			'rate' => $data['rate'],
+			'rate' => $data['rate_client'],
 			'sourcebawu' => $data['sourcebawu'],
 			'sourcejiuwu' => $data['sourcejiuwu'],
 			'sourcenomatch' => $data['sourcenomatch'],
@@ -61,6 +62,23 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 
 
 		);
+		}else{
+		$DataArr = array(
+			'name' => $data['name'],
+			'rate_freelancer' => $data['rate'],
+			'sourcebawu' => $data['sourcebawu'],
+			'sourcejiuwu' => $data['sourcejiuwu'],
+			'sourcenomatch' => $data['sourcenomatch'],
+			'sourceqiwu' => $data['sourceqiwu'],
+			'sourcerepetitions' => $data['sourcerepetitions'],
+			'sourcewushi' => $data['sourcewushi'],
+			'sourceyibai' => $data['sourceyibai'],
+				'total_freelancer' => $data['total'],
+				'language' => $language,
+
+
+		);
+		}
 		
 		$DataArr['raterepetitions'] = ($data['raterepetitions'] != null)? 	$data['raterepetitions'] : 0;
 		$DataArr['rateyibai'] = ($data['rateyibai'] != null)? 	$data['rateyibai'] : 0;
@@ -147,7 +165,8 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 		if($data['file']['id'])
 			 $file = $this->find('\User\Entity\File', $data['file']['id']);
         $itermtm = $entityManager->find('\User\Entity\Itermtm', $id);
-        $itermtm->setData([
+        if($data['rate_client']){
+		$itermtm->setData([
 				'name' => $data['name'],
 				'rate' => $data['rate'],
 				'sourcebawu' => $data['sourcebawu'],
@@ -159,7 +178,20 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 				'sourceyibai' => $data['sourceyibai'],
 				'total' => $data['total'],
            ]);
-           
+         }else{
+		$itermtm->setData([
+				'name' => $data['name'],
+				'rate_freelancer' => $data['rate'],
+				'sourcebawu' => $data['sourcebawu'],
+				'sourcejiuwu' => $data['sourcejiuwu'],
+				'sourcenomatch' => $data['sourcenomatch'],
+				'sourceqiwu' => $data['sourceqiwu'],
+				'sourcerepetitions' => $data['sourcerepetitions'],
+				'sourcewushi' => $data['sourcewushi'],
+				'sourceyibai' => $data['sourceyibai'],
+				'total_freelancer' => $data['total'],
+           ]);
+		}	
         $itermtm->save($entityManager);
            
         return new JsonModel([

@@ -46,17 +46,29 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
 		$max = max($taskOrderArr);
 		$max++;
 		$task_number = $project->getProjectNo().'-'.$max;
-		
+		if($data['rate_client']){
 		$iterm->setData([
 			'name' => $data['name'],
 			'unit' => $data['unit']['id'],
 			'file' => ($file)?$file:null,
-			'rate' => $data['rate'],
+			'rate' => $data['rate_client'],
 			'quantity' => $data['quantity'],
 			'total' => $data['total'],
 			'language' => $language,
 			'software' => $software,
 		]);
+		}else{
+		$iterm->setData([
+			'name' => $data['name'],
+			'unit' => $data['unit']['id'],
+			'file' => ($file)?$file:null,
+			'rate_freelancer' => $data['rate'],
+			'quantity' => $data['quantity'],
+			'total_freelancer' => $data['total'],
+			'language' => $language,
+			'software' => $software,
+		]);
+		}
 		$iterm->save($this->getEntityManager());
 		//add task if have not
 		$entityManager = $this->getEntityManager();
@@ -113,7 +125,8 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
 			 
 			$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']); 
            $itermdtpmac = $entityManager->find('\User\Entity\Itermdtpmac', $id);
-           $itermdtpmac->setData([
+           if($data['rate_client']){
+		   $itermdtpmac->setData([
 				'name' => $data['name'],
 				'unit' => $data['unit']['id'],
 				'file' => ($file)?$file:null,
@@ -122,6 +135,17 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
 				'total' => $data['total'],
 				'software' => $software,
            ]);
+		   }else{
+		   $itermdtpmac->setData([
+				'name' => $data['name'],
+				'unit' => $data['unit']['id'],
+				'file' => ($file)?$file:null,
+				'rate_freelancer' => $data['rate'],
+				'quantity' => $data['quantity'],
+				'total_freelancer' => $data['total'],
+				'software' => $software,
+           ]);
+		   }
            
            $itermdtpmac->save($entityManager);
            

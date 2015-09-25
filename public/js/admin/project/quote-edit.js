@@ -524,7 +524,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			$http.post("/api/admin/projectitermnotm?projectid="+projectId, 
 					{
 						languageid: $scope.laguageid,
-						rate: translationNoTM.rate_tmp, 
+						rate_client: translationNoTM.rate_tmp, 
 						quantity: translationNoTM.quantity, 
 						total: translationNoTM.total_tmp,
 						name : translationNoTM.name,
@@ -539,7 +539,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
     		$http.put("/api/admin/projectitermnotm/" + translationNoTM.id, 
 				{
     				languageid: $scope.laguageid,
-					rate: translationNoTM.rate_tmp, 
+					rate_client: translationNoTM.rate_tmp, 
 					quantity: translationNoTM.quantity, 
 					total: translationNoTM.total_tmp,
 					name : translationNoTM.name,
@@ -644,7 +644,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			$http.post("/api/admin/projectitermdtpmac?projectid="+projectId, 
 					{
 						languageid: $scope.laguageid,
-						rate: desktopMac.rate_tmp, 
+						rate_client: desktopMac.rate_tmp, 
 						unit : desktopMac.unit,
 						quantity: desktopMac.quantity, 
 						total: desktopMac.total_tmp,
@@ -660,7 +660,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			$http.put("/api/admin/projectitermdtpmac/" + desktopMac.id, 
 				{
     				languageid: $scope.laguageid,
-					rate: desktopMac.rate_tmp, 
+					rate_client: desktopMac.rate_tmp, 
 					quantity: desktopMac.quantity, 
 					total: desktopMac.total_tmp,
 					name : desktopMac.name,
@@ -721,7 +721,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			$http.post("/api/admin/projectitermdtppc?projectid="+projectId, 
 					{
 						languageid: $scope.laguageid,
-						rate: desktopPc.rate_tmp, 
+						rate_client: desktopPc.rate_tmp, 
 						unit : desktopPc.unit,
 						quantity: desktopPc.quantity, 
 						total: desktopPc.total_tmp,
@@ -737,7 +737,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			$http.put("/api/admin/projectitermdtppc/" + desktopPc.id, 
 				{
     				languageid: $scope.laguageid,
-					rate: desktopPc.rate_tmp, 
+					rate_client: desktopPc.rate_tmp, 
 					quantity: desktopPc.quantity, 
 					total: desktopPc.total_tmp,
 					name : desktopPc.name,
@@ -798,7 +798,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			$http.post("/api/admin/projectitermengineering?projectid="+projectId, 
 					{
 						languageid: $scope.laguageid,
-						rate: engineering.rate_tmp, 
+						rate_client: engineering.rate_tmp, 
 						unit : engineering.unit,
 						quantity: engineering.quantity, 
 						total: engineering.total_tmp,
@@ -814,7 +814,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			$http.put("/api/admin/projectitermengineering/" + engineering.id, 
 				{
     				languageid: $scope.laguageid,
-					rate: engineering.rate_tmp, 
+					rate_client: engineering.rate_tmp, 
 					quantity: engineering.quantity, 
 					total: engineering.total_tmp,
 					name : engineering.name,
@@ -873,7 +873,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			$http.post("/api/admin/projectiterminterpreting?projectid="+projectId, 
 					{
 						languageid: $scope.laguageid,
-						rate: interpreting.rate_tmp, 
+						rate_client: interpreting.rate_tmp, 
 						quantity: interpreting.quantity, 
 						total: interpreting.total_tmp,
 						name : interpreting.name,
@@ -888,7 +888,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
     		$http.put("/api/admin/projectiterminterpreting/" + interpreting.id, 
 				{
     				languageid: $scope.laguageid,
-					rate: interpreting.rate_tmp, 
+					rate_client: interpreting.rate_tmp, 
 					quantity: interpreting.quantity, 
 					total: interpreting.total_tmp,
 					name : interpreting.name,

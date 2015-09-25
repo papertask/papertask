@@ -70,6 +70,18 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 			$task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>1));
 			//var_dump($task);exit;
 			if($task){
+				if($data['rate_client']){
+				$iterm->setData([
+					'name' => $data['name'],
+					'file' => ($file)?$file:null,
+					'rate' => $data['rate_client'],
+					'quantity' => $data['quantity'],
+					'total' => $data['total'],
+					'language' => $language,
+					'task' => $task[0],
+					'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+				]);
+				}else{
 				$iterm->setData([
 					'name' => $data['name'],
 					'file' => ($file)?$file:null,
@@ -79,9 +91,22 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 					'language' => $language,
 					'task' => $task[0],
 					'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
-				]);
+				]);	
+				
+				}
 			}
 			else{
+				if($data['rate_client']){
+				$iterm->setData([
+					'name' => $data['name'],
+					'file' => ($file)?$file:null,
+					'rate' => $data['rate_client'],
+					'quantity' => $data['quantity'],
+					'total' => $data['total'],
+					'language' => $language,
+					'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+				]);
+				}else{
 				$iterm->setData([
 					'name' => $data['name'],
 					'file' => ($file)?$file:null,
@@ -91,6 +116,7 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 					'language' => $language,
 					'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
 				]);
+				}
 			}
 		}
 		$iterm->save($this->getEntityManager());
@@ -173,14 +199,23 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 		   if($data['file']['id'])
 			 $file = $this->find('\User\Entity\File', $data['file']['id']);
            $itermnotm = $entityManager->find('\User\Entity\Itermnotm', $id);
-           $itermnotm->setData([
-				'name' => $data['name'],
-				'file' => ($file)?$file:null,
-				'rate_freelancer' => $data['rate'],
-				'quantity' => $data['quantity'],
-				'total_freelancer' => $data['total'],
-           ]);
-           
+		   if($data['rate_client']){
+			   $itermnotm->setData([
+					'name' => $data['name'],
+					'file' => ($file)?$file:null,
+					'rate' => $data['rate_client'],
+					'quantity' => $data['quantity'],
+					'total' => $data['total'],
+			   ]);
+		   }else{
+			   $itermnotm->setData([
+					'name' => $data['name'],
+					'file' => ($file)?$file:null,
+					'rate_freelancer' => $data['rate'],
+					'quantity' => $data['quantity'],
+					'total_freelancer' => $data['total'],
+			   ]);
+           }
            $itermnotm->save($entityManager);
            
            return new JsonModel([

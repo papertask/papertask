@@ -56,16 +56,30 @@ class ProjectItermengineeringController extends AbstractRestfulJsonController
 		//$unit = ($data['unit'] == 'Hour')?1:2;
 		
 		//var_dump($data['unit']);exit;
+		if($data['rate_client']){
 		$iterm->setData([
 			'name' => $data['name'],
 			'unit' => $data['unit']['id'],
 			'file' => ($file)?$file:null,
-			'rate' => $data['rate'],
+			'rate' => $data['rate_client'],
 			'quantity' => $data['quantity'],
 			'total' => $data['total'],
 			'language' => $language,
 			'engineeringcategory' => $engineeringcategory,
 		]);
+		}else{
+		$iterm->setData([
+			'name' => $data['name'],
+			'unit' => $data['unit']['id'],
+			'file' => ($file)?$file:null,
+			'rate_freelancer' => $data['rate'],
+			'quantity' => $data['quantity'],
+			'total_freelancer' => $data['total'],
+			'language' => $language,
+			'engineeringcategory' => $engineeringcategory,
+		]);
+		}
+		
 		$iterm->save($this->getEntityManager());
 		//add task if have not
 		$entityManager = $this->getEntityManager();
@@ -119,6 +133,7 @@ class ProjectItermengineeringController extends AbstractRestfulJsonController
 			 
 			$engineeringcategory = $this->find('\Common\Entity\EngineeringCategory', $data['engineeringcategory']['id']); 
            $itermengineering = $entityManager->find('\User\Entity\Itermengineering', $id);
+		   if($data['rate_client']){
            $itermengineering->setData([
 				'name' => $data['name'],
 				'unit' => $data['unit']['id'],
@@ -128,6 +143,17 @@ class ProjectItermengineeringController extends AbstractRestfulJsonController
 				'total' => $data['total'],
 				'engineeringcategory' => $engineeringcategory,
            ]);
+		   }else{
+		   $itermengineering->setData([
+				'name' => $data['name'],
+				'unit' => $data['unit']['id'],
+				'file' => ($file)?$file:null,
+				'rate_freelancer' => $data['rate'],
+				'quantity' => $data['quantity'],
+				'total_freelancer' => $data['total'],
+				'engineeringcategory' => $engineeringcategory,
+           ]);
+		   }
            
            $itermengineering->save($entityManager);
            

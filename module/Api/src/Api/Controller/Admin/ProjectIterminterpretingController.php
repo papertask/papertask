@@ -52,15 +52,25 @@ class ProjectIterminterpretingController extends AbstractRestfulJsonController
 		
 		$iterm->setProject($project);
 		$language = $this->find('User\Entity\Language', $data['languageid']);
-		
+		if($data['rate_client']){
 		$iterm->setData([
 			'name' => $data['name'],
 			'file' => ($file)?$file:null,
-			'rate' => $data['rate'],
+			'rate' => $data['rate_client'],
 			'quantity' => $data['quantity'],
 			'total' => $data['total'],
 			'language' => $language,
 		]);
+		}else{
+		$iterm->setData([
+			'name' => $data['name'],
+			'file' => ($file)?$file:null,
+			'rate_freelancer' => $data['rate'],
+			'quantity' => $data['quantity'],
+			'total_freelancer' => $data['total'],
+			'language' => $language,
+		]);
+		}
 		$iterm->save($this->getEntityManager());
 		//add task if have not
 		$entityManager = $this->getEntityManager();
@@ -127,6 +137,7 @@ class ProjectIterminterpretingController extends AbstractRestfulJsonController
 		   if($data['file'])
 			 $file = $this->find('\User\Entity\File', $data['file']['id']);
            $iterminterpreting = $entityManager->find('\User\Entity\Iterminterpreting', $id);
+		   if($data['rate_client']){
            $iterminterpreting->setData([
 				'name' => $data['name'],
 				'file' => ($file)?$file:null,
@@ -134,6 +145,15 @@ class ProjectIterminterpretingController extends AbstractRestfulJsonController
 				'quantity' => $data['quantity'],
 				'total' => $data['total'],
            ]);
+		   }else{
+		   $iterminterpreting->setData([
+				'name' => $data['name'],
+				'file' => ($file)?$file:null,
+				'rate_freelancer' => $data['rate'],
+				'quantity' => $data['quantity'],
+				'total_freelancer' => $data['total'],
+           ]);
+		   }
            
            $iterminterpreting->save($entityManager);
            

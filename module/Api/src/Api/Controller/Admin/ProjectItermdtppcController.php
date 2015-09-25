@@ -46,16 +46,29 @@ class ProjectItermdtppcController extends AbstractRestfulJsonController
 		$iterm->setProject($project);
 		$language = $this->find('User\Entity\Language', $data['languageid']);
 		$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']); 
+		if($data['rate_client']){
 		$iterm->setData([
 			'name' => $data['name'],
 			'unit' => $data['unit']['id'],
 			'file' => ($file)?$file:null,
-			'rate' => $data['rate'],
+			'rate' => $data['rate_client'],
 			'quantity' => $data['quantity'],
 			'total' => $data['total'],
 			'language' => $language,
 			'software' => $software,
 		]);
+		}else{
+		$iterm->setData([
+			'name' => $data['name'],
+			'unit' => $data['unit']['id'],
+			'file' => ($file)?$file:null,
+			'rate_freelancer' => $data['rate'],
+			'quantity' => $data['quantity'],
+			'total_freelancer' => $data['total'],
+			'language' => $language,
+			'software' => $software,
+		]);
+		}
 		$iterm->save($this->getEntityManager());
 		//add task if have not
 		$entityManager = $this->getEntityManager();
@@ -108,6 +121,7 @@ class ProjectItermdtppcController extends AbstractRestfulJsonController
 			} 
 			$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']); 
 			$itermdtppc = $entityManager->find('\User\Entity\Itermdtppc', $id);
+			if($data['rate_client']){
 			$itermdtppc->setData([
 				'name' => $data['name'],
 				'unit' => $data['unit']['id'],
@@ -117,6 +131,17 @@ class ProjectItermdtppcController extends AbstractRestfulJsonController
 				'total' => $data['total'],
 				'software' => $software,
            ]);
+		   }else{
+		   $itermdtppc->setData([
+				'name' => $data['name'],
+				'unit' => $data['unit']['id'],
+				'file' => ($file)?$file:null,
+				'rate_freelancer' => $data['rate'],
+				'quantity' => $data['quantity'],
+				'total_freelancer' => $data['total'],
+				'software' => $software,
+           ]);
+		   }
            
 			$itermdtppc->save($entityManager);
            
