@@ -690,6 +690,8 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 			//person 
 			
 			// get translation specialism
+			//console.log($scope.freelancer.TranslationSpecialisms);
+			//console.log($scope.freelancer.TranslationSpecialismsP);
 			for(i=0 ; i < $scope.freelancer.TranslationSpecialisms.length; i++) 
 			{
 				var tmp = 0;
@@ -697,12 +699,14 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 					if($scope.freelancer.TranslationSpecialisms[i] == $scope.freelancer.TranslationSpecialismsP[j])
 						tmp = 1;
 				}
-				$scope.checkTranslationSpecialism.push(tmp);
+				$scope.checkTranslationSpecialism[$scope.freelancer.TranslationSpecialismsP-1] = tmp;
 			}
 			 
 			$scope.freelancer.TranslationSpecialismsP = findOptions($scope.freelancerData.specialisms,
                 $scope.freelancer.TranslationSpecialismsP);
-            
+           // console.log($scope.checkTranslationSpecialism);
+			
+			
 
 			for(i=0 ; i < $scope.freelancer.InterpretingSpecialisms.length; i++) 
 			{
@@ -711,8 +715,10 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 					if($scope.freelancer.InterpretingSpecialisms[i] == $scope.freelancer.InterpretingSpecialismsP[j])
 						tmp1 = 1;
 				}
-				$scope.checkInterpretingSpecialism.push(tmp1);
+				$scope.checkInterpretingSpecialism[$scope.freelancer.InterpretingSpecialisms-1] = tmp;
+				//$scope.checkInterpretingSpecialism.push(tmp1);
 			}
+			
             $scope.freelancer.InterpretingSpecialismsP = findOptions($scope.freelancerData.specialisms,
                 $scope.freelancer.InterpretingSpecialismsP);
 				
@@ -741,13 +747,19 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
         });
     }
 	$scope.setTestTranslationSpecialisms = function($id){
+	
+		console.log($id);
+		console.log($scope.freelancer.TranslationSpecialismsP);
         
-        var $index = $scope.freelancer.TranslationSpecialismsP.indexOf($id);
-        if($index == -1){
+		var $index = $scope.freelancer.TranslationSpecialismsP.indexOf($id);
+		console.log($index);
+        //if()
+		if($index == -1 || $index == 0){
             $scope.freelancer.TranslationSpecialismsP.push($id);
         } else {
             $scope.freelancer.TranslationSpecialismsP.splice($index, 1);
         }
+        console.log($scope.freelancer.TranslationSpecialismsP);
 		
 		//update data TranslationSpecialismsP
 		 var requestResources = $http.put("/api/user/" + USER_ID + "/freelancer/" + $scope.freelancer.id, {

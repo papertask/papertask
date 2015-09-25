@@ -112,6 +112,7 @@ class FreelancerController extends AbstractRestfulController
     }
 
     public function update($id, $data){
+		//var_dump($id);exit;
 		//echo $data['Resources'];
         $userId = $this->getEvent()->getRouteMatch()->getParam('user_id');
         $entityManager = $this->getEntityManager();

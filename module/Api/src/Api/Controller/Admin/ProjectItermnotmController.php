@@ -65,23 +65,41 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 			
 		}
 		else{
-			$iterm->setData([
-				'name' => $data['name'],
-				'file' => ($file)?$file:null,
-				'rate_freelancer' => $data['rate'],
-				'quantity' => $data['quantity'],
-				'total_freelancer' => $data['total'],
-				'language' => $language,
-				'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
-			]);
+			$entityManager = $this->getEntityManager();
+			$repository = $entityManager->getRepository('User\Entity\Task');
+			$task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>1));
+			//var_dump($task);exit;
+			if($task){
+				$iterm->setData([
+					'name' => $data['name'],
+					'file' => ($file)?$file:null,
+					'rate_freelancer' => $data['rate'],
+					'quantity' => $data['quantity'],
+					'total_freelancer' => $data['total'],
+					'language' => $language,
+					'task' => $task[0],
+					'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+				]);
+			}
+			else{
+				$iterm->setData([
+					'name' => $data['name'],
+					'file' => ($file)?$file:null,
+					'rate_freelancer' => $data['rate'],
+					'quantity' => $data['quantity'],
+					'total_freelancer' => $data['total'],
+					'language' => $language,
+					'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+				]);
+			}
 		}
 		$iterm->save($this->getEntityManager());
 		//add task if have not
 		$entityManager = $this->getEntityManager();
 		$repository = $entityManager->getRepository('User\Entity\Task');
 		
-        //$task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>1));
-		//if(!$task){
+        $task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>1));
+		if(!$task){
 			$task = new Task();
 			$task->setData([
                     'project' => $project,
@@ -91,7 +109,7 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 					'task_number' => $task_number,
                 ]);
 			$task->save($this->getEntityManager());
-		//}
+		}
 		return new JsonModel([
             'iterm' => $iterm->getData(),
         ]);
