@@ -406,8 +406,9 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 								}
 								isFind = true;
 								if($scope.project.currency.name == "CNY"){
-									price = $scope.currencyrate*price;			 
-								 } else if ($scope.project.currency.name == "USD") {					 
+									//price = price/$scope.currencyrate;			 
+								 } else if ($scope.project.currency.name == "USD") {	
+									price = price/$scope.currencyrate;	
 								 }
 								break;
 							}						
