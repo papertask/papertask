@@ -754,7 +754,7 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 		var $index = $scope.freelancer.TranslationSpecialismsP.indexOf($id);
 		console.log($index);
         //if()
-		if($index == -1 || $index == 0){
+		if($index == -1){
             $scope.freelancer.TranslationSpecialismsP.push($id);
         } else {
             $scope.freelancer.TranslationSpecialismsP.splice($index, 1);
@@ -764,7 +764,8 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 		//update data TranslationSpecialismsP
 		 var requestResources = $http.put("/api/user/" + USER_ID + "/freelancer/" + $scope.freelancer.id, {
 					'TranslationSpecialismsP': getIds($scope.freelancer.TranslationSpecialismsP),
-					'InterpretingSpecialismsP': getIds($scope.freelancer.InterpretingSpecialismsP)
+					'InterpretingSpecialismsP': getIds($scope.freelancer.InterpretingSpecialismsP),
+					'save_specialisms':1
 				}).success(function($data){
 					
          });
@@ -782,7 +783,8 @@ angularApp.controller('FreelancerController', function($scope, $window, $http, $
 		//update data TranslationSpecialismsP
 		 var requestResources = $http.put("/api/user/" + USER_ID + "/freelancer/" + $scope.freelancer.id, {
 					'TranslationSpecialismsP': getIds($scope.freelancer.TranslationSpecialismsP),
-					'InterpretingSpecialismsP': getIds($scope.freelancer.InterpretingSpecialismsP)
+					'InterpretingSpecialismsP': getIds($scope.freelancer.InterpretingSpecialismsP),
+					'save_specialisms':1
 				}).success(function($data){
 					
          });
