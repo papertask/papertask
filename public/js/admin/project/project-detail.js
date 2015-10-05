@@ -212,6 +212,8 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 							
 				});
 				$http.get('/api/admin/projectitermtm?projectId='+ projectId).success(function($data) {
+					//console.log("data_Itermtms");
+					//console.log($data['Itermtms']);
 					$scope.itemtms = arrangeItem($data['Itermtms']);
 					//if($scope.itemtm)
 					//	$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
@@ -362,9 +364,9 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 					$scope.invoice.dueDate = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':00';
 				else
 					$scope.invoice.dueDate = (d.getFullYear()+1)+'-01-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':00';
-				console.log($scope.invoice.invoiceDate);
+				//console.log($scope.invoice.invoiceDate);
 				
-				console.log($scope.invoice.dueDate);
+				//console.log($scope.invoice.dueDate);
 				//$scope.invoice.dueDate = $scope.invoice.dueDate.date;
 				//$scope.invoice.invoiceDate = $scope.invoice.invoiceDate_tmp;
 				
@@ -418,7 +420,10 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 		for(var i = 0; i < $scope.project.targetLanguages.length; i++)
 		{
 			$scope.itermtmnew[$scope.project.targetLanguages[i].id] = [];
+			
 			for(var j = 0; j < Itemr.length; j++){
+			//console.log("check ok");
+			//console.log(Itemr[j]);
 				if(Itemr[j].language.id == $scope.project.targetLanguages[i].id && Itemr[j].of_freelancer==0){
 					$scope.subtotal_tmp = $scope.subtotal_tmp + parseFloat(Itemr[j].total);
 					var total = Number(Itemr[j].total);
@@ -461,9 +466,12 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 					$scope.project.total_tmp = total;
 					$scope.total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					$scope.itermtmnew[$scope.project.targetLanguages[i].id].push(Itemr[j]);
+					
 				}	
 			}
 		}
+		console.log("dsfsfs");
+		console.log($scope.itermtmnew);
         return $scope.itermtmnew;
     }
 	

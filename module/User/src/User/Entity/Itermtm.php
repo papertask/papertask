@@ -180,8 +180,13 @@ class Itermtm extends Entity{
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
+	 
     protected $ratenomatch_fl = 0.00;
-	
+	/**
+     * @var integer
+     * @ORM\Column(type="integer")
+     */
+    protected $of_freelancer=0;
 	
      public function getProject(){
         return $this->project;
@@ -222,6 +227,7 @@ class Itermtm extends Entity{
 			'ratenomatch_fl' => $this->ratenomatch_fl,
 			'total_freelancer' => $this->total_freelancer,
 			'rate_freelancer' => $this->rate_freelancer,
+			'of_freelancer' => $this->of_freelancer,
 			
         ];
     }	

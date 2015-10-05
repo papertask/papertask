@@ -49,7 +49,7 @@ echo $this->inlineScript()
 					<h4 class="text-navy">{{ project.quote_no }}</h4>
 					
 					<h5>From:</h5>
-					<strong>{{ project.pm.name }}</strong><br>
+					<strong>{{ project.pm.user.firstName }}</strong><br>
 					<strong>Project Manager</strong><br>
 					<address>
 						<strong>{{companyinfo1.name}}</strong><br>
@@ -65,7 +65,7 @@ echo $this->inlineScript()
 						<span><strong>Due Date:</strong>{{  DateFormatter.format(project.dueDate) }}</span>
 					</p>
 					<h5>To:</span></h5>
-					<strong>{{ project.client.name }}</strong><br>
+					<strong>{{ project.user.lastName }}, {{ project.user.firstName }}</strong><br>
 					<strong>{{ project.client.position }} </strong><br>
 					<address>
 						<strong>{{ project.client.company.name }}</strong><br>
