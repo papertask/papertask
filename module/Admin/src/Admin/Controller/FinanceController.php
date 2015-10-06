@@ -675,6 +675,9 @@ class FinanceController extends AbstractActionController {
     }
     
     public function getFreelancerOutTransactionListAction(){    	
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+		
     	$params = $this->getRequest()->getQuery();
     	foreach($params as $key => $value){
     		if (strpos( $value,'{') !== false) {
@@ -693,7 +696,7 @@ class FinanceController extends AbstractActionController {
     	$freelancerList = $entityManager->getRepository('User\Entity\Outtransaction');
     	$queryBuilder = $freelancerList->createQueryBuilder('outtr');
     	$queryBuilder->where("outtr.client=?1")->setParameter(1,$freelancer_id); // 4 = Pooling
-    	$queryBuilder_tmp->andWhere('outtr.is_deleted = 0');
+    	$queryBuilder->andWhere('outtr.is_deleted = 0');
     	
     	if($params->bsearch !=null && $params->bsearch != ''){
     		$queryBuilder->andWhere('outtr.intrans_no LIKE :outtrId');
