@@ -408,7 +408,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			$http.put("/api/admin/projectitermtm/" + itemtm.id, 
 				{
     				languageid: $scope.laguageid,
-					rate: itemtm.rate_tmp, 
+					rate_client: itemtm.rate_tmp, 
 					sourcebawu: itemtm.sourcebawu, 
 					sourcejiuwu: itemtm.sourcejiuwu,
 					sourcenomatch: itemtm.sourcenomatch,
@@ -451,7 +451,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 						
 						
 						languageid: $scope.laguageid,
-						rate: itemtm.rate_tmp, 
+						rate_client: itemtm.rate_tmp, 
 						sourcebawu: itemtm.sourcebawu, 
 						sourcejiuwu: itemtm.sourcejiuwu,
 						sourcenomatch: itemtm.sourcenomatch,

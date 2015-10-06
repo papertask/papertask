@@ -107,7 +107,7 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 					'startDate' => new \DateTime('now'),
 					'dueDate' => $project->getDueDate(),
 					'total' => $data['total'],
-					'task_number' => $project->getId() . '-1',
+					'task_number' => $project->getProjectNo() . '-1',
                 ]);
 			$task->save($this->getEntityManager());
 		}
@@ -168,7 +168,7 @@ class ProjectItermtmController extends AbstractRestfulJsonController
         if($data['rate_client']){
 		$itermtm->setData([
 				'name' => $data['name'],
-				'rate' => $data['rate'],
+				'rate' => $data['rate_client'],
 				'sourcebawu' => $data['sourcebawu'],
 				'sourcejiuwu' => $data['sourcejiuwu'],
 				'sourcenomatch' => $data['sourcenomatch'],

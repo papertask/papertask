@@ -5,7 +5,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	$scope.employer = null;
 	 $scope.project = {
 				
-		        types: [],
+		        //types: [],
 				files: []	
 	};
 
@@ -178,6 +178,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 $scope.project.status = ProjectStatus.get(2);
 		 $scope.project.startDate = StrDate(new Date());
 		 $scope.project.dueDate =  $scope.project.startDate;
+		 //$scope.project.type =	ProjectType.get(2)
 		 var $params = $scope.prepareData($scope.project);
 		 $params.createType = 'orderTranslation';
 		 
@@ -188,7 +189,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){				
 	             if($data.success){
-	                 location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
+	                location.href = "/" + LANG_CODE + "/admin/project/detail/?id=" + $data.project.id;
 	             } else {
 	                location.href = "/" + LANG_CODE + "/admin/quote/detail/?id=" + $data.project.id;
 	             }

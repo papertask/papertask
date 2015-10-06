@@ -84,6 +84,11 @@ class ProjectController extends AbstractRestfulJsonController
             }
             $data['types'] = $arr;
         }
+		else{
+			$arr = [];
+			$arr[] = 2;
+			$data['types'] = $arr;
+		}
     }
 
     public function create($data)
@@ -94,6 +99,8 @@ class ProjectController extends AbstractRestfulJsonController
 		$projectTotal = 0;
     	
 		$this->cleanData($data);
+		//var_dump($data);exit;
+		
         $targetLanguages = [];
         foreach($data['targetLanguages'] as $targetLanguage){
             $targetLanguages[$targetLanguage['id']] = $this->getReference('\User\Entity\Language', $targetLanguage['id']);
@@ -205,57 +212,53 @@ class ProjectController extends AbstractRestfulJsonController
         
         if(isset($data['createType'])){
         	if($data['createType']=='orderTranslation'||$data['createType']=='orderTranslationNonContract' || $data['createType'] == 'landingOrder'){
-        $i = 0;
-        
-		$langLength = count($targetLanguages);
-		
-		$task_array =  array();
-        foreach ($targetLanguages as $key => $targetLang){
-        	$i++;
-        	$task = new Task();
-        	$taskArrData = array(
-        		//'type' => $data['types'][0],        		
-        		'language' => 	$targetLang,
-        		'status' => 3, // unassigned
-        		'project' => $project,
-        		'startDate' => $data['startDate'],
-        		'dueDate' => $data['dueDate'],
-        		//'name' => $data['reference'],
-        		'total' =>  round($data['invoiceinfo']['total']/$langLength, 2),
-        		'task_number' => $data['project_no'].'-'.$i,
-        		
-        	);
-        	$projectTotal = $projectTotal + floatval(round($data['invoiceinfo']['total']/$langLength, 2));
-        	$taskArrData['type'] = (is_array($data['types'])&&count($data['types'])>0)?$data['types'][0]: 1;
-			$name_ref = $data['files'][0]['name'];
-			//var_dump($name_ref);exit;
-        	$taskArrData['name'] = (array_key_exists('reference',$data))?$data['reference']:$name_ref;
+				$i = 0;
+				$langLength = count($targetLanguages);
+				$task_array =  array();
+				foreach ($targetLanguages as $key => $targetLang){
+					$i++;
+					$task = new Task();
+					$taskArrData = array(
+						//'type' => $data['types'][0],        		
+						'language' => 	$targetLang,
+						'status' => 3, // unassigned
+						'project' => $project,
+						'startDate' => $data['startDate'],
+						'dueDate' => $data['dueDate'],
+						//'name' => $data['reference'],
+						'total' =>  round($data['invoiceinfo']['total']/$langLength, 2),
+						'task_number' => $data['project_no'].'-'.$i,
+					);
+				$projectTotal = $projectTotal + floatval(round($data['invoiceinfo']['total']/$langLength, 2));
+				$taskArrData['type'] = (is_array($data['types'])&&count($data['types'])>0)?$data['types'][0]: 1;
+				$name_ref = $data['files'][0]['name'];
+				//var_dump($name_ref);exit;
+				$taskArrData['name'] = (array_key_exists('reference',$data))?$data['reference']:$name_ref;
         	
-        	$task->setData( $taskArrData );
-			$task->save($this->getEntityManager());
-			$task_array[$key] = $task;
-			
-        }
-        //var_dump($task_array);
-		//exit;
-		//invoice
-		$invoice = new Invoice();
-		$invoice_no = "INV-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
-		$invoiceDataArr = array(
-			'invoice_no' => $invoice_no,
-			'dueDate' => $data['dueDate'],
-		);
-		if(array_key_exists ( 'invoiceinfo' , $data )){
-			//var_dump($data['invoiceinfo']);
-			$invoiceDataArr['subtotal'] = $data['invoiceinfo']['subtotal'];
-			$invoiceDataArr['tax'] = $data['invoiceinfo']['tax'];
-			$invoiceDataArr['discount'] = $data['invoiceinfo']['discount'];
-			$invoiceDataArr['total'] = $data['invoiceinfo']['total'];
-		}
+				$task->setData( $taskArrData );
+				$task->save($this->getEntityManager());
+				$task_array[$key] = $task;
+				}
+			//var_dump($task_array);
+			//exit;
+			//invoice
+			$invoice = new Invoice();
+			$invoice_no = "INV-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
+			$invoiceDataArr = array(
+				'invoice_no' => $invoice_no,
+				'dueDate' => $data['dueDate'],
+			);
+			if(array_key_exists ( 'invoiceinfo' , $data )){
+				//var_dump($data['invoiceinfo']);
+				$invoiceDataArr['subtotal'] = $data['invoiceinfo']['subtotal'];
+				$invoiceDataArr['tax'] = $data['invoiceinfo']['tax'];
+				$invoiceDataArr['discount'] = $data['invoiceinfo']['discount'];
+				$invoiceDataArr['total'] = $data['invoiceinfo']['total'];
+			}
 
-		$invoice->setData($invoiceDataArr);
-		$invoice->setProject($project);
-		$invoice->save($this->getEntityManager());
+			$invoice->setData($invoiceDataArr);
+			$invoice->setProject($project);
+			$invoice->save($this->getEntityManager());
         
         	}
         }
