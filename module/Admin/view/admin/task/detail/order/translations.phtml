@@ -71,7 +71,9 @@
                         <td>{{ itemtms[language.id][0].name }}</td>
                         <td>Source Word</td>
                         <td>{{ itemtms[language.id][0].rate }}</td>
-                        <td>{{ itemtms[language.id][0].sourcerepetitions + itemtms[language.id][0].sourceyibai + itemtms[language.id][0].sourcejiuwu + itemtms[language.id][0].sourcebawu + itemtms[language.id][0].sourceqiwu + itemtms[language.id][0].sourcewushi}}</td>
+                        <td>{{ itemtms[language.id][0].sourcerepetitions + itemtms[language.id][0].sourceyibai 
+						+ itemtms[language.id][0].sourcejiuwu + itemtms[language.id][0].sourcebawu 
+						+ itemtms[language.id][0].sourceqiwu + itemtms[language.id][0].sourcewushi + itemtms[language.id][0].sourcenomatch}}</td>
                         <td>{{ itemtms[language.id][0].total }}</td>
                         <td>
 							<?php if (!($user['role'] == 'Freelancer')) { ?>
