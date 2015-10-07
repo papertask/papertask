@@ -434,18 +434,30 @@ class FinanceController extends AbstractActionController {
 		$user = $this->getCurrentUser();
 		if($user->isEmployer()){
 	
-        $entityManager = $this->getEntityManager();
-			
-		//get all project
-		$projectList = $entityManager->getRepository('User\Entity\Project');
-		$queryBuilder_tmp = $projectList->createQueryBuilder('project');
-		$queryBuilder_tmp->andWhere('project.is_deleted = 0');
-		$queryBuilder_tmp->andWhere('project.payStatus = 1');
-		$queryBuilder_tmp->andWhere('project.client = ?1')->setParameter(1, $user);	
-		$query = $queryBuilder_tmp->getQuery();
-		$result = $query->getArrayResult();
+			$entityManager = $this->getEntityManager();
+				
+			//get all project
+			$projectList = $entityManager->getRepository('User\Entity\Project');
+			$queryBuilder_tmp = $projectList->createQueryBuilder('project');
+			$queryBuilder_tmp->andWhere('project.is_deleted = 0');
+			$queryBuilder_tmp->andWhere('project.payStatus = 1');
+			$queryBuilder_tmp->andWhere('project.client = ?1')->setParameter(1, $user);	
+			$query = $queryBuilder_tmp->getQuery();
+			$result = $query->getArrayResult();
 		} else{
-			$result = null;
+			$userId = (int)$this->getRequest()->getQuery('id');
+			$entityManager = $this->getEntityManager();
+			$client = $this->getUserById($userId);
+		
+			//get all project
+			$projectList = $entityManager->getRepository('User\Entity\Project');
+			$queryBuilder_tmp = $projectList->createQueryBuilder('project');
+			$queryBuilder_tmp->andWhere('project.is_deleted = 0');
+			$queryBuilder_tmp->andWhere('project.payStatus = 1');
+			$queryBuilder_tmp->andWhere('project.client = ?1')->setParameter(1, $client);	
+			$query = $queryBuilder_tmp->getQuery();
+			$result = $query->getArrayResult();
+			//$result = null;
 		}
 		
 		return new JsonModel(array(
