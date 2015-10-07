@@ -169,7 +169,6 @@ $allow_freelancer = array(
 
 	// Dashboard Panel
 	'dashboard\index',
-	'dashboard\client-dashboard',
 	'dashboard\freelancer-dashboard',
 	
 	// -- Task
@@ -192,15 +191,7 @@ $allow_freelancer = array(
 	'project\quotedownload',
 	'project\invoiceprint',
 	'project\invoicedownload',
-	'project\order-translation',
-	'project\need-quote',
 	'project\order-translation-non-contract',
-	'project\client-projects',
-	'project\client-ongoing-projects',
-	'project\client-review-projects',
-	'project\client-completed-projects',
-	'project\client-quotes',
-	'project\quote-detail',
 	'project\wordcount',
 	'project\uploadtemp',
 	'project\getClientProjectList',
@@ -220,7 +211,6 @@ $allow_freelancer = array(
 	'freelancer\getuserbyfreelancerid',
 	
 	// -- Employer (Client)
-	'employer\profile',
 	'employer\detail',
 	'employer\edit',
 	'employer\removeResource',
@@ -231,7 +221,6 @@ $allow_freelancer = array(
 	'staff\view',
 	'staff\uploadFile',
 	//finance
-	'finance\client-unpaid-project',
 	'finance\add-incomming',
 	'finance\add-outgoing',
 	'finance\getProjectUnpaidList',
