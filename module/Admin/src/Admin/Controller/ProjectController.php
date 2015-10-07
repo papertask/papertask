@@ -315,10 +315,11 @@ class ProjectController extends AbstractActionController
 		if($currentUser->isEmployer()){
 			//get iterm translation
 			$entityManager = $this->getEntityManager();
-			$repository = $entityManager->getRepository('User\Entity\Project');
-			$project = $repository->findBy( array('id'=>$id, 'client'=>currentUser) );
+			//$repository = $entityManager->getRepository('User\Entity\Project');
+			$project = $entityManager->find('\User\Entity\Project', (int)$id);
 			//
-			if(empty($project)){
+			if($project->getClient()->getId() != $currentUser->getId()){
+				//var_dump($id);var_dump($currentUser);
 				//var_dump($project);exit;
 				//$this->_redirect($lang_code.'/admin/dashboard/client-dashboard/');
 				return false;
