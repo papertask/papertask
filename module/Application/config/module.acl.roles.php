@@ -37,16 +37,13 @@ $allow_employer = array(
 	// Dashboard Panel
 	'dashboard\index',
 	'dashboard\client-dashboard',
-	'dashboard\freelancer-dashboard',
 	
 	// -- Task
 	
 	'task\detail',
-	'task\freelancer-task-view',
 	'task\getFreelancerTaskList',
 	'task\FreelancerAcceptTask',
 	'task\submitTask',
-	'task\task-pool',
 	'task\getTaskPoolList',
 	'task\freelancer-unpaid-task',
 		'task\getFreelancerAssigningTaskList',
@@ -79,12 +76,8 @@ $allow_employer = array(
 	'freelancer\download',
 	
 	'freelancer\new',
-	'freelancer\detail',
-	'freelancer\edit-profile',
 	'freelancer\uploadFile',
 	'freelancer\getFreelancesList',
-	'freelancer\edit-payment-info',
-	'freelancer\edit-price',
 	'freelancer\finishRegistration',
 	'freelancer\getuserbyfreelancerid',
 	
@@ -115,9 +108,7 @@ $allow_employer = array(
 	
 	'finance\searchProjectUnpaidList',
 	'finance\advsearchProjectUnpaidList',
-	'finance\freelancer-transaction',
 	'finance\getFreelancerOutTransactionList',
-	'finance\freelancer-unpaid-task',
 	
 	// -- Email
 	'email\loadTemplate',
