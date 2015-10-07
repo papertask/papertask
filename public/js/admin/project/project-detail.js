@@ -1144,8 +1144,9 @@ angularApp.controller("ProjectFilesController", function($scope, $rootScope, $ht
                 });
                 
                 $scope.langFiles = $data.filter(function(file){
-				console.log(file);
-                    return file.task || file.filetype;
+					console.log("langFiles");
+					console.log(file);
+                    return !file.task && file.filetype;
                 });
                 
              $rootScope.filesLength = $scope.files.length;
