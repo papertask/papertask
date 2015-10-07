@@ -33,15 +33,14 @@ $allow_employer = array(
 	'register\social',
 	'register\employer',
 	'register\freelancer',
-	'resetpassword\index',
 
 	// Dashboard Panel
 	'dashboard\index',
 	'dashboard\client-dashboard',
 	'dashboard\freelancer-dashboard',
-	'dashboard\admin-pm-dashboard',
+	
 	// -- Task
-	'task\index',
+	
 	'task\detail',
 	'task\freelancer-task-view',
 	'task\getFreelancerTaskList',
@@ -54,7 +53,6 @@ $allow_employer = array(
 		
 	// -- Project
 	
-	'project\quote', // Quotes in menu
 	'project\detail', // Quotes in menu
 	'project\uploadFile',
 	'project\quoteprint',
@@ -75,12 +73,9 @@ $allow_employer = array(
 	'project\getClientProjectList',
 	
 	// -- Quote	
-	'quote\detail',
-	'quote\new',
 	
 	
 	// -- Freelancer
-	'freelancer\index',
 	'freelancer\download',
 	
 	'freelancer\new',
@@ -94,33 +89,24 @@ $allow_employer = array(
 	'freelancer\getuserbyfreelancerid',
 	
 	// -- Employer (Client)
-	'employer\list',
-	'employer\new',
 	'employer\profile',
 	'employer\detail',
 	'employer\edit',
 	'employer\removeResource',
 	'employer\addResource',
 	// -- Staff
-	'staff\index',
-	'staff\new',
 	'staff\getPmList',
 	'staff\getSalesList',
 	'staff\view',
-	'staff\edit-profile',
 	'staff\uploadFile',
 	//finance
-	'finance\client-unpaid',
-		'finance\client-unpaid-project',
-	'finance\freelancer-unpaid',
+	'finance\client-unpaid-project',
 	'finance\add-incomming',
 	'finance\add-outgoing',
 	'finance\getProjectUnpaidList',
 	'finance\getTaskUnpaidList',
 	'finance\getClientUnpaid',
 	'finance\getFreelancerUnpaid',
-	'finance\transaction',
-	'finance\report',
 	'finance\getTransactionList',
 	'finance\incomming-detail',
 	'finance\outgoing-detail',
@@ -134,13 +120,9 @@ $allow_employer = array(
 	'finance\freelancer-unpaid-task',
 	
 	// -- Email
-	'email\index',
-	'email\new',
-	'email\edit',
 	'email\loadTemplate',
 	'email\check',
 	// -- Profile
-	'papertask\profile',
 	// -- API
 	'api/common',
 	'api/user',
@@ -184,15 +166,14 @@ $allow_freelancer = array(
 	'register\social',
 	'register\employer',
 	'register\freelancer',
-	'resetpassword\index',
 
 	// Dashboard Panel
 	'dashboard\index',
 	'dashboard\client-dashboard',
 	'dashboard\freelancer-dashboard',
-	'dashboard\admin-pm-dashboard',
+	
 	// -- Task
-	'task\index',
+	
 	'task\detail',
 	'task\freelancer-task-view',
 	'task\getFreelancerTaskList',
@@ -205,7 +186,6 @@ $allow_freelancer = array(
 		
 	// -- Project
 	
-	'project\quote', // Quotes in menu
 	'project\detail', // Quotes in menu
 	'project\uploadFile',
 	'project\quoteprint',
@@ -226,15 +206,10 @@ $allow_freelancer = array(
 	'project\getClientProjectList',
 	
 	// -- Quote	
-	'quote\detail',
-	'quote\new',
 	
 	
 	// -- Freelancer
-	'freelancer\index',
 	'freelancer\download',
-	
-	'freelancer\new',
 	'freelancer\detail',
 	'freelancer\edit-profile',
 	'freelancer\uploadFile',
@@ -245,33 +220,24 @@ $allow_freelancer = array(
 	'freelancer\getuserbyfreelancerid',
 	
 	// -- Employer (Client)
-	'employer\list',
-	'employer\new',
 	'employer\profile',
 	'employer\detail',
 	'employer\edit',
 	'employer\removeResource',
 	'employer\addResource',
 	// -- Staff
-	'staff\index',
-	'staff\new',
 	'staff\getPmList',
 	'staff\getSalesList',
 	'staff\view',
-	'staff\edit-profile',
 	'staff\uploadFile',
 	//finance
-	'finance\client-unpaid',
-		'finance\client-unpaid-project',
-	'finance\freelancer-unpaid',
+	'finance\client-unpaid-project',
 	'finance\add-incomming',
 	'finance\add-outgoing',
 	'finance\getProjectUnpaidList',
 	'finance\getTaskUnpaidList',
 	'finance\getClientUnpaid',
 	'finance\getFreelancerUnpaid',
-	'finance\transaction',
-	'finance\report',
 	'finance\getTransactionList',
 	'finance\incomming-detail',
 	'finance\outgoing-detail',
@@ -285,13 +251,9 @@ $allow_freelancer = array(
 	'finance\freelancer-unpaid-task',
 	
 	// -- Email
-	'email\index',
-	'email\new',
-	'email\edit',
 	'email\loadTemplate',
 	'email\check',
 	// -- Profile
-	'papertask\profile',
 	// -- API
 	'api/common',
 	'api/user',
