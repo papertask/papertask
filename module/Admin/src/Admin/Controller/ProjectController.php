@@ -311,6 +311,20 @@ class ProjectController extends AbstractActionController
 		
 		$currentUserId = User::currentLoginId();
 		$currentUser = $this->find('User\Entity\User',$currentUserId);
+		//check client
+		if($currentUser->isEmployer()){
+			//get iterm translation
+			$entityManager = $this->getEntityManager();
+			$repository = $entityManager->getRepository('User\Entity\Project');
+			$project = $repository->findBy( array('id'=>$id, 'client'=>currentUser) );
+			//
+			if(empty($project)){
+				//var_dump($project);exit;
+				//$this->_redirect($lang_code.'/admin/dashboard/client-dashboard/');
+				return false;
+			}	
+		}
+		
 		return new ViewModel([
             'id' => $id,
 			"lang_code" => $lang_code,
