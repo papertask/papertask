@@ -211,7 +211,7 @@
 </table>
 <!-- if the client is uncontracted, then "make a payment" will show, if client type is "contracted", then dont show "make a payment" instead of "accept the quote" after accept, the project status changed from quoted to ordered -->
 <div class="text-right">
-    <button class="btn btn-primary" ng-show="project.status.id == 1" ng-click="quoteAccepted()"><i class="fa fa-dollar"></i> Quote Accepted</button>
+    <button class="btn btn-primary" ng-show="project.status.id == 0" ng-click="quoteAccepted()"><i class="fa fa-dollar"></i> Quote Accepted</button>
 </div>
 <div class="hr-line-dashed"></div>
 <div class="m-t">
