@@ -105,6 +105,7 @@ $allow_employer = array(
 	'finance\outgoing-detail',
 	'finance\getTransaction',
 	'finance\getTransactionTask',
+	'finance\transaction',
 	
 	'finance\searchProjectUnpaidList',
 	'finance\advsearchProjectUnpaidList',
