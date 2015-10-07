@@ -226,6 +226,9 @@ class Project extends Entity{
 	public function getProjectNo(){
         return $this->project_no;
     }
+	public function getStatus(){
+        return $this->status;
+    }
     public function getCurrency(){
     	return $this->currency;
     }

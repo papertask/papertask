@@ -747,6 +747,9 @@ class ProjectController extends AbstractRestfulJsonController
 			if(isset($data['dueDate'])){
 				$data['dueDate'] = new \DateTime($data['dueDate']['date']);
 			}
+			if($project->getStatus()== 0)
+				$status = 1;
+			else 	$status = $project->getStatus();
 			$project->setData([
 				'tax' => $data['tax'],
 				'discount' =>  $data['discount'],
@@ -755,6 +758,7 @@ class ProjectController extends AbstractRestfulJsonController
 				'types' => $data['types'],
 				'startDate' => $data['startDate'],
 				'dueDate' => $data['dueDate'],
+				'status' => $status,
 			]);
 			$project->save($this->getEntityManager());
 		}
