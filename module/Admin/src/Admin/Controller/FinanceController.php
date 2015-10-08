@@ -43,7 +43,13 @@ class FinanceController extends AbstractActionController {
         ));
 
     } 
-    
+    public function clientTransactionAction() {
+        $lang_code = $this->params()->fromRoute('lang');
+		return new ViewModel(array(
+			"lang_code" => $lang_code
+        ));
+
+    } 
     public function reportAction() {
     	$lang_code = $this->params()->fromRoute('lang');
     	return new ViewModel(array(
@@ -138,7 +144,50 @@ class FinanceController extends AbstractActionController {
         ));
 
     } 
-	
+	public function getClientTransactionListAction() {
+		$currentUserId = User::currentLoginId();
+		$currentUser = $this->find('User\Entity\User',$currentUserId);
+		//$employer = ($currentUser->getEmployer())?$currentUser->getEmployer():null;
+		
+		$entityManager = $this->getEntityManager();
+		$transactionList = $entityManager->getRepository('User\Entity\Transaction');
+		$queryBuilder = $transactionList->createQueryBuilder('transaction');
+		$queryBuilder->andWhere('transaction.is_deleted = 0');
+		if($trans_no = $this->params()->fromQuery('trans_no')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->like('transaction.intrans_no',
+                $queryBuilder->expr()->literal("%$trans_no%")));
+        }
+		if($trans_id = $this->params()->fromQuery('trans_id')){
+            $queryBuilder->andWhere($queryBuilder->expr()->eq('transaction.id', $trans_id));
+        }
+		if($fapiao_no = $this->params()->fromQuery('fapiao_no')){
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->like('transaction.fapiao_no',
+                $queryBuilder->expr()->literal("%$fapiao_no%")));
+        }
+		if($typeStatus = $this->params()->fromQuery('typeStatus')){
+            $queryBuilder->andWhere($queryBuilder->expr()->eq('transaction.typeStatus', $typeStatus));
+        }
+		$queryBuilder->andWhere('transaction.client = ?1')->setParameter(1, $currentUser);
+		
+		$adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
+        $paginator = new Paginator($adapter);
+        $paginator->setDefaultItemCountPerPage(10);
+
+        $page = (int)$this->getRequest()->getQuery('page');
+        if($page) $paginator->setCurrentPageNumber($page);
+		$data = array();
+        //$helper = new Helper();
+        foreach($paginator as $user){
+            $userData = $user->getData();
+			$data[] = $userData;
+        }
+		return new JsonModel(array(
+            'transactionlist' => $data,
+            'pages' => $paginator->getPages(),
+        ));
+	}
 	public function getTransactionListAction() {
 		error_reporting(E_ALL);
 		ini_set('display_errors', 1);

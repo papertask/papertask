@@ -145,6 +145,7 @@ return array(
         	'admin/finance/freelancer-transaction' => __DIR__ . '/../view/admin/finance/freelancer-transaction.phtml',
         	'admin/finance/freelancer-unpaid-task' => __DIR__ . '/../view/admin/finance/freelancer-unpaid-task.phtml',
         	'admin/finance/client-unpaid-project' => __DIR__ . '/../view/admin/finance/client-unpaid-project.phtml',
+			'admin/finance/client-transaction' => __DIR__ . '/../view/admin/finance/client-transaction.phtml',
 			
 			'admin/resetpassword/index' => __DIR__ . '/../view/admin/reset-password/index.phtml',
 			
