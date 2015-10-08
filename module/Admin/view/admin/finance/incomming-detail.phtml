@@ -7,7 +7,7 @@
     ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
     ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
 	->prependStylesheet($this->basePath() . '/css/plugins/iCheck/custom.css')
-	
+
 ?>
 
 <?php
@@ -29,7 +29,7 @@ echo $this->headScript ()
     ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
     ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
     ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
-	
+
     ->prependFile($this->basePath() . '/js/inspinia.js');
 
 $this->inlineScript()
@@ -39,7 +39,7 @@ $this->inlineScript()
         var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
     ");
 ?>
-					
+
 <div class="row" ng-controller="IncommingDetailController" id = "IncommingDetailController" ng-init="init()">
 	<div class="col-lg-12">
 		<div class="wrapper wrapper-content animated fadeInUp">
@@ -49,9 +49,9 @@ $this->inlineScript()
 				</div>
 				<form id="form">
 				<div class="ibox-content">
-					
+
 							<div class="row">
-                                
+
 								<div class="col-sm-6">
                                     <h4>Transaction No.</h4>
                                     <h3 class="text-navy">{{transaction.intrans_no}}</h3>
@@ -66,7 +66,7 @@ $this->inlineScript()
                                         <abbr title="Phone">P:</abbr> {{transaction.client.company.telephone}}
                                     </address>
                                 </div>
-								
+
 								<div class="col-sm-6 text-right">
                                     <p>
                                         <span><strong>Fapiao Number:</strong> {{transaction.fapiao_no}}</span><br/>
@@ -84,32 +84,34 @@ $this->inlineScript()
 
                                 </div>
 
-                               
+
                             </div>
-							
+
 							<div class="hr-line-dashed"></div>
-                            
-                            
+
+
 					 <div class="table-responsive m-t">
 						<table class="table table-bordered invoice-table">
 							<thead>
                                 <tr>
-                                   <th>Incomming show "Projects"</th>
+                                   <th width="10%">Project ID</th>
+                                   <th>Project Reference</th>
                                     <th>End Date</th>
                                     <th>Total Price</th>
                                 </tr>
                             </thead>
 							<tbody>
-									<tr ng-repeat="project in projects"> 
-										<td><span class="text-navy">{{project.id}}</span> - <strong>{{project.po}}</strong></td>
-										<td>{{ DateFormatter.short(project.dueDate) }}</td>
+									<tr ng-repeat="project in projects">
+										<td><span class="text-navy">{{ project.project_no }}</span></strong></td>
+                    <td>{{ project.reference }}</td>
+                    <td>{{ DateFormatter.short(project.dueDate) }}</td>
 										<td>{{project.currency}} {{project.total_tmp}}</td>
 									</tr>
-								
+
 							</tbody>
 						</table>
 					 </div>
-					 
+
 							<table class="table invoice-total">
                                 <tbody>
                                 <tr>
@@ -126,10 +128,10 @@ $this->inlineScript()
                                 </tr>
                                 </tbody>
                             </table>
-							
-						
+
+
 				</div>
-				</form>	
+				</form>
 			</div>
 		</div>
 	</div>
@@ -138,7 +140,7 @@ $this->inlineScript()
 <script>
     $(document).ready(function(){
         $('.dtbox').DateTimePicker();
-		
+
         // trigger datetime picker when click to calendar icon
         // TODO: this is not working
         $('i.fa.fa-calendar').on('click', function(e){
