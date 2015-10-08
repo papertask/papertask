@@ -95,9 +95,9 @@ $this->inlineScript()
                             </thead>
 							<tbody>
 									<tr ng-repeat="task in tasks"> 
-										<td><div><span class="text-navy"> {{task.id}}</span></div></td>
+										<td><div><span class="text-navy"> {{task.task_number}}</span></div></td>
 										<td>{{ DateFormatter.short(task.dueDate) }}</td>
-										<td>{{transaction.currency}} {{task.total}}</td>
+										<td>{{transaction.currency}} {{task.total_freelancer}}</td>
 									</tr>
 								
 							</tbody>
