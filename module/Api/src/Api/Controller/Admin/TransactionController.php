@@ -57,13 +57,16 @@ class TransactionController extends AbstractRestfulJsonController
 		if(isset($data['bankinfouser'])){
 			$data["bankinfouser"] = $data['bankinfo']['name'];
 		}
+		$currency = '';
         if($data['typeStatus'] == 1) // incoming
 		{
 			$client = $this->getReference('\User\Entity\User', $data['userid']);
+			$currency = $client->getCurrency();
 			$freelancer = null;
 		}
 		else {// out going
 			$freelancer = $this->getReference('\User\Entity\User', $data['userid']);
+			$currency = $freelancer->getCurrency();
 			$client = null;
 		}
 			
@@ -81,6 +84,7 @@ class TransactionController extends AbstractRestfulJsonController
 			'payDate' =>  $payDate,
 			'createDate' => $createDate,
 			'typeStatus' => $data['typeStatus'],
+			'currency' => $currency,
 			'items' => ($data['items'])?$data['items']:null,
 			
         ]);

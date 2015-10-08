@@ -530,7 +530,9 @@ class User extends Entity implements InputFilterAwareInterface{
         	//"client_pool" => ($this->isFreelancer())?$this->client_pool : null,
         );
     }
-
+	public function getCurrency(){
+		return $this->currency;
+	}
     /**
      * @return Freelancer
      */
