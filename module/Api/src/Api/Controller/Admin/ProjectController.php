@@ -758,7 +758,7 @@ class ProjectController extends AbstractRestfulJsonController
 				'types' => $data['types'],
 				'startDate' => $data['startDate'],
 				'dueDate' => $data['dueDate'],
-				'total_tmp' => $date['total_tmp'],
+				'total_tmp' => $data['total_tmp'],
 				'status' => $status,
 			]);
 			$project->save($this->getEntityManager());
