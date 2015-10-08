@@ -2,8 +2,8 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		TableItemListService, ProjectServiceLevel, TransGraphs, 
 		ProjectStatus, ProjectPriority, Fapiao,  ProjectType, CurrentcyRate){
 	$scope.files = [];
-	$scope.wordsperitem = 222;
-	$scope.price = 0.12;
+	$scope.wordsperitem = 0;
+	$scope.price = 0;
 	$scope.totalwords = $scope.wordsperitem*$scope.totalitems;
 	
 	
