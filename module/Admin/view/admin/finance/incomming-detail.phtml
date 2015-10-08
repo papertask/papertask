@@ -1,4 +1,4 @@
-<?php echo  $this->headTitle($this->translate('Unpaid Project')) ?>
+<?php echo  $this->headTitle($this->translate('Transaction Details')) ?>
 <!-- Scripts -->
 <?php echo  $this->headLink()
     ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
@@ -78,7 +78,7 @@ $this->inlineScript()
                                     <address>
                                         <strong>{{companyinfo1.name}}</strong><br>
                                         {{companyinfo1.address}}<br>
-                                        {{companyinfo1.city}}, {{companyinfo1.country}}<br>
+                                        {{companyinfo1.city}}, {{companyinfo1.country.name}}<br>
                                         <abbr title="Phone">P:</abbr> {{companyinfo1.telephone}}
                                     </address>
 
