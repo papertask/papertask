@@ -36,8 +36,9 @@ $this->headScript ()
 $this->inlineScript()
 ->prependScript("
 		var LANG_CODE = '" . $this->lang_code . "';
-		var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
-		");
+		var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';");
+
+
 ?>
 
 <div class="row" ng-controller="FreelancerTransaction" ng-init="init()">

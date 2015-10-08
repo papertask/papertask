@@ -40,8 +40,8 @@ class TransactionController extends AbstractRestfulJsonController
 
     public function create($data)
     {
-		//error_reporting(E_ALL);
-		//ini_set('display_errors', 1);
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
 		$transaction = new Transaction();
 		//var_dump($data);exit;
 		if(isset($data['itemlist'])){

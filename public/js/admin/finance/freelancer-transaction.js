@@ -41,7 +41,7 @@ angularApp.controller('FreelancerTransaction', function($scope, $http, $timeout,
   	
 	
 	$scope.View = function(task_id){
-		location.href = "/" + LANG_CODE + "/admin/finance/outtransactiondetail/?id=" + task_id;
+		location.href = "/" + LANG_CODE + "/admin/finance/outgoing-detail?id=" + task_id;
 	}
 	
 

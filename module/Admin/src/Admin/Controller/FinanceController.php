@@ -754,9 +754,10 @@ class FinanceController extends AbstractActionController {
     	$freelancer_id = $freelancer->getId();
     	
     	$entityManager = $this->getEntityManager();
-    	$freelancerList = $entityManager->getRepository('User\Entity\Outtransaction');
+    	$freelancerList = $entityManager->getRepository('User\Entity\Transaction');
     	$queryBuilder = $freelancerList->createQueryBuilder('outtr');
-    	$queryBuilder->where("outtr.client=?1")->setParameter(1,$freelancer_id); // 4 = Pooling
+		$queryBuilder->where('outtr.freelancer = ?1')->setParameter(1, $currentUser);
+    	//$queryBuilder->where("outtr.client=?1")->setParameter(1,$freelancer_id); // 4 = Pooling
     	$queryBuilder->andWhere('outtr.is_deleted = 0');
     	
     	if($params->bsearch !=null && $params->bsearch != ''){
@@ -808,13 +809,13 @@ class FinanceController extends AbstractActionController {
     		$outtr = $outtransaction->getData();
     		
     		// Get Currency
-    		$taskIDs = $outtransaction->getTasks();
-    		$taskID  =  $taskIDs[0];
-    		$task = $this->find('User\Entity\Task',$taskID);
-    		$project = $task->getProject();
-    		$currency = $project->getCurrency();
-    		if($currency==null) $currency='CNY';
-    		$outtr['currency'] =$currency;
+    		//$taskIDs = $outtransaction->getTasks();
+    		//$taskID  =  $taskIDs[0];
+    		//$task = $this->find('User\Entity\Task',$taskID);
+    		//$project = $task->getProject();
+    		//$currency = $project->getCurrency();
+    		//if($currency==null) $currency='CNY';
+    		//$outtr['currency'] =$currency;
     		$data[] = $outtr;
     		//var_dump($currency); exit;			
     	}
