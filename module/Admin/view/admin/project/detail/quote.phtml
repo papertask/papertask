@@ -16,7 +16,7 @@
     <div class="col-xs-6">
         <h4>Quote No.</h4>
         <h4 class="text-navy">{{ project.quote_no }}</h4>
-		
+
         <h5>From:</h5>
         <strong>{{ project.pm.user.firstName }}</strong><br>
         <strong>Project Manager</strong><br>
@@ -67,12 +67,12 @@
         <tbody>
 		<!-- this is only for translation use TM -->
         <tr  ng-show="hasTypeTranslationUseTM(itemtms[targetLanguage.id][0])" >
-		
+
             <td><div><a data-toggle="collapse" href="#use_tm{{targetLanguage.id}}"><i class="fa fa-eye"></i> <strong>{{ itemtms[targetLanguage.id][0].name }}</strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
             <td>Source Word</td>
             <td>{{ itemtms[targetLanguage.id][0].rate }}</td>
-            <td>{{ itemtms[targetLanguage.id][0].sourcerepetitions + itemtms[targetLanguage.id][0].sourceyibai 
-			+ itemtms[targetLanguage.id][0].sourcejiuwu + itemtms[targetLanguage.id][0].sourcebawu 
+            <td>{{ itemtms[targetLanguage.id][0].sourcerepetitions + itemtms[targetLanguage.id][0].sourceyibai
+			+ itemtms[targetLanguage.id][0].sourcejiuwu + itemtms[targetLanguage.id][0].sourcebawu
 			+ itemtms[targetLanguage.id][0].sourceqiwu + itemtms[targetLanguage.id][0].sourcewushi + itemtms[targetLanguage.id][0].sourcenomatch}}</td>
             <td>{{ itemtms[targetLanguage.id][0].total }}</td>
         </tr>
@@ -152,7 +152,7 @@
         </tr>
 
         <tr ng-show="hasTypeTranslationNoTM()" ng-repeat = "itermnotmsnew in itermnotmsnews[targetLanguage.id]">
-			
+
             <td><div><strong> {{ itermnotmsnew.name }} </strong> - <span class="text-navy"> Translation (No TM)</span></div></td>
             <td>Source Word</td>
             <td>{{ itermnotmsnew.rate }}</td>
@@ -187,7 +187,7 @@
             <td>{{ iterminterpreting.quantity }}</td>
             <td>{{ iterminterpreting.total }}</td>
         </tr>
-		
+
         </tbody>
     </table>
 </div><!-- /table-responsive -->
@@ -240,7 +240,6 @@
     Yours sincerely,
     <br><br>
     {{ project.pm.user.firstName }} {{ project.pm.user.lastName }}<br>
-    Project Manager/Sales Manager<br>
     <strong>PaperTask</strong>
 </div>
 </div>
