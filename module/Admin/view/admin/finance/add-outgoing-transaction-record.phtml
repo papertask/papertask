@@ -119,8 +119,11 @@ $this->inlineScript()
 											
 											<select class="form-control valid" name="" aria-required="true"
 													ng-model="outtransaction.bankinfouser"
-													ng-options="bankinfo.name for bankinfo in bank_users track by bankinfo.id">
+													>
 												<option value=""><?php echo $this->translate("Choose Account") ?></option>
+												<option value="{{bank_users.paypal}}">{{bank_users.paypal}}</option>
+												<option value="{{bank_users.alipay}}">{{bank_users.alipay}}</option>
+												<option value="{{bank_users.name}}">{{bank_users.name}}</option>
 											</select>
 											
 											
