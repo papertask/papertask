@@ -144,7 +144,7 @@ $this->inlineScript()
 							<tbody>
 									<tr ng-repeat="pu in pus"> 
 										<td><input type="checkbox" class="i-checks" name="input[]" ng-click="toggleResource(pu)"></td>
-										<td>{{pu.id}}</td>
+										<td>{{pu.project_no}}</td>
 										<td>{{pu.reference}}</td>
 										<td>{{ ProjectStatus.get(pu.status).name }}</td>
 										<td>{{ DateFormatter.short(pu.startDate) }}</td>

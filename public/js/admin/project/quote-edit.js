@@ -56,14 +56,15 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		files: []	
     };
     $scope.targets = {};
-	
+	$scope.subtotal_tmp = 0;
+	$scope.total_tmp = 0;
 	function format2n(n) {
 		return n.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 	}
 	var projectId = PROJECT_ID;
     $scope.init = function(){
 	
-		var project_listener = ProjectApi.get(projectId, function($project){
+		var project_listener_tmp = ProjectApi.get(projectId, function($project){
             $project.priority = ProjectPriority.get($project.priority);
             //$project.serviceLevel = ProjectServiceLevel.get($project.serviceLevel);
             $project.status = ProjectStatus.get($project.status);
@@ -79,8 +80,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 
             jQuery.extend($scope.tempProject, $scope.project);
         });
-		$q.all([project_listener])
-            .then(function(){
+		$q.all([project_listener_tmp]).then(function(){
             	var ajaxUserInfo = $http.get("/api/user/" + $scope.USER_ID + "")
 	            .success ( function ( $data ) {
 	            	
@@ -236,7 +236,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 			{
 				$scope.itermtmnew[$scope.project.targetLanguages[i].id] = [];
 				for(var j = 0; j < Itemr.length; j++){
-					if(Itemr[j].language.id == $scope.project.targetLanguages[i].id){
+					if(Itemr[j].language.id == $scope.project.targetLanguages[i].id && Itemr[j].of_freelancer==0){
+					
 						$scope.subtotal_tmp = $scope.subtotal_tmp + parseFloat(Itemr[j].total);
 						var total = Number(Itemr[j].total);
 						var rate = Number(Itemr[j].rate);
@@ -278,6 +279,10 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 						$scope.tax = $scope.currency + " " + tax.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 						
 						var total = Number(subtotal_tmp - $scope.project.discount + (subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
+						//$scope.total_tmp = total;
+						console.log("$scope.subtotal_tmp");
+						
+						console.log($scope.subtotal_tmp);
 						$scope.total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 						$scope.itermtmnew[$scope.project.targetLanguages[i].id].push(Itemr[j]);
 					}	
@@ -932,7 +937,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	
 	// save project
 	$scope.saveProject = function(){
-		console.log($scope.project);
+		//console.log($scope.project);
 		var duedate = new Date($scope.project.startDate.date);
 		//duedate.addDays($scope.project.duration);
 		//console.log(duedate);
@@ -947,8 +952,13 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		var ss  = newdate.getSeconds().toString();
 		
 		$scope.project.dueDate.date = yyyy + '-'+ (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]) + ' ' + (hh[1]?hh:"0"+hh[0]) + ':' + (pp[1]?pp:"0"+pp[0]) +':'+(ss[1]?ss:"0"+ss[0]) ; 
-		console.log($scope.project.dueDate);
-		//exit;
+		
+		console.log("$scope.project");
+		var total = Number($scope.subtotal_tmp - $scope.project.discount + ($scope.subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
+		$scope.project.total_tmp = total;
+		console.log($scope.total_tmp);
+		console.log($scope.project);
+		//return false;
         var updateProject= $http.put("/api/admin/project/" + $scope.project.id + "?action=3", $scope.project)
 		.success( function ( $data ) {
 			//comback project detail/
@@ -1347,7 +1357,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
         return $scope.targets[language.id];
     };
 
-    $scope.init();
+    //$scope.init();
 
 
 });

@@ -160,7 +160,7 @@ $this->inlineScript()
 							<tbody>
 									<tr ng-repeat="tu in tus"> 
 										<td><input type="checkbox" class="i-checks" name="input[]" ng-click="toggleResource(tu)"></td>
-										<td>{{tu.id}}</td>
+										<td>{{tu.task_number}}</td>
 										<td>{{tu.reference}}</td>
 										<td>{{ ProjectStatus.get(tu.status).name }}</td>
 										<td>{{ DateFormatter.short(tu.startDate) }}</td>
