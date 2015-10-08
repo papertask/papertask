@@ -5,33 +5,33 @@
 	<head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<title>INSPINIA | Invoice Print</title>
+
+	<title>PaperTask | Invoice Print</title>
     <!-- Le styles -->
-	 
+
 	 <link href="<?php echo $this->basePath() . '/css/bootstrap.min.css'?>" rel="stylesheet" media="all">
 	 <link href="<?php echo $this->basePath() . '/css/style.css'?>" rel="stylesheet" media="all">
 	 <link href="<?php echo $this->basePath() . '/font-awesome/css/font-awesome.csss'?>" rel="stylesheet" media="all">
-	 
+
     <!-- Scripts -->
 	<script src="<?php echo $this->basePath() . '/js/jquery-1.10.2.js'?>"></script>
 	<script src="<?php echo $this->basePath() . '/js/bootstrap.min.js'?>"></script>
 	<script src="<?php echo $this->basePath() . '/js/plugins/metisMenu/jquery.metisMenu.js'?>"></script>
 	<script src="<?php echo $this->basePath() . '/js/inspinia.js'?>"></script>
 	<script src="<?php echo $this->basePath() . '/js/angular.min.js'?>"></script>
-	
+
 	 <?php echo $this->headScript()
-        
+
 		->prependScript("PROJECT_ID = {$this->id};")
 		->prependScript("angularApp = angular.module('project', []);")
-		
+
     ; ?>
 	<script src="<?php echo $this->basePath() . '/js/admin/project/quote-print.js'?>"></script>
 	<script src="<?php echo $this->basePath() . '/js/admin/common/angular/ItemListController.js'?>"></script>
 	<script src="<?php echo $this->basePath() . '/js/admin/common/angular/service/project.js'?>"></script>
 	<script src="<?php echo $this->basePath() . '/js/admin/common/angular/CurrentUser.js'?>"></script>
 
-   
+
 <?php
 echo $this->inlineScript()
     ->prependScript("
@@ -47,14 +47,14 @@ echo $this->inlineScript()
 				<div class="col-xs-6">
 					<h4>Quote No.</h4>
 					<h4 class="text-navy">{{ project.quote_no }}</h4>
-					
+
 					<h5>From:</h5>
 					<strong>{{ project.pm.user.firstName }}</strong><br>
 					<strong>Project Manager</strong><br>
 					<address>
 						<strong>{{companyinfo1.name}}</strong><br>
 						{{companyinfo1.address}}<br>
-						{{companyinfo1.city}}, {{companyinfo1.country}}<br>
+						{{companyinfo1.city}}, {{companyinfo1.country.name}}<br>
 						<abbr title="Phone">P:</abbr> {{companyinfo1.telephone}}
 					</address>
 				</div>
@@ -76,7 +76,7 @@ echo $this->inlineScript()
 
 				</div>
 			</div>
-			
+
 			<div class="hr-line-dashed"></div>
 			<h4>Dear {{ project.client.name }},</h4><br>
 			<h4>RE: {{ project.reference }} </h4><br>
@@ -84,7 +84,7 @@ echo $this->inlineScript()
 			<p><strong>Service Level: <span class="text-navy">  {{ project.serviceLevel.name }}</span></strong></p>
 			<p><strong>Approximate duration: <span class="text-navy">{{ project.duration }} Working days</span></strong></p>
 			<div class="hr-line-dashed"></div>
-			
+
 			<div class="table-responsive m-t"  ng-repeat="targetLanguage in project.targetLanguages">
 			<table class="table table-bordered invoice-table">
 				<thead>
@@ -180,7 +180,7 @@ echo $this->inlineScript()
 					</td>
 				</tr>
 				<tr ng-show="hasTypeTranslationNoTM()" ng-repeat = "itermnotmsnew in itermnotmsnews[targetLanguage.id]">
-					
+
 					<td><div><strong> {{ itermnotmsnew.name }} </strong> - <span class="text-navy"> Translation (No TM)</span></div></td>
 					<td>{{ itermnotmsnew.unit }}</td>
 					<td>{{ itermnotmsnew.rate }}</td>
@@ -215,7 +215,7 @@ echo $this->inlineScript()
 					<td>{{ iterminterpreting.quantity }}</td>
 					<td>{{ iterminterpreting.total }}</td>
 				</tr>
-				
+
 				</tbody>
 			</table>
 		</div><!-- /table-responsive -->
@@ -277,6 +277,3 @@ echo $this->inlineScript()
 
 </body>
 </html>
-
-
-
