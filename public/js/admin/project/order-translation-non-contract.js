@@ -8,7 +8,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	
 	
 	 $scope.project = {			
-		        types: [],
+		        //types: [],
 				files: [],
 				targetLanguages : []
 	};
