@@ -21,7 +21,7 @@
 									</tr>
 									<tr>
 										<th>Quality Level</th>
-										<th class="text-right"><span class="label label-primary">{{project.serviceLevel.name}}</span>
+										<th class="text-right" ng-show="totalitems > 0"><span class="label label-primary">{{project.serviceLevel.name}}</span>
 											{{CurrentCurrency}} {{price | currency : '' : 2}}/Word</th>
 									</tr>
 								</thead>
@@ -31,15 +31,15 @@
 								<thead>
 									<tr>
 										<th>Iterms Total</th>
-										<th class="text-right">{{CurrentCurrency}} {{ItermsTotal | currency : '' : 2}}</th>
+										<th class="text-right" ng-show="totalitems > 0">{{CurrentCurrency}} {{ItermsTotal | currency : '' : 2}}</th>
 									</tr>
-									<tr>
+									<tr ng-show="1==0">
 										<th>Tax</th>
 										<th class="text-right">{{CurrentCurrency}} {{tax | currency : '' : 2}}</th>
 									</tr>
 									<tr style="font-size: 22px;">
 										<th>Total</th>
-										<th class="text-right">{{CurrentCurrency}} {{total | currency : '' : 2}}</th>
+										<th class="text-right" ng-show="totalitems > 0">{{CurrentCurrency}} {{total | currency : '' : 2}}</th>
 									</tr>
 								</thead>
 							</table>

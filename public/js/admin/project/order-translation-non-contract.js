@@ -8,7 +8,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	
 	
 	 $scope.project = {			
-		        types: [],
+		        //types: [],
 				files: [],
 				targetLanguages : []
 	};
@@ -58,6 +58,10 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
         }).error(function($e){
             alert('error');
         });
+		//if(LANG_CODE=='en-US')
+		//$scope.curency_default = 0;
+		//else 
+		//$scope.curency_default = ;
 		
 		
 	 };
@@ -105,7 +109,10 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 $scope.ProjectServiceLevels = ProjectServiceLevel.all();
 	 $scope.project.serviceLevel = ProjectServiceLevel.get(1);
 	 // Default Currency => USA
-	 $scope.project.currency = Currency.get(1);	
+	 if(LANG_CODE=='en-US')
+		$scope.project.currency = Currency.get(1);	
+	else
+		$scope.project.currency = Currency.get(2);
 	 $scope.CurrentCurrency = $scope.project.currency.name;
 		 
 	 
@@ -280,7 +287,9 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 }	 
 
 	 $scope.ProjectServiceLevels = ProjectServiceLevel.all(); 
-	 
+	$scope.project.serviceLevel = ProjectServiceLevel.get(2);	
+
+
 	 //$scope.project.client = CurrentUser.info;
 	 
 	 // Get EmployerInfo

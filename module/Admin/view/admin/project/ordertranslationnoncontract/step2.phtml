@@ -34,7 +34,7 @@
 					<select class="form-control required valid" name="currency"
 						aria-required="true"
 						ng-options="currency.name for currency in currencys"
-						ng-model="project.currency"
+						 ng-model="project.currency"
 						required
 						ng-change="chooseCurrency(currency);refreshInfo();">
 						<option value="" ng-hide="true" >Please Select Currency</option>
