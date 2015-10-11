@@ -6,7 +6,8 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	$scope.price = 0;
 	$scope.totalwords = $scope.wordsperitem*$scope.totalitems;
 	
-	
+	$scope.sourceLanguages = [];
+	$scope.modifiedTarLangs = [];
 	 $scope.project = {			
 		        types: [],
 				files: [],
@@ -21,9 +22,23 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 $scope.tax = $scope.taxRate*$scope.ItermsTotal;
 	 $scope.total = $scope.ItermsTotal + $scope.tax;
 	 
-	 
-	 
+	 $('select[name=sourceLanguage]').on('change', function(){
+        $scope.modifiedTarLangs = [];
+        $scope.project.targetLanguage = null;
+        var that = $(this);
+		//console.log("that");
+		//console.log(that);
+		
+        $.each($scope.translation, function(){
+				console.log(this);
+				console.log(that.val());
+            if(this.sourceLanguage == that.val()){
+                $scope.modifiedTarLangs.push($scope.languages[this.targetLanguage - 1]);
+            }
+        });
+    });
 	 $scope.init = function(){
+			
 		 $http.get("/api/data/project/")
          .success(function($data){
 				
@@ -34,7 +49,20 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
              $timeout(function(){
                  //jQuery("select.multiselect").multiselect("destroy").multiselect();
              });
-             $scope.modifiedTarLangs = $scope.languages;
+             
+			 $http.get("/api/papertask/translation").success(function($data){
+				$scope.translation = $data['translation'];
+				
+				$.each($scope.translation, function(){
+					if($scope.sourceLanguages.indexOf(this.sourceLanguage.toString()) == -1){
+						$scope.sourceLanguages.push($scope.languages[this.sourceLanguage - 1]);
+					}
+				});
+				console.log($scope.translation);
+			 console.log($scope.sourceLanguages);
+			 console.log($scope.languages);
+			 });
+			 
          });
 		 
 		 $http.get("/api/common/country/")
@@ -50,6 +78,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	         alert('error');
 	     });
 		 
+		 
 		//Get currency
 		$http.get("/api/papertask/currencyrate").success(function($data){
             $scope.profileservice = $data['profileservice'];
@@ -63,14 +92,14 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 };
 	 
 	 $scope.removeLangFSML  = function(){
-		 $scope.modifiedTarLangs = [];
+		 /*$scope.modifiedTarLangs = [];
 		 var lang = $scope.project.sourceLanguage;
 		 var id = lang.id;
          for(var i = 0; i < $scope.languages.length; i++){
              if($scope.languages[i].id != id){
             	 $scope.modifiedTarLangs.push($scope.languages[i]);
              }
-         }
+         }*/
 	 }
 	 
 	 $scope.clearTargetLanguages = function(){
@@ -268,6 +297,10 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 		 data.serviceLevel = data.serviceLevel.id;
 		 data.transGraph = data.transGraph.id;
 		 data.currency = $scope.CurrentCurrency;
+		 data.price = [];
+		 data.targetLanguages.forEach(function(lang) {
+			data.price[lang.id] = lang.price;
+		 });
 		 data.invoiceinfo = {
 				 'subtotal' : $scope.ItermsTotal,
 				 'tax': $scope.tax,

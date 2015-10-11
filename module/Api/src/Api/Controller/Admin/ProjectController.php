@@ -96,8 +96,8 @@ class ProjectController extends AbstractRestfulJsonController
 
     public function create($data)
     {
-		//error_reporting(E_ALL);
-		//ini_set('display_errors', 1);
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
         
 		$projectTotal = 0;
     	
@@ -232,16 +232,50 @@ class ProjectController extends AbstractRestfulJsonController
 						'total' =>  round($data['invoiceinfo']['total']/$langLength, 2),
 						'task_number' => $data['project_no'].'-'.$i,
 					);
-				$projectTotal = $projectTotal + floatval(round($data['invoiceinfo']['total']/$langLength, 2));
-				$taskArrData['type'] = (is_array($data['types'])&&count($data['types'])>0)?$data['types'][0]: 1;
-				$name_ref = $data['files'][0]['name'];
-				//var_dump($name_ref);exit;
-				$taskArrData['name'] = (array_key_exists('reference',$data))?$data['reference']:$name_ref;
-        	
-				$task->setData( $taskArrData );
-				$task->save($this->getEntityManager());
-				$task_array[$key] = $task;
+					$projectTotal = $projectTotal + floatval(round($data['invoiceinfo']['total']/$langLength, 2));
+					$taskArrData['type'] = (is_array($data['types'])&&count($data['types'])>0)?$data['types'][0]: 1;
+					$name_ref = $data['files'][0]['name'];
+					//var_dump($name_ref);exit;
+					$taskArrData['name'] = (array_key_exists('reference',$data))?$data['reference']:$name_ref;
+				
+					$task->setData( $taskArrData );
+					$task->save($this->getEntityManager());
+					$task_array[$key] = $task;
+					if($data['createType']=='orderTranslationNonContract' || $data['createType'] == 'landingOrder'){
+							var_dump($files);
+							var_dump($targetLang);
+						
+						foreach($files as $key_id => $file){
+							var_dump($file);
+							var_dump($targetLang);
+							$iterm = new Itermnotm();
+							$iterm->setProject($project);
+							$entityManager = $this->getEntityManager();
+							//$task = $entityManager->getRepository('User\Entity\Task')->findBy(array('project'=>$project,'language'=>$targetLanguages[$languageId]));
+							//var_dump($targetLanguages[$languageId]);
+							//var_dump($project);
+							//var_dump($task);
+							$name_ref_tmp = $file->getName();
+							//var_dump($name_ref);exit;
+							//$name_ref_tmp = (array_key_exists('reference',$data))?$data['reference']:$name_ref_tmp;
+							
+							$iterm->setTask($task);
+							$iterm->setData([
+								'name' => $name_ref_tmp,
+								'file' => $file,
+								//'unit' => 1,
+								'rate' => $data['price'][$targetLang->getId()],
+								'quantity' => $data['totalwords'],
+								'total' => $data['price'][$targetLang->getId()]*$data['totalwords'],
+								'language' => $targetLang,
+							]);
+							//$projectTotal = $projectTotal + floatval($item['total']);
+							$iterm->save($this->getEntityManager());
+						}
+					}
+					
 				}
+				
 			//var_dump($task_array);
 			//exit;
 			//invoice

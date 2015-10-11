@@ -72,7 +72,7 @@ angularApp.controller('languagesController', function($scope, $rootScope, $http,
 			}	
                 
             });
-
+			console.log($scope.translation);
             // get list source languages
             $.each($scope.translation, function(){
                 if($scope.sourceLanguages.indexOf(this.sourceLanguage.toString()) == -1){
@@ -82,6 +82,7 @@ angularApp.controller('languagesController', function($scope, $rootScope, $http,
             
 
             $scope.updateTargetLanguages = function(){
+			console.log("cgeck this first");
                 $.each($scope.translation, function(){
                     if(this.sourceLanguage == $scope.params.sourceLanguage){
                         $scope.targetLanguages.push(this.targetLanguage);
