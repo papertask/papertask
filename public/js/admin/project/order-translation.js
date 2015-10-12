@@ -3,13 +3,31 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	$scope.files = [];
 	$scope.USER_ID = null;
 	$scope.employer = null;
+	$scope.sourceLanguages = [];
+	$scope.modifiedTarLangs = [];
+	
 	 $scope.project = {
 				
 		        //types: [],
 				files: []	
 	};
 
-     
+     $('select[name=sourceLanguage]').on('change', function(){
+        $scope.modifiedTarLangs = [];
+        $scope.project.targetLanguage = null;
+        var that = $(this);
+		//console.log("that");
+		//console.log(that);
+		
+        $.each($scope.translation, function(){
+				console.log(this);
+				console.log(that.val());
+            if(this.sourceLanguage == that.val()){
+                $scope.modifiedTarLangs.push($scope.languages[this.targetLanguage - 1]);
+            }
+        });
+    });
+	
 	 $scope.init = function(){		 
 		 $http.get("/api/data/project/")
          .success(function($data){
@@ -25,7 +43,18 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
              $scope.project.targetLanguages = [];
              $timeout(function(){
              });
-             $scope.modifiedTarLangs = $scope.languages;
+             //$scope.modifiedTarLangs = $scope.languages;
+			 
+			 $http.get("/api/papertask/translation").success(function($data){
+				$scope.translation = $data['translation'];
+				$.each($scope.translation, function(){
+					if($scope.sourceLanguages.indexOf(this.sourceLanguage.toString()) == -1){
+						$scope.sourceLanguages.push($scope.languages[this.sourceLanguage - 1]);
+					}
+				});
+			 }).error(function($e){
+				 alert('error');
+			 });
          }); 		 
 		
 		$http.get("/api/papertask/currencyrate").success(function($data){
@@ -38,14 +67,14 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 };
 	 
 	 $scope.removeLangFSML  = function(lang){
-		 $scope.modifiedTarLangs = [];
+		 /*$scope.modifiedTarLangs = [];
 		 var lang = $scope.project.sourceLanguage;
 		 var id = lang.id;
          for(var i = 0; i < $scope.languages.length; i++){
              if($scope.languages[i].id != id){
             	 $scope.modifiedTarLangs.push($scope.languages[i]);
              }
-         }
+         }*/
 	}
 		 
 	 $scope.clearTargetLanguages = function(){
@@ -164,12 +193,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	     });	 
 	 }
 	 
-	 $http.get("/api/papertask/translation").success(function($data){
-         $scope.translation = $data['translation'];
-        
-     }).error(function($e){
-         alert('error');
-     });
+	 
 	 
 	 $scope.orderTranslation = function(){
 		 var isvalid = $("#form").valid();
