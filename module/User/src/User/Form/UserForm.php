@@ -94,9 +94,11 @@ class UserForm extends Form
         $user->save($entityManager);
 		if($userType == 'freelancer')
 			$user->createFreelancer( $controller, $data, $entityManager, $lang_code);
-		else 	
+		else 	{
+			//$data['contracted'] = 0;
 			$user->createEmployer( $controller, $data, $entityManager, $lang_code);
 
+		}	
         //$user->sendConfirmationEmail($controller);
     }
 	
