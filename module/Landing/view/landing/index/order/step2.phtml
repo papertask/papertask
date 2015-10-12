@@ -46,7 +46,7 @@
 				<h4>Translate From *</h4>
 				<select id="sourceLanguage" required class="form-control required valid" name="sourceLanguage"
 					aria-required="true"
-					ng-options="language.name for language in languages"
+					ng-options="language.name for language in sourceLanguages track by language.id"
 					ng-model="project.sourceLanguage"
 					required
 					ng-change="changePServicePrice();removeLangFSML();clearTargetLanguages();">
@@ -57,7 +57,7 @@
 				<h4>Translate To *</h4>
 				<select class="form-control required valid" name="targetLanguage"
 					aria-required="true"
-					ng-options="language.name for language in modifiedTarLangs"
+					ng-options="language.name for language in modifiedTarLangs track by language.id"
 					ng-model="project.targetLanguage"
 					required
 					ng-change="add_targetLanguage();changePServicePrice();">

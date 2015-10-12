@@ -6,23 +6,42 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	$scope.price = 0;
 	$scope.totalwords = $scope.wordsperitem*$scope.totalitems;
 	
-	
+	$scope.sourceLanguages = [];
+	$scope.modifiedTarLangs = [];
 	 $scope.project = {			
 		        //types: [],
 				files: [],
 				targetLanguages : []
 	};
-	 
+	 $scope.params = {
+        sourceLanguage: null,
+        targetLanguage: null,
+    };
 	 $scope.numberLangs = $scope.project.targetLanguages.length;	 
 	 $scope.totalitems = $scope.project.files.length;
 	 $scope.totalwords = $scope.wordsperitem*$scope.totalitems;
 	 $scope.ItermsTotal = $scope.price*$scope.totalwords*$scope.numberLangs;
-	 $scope.taxRate = 0.1;
+	 $scope.taxRate = 0;
 	 $scope.tax = $scope.taxRate*$scope.ItermsTotal;
 	 $scope.total = $scope.ItermsTotal + $scope.tax;
 	 
 	 
-	 
+	 $('select[name=sourceLanguage]').on('change', function(){
+        $scope.modifiedTarLangs = [];
+        $scope.project.targetLanguage = null;
+        var that = $(this);
+		//console.log("that");
+		//console.log(that);
+		
+        $.each($scope.translation, function(){
+				console.log(this);
+				console.log(that.val());
+            if(this.sourceLanguage == that.val()){
+                $scope.modifiedTarLangs.push($scope.languages[this.targetLanguage - 1]);
+            }
+        });
+    });
+	
 	 $scope.init = function(){
 		 $http.get("/api/data/project/")
          .success(function($data){
@@ -40,12 +59,17 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
              $timeout(function(){
                  //jQuery("select.multiselect").multiselect("destroy").multiselect();
              });
-             $scope.modifiedTarLangs = $scope.languages;
+             //$scope.modifiedTarLangs = $scope.languages;
          });
 		 
 		 $http.get("/api/papertask/translation").success(function($data){
 	         $scope.translation = $data['translation'];
-	         
+			
+				$.each($scope.translation, function(){
+					if($scope.sourceLanguages.indexOf(this.sourceLanguage.toString()) == -1){
+						$scope.sourceLanguages.push($scope.languages[this.sourceLanguage - 1]);
+					}
+				});
 	     }).error(function($e){
 	         alert('error');
 	     });
@@ -67,14 +91,14 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 	 };
 	 
 	 $scope.removeLangFSML  = function(lang){
-		 $scope.modifiedTarLangs = [];
+		 /*$scope.modifiedTarLangs = [];
 		 var lang = $scope.project.sourceLanguage;
 		 var id = lang.id;
          for(var i = 0; i < $scope.languages.length; i++){
              if($scope.languages[i].id != id){
             	 $scope.modifiedTarLangs.push($scope.languages[i]);
              }
-         }
+         }*/
 	 }
 	 
 	 $scope.clearTargetLanguages = function(){
@@ -155,7 +179,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 $scope.isFapiao = true;
 		 }	 
 		 else {
-			 $scope.taxRate = 0.1;
+			 $scope.taxRate = 0;
 			 $scope.isFapiao = false;
 			 
 		 }			 
@@ -189,7 +213,9 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 var $params = $scope.prepareData($scope.project);
 			 $params['createType'] = 'orderTranslationNonContract';
 			 
-			 
+			 console.log($scope.project);
+			 console.log($params);
+			 //return false;
 			 
 			 $http.post("/api/admin/project/", $params)
 	         .success(function($data){
@@ -247,6 +273,11 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 data.serviceLevel = data.serviceLevel.id;
 		 data.transGraph = data.transGraph.id;
 		 data.currency = $scope.CurrentCurrency;
+		 data.totalwords = $scope.totalwords;
+		 data.price = [];
+		 data.targetLanguages.forEach(function(lang) {
+			data.price[lang.id] = lang.price;
+		 });
 		 data.invoiceinfo = {
 				 'subtotal' : $scope.ItermsTotal,
 				 'tax': $scope.tax,
@@ -457,6 +488,12 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 									tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : Number($scope.translation[k].premiumPrice)});
 								}
 								isFind = true;
+								if($scope.project.currency.name == "CNY"){
+									//price = price/$scope.currencyrate;			 
+								 } else if ($scope.project.currency.name == "USD") {	
+									price = price/$scope.currencyrate;	
+								 }
+								 break;
 							}						
 						}
 					
