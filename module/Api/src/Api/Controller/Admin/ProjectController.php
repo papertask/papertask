@@ -87,7 +87,7 @@ class ProjectController extends AbstractRestfulJsonController
 		else{
 			$arr = [];
 			if($data['createType']=='orderTranslationNonContract')
-				$arr[] = 1;
+				$arr[] = 2;
 			else
 			$arr[] = 2;
 			$data['types'] = $arr;
