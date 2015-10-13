@@ -38,7 +38,7 @@ $this->inlineScript()
         var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
     ");
 ?>
-					
+
 <div class="row" ng-controller="TaskPool" ng-init="init()">
 	<div class="col-lg-12">
 		<div class="wrapper wrapper-content animated fadeInUp">
@@ -75,8 +75,7 @@ $this->inlineScript()
 											| Due: {{formatDate(task.dueDate.date) | date:'yyyy.MMM.dd'}}
 										</div>
 									</td>
-									<td class="project-title">Client's alias <br /> <small>Client's
-											Companykjffja...</small>
+									<td class="project-title">{{ task.project.user.alias }} <br /> <small>{{task.client.company.name}}</small>
 									</td>
 									<td class="project-actions"><a href=""
 										ng-if="task.status.id == 4" ng-click="Accept(task.id)"
@@ -91,7 +90,7 @@ $this->inlineScript()
 					<div class="btn-group text-right">
 						<button type="button" class="btn btn-white" ng-class="pages.previous?'':'disabled'" ng-click="onBtnPreviousClicked()"><i class="fa fa-chevron-left"></i></button>
 						<button ng-repeat="page in pages.pagesInRange" class="btn btn-white" ng-class="page==pages.current?'active':''" ng-click="onBtnGoto(page-1)">{{page}}</button>
-						<button type="button" class="btn btn-white"	ng-class="pages.next?'':'disabled'" ng-click="onBtnNextClicked()"><i class="fa fa-chevron-right"></i></button>						
+						<button type="button" class="btn btn-white"	ng-class="pages.next?'':'disabled'" ng-click="onBtnNextClicked()"><i class="fa fa-chevron-right"></i></button>
 
 					</div>
 				</div>
@@ -126,5 +125,5 @@ $this->inlineScript()
          }, 2000);
      }
  }
-    
+
 </script>

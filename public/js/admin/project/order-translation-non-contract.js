@@ -60,9 +60,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
                  //jQuery("select.multiselect").multiselect("destroy").multiselect();
              });
              //$scope.modifiedTarLangs = $scope.languages;
-         });
-		 
-		 $http.get("/api/papertask/translation").success(function($data){
+			 $http.get("/api/papertask/translation").success(function($data){
 	         $scope.translation = $data['translation'];
 			
 				$.each($scope.translation, function(){
@@ -70,9 +68,12 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 						$scope.sourceLanguages.push($scope.languages[this.sourceLanguage - 1]);
 					}
 				});
-	     }).error(function($e){
-	         alert('error');
-	     });
+			 }).error(function($e){
+				 alert('error');
+			 });
+         });
+		 
+		 
 		 
 		//Get currency
 		$http.get("/api/papertask/currencyrate").success(function($data){

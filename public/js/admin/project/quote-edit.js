@@ -937,10 +937,10 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 	
 	// save project
 	$scope.saveProject = function(){
-		//console.log($scope.project);
+		console.log($scope.project);
 		var duedate = new Date($scope.project.startDate.date);
 		//duedate.addDays($scope.project.duration);
-		//console.log(duedate);
+		console.log(duedate);
 		var newdate = new Date(duedate);
 		newdate.setDate(newdate.getDate() + $scope.project.duration);
 		

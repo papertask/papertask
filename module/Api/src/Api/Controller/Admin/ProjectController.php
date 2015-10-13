@@ -89,20 +89,19 @@ class ProjectController extends AbstractRestfulJsonController
 			if($data['createType']=='orderTranslationNonContract')
 				$arr[] = 1;
 			else
-			$arr[] = 2;
+			$arr[] = 1;
 			$data['types'] = $arr;
 		}
     }
 
     public function create($data)
     {
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
         
 		$projectTotal = 0;
     	
 		$this->cleanData($data);
-		//var_dump($data);exit;
 		
         $targetLanguages = [];
         foreach($data['targetLanguages'] as $targetLanguage){
@@ -193,7 +192,6 @@ class ProjectController extends AbstractRestfulJsonController
 			//$data['client'] = $client;
 		}
 		
-		//var_dump($data); exit;
         $project->setData($data);
 		$project->save($this->getEntityManager());
         $files = [];
@@ -235,19 +233,14 @@ class ProjectController extends AbstractRestfulJsonController
 					$projectTotal = $projectTotal + floatval(round($data['invoiceinfo']['total']/$langLength, 2));
 					$taskArrData['type'] = (is_array($data['types'])&&count($data['types'])>0)?$data['types'][0]: 1;
 					$name_ref = $data['files'][0]['name'];
-					//var_dump($name_ref);exit;
 					$taskArrData['name'] = (array_key_exists('reference',$data))?$data['reference']:$name_ref;
 				
 					$task->setData( $taskArrData );
 					$task->save($this->getEntityManager());
 					$task_array[$key] = $task;
 					if($data['createType']=='orderTranslationNonContract' || $data['createType'] == 'landingOrder'){
-							var_dump($files);
-							var_dump($targetLang);
 						
 						foreach($files as $key_id => $file){
-							var_dump($file);
-							var_dump($targetLang);
 							$iterm = new Itermnotm();
 							$iterm->setProject($project);
 							$entityManager = $this->getEntityManager();
@@ -256,7 +249,6 @@ class ProjectController extends AbstractRestfulJsonController
 							//var_dump($project);
 							//var_dump($task);
 							$name_ref_tmp = $file->getName();
-							//var_dump($name_ref);exit;
 							//$name_ref_tmp = (array_key_exists('reference',$data))?$data['reference']:$name_ref_tmp;
 							
 							$iterm->setTask($task);
@@ -276,9 +268,6 @@ class ProjectController extends AbstractRestfulJsonController
 					
 				}
 				
-			//var_dump($task_array);
-			//exit;
-			//invoice
 			$invoice = new Invoice();
 			$invoice_no = "INV-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
 			$invoiceDataArr = array(
@@ -693,8 +682,7 @@ class ProjectController extends AbstractRestfulJsonController
     }
 
     public function get($id){
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		
 		$entityManager = $this->getEntityManager();
         $project = $this->find('User\Entity\Project', $id);
         /*$Itermnotm = $entityManager->getRepository('User\Entity\Itermnotm')->findBy(array('project'=>$project));
@@ -743,6 +731,8 @@ class ProjectController extends AbstractRestfulJsonController
     }
 
     public function update($id, $data){
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
     	$lang_code = $this->params()->fromQuery('lang_code');
 		$action = $this->params()->fromQuery('action');
 		$project = $this->find('\User\Entity\Project', $id);
@@ -778,6 +768,26 @@ class ProjectController extends AbstractRestfulJsonController
                 $arr[] = $type['id'];
             }
             $data['types'] = $arr;
+			if (!in_array(1, $arr)) {
+				//echo "delete Translation (No TM) ";
+				$taskList = $this->getEntityManager()->getRepository('User\Entity\Task')->findBy(array('project' => $project,'type' => 1));
+				foreach ($taskList as $task){
+					$task->setData([
+						'is_deleted' => true,
+					]);
+					$task->save($this->getEntityManager());
+				}
+			}
+			if (!in_array(2, $arr)) {
+				//echo "delete Translation (Use TM)";
+				$taskList = $this->getEntityManager()->getRepository('User\Entity\Task')->findBy(array('project' => $project,'type' => 2));
+				foreach ($taskList as $task){
+					$task->setData([
+						'is_deleted' => true,
+					]);
+					$task->save($this->getEntityManager());
+				}
+			}
 			if(isset($data['startDate'])){
 				$data['startDate'] = new \DateTime($data['startDate']['date']);
 			}
