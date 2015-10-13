@@ -962,7 +962,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
         var updateProject= $http.put("/api/admin/project/" + $scope.project.id + "?action=3", $scope.project)
 		.success( function ( $data ) {
 			//comback project detail/
-			//location.href = "/" + LANG_CODE + "/admin/project/detail?id=" + projectId;
+			location.href = "/" + LANG_CODE + "/admin/project/detail?id=" + projectId;
 			
 		});	
     };
