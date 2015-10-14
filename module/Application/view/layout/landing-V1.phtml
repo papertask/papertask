@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<?php
+?>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" ng-app="project"> <!--<![endif]-->
+<head>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <?php
+
+    echo $this->headTitle()->setSeparator(' | ')->prepend($this->translate('PaperTask'))->setAutoEscape(false) ?>
+
+    <?php echo $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/assets/css/styles.css')
+        ->prependStylesheet($this->basePath() . '/assets/plugins/animate-css/animate.min.css')
+        ->prependStylesheet($this->basePath() . '/assets/plugins/flexslider/flexslider.css')
+        ->prependStylesheet($this->basePath() . '/assets/plugins/font-awesome/css/font-awesome.css')
+        ->prependStylesheet($this->basePath() . '/assets/plugins/bootstrap/css/bootstrap.min.css')
+    ?>
+	<script type="text/javascript" src="<?php echo $this->basePath() .'/assets/plugins/jquery-1.11.2.min.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/assets/plugins/jquery-migrate-1.2.1.min.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/assets/plugins/isMobile/isMobile.min.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/assets/plugins/jquery.easing.1.3.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/assets/plugins/bootstrap/js/bootstrap.min.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/assets/plugins/jquery-inview/jquery.inview.min.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/assets/plugins/FitVids/jquery.fitvids.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/assets/plugins/jquery-placeholder/jquery.placeholder.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/assets/plugins/flexslider/jquery.flexslider-min.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/assets/js/main.js'?>"></script>
+    <!--[if !IE]>-->
+    <script type="text/javascript" src="<?php $this->basePath() .'assets/js/animations.js'?>"></script>
+
+    <!-- Scripts -->
+
+
+</head>
+
+<body data-spy="scroll">
+    <!-- ******HEADER****** -->
+    <header id="top" class="header navbar-fixed-top">
+        <div class="container">
+            <h1 class="logo pull-left">
+                <a href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>">
+                    <img id="logo-image" class="logo-image" src="<?php echo $this->basePath() ?>/assets/logo.png" alt="PaperTask" width="120" style="margin-top:14px">
+                </a>
+            </h1><!--//logo-->
+            <nav id="main-nav" class="main-nav navbar-right" role="navigation">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button><!--//nav-toggle-->
+                </div><!--//navbar-header-->
+                <div class="navbar-collapse collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active nav-item sr-only"><a class="scrollto" href="#promo">Home</a></li>
+                        <li class="nav-item"><a href="<?php echo $this->url('languages',array("lang"=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Languages and Pricing', 'Application'); ?></a></li>
+                        <li class="nav-item"><a href="<?php echo $this->url('freelancer',array("lang"=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Freelancer', 'Application'); ?></a></li>
+                        <li class="nav-item"><a href="<?php echo $this->url('contact',array("lang"=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Contact', 'Application'); ?></a></li>
+                        <li class="nav-item">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                        <li class="nav-item"><a href="<?php echo $this->url('user',array("lang"=>$this->translate('lang', 'Application'))) ?>/login/"><?php echo $this->translate('SIGN IN', 'Application'); ?></a></li>
+                        <li class="nav-item last"><a href="<?php echo $this->url('user',array("lang"=>$this->translate('lang', 'Application'))) ?>/register/"><strong class="text-navy"><?php echo $this->translate('SIGN UP', 'Application'); ?></strong></a></li>
+                    </ul><!--//nav-->
+                </div><!--//navabr-collapse-->
+            </nav><!--//main-nav-->
+        </div>
+    </header><!--//header-->
+
+    <!-- ******CONTENT****** -->
+
+    <!-- Flash Messenger -->
+    <?php
+    $flash = $this->flashMessenger();
+    $flash->setMessageOpenFormat('<div%s>
+                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                         &times;
+                     </button>
+                     <div>')
+        ->setMessageSeparatorString('</div><div>')
+        ->setMessageCloseString('</div></div>');
+
+    echo $flash->render('error', array('alert', 'alert-dismissable', 'alert-danger'));
+    echo $flash->render('info', array('alert', 'alert-dismissable', 'alert-info'));
+    echo $flash->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
+    echo $flash->render('success', array('alert', 'alert-dismissable', 'alert-success'));
+    ?><!-- End Flash Messenger -->
+    <?php echo $this->content ?>
+
+
+    <!-- ******FOOTER****** -->
+    <footer class="footer">
+        <div class="container">
+                <div class="col-md-4 text-center">
+                    <div class="btn-group dropup">
+                        <button type="button" class="btn btn-sm btn-default"><?php
+                        if ($this->translate('lang', 'Application')=="en-US"){
+                            echo "ENGLISH";
+                        }
+                        if ($this->translate('lang', 'Application')=="zh-CN"){
+                            echo "简体中文";
+                        }
+                        ?></button>
+                        <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li ><a href="<?php echo $this->url($this->route,array("lang"=>"en-US")) ?>">ENGLISH</a></li>
+                            <li selected="selected"><a href="<?php echo $this->url($this->route,array("lang"=>"zh-CN")) ?>">简体中文</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-8 text-left" style="margin-top:8px">
+                    <small class="copyright">
+                        2015 &copy; <a href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>">PaperTask.com</a> <?php echo $this->translate('All rights reserved.', 'Application'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="<?php echo $this->url('terms',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Terms of Use', 'Application'); ?></a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="<?php echo $this->url('privacy',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Privacy Policy', 'Application'); ?></a>
+                    </small>
+                </div>
+        </div>
+    </footer><!--//footer-->
+
+</body>
+</html>
