@@ -128,6 +128,8 @@
 			<button id='PayAndStartTrans' type="button"
 				class="btn btn-primary btn-lg" ng-click="PayAndStartTrans()">Pay and
 				Start to Translate</button>
+			<button id="" type="button" class="btn btn-primary btn-lg"
+				ng-click="showpay()">Oder</button>	
 		</div>
 		<div class="text-center" ng-show="isGraph">
 			<button id="" type="button" class="btn btn-primary btn-lg"
@@ -136,8 +138,167 @@
 			<button id='RequestQuote' type="button"
 				class="btn btn-primary btn-lg" ng-click="RequestQuote()">Request a
 				Quote</button>
+			
 		</div>
 	
 
 </div>
+
+<!-- Payment methord -->
+    <div id="modal-order-pay" class="modal fade" aria-hidden="true" style="display:none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Payment Methord</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+
+                          <div class="col-lg-12">
+
+                              <div class="ibox">
+
+                                  <div class="ibox-content">
+
+                                      <div class="panel-group payments-method" id="accordion">
+                                          <div class="panel panel-default">
+                                              <div class="panel-heading">
+                                                  <div class="pull-right">
+                                                      <i class="fa fa-cc-paypal text-success"></i>
+                                                  </div>
+                                                  <h5 class="panel-title">
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#paypal">PayPal</a>
+                                                  </h5>
+                                              </div>
+                                              <div id="paypal" class="panel-collapse collapse in">
+                                                  <div class="panel-body">
+
+                                                      <div class="row">
+                                                        <div class="col-md-12 text-center">
+                                                            <table class="table">
+                                                              <thead>
+                                                              <tr>
+                                                                  <th>Total</th>
+                                                                  <th class="text-right">{{CurrentCurrency}} {{total | currency : '' : 2}}</th>
+                                                              </tr>
+                                                              </thead>
+                                                            </table>
+                                                            <p class="m-t">
+                                                                You will be redirected to PayPal's payment page and then sent back once you complete your purchase.
+                                                            </p>
+                                                            <a class="btn btn-primary" ng-click="paypaypal()"> 
+                                                                <i class="fa fa-cc-stripe">
+                                                                    Purchase via PayPal
+                                                                </i>
+                                                            </a>
+                                                        </div>
+
+                                                      </div>
+
+
+                                                       </div>
+                                              </div>
+                                          </div>
+                                          <div class="panel panel-default">
+                                              <div class="panel-heading">
+                                                  <div class="pull-right">
+                                                      <i class="fa fa-cc-alipay text-success"></i>
+                                                  </div>
+                                                  <h5 class="panel-title">
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#alipay">Alipay</a>
+                                                  </h5>
+                                              </div>
+                                              <div id="alipay" class="panel-collapse collapse">
+                                                  <div class="panel-body">
+
+                                                      <div class="row">
+                                                        <div class="col-md-12 text-center">
+                                                            <table class="table">
+                                                              <thead>
+                                                              <tr>
+                                                                  <th>Total</th>
+                                                                  <th class="text-right">{{CurrentCurrency}} {{total | currency : '' : 2}}</th>
+                                                              </tr>
+                                                              </thead>
+                                                            </table>
+                                                            <p class="m-t">
+                                                                You will be redirected to Alipay's payment page and then sent back once you complete your purchase.
+                                                            </p>
+                                                            <a class="btn btn-primary">
+                                                                <i class="fa fa-cc-alipay">
+                                                                    Purchase via Alipay
+                                                                </i>
+                                                            </a>
+                                                        </div>
+                                                      </div>
+
+
+
+
+
+
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                          <div class="panel panel-default">
+                                              <div class="panel-heading">
+                                                  <div class="pull-right">
+                                                      <i class="fa fa-cc-stripe text-success"></i>
+                                                  </div>
+                                                  <h5 class="panel-title">
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#stripe">Stripe</a>
+                                                  </h5>
+                                              </div>
+                                              <div id="stripe" class="panel-collapse collapse">
+                                                  <div class="panel-body">
+
+                                                      <div class="row">
+                                                        <div class="col-md-12 text-center">
+                                                            <table class="table">
+                                                              <thead>
+                                                              <tr>
+                                                                  <th>Total</th>
+                                                                  <th class="text-right">{{CurrentCurrency}} {{total | currency : '' : 2}}</th>
+                                                              </tr>
+                                                              </thead>
+                                                            </table>
+                                                            <p class="m-t">
+                                                                You will be redirected to Stripe's payment page and then sent back once you complete your purchase.
+                                                            </p>
+                                                            <a class="btn btn-primary">
+                                                                <i class="fa fa-cc-stripe">
+                                                                    Purchase via Stripe
+                                                                </i>
+                                                            </a>
+                                                        </div>
+                                                      </div>
+
+
+
+
+
+
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                      </div>
+
+                                  </div>
+
+                              </div>
+
+                          </div>
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 

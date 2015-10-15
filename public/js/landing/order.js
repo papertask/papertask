@@ -203,6 +203,16 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
              return false;
          }
 	 }
+	 $scope.showpay = function(){
+		//$('.order-pay').attr("aria-hidden","false");
+		$("#modal-order-pay").addClass("in");
+		$('#modal-order-pay').attr('aria-hidden', 'false').show();
+		//$('.order-pay').style.display = "block";
+	 }
+	 
+	 $scope.paypaypal = function(){
+		location.href = "/" + LANG_CODE + "/landing/index/pay?currency="+$scope.CurrentCurrency+"&total="+$scope.total;
+	 }
 	 
 	 $scope.PayAndStartTrans = function(){
 		 if($( "#formStep3" ).valid()){
@@ -218,9 +228,13 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	         .success(function($data){
 	        	 //$('#PayAndStartTrans').remove();
 	             if($data.success){
-	            	 location.href = "/" + LANG_CODE + "/landing/index";
+					$("#modal-order-pay").addClass("in");
+					$('#modal-order-pay').attr('aria-hidden', 'false').show();
+					//document.getElementById('hide').onclick = function() {  dialog.close();      };	
+					
+	            	//location.href = "/" + LANG_CODE + "/landing/index";
 	             } else {
-	            	 location.href = "/" + LANG_CODE + "/landing/index";
+	            	//location.href = "/" + LANG_CODE + "/landing/index";
 	             }
 	         })
 	         .error(function($data){
@@ -297,6 +311,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 		 data.serviceLevel = data.serviceLevel.id;
 		 data.transGraph = data.transGraph.id;
 		 data.currency = $scope.CurrentCurrency;
+		 data.totalwords = $scope.totalwords;
 		 data.price = [];
 		 data.targetLanguages.forEach(function(lang) {
 			data.price[lang.id] = lang.price;

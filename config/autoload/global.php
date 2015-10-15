@@ -11,6 +11,33 @@
  * file.
  */
 
+use Buzz\Client\Curl;
+use Payum\Core\Extension\StorageExtension;
+use Payum\Core\Storage\FilesystemStorage;
+use Payum\Paypal\ExpressCheckout\Nvp\Api;
+use Payum\Paypal\ExpressCheckout\Nvp\GatewayFactory;
+
+$detailsClass = 'Application\Model\PaymentDetails';
+
+$paypalFactory = new \Payum\Paypal\ExpressCheckout\Nvp\PaypalExpressCheckoutGatewayFactory();
+
 return array(
-    // ...
+    'payum' => array(
+        'token_storage' => new FilesystemStorage(
+            __DIR__.'/../../data',
+            'Application\Model\PaymentSecurityToken',
+            'hash'
+        ),
+        'gateways' => array(
+            'paypal_ec' => $paypalFactory->create(array(
+                'username' => 'EDIT ME',
+                'password' => 'EDIT ME',
+                'signature' => 'EDIT ME',
+                'sandbox' => true
+            )),
+        ),
+        'storages' => array(
+            $detailsClass => new FilesystemStorage(__DIR__.'/../../data', $detailsClass, 'id'),
+        )
+    ),
 );

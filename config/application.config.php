@@ -12,6 +12,7 @@ return array(
         'Admin',
         'Api',
         'Landing',
+		'Payum\PayumModule'
     ),
 
     // These are various options for the listeners attached to the ModuleManager

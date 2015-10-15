@@ -107,11 +107,12 @@ class FreelancerController extends AbstractActionController
 		//ini_set('display_errors', 1);
         $userId = (int)$this->getRequest()->getQuery('id');
         $entityManager = $this->getEntityManager();
-
+		$freelancer_login = 0;
         if($userId){
-        $user = $this->getUserById($userId);
+			$user = $this->getUserById($userId);
         } else {
             $user = $this->getCurrentUser();
+			$freelancer_login = 1;
         }
         // Get Interpreting Price
         $repository = $entityManager->getRepository('User\Entity\UserInterpretingPrice');
@@ -167,6 +168,7 @@ class FreelancerController extends AbstractActionController
         $lang_code = $this->params()->fromRoute('lang');
 		return new ViewModel(array('user'=>$user->getData(), 
                 'freelancer' => $user->getFreelancer()->getData(),
+				'freelancer_login' => $freelancer_login,
                 'interpretingPrices'=>$pInterPretingPrices,
                 'engineeringPrices'=>$pEngineeringPrices,
                 'translationPrices'=>$pTranslationPrices,

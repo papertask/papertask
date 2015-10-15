@@ -1,6 +1,13 @@
 /**
  * Created by antiprovn on 9/27/14.
  */
+ angularApp.run( function ( $rootScope ) {    
+	$("#form").validate({
+        submitHandler: function( form ) {
+            angular.element('#UpdateInfoControllert').scope().submit();
+        }
+    });
+}) 
 angularApp.controller('UpdateInfoController', function($scope, $http, $timeout, $q){
 	$scope.translation = 0;
 	$scope.desktop_publish = 0;

@@ -49,7 +49,7 @@ class Module
 
             if($fromRoute !== true) {
                 //var_dump(strpos($e->getRouteMatch()->getMatchedRouteName(), 'api'));exit;
-                if(strpos($e->getRouteMatch()->getMatchedRouteName(), 'api') !== false)
+                if(strpos($e->getRouteMatch()->getMatchedRouteName(), 'api') !== false || strpos($e->getRouteMatch()->getMatchedRouteName(), 'payment') !== false)
                 {
                 }
                 else{
