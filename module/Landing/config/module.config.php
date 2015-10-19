@@ -140,6 +140,7 @@ return array(
             'landing/index/freelancer' => __DIR__ . '/../view/landing/index/freelancer.phtml',
             'landing/index/languages' => __DIR__ . '/../view/landing/index/languages.phtml',
             'landing/index/order' => __DIR__ . '/../view/landing/index/order.phtml',
+			'landing/index/done' => __DIR__ . '/../view/landing/index/done.phtml',
             'landing/index/contact' => __DIR__ . '/../view/landing/index/contact.phtml',
             'landing/index/terms' => __DIR__ . '/../view/landing/index/terms.phtml',
             'landing/index/privacy' => __DIR__ . '/../view/landing/index/privacy.phtml',
