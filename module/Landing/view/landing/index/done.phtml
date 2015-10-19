@@ -14,11 +14,11 @@
                   </h1><!--//icon-->
                   <div class="content">
                       <h2 class="title">Thank you for your payment!</h2>
-                      <p>PaperTask has received your payment of <?php echo $this->currency . ' ' .$this->total ?> for project <a href="">XXXXXXXXXX</a>. </p>
-                      <p class="small">Project estimated delivery hours XX. </p>
-                      <p>For project status or download translation files, please click <a href="">XXXXXXXXXX</a>.</p> <!-- click here go to project details -->
+                      <p>PaperTask has received your payment of <?php echo $this->currency . ' ' .$this->total ?> for project <a href="<?php echo '/'.$lang.'/admin/project/detail?id='.$this->project; ?>"><?php echo $this->project_no ?></a>. </p>
+                      <?php if($this->currency=='USD') $lang = 'en-US'; else $lang = 'zh-CN';?>
+					  <p>For project status or download translation files, please click <a href="<?php echo '/'.$lang.'/admin/project/detail?id='.$this->project; ?>"><?php echo $this->project_no ?></a>.</p> <!-- click here go to project details -->
                       <br />
-                      <a href=""><h4>Order another translation services</h4></a>
+                      <a href="<?php echo '/'.$lang.'/landing/index/order'; ?>"><h4>Order another translation services</h4></a>
 
                   </div><!--//content-->
               </div><!--//item-->

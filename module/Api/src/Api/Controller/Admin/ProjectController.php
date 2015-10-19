@@ -289,9 +289,11 @@ class ProjectController extends AbstractRestfulJsonController
 			if($data['createType'] == 'landingOrder'){
 				$ns = new Container('order');
 				$ns->project = $project->getId();
+				$ns->project_no = $project->getProjectNo();
 				$ns->total = $data['invoiceinfo']['total'];
 				$ns->currency = $data['currency'];
 				$ns->client = $data['client']->getId();
+				
 			}
         	}
         }

@@ -104,8 +104,8 @@ class IndexController extends AbstractActionController
     }
 	public function doneAction()
     {
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
         $token = $this->getServiceLocator()->get('payum.security.http_request_verifier')->verify($this);
 
         $gateway = $this->getServiceLocator()->get('payum')->getGateway($token->getGatewayName());
@@ -147,6 +147,8 @@ class IndexController extends AbstractActionController
 				'success' => true,
 				'total' => round($order->offsetGet('total'), 2),
 				'currency' => $order->offsetGet('currency'),
+				'project_no' => $order->offsetGet('project_no'),
+				'project' => $order->offsetGet('project'),
 			]);
 		}
 		else{
