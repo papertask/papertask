@@ -10,6 +10,18 @@ namespace Landing;
 return array(
     'router' => array(
         'routes' => array(
+			'payment_done' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route'    => '/payment/done[/:payum_token]',
+                    'defaults' => array(
+						'__NAMESPACE__' => 'Landing\Controller',
+                        'controller' => 'Index',
+                        'action'     => 'done',
+						
+                    ),
+                ),
+            ),
             'landding' => array(
                 'type'    => 'Segment',
                 'options' => array(

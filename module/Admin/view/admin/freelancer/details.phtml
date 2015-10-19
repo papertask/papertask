@@ -126,11 +126,14 @@ $this->inlineScript()
            class="btn btn-primary btn-block"><i class="fa fa-paste"></i> Edit Personal Information</a>
 				<div class="hr-line-dashed"></div>
 
-        <h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
+				<?php if($freelancer_login==0) {?>
+				<h4><?php echo $this->translate('Comments of PaperTask') ?></h4>
 				<div id="objComment"></div>
+				<div class="hr-line-dashed"></div>
+            
+				<?php } ?>
+            
 
-
-            <div class="hr-line-dashed"></div>
             <h4><?php echo $this->translate('Payment information') ?></h4>
 
             <p><strong><?php echo $this->translate('Paypal') ?></strong>: {{bankInfo.paypal}}</p>
@@ -285,7 +288,9 @@ $this->inlineScript()
                                                 <thead>
                                                 <tr>
                                                     <th>#</th>
+													<?php if($freelancer_login==0){?>
                                                     <th>Name</th>
+													<?php } ?>
                                                     <th>Company</th>
                                                     <th>Task Done</th>
                                                     <th></th>
@@ -294,10 +299,14 @@ $this->inlineScript()
                                                 <tbody>
 												<tr ng-repeat="client in userInfo.client_pool">
 													<td>{{$index + 1}}</td>
+													<?php if($freelancer_login==0){?>
 													<td><a href="">{{client.firstName}} {{client.lastName}}</a></td>
+													<?php } ?>
 													<td>{{client.client.company.name}}</td>
 													<td>{{client.taskdone}}</td>
+													<?php if($freelancer_login==0){?>
 													<td><a href=""><i class="fa fa-trash-o text-danger" ng-click="removeResource(client)"></i></a></td>
+													<?php } ?>
 												</tr>
                                                 </tbody>
                                             </table>
@@ -501,7 +510,9 @@ $this->inlineScript()
                                                 <thead>
                                                 <tr>
                                                     <th>#</th>
+													<?php if($freelancer_login==0){?>
                                                     <th>Name</th>
+													<?php } ?>
                                                     <th>Company</th>
                                                     <th>Task Done</th>
                                                     <th></th>
@@ -510,10 +521,14 @@ $this->inlineScript()
                                                 <tbody>
 												<tr ng-repeat="employer in clientsDesktop">
 													<td>{{$index + 1}}</td>
+													<?php if($freelancer_login==0){?>
 													<td><a href="">{{employer.client.name}}&nbsp</a></td>
-													<td>{{employer.client.company.name}}</td>
+													<?php } ?>
+													<td>{{employer.client.company.name}}</td>													
 													<td>88</td>
+													<?php if($freelancer_login==0){?>
 													<td><a href=""><i class="fa fa-trash-o text-danger" ng-click="deleteClientDesktop(employer , employer.id)"></i></a></td>
+													<?php } ?>
 												</tr>
                                                 </tbody>
                                             </table>
@@ -715,7 +730,9 @@ $this->inlineScript()
                                                 <thead>
                                                 <tr>
                                                     <th>#</th>
+													<?php if($freelancer_login==0){?>
                                                     <th>Name</th>
+													<?php } ?>
                                                     <th>Company</th>
                                                     <th>Task Done</th>
                                                     <th></th>
@@ -724,10 +741,14 @@ $this->inlineScript()
                                                 <tbody>
 												<tr ng-repeat="employer in clientsInterpreting">
 													<td>{{$index + 1}}</td>
+													<?php if($freelancer_login==0){?>
 													<td><a href="">{{employer.client.name}}&nbsp</a></td>
+													<?php } ?>
 													<td>{{employer.client.company.name}}</td>
 													<td>88</td>
+													<?php if($freelancer_login==0){?>
 													<td><a href=""><i class="fa fa-trash-o text-danger" ng-click="deleteClientInterpreting(employer , employer.id)"></i></a></td>
+													<?php } ?>
 												</tr>
                                                 </tbody>
                                             </table>

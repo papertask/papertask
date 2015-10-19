@@ -408,6 +408,8 @@ return array(
 		'index\freelancer',
 		'index\contact',
 		'index\order',
+		'index\pay',
+		'index\done',
 		'index\privacy',
 		'index\terms',
 		'index\contact-post',
@@ -452,6 +454,9 @@ return array(
      	// Landing
 		'landing/file',
    		'file/wordcount',
+		
+		'payment/capture',
+		'payment/done',
     ),
 	'Freelancer'=> $allow_freelancer,
 	'Employer'=> $allow_employer,
