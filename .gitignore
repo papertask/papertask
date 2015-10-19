@@ -16,6 +16,7 @@ data/sessions/
 data/tmp/
 temp/
 data/DoctrineORMModule/Proxy/
+data/
 *.log
 *.rar
 
