@@ -123,7 +123,7 @@ class IndexController extends AbstractActionController
 				'total' => round($order->offsetGet('total'), 2),//$order->total,
 				'subtotal' => round($order->offsetGet('total'), 2),//$order->total,
 				'fee' => 0,
-				//'bank' => $this->getReference('Admin\Entity\ProfileBank', $data['bankinfo']['id']),
+				'bank' => $this->getReference('Admin\Entity\ProfileBank', 1),
 				//'bankuser' => $data["bankinfouser"],
 				'is_deleted' => 0,
 				'client' => $this->getReference('User\Entity\User',$order->offsetGet('client')), 
