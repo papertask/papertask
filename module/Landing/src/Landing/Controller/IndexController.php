@@ -11,12 +11,14 @@ namespace Landing\Controller;
 
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
+use Zend\Session\Container; 
 use Common\Mail;
 use Application\Controller\AbstractActionController;
 
 use Payum\Core\Request\GetHumanStatus;
 use Zend\ServiceManager\ServiceLocator;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
+use User\Entity\Transaction;
 
 class IndexController extends AbstractActionController
 {
@@ -81,14 +83,16 @@ class IndexController extends AbstractActionController
     }
 	
 	public function payAction(){
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
     	$lang_code = $this->params()->fromRoute('lang');
     	$storage = $this->getServiceLocator()->get('payum')->getStorage('Application\Model\PaymentDetails');
-		
+		$total = $this->params()->fromQuery('total');
         $details = $storage->create();
-        $details['PAYMENTREQUEST_0_CURRENCYCODE'] = 'EUR';
-        $details['PAYMENTREQUEST_0_AMT'] = 1.23;
+		$order = new Container('order');
+		
+        $details['PAYMENTREQUEST_0_CURRENCYCODE'] = 'USD';
+        $details['PAYMENTREQUEST_0_AMT'] = $order->total;
         $storage->update($details);
 
         $captureToken = $this->getServiceLocator()->get('payum.security.token_factory')->createCaptureToken(
@@ -99,13 +103,55 @@ class IndexController extends AbstractActionController
     }
 	public function doneAction()
     {
-		error_reporting(E_ALL);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
         $token = $this->getServiceLocator()->get('payum.security.http_request_verifier')->verify($this);
 
         $gateway = $this->getServiceLocator()->get('payum')->getGateway($token->getGatewayName());
-
+		
         $gateway->execute($status = new GetHumanStatus($token));
+		if($status->getValue()=="captured"){
+			$order = new Container('order');
+			//create transaction sucessfull
+			$transaction = new Transaction();
+			$transaction->setData([
+				'intrans_no' => "",
+				'fapiao_no'  => "",
+				'total' => $order->total,
+				'subtotal' => $order->total,
+				'fee' => 0,
+				//'bank' => $this->getReference('Admin\Entity\ProfileBank', $data['bankinfo']['id']),
+				//'bankuser' => $data["bankinfouser"],
+				'is_deleted' => 0,
+				'client' => $this->getReference('User\Entity\User', $order->client), 
+				//'freelancer' => $freelancer,
+				'payDate' =>  new \DateTime('NOW'),
+				'createDate' => new \DateTime('NOW'),
+				'typeStatus' => 1,
+				'currency' => $order->currency,
+				'items' => ($data['items'])?$data['items']:null,
+			]);
+			$transaction->save($this->getEntityManager());
+			//update status project to pay
+			$project = $this->find('\User\Entity\Project',$order->project);
+			$project->setData([
+				'payStatus' => 2,
+			]);
+			$project->save($this->getEntityManager());
+			//go to sucessful page
+			return new JsonModel([
+				//'transaction' => $transaction->getData(),
+				'success' => true,
+			]);
+		}
+		else{
+			//go to fail page
+			return new JsonModel([
+				//'transaction' => $transaction->getData(),
+				'success' => false,
+			]);
+		}
+		
 
         return new JsonModel(array('status' => $status->getValue()) + iterator_to_array($status->getModel()));
     }

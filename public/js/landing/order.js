@@ -211,7 +211,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 }
 	 
 	 $scope.paypaypal = function(){
-		location.href = "/" + LANG_CODE + "/landing/index/pay?currency="+$scope.CurrentCurrency+"&total="+$scope.total;
+		location.href = "/" + LANG_CODE + "/landing/index/pay";
 	 }
 	 
 	 $scope.PayAndStartTrans = function(){

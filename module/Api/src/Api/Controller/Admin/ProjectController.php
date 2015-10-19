@@ -3,6 +3,7 @@ namespace Api\Controller\Admin;
 
 use Zend\View\Model\JsonModel;
 use Zend\Paginator\Paginator;
+use Zend\Session\Container; 
 
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
@@ -26,6 +27,7 @@ use User\Entity\Invoice;
 use User\Entity\Activity;
 use User\Entity\User;
 use User\Entity\Company;
+
 
 class ProjectController extends AbstractRestfulJsonController
 {
@@ -124,9 +126,6 @@ class ProjectController extends AbstractRestfulJsonController
 			
 			$Udata['currency'] = $data['currency'];
 			$Udata['createdTime'] = new \DateTime('now');
-			
-			
-			
 			$Udata['email'] = $data['newClient']['Email'];
 			$Udata['firstName'] = $data['newClient']['FirstName'];
 			$Udata['lastName'] = $data['newClient']['LastName'];
@@ -285,7 +284,15 @@ class ProjectController extends AbstractRestfulJsonController
 			$invoice->setData($invoiceDataArr);
 			$invoice->setProject($project);
 			$invoice->save($this->getEntityManager());
-        
+			
+			//set session 
+			if($data['createType'] == 'landingOrder'){
+				$ns = new Container('order');
+				$ns->project = $project->getId();
+				$ns->total = $data['invoiceinfo']['total'];
+				$ns->currency = $data['currency'];
+				$ns->client = $data['client']->getId();
+			}
         	}
         }
         

@@ -1,0 +1,52 @@
+<?php $this->headTitle($this->translate('Result','Landing')) ?>
+<div class="banner">
+    <div class="container">
+        <br><br>
+        <div class="row">
+            <h1 class="text-center" style="font-size: 80px;"><strong>
+                    <?php echo $this->translate('WORK FREE!','Landing') ?></strong></h1>
+            <br><br>
+            <a href="<?php echo $this->url('user',array('lang'=>$this->translate('lang'))) ?>/register/freelancer/"
+               target="_blank" class="btn btn-download btn-lg">
+                <?php echo $this->translate('Register As a Freelancer, Now!','Landing') ?></a>
+            <br><br><br>
+        </div>
+    </div>
+</div>
+<div class="features">
+    <div class="container">
+		 <br />
+          <br />
+          <br />
+          <br />
+		<div class="row feature-row-last">
+			<?php if($this->success == true) {?>
+              <div class="item col-md-6 col-md-offset-3 text-center">
+                  <h1 class="icon">
+                      <i class="fa fa-check-circle"></i>
+                  </h1><!--//icon-->
+                  <div class="content">
+                      <h2 class="title">Thank you for your payment!</h2>
+                      <p>PaperTask has received your payment of $XXX.XX for project <a href="">XXXXXXXXXX</a>. </p>
+                      <p class="small">Project estimated delivery hours XX. </p>
+                      <p>For project status or download translation files, please click <a href="">XXXXXXXXXX</a>.</p> <!-- click here go to project details -->
+                      <br />
+                      <a href=""><h4>Order another translation services</h4></a>
+
+                  </div><!--//content-->
+              </div><!--//item-->
+			<?php } else {?>
+				 <div class="item col-md-6 col-md-offset-3 text-center">
+                  <h1 class="icon">
+                      <i class="fa fa-check-circle"></i>
+                  </h1><!--//icon-->
+                  <div class="content">
+                      <h2 class="title">Fail Payment!</h2>
+
+                  </div><!--//content-->
+              </div><!--//item-->
+			<?php }?>
+
+          </div><!--//row-->
+    </div>
+</div>
