@@ -91,8 +91,9 @@ class IndexController extends AbstractActionController
         $details = $storage->create();
 		$order = new Container('order');
 		
+		//var_dump($order->offsetGet('total'));exit;
         $details['PAYMENTREQUEST_0_CURRENCYCODE'] = 'USD';
-        $details['PAYMENTREQUEST_0_AMT'] = $order->total;
+        $details['PAYMENTREQUEST_0_AMT'] = round($order->offsetGet('total'), 2)  ;
         $storage->update($details);
 
         $captureToken = $this->getServiceLocator()->get('payum.security.token_factory')->createCaptureToken(
@@ -103,13 +104,15 @@ class IndexController extends AbstractActionController
     }
 	public function doneAction()
     {
-		//error_reporting(E_ALL);
-		//ini_set('display_errors', 1);
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
         $token = $this->getServiceLocator()->get('payum.security.http_request_verifier')->verify($this);
 
         $gateway = $this->getServiceLocator()->get('payum')->getGateway($token->getGatewayName());
 		
         $gateway->execute($status = new GetHumanStatus($token));
+		
+		//return new JsonModel(array('status' => $status->getValue()) + iterator_to_array($status->getModel()));
 		if($status->getValue()=="captured"){
 			$order = new Container('order');
 			//create transaction sucessfull
@@ -117,43 +120,45 @@ class IndexController extends AbstractActionController
 			$transaction->setData([
 				'intrans_no' => "",
 				'fapiao_no'  => "",
-				'total' => $order->total,
-				'subtotal' => $order->total,
+				'total' => round($order->offsetGet('total'), 2),//$order->total,
+				'subtotal' => round($order->offsetGet('total'), 2),//$order->total,
 				'fee' => 0,
 				//'bank' => $this->getReference('Admin\Entity\ProfileBank', $data['bankinfo']['id']),
 				//'bankuser' => $data["bankinfouser"],
 				'is_deleted' => 0,
-				'client' => $this->getReference('User\Entity\User', $order->client), 
+				'client' => $this->getReference('User\Entity\User',$order->offsetGet('client')), 
 				//'freelancer' => $freelancer,
 				'payDate' =>  new \DateTime('NOW'),
 				'createDate' => new \DateTime('NOW'),
 				'typeStatus' => 1,
-				'currency' => $order->currency,
+				'currency' => $order->offsetGet('currency'),//$order->currency,
 				'items' => ($data['items'])?$data['items']:null,
 			]);
 			$transaction->save($this->getEntityManager());
 			//update status project to pay
-			$project = $this->find('\User\Entity\Project',$order->project);
+			$project = $this->find('\User\Entity\Project',$order->offsetGet('project'));
 			$project->setData([
 				'payStatus' => 2,
 			]);
 			$project->save($this->getEntityManager());
 			//go to sucessful page
-			return new JsonModel([
+			return new ViewModel([
 				//'transaction' => $transaction->getData(),
 				'success' => true,
+				'total' => round($order->offsetGet('total'), 2),
+				'currency' => $order->offsetGet('currency'),
 			]);
 		}
 		else{
 			//go to fail page
-			return new JsonModel([
+			return new ViewModel([
 				//'transaction' => $transaction->getData(),
 				'success' => false,
 			]);
 		}
 		
 
-        return new JsonModel(array('status' => $status->getValue()) + iterator_to_array($status->getModel()));
+       
     }
     public function termsAction(){
         return new ViewModel();
