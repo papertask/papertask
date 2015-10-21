@@ -2,7 +2,7 @@
 composer.phar
 composer.lock
 vendor/
-
+!vendor/alipay/*
 # Local configs
 config/autoload/*.local.php
 

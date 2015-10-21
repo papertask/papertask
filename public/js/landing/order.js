@@ -213,6 +213,9 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 $scope.paypaypal = function(){
 		location.href = "/" + LANG_CODE + "/landing/index/pay";
 	 }
+	 $scope.payalipay = function(){
+		location.href = "/" + LANG_CODE + "/landing/index/pay-alipay";
+	 }
 	 
 	 $scope.PayAndStartTrans = function(){
 		 if($( "#formStep3" ).valid()){

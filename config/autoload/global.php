@@ -40,4 +40,13 @@ return array(
             $detailsClass => new FilesystemStorage(__DIR__.'/../../data', $detailsClass, 'id'),
         )
     ),
+	'alipay' => array(
+		'partner'		=> '2088511498110839',
+		'seller_email'	=> 'payment@papertask.com',
+		'key'			=> 'i1oobu86ib38lgzzvxov13afkou7yifo',
+		'sign_type'    	=> strtoupper('MD5'),
+		'input_charset'	=> strtolower('utf-8'),
+		//'cacert'    	=> getcwd().'\\cacert.pem',
+		'transport'   	=> 'http'
+    ),
 );

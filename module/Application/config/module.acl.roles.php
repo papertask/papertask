@@ -410,6 +410,8 @@ return array(
 		'index\order',
 		'index\pay',
 		'index\done',
+		'index\done-alipay',
+		'index\pay-alipay',
 		'index\privacy',
 		'index\terms',
 		'index\contact-post',
