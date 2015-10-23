@@ -88,10 +88,10 @@ class ProjectController extends AbstractRestfulJsonController
         }
 		else{
 			$arr = [];
-			if($data['createType']=='orderTranslationNonContract')
+			if($data['createType']=='orderTranslationNonContract' || $data['createType'] == 'landingOrder')
 				$arr[] = 1;
 			else
-			$arr[] = 1;
+				$arr[] = 1;
 			$data['types'] = $arr;
 		}
     }

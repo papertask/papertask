@@ -9,7 +9,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	$scope.sourceLanguages = [];
 	$scope.modifiedTarLangs = [];
 	 $scope.project = {			
-		        types: [],
+		        //types: [],
 				files: [],
 				targetLanguages : []
 	};
