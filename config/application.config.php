@@ -10,6 +10,7 @@ return array(
         'Common',
         'User',
         'Admin',
+        'Employer',
         'Api',
         'Landing',
 		'Payum\PayumModule'

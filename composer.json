@@ -22,6 +22,7 @@
         "payum/paypal-express-checkout-nvp": "*@stable"
     },
 	"autoload": {
-      "classmap": ["vendor/tecnick.com/tcpdf"]
+      "classmap": ["vendor/tecnick.com/tcpdf"],
+	  "classmap": ["vendor/alipay"]
 	}
 }

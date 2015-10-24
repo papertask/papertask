@@ -128,8 +128,8 @@
 			<button id='PayAndStartTrans' type="button"
 				class="btn btn-primary btn-lg" ng-click="PayAndStartTrans()">Pay and
 				Start to Translate</button>
-			<button id="" type="button" class="btn btn-primary btn-lg"
-				ng-click="showpay()">Oder</button>	
+			<!--<button id="" type="button" class="btn btn-primary btn-lg"
+				ng-click="showpay()">Oder</button>	-->
 		</div>
 		<div class="text-center" ng-show="isGraph">
 			<button id="" type="button" class="btn btn-primary btn-lg"
@@ -163,7 +163,7 @@
                                   <div class="ibox-content">
 
                                       <div class="panel-group payments-method" id="accordion">
-                                          <div class="panel panel-default">
+                                          <div class="panel panel-default" ng-show="CurrentCurrency == 'USD'">
                                               <div class="panel-heading">
                                                   <div class="pull-right">
                                                       <i class="fa fa-cc-paypal text-success"></i>
@@ -201,7 +201,7 @@
                                                        </div>
                                               </div>
                                           </div>
-                                          <div class="panel panel-default">
+                                          <div class="panel panel-default" ng-show="CurrentCurrency == 'CNY'">
                                               <div class="panel-heading">
                                                   <div class="pull-right">
                                                       <i class="fa fa-cc-alipay text-success"></i>
@@ -210,7 +210,7 @@
                                                       <a data-toggle="collapse" data-parent="#accordion" href="#alipay">Alipay</a>
                                                   </h5>
                                               </div>
-                                              <div id="alipay" class="panel-collapse collapse">
+                                              <div id="alipay" class="panel-collapse collapse in">
                                                   <div class="panel-body">
 
                                                       <div class="row">
@@ -226,7 +226,7 @@
                                                             <p class="m-t">
                                                                 You will be redirected to Alipay's payment page and then sent back once you complete your purchase.
                                                             </p>
-                                                            <a class="btn btn-primary">
+                                                            <a class="btn btn-primary" ng-click="payalipay()">
                                                                 <i class="fa fa-cc-alipay">
                                                                     Purchase via Alipay
                                                                 </i>
@@ -243,7 +243,7 @@
                                               </div>
                                           </div>
 
-                                          <div class="panel panel-default">
+                                          <div class="panel panel-default" ng-show="1 == 0">
                                               <div class="panel-heading">
                                                   <div class="pull-right">
                                                       <i class="fa fa-cc-stripe text-success"></i>

@@ -88,10 +88,10 @@ class ProjectController extends AbstractRestfulJsonController
         }
 		else{
 			$arr = [];
-			if($data['createType']=='orderTranslationNonContract')
+			if($data['createType']=='orderTranslationNonContract' || $data['createType'] == 'landingOrder')
 				$arr[] = 1;
 			else
-			$arr[] = 1;
+				$arr[] = 1;
 			$data['types'] = $arr;
 		}
     }
@@ -289,9 +289,11 @@ class ProjectController extends AbstractRestfulJsonController
 			if($data['createType'] == 'landingOrder'){
 				$ns = new Container('order');
 				$ns->project = $project->getId();
+				$ns->project_no = $project->getProjectNo();
 				$ns->total = $data['invoiceinfo']['total'];
 				$ns->currency = $data['currency'];
 				$ns->client = $data['client']->getId();
+				
 			}
         	}
         }

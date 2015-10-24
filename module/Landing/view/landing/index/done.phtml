@@ -1,18 +1,5 @@
 <?php $this->headTitle($this->translate('Result','Landing')) ?>
-<div class="banner">
-    <div class="container">
-        <br><br>
-        <div class="row">
-            <h1 class="text-center" style="font-size: 80px;"><strong>
-                    <?php echo $this->translate('WORK FREE!','Landing') ?></strong></h1>
-            <br><br>
-            <a href="<?php echo $this->url('user',array('lang'=>$this->translate('lang'))) ?>/register/freelancer/"
-               target="_blank" class="btn btn-download btn-lg">
-                <?php echo $this->translate('Register As a Freelancer, Now!','Landing') ?></a>
-            <br><br><br>
-        </div>
-    </div>
-</div>
+
 <div class="features">
     <div class="container">
 		 <br />
@@ -27,11 +14,11 @@
                   </h1><!--//icon-->
                   <div class="content">
                       <h2 class="title">Thank you for your payment!</h2>
-                      <p>PaperTask has received your payment of $XXX.XX for project <a href="">XXXXXXXXXX</a>. </p>
-                      <p class="small">Project estimated delivery hours XX. </p>
-                      <p>For project status or download translation files, please click <a href="">XXXXXXXXXX</a>.</p> <!-- click here go to project details -->
+                      <p>PaperTask has received your payment of <?php echo $this->currency . ' ' .$this->total ?> for project <a href="<?php echo '/'.$lang.'/admin/project/detail?id='.$this->project; ?>"><?php echo $this->project_no ?></a>. </p>
+                      <?php if($this->currency=='USD') $lang = 'en-US'; else $lang = 'zh-CN';?>
+					  <p>For project status or download translation files, please click <a href="<?php echo '/'.$lang.'/admin/project/detail?id='.$this->project; ?>"><?php echo $this->project_no ?></a>.</p> <!-- click here go to project details -->
                       <br />
-                      <a href=""><h4>Order another translation services</h4></a>
+                      <a href="<?php echo '/'.$lang.'/landing/index/order'; ?>"><h4>Order another translation services</h4></a>
 
                   </div><!--//content-->
               </div><!--//item-->

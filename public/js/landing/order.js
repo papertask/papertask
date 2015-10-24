@@ -9,7 +9,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	$scope.sourceLanguages = [];
 	$scope.modifiedTarLangs = [];
 	 $scope.project = {			
-		        types: [],
+		        //types: [],
 				files: [],
 				targetLanguages : []
 	};
@@ -212,6 +212,9 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 
 	 $scope.paypaypal = function(){
 		location.href = "/" + LANG_CODE + "/landing/index/pay";
+	 }
+	 $scope.payalipay = function(){
+		location.href = "/" + LANG_CODE + "/landing/index/pay-alipay";
 	 }
 	 
 	 $scope.PayAndStartTrans = function(){
