@@ -30,10 +30,10 @@ return array(
         ),
         'gateways' => array(
             'paypal_ec' => $paypalFactory->create(array(
-                'username' => 'EDIT ME',
-                'password' => 'EDIT ME',
-                'signature' => 'EDIT ME',
-                'sandbox' => true
+                'username' => 'paypal_api1.accesspath.com',
+                'password' => 'SGDSBDD9PDXX4QQ6',
+                'signature' => 'A3O.YlIU8CfQMur7CmO1mygWpmzDAtgIOjCzXwilQBvZatHHeXaR6PV8',
+                'sandbox' => false
             )),
         ),
         'storages' => array(
