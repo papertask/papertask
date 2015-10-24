@@ -142,6 +142,7 @@ return array(
             'landing/index/order' => __DIR__ . '/../view/landing/index/order.phtml',
 			'landing/index/done' => __DIR__ . '/../view/landing/index/done.phtml',
 			'landing/index/done-alipay' => __DIR__ . '/../view/landing/index/done.phtml',
+			'landing/index/pay-alipay' => __DIR__ . '/../view/landing/index/alipay.phtml',
             'landing/index/contact' => __DIR__ . '/../view/landing/index/contact.phtml',
             'landing/index/terms' => __DIR__ . '/../view/landing/index/terms.phtml',
             'landing/index/privacy' => __DIR__ . '/../view/landing/index/privacy.phtml',
