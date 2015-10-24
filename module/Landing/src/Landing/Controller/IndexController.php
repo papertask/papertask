@@ -146,7 +146,7 @@ class IndexController extends AbstractActionController
 		$alipay_config['cacert']		= PUBLIC_PATH.'/cacert.pem';
 		$order = new Container('order');
 		$lang_code = $this->params()->fromRoute('lang');
-		$return_url = '/'.$lang_code.'/'.'landing/index/done-alipay';
+		$return_url = $config->alipay->domain.'/'.$lang_code.'/'.'landing/index/done-alipay';
 		$parameter = array(
 				"service" => "create_direct_pay_by_user",
 				"partner" => trim($alipay_config['partner']),
