@@ -1,0 +1,60 @@
+        <nav class="navbar navbar-static-top" role="navigation">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <i class="fa fa-reorder"></i>
+                </button>
+                <a href="#" class="navbar-brand">PaperTask</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">         
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="<?php echo $this->url('admin',array('controller' => 'dashboard', 'action' => 'client-dashboard',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-th-large"></i> <span class="nav-label"><?php echo $this->translate('Dashboard', 'Application'); ?></span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-files-o"></i> <?php echo $this->translate('Quotes', 'Application'); ?> <span class="caret"></span></a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('admin', array('controller' => 'project', 'action' => 'client-quotes',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-files-o"></i> <span class="nav-label"><?php echo $this->translate('Quotes', 'Application'); ?></span></a></li>
+                            <li><a href="">Menu item</a></li>
+                        </ul>
+                    </li>
+                    
+                    <?php
+                    $children = $this->viewModel()->getCurrent()->getChildren();
+                    $child = $children[0];
+                    ?>
+
+                    <li class="dropdown">
+                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-archive"></i> <?php echo $this->translate('Projects', 'Application'); ?> <span class="caret"></span></a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('admin', array('controller' => 'project', 'action' => 'client-projects',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('All Projects', 'Application'); ?></a></li>
+                            <li><a href="<?php echo $this->url('admin', array('controller' => 'project', 'action' => 'client-ongoing-projects',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Ongoing Projects', 'Application'); ?></a></li>
+                            <li><a href="<?php echo $this->url('admin', array('controller' => 'project', 'action' => 'client-review-projects',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Reviewing Projects', 'Application'); ?></a></li>
+                            <li><a href="<?php echo $this->url('admin', array('controller' => 'project', 'action' => 'client-completed-projects',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Completed Projects', 'Application'); ?></a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown ">
+                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-book"></i> <?php echo $this->translate('Finance', 'Application'); ?> <span class="caret"></span></a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('admin', array('controller' => 'finance', 'action' => 'client-transaction',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Transactions', 'Application'); ?></a></li>
+                            <li><a href="<?php echo $this->url('admin', array('controller' => 'finance', 'action' => 'client-unpaid-project',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Unpaid Projects', 'Application'); ?></a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown ">
+                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <?php echo $this->userData()['name'] ?> <span class="caret"></span></a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('admin', array('controller' => 'employer', 'action' => 'profile',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Profile', 'Application'); ?></a></li>
+                            <li><a href="<?php echo $this->url('admin', array('controller' => 'resetpassword', 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Reset Password', 'Application'); ?></a></li>
+                            <li class="divider"></li>
+                            <li><a href="<?php echo $this->url('user', array('controller' => 'logout', 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>/logout"><i class="fa fa-sign-out"></i> <?php echo $this->translate('Logout', 'Application'); ?></a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+
+            </div>
+        </nav>

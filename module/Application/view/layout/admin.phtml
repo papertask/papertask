@@ -1,109 +1,105 @@
 <?php echo $this->doctype(); ?>
-<html lang="en" ng-app="project">
+<html>
+
 <head>
-    <meta charset="utf-8">
-    <?php echo $this->headTitle()->setSeparator(' | ')->prepend($this->translate('PaperTask'))->setAutoEscape(false) ?>
 
     <?php echo $this->headMeta()
         ->appendName('viewport', 'width=device-width, initial-scale=1.0')
         ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
     ?>
+    <?php echo $this->headTitle()->setSeparator(' | ')->prepend($this->translate('PaperTask'))->setAutoEscape(false) ?>
 
-    <!-- Le styles -->
-    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-        ->appendStylesheet($this->basePath() . '/css/style.css')
-        ->appendStylesheet($this->basePath() . '/css/custom.css')
-        ->prependStylesheet($this->basePath() . '/css/animate.css')
-        ->prependStylesheet($this->basePath() . '/css/plugins/iCheck/custom.css')
-        ->prependStylesheet($this->basePath() . '/font-awesome/css/font-awesome.css')
-        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/v2/css/style.css')
+        ->prependStylesheet($this->basePath() . '/v2/font-awesome/css/font-awesome.min.css')
+        ->prependStylesheet($this->basePath() . '/v2/css/animate.css')
+        ->prependStylesheet($this->basePath() . '/v2/css/bootstrap.min.css')
+    ?>
 
     <!-- Scripts -->
     <?php echo $this->headScript()
-        ->prependFile($this->basePath() . '/js/common.js')
-        ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
-        ->prependFile($this->basePath() . '/js/inspinia.js')
-        ->prependFile($this->basePath() . '/js/plugins/slimscroll/jquery.slimscroll.min.js')
-        ->prependFile($this->basePath() . '/js/plugins/metisMenu/jquery.metisMenu.js')
-        ->prependFile($this->basePath() . '/js/plugins/angular-file-upload/angular-file-upload.js')
-        ->prependFile($this->basePath() . '/js/plugins/console-sham/console-sham.js')
-        ->prependFile($this->basePath() . '/js/angular.min.js')
-        ->prependFile($this->basePath() . '/js/es5-sham.min.js')
-        ->prependFile($this->basePath() . '/js/es5-shim.min.js')
+        ->prependFile($this->basePath() . '/v2/js/admin/dashboard/client-dashboard.js')
+        ->prependFile($this->basePath() . '/v2/js/common.js')
+        ->prependFile($this->basePath() . '/v2/js/plugins/slimscroll/jquery.slimscroll.min.js')
+        ->prependFile($this->basePath() . '/v2/js/plugins/metisMenu/jquery.metisMenu.js')
+        ->prependFile($this->basePath() . '/v2/js/plugins/angular-file-upload/angular-file-upload.js')
+        ->prependFile($this->basePath() . '/v2/js/plugins/console-sham/console-sham.js')
+        ->prependFile($this->basePath() . '/v2/js/angular.min.js')
+        ->prependFile($this->basePath() . '/v2/js/es5-sham.min.js')
+        ->prependFile($this->basePath() . '/v2/js/es5-shim.min.js')
 //        ->prependFile("http://nervgh.github.io/js/es5-sham.min.js")
 //        ->prependFile("http://nervgh.github.io/js/es5-shim.min.js")
-        ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-        ->prependFile($this->basePath() . '/js/jquery-1.10.2.js')
-        ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-        ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+        ->prependFile($this->basePath() . '/v2/js/bootstrap.min.js')
+        ->prependFile($this->basePath() . '/v2/js/jquery-1.10.2.js')
+        ->prependFile($this->basePath() . '/v2/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ->prependFile($this->basePath() . '/v2/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
     ; ?>
 
 </head>
-<body>
-<div id="wrapper">
 
-    <!-- Left sidebar -->
-    <?php
-        switch($this->userData()['role']){
+<body class="top-navigation">
 
-            case 'Admin':
-                //staff menus here
-                switch($this->userData()['type']){
-                    case 'Admin':
-                        include "admin/left-sidebar-admin.phtml";
-                        break;
-                    case 'Financial Manager':
-                        include "admin/left-sidebar-staff-fm.phtml";
-                        break;
-                    case 'Operation Manager':
-                        include "admin/left-sidebar-staff-om.phtml";
-                        break;
-                    case 'Project Manager':
-                        include "admin/left-sidebar-staff-pm.phtml";
-                        break;
-                    case 'Sales Director':
-                        include "admin/left-sidebar-staff-sd.phtml";
-                        break;
-                    case 'Sales': // Sales Manager
-                        include "admin/left-sidebar-staff-sm.phtml";
-                        break;
-                    case 'General Manager': // Inhouse
-                        include "admin/left-sidebar-staff-gm.phtml";
-                        break;
-                    default:
-                        include "admin/left-sidebar-admin.phtml";
-                        // include "admin/left-sidebar-staff-fm.phtml";
-                        // include "admin/left-sidebar-staff-om.phtml";
-                        // include "admin/left-sidebar-staff-pm.phtml";
-                        // include "admin/left-sidebar-staff-sd.phtml";
-                        // include "admin/left-sidebar-staff-sm.phtml";
-                        // include "admin/left-sidebar-staff-gm.phtml";
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom white-bg">
 
-                }
-                break;
-            case 'Employer': // employer == client
-            case 'Client':
-                include "admin/left-sidebar-client.phtml";
-                break;
-            case 'Freelancer':
-                $this->userData()['isSenior'] ? include "admin/left-sidebar-senior-freelancer.phtml" : include "admin/left-sidebar-freelancer.phtml";
-                break;
-            default:
-                include "admin/left-sidebar-client.phtml";
-                // TODO: default menu
-        };
-    ?>
-    <!-- End left sidebar -->
+        <!-- top nav -->
+        <?php
+            switch($this->userData()['role']){
 
-    <!-- Main Wrapper -->
-    <div id="page-wrapper" class="gray-bg">
+                case 'Admin':
+                    //staff menus here
+                    switch($this->userData()['type']){
+                        case 'Admin':
+                            include "admin/left-sidebar-admin.phtml";
+                            break;
+                        case 'Financial Manager':
+                            include "admin/left-sidebar-staff-fm.phtml";
+                            break;
+                        case 'Operation Manager':
+                            include "admin/left-sidebar-staff-om.phtml";
+                            break;
+                        case 'Project Manager':
+                            include "admin/left-sidebar-staff-pm.phtml";
+                            break;
+                        case 'Sales Director':
+                            include "admin/left-sidebar-staff-sd.phtml";
+                            break;
+                        case 'Sales': // Sales Manager
+                            include "admin/left-sidebar-staff-sm.phtml";
+                            break;
+                        case 'General Manager': // Inhouse
+                            include "admin/left-sidebar-staff-gm.phtml";
+                            break;
+                        default:
+                            include "admin/left-sidebar-admin.phtml";
+                            // include "admin/left-sidebar-staff-fm.phtml";
+                            // include "admin/left-sidebar-staff-om.phtml";
+                            // include "admin/left-sidebar-staff-pm.phtml";
+                            // include "admin/left-sidebar-staff-sd.phtml";
+                            // include "admin/left-sidebar-staff-sm.phtml";
+                            // include "admin/left-sidebar-staff-gm.phtml";
 
-        <!-- Top Nav -->
-        <div class="row border-bottom">
-            <?php include "admin/top-nav.phtml" ?>
-        </div><!-- End Top Nav -->
+                    }
+                    break;
+                case 'Employer': // employer == client
+                case 'Client':
+                    include "admin/top-nav-client.phtml";
+                    break;
+                case 'Freelancer':
+                    $this->userData()['isSenior'] ? include "admin/left-sidebar-senior-freelancer.phtml" : include "admin/left-sidebar-freelancer.phtml";
+                    break;
+                default:
+                    include "admin/left-sidebar-client.phtml";
+                    // TODO: default menu
+            };
+        ?>
+        <!-- End top nav -->
 
+        </div>
         <div class="wrapper wrapper-content">
+            <div class="container">
+
             <div class="row">
                 <div class="col-lg-12">
                     <!-- Flash Messenger -->
@@ -125,9 +121,12 @@
                 </div>
             </div>
             <?php echo $this->content ?>
-        </div>
 
-        <!-- Footer -->
+
+
+            </div>
+
+        </div>
         <div class="footer">
             <div class="text-center">
               <small class="copyright">
@@ -136,14 +135,49 @@
                   &nbsp;&nbsp;&nbsp;
                   <a href="<?php echo $this->url('privacy',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Privacy Policy', 'Application'); ?></a>
               </small>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="btn-group dropup">
+                    <button type="button" class="btn btn-sm btn-default"><?php
+                    if ($this->translate('lang', 'Application')=="en-US"){
+                        echo "ENGLISH";
+                    }
+                    if ($this->translate('lang', 'Application')=="zh-CN"){
+                        echo "简体中文";
+                    }
+                    ?></button>
+                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ><a href="<?php echo $this->url($this->route,array("lang"=>"en-US")) ?>">ENGLISH</a></li>
+                        <li selected="selected"><a href="<?php echo $this->url($this->route,array("lang"=>"zh-CN")) ?>">简体中文</a></li>
+                    </ul>
+                </div>
+
             </div>
-        </div><!-- End Footer -->
-    </div><!-- End Main Wrapper -->
-</div>
+        </div>
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/jquery-2.1.1.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/bootstrap.min.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/plugins/metisMenu/jquery.metisMenu.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/plugins/slimscroll/jquery.slimscroll.min.js'?>"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script type="text/javascript" src="<?php //echo $this->basePath() .'/v2/js/inspinia.js'?>"></script>
+    <script type="text/javascript" src="<?php //echo $this->basePath() .'/v2/js/plugins/pace/pace.min.js'?>"></script>
+    <!--[if !IE]>-->
 
 <?php echo $this->inlineScript() ?>
-<script>if(typeof(angular) != 'undefined' && typeof(angularApp) == 'undefined'){
-        var angularApp = angularApp || angular.module('project', []);
-    }</script>
+<script>
+    if(typeof(angular) != 'undefined' && typeof(angularApp) == 'undefined'){
+        var angularApp = angularApp || angular.module('project', []); }
+</script>
+
 </body>
+
 </html>
