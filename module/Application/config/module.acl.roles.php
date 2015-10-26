@@ -412,6 +412,7 @@ return array(
 		'index\done',
 		'index\done-alipay',
 		'index\pay-alipay',
+		//'index\alipay',
 		'index\privacy',
 		'index\terms',
 		'index\contact-post',

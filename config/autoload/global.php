@@ -47,6 +47,7 @@ return array(
 		'sign_type'    	=> strtoupper('MD5'),
 		'input_charset'	=> strtolower('utf-8'),
 		//'cacert'    	=> getcwd().'\\cacert.pem',
-		'transport'   	=> 'http'
+		'transport'   	=> 'http',
+		'domain'		=> 'http://papertask.com'
     ),
 );

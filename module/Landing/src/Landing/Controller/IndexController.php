@@ -146,7 +146,7 @@ class IndexController extends AbstractActionController
 		$alipay_config['cacert']		= PUBLIC_PATH.'/cacert.pem';
 		$order = new Container('order');
 		$lang_code = $this->params()->fromRoute('lang');
-		$return_url = '/'.$lang_code.'/'.'landing/index/done-alipay';
+		$return_url = $config->alipay->domain.'/'.$lang_code.'/'.'landing/index/done-alipay';
 		$parameter = array(
 				"service" => "create_direct_pay_by_user",
 				"partner" => trim($alipay_config['partner']),
@@ -164,9 +164,14 @@ class IndexController extends AbstractActionController
 				"_input_charset"	=> trim(strtolower($alipay_config['input_charset']))
 		);
 		$alipaySubmit = new AlipaySubmit($alipay_config);
-		$html_text = $alipaySubmit->buildRequestForm($parameter,"get", "确认");
-		echo $html_text;
-		exit;
+		$html_text = $alipaySubmit->buildRequestForm($parameter,"get", "Redirecting to alipay...");
+		return new ViewModel([
+				//'transaction' => $transaction->getData(),
+				'html_text' => $html_text,
+				
+			]);
+		//print_r($html_text);
+		//exit;
     	/*$lang_code = $this->params()->fromRoute('lang');
     	$storage = $this->getServiceLocator()->get('payum')->getStorage('Application\Model\PaymentDetails');
 		$total = $this->params()->fromQuery('total');
