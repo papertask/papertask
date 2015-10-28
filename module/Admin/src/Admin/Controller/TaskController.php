@@ -42,12 +42,29 @@ class TaskController extends AbstractActionController
     }
 
     public function detailAction(){
+		//error_reporting(E_ALL);
+		//ini_set('display_errors', 1);
         $id = $this->params()->fromQuery('id');
 		$lang_code = $this->params()->fromRoute('lang');
 		
 		$currentUserId = User::currentLoginId();
     	$currentUser = $this->find('User\Entity\User',$currentUserId);
         
+		if($currentUser->isFreelancer()){
+			//get iterm translation
+			$entityManager = $this->getEntityManager();
+			//$repository = $entityManager->getRepository('User\Entity\Project');
+			$task = $entityManager->find('\User\Entity\Task', (int)$id);
+			$freelancer = $entityManager->find('\User\Entity\Freelancer', (int)$task->getAssignee()->getId());
+			$freelancer_user = $entityManager->getRepository('\User\Entity\User')->findOneBy(array('freelancer' => $freelancer));
+			//
+			if($freelancer_user->getId() != $currentUser->getId()){
+				//var_dump($id);var_dump($currentUser);
+				//var_dump($project);exit;
+				//$this->_redirect($lang_code.'/admin/dashboard/client-dashboard/');
+				return false;
+			}	
+		}
 		return new ViewModel([
 		
             'id' => $id,

@@ -147,7 +147,10 @@ class Task extends Entity{
     {
     	return $this->status;
     }
-    
+    public function getAssignee()
+    {
+    	return $this->assignee;
+    }
     public function setAssignee( $assignee )
     {
     	$this->assignee = $assignee;
