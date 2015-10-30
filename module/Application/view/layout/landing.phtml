@@ -1,181 +1,148 @@
-<!DOCTYPE html>
-<?php
-?>
+<?php echo $this->doctype(); ?>
 <html lang="en" ng-app="project">
 <head>
     <meta charset="utf-8">
-    <?php
-
-    echo $this->headTitle()->setSeparator(' | ')->prepend($this->translate('PaperTask'))->setAutoEscape(false) ?>
+    <?php echo $this->headTitle()->setSeparator(' | ')->prepend($this->translate('PaperTask'))->setAutoEscape(false) ?>
 
     <?php echo $this->headMeta()
         ->appendName('viewport', 'width=device-width, initial-scale=1.0')
         ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
     ?>
 
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-
-    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
-        ->prependStylesheet($this->basePath() . '/v2/css/style.css')
-        ->prependStylesheet($this->basePath() . '/v2/font-awesome/css/font-awesome.min.css')
+    <!-- Le styles -->
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->appendStylesheet($this->basePath() . '/v2/css/style.css')
+        ->appendStylesheet($this->basePath() . '/v2/css/custom.css')
         ->prependStylesheet($this->basePath() . '/v2/css/animate.css')
-        ->prependStylesheet($this->basePath() . '/v2/css/bootstrap.min.css')
-    ?>
+        ->prependStylesheet($this->basePath() . '/v2/css/plugins/iCheck/custom.css')
+        ->prependStylesheet($this->basePath() . '/v2/font-awesome/css/font-awesome.css')
+        ->prependStylesheet($this->basePath() . '/v2/css/bootstrap.min.css') ?>
 
-    <?php
-    echo $this->headScript()
-        ->prependFile($this->basePath() . '/v2/js/landing/languages.js')
-        ->prependFile($this->basePath() . '/v2//js/plugins/validate/jquery.validate.min.js')
-        ->prependScript("angularApp = angular.module('project', []);")
+    <!-- Scripts -->
+    <?php echo $this->headScript()
+        ->prependFile($this->basePath() . '/v2/js/common.js')
+        ->prependFile($this->basePath() . '/v2/js/plugins/pace/pace.min.js')
+        ->prependFile($this->basePath() . '/v2/js/inspinia.js')
+        ->prependFile($this->basePath() . '/v2/js/plugins/slimscroll/jquery.slimscroll.min.js')
+        ->prependFile($this->basePath() . '/v2/js/plugins/metisMenu/jquery.metisMenu.js')
+        ->prependFile($this->basePath() . '/v2/js/plugins/angular-file-upload/angular-file-upload.js')
+        ->prependFile($this->basePath() . '/v2/js/plugins/console-sham/console-sham.js')
         ->prependFile($this->basePath() . '/v2/js/angular.min.js')
-    ?>
-    <?php
-    echo $this->inlineScript()
-        ->prependScript("
-        
-        
-        if(typeof(angular) != 'undefined' && typeof(angularApp) == 'undefined'){
-            var angularApp = angularApp || angular.module('languages', []);
-          }
-       
-         
-        ");
-    echo $this->inlineScript()
-        ->prependScript("
-            var LANG_CODE = '" . $this->lang_code . "';
-            var EXITS_CONFIRM_TEXT = '" . $this->translate('This option was existed, please choose other') . "';
-            ");     
-
-    ?>
+        ->prependFile($this->basePath() . '/v2/js/es5-sham.min.js')
+        ->prependFile($this->basePath() . '/v2/js/es5-shim.min.js')
+//        ->prependFile("http://nervgh.github.io/js/es5-sham.min.js")
+//        ->prependFile("http://nervgh.github.io/js/es5-shim.min.js")
+        ->prependFile($this->basePath() . '/v2/js/bootstrap.min.js')
+        ->prependFile($this->basePath() . '/v2/js/jquery-2.1.1.js')
+        ->prependFile($this->basePath() . '/v2/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+        ->prependFile($this->basePath() . '/v2/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+    ; ?>
 
 </head>
 
-<body id="page-top" class="landing-page">
-<div class="navbar-wrapper">
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>">
-                    PAPERTASK
-                </a>
+<body class="top-navigation">
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom white-bg">
+
+                <!-- top nav -->
+                <?php
+                    switch($this->userData()['role']){
+
+                        case 'Admin':
+                            //staff menus here
+                            switch($this->userData()['type']){
+                                case 'Admin':
+                                    include "admin/left-sidebar-admin.phtml";
+                                    break;
+                                case 'Financial Manager':
+                                    include "admin/left-sidebar-staff-fm.phtml";
+                                    break;
+                                case 'Operation Manager':
+                                    include "admin/left-sidebar-staff-om.phtml";
+                                    break;
+                                case 'Project Manager':
+                                    include "admin/left-sidebar-staff-pm.phtml";
+                                    break;
+                                case 'Sales Director':
+                                    include "admin/left-sidebar-staff-sd.phtml";
+                                    break;
+                                case 'Sales': // Sales Manager
+                                    include "admin/left-sidebar-staff-sm.phtml";
+                                    break;
+                                case 'General Manager': // Inhouse
+                                    include "admin/left-sidebar-staff-gm.phtml";
+                                    break;
+                                default:
+                                    include "admin/left-sidebar-admin.phtml";
+                                    // include "admin/left-sidebar-staff-fm.phtml";
+                                    // include "admin/left-sidebar-staff-om.phtml";
+                                    // include "admin/left-sidebar-staff-pm.phtml";
+                                    // include "admin/left-sidebar-staff-sd.phtml";
+                                    // include "admin/left-sidebar-staff-sm.phtml";
+                                    // include "admin/left-sidebar-staff-gm.phtml";
+
+                            }
+                            break;
+                        case 'Employer': // employer == client
+                        case 'Client':
+                            include "admin/top-nav-client.phtml";
+                            break;
+                        case 'Freelancer':
+                            $this->userData()['isSenior'] ? include "admin/left-sidebar-senior-freelancer.phtml" : include "admin/left-sidebar-freelancer.phtml";
+                            break;
+                        default:
+                            include "admin/left-sidebar-client.phtml";
+                            // TODO: default menu
+                    };
+                ?>
+                <!-- top nav -->
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a class="page-scroll" href="#ovewview"><?php echo $this->translate('Ovewview', 'Application'); ?></a></li>
-                    <li><a class="page-scroll" href="#pricing"><?php echo $this->translate('Languages and Pricing', 'Application'); ?></a></li>
-                    <li><a class="page-scroll" href="#freelancer"><?php echo $this->translate('Freelancer', 'Application'); ?></a></li>
-                    <li><a class="page-scroll" href="#client"><?php echo $this->translate('client', 'Application'); ?></a></li>
-                    <li><a class="page-scroll" href="#contact"><?php echo $this->translate('Contact', 'Application'); ?></a></li>
-                    <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-                    <li>
-                        <a class="page-scroll" href="<?php echo $this->url('user',array("lang"=>$this->translate('lang', 'Application'))) ?>/login/"><i class="fa fa-sign-in"> <?php echo $this->translate('SIGN IN', 'Application'); ?></i></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="<?php echo $this->url('user',array("lang"=>$this->translate('lang', 'Application'))) ?>/register/"><span class="text-navy"><i class="fa fa-user"> <?php echo $this->translate('SIGN UP', 'Application'); ?></i></span></a>
-                    </li>
-                </ul>
+
+        <!-- Main Wrapper -->
+
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Flash Messenger -->
+                        <?php
+                        $flash = $this->flashMessenger();
+                        $flash->setMessageOpenFormat('<div%s>
+                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                     &times;
+                                 </button>
+                                 <ul><li>')
+                            ->setMessageSeparatorString('</li><li>')
+                            ->setMessageCloseString('</li></ul></div>');
+
+                        echo $flash->render('error', array('alert', 'alert-dismissable', 'alert-danger'));
+                        echo $flash->render('info', array('alert', 'alert-dismissable', 'alert-info'));
+                        echo $flash->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
+                        echo $flash->render('success', array('alert', 'alert-dismissable', 'alert-success'));
+                        ?><!-- End Flash Messenger -->
+                    </div>
+                </div>
+                <?php echo $this->content ?>
             </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <div class="text-center">
+                  <small class="copyright">
+                      2015 &copy; <a href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>">PaperTask.com</a> <?php echo $this->translate('All rights reserved.', 'Application'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a href="<?php echo $this->url('terms',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Terms of Use', 'Application'); ?></a>
+                      &nbsp;&nbsp;&nbsp;
+                      <a href="<?php echo $this->url('privacy',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Privacy Policy', 'Application'); ?></a>
+                  </small>
+                </div>
+            </div><!-- End Footer -->
+        
         </div>
-    </nav>
-</div>
-
-    <!-- ******CONTENT****** -->
-
-    <!-- Flash Messenger -->
-    <?php
-    $flash = $this->flashMessenger();
-    $flash->setMessageOpenFormat('<div%s>
-                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                         &times;
-                     </button>
-                     <div>')
-        ->setMessageSeparatorString('</div><div>')
-        ->setMessageCloseString('</div></div>');
-
-    echo $flash->render('error', array('alert', 'alert-dismissable', 'alert-danger'));
-    echo $flash->render('info', array('alert', 'alert-dismissable', 'alert-info'));
-    echo $flash->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
-    echo $flash->render('success', array('alert', 'alert-dismissable', 'alert-success'));
-    ?><!-- End Flash Messenger -->
-
-    <?php echo $this->content ?>
-
-    <!-- Mainly scripts -->
-    <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/jquery-2.1.1.js'?>"></script>
-    <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/bootstrap.min.js'?>"></script>
-    <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/plugins/metisMenu/jquery.metisMenu.js'?>"></script>
-    <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/plugins/slimscroll/jquery.slimscroll.min.js'?>"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script type="text/javascript" src="<?php //echo $this->basePath() .'/v2/js/inspinia.js'?>"></script>
-    <script type="text/javascript" src="<?php //echo $this->basePath() .'/v2/js/plugins/pace/pace.min.js'?>"></script>
-    <script type="text/javascript" src="<?php //echo $this->basePath() .'/v2/js/plugins/wow/wow.min.js'?>"></script>
-    <!--[if !IE]>-->
-
+    </div>
+    <?php echo $this->inlineScript() ?>
     <script>
-
-        $(document).ready(function () {
-
-            $('body').scrollspy({
-                target: '.navbar-fixed-top',
-                offset: 80
-            });
-
-            // Page scrolling feature
-            $('a.page-scroll').bind('click', function(event) {
-                var link = $(this);
-                $('html, body').stop().animate({
-                    scrollTop: $(link.attr('href')).offset().top - 50
-                }, 500);
-                event.preventDefault();
-            });
-        });
-
-        var cbpAnimatedHeader = (function() {
-            var docElem = document.documentElement,
-                    header = document.querySelector( '.navbar-default' ),
-                    didScroll = false,
-                    changeHeaderOn = 200;
-            function init() {
-                window.addEventListener( 'scroll', function( event ) {
-                    if( !didScroll ) {
-                        didScroll = true;
-                        setTimeout( scrollPage, 250 );
-                    }
-                }, false );
-            }
-            function scrollPage() {
-                var sy = scrollY();
-                if ( sy >= changeHeaderOn ) {
-                    $(header).addClass('navbar-scroll')
-                }
-                else {
-                    $(header).removeClass('navbar-scroll')
-                }
-                didScroll = false;
-            }
-            function scrollY() {
-                return window.pageYOffset || docElem.scrollTop;
-            }
-            init();
-
-        })();
-
-        // Activate WOW.js plugin for animation on scrol
-        new WOW().init();
-
+        if(typeof(angular) != 'undefined' && typeof(angularApp) == 'undefined'){
+            var angularApp = angularApp || angular.module('project', []);}
     </script>
-
-</head>
-
-
 </body>
 </html>

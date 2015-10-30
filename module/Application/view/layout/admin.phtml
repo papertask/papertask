@@ -137,14 +137,16 @@
                   </small>
 
                     <div class="btn-group dropup">
-                        <button type="button" class="btn btn-sm btn-default"><?php
-                        if ($this->translate('lang', 'Application')=="en-US"){
-                            echo "ENGLISH";
-                        }
-                        if ($this->translate('lang', 'Application')=="zh-CN"){
-                            echo "简体中文";
-                        }
-                        ?></button>
+                        <button type="button" class="btn btn-sm btn-default">
+                            <?php
+                            if ($this->translate('lang', 'Application')=="en-US"){
+                                echo "ENGLISH";
+                            }
+                            if ($this->translate('lang', 'Application')=="zh-CN"){
+                                echo "简体中文";
+                            }
+                            ?>
+                        </button>
                         <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                             <span class="sr-only">Toggle Dropdown</span>
