@@ -23,8 +23,9 @@
         ->prependStylesheet($this->basePath() . '/v2/css/animate.css')
         ->prependStylesheet($this->basePath() . '/v2/css/bootstrap.min.css')
     ?>
-
+	<script type="text/javascript" src="<?php echo $this->basePath() .'/assets/plugins/jquery-1.11.2.min.js'?>"></script>
     <?php
+	
     echo $this->headScript()
         ->prependFile($this->basePath() . '/v2/js/landing/languages.js')
         ->prependFile($this->basePath() . '/v2//js/plugins/validate/jquery.validate.min.js')
@@ -583,7 +584,7 @@
         })();
 
         // Activate WOW.js plugin for animation on scrol
-        new WOW().init();
+        //new WOW().init();
 
     </script>
 
