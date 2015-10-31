@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <?php
 ?>
-<html lang="en">
+<html lang="en" ng-app="project">
 <head>
     <meta charset="utf-8">
     <?php
-
     echo $this->headTitle()->setSeparator(' | ')->prepend($this->translate('PaperTask'))->setAutoEscape(false) ?>
 
     <?php echo $this->headMeta()
@@ -48,7 +47,6 @@
             var LANG_CODE = '" . $this->lang_code . "';
             var EXITS_CONFIRM_TEXT = '" . $this->translate('This option was existed, please choose other') . "';
             ");     
-
     ?>
 
 </head>
@@ -100,7 +98,6 @@
                      <div>')
         ->setMessageSeparatorString('</div><div>')
         ->setMessageCloseString('</div></div>');
-
     echo $flash->render('error', array('alert', 'alert-dismissable', 'alert-danger'));
     echo $flash->render('info', array('alert', 'alert-dismissable', 'alert-info'));
     echo $flash->render('default', array('alert', 'alert-dismissable', 'alert-warning'));
@@ -535,14 +532,11 @@
     <!--[if !IE]>-->
 
     <script>
-
         $(document).ready(function () {
-
             $('body').scrollspy({
                 target: '.navbar-fixed-top',
                 offset: 80
             });
-
             // Page scrolling feature
             $('a.page-scroll').bind('click', function(event) {
                 var link = $(this);
@@ -552,7 +546,6 @@
                 event.preventDefault();
             });
         });
-
         var cbpAnimatedHeader = (function() {
             var docElem = document.documentElement,
                     header = document.querySelector( '.navbar-default' ),
@@ -580,12 +573,9 @@
                 return window.pageYOffset || docElem.scrollTop;
             }
             init();
-
         })();
-
         // Activate WOW.js plugin for animation on scrol
         //new WOW().init();
-
     </script>
 
 </head>
