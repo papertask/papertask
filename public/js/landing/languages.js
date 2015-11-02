@@ -45,9 +45,9 @@ angularApp.controller('languagesController', function($scope, $rootScope, $http,
                 });
                 
                 $('#features').removeClass('hidden');
-                //$('body, html').animate({
-                //    scrollTop: $('#features').position().top
-                //}, 500);
+                $('body, html').animate({
+                    scrollTop: $('#features').position().top
+                }, 500);
             }
         }
     }
