@@ -19,8 +19,8 @@ angularApp.controller('languagesController', function($scope, $rootScope, $http,
         }).error(function($e){
             alert('error');
         });
-		
-        $('form').validate();
+		var tmp = $('form');
+        $('.showPriceForm').validate();
 		
         // show price
         $scope.showPrice = function(){
@@ -45,9 +45,9 @@ angularApp.controller('languagesController', function($scope, $rootScope, $http,
                 });
                 
                 $('#features').removeClass('hidden');
-                $('body, html').animate({
-                    scrollTop: $('#features').position().top
-                }, 500);
+                //$('body, html').animate({
+                //    scrollTop: $('#features').position().top
+                //}, 500);
             }
         }
     }

@@ -3,7 +3,6 @@
 <?php
 echo $this->headScript()
     ->prependFile($this->basePath() . '/js/landing/languages.js')
-    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
     ->prependScript("angularApp = angular.module('project', []);")
     ->prependFile($this->basePath() . '/js/angular.min.js')
 ?>
