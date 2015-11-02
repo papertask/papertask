@@ -58,3 +58,8 @@
 
             </div>
         </nav>
+		<script>
+				$('li.dropdown').hover(function () {
+		$(this).toggleClass('open').siblings().removeClass('open');
+	});
+		</script>
