@@ -1,19 +1,19 @@
 <div class="col-lg-4 well">
-              <h1 class="text-center">Order Information</h1>
+              <h1 class="text-center"><?php echo $this->translate('Order Information', 'Application'); ?></h1>
               <br>
               <table class="table">
                 <thead>
                 <tr>
-                    <th>{{totalitems}} iterms</th> <!-- before iterms, put the number of files uploaded -->
-                    <th class="text-right"> {{totalwords}} words</th>
+                    <th>{{totalitems}} <?php echo $this->translate('items', 'Application'); ?></th> <!-- before iterms, put the number of files uploaded -->
+                    <th class="text-right"> {{totalwords}} <?php echo $this->translate('words', 'Application'); ?></th>
                 </tr>
                 <tr>
-                    <th>Languages</th>
+                    <th><?php echo $this->translate('Languages', 'Application'); ?></th>
                     <th class="text-right">{{numberLangs}}</th> <!-- target languages number -->
                 </tr>
                 <tr>
-                    <th>Quality Level</th>
-                    <th class="text-right" ng-show="totalitems > 0"><span class="label label-primary">{{project.serviceLevel.name}}</span>{{CurrentCurrency}} {{price | currency : '' : 2}}/Word</th>
+                    <th><?php echo $this->translate('Quality Level', 'Application'); ?></th>
+                    <th class="text-right" ng-show="totalitems > 0"><span class="label label-primary"><?php echo $this->translate('{{project.serviceLevel.name}}', 'Application'); ?></span> {{CurrentCurrency}} {{price | currency : '' : 2}}/Word</th>
                 </tr>
                 </thead>
               </table>
@@ -21,7 +21,7 @@
               <table class="table">
                 <thead>
                 <tr>
-                    <th>Iterms Total</th>
+                    <th><?php echo $this->translate('Items Total', 'Application'); ?></th>
                     <th class="text-right" ng-show="totalitems > 0">{{CurrentCurrency}} {{ItermsTotal | currency : '' : 2}}</th>
                 </tr>
                 <tr ng-show="1==0">
@@ -29,7 +29,7 @@
                     <th class="text-right">{{CurrentCurrency}} {{tax | currency : '' : 2}}</th>
                 </tr>
                 <tr style="font-size: 22px;">
-                    <th>Total</th>
+                    <th><?php echo $this->translate('Total', 'Application'); ?></th>
                     <th class="text-right" ng-show="totalitems > 0">{{CurrentCurrency}} {{total | currency : '' : 2}}</th>
                 </tr>
                 </thead>

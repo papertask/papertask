@@ -61,7 +61,7 @@ echo $this->inlineScript()
         <div class="col-lg-12 text-center">
             <div class="navy-line"></div>
             <h1><?php echo $this->translate('Globalization people-powered translation cloud platform','Landing') ?><br/> </h1>
-            <p style="font-size: 17px;"><?php echo $this->translate('You can easily order files or text which need to be translated through our website. Our platform will instantly at your service. In the first task, experienced PaperTask project manager will assign it the job to the qualified translator(s) based on the field of your job, and add the translators to your resource group, so they will take over in a few minutes, and complete the translation. For your subsequent jobs, the platform will automatically assign it to the translators in your resource group.','Landing') ?></p>
+            <p style="font-size: 18px; color: #676a6c;"><?php echo $this->translate('You can easily order files or text which need to be translated through our website. Our platform will instantly at your service. In the first task, experienced PaperTask project manager will assign it the job to the qualified translator(s) based on the field of your job, and add the translators to your resource group, so they will take over in a few minutes, and complete the translation. For your subsequent jobs, the platform will automatically assign it to the translators in your resource group.','Landing') ?></p>
         </div>
     </div>
 
@@ -75,28 +75,28 @@ echo $this->inlineScript()
             <div>
                 <i class="fa fa-check-circle-o features-icon" style="font-size: 80px;"></i>
                 <h2><?php echo $this->translate('Language Quality Assurance','Landing') ?></h2>
-                <p style="font-size: 20px;"><?php echo $this->translate('While Ensuring the Translation Speed, Our Language Quality Assurance benefits you by','Landing') ?></p>
+                <p style="font-size: 18px; color: #676a6c;"><?php echo $this->translate('While Ensuring the Translation Speed, Our Language Quality Assurance benefits you by','Landing') ?></p>
             </div>
         </div>
         <div class="col-md-3 text-center wow fadeInRight">
             <div>
                 <i class="fa fa-line-chart features-icon" style="font-size: 80px;"></i>
                 <h2>Reliable and Scalable</h2>
-                <p style="font-size: 20px;"><?php echo $this->translate('Quality Control for Large Scale Translation Project','Landing') ?></p>
+                <p style="font-size: 18px; color: #676a6c;"><?php echo $this->translate('Quality Control for Large Scale Translation Project','Landing') ?></p>
             </div>
         </div>
         <div class="col-md-3 text-center wow fadeInRight">
             <div>
                 <i class="fa fa-cogs features-icon" style="font-size: 80px;"></i>
                 <h2>Feature-rich Platform</h2>
-                <p style="font-size: 20px;"><?php echo $this->translate('While Ensuring the Translation Speed, Our Language Quality Assurance benefits you by','Landing') ?></p>
+                <p style="font-size: 18px; color: #676a6c;"><?php echo $this->translate('While Ensuring the Translation Speed, Our Language Quality Assurance benefits you by','Landing') ?></p>
             </div>
         </div>
         <div class="col-md-3 text-center wow fadeInRight">
             <div>
                 <i class="fa fa-smile-o features-icon" style="font-size: 80px;"></i>
                 <h2>Competitive Value</h2>
-                <p style="font-size: 20px;"><?php echo $this->translate('Quality Control for Large Scale Translation Project','Landing') ?></p>
+                <p style="font-size: 18px; color: #676a6c;"><?php echo $this->translate('Quality Control for Large Scale Translation Project','Landing') ?></p>
             </div>
         </div>
     </div>
@@ -114,49 +114,54 @@ echo $this->inlineScript()
 
                 <br><br><br>
                 <form class="showPriceForm" name="showPriceForm" class="form-horizontal" role="form">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label"><?php echo $this->translate('Source Language','Landing') ?></label>
-                            <div class="col-sm-8">
-                                <select ngChange="updateTargetLanguages()" ng-model="params.sourceLanguage"
-                                        required name="sourceLanguage" class="form-control required">
-                                    <option value=""><?php echo $this->translate('Please select','Landing') ?></option>
-                                    <option ng-repeat="id in sourceLanguages" value="{{id}}"><?php echo $this->translate('{{languages[id] | i18n}}','Landing');?></option>
-                                </select>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label text-navy" style="font-size: 16px; padding-top: 7px;"><?php echo $this->translate('Source Language','Landing') ?></label>
+                                <div class="col-sm-8">
+                                    <select ngChange="updateTargetLanguages()" ng-model="params.sourceLanguage"
+                                            required name="sourceLanguage" class="form-control required">
+                                        <option value=""><?php echo $this->translate('Please select','Landing') ?></option>
+                                        <option ng-repeat="id in sourceLanguages" value="{{id}}"><?php echo $this->translate('{{languages[id] | i18n}}','Landing');?></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label text-navy" style="font-size: 16px; padding-top: 7px;"><?php echo $this->translate('Target Language','Landing') ?> </label>
+                                <div class="col-sm-8">
+                                    <select ng-model="params.targetLanguage" required name="targetLanguage"
+                                            class="form-control required">
+                                        <option value=""><?php echo $this->translate('Please select','Landing') ?></option>
+                                        <option ng-repeat="id in targetLanguages" value="{{id}}"><?php echo $this->translate("{{languages[id] | i18n}}","Landing");?></option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label"><?php echo $this->translate('Target Language','Landing') ?> </label>
-                            <div class="col-sm-8">
-                                <select ng-model="params.targetLanguage" required name="targetLanguage"
-                                        class="form-control required">
-                                    <option value=""><?php echo $this->translate('Please select','Landing') ?></option>
-                                    <option ng-repeat="id in targetLanguages" value="{{id}}"><?php echo $this->translate("{{languages[id] | i18n}}","Landing");?></option>
-                                </select>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label text-navy" style="font-size: 16px; padding-top: 7px;">
+                                    <?php echo $this->translate('Word Count','Landing') ?></label>
+                                <div class="col-sm-8">
+                                    <input name="wordCount" ng-model="params.wordCount" type="number"
+                                           class="form-control required" required>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">
-                                <?php echo $this->translate('Word Count','Landing') ?></label>
-                            <div class="col-sm-8">
-                                <input name="wordCount" ng-model="params.wordCount" type="number"
-                                       class="form-control required" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">
-                                <?php echo $this->translate('Choose Currency','Landing') ?></label>
-                            <div class="col-sm-8">
-                                <select ng-model="params.currency" name="currency" required class="form-control required">
-                                    <option value="USD">USD</option>
-                                    <option value="CNY">CNY</option>
-                                </select>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label text-navy" style="font-size: 16px; padding-top: 7px;">
+                                    <?php echo $this->translate('Choose Currency','Landing') ?></label>
+                                <div class="col-sm-8">
+                                    <select ng-model="params.currency" name="currency" required class="form-control required">
+                                        <option value="USD">USD</option>
+                                        <option value="CNY">CNY</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -179,16 +184,16 @@ echo $this->inlineScript()
                     <li class="pricing-title">
                         <?php echo $this->translate('Professional','Landing') ?>
                     </li>
-                    <li class="pricing-desc" style="font-size: 16px;">
+                    <li class="pricing-desc" style="font-size: 16px; color: #676a6c;">
                         <?php echo $this->translate('Fast translation by native speakers','Landing') ?>
                     </li>
                     <li class="pricing-price" style="font-size: 20px;">
                         <span>{{params.currency}} {{price.professionalPrice | number:3}}</span> / <?php echo $this->translate('per word','Landing') ?>
                     </li>
-                    <li style="font-size: 15px;"><i class="fa fa-check"></i> <?php echo $this->translate('Emails, Letters','Landing') ?></li>
-                    <li style="font-size: 15px;"><i class="fa fa-check"></i> <?php echo $this->translate('Daily content, social media posts','Landing') ?></li>
-                    <li style="font-size: 15px;"><i class="fa fa-check"></i> <?php echo $this->translate('User reviews, user generated content','Landing') ?></li>
-                    <li style="font-size: 15px;"><i class="fa fa-check"></i> <?php echo $this->translate('Internal communication, customer support','Landing') ?></li>
+                    <li style="font-size: 15px; color: #676a6c;"><i class="fa fa-check"></i> <?php echo $this->translate('Emails, Letters','Landing') ?></li>
+                    <li style="font-size: 15px; color: #676a6c;"><i class="fa fa-check"></i> <?php echo $this->translate('Daily content, social media posts','Landing') ?></li>
+                    <li style="font-size: 15px; color: #676a6c;"><i class="fa fa-check"></i> <?php echo $this->translate('User reviews, user generated content','Landing') ?></li>
+                    <li style="font-size: 15px; color: #676a6c;"><i class="fa fa-check"></i> <?php echo $this->translate('Internal communication, customer support','Landing') ?></li>
                     <li class="pricing-price" style="font-size: 20px;">
                         <span>{{params.currency}} {{price.professionalPrice*params.wordCount | number:2}}</span>
                     </li>
@@ -203,16 +208,16 @@ echo $this->inlineScript()
                     <li class="pricing-title">
                         <?php echo $this->translate('Business','Landing') ?>
                     </li>
-                    <li class="pricing-desc" style="font-size: 16px;">
+                    <li class="pricing-desc" style="font-size: 16px; color: #676a6c;">
                         <?php echo $this->translate('Professional quality translation plus proofreading','Landing') ?>
                     </li>
                     <li class="pricing-price" style="font-size: 20px;">
                         <span>{{params.currency}} {{price.businessPrice | number:3}}</span> / <?php echo $this->translate('per word','Landing') ?>
                     </li>
-                    <li style="font-size: 15px;"><i class="fa fa-check"></i> <?php echo $this->translate('Application/introduction, website localization','Landing') ?></li>
-                    <li style="font-size: 15px;"><i class="fa fa-check"></i> <?php echo $this->translate('Business presentations, reports, articles','Landing') ?></li>
-                    <li style="font-size: 15px;"><i class="fa fa-check"></i> <?php echo $this->translate('Instructions, manuals, guidelines','Landing') ?></li>
-                    <li style="font-size: 15px;"><i class="fa fa-check"></i> <?php echo $this->translate('Points translation, product description','Landing') ?></li>
+                    <li style="font-size: 15px; color: #676a6c;"><i class="fa fa-check"></i> <?php echo $this->translate('Application/introduction, website localization','Landing') ?></li>
+                    <li style="font-size: 15px; color: #676a6c;"><i class="fa fa-check"></i> <?php echo $this->translate('Business presentations, reports, articles','Landing') ?></li>
+                    <li style="font-size: 15px; color: #676a6c;"><i class="fa fa-check"></i> <?php echo $this->translate('Instructions, manuals, guidelines','Landing') ?></li>
+                    <li style="font-size: 15px; color: #676a6c;"><i class="fa fa-check"></i> <?php echo $this->translate('Points translation, product description','Landing') ?></li>
                     <li class="pricing-price" style="font-size: 20px;">
                         <span>{{params.currency}} {{price.businessPrice*params.wordCount | number:2}}</span>
                     </li>
@@ -227,16 +232,16 @@ echo $this->inlineScript()
                     <li class="pricing-title">
                         <?php echo $this->translate('Premium','Landing') ?>
                     </li>
-                    <li class="pricing-desc" style="font-size: 16px;">
+                    <li class="pricing-desc" style="font-size: 16px; color: #676a6c;">
                         <?php echo $this->translate('Professional plus extra proofreading','Landing') ?>
                     </li>
                     <li class="pricing-price" style="font-size: 20px;">
                         <span>{{params.currency}} {{price.premiumPrice | number:3}}</span> / <?php echo $this->translate('per word','Landing') ?>
                     </li>
-                    <li style="font-size: 15px;"><i class="fa fa-check"></i> <?php echo $this->translate('Posters','Landing') ?></li>
-                    <li style="font-size: 15px;"><i class="fa fa-check"></i> <?php echo $this->translate('Webpage, Webpage copy','Landing') ?></li>
-                    <li style="font-size: 15px;"><i class="fa fa-check"></i> <?php echo $this->translate('News release','Landing') ?></li>
-                    <li style="font-size: 15px;"><i class="fa fa-check"></i> <?php echo $this->translate('Promotional/marketing materials','Landing') ?></li>
+                    <li style="font-size: 15px; color: #676a6c;"><i class="fa fa-check"></i> <?php echo $this->translate('Posters','Landing') ?></li>
+                    <li style="font-size: 15px; color: #676a6c;"><i class="fa fa-check"></i> <?php echo $this->translate('Webpage, Webpage copy','Landing') ?></li>
+                    <li style="font-size: 15px; color: #676a6c;"><i class="fa fa-check"></i> <?php echo $this->translate('News release','Landing') ?></li>
+                    <li style="font-size: 15px; color: #676a6c;"><i class="fa fa-check"></i> <?php echo $this->translate('Promotional/marketing materials','Landing') ?></li>
                     <li class="pricing-price" style="font-size: 20px;">
                         <span>{{params.currency}} {{price.premiumPrice*params.wordCount | number:2}}</span>
                     </li>
@@ -266,21 +271,21 @@ echo $this->inlineScript()
                 <div>
                     <i class="fa fa-user features-icon"></i>
                     <h2><?php echo $this->translate('Register','Landing') ?></h2>
-                    <p class="text-navy" style="font-size: 18px;"><?php echo $this->translate('Sign up PaperTask, you may work with PaperTask together for translation jobs.','Landing') ?></p>
+                    <p class="text-navy" style="font-size: 18px; color: #676a6c;"><?php echo $this->translate('Sign up PaperTask, you may work with PaperTask together for translation jobs.','Landing') ?></p>
                 </div>
             </div>
             <div class="col-md-4 text-center wow fadeInRight">
                 <div>
                     <i class="fa fa-check features-icon"></i>
                     <h2><?php echo $this->translate('Qualify','Landing') ?></h2>
-                    <p class="text-navy" style="font-size: 18px;"><?php echo $this->translate('If you want to get a job here, you must pass our certification, after that, you can get the translation tasks.','Landing') ?></p>
+                    <p class="text-navy" style="font-size: 18px; color: #676a6c;"><?php echo $this->translate('If you want to get a job here, you must pass our certification, after that, you can get the translation tasks.','Landing') ?></p>
                 </div>
             </div>
             <div class="col-md-4 text-center wow fadeInRight">
                 <div>
                     <i class="fa fa-globe features-icon"></i>
                     <h2><?php echo $this->translate('Work Free','Landing') ?></h2>
-                    <p class="text-navy" style="font-size: 18px;"><?php echo $this->translate('In success pass our testing, you can get the translation jobs and work with us, look forward to your joining!','Landing') ?></p>
+                    <p class="text-navy" style="font-size: 18px; color: #676a6c;"><?php echo $this->translate('In success pass our testing, you can get the translation jobs and work with us, look forward to your joining!','Landing') ?></p>
                 </div>
             </div>
         </div>
