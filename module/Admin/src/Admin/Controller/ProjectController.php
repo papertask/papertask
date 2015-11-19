@@ -617,6 +617,7 @@ class ProjectController extends AbstractActionController
         foreach ( $invoice as $k => $v ) {
             $invoices[$k] = $v->getData();
         } 
+		$invoices['invoice_no'] = "INV-" . $project_data["project_no"];
 		$invoices = $invoices[0];
 		$invoiceDate = '';
 		$dueDate = '';
