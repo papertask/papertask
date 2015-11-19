@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Papertask\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 14:16+0800\n"
-"PO-Revision-Date: 2015-02-12 23:55+0800\n"
+"PO-Revision-Date: 2015-11-19 11:34+0800\n"
 "Last-Translator: \n"
 "Language-Team: Hat Dao <enjoy3013@gmail.com>\n"
 "Language: en_US\n"
@@ -11,8 +11,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: translate\n"
-"X-Poedit-Basepath: /home/hat/Projects/papertask/\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Poedit-Basepath: /home/hat/Projects/papertask\n"
+"X-Generator: Poedit 1.8.6\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ./module/Landing\n"
 
@@ -86,10 +86,28 @@ msgstr "您可以很容易的通过我们的平台在线定否我们的翻译服
 msgid "Language Quality Assurance"
 msgstr "语言质量保证"
 
+msgid "Reliable and Scalable"
+msgstr "规模与可靠性"
+
+msgid "Feature-rich Platform"
+msgstr "功能丰富的平台系统"
+
+msgid "Competitive Value"
+msgstr "价格竞争力"
+
 #: module/Landing/view/landing/index/index.phtml:59
 #: module/Landing/view/landing/index/index.phtml:115
-msgid "While Ensuring the Translation Speed, Our Language Quality Assurance benefits you by"
-msgstr "在保证翻译速度的同时，我们的语言质量保证体系可以"
+msgid "While ensuring the translation speed, our process control and professional translators guarantee language quality"
+msgstr "在保证翻译速度的同时，我们的流程控制以及专业翻译可以确保翻译的质量"
+
+msgid "PaperTask has more than 5000 professional native speakers located in 50+ countries helping clients globally"
+msgstr "PaperTask在全球50多个国家有超过5000多专业母语翻译服务于我们的全球客户"
+
+msgid "Through PaperTask Continuous Dynamic Translation, project setup, deadline calculations, translator assignments, document revisions, and job kick-offs are all automated"
+msgstr "通过PaperTask的连续动态翻译，项目设定、任务期限计算、专业翻译的分配、翻译文件的修改、以及任务开始在很大程度上都是自动完成的"
+
+msgid "Guaranteed high quality and competitive price in the market, more than 100 companies worldwide are using PaperTask to be their online translation platform"
+msgstr "在保持高质量的同时确保价格在市场中有绝对的竞争力，超过100多家全球企业正在使用PaperTask作为他们的在线翻译平台"
 
 #: module/Landing/view/landing/index/index.phtml:62
 msgid "Delivering translation quality"
