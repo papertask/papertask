@@ -82,7 +82,7 @@ return array(
     ),
 
     // Doctrine
-    'doctrine' => array(
+    /*'doctrine' => array(
         'driver' => array(
             'employer_entities' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
@@ -93,5 +93,5 @@ return array(
                 'drivers' => array(
                     'Employer\Entity' => 'employer_entities'
                 )
-            ))),
+            ))),*/
 );
