@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+var_dump($this->route);exit; 
 ?>
 <html lang="en">
 <head>
@@ -78,6 +79,7 @@
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
+					
                     <li ><a href="<?php echo $this->url($this->route,array("lang"=>"en-US")) ?>">ENGLISH</a></li>
                     <li selected="selected"><a href="<?php echo $this->url($this->route,array("lang"=>"zh-CN")) ?>">简体中文</a></li>
                 </ul>

@@ -30,6 +30,7 @@ class LoginController extends AbstractActionController
     }
 
     public function indexAction(){
+	//var_dump("dasdas");exit;
         $lang = $this->params()->fromRoute('lang');
         if($this->getCurrentUser()){
             return $this->redirect()->toUrl("/".$lang.'/admin/dashboard');
@@ -48,7 +49,8 @@ class LoginController extends AbstractActionController
                 }
             }
         }
-        return new ViewModel(array('form' => $form));
+		//$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REDIRECT_URL'];
+        return new ViewModel(array('form' => $form,'route' => 'http://papertask.local:8081/en-US/user/login/'));
     }
 
     public function socialAction(){
