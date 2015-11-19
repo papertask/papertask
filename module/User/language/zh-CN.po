@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonUser\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2015-02-05 18:19+0800\n"
+"PO-Revision-Date: 2015-11-19 13:52+0800\n"
 "Last-Translator: Evan Coury <me@evancoury.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: translate\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.8.6\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../view/layout/layout.phtml:6 ../view/layout/layout.phtml:33
@@ -61,7 +61,7 @@ msgstr "我需要翻译服务"
 
 #: module/User/view/user/register/index.phtml:15
 msgid "I have translation requirements, need to translate documents from one language to other languages."
-msgstr "有翻译任务需求， 需要专业翻译帮助我将文档从一种语言翻译到其他语言。"
+msgstr "有翻译任务需求， 需要专业翻译帮助我将文档翻译到其他语言。"
 
 #: module/User/view/user/register/index.phtml:23
 msgid "Find translation works"
@@ -70,6 +70,12 @@ msgstr "我要找翻译工作"
 #: module/User/view/user/register/index.phtml:26
 msgid "I am a professional translator, hope to find a job, make money at here, and grow my career."
 msgstr "我是专业的翻译，希望在这里找工作，赚钱， 和职业发展。"
+
+msgid "Order Translation Service"
+msgstr "订购翻译服务"
+
+msgid "Work With PaperTask"
+msgstr "与PaperTask一起工作"
 
 #: module/User/view/user/register/form.phtml:1
 msgid "Freelancer"

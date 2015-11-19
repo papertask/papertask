@@ -13,7 +13,7 @@
                 </tr>
                 <tr>
                     <th><?php echo $this->translate('Quality Level', 'Application'); ?></th>
-                    <th class="text-right" ng-show="totalitems > 0"><span class="label label-primary"><?php echo $this->translate('{{project.serviceLevel.name}}', 'Application'); ?></span> {{CurrentCurrency}} {{price | currency : '' : 2}}/Word</th>
+                    <th class="text-right" ng-show="totalitems > 0"><span class="label label-primary"><?php echo $this->translate('{{project.serviceLevel.name}}', 'Application'); ?></span> {{CurrentCurrency}} {{price | currency : '' : 2}}/<?php echo $this->translate('Word', 'Application'); ?></th>
                 </tr>
                 </thead>
               </table>
@@ -34,5 +34,7 @@
                 </tr>
                 </thead>
               </table>
-              <p>Estimated delivery <strong>{{hours | currency : '' : 0}} hours.</strong></p> <!-- this hour based on the word count of the files, algorithm is estimate time = total word count / 2000 = number of hours, if the result is 1.2, then show 2, if 1.7, show 2 also-->
+              <!--
+              <p><?php echo $this->translate('Estimated delivery', 'Application'); ?> <strong>{{hours | currency : '' : 0}} <?php echo $this->translate('hours.', 'Application'); ?></strong></p> <!-- this hour based on the word count of the files, algorithm is estimate time = total word count / 2000 = number of hours, if the result is 1.2, then show 2, if 1.7, show 2 also-->
+              
             </div>

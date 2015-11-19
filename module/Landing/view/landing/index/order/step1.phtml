@@ -2,8 +2,10 @@
 	<div class="panel-heading">
                           <div class="panel-options">
                               <ul class="nav nav-tabs">
-                                  <li class="active"><a href="#tab-1" data-toggle="tab">Uoload Files</a></li>
+                                  <li class="active"><a href="#tab-1" data-toggle="tab"><?php echo $this->translate('Upload Files', 'Application'); ?></a></li>
+                                  <!--
                                   <li class=""><a href="#tab-2" data-toggle="tab">Paste Text</a></li>
+                                  -->
                               </ul>
                           </div>
                       </div>
@@ -13,14 +15,13 @@
 			<div class="tab-pane active" id="tab-1">
 			<div class="col-md-12 well" ng-controller="AppController"
 													nv-file-drop="" uploader="uploader">
-				<h4>We accept the following files, under <span class="text-danger">50MB</span> size: </h4>
-											<p>Allowed file types are "txt, zip, rar, html, htm, xml, gif, jpeg, jpg, png, doc, docx, ppt, pptx, pdf, chm, xls, xlsx, txt, zip, rar, html, htm, xml".</p>
-											<p><span class="text-danger">If files are bigger then 50MB, pleasae put the download link into the "Project Information" at bottom.</span></p>
+				<h4><?php echo $this->translate('We accept the following files, under', 'Application'); ?> <span class="text-danger">50MB</span> <?php echo $this->translate('size:', 'Application'); ?> </h4>
+											<p>"txt, zip, rar, html, htm, xml, gif, jpeg, jpg, png, doc, docx, ppt, pptx, pdf, chm, xls, xlsx, txt, zip, rar, html, htm, xml"</p>
 											<br>
 											
 				<div class="col-md-4" id="files">
 															<span class="btn btn-primary btn fileinput-button"> <i
-																class="fa fa-cloud-upload"></i> <span>Select files</span>
+																class="fa fa-cloud-upload"></i> <span><?php echo $this->translate('Select files', 'Application'); ?></span>
 																<input id="fileupload" type="file" name="files[]"
 																nv-file-select="" uploader="uploader" multiple>
 															</span>
@@ -42,8 +43,8 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>File Name</th>
-								<th>Word Count</th>
+								<th><?php echo $this->translate('File Name', 'Application'); ?></th>
+								<th><?php echo $this->translate('Word Count', 'Application'); ?></th>
 								<th></th>
 							</tr>
 						</thead>
@@ -54,14 +55,14 @@
 								<td class="project-completion">{{item.count }} words</td>
 								<td class="project-actions text-right"><a href="#"
 									class="btn btn-danger btn-xs" ng-click="removeItem(item)"><i class="fa fa-trash-o"></i>
-										Delete </a></td>
+										<?php echo $this->translate('Delete', 'Application'); ?> </a></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div class="text-center">
 					<button id="" type="button" class="btn btn-primary btn-lg"
-						ng-click="initStep2()">Next</button>
+						ng-click="initStep2()"><?php echo $this->translate('Next', 'Application'); ?></button>
 					<!-- next button show after at least one file is uploaded -->
 				</div>
 			</div>

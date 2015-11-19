@@ -3,7 +3,7 @@
 	<div class="col-md-12 well">
 		<div class="row">
 			<div class="col-md-3">
-				<h5><?php echo $this->translate('Select Currency', 'Application'); ?></h5>
+				<h3><?php echo $this->translate('Select Currency', 'Application'); ?></h3>
 				<div data-toggle="buttons">
 					<!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
 					<labels style="margin-right: 5px"  class="btn btn-outline btn-primary btn-custom {{currency == project.currency ? 'active': ''}}"
@@ -13,7 +13,7 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<h5><?php echo $this->translate('Select Quality Level', 'Application'); ?></h5>
+				<h3><?php echo $this->translate('Select Quality Level', 'Application'); ?></h3>
 				<div data-toggle="buttons">
 					<!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
 					<label style="margin-right: 5px" class="btn btn-outline btn-primary btn-custom {{ProjectServiceLevel == project.serviceLevel ? 'active': ''}}" 
@@ -27,7 +27,7 @@
 				</div>
 			</div>
 			<div class="col-md-3">
-				<h5><?php echo $this->translate('Translate Graphics', 'Application'); ?></h5>
+				<h3><?php echo $this->translate('Translate Graphics', 'Application'); ?></h3>
 				<div data-toggle="buttons">
 					<!-- here put it in default NO -->
 					<label style="margin-right: 5px" class="btn btn-outline btn-primary btn-custom {{transGraph == project.transGraph ? 'active': ''}}" 
@@ -43,7 +43,7 @@
 		<hr>
 		<div class="row">
 			<div class="col-md-6">
-				<h4>Translate From *</h4>
+				<h3><?php echo $this->translate('Translate From', 'Application'); ?> *</h3>
 				<select id="sourceLanguage" required class="form-control required valid" name="sourceLanguage"
 					aria-required="true"
 					ng-options="language.name for language in sourceLanguages track by language.id"
@@ -54,7 +54,7 @@
 				</select>
 			</div>
 			<div class="col-md-6">
-				<h4>Translate To *</h4>
+				<h3><?php echo $this->translate('Translate To', 'Application'); ?> *</h3>
 				<select class="form-control required valid" name="targetLanguage"
 					aria-required="true"
 					ng-options="language.name for language in modifiedTarLangs track by language.id"

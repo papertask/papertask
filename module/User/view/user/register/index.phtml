@@ -3,42 +3,51 @@
 <br /><br /><br />
 <h3><?php echo $this->translate('Register to PaperTask','User') ?></h3>
 <br />
-<div class="row wrapper wrapper-content animated fadeInRight">
-    <div class="col-lg-5 col-lg-offset-1">
-        <div class="contact-box center-version">
 
+<div class="row wrapper wrapper-content animated fadeInRight">
+
+    <div class="col-lg-12">
+        <div class="col-lg-6">
             <a href="<?php echo $this->url('user',array("lang"=>$this->translate('lang','Application'))) ?>/register/employer">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content text-center p-md">
 
                 <span class="text-navy"><i class="fa fa-briefcase features-icon" style="font-size: 80px;"></i></span>
-                <h1 class="m-b-xs" style="font-size: 30px;"><strong><?php echo $this->translate('Need translation services','User') ?></strong></h1>
+                <h1 class="m-b-xs text-navy" style="font-size: 30px;"><strong><?php echo $this->translate('Need translation services','User') ?></strong></h1>
                 <br />
-                <div class="m-t-md" style="font-size: 19px;">
+                <div class="m-t-md text-navy" style="font-size: 19px;">
                     <p><?php echo $this->translate('I have translation requirements, need to translate documents from one language to other languages.','User') ?>
                     </p>
                 </div>
                 <br>
-                <div class="btn btn-lg btn-primary">Hire</div>
+                <div class="btn btn-lg btn-primary"><?php echo $this->translate('Order Translation Service','User') ?></div>
+                </div>
+            </div>
             </a>
-
         </div>
-    </div>
-    <div class="col-lg-5">
-        <div class="contact-box center-version">
 
+        <div class="col-lg-6">
             <a href="<?php echo $this->url('user',array("lang"=>$this->translate('lang','Application'))) ?>/register/freelancer">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content text-center p-md">
+
+            
 
                 <span class="text-navy"><i class="fa fa-user features-icon" style="font-size: 80px;"></i></span>
-                <h1 class="m-b-xs" style="font-size: 30px;"><strong><?php echo $this->translate('Find translation works','User') ?></strong></h1>
+                <h1 class="m-b-xs text-navy" style="font-size: 30px;"><strong><?php echo $this->translate('Find translation works','User') ?></strong></h1>
                 <br />
-                <div class="m-t-md">
+                <div class="m-t-md text-navy">
                     <p style="font-size: 19px;"><?php echo $this->translate('I am a professional translator, hope to find a job, make money at here, and grow my career.','User') ?>
                     </p>
                 </div>
                 <br>
-                <div class="btn btn-lg btn-primary">Work</div>
+                <div class="btn btn-lg btn-primary"><?php echo $this->translate('Work With PaperTask','User') ?></div>
+            
+                </div>
+            </div>
             </a>
-
         </div>
     </div>
 </div>
+
 

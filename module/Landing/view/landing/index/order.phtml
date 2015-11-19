@@ -1,4 +1,4 @@
-<?php $this->headTitle($this->translate('ORDER YOUR TRANSLATION')) ?>
+<?php $this->headTitle($this->translate('ORDER YOUR TRANSLATION', 'Landing')) ?>
 
 <!-- Le styles -->
 <?php $this->headLink()
@@ -184,10 +184,10 @@ tbody {
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="page-scroll" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>#ovewview"><?php echo $this->translate('Ovewview', 'Application'); ?></a></li>
+                <li><a class="page-scroll" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>#overview"><?php echo $this->translate('Overview', 'Application'); ?></a></li>
                 <li><a class="page-scroll" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>#pricing"><?php echo $this->translate('Languages and Pricing', 'Application'); ?></a></li>
                 <li><a class="page-scroll" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>#freelancer"><?php echo $this->translate('Freelancer', 'Application'); ?></a></li>
-                <li><a class="page-scroll" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>#client"><?php echo $this->translate('client', 'Application'); ?></a></li>
+                <li><a class="page-scroll" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>#client"><?php echo $this->translate('Client', 'Application'); ?></a></li>
                 <li><a class="page-scroll" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>#contact"><?php echo $this->translate('Contact', 'Application'); ?></a></li>
                 <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                 <li>
@@ -208,21 +208,19 @@ tbody {
     <div class="container">
       <div class="row">
         <div class="col-lg-8">
-          
-
             <div class=" form-group">
               <div class="col-md-12">
                 <ul class="nav nav-pills nav-justified thumbnail setup-panel">
                   <li class="active"><a href="#step-1">
-                      <h4 class="list-group-item-heading"><?php echo $this->translate('Step 1', 'Application'); ?></h4>
-                      <p class="list-group-item-text">Upload the file(s)</p>
+                      <h2 class="list-group-item-heading"><?php echo $this->translate('Step 1', 'Application'); ?></h2>
+                      <p class="list-group-item-text"><?php echo $this->translate('Upload the file(s)', 'Application'); ?></p>
                   </a></li>
                   <li class="disabled"><a href="#step-2">
-                      <h4 class="list-group-item-heading"><?php echo $this->translate('Step 2', 'Application'); ?></h4>
-                      <p class="list-group-item-text">Select Languages and Quality</p>
+                      <h2 class="list-group-item-heading"><?php echo $this->translate('Step 2', 'Application'); ?></h2>
+                      <p class="list-group-item-text"><?php echo $this->translate('Select Languages and Quality', 'Application'); ?></p>
                   </a></li>
                   <li class="disabled"><a href="#step-3">
-                      <h4 class="list-group-item-heading"><?php echo $this->translate('Step 3', 'Application'); ?></h4>
+                      <h2 class="list-group-item-heading"><?php echo $this->translate('Step 3', 'Application'); ?></h2>
                       <p class="list-group-item-text"><?php echo $this->translate('Confirm Your Information', 'Application'); ?></p>
                   </a></li>
                 </ul>
