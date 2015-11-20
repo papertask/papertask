@@ -555,7 +555,8 @@ class ProjectController extends AbstractActionController
 		// output the HTML content
 		$pdf->writeHTML($content, true, false, true, false, '');
 		$pdf->lastPage();
-		$pdf->Output("pdf-name.pdf", 'D');
+		$name = "QUO-" . $project_data['project_no'] . ".pdf";
+		$pdf->Output($name, 'D');
 		exit;
     }
 	public function invoiceprintAction(){
@@ -616,6 +617,7 @@ class ProjectController extends AbstractActionController
         foreach ( $invoice as $k => $v ) {
             $invoices[$k] = $v->getData();
         } 
+		$invoices['invoice_no'] = "INV-" . $project_data["project_no"];
 		$invoices = $invoices[0];
 		$invoiceDate = '';
 		$dueDate = '';
@@ -755,6 +757,10 @@ class ProjectController extends AbstractActionController
 		$content = $view->render($viewModel);
 		// set array for viewer preferences
 		$pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		$font = new \TCPDF_FONTS();
+		$fontx = $font->addTTFfont('vendor/tecnick.com/tcpdf/fonts/MicrosoftYaHei.ttf');
+		//$pdf->SetFont($fontx, '', 12, '', false);
+		$pdf->SetFont($fontx , '', 12,'',false);
 		$preferences = array(
 			'HideToolbar' => true,
 			'HideMenubar' => true,
@@ -780,7 +786,9 @@ class ProjectController extends AbstractActionController
 		// output the HTML content
 		$pdf->writeHTML($content, true, false, true, false, '');
 		$pdf->lastPage();
-		$pdf->Output("pdf-name.pdf", 'D');
+		$name = "INV-" . $project_data['project_no'] . ".pdf";
+		$pdf->Output($name, 'D');
+		//$pdf->Output("pdf-name.pdf", 'D');
 		exit;
     }
     
