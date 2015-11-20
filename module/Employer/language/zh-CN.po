@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonAdmin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2015-10-05 22:27+0700\n"
+"PO-Revision-Date: 2015-11-20 15:54+0800\n"
 "Last-Translator: Evan Coury <me@evancoury.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: translate\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.7.3\n"
+"X-Generator: Poedit 1.8.6\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../view/layout/layout.phtml:6 ../view/layout/layout.phtml:33
@@ -175,3 +175,18 @@ msgstr "异常"
 
 msgid "Order a Translation"
 msgstr "订购翻译服务"
+
+msgid "I Need a Quote"
+msgstr "需要翻译报价"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Project ID"
+msgstr "项目号"
+
+msgid "Project Info"
+msgstr "项目信息"
+
+msgid "Price"
+msgstr "价格"
