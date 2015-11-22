@@ -50,7 +50,7 @@ class LoginController extends AbstractActionController
             }
         }
 		//$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REDIRECT_URL'];
-        return new ViewModel(array('form' => $form,'route' => 'http://papertask.local:8081/en-US/user/login/'));
+        return new ViewModel(array('form' => $form));
     }
 
     public function socialAction(){

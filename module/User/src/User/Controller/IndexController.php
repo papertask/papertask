@@ -17,7 +17,11 @@ use User\Entity\User;
 class IndexController extends AbstractActionController
 {
     public function indexAction(){
-        return new ViewModel();
+        //var_dump("dadad");exit;
+		$lang = $this->params()->fromRoute('lang');
+		$next ='/user/login';
+		return $this->redirect()->toUrl('/'.$lang.$next);
+		//return new ViewModel();
     }
 
     public function testAction()
