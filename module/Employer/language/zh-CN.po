@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonAdmin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2015-11-20 15:54+0800\n"
+"PO-Revision-Date: 2015-11-23 17:52+0800\n"
 "Last-Translator: Evan Coury <me@evancoury.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -190,3 +190,24 @@ msgstr "项目信息"
 
 msgid "Price"
 msgstr "价格"
+
+msgid "Quote No."
+msgstr "报价号码"
+
+msgid "Reference"
+msgstr "项目信息"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "View"
+msgstr "查看"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "Source"
+msgstr "源语言"
+
+msgid "Target"
+msgstr "目标语言"
