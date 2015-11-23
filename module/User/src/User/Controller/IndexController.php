@@ -18,10 +18,10 @@ class IndexController extends AbstractActionController
 {
     public function indexAction(){
         //var_dump("dadad");exit;
-		$lang = $this->params()->fromRoute('lang');
-		$next ='/user/login';
-		return $this->redirect()->toUrl('/'.$lang.$next);
-		//return new ViewModel();
+		//$lang = $this->params()->fromRoute('lang');
+		//$next ='/user/login';
+		//return $this->redirect()->toUrl('/'.$lang.$next);
+		return new ViewModel();
     }
 
     public function testAction()
