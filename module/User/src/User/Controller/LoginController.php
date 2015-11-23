@@ -32,17 +32,28 @@ class LoginController extends AbstractActionController
     public function indexAction(){
 	//var_dump("dasdas");exit;
         $lang = $this->params()->fromRoute('lang');
-        if($this->getCurrentUser()){
-            return $this->redirect()->toUrl("/".$lang.'/admin/dashboard');
-        }
+		if($this->getCurrentUser()){
+			if($this->getCurrentUser()->isEmployer()){
+				
+				return $this->redirect()->toUrl("/".$lang.'/employer/dashboard');
+			}
+			else {
+				return $this->redirect()->toUrl("/".$lang.'/admin/dashboard');
+			}
+		}
         $form = $this->getForm();
         $request = $this->getRequest();
         if($request->isPost()){
             $form->setData($request->getPost());
             if($form->isValid()){
                 if($form->validate($this,$lang)){
-                    $next ='/admin/dashboard';
-                    if($request->getQuery('next')){
+					if($this->getCurrentUser()->isEmployer()){
+						$next ='/employer/dashboard';
+					}
+					else {
+						$next ='/admin/dashboard';
+					}
+					if($request->getQuery('next')){
                         $next = $request->getQuery('next');
                     }
                     return $this->redirect()->toUrl('/'.$lang.$next);
