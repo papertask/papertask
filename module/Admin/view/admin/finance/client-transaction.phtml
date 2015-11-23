@@ -1,39 +1,22 @@
 <?php $this->headTitle($this->translate('Unpaid Project')) ?>
 <!-- Scripts -->
 <?php $this->headLink()
-    ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
-	 ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+    ->prependStylesheet($this->basePath() . '/v2/js/plugins/footable/footable.core.css')
 ?>
 
 <?php
 $this->headScript ()
-	->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
-	->prependFile ( $this->basePath () . '/js/admin/finance/client-transaction.js' )
-	->prependFile($this->basePath() . '/js/admin/common/angular/ItemListController.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
-    ->prependFile($this->basePath() . '/js/admin/angular-steps.js')
-    ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
-    ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload', 'ui.bootstrap']);")
-    ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-tpls-0.11.2.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-0.11.2.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
-    ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
-    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
-    ->prependFile($this->basePath() . '/js/inspinia.js');
+	
+	->prependFile ( $this->basePath () . '/v2/js/admin/finance/client-transaction.js' )
+	->prependFile($this->basePath() . '/v2/js/admin/common/angular/ItemListController.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/CurrentUser.js')
+    ->prependScript("angularApp = angular.module('project', ['ui.bootstrap']);")
+    ->prependFile($this->basePath() . '/v2/js/plugins/angular-bootstrap/ui-bootstrap-0.11.2.min.js');
 
 $this->inlineScript()
     ->prependScript("
 		var LANG_CODE = '" . $this->lang_code . "';
-        var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
     ");
 ?>
 

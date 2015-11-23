@@ -9,10 +9,10 @@
     ->prependFile($this->basePath() . '/v2/js/admin/common/angular/ItemListController.js')
     ->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
     ->prependFile($this->basePath() . '/v2/js/admin/common/angular/CurrentUser.js')
-    ->prependScript("angularApp = angular.module('project', ['angularFileUpload', 'ui.bootstrap']);")
+    ->prependScript("angularApp = angular.module('project', ['ui.bootstrap']);")
     ->prependFile($this->basePath() . '/v2/js/plugins/angular-bootstrap/ui-bootstrap-0.11.2.min.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/bootbox/bootbox.min.js')
-    ->prependFile($this->basePath() . '/v2/js/plugins/footable/footable.all.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/footable/footable.all.min.js');
 ?>
 
     <script>
