@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonAdmin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2015-11-24 00:35+0800\n"
+"PO-Revision-Date: 2015-11-24 12:25+0800\n"
 "Last-Translator: Evan Coury <me@evancoury.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -223,3 +223,15 @@ msgstr "交易号码"
 
 msgid "FAPIAO No."
 msgstr "发票号码"
+
+msgid "Unpaid Projects"
+msgstr "未付款项目"
+
+msgid "Advance Search"
+msgstr "高级搜索"
+
+msgid "Project Reference"
+msgstr "项目信息"
+
+msgid "Completed Date"
+msgstr "结束日期"

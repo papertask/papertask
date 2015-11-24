@@ -1,37 +1,17 @@
 <?php $this->headTitle($this->translate(' Unpaid Projects')) ?>
 <!-- Scripts -->
 <?php $this->headLink()
-->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
-//->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
-//->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
-//->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
-//->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+	->prependStylesheet($this->basePath() . '/v2/css/plugins/footable/footable.core.css');
 ?>
 
 <?php
 $this->headScript ()
-->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
-->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
-->prependFile($this->basePath() . '/js/admin/finance/client-unpaid-project.js')
-//->prependFile($this->basePath() . '/js/admin/common/angular/ItemListController.js')
-//->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
-//->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
-//->prependFile($this->basePath() . '/js/admin/angular-steps.js')
-//->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
-->prependScript("angularApp = angular.module('project', []);")
-//->prependScript("FREELANCER_ID = {$this->freelancer_id};")
-//->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
-//->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-tpls-0.11.2.min.js')
-//->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-0.11.2.min.js')
-//->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
-//->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
-//->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
-//->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
-//->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
-//->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
-//->prependFile($this->basePath() . '/js/plugins/datapicker/bootstrap-datepicker.js')
-->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
-->prependFile($this->basePath() . '/js/inspinia.js');
+	->prependFile($this->basePath() . '/v2/js/plugins/footable/footable.all.min.js')
+	->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
+	->prependFile($this->basePath() . '/v2/js/admin/finance/client-unpaid-project.js')
+	->prependScript("angularApp = angular.module('project', []);")
+	->prependFile($this->basePath() . '/v2/js/plugins/pace/pace.min.js')
+	->prependFile($this->basePath() . '/v2/js/inspinia.js');
 
 $this->inlineScript()
 ->prependScript("
@@ -40,12 +20,21 @@ $this->inlineScript()
 		");
 ?>
 
+    <script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+
+        });
+
+    </script>
+
 <div class="row" ng-controller="ClientUnpaidProject" ng-init="init()">
 	<div class="col-lg-12">
 		<div class="wrapper wrapper-content animated fadeInUp">
 			<div class="ibox">
 				<div class="ibox-title">
-					<h5>Unpaid Projects</h5>
+					<h5><?php echo $this->translate('Unpaid Projects','Employer'); ?></h5>
 				</div>
 
 				<div class="ibox-content">
@@ -53,18 +42,18 @@ $this->inlineScript()
 					<div class="row m-b-sm m-t-sm">
 						<div class="col-md-10">
 							<div class="input-group">
-								<input type="text" placeholder="Search"
+								<input type="text" placeholder="<?php echo $this->translate('Search','Employer'); ?>"
 									class="input-sm form-control" ng-model="filter.bsearch"> <span
 									class="input-group-btn">
 									<button type="button" class="btn btn-sm btn-primary"
-										ng-click='search()'>Search</button>
+										ng-click='search()'><?php echo $this->translate('Search','Employer'); ?></button>
 								</span>
 							</div>
 						</div>
 						<div class="col-md-2">
 							<a data-toggle="collapse" href="#adv_search"
 								class="btn btn-sm btn-primary"><i class="fa fa-search"></i>
-								Advance Search</a>
+								<?php echo $this->translate('Advance Search','Employer'); ?></a>
 						</div>
 					</div>
 
@@ -75,50 +64,26 @@ $this->inlineScript()
 									<div class="row">
 										<div class="col-lg-6">
 											<div class="form-group">
-												<label class="col-sm-3 control-label"> ID</label>
+												<label class="col-sm-3 control-label"> <?php echo $this->translate('Project ID','Employer'); ?></label>
 												<div class="col-sm-9">
 													<input type="text" class="form-control" ng-model="filter.projectId">
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="col-sm-3 control-label">Order</label>
-												<div class="col-sm-9">
-													<div class="input-group date">
-														<span class="input-group-addon"><i class="fa fa-calendar"></i>
-														</span> <input type="text" data-field="datetime"
-															class="form-control" name="startDate"
-															ng-model="filter.startDate">
-													</div>
-													<div class="dtbox"></div>
 												</div>
 											</div>
 										</div>
 										<div class="col-lg-6">
 											<div class="form-group">
-												<label class="col-sm-3 control-label">Reference</label>
+												<label class="col-sm-3 control-label"><?php echo $this->translate('Reference','Employer'); ?></label>
 												<div class="col-sm-9">
 													<input type="text" class="form-control" ng-model="filter.reference">
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="col-sm-3 control-label">Completed</label>
-												<div class="col-sm-9">
-													<div class="input-group date">
-														<span class="input-group-addon"><i class="fa fa-calendar"></i>
-														</span> <input type="text" data-field="datetime"
-															class="form-control" name="dueDate"
-															ng-model="filter.dueDate">
-													</div>
-													<div class="dtbox"></div>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="text-right tooltip-demo">
 										<a class="btn btn-sm btn-primary" ng-click="advancedSearch()"><i
-											class="fa fa-search"></i> Search</a> <a
+											class="fa fa-search"></i> <?php echo $this->translate('Search','Employer'); ?></a> <a
 											class="btn btn-white btn-sm" type="reset" ng-click="reset()"><i
-											class="fa fa-times"></i> Reset</a>
+											class="fa fa-times"></i> <?php echo $this->translate('Reset','Employer'); ?></a>
 									</div>
 								</form>
 							</div>
@@ -126,19 +91,19 @@ $this->inlineScript()
 					</div>
 					<div class="hr-line-dashed"></div>
 					<div class="table-responsive">
-						<table class="table">
+						<table class="footable table table-hover toggle-arrow-tiny">
 							<thead>
 								<tr>
-									<th>Project ID</th>
-									<th>Project Reference</th>
-									<th>Status</th>
-									<th>Completed Date</th>
-									<th>Amount</th>
+									<th><?php echo $this->translate('Project ID','Employer'); ?></th>
+									<th><?php echo $this->translate('Project Reference','Employer'); ?></th>
+									<th><?php echo $this->translate('Status','Employer'); ?></th>
+									<th><?php echo $this->translate('Completed Date','Employer'); ?></th>
+									<th><?php echo $this->translate('Amount','Employer'); ?></th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr ng-repeat="project in projects">
-									<td>{{ project.project_no }}</td>
+									<td><a href="#" ng-click="goToDetail(project)">{{ project.project_no }}</a></td>
 									<td>{{ project.reference }}</td>
 									<td>{{ project.status.name }}</td>
 									<td>{{formatDate(project.dueDate.date) | date:'yyyy.MMM.dd'}}</td>
