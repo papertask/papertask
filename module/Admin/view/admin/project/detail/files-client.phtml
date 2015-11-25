@@ -2,6 +2,7 @@
     <div ng-controller="ProjectCorrectionController">
     </div>
 </div>
+
 <div class="tab-pane<?php echo ($filesTabActive == true ? ' active': '');?>" id="files" ng-controller="ProjectFilesController">
     <div class="panel-body">
         <h3>Source Files</h3>
@@ -23,11 +24,7 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-
-
-
-    <div class="panel-body">
+        <div class="hr-line-dashed"></div>
         <h3><?php echo $this->translate('Files For Review') ?></h3>
         <div class="panel-group" id="accordion_preview">
             <div class="panel panel-default" ng-repeat="lang in project.targetLanguages">

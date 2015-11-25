@@ -1,255 +1,258 @@
+<div class="tab-pane" id="invoice" ng-hide="project.status.id == 0 || project.status.id == 1">
+    <div class="panel-body">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-6">
+                    <form class="form-horizontal">
+                		<?php if (!$this->isemployer) {?>
+                            <div class="form-group" id="inv_data">
+                                <label class="col-sm-3 control-label">Invoice Date *</label>
 
-<div class="row">
- <div class="row">
-                                                    <div class="col-lg-6">
-														
-                                                        <form class="form-horizontal">
-														<?php if (!$this->isemployer) {?>
-                                                            <div class="form-group" id="inv_data">
-                                                                <label class="col-sm-3 control-label">Invoice Date *</label>
+                                <div class="col-sm-6 input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                					<input data-field="datetime" readonly type="text" name="invoiceDate" ng-model="invoice.invoiceDate_tmp"
+                					class="form-control required valid" data-errorplace="element.parent().before(error)"/>
+                                    <span class="input-group-btn"  >
+                                        <button type="button" class="btn btn-primary" ng-click="setinvoiceDate()">Set</button> 
+                                    </span>
+                                </div>
+                				<div class="dtbox"></div>
 
-                                                                <div class="col-sm-6 input-group date">
-                                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-																	<input data-field="datetime" readonly type="text" name="invoiceDate" ng-model="invoice.invoiceDate_tmp"
-																	class="form-control required valid" data-errorplace="element.parent().before(error)"/>
-                                                                    <span class="input-group-btn"  >
-                                                                        <button type="button" class="btn btn-primary" ng-click="setinvoiceDate()">Set</button> 
-                                                                    </span>
-                                                                </div>
-																<div class="dtbox"></div>
+                            </div>
+                		<?php } ?>
+                    </form>	
+                </div>
+                <div class="col-lg-6" align="right">
+                    <a ng-href="{{url_downloadInvoice}}" target="_blank"  class="btn btn-white" ng-click="downloadInvoice()"><i class="fa fa-file-pdf-o " ></i> Download </a>
+            		<a ng-href="{{url_printInvoice}}" target="_blank" class="btn btn-primary" ng-click="printInvoice()"><i class="fa fa-print"></i> Print Invoice </a>
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+        												
+            <div id="divToPrint">												
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h4>Invoice No. : <span class="text-navy">INV-{{ project.project_no }}</span></h4>
+                        <h4>PO No. : <span class="text-navy">{{ project.po }}</span></h4>
+                        
+                        <h5>From:</h5>
+                        <strong>{{ project.pm.name }}</strong><br>
+                        <strong>Project Manager</strong><br>
+                        <address>
+                            <strong>{{companyinfo1.name}}</strong><br>
+                            {{companyinfo1.address}}<br>
+                            {{companyinfo1.city}}, {{companyinfo1.country.name}}<br>
+                            <abbr title="Phone">P:</abbr> {{companyinfo1.telephone}}
+                        </address>
+                    </div>
 
-                                                            </div>
-														<?php } ?>	
-                                                    </div>
-                                                    <div class="col-lg-6" align="right">
-                                                        <a ng-href="{{url_downloadInvoice}}" target="_blank"  class="btn btn-white" ng-click="downloadInvoice()"><i class="fa fa-file-pdf-o " ></i> Download </a>
-														<a ng-href="{{url_printInvoice}}" target="_blank" class="btn btn-primary" ng-click="printInvoice()"><i class="fa fa-print"></i> Print Invoice </a>
-                                                    </div>
-                                                </div>
-                                                <div class="hr-line-dashed"></div>
-												
-<div id="divToPrint">												
-<div class="row">
-    <div class="col-xs-6">
-        <h4>Invoice No. : <span class="text-navy">INV-{{ project.project_no }}</span></h4>
-        <h4>PO No. : <span class="text-navy">{{ project.po }}</span></h4>
-        
-        <h5>From:</h5>
-        <strong>{{ project.pm.name }}</strong><br>
-        <strong>Project Manager</strong><br>
-        <address>
-            <strong>{{companyinfo1.name}}</strong><br>
-            {{companyinfo1.address}}<br>
-            {{companyinfo1.city}}, {{companyinfo1.country.name}}<br>
-            <abbr title="Phone">P:</abbr> {{companyinfo1.telephone}}
-        </address>
-    </div>
+                    <div class="col-xs-6 text-right">
+                        <p>
+                         
+                            <span><strong>Invoice Date:</strong>{{ formatDate(invoice.invoiceDate.date) | date:'dd MMMM yyyy' }}</span><br/>
+                            <span><strong>Due Date:</strong>{{ formatDate(invoice.dueDate.date) | date:'dd MMMM yyyy' }}</span>
+                            
+                             <!-- 
+                              <span><strong>Invoice Date:</strong>{{ invoice.invoiceDate }}</span><br/>
+                            <span><strong>Due Date:</strong>{{ invoice.dueDate.date}}</span> -->
+                        </p>
+                        <h5>To:</span></h5>
+                        <strong>{{ project.user.lastName}}, {{ project.user.firstName}}</strong><br>
+                        <strong>{{ project.client.position }} </strong><br>
+                        <address>
+                            <strong>{{ project.client.company.name }}</strong><br>
+                            {{ project.client.company.address }}<br>
+                            {{ project.client.company.city }}, {{ project.client.company.country }}<br>
+                            <abbr title="Phone">P:</abbr> {{ project.client.company.telephone }}
+                        </address>
 
-    <div class="col-xs-6 text-right">
-        <p>
-         
-            <span><strong>Invoice Date:</strong>{{ formatDate(invoice.invoiceDate.date) | date:'dd MMMM yyyy' }}</span><br/>
-            <span><strong>Due Date:</strong>{{ formatDate(invoice.dueDate.date) | date:'dd MMMM yyyy' }}</span>
-            
-             <!-- 
-              <span><strong>Invoice Date:</strong>{{ invoice.invoiceDate }}</span><br/>
-            <span><strong>Due Date:</strong>{{ invoice.dueDate.date}}</span> -->
-        </p>
-        <h5>To:</span></h5>
-        <strong>{{ project.user.lastName}}, {{ project.user.firstName}}</strong><br>
-        <strong>{{ project.client.position }} </strong><br>
-        <address>
-            <strong>{{ project.client.company.name }}</strong><br>
-            {{ project.client.company.address }}<br>
-            {{ project.client.company.city }}, {{ project.client.company.country }}<br>
-            <abbr title="Phone">P:</abbr> {{ project.client.company.telephone }}
-        </address>
-
-    </div>
-</div>
-
-<div class="table-responsive m-t"  ng-repeat="targetLanguage in project.targetLanguages">
-    <table class="table table-bordered invoice-table">
-        <thead>
-        <tr>
-            <th>{{ project.sourceLanguage.name }} to {{ targetLanguage.name }} - task</th>
-            <th>Unit</th>
-            <th>Unit Price</th>
-            <th>Quantity</th>
-            <th>Total Price</th>
-        </tr>
-        </thead>
-        <tbody>
-		<!-- this is only for translation use TM -->
-        <tr  ng-show="hasTypeTranslationUseTM(itemtms[targetLanguage.id][0])" >
-            <td><div><a data-toggle="collapse" href="#use_invoice{{targetLanguage.id}}"><i class="fa fa-eye"></i> <strong>{{ itemtms[targetLanguage.id][0].name }}</strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
-            <td>Source Word</td>
-            <td>{{ itemtms[targetLanguage.id][0].rate }}</td>
-            <td>{{ itemtms[targetLanguage.id][0].sourcerepetitions + itemtms[targetLanguage.id][0].sourceyibai + itemtms[targetLanguage.id][0].sourcejiuwu + itemtms[targetLanguage.id][0].sourcebawu + itemtms[targetLanguage.id][0].sourceqiwu + itemtms[targetLanguage.id][0].sourcewushi}}</td>
-            <td>{{ itemtms[targetLanguage.id][0].total }}</td>
-        </tr>
-        <tr  ng-show="hasTypeTranslationUseTM(itemtms[targetLanguage.id][0])"> <!-- this is only for translation use TM -->
-            <td colspan="5">
-                <div id="use_invoice{{targetLanguage.id}}" class="panel-collapse collapse">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>TM Template</th>
-                                <th>Rate (%)</th>
-                                <th>Unit Price</th>
-                                <th>Quantity (Word)</th>
-                                <th>Quantity</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Repetitions</td>
-                                <td>{{ itemtms[targetLanguage.id][0].raterepetitions }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].raterepetitions / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourcerepetitions }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].raterepetitions / 100) * itemtms[targetLanguage.id][0].sourcerepetitions | number:3 }}</td>
-                            </tr>
-                            <tr>
-                                <td>100%</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rateyibai }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateyibai / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourceyibai }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateyibai / 100) * itemtms[targetLanguage.id][0].sourceyibai | number:3 }}</td>
-                            </tr>
-                            <tr>
-                                <td>95%-99%</td>
-                                <td>{{ itemtms[targetLanguage.id][0].ratejiuwu }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratejiuwu / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourcejiuwu }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratejiuwu / 100) * itemtms[targetLanguage.id][0].sourcejiuwu | number:3 }}</td>
-                            </tr>
-                            <tr>
-                                <td>85%-94%</td>
-                                <td>{{ itemtms[targetLanguage.id][0].ratebawu }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratebawu / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourcebawu }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratebawu / 100) * itemtms[targetLanguage.id][0].sourcebawu | number:3 }}</td>
-                            </tr>
-                            <tr>
-                                <td>75%-84%</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rateqiwu }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateqiwu / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourceqiwu }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateqiwu / 100) * itemtms[targetLanguage.id][0].sourceqiwu | number:3 }}</td>
-                            </tr>
-                            <tr>
-                                <td>50%-74%</td>
-                                <td>{{ itemtms[targetLanguage.id][0].ratewushi }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratewushi / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourcewushi }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratewushi / 100) * itemtms[targetLanguage.id][0].sourcewushi | number:3 }}</td>
-                            </tr>
-                            <tr>
-                                <td>No Match</td>
-                                <td>{{ itemtms[targetLanguage.id][0].ratenomatch }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratenomatch / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourcenomatch }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratenomatch / 100) * itemtms[targetLanguage.id][0].sourcenomatch | number:3 }}</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" align="right"><strong>Total</strong></td>
-                                <td class="text-info">{{ itemtms[targetLanguage.id][0].total }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
-            </td>
-        </tr>
 
-        <tr ng-show="hasTypeTranslationNoTM()" ng-repeat = "itermnotmsnew in itermnotmsnews[targetLanguage.id]">
-			
-            <td><div><strong> {{ itermnotmsnew.name }} </strong> - <span class="text-navy"> Translation (No TM)</span></div></td>
-            <td>{{ itermnotmsnew.unit }}</td>
-            <td>{{ itermnotmsnew.rate }}</td>
-            <td>{{ itermnotmsnew.quantity }}</td>
-            <td>{{ itermnotmsnew.total }}</td>
-        </tr>
-        <tr ng-show="hasTypeDesktopPublishingMac()" ng-repeat = "itermdtpmac in itermdtpmacs[targetLanguage.id]">
-            <td><div><strong> {{ itermdtpmac.name }}</strong> - <span class="text-info">DTP <i class="fa fa-apple"></i></span></div></td>
-            <td>{{ itermdtpmac.unit }}</td>
-            <td>{{ itermdtpmac.rate }}</td>
-            <td>{{ itermdtpmac.quantity }}</td>
-            <td>{{ itermdtpmac.total }}</td>
-        </tr>
-		<tr ng-show="hasTypeDesktopPublishingWin()" ng-repeat = "itermdtppc in itermdtppcs[targetLanguage.id]">
-            <td><div><strong> {{ itermdtppc.name }}</strong> - <span class="text-info">DTP <i class="fa fa-windows"></i></span></div></td>
-            <td>{{ itermdtppc.unit }}</td>
-            <td>{{ itermdtppc.rate }}</td>
-            <td>{{ itermdtppc.quantity }}</td>
-            <td>{{ itermdtppc.total }}</td>
-        </tr>
-		<tr ng-show="hasTypeDesktopPublishingEngineer()" ng-repeat = "itermengineering in itermengineerings[targetLanguage.id]">
-            <td><div><strong> {{ itermengineering.name }}</strong> - <span class="text-info">Engineering </span></div></td>
-            <td>{{ itermengineering.unit }}</td>
-            <td>{{ itermengineering.rate }}</td>
-            <td>{{ itermengineering.quantity }}</td>
-            <td>{{ itermengineering.total }}</td>
-        </tr>
-		<tr ng-show="interpreting.id > 0" ng-repeat = "iterminterpreting in iterminterpretings[targetLanguage.id]">
-            <td><div><strong> {{ iterminterpreting.name }}</strong> - <span class="text-info"> Interpreting </span></div></td>
-            <td>{{ iterminterpreting.unit }}</td>
-            <td>{{ iterminterpreting.rate }}</td>
-            <td>{{ iterminterpreting.quantity }}</td>
-            <td>{{ iterminterpreting.total }}</td>
-        </tr>
-		
-        </tbody>
-    </table>
-</div><!-- /table-responsive -->
-<table class="table invoice-total">
-    <tbody>
-    <tr>
-        <td><strong>Sub Total :</strong></td>
-        <td>{{ subtotal }}</td>
-    </tr>
-	
-    <tr ng-show="project.discount > 0">
-        <td><strong>(-) Discount :</strong></td>
-        <td><span class="text-danger"><strong>-</strong></span> {{currency}} {{ project.discount }}</td>
-    </tr>
-    <tr>
-        <td><strong>TAX ({{ project.tax }} %):</strong></td>
-        <td> {{ tax }}</td>
-    </tr>
-    <tr>
-        <td><strong>TOTAL :</strong></td>
-        <td>{{ total }}</td>
-    </tr>
-    </tbody>
-</table>
-<div class="hr-line-dashed"></div>
-<div class="m-t">
-                                                    <h2 class="text-center text-danger">Due Date: {{ formatDate(invoice.dueDate.date) | date:'dd MMMM yyyy' }}</h2>
-                                                    <br>
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <dl class="dl-horizontal">
-                                                                <dt><h4>Bank Details</h4></dt><dd></dd>
-                                                                <dt>Company Name:</dt> <dd>{{ bankinfo1.beneficiar_name }}</dd>
-                                                                <dt>Bank Name:</dt> <dd>{{ bankinfo1.name }}</dd>
-                                                                <dt>Bank Address:</dt> <dd>{{ bankinfo1.address }}, {{ bankinfo1.city }}, {{ bankinfo1.country.name }}</dd>
-                                                                <dt>Account Number:</dt> <dd>{{ bankinfo1.accountNo }}</dd>
-                                                                <dt>Swift Code:</dt> <dd>{{ bankinfo1.swift }}</dd>
-                                                            </dl>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <dl class="dl-horizontal">
-                                                                <dt><h4>Other Payment Methods</h4></dt><dd></dd>
-                                                                <dt>Paypal:</dt> <dd>payments@papertask.com</dd>
-                                                                <dt>Alipay:</dt> <dd>payments@papertask.com</dd>
-                                                            </dl>
-                                                        </div>
-                                                    </div>
-                                                    <br><br>
-                                                    <h2 class="text-center"><em>Thank you for your business!</em></h2>
-                                                </div>
-</div>
+                <div class="table-responsive m-t"  ng-repeat="targetLanguage in project.targetLanguages">
+                    <table class="table table-bordered invoice-table">
+                        <thead>
+                        <tr>
+                            <th>{{ project.sourceLanguage.name }} to {{ targetLanguage.name }} - task</th>
+                            <th>Unit</th>
+                            <th>Unit Price</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                		<!-- this is only for translation use TM -->
+                        <tr  ng-show="hasTypeTranslationUseTM(itemtms[targetLanguage.id][0])" >
+                            <td><div><a data-toggle="collapse" href="#use_invoice{{targetLanguage.id}}"><i class="fa fa-eye"></i> <strong>{{ itemtms[targetLanguage.id][0].name }}</strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
+                            <td>Source Word</td>
+                            <td>{{ itemtms[targetLanguage.id][0].rate }}</td>
+                            <td>{{ itemtms[targetLanguage.id][0].sourcerepetitions + itemtms[targetLanguage.id][0].sourceyibai + itemtms[targetLanguage.id][0].sourcejiuwu + itemtms[targetLanguage.id][0].sourcebawu + itemtms[targetLanguage.id][0].sourceqiwu + itemtms[targetLanguage.id][0].sourcewushi}}</td>
+                            <td>{{ itemtms[targetLanguage.id][0].total }}</td>
+                        </tr>
+                        <tr  ng-show="hasTypeTranslationUseTM(itemtms[targetLanguage.id][0])"> <!-- this is only for translation use TM -->
+                            <td colspan="5">
+                                <div id="use_invoice{{targetLanguage.id}}" class="panel-collapse collapse">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>TM Template</th>
+                                                <th>Rate (%)</th>
+                                                <th>Unit Price</th>
+                                                <th>Quantity (Word)</th>
+                                                <th>Quantity</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>Repetitions</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].raterepetitions }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].raterepetitions / 100 | number:3 }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].sourcerepetitions }}</td>
+                                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].raterepetitions / 100) * itemtms[targetLanguage.id][0].sourcerepetitions | number:3 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>100%</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].rateyibai }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateyibai / 100 | number:3 }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].sourceyibai }}</td>
+                                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateyibai / 100) * itemtms[targetLanguage.id][0].sourceyibai | number:3 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>95%-99%</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].ratejiuwu }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratejiuwu / 100 | number:3 }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].sourcejiuwu }}</td>
+                                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratejiuwu / 100) * itemtms[targetLanguage.id][0].sourcejiuwu | number:3 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>85%-94%</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].ratebawu }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratebawu / 100 | number:3 }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].sourcebawu }}</td>
+                                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratebawu / 100) * itemtms[targetLanguage.id][0].sourcebawu | number:3 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>75%-84%</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].rateqiwu }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateqiwu / 100 | number:3 }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].sourceqiwu }}</td>
+                                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateqiwu / 100) * itemtms[targetLanguage.id][0].sourceqiwu | number:3 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>50%-74%</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].ratewushi }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratewushi / 100 | number:3 }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].sourcewushi }}</td>
+                                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratewushi / 100) * itemtms[targetLanguage.id][0].sourcewushi | number:3 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>No Match</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].ratenomatch }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratenomatch / 100 | number:3 }}</td>
+                                                <td>{{ itemtms[targetLanguage.id][0].sourcenomatch }}</td>
+                                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratenomatch / 100) * itemtms[targetLanguage.id][0].sourcenomatch | number:3 }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" align="right"><strong>Total</strong></td>
+                                                <td class="text-info">{{ itemtms[targetLanguage.id][0].total }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr ng-show="hasTypeTranslationNoTM()" ng-repeat = "itermnotmsnew in itermnotmsnews[targetLanguage.id]">
+                			
+                            <td><div><strong> {{ itermnotmsnew.name }} </strong> - <span class="text-navy"> Translation (No TM)</span></div></td>
+                            <td>{{ itermnotmsnew.unit }}</td>
+                            <td>{{ itermnotmsnew.rate }}</td>
+                            <td>{{ itermnotmsnew.quantity }}</td>
+                            <td>{{ itermnotmsnew.total }}</td>
+                        </tr>
+                        <tr ng-show="hasTypeDesktopPublishingMac()" ng-repeat = "itermdtpmac in itermdtpmacs[targetLanguage.id]">
+                            <td><div><strong> {{ itermdtpmac.name }}</strong> - <span class="text-info">DTP <i class="fa fa-apple"></i></span></div></td>
+                            <td>{{ itermdtpmac.unit }}</td>
+                            <td>{{ itermdtpmac.rate }}</td>
+                            <td>{{ itermdtpmac.quantity }}</td>
+                            <td>{{ itermdtpmac.total }}</td>
+                        </tr>
+                		<tr ng-show="hasTypeDesktopPublishingWin()" ng-repeat = "itermdtppc in itermdtppcs[targetLanguage.id]">
+                            <td><div><strong> {{ itermdtppc.name }}</strong> - <span class="text-info">DTP <i class="fa fa-windows"></i></span></div></td>
+                            <td>{{ itermdtppc.unit }}</td>
+                            <td>{{ itermdtppc.rate }}</td>
+                            <td>{{ itermdtppc.quantity }}</td>
+                            <td>{{ itermdtppc.total }}</td>
+                        </tr>
+                		<tr ng-show="hasTypeDesktopPublishingEngineer()" ng-repeat = "itermengineering in itermengineerings[targetLanguage.id]">
+                            <td><div><strong> {{ itermengineering.name }}</strong> - <span class="text-info">Engineering </span></div></td>
+                            <td>{{ itermengineering.unit }}</td>
+                            <td>{{ itermengineering.rate }}</td>
+                            <td>{{ itermengineering.quantity }}</td>
+                            <td>{{ itermengineering.total }}</td>
+                        </tr>
+                		<tr ng-show="interpreting.id > 0" ng-repeat = "iterminterpreting in iterminterpretings[targetLanguage.id]">
+                            <td><div><strong> {{ iterminterpreting.name }}</strong> - <span class="text-info"> Interpreting </span></div></td>
+                            <td>{{ iterminterpreting.unit }}</td>
+                            <td>{{ iterminterpreting.rate }}</td>
+                            <td>{{ iterminterpreting.quantity }}</td>
+                            <td>{{ iterminterpreting.total }}</td>
+                        </tr>
+                		
+                        </tbody>
+                    </table>
+                </div><!-- /table-responsive -->
+                <table class="table invoice-total">
+                    <tbody>
+                    <tr>
+                        <td><strong>Sub Total :</strong></td>
+                        <td>{{ subtotal }}</td>
+                    </tr>
+                	
+                    <tr ng-show="project.discount > 0">
+                        <td><strong>(-) Discount :</strong></td>
+                        <td><span class="text-danger"><strong>-</strong></span> {{currency}} {{ project.discount }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TAX ({{ project.tax }} %):</strong></td>
+                        <td> {{ tax }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL :</strong></td>
+                        <td>{{ total }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="hr-line-dashed"></div>
+                <div class="m-t">
+                    <h2 class="text-center text-danger">Due Date: {{ formatDate(invoice.dueDate.date) | date:'dd MMMM yyyy' }}</h2>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <dl class="dl-horizontal">
+                                <dt><h4>Bank Details</h4></dt><dd></dd>
+                                <dt>Company Name:</dt> <dd>{{ bankinfo1.beneficiar_name }}</dd>
+                                <dt>Bank Name:</dt> <dd>{{ bankinfo1.name }}</dd>
+                                <dt>Bank Address:</dt> <dd>{{ bankinfo1.address }}, {{ bankinfo1.city }}, {{ bankinfo1.country.name }}</dd>
+                                <dt>Account Number:</dt> <dd>{{ bankinfo1.accountNo }}</dd>
+                                <dt>Swift Code:</dt> <dd>{{ bankinfo1.swift }}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-lg-6">
+                            <dl class="dl-horizontal">
+                                <dt><h4>Other Payment Methods</h4></dt><dd></dd>
+                                <dt>Paypal:</dt> <dd>payments@papertask.com</dd>
+                                <dt>Alipay:</dt> <dd>payments@papertask.com</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <br><br>
+                    <h2 class="text-center"><em>Thank you for your business!</em></h2>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
