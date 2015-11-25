@@ -1,153 +1,109 @@
 <?php echo  $this->headTitle($this->translate('Transaction Details')) ?>
 <!-- Scripts -->
 <?php echo  $this->headLink()
-    ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
-	 ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
-	->prependStylesheet($this->basePath() . '/css/plugins/iCheck/custom.css')
-
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/footable/footable.core.css');
 ?>
 
 <?php
 echo $this->headScript ()
-	->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
-	->prependFile( $this->basePath() . '/js/admin/finance/incomming-detail.js')
-	->prependFile($this->basePath() . '/js/plugins/iCheck/icheck.min.js')
-	->prependFile($this->basePath() . '/js/admin/common/angular/ItemListController.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
-    ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
-    ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload', 'ui.bootstrap']);")
-    ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-tpls-0.11.2.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-0.11.2.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
-    ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
-    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
-
-    ->prependFile($this->basePath() . '/js/inspinia.js');
+	->prependFile($this->basePath() . '/v2/js/admin/finance/incomming-detail.js')
+	->prependFile($this->basePath() . '/v2/js/admin/common/angular/ItemListController.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/CurrentUser.js')
+    ->prependScript("angularApp = angular.module('project', ['ui.bootstrap']);")
+    ->prependFile($this->basePath() . '/v2/js/plugins/angular-bootstrap/ui-bootstrap-tpls-0.11.2.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/angular-bootstrap/ui-bootstrap-0.11.2.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/validate/jquery.validate.min.js');
 
 $this->inlineScript()
     ->prependScript("
-		var TRANSID = '" . $this->transid . "';
-		var LANG_CODE = '" . $this->lang_code . "';
-        var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+        var LANG_CODE = '" . $this->lang_code . "';
     ");
 ?>
 
-<div class="row" ng-controller="IncommingDetailController" id = "IncommingDetailController" ng-init="init()">
+<div class="row animated fadeInUp" ng-controller="IncommingDetailController" id = "IncommingDetailController" ng-init="init()">
 	<div class="col-lg-12">
-		<div class="wrapper wrapper-content animated fadeInUp">
-			<div class="ibox">
-				<div class="ibox-title">
-					<h5>Transaction</h5>
-				</div>
-				<form id="form">
-				<div class="ibox-content">
 
-							<div class="row">
+		<div class="ibox">
+			<div class="ibox-title">
+				<h5><?php echo $this->translate('Transaction','Employer'); ?></h5>
+			</div>
+			<form id="form">
+			<div class="ibox-content">
 
-								<div class="col-sm-6">
-                                    <h4>Transaction No.</h4>
-                                    <h3 class="text-navy">{{transaction.intrans_no}}</h3>
+						<div class="row">
 
-                                    <h5>From:</h5> <!-- if incomming, then this should from Client,if outgoing, then here should be Papertask -->
-                                    <strong>{{transaction.client.firstName}}, {{transaction.client.lastName}}</strong><br>
-                                    <strong>{{transaction.client.position}}</strong><br>
-                                    <address>
-                                        <strong>{{transaction.client.company.name}}</strong><br>
-                                        {{transaction.client.company.address}}<br>
-                                        {{transaction.client.company.city}}, {{transaction.client.company.country}}<br>
-                                        <abbr title="Phone">P:</abbr> {{transaction.client.company.telephone}}
-                                    </address>
-                                </div>
+							<div class="col-sm-6">
+                                <h4><?php echo $this->translate('Transaction ID','Employer'); ?></h4>
+                                <h3 class="text-navy">{{transaction.intrans_no}}</h3>
+                            </div>
 
-								<div class="col-sm-6 text-right">
-                                    <p>
-                                        <span><strong>Fapiao Number:</strong> {{transaction.fapiao_no}}</span><br/>
-                                        <span><strong>Pay Date:</strong>{{DateFormatter.format(transaction.payDate)}}</span><br/>
-                                        <span><strong>Record Add Date:</strong> {{DateFormatter.format(transaction.createDate)}}</span>
-                                    </p>
-                                    <h5>To:</span></h5>
-                                    <strong>{{bankinfos[0].name}}</strong><br>
-                                    <address>
-                                        <strong>{{companyinfo1.name}}</strong><br>
-                                        {{companyinfo1.address}}<br>
-                                        {{companyinfo1.city}}, {{companyinfo1.country.name}}<br>
-                                        <abbr title="Phone">P:</abbr> {{companyinfo1.telephone}}
-                                    </address>
-
-                                </div>
-
+							<div class="col-sm-6 text-right">
+                                <p>
+                                    <span><strong><?php echo $this->translate('FAPIAO No.','Employer'); ?>: </strong> {{transaction.fapiao_no}}</span><br/>
+                                    <span><strong><?php echo $this->translate('Pay Date','Employer'); ?>: </strong>{{DateFormatter.format(transaction.payDate)}}</span><br/>
+                                    <span><strong><?php echo $this->translate('Record Add Date','Employer'); ?>: </strong> {{DateFormatter.format(transaction.createDate)}}</span>
+                                </p>
+                                <h5><?php echo $this->translate('Bank Information','Employer'); ?>:</span></h5>
+                                <strong>{{bankinfos[0].name}}</strong><br>
+                                <address>
+                                    <strong>{{companyinfo1.name}}</strong><br>
+                                    {{companyinfo1.address}}<br>
+                                    {{companyinfo1.city}}, {{companyinfo1.country.name}}<br>
+                                </address>
 
                             </div>
 
-							<div class="hr-line-dashed"></div>
+
+                        </div>
+
+						<div class="hr-line-dashed"></div>
 
 
-					 <div class="table-responsive m-t">
-						<table class="table table-bordered invoice-table">
-							<thead>
-                                <tr>
-                                   <th width="10%">Project ID</th>
-                                   <th>Project Reference</th>
-                                    <th>End Date</th>
-                                    <th>Total Price</th>
-                                </tr>
-                            </thead>
-							<tbody>
-									<tr ng-repeat="project in projects">
-										<td><span class="text-navy">{{ project.project_no }}</span></strong></td>
-                    <td>{{ project.reference }}</td>
-                    <td>{{ DateFormatter.short(project.dueDate) }}</td>
-										<td>{{project.currency}} {{project.total_tmp}}</td>
-									</tr>
+				 <div class="table-responsive m-t">
+					<table class="table table-bordered invoice-table">
+						<thead>
+                            <tr>
+                               <th width="10%"><?php echo $this->translate('Project ID','Employer'); ?></th>
+                               <th><?php echo $this->translate('Project Reference','Employer'); ?></th>
+                                <th><?php echo $this->translate('Completed Date','Employer'); ?></th>
+                                <th><?php echo $this->translate('Price','Employer'); ?></th>
+                            </tr>
+                        </thead>
+						<tbody>
+								<tr ng-repeat="project in projects">
+									<td><span class="text-navy">{{ project.project_no }}</span></strong></td>
+                <td>{{ project.reference }}</td>
+                <td>{{ DateFormatter.short(project.dueDate) }}</td>
+									<td>{{project.currency}} {{project.total_tmp}}</td>
+								</tr>
 
-							</tbody>
-						</table>
-					 </div>
+						</tbody>
+					</table>
+				 </div>
 
-							<table class="table invoice-total">
-                                <tbody>
-                                <tr>
-                                    <td><strong>Sub Total :</strong></td>
-                                    <td>{{transaction.currency}} {{subtotal_show}}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>(-) Transaction Fee :</strong></td>
-                                    <td>{{transaction.currency}} {{fee_show}}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>TOTAL :</strong></td>
-                                    <td>{{transaction.currency}} {{total_show}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
+						<table class="table invoice-total">
+                            <tbody>
+                            <tr>
+                                <td><strong><?php echo $this->translate('Sub Total','Employer'); ?>:</strong></td>
+                                <td>{{transaction.currency}} {{subtotal_show}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>(-) <?php echo $this->translate('Transaction Fee','Employer'); ?>:</strong></td>
+                                <td>{{transaction.currency}} {{fee_show}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong><?php echo $this->translate('TOTAL','Employer'); ?>: </strong></td>
+                                <td>{{transaction.currency}} {{total_show}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
 
 
-				</div>
-				</form>
 			</div>
+			</form>
 		</div>
+
 	</div>
 </div>
 
-<script>
-    $(document).ready(function(){
-        $('.dtbox').DateTimePicker();
-
-        // trigger datetime picker when click to calendar icon
-        // TODO: this is not working
-        $('i.fa.fa-calendar').on('click', function(e){
-            console.log('clicked');
-            e.preventDefault();
-
-            $(this).parents('.input-group').find('input[readonly]').click();
-        });
-    });
-</script>

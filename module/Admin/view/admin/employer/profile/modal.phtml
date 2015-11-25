@@ -4,27 +4,27 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $this->translate('Close') ?></span></button>
-					<h4 class="modal-title" id="myModalLabel"><?php echo $this->translate('Add ENG prices') ?></h4>
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $this->translate('Close','Employer'); ?></span></button>
+					<h4 class="modal-title" id="myModalLabel"><?php echo $this->translate('Add ENG prices','Employer'); ?></h4>
 				</div>
 				<div class="modal-body">
 					<form>
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
-									<label><?php echo $this->translate('Category') ?> *</label>
+									<label><?php echo $this->translate('Category','Employer'); ?> *</label>
 									<select class="form-control required" ng-model="engineerPrice.engineeringCategory"
 										ng-options="engineerCategory.category for engineerCategory in engineeringCategories">
 									</select>
 								</div>
 								<div class="form-group">
-									<label><?php echo $this->translate('Unit') ?> *</label>
+									<label><?php echo $this->translate('Unit','Employer'); ?> *</label>
 									<select class="form-control required" ng-model="engineerPrice.unit"
 										ng-options="unit.name for unit in units">
 									</select>
 								</div>
 								<div class="form-group">
-									<label><?php echo $this->translate('Rate') ?> *</label>
+									<label><?php echo $this->translate('Rate','Employer'); ?> *</label>
 									<input class="form-control required" type="number" ng-model="engineerPrice.price">
 								</div>
 							</div>
@@ -35,7 +35,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-w-m btn-white" data-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-w-m btn-primary" ng-click="submitTo('#modal-eng','#EmployerController', 'saveEngineeringPrice',
-	                                       engineerPrice)"><?php echo $this->translate('Save changes') ?></button>
+	                                       engineerPrice)"><?php echo $this->translate('Save changes','Employer'); ?></button>
 				</div>
 			</div>
 		</div>
@@ -47,29 +47,29 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
-	                        class="sr-only"><?php echo $this->translate('Close') ?></span></button>
-	                <h4 class="modal-title" id="myModalLabel"><?php echo $this->translate('Add Language pairs and prices') ?></h4>
+	                        class="sr-only"><?php echo $this->translate('Close','Employer'); ?></span></button>
+	                <h4 class="modal-title" id="myModalLabel"><?php echo $this->translate('Add Language pairs and prices','Employer'); ?></h4>
 	            </div>
 	            <div class="modal-body">
 	                <form>
 	                    <div class="row">
 	                        <div class="col-lg-12">
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('Source Language') ?> *</label>
+	                                <label><?php echo $this->translate('Source Language','Employer'); ?> *</label>
 	                                <select class="form-control required" name="sourceLanguage"
 	                                        ng-model="translationPrice.sourceLanguage"
 	                                        ng-options="language.name for language in languages">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('Target Language') ?> *</label>
+	                                <label><?php echo $this->translate('Target Language','Employer'); ?> *</label>
 	                                <select class="form-control required" name="targetLanguage"
 	                                        ng-model="translationPrice.targetLanguage"
 	                                        ng-options="language.name for language in languages">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('Price/word') ?> *</label>
+	                                <label><?php echo $this->translate('Price/word','Employer'); ?> *</label>
 	                                <input name="price" type="number" class="form-control required"
 	                                       ng-model="translationPrice.price">
 	                            </div>
@@ -79,10 +79,10 @@
 	                </form>
 	            </div>
 	            <div class="modal-footer">
-	                <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal"><?php echo $this->translate('Close') ?></button>
+	                <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal"><?php echo $this->translate('Close','Employer'); ?></button>
 	                <button type="button" class="btn btn-w-m btn-primary"
 	                    ng-click="submitTo('#modal-translation','#EmployerController', 'saveTranslationPrice',
-	                                       translationPrice)"><?php echo $this->translate('Save changes') ?></button>
+	                                       translationPrice)"><?php echo $this->translate('Save changes','Employer'); ?></button>
 	            </div>
 	        </div>
 	    </div>
@@ -93,46 +93,46 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel"><?php echo $this->translate('Add Company') ?></h4>
+                    <h4 class="modal-title" id="myModalLabel"><?php echo $this->translate('Add Company','Employer'); ?></h4>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label><?php echo $this->translate('Company Name') ?> *</label>
+                                    <label><?php echo $this->translate('Company Name','Employer'); ?> *</label>
                                     <input id="c-name" name="c-name" type="text" class="form-control required"
                                            ng-model="company.name">
                                 </div>
                                 <div class="form-group">
-                                    <label><?php echo $this->translate('Telephone') ?> </label>
+                                    <label><?php echo $this->translate('Telephone','Employer'); ?> </label>
                                     <input id="c-tel" name="c-tel" type="text" class="form-control"
                                            ng-model="company.telephone">
                                 </div>
                                 <div class="form-group">
-                                    <label><?php echo $this->translate('Fax') ?> </label>
+                                    <label><?php echo $this->translate('Fax','Employer'); ?> </label>
                                     <input id="c-fax" name="c-fax" type="text" class="form-control"
                                            ng-model="company.fax">
                                 </div>
                                 <div class="form-group">
-                                    <label><?php echo $this->translate('Address') ?> </label>
+                                    <label><?php echo $this->translate('Address','Employer'); ?> </label>
                                     <input id="c-address" name="c-address" type="text" class="form-control"
                                            ng-model="company.address">
                                 </div>
                                 <div class="form-group">
-                                    <label><?php echo $this->translate('City') ?> *</label>
+                                    <label><?php echo $this->translate('City','Employer'); ?> *</label>
                                     <input id="c-city" name="c-city" type="text" class="form-control required"
                                            ng-model="company.city">
                                 </div>
                                 <div class="form-group">
-                                    <label><?php echo $this->translate('Country') ?> *</label>
+                                    <label><?php echo $this->translate('Country','Employer'); ?> *</label>
                                     <select class="form-control required" id="country" name="country"
                                             ng-model="company.country"
                                             ng-options="country.name for country in countries">
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label><?php echo $this->translate('Website') ?> *</label>
+                                    <label><?php echo $this->translate('Website','Employer'); ?> *</label>
                                     <input id="web" name="web" type="text" class="form-control required"
                                            ng-model="company.website">
                                 </div>
@@ -141,9 +141,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal"><?php echo $this->translate('Close','Employer'); ?></button>
                     <button type="button" class="btn btn-w-m btn-primary" ng-click="submitTo('#modal-company', '#EmployerController', 'saveCompany', company)">
-                    	<?php echo $this->translate('Save changes') ?>
+                    	<?php echo $this->translate('Save changes','Employer'); ?>
                     </button>
                 </div>
             </div>
@@ -156,44 +156,44 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
-	                        class="sr-only"><?php echo $this->translate('Close') ?></span></button>
-	                <h4 class="modal-title" id="myModalLabel"><?php echo $this->translate('Add DTP prices') ?></h4>
+	                        class="sr-only"><?php echo $this->translate('Close','Employer'); ?></span></button>
+	                <h4 class="modal-title" id="myModalLabel"><?php echo $this->translate('Add DTP prices','Employer'); ?></h4>
 	            </div>
 	            <div class="modal-body">
 	                <form>
 	                    <div class="row">
 	                        <div class="col-lg-12">
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('Languages') ?> *</label>
+	                                <label><?php echo $this->translate('Languages','Employer'); ?> *</label>
 	                                <select class="form-control required" name="language"
 	                                        ng-model="desktopPrice.language"
 	                                        ng-options="language.name for language in languages">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('DTP software') ?> *</label>
+	                                <label><?php echo $this->translate('DTP software','Employer'); ?> *</label>
 	                                <select class="form-control required" name="software"
 	                                        ng-model="desktopPrice.software"
 	                                        ng-options="software.name for software in softwares">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Page') ?> (MAC) *</label>
+	                                <label><?php echo $this->translate('Price','Employer'); ?>/<?php echo $this->translate('Page','Employer'); ?> (MAC) *</label>
 	                                <input name="priceMac" type="number" value="" class="form-control required"
 	                                       ng-model="desktopPrice.priceMac">
 	                            </div>
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Page') ?> (PC) *</label>
+	                                <label><?php echo $this->translate('Price','Employer'); ?>/<?php echo $this->translate('Page','Employer'); ?> (PC) *</label>
 	                                <input name="pricePc" type="number" value="" class="form-control required"
 	                                       ng-model="desktopPrice.pricePc">
 	                            </div>
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Hour') ?> (MAC) *</label>
+	                                <label><?php echo $this->translate('Price','Employer'); ?>/<?php echo $this->translate('Hour','Employer'); ?> (MAC) *</label>
 	                                <input name="priceHourMac" type="number" value="" class="form-control required"
 	                                       ng-model="desktopPrice.priceHourMac">
 	                            </div>
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Hour') ?> (PC) *</label>
+	                                <label><?php echo $this->translate('Price','Employer'); ?>/<?php echo $this->translate('Hour','Employer'); ?> (PC) *</label>
 	                                <input name="priceHourPc" type="number" value="" class="form-control required"
 	                                       ng-model="desktopPrice.priceHourPc">
 	                            </div>
@@ -206,7 +206,7 @@
 	                <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal">Close</button>
 	                <button type="button" class="btn btn-w-m btn-primary"
 	                        ng-click="submitTo('#modal-dtp','#EmployerController', 'saveDesktopPrice',
-	                                           desktopPrice)"><?php echo $this->translate('Save changes') ?></button>
+	                                           desktopPrice)"><?php echo $this->translate('Save changes','Employer'); ?></button>
 	            </div>
 	        </div>
 	    </div>
@@ -218,41 +218,41 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
-	                        class="sr-only"><?php echo $this->translate('Close') ?></span></button>
-	                <h4 class="modal-title" id="myModalLabel"><?php echo $this->translate('Add Interpreting prices') ?></h4>
+	                        class="sr-only"><?php echo $this->translate('Close','Employer'); ?></span></button>
+	                <h4 class="modal-title" id="myModalLabel"><?php echo $this->translate('Add Interpreting prices','Employer'); ?></h4>
 	            </div>
 	            <div class="modal-body">
 	                <form>
 	                    <div class="row">
 	                        <div class="col-lg-12">
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('Source Language') ?> *</label>
+	                                <label><?php echo $this->translate('Source Language','Employer'); ?> *</label>
 	                                <select class="form-control required" name="sourceLanguage"
 	                                        ng-model="interpretingPrice.sourceLanguage"
 	                                        ng-options="language.name for language in languages">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('Target Language') ?> *</label>
+	                                <label><?php echo $this->translate('Target Language','Employer'); ?> *</label>
 	                                <select class="form-control required" name="targetLanguage"
 	                                        ng-model="interpretingPrice.targetLanguage"
 	                                        ng-options="language.name for language in languages">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('Interpreting Service') ?> *</label>
+	                                <label><?php echo $this->translate('Interpreting Service','Employer'); ?> *</label>
 	                                <select class="form-control required" name="service"
 	                                        ng-model="interpretingPrice.service"
 	                                        ng-options="service.name for service in services">
 	                                </select>
 	                            </div>
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Day') ?> *</label>
+	                                <label><?php echo $this->translate('Price','Employer'); ?>/<?php echo $this->translate('Day','Employer'); ?> *</label>
 	                                <input name="priceDay" type="number" class="form-control required"
 	                                       ng-model="interpretingPrice.priceDay">
 	                            </div>
 	                            <div class="form-group">
-	                                <label><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Half-day') ?> *</label>
+	                                <label><?php echo $this->translate('Price','Employer'); ?>/<?php echo $this->translate('Half-day','Employer'); ?> *</label>
 	                                <input name="priceHalfDay" type="number" class="form-control required"
 	                                       ng-model="interpretingPrice.priceHalfDay">
 	                            </div>
@@ -265,7 +265,7 @@
 	                <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal">Close</button>
 	                <button type="button" class="btn btn-w-m btn-primary"
 	                        ng-click="submitTo('#modal-interpreting','#EmployerController',
-	                                           'saveInterpretingPrice', interpretingPrice)"><?php echo $this->translate('Save changes') ?></button>
+	                                           'saveInterpretingPrice', interpretingPrice)"><?php echo $this->translate('Save changes','Employer'); ?></button>
 	            </div>
 	        </div>
 	    </div>
