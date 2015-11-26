@@ -12,13 +12,13 @@
                         <div id="feedback_lang{$index}" class="panel-collapse collapse in">
                             <div class="panel">
                                 <div class="panel-body">
-                                    <hr />
-                                    <p><?php echo $this->translate('Leaving feedback here will help you get a better translation next time. On your next order, you\'ll be able to specify whether to use only your preferred translators. This translator is on your list of preferred translators.') ?></p>
+                                  
+                                    <p><?php echo $this->translate('Leaving feedback here will help you get a better translation next time.','Employer'); ?></p>
 
                                     <div class="panel panel-default tooltip-demo">
                                         <div class="panel-body">
                                           <div class="form-group">
-                                            <label class="control-label"><?php echo $this->translate('Quality') ?></label>
+                                            <label class="control-label"><?php echo $this->translate('Quality','Employer'); ?></label>
                                             <table class="table table-bordered table-hover table-striped">
                                               <tbody>
                                                 <tr>
@@ -35,7 +35,7 @@
                                             </table>
                                           </div><!-- /form-group -->
                                           <div class="form-group">
-                                            <label class="control-label"><?php echo $this->translate('Turn Around Time') ?></label>
+                                            <label class="control-label"><?php echo $this->translate('Turn Around Time','Employer'); ?></label>
                                             <table class="table table-bordered table-hover table-striped">
                                               <tbody>
                                                 <tr>
@@ -52,7 +52,7 @@
                                             </table>
                                           </div><!-- /form-group -->
                                           <div class="form-group">
-                                            <label class="control-label"><?php echo $this->translate('Feed back to Translator and Project Manager') ?></label>
+                                            <label class="control-label"><?php echo $this->translate('Feed back to Translator and Project Manager','Employer'); ?></label>
                                             <textarea class="form-control" ng-model='feedback.message' id="tarea{$h}" rows="3">{{feedback.message}}</textarea>
                                           </div><!-- /form-group -->
 

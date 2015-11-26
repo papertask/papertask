@@ -6,14 +6,14 @@
                 <div class="row form-horizontal">
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Reference *</label>
+                            <label class="col-sm-3 control-label"><?php echo $this->translate('Reference','Employer') ?> *</label>
                             <div class="col-sm-9">
                                 <input name="reference" ng-model="tempProject.reference" type="text"
                                        class="form-control required">
                             </div>
                         </div>
                         <div class="form-group" id="ordered_date">
-                            <label class="col-sm-3 control-label">Start Date *</label>
+                            <label class="col-sm-3 control-label"><?php echo $this->translate('Start Date','Employer') ?> *</label>
                             <div class="col-sm-9">
                                 <div class="input-group date" >
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Field *</label>
+                            <label class="col-sm-3 control-label"><?php echo $this->translate('Field','Employer') ?> *</label>
                             <div class="col-sm-9">
                                 <select class="form-control required valid" name="field" aria-required="true"
                                         ng-model="tempProject.field"
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Sales </label>
+                            <label class="col-sm-3 control-label"><?php echo $this->translate('Sales','Employer') ?> </label>
                             <div class="col-sm-9">
                                 <select class="form-control  valid" name="sale" aria-required="true"
                                         ng-model="tempProject.sale"
@@ -45,7 +45,7 @@
                         </div>
 						<?php if (!$this->isemployer) {?>
 						<div class="form-group">
-                            <label class="col-sm-3 control-label">PO No.</label>
+                            <label class="col-sm-3 control-label"><?php echo $this->translate('PO No','Employer') ?></label>
                             <div class="col-sm-9">
                                 <input name="po" ng-model="tempProject.po" type="text"
                                        class="form-control ">
@@ -55,7 +55,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Priority *</label>
+                            <label class="col-sm-3 control-label"><?php echo $this->translate('Priority','Employer') ?> *</label>
                             <div class="col-sm-9">
                                 <div data-toggle="buttons" class="label_check">
                                     <label class="btn btn-outline btn-{{ priority.decorator }} btn-sm
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="form-group" id="due_date">
-                            <label class="col-sm-3 control-label">Due Date *</label>
+                            <label class="col-sm-3 control-label"><?php echo $this->translate('Due Date','Employer') ?> *</label>
                             <div class="col-sm-9">
                                 <div class="input-group date" >
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -80,7 +80,7 @@
                         </div>
 						<?php if (!$this->isemployer) {?>	
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Client *</label>
+                            <label class="col-sm-3 control-label"><?php echo $this->translate('Client','Employer') ?> *</label>
                             <div class="col-sm-9">
                                 <select class="form-control required valid" name="client" aria-required="true"
                                         ng-model="tempProject.client"
@@ -93,7 +93,7 @@
 						<?php if ($this->isemployer) {?>
 							
 						<div class="form-group">
-                            <label class="col-sm-3 control-label">PO No.</label>
+                            <label class="col-sm-3 control-label"><?php echo $this->translate('PO No','Employer') ?></label>
                             <div class="col-sm-9">
                                 <input name="po" ng-model="tempProject.po" type="text"
                                        class="form-control required">
@@ -101,7 +101,7 @@
                         </div>
 						<?php } ?>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">PM *</label>
+                            <label class="col-sm-3 control-label"><?php echo $this->translate('PM','Employer') ?> *</label>
                             <div class="col-sm-9">
                                 <select class="form-control required valid" name="pms" aria-required="true"
                                         ng-model="tempProject.pm"
@@ -113,7 +113,7 @@
                     </div>
                 </div>
                 <div class="text-right tooltip-demo">
-                    <button ng-click="update()" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Update</button>
+                    <button ng-click="update()" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> <?php echo $this->translate('Update','Employer') ?></button>
                 </div>
             </form>
         </div>

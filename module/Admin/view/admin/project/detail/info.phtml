@@ -2,7 +2,7 @@
 
                             <div class="col-md-12">
                                 <?php if (!$this->isemployer) {?>
-                                <button class="btn btn-primary pull-right"><i class="fa fa-edit"> <?php echo $this->translate('Edit Project') ?></button>
+                                <button class="btn btn-primary pull-right"><i class="fa fa-edit"> <?php echo $this->translate('Edit Project','Employer'); ?></button>
                                 <?php } ?>
                                 <h2 class="m-b-xs"><span class="font-bold text-navy">{{ project.project_no }}</span>&nbsp;&nbsp; <span>{{ project.reference }}</span></h2>
                                 <hr>
@@ -16,15 +16,15 @@
                                         <table class="table table-striped table-bordered">
                                             <tbody>
                                             <tr>
-                                                <th><?php echo $this->translate('Due Date'); ?></th>
+                                                <th><?php echo $this->translate('Due Date','Employer'); ?></th>
                                                 <td> {{ formatDate(project.dueDate.date) | date:'dd MMMM yyyy - h:mm a' }} </td>
                                             </tr>
                                             <tr>
-                                                <th><?php echo $this->translate('Source Language'); ?></th>
+                                                <th><?php echo $this->translate('Source Language','Employer'); ?></th>
                                                 <td> <code style="font-size: 14px;">{{ project.sourceLanguage.name }}</code> </td>
                                             </tr>
                                             <tr>
-                                                <th><?php echo $this->translate('Project Type'); ?></th>
+                                                <th><?php echo $this->translate('Project Type','Employer'); ?></th>
                                                 <td>
                                                   <div class="tooltip-demo">
                                                     <span ng-repeat="type in project.types"><code style="font-size: 14px;" {{ type.inline_attrs }}>{{ type.name_short }}</code>&nbsp;</span>
@@ -38,15 +38,15 @@
                                         <table class="table table-striped table-bordered">
                                             <tbody>
                                             <tr>
-                                                <th><?php echo $this->translate('PO No'); ?></th>
+                                                <th><?php echo $this->translate('PO No','Employer'); ?></th>
                                                 <td> {{ project.po }} </td>
                                             </tr>
                                             <tr>
-                                                <th><?php echo $this->translate('Languages'); ?></th>
+                                                <th><?php echo $this->translate('Languages','Employer'); ?></th>
                                                 <td> <span ng-repeat="language in project.targetLanguages"><code style="font-size: 14px;">{{ language.name }}</code>&nbsp;</span> </td>
                                             </tr>
                                             <tr>
-                                                <th><?php echo $this->translate('Project Manager'); ?></th>
+                                                <th><?php echo $this->translate('Project Manager','Employer'); ?></th>
                                                 <td> {{ project.pm.name }} </td>
                                             </tr>
                                             </tbody>

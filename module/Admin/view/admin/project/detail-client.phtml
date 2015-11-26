@@ -1,19 +1,19 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#files" data-toggle="tab"><?php echo $this->translate("Project Files for Preview"); ?></a></li>
-                        <li class="" ng-show="project.status.id == 2"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasksNum }}</span> <?php echo $this->translate("Schedule"); ?></a></li>
+                        <li class="active"><a href="#files" data-toggle="tab"><?php echo $this->translate('Project Files for Preview','Employer'); ?></a></li>
+                        <!--
+                        <li class="" ng-show="project.status.id == 2"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasksNum }}</span> <?php echo $this->translate('Schedule','Employer'); ?></a></li> -->
                         <!--
                         <li class="" ><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> <?php echo $this->translate('Messages & Activities') ?></a></li>
                         -->
-                        <li class="" ng-hide="project.status.id == 0 || project.status.id == 1"><a href="#feedback" data-toggle="tab"> <?php echo $this->translate('Feedbacks') ?></a></li>
-                        <li class=""><a href="#quote" data-toggle="tab"> <?php echo $this->translate('Quote') ?></a></li>
+                        <li class="" ng-hide="project.status.id == 0 || project.status.id == 1"><a href="#feedback" data-toggle="tab"> <?php echo $this->translate('Feedbacks','Employer') ?></a></li>
+                        <li class=""><a href="#quote" data-toggle="tab"> <?php echo $this->translate('Quote','Employer') ?></a></li>
                         <!-- if the project status is quote, then show quote, other wise hide quote -->
-                        <li class="" ng-hide="project.status.id == 0 || project.status.id == 1"><a href="#invoice" data-toggle="tab"> <?php echo $this->translate('Invoice') ?></a></li>
+                        <li class="" ng-hide="project.status.id == 0 || project.status.id == 1"><a href="#invoice" data-toggle="tab"> <?php echo $this->translate('Invoice','Employer') ?></a></li>
                         <!-- if the status is not quote, then show invoice -->
                     </ul>
                     <div class="tab-content">
 
-                        <?php include "detail/tasks-client.phtml"; ?>
                         <?php include "detail/files-client.phtml"; ?>
                         <?php include "detail/feedbacks-client.phtml"; ?>
 
