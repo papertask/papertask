@@ -6,12 +6,14 @@
 
 <!-- Scripts -->
 <?php $this->headScript()
-    ->prependFile($this->basePath() . '/v2/js/admin/dashboard/client-dashboard.js')
+    ->prependFile($this->basePath() . '/v2/js/employer/client-dashboard.js')
+	
     ->prependFile($this->basePath() . '/v2/js/admin/common/angular/ItemListController.js')
     ->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
     ->prependFile($this->basePath() . '/v2/js/admin/common/angular/CurrentUser.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/bootbox/bootbox.min.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/footable/footable.all.min.js')
+	->prependScript("angularApp = angular.module('project', []);")
 ?>
 
     <script>
@@ -68,97 +70,47 @@ $this->inlineScript()
                             <th data-toggle="true" data-hide="phone,tablet"><?php echo $this->translate('Status','Employer'); ?></th>
                             <th data-toggle="true"><?php echo $this->translate('Project ID','Employer'); ?></th>
                             <th data-toggle="true" data-hide="phone,tablet"><?php echo $this->translate('Project Reference','Employer'); ?></th>
-                            <th data-hide="all"><?php echo $this->translate('Project Languages','Employer'); ?></th>
-                            <th data-hide="all"><?php echo $this->translate('Project Date','Employer'); ?></th>
+                            <th data-hide="phone,tablet"><?php echo $this->translate('Project Languages','Employer'); ?></th>
+                            <th data-hide="phone,tablet"><?php echo $this->translate('Project Date','Employer'); ?></th>
                             <th data-toggle="true" class="text-right"><?php echo $this->translate('Price','Employer'); ?></th>
                         </tr>
                         </thead>                                
                         <tbody>
-                            <tr>
+                           <tr ng-repeat="project in allprojects">
                                 <td class="project-status">
-                                    <span class="label label-danger" style="font-size: 12px;">Quote</span>
+									
+                                    <span class="label label-danger" style="font-size: 12px;" ng-if="project.status == 0">{{ ProjectStatus.get(project.status).name }}</span>
+									<span class="label label-danger" style="font-size: 12px;" ng-if="project.status == 1">{{ ProjectStatus.get(project.status).name }}</span>
+									<span class="label label-warning" style="font-size: 12px;" ng-if="project.status == 2">{{ ProjectStatus.get(project.status).name }}</span>
+									<span class="label label-success" style="font-size: 12px;" ng-if="project.status == 3">{{ ProjectStatus.get(project.status).name }}</span>
+									<span class="label label-info" style="font-size: 12px;" ng-if="project.status == 4">{{ ProjectStatus.get(project.status).name }}</span>
                                 </td>
                                 <td class="project-title">
-                                    <span style="font-size: 16px;">201511124888</span>
+                                    <span style="font-size: 16px;">{{ project.project_no }}</span>
                                 </td>
                                 <td class="project-title">
                                     <span style="font-size: 16px;">{{ project.reference }}</span>
                                 </td>
                                 <td class="project-title">
-                                    <span><code style="font-size: 12px;">English <i class="fa fa-arrow-right"></i> Chinese, 日文</code></span>
+                                    <span><code style="font-size: 12px;">{{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i>
+										<span ng-repeat="lang in project.targetLanguages">
+											{{ lang.name}}   
+										</span>
+										</code>
+									</span>
                                 </td>
                                 <td class="project-title">
                                     <small style="font-size: 12px;">{{ DateFormatter.short(project.startDate) }}</small>
                                 </td>
                                 <td class="project-actions text-right">
-                                    <span class="text-warning" style="font-size: 15px;"><strong>USD 50.25</strong></span>&nbsp;
-                                    <a href="#" class="btn btn-info btn-sm"><i class="fa fa-check"></i> Accept </a>
-                                    <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
+                                    <span class="text-warning" style="font-size: 15px;"><strong>{{ project.currency}} {{ project.total_tmp}}</strong></span>&nbsp;
+										
+                                    <a href="#" class="btn btn-info btn-sm" ng-show="project.status == 0"><i class="fa fa-check"></i> Accept </a>
+
+									<a href="#" class="btn btn-white btn-sm" ng-click="goToDetail(project)"><i class="fa fa-folder"></i> View </a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="project-status">
-                                    <span class="label label-warning" style="font-size: 12px;">Ordered</span>
-                                </td>
-                                <td class="project-title">
-                                    <span style="font-size: 16px;">201511124888</span>
-                                </td>
-                                <td class="project-title">
-                                    <span style="font-size: 16px;">{{ project.reference }}</span>
-                                </td>
-                                <td class="project-title">
-                                    <span><code style="font-size: 12px;">English <i class="fa fa-arrow-right"></i> Chinese, 日文</code></span>
-                                </td>
-                                <td class="project-title">
-                                    <small style="font-size: 12px;">2015.Nov.17 - 2015.Nov.23</small>
-                                </td>
-                                <td class="project-actions text-right">
-                                    <span class="text-navy" style="font-size: 15px;"><strong>USD 50.25</strong></span>&nbsp;
-                                    <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="project-status">
-                                    <span class="label label-success" style="font-size: 12px;">Ongoing</span>
-                                </td>
-                                <td class="project-title">
-                                    <span style="font-size: 16px;">201511124888</span>
-                                </td>
-                                <td class="project-title">
-                                    <span style="font-size: 16px;">{{ project.reference }}</span>
-                                </td>
-                                <td class="project-title">
-                                    <span><code style="font-size: 12px;">English <i class="fa fa-arrow-right"></i> Chinese, 日文</code></span>
-                                </td>
-                                <td class="project-title">
-                                    <small style="font-size: 12px;">2015.Nov.17 - 2015.Nov.23</small>
-                                </td>
-                                <td class="project-actions text-right">
-                                    <span class="text-navy" style="font-size: 15px;"><strong>USD 50.25</strong></span>&nbsp;
-                                    <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="project-status">
-                                    <span class="label label-info" style="font-size: 12px;">Reviewing</span>
-                                </td>
-                                <td class="project-title">
-                                    <span style="font-size: 16px;">201511124888</span>
-                                </td>
-                                <td class="project-title">
-                                    <span style="font-size: 16px;">{{ project.reference }}</span>
-                                </td>
-                                <td class="project-title">
-                                    <span><code style="font-size: 12px;">English <i class="fa fa-arrow-right"></i> Chinese, 日文</code></span>
-                                </td>
-                                <td class="project-title">
-                                    <small style="font-size: 12px;">2015.Nov.17 - 2015.Nov.23</small>
-                                </td>
-                                <td class="project-actions text-right">
-                                    <span class="text-navy" style="font-size: 15px;"><strong>USD 50.25</strong></span>&nbsp;
-                                    <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-                                </td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>

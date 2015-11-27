@@ -620,12 +620,11 @@ class ProjectController extends AbstractRestfulJsonController
 		if($statusproject = $this->params()->fromQuery('statusproject')){
 			if($statusproject == '7and8'){
 				$queryBuilder->andWhere("project.status = 7 or project.status = 8");
+			} else if($statusproject == 'client'){
+				$queryBuilder->andWhere("project.status = 0 or project.status = 1 or project.status = 2 or project.status = 3 or project.status = 4");
 			} else {
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq('project.status', $statusproject)
-            );
-        }
-            
+				$queryBuilder->andWhere($queryBuilder->expr()->eq('project.status', $statusproject));
+			}
         }
 		if($getQuote = $this->params()->fromQuery('quote')){
 			//echo 'hi'; exit;
