@@ -136,6 +136,7 @@ return array(
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map' => array(
+		 'layout/layout' => __DIR__ . '/../../Application/view/layout/layout.phtml',
             'landing/index/index' => __DIR__ . '/../view/landing/index/index.phtml',
             'landing/index/freelancer' => __DIR__ . '/../view/landing/index/freelancer.phtml',
             'landing/index/languages' => __DIR__ . '/../view/landing/index/languages.phtml',
@@ -149,6 +150,7 @@ return array(
             'error/404'               => __DIR__ . '/../../Application/view/error/404.phtml',
             'error/index'             => __DIR__ . '/../../Application/view/error/index.phtml',
         ),
+		'layout' => 'layout/layout',
         'template_path_stack' => array(
             __DIR__ . '/../view',
         ),

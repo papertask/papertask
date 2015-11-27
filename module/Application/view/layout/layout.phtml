@@ -79,8 +79,7 @@
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-					
-                    <li ><a href="<?php echo $this->url(null,array("lang"=>"en-US"), array(), true) ?>">ENGLISH</a></li>
+                    <li><a href="<?php echo $this->url(null,array("lang"=>"en-US"), array(), true) ?>">ENGLISH</a></li>
                     <li selected="selected"><a href="<?php echo $this->url(null,array("lang"=>"zh-CN"), array(), true) ?>">简体中文</a></li>
                 </ul>
             </div>
@@ -93,7 +92,22 @@
     <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/bootstrap.min.js'?>"></script>
 
 </head>
-
+<script>
+	$(document).ready(function() 
+	{
+		$('ul.dropdown-menu li').click(function(e) 
+		{ 
+			var lang = $(this).text();
+			var href = $(location).attr('href');
+			if(lang = "ENGLISH"){
+				
+			}
+			else {
+			
+			}
+		});
+	});
+</script>
 </div>
 </body>
 </html>

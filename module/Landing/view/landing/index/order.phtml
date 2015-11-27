@@ -260,8 +260,8 @@ tbody {
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li ><a href="<?php echo $this->url($this->route,array("lang"=>"en-US")) ?>">ENGLISH</a></li>
-                        <li selected="selected"><a href="<?php echo $this->url($this->route,array("lang"=>"zh-CN")) ?>">简体中文</a></li>
+                        <li ><a href="<?php echo $this->url('order',array('controller'=>'index', 'action'=>'order', "lang"=>"en-US"), array(), true) ?>">ENGLISH</a></li>
+                        <li selected="selected"><a href="<?php echo $this->url(null,array("lang"=>"zh-CN"), array(), true) ?>">简体中文</a></li>
                     </ul>
                 </div>
             </p>
