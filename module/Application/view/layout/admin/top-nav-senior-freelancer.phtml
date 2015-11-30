@@ -1,0 +1,51 @@
+        <nav class="navbar navbar-static-top" role="navigation">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <i class="fa fa-reorder"></i>
+                </button>
+                <a href="#" class="navbar-brand">PaperTask</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">         
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="<?php echo $this->url('admin',array("lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-th-large"></i> <span class="nav-label"><?php echo $this->translate('Dashboard', 'Application'); ?></span></a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url('admin', array('controller' => 'task', 'action' => 'task-pool',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-tasks"></i> <span class="nav-label"><?php echo $this->translate('Task Pool', 'Application'); ?></span></a>
+                    </li>
+
+                    <li>
+                        <a href="<?php echo $this->url('admin', array('controller' => 'task', 'action' => 'freelancer-task-view',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-files-o"></i> <span class="nav-label"><?php echo $this->translate('My Tasks', 'Application'); ?></span></a>
+                    </li>
+
+                    <li class="dropdown ">
+                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-book"></i> <?php echo $this->translate('Finance', 'Application'); ?> <span class="caret"></span></a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('admin', ['controller'=>'finance', 'action'=>'freelancer-transaction']) ?>"><?php echo $this->translate('Transactions', 'Application'); ?></a></li>
+                            <li><a href="<?php echo $this->url('admin', ['controller'=>'finance', 'action'=>'freelancer-unpaid-task']) ?>"><?php echo $this->translate('Unpaid Tasks', 'Application'); ?></a></li>
+                            <li><a href="<?php echo $this->url('admin', ['controller'=>'freelancer', 'action'=>'edit-payment-info']) ?>"><?php echo $this->translate('Edit Payment Info', 'Application'); ?></a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown ">
+                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <?php echo $this->userData()['name'] ?> &nbsp; <span class="btn btn-xs btn-outline btn-primary"><?php echo $this->userData()['role_name'] ?></span> <span class="caret"></span></a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('admin', array('controller' => 'freelancer', 'action' => 'detail',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Profile', 'Application'); ?></a></li>
+                            <li><a href="<?php echo $this->url('admin', array('controller' => 'resetpassword', 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Reset Password', 'Application'); ?></a></li>
+                            <li class="divider"></li>
+                            <li><a href="<?php echo $this->url('user', array('controller' => 'logout', 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>/logout"><i class="fa fa-sign-out"></i> <?php echo $this->translate('Logout', 'Application'); ?></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+		<script>
+				$('li.dropdown').hover(function () {
+		$(this).toggleClass('open').siblings().removeClass('open');
+	});
+		</script>

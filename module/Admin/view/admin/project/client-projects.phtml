@@ -110,12 +110,17 @@ $this->inlineScript()
                                         <strong style="font-size: 16px;">{{ project.project_no }}</strong>
                                     </td>
                                     <td class="project-title tooltip-demo">
-                                        <strong style="font-size: 14px;">{{ project.reference }}</strong>
+                                        <span><code style="font-size: 14px;">{{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i>
+                                            <span ng-repeat="lang in project.targetLanguages">
+                                                {{ lang.name}}   
+                                            </span>
+                                            </code>
+                                        </span>
                                         <br />
-                                        <span><code style="font-size: 10px;">English <i class="fa fa-arrow-right"></i> Chinese, 日文</code></span>
+                                        <span style="font-size: 14px;">{{ project.reference }}</span>
                                     </td>
                                     <td class="project-actions text-right">
-                                        <span class="text-navy" style="font-size: 15px;"><strong>USD 50.25</strong></span>&nbsp;
+                                        <span class="text-navy" style="font-size: 15px;"><strong>{{ project.currency}} {{ project.total_tmp}}</strong></span>&nbsp;
                                         <a href="#" class="btn btn-white btn-sm" ng-click="goToDetail(project)"><i class="fa fa-folder"> <?php echo $this->translate('View','Employer'); ?> </i> </a>
                                     </td>
                                 </tr>
