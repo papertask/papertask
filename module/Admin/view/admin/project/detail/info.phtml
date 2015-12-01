@@ -2,7 +2,9 @@
 
                             <div class="col-md-12">
                                 <?php if (!$this->isemployer) {?>
-                                <button class="btn btn-primary pull-right"><i class="fa fa-edit"> <?php echo $this->translate('Edit Project','Employer'); ?></button>
+                                <button class="btn btn-danger pull-right" ng-click="showEdit()">
+                                    <i class="fa fa-edit"></i><?php echo $this->translate('Edit Project') ?>
+                                </button>
                                 <?php } ?>
                                 <h2 class="m-b-xs"><span class="font-bold text-navy">{{ project.project_no }}</span>&nbsp;&nbsp; <span>{{ project.reference }}</span></h2>
                                 <hr>
@@ -12,7 +14,7 @@
                                 </div>
                                 <hr>
                                 <div class="row">
-                                      <div class="col-sm-6 b-r">
+                                    <div class="col-sm-6 b-r">
                                         <table class="table table-striped table-bordered">
                                             <tbody>
                                             <tr>
@@ -33,8 +35,8 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                      </div>
-                                      <div class="col-sm-6">
+                                    </div>
+                                    <div class="col-sm-6">
                                         <table class="table table-striped table-bordered">
                                             <tbody>
                                             <tr>
@@ -53,6 +55,42 @@
                                         </table>
                                     </div>
                                 </div>
+                                <?php if (!$this->isemployer) {?>
+                                <div class="row">
+                                    <div class="col-sm-6 b-r">
+                                        <table class="table table-striped table-bordered">
+                                            <tbody>
+                                            <tr>
+                                                <th><?php echo $this->translate('Field'); ?></th>
+                                                <td> {{ project.field.name }} </td>
+                                            </tr>
+                                            <tr>
+                                                <th><?php echo $this->translate('Client Contact'); ?></th>
+                                                <td>{{ project.client.name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th><?php echo $this->translate('Sales'); ?></th>
+                                                <td class="text-navy"> {{ project.sale.name }} </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <table class="table table-striped table-bordered">
+                                            <tbody>
+                                            <tr>
+                                                <th><?php echo $this->translate('Client Company'); ?></th>
+                                                <td>{{ project.client.company.name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th><?php echo $this->translate('Project Manager'); ?></th>
+                                                <td> {{ project.pm.name }} </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <?php } ?>
                             </div>
                         </div>
 
