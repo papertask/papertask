@@ -40,35 +40,13 @@
                     </li>
 
                     <li class="dropdown ">
-                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->translate('Staffs', 'Application'); ?> <span class="caret"></span></a>
-                        <ul role="menu" class="dropdown-menu">
-                            <li><a href="<?php echo $this->url('admin', array('controller' => 'staff', 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Staff List', 'Application'); ?></a></li>
-                            <li><a href="<?php echo $this->url('admin', array('controller' => 'staff', 'action' => 'new',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('New Staff', 'Application'); ?></a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown ">
                         <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <?php echo $this->translate('Finance', 'Application'); ?> <span class="caret"></span></a>
                         <ul role="menu" class="dropdown-menu">
-                            <li><a href="<?php echo $this->url('admin', array('controller' => 'finance', 'action' => 'report',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Profit Report', 'Application'); ?></a></li> 
                             <li><a href="<?php echo $this->url('admin', array('controller' => 'finance', 'action' => 'transaction',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Transactions', 'Application'); ?></a></li>
                             <li><a href="<?php echo $this->url('admin', array('controller' => 'finance', 'action' => 'client-unpaid',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Unpaid Projects', 'Application'); ?></a></li>
                             <li><a href="<?php echo $this->url('admin', array('controller' => 'finance', 'action' => 'freelancer-unpaid',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Unpaid Tasks', 'Application'); ?></a></li>
                         </ul>
                     </li>
-
-                    <li class="dropdown ">
-                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $this->translate('Mail System', 'Application'); ?> <span class="caret"></span></a>
-                        <ul role="menu" class="dropdown-menu">
-                            <li><a href="<?php echo $this->url('admin', array('controller' => 'email',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Email Templates', 'Application'); ?></a></li>
-                            <li><a href="<?php echo $this->url('admin', array('controller' => 'email', 'action'=>'new',"lang"=>$this->translate('lang','Application') )) ?>"><?php echo $this->translate('New Template', 'Application'); ?></a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="<?php echo $this->url('admin', array('controller' => 'papertask', 'action' => 'profile',"lang"=>$this->translate('lang','Application'))) ?>"><span class="nav-label"><?php echo $this->translate('PT Profile', 'Application'); ?></span></a>
-                    </li>
-
 
                 </ul>
 

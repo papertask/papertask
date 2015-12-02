@@ -51,25 +51,25 @@
                                     include "admin/top-nav-admin.phtml";
                                     break;
                                 case 'Financial Manager':
-                                    include "admin/left-sidebar-staff-fm.phtml";
+                                    include "admin/top-nav-staff-fm.phtml";
                                     break;
                                 case 'Operation Manager':
-                                    include "admin/left-sidebar-staff-om.phtml";
+                                    include "admin/top-nav-staff-om.phtml";
                                     break;
                                 case 'Project Manager':
-                                    include "admin/left-sidebar-staff-pm.phtml";
+                                    include "admin/top-nav-staff-pm.phtml";
                                     break;
                                 case 'Sales Director':
-                                    include "admin/left-sidebar-staff-sd.phtml";
+                                    include "admin/top-nav-staff-sd.phtml";
                                     break;
                                 case 'Sales': // Sales Manager
-                                    include "admin/left-sidebar-staff-sm.phtml";
+                                    include "admin/top-nav-staff-sm.phtml";
                                     break;
                                 case 'General Manager': // Inhouse
-                                    include "admin/left-sidebar-staff-gm.phtml";
+                                    include "admin/top-nav-staff-gm.phtml";
                                     break;
                                 default:
-                                    include "admin/left-sidebar-admin.phtml";
+                                    include "admin/top-nav-admin.phtml";
                                     // include "admin/left-sidebar-staff-fm.phtml";
                                     // include "admin/left-sidebar-staff-om.phtml";
                                     // include "admin/left-sidebar-staff-pm.phtml";
@@ -84,10 +84,10 @@
                             include "admin/top-nav-client.phtml";
                             break;
                         case 'Freelancer':
-                            $this->userData()['isSenior'] ? include "admin/left-sidebar-senior-freelancer.phtml" : include "admin/left-sidebar-freelancer.phtml";
+                            $this->userData()['isSenior'] ? include "admin/top-nav-senior-freelancer.phtml" : include "admin/top-nav-freelancer.phtml";
                             break;
                         default:
-                            include "admin/left-sidebar-client.phtml";
+                            include "admin/top-nav-admin.phtml";
                             // TODO: default menu
                     };
                 ?>

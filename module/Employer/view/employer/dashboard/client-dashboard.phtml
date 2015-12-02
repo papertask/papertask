@@ -55,10 +55,6 @@ $this->inlineScript()
         </div>
 
 
-
-
-
-
         <div class="ibox">
             <div class="ibox-content">
 
@@ -70,7 +66,6 @@ $this->inlineScript()
                             <th data-toggle="true" data-hide="phone,tablet"><?php echo $this->translate('Status','Employer'); ?></th>
                             <th data-toggle="true"><?php echo $this->translate('Project ID','Employer'); ?></th>
                             <th data-toggle="true" data-hide="phone,tablet"><?php echo $this->translate('Project Reference','Employer'); ?></th>
-                            <th data-hide="phone,tablet"><?php echo $this->translate('Project Languages','Employer'); ?></th>
                             <th data-hide="phone,tablet"><?php echo $this->translate('Project Date','Employer'); ?></th>
                             <th data-toggle="true" class="text-right"><?php echo $this->translate('Price','Employer'); ?></th>
                         </tr>
@@ -89,15 +84,16 @@ $this->inlineScript()
                                     <span style="font-size: 16px;">{{ project.project_no }}</span>
                                 </td>
                                 <td class="project-title">
-                                    <span style="font-size: 16px;">{{ project.reference }}</span>
-                                </td>
-                                <td class="project-title">
-                                    <span><code style="font-size: 12px;">{{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i>
-										<span ng-repeat="lang in project.targetLanguages">
-											{{ lang.name}}   
-										</span>
-										</code>
-									</span>
+                                    <span><code style="font-size: 14px;">{{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i>
+                                        <span ng-repeat="lang in project.targetLanguages">
+                                            {{ lang.name}}   
+                                        </span>
+                                        </code>
+                                    </span>
+                                    <br />
+                                    <span style="font-size: 14px;">{{ project.reference }}</span>
+                                    
+
                                 </td>
                                 <td class="project-title">
                                     <small style="font-size: 12px;">{{ DateFormatter.short(project.startDate) }}</small>
@@ -105,9 +101,9 @@ $this->inlineScript()
                                 <td class="project-actions text-right">
                                     <span class="text-warning" style="font-size: 15px;"><strong>{{ project.currency}} {{ project.total_tmp}}</strong></span>&nbsp;
 										
-                                    <a href="#" class="btn btn-info btn-sm" ng-show="project.status == 0"><i class="fa fa-check"></i> Accept </a>
+                                    <a href="#" class="btn btn-info btn-sm" ng-show="project.status == 0"><i class="fa fa-check"></i> <?php echo $this->translate('Accept','Employer'); ?> </a>
 
-									<a href="#" class="btn btn-white btn-sm" ng-click="goToDetail(project)"><i class="fa fa-folder"></i> View </a>
+									<a href="#" class="btn btn-white btn-sm" ng-click="goToDetail(project)"><i class="fa fa-folder"></i> <?php echo $this->translate('View','Employer'); ?> </a>
                                 </td>
                             </tr>
                             
