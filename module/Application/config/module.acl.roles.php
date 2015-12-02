@@ -70,7 +70,7 @@ $allow_employer = array(
 	'project\getClientProjectList',
 	
 	// -- Quote	
-	
+	'quote\index',
 	
 	// -- Freelancer
 	'freelancer\download',
