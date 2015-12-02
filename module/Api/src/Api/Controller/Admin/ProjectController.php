@@ -568,6 +568,10 @@ class ProjectController extends AbstractRestfulJsonController
         if($project_id = $this->params()->fromQuery('project_id')){
             $queryBuilder->andWhere($queryBuilder->expr()->eq('project.id', $project_id));
         }
+		if($project_no = $this->params()->fromQuery('project_no')){
+            $queryBuilder->andWhere($queryBuilder->expr()->eq('project.project_no', $project_no));
+			//$queryBuilder->expr()->like('project.project_no', $project_no);
+        }
         if($reference = $this->params()->fromQuery('reference')){
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->like('project.reference',

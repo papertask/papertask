@@ -71,6 +71,7 @@ $allow_employer = array(
 	
 	// -- Quote	
 	'quote\index',
+	'project\index',
 	
 	// -- Freelancer
 	'freelancer\download',
