@@ -47,6 +47,7 @@ class Module
 		$eventManager->getSharedManager()->attach(__NAMESPACE__, 'dispatch', function ($e) {
 					$e->getTarget()->layout('layout/admin');
 				});
+
         $eventManager->attach(\Zend\Mvc\MvcEvent::EVENT_ROUTE, $routeCallback);
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);

@@ -110,14 +110,16 @@ $this->inlineScript()
                                         <strong style="font-size: 16px;">{{ project.project_no }}</strong>
                                     </td>
                                     <td class="project-title tooltip-demo">
-                                        <strong style="font-size: 14px;">{{ project.reference }}</strong>
+                                        <span><code style="font-size: 14px;">{{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i>
+                                            <span ng-repeat="lang in project.targetLanguages">
+                                                {{ lang.name}}   
+                                            </span>
+                                            </code>
+                                        </span>
                                         <br />
-										<span><code style="font-size: 10px;">{{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i>
-										<span ng-repeat="lang in project.targetLanguages">
-											{{ lang.name}}   
-										</span>
-										</code>
-									</span>
+
+                                        <span style="font-size: 14px;">{{ project.reference }}</span>
+
                                     </td>
                                     <td class="project-actions text-right">
                                         <span class="text-navy" style="font-size: 15px;"><strong>{{ project.currency}} {{ project.total_tmp}}</strong></span>&nbsp;
