@@ -268,7 +268,10 @@ angularApp.controller('ClientUnpaidProject', function($scope, $http, $timeout, $
 	        
 	        $scope.selectPage(1);
 	    }
-	
+	$scope.gotodetail = function ( project ) {
+		document.location.href = "/" + LANG_CODE + "/admin/project/detail?id=" + project.id;
+	}
+    
 	$scope.formatDate = function(date){
 		var dateString = date, //'17-09-2013 10:08'  	"2015-04-30 15:00:00"
 	    dateParts = dateString.split(' '),

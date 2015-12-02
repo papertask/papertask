@@ -102,7 +102,7 @@ $this->inlineScript()
 					</thead>
 					<tbody>
 						<tr ng-repeat="project in projects">
-							<td><a href="#" ng-click="goToDetail(project)">{{ project.project_no }}</a></td>
+							<td ng-click="gotodetail(project)"><a href="#" ng-click="gotodetail(project)">{{ project.project_no }}</a></td>
 							<td>{{ project.reference }}</td>
 							<td>{{ project.status.name }}</td>
 							<td>{{formatDate(project.dueDate.date) | date:'yyyy.MMM.dd'}}</td>
