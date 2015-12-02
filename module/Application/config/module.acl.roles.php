@@ -116,6 +116,7 @@ $allow_employer = array(
 	'email\loadTemplate',
 	'email\check',
 	// -- Profile
+	'resetpassword\index',
 	// -- API
 	'api/common',
 	'api/user',
