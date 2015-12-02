@@ -11,6 +11,8 @@
     ->prependFile($this->basePath() . '/v2/js/admin/common/angular/CurrentUser.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/bootbox/bootbox.min.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/footable/footable.all.min.js')
+    ->prependScript("angularApp = angular.module('project', []);")
+
 ?>
 
 <?php
