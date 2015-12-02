@@ -4,7 +4,12 @@
 $this->headScript ()->prependFile ( $this->basePath () . '/v2/js/admin/employer/profile.js' )
 					->prependFile ( $this->basePath () . '/v2/js/admin/bootstrap-modal.js' )
 					->prependScript ( "angularApp = angular.module('project', []);" )
-					->prependFile ( $this->basePath () . '/v2/js/plugins/validate/jquery.validate.min.js' );
+					->prependFile ( $this->basePath () . '/v2/js/plugins/validate/jquery.validate.min.js' )
+					->prependFile ( $this->basePath () . '/js/plugins/summernote/summernote.min.js' )
+					->prependFile ( $this->basePath () . '/js/plugins/validate/jquery.validate.min.js' )
+					->prependFile ( $this->basePath () . '/js/plugins/pace/pace.min.js' )
+					->prependFile ( $this->basePath () . '/js/inspinia.js' )
+					->prependFile ( $this->basePath () . '/js/common.js' );
 ?>
 <?php
 $this->inlineScript()
@@ -79,7 +84,13 @@ $this->inlineScript()
 									<div class="hr-line-dashed"></div>
 									<div class="form-group">
 										<label><?php echo $this->translate('Country','Employer'); ?> *</label> 
-										<select class="form-control required" id="country" name="country" ng-model="userInfo.country" ng-options="country.name for country in countries">
+										
+										<select class="form-control required" id="country" name="country" ng-model="userInfo.country">
+											<option value=""><?php echo $this->translate('Please select','Employer') ?></option>
+											<option ng-repeat="id in countries" value="{{id.id}}"><?php echo $this->translate('{{id.name | i18n}}','Employer');?></option>
+										</select>
+										
+										
 										</select>
 									</div>
 								</div>

@@ -10,10 +10,11 @@ angularApp.run( function ( $rootScope ) {
         }
     });
 }) 
-angularApp.controller('PapertaskEmployerProfileController', function($scope, $http, $timeout, $q) {
+angularApp.controller('PapertaskEmployerProfileController', function($scope, $rootScope, $http, $timeout, $q) {
     $scope.pagetype = "edit-profile";
 	$scope.companies 	= [];
 	$scope.countries 	= [];
+	$scope.countries_show = [];
     $scope.userInfo = {
         isActive: null,
         profileUpdated: null,
@@ -40,6 +41,12 @@ angularApp.controller('PapertaskEmployerProfileController', function($scope, $ht
 		var ajaxCountryInfo = $http.get("/api/common/country").success(function($data){
 	            $scope.countries = $data['countries'];
 	            setModalControllerData('countries', $scope.countries);
+				console.log($scope.countries);
+				$.each($scope.countries, function(){
+                if($scope.countries_show.indexOf(this.name.toString()) == -1){
+                    $scope.countries_show.push(this.name.toString());
+                }
+				});
 	    });
 
 		var ajaxCompanyInfo = $http.get("/api/common/company").success(function($data){
@@ -103,4 +110,37 @@ angularApp.controller('PapertaskEmployerProfileController', function($scope, $ht
 		});
 		
 	}
+	if(LANG_CODE == 'zh-CN')
+			{
+				$rootScope.currentLanguage = 'zh-CN';
+				//$scope.languages = convert_to_zh($data);
+			}
+			else {
+				$rootScope.currentLanguage = 'en-US';
+                
+			}	
 });
+
+
+angularApp.filter('i18n', ['$rootScope', function($rootScope) {
+    return function (input) {
+        var translations = {
+            'zh-CN' : {
+                'Afghanistan' : '南非荷兰语',
+                'Albania' : '阿拉伯语',
+                'Algeria' : '白俄罗斯语',
+				'Andorra' : '波斯尼亚语',
+            },
+            'en-US' : {
+                'Afghanistan' : 'Afghanistan',
+                'Albania' : 'Albania',
+                'Algeria' : 'Algeria',
+                'Andorra' : 'Andorra',
+                
+            }
+        },
+        currentLanguage = $rootScope.currentLanguage || 'en-US';
+    
+        return translations[currentLanguage][input];
+    }
+}]);
