@@ -8,10 +8,10 @@
             <div class="navbar-collapse collapse" id="navbar">         
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="<?php echo $this->url('employer',array('controller' => 'dashboard', 'action' => 'client-dashboard',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-th-large"></i> <span class="nav-label"><?php echo $this->translate('Dashboard', 'Application'); ?></span></a>
+                        <a href="<?php echo $this->url('employer',array('controller' => 'dashboard', 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-th-large"></i> <span class="nav-label"><?php echo $this->translate('Dashboard', 'Application'); ?></span></a>
                     </li>
                     <li>
-                        <a href="<?php echo $this->url('admin', array('controller' => 'project', 'action' => 'client-quotes',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-folder-open"></i> <span class="nav-label"><?php echo $this->translate('Quotes', 'Application'); ?></span></a>
+                        <a href="<?php echo $this->url('employer', array('controller' => 'quote', 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-folder-open"></i> <span class="nav-label"><?php echo $this->translate('Quotes', 'Application'); ?></span></a>
                     </li>
                     
                     <?php
@@ -20,7 +20,7 @@
                     ?>
 
                     <li>
-                        <a href="<?php echo $this->url('admin', array('controller' => 'project', 'action' => 'client-projects',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-archive"></i> <span class="nav-label"><?php echo $this->translate('Projects', 'Application'); ?></span></a>
+                        <a href="<?php echo $this->url('employer', array('controller' => 'project', 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><i class="fa fa-archive"></i> <span class="nav-label"><?php echo $this->translate('Projects', 'Application'); ?></span></a>
                     </li>
 
                     <li class="dropdown ">
