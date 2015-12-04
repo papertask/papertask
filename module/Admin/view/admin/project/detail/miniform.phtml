@@ -110,6 +110,16 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><?php echo $this->translate('Project Status','Employer') ?> *</label>
+                            <div class="col-sm-9">
+                                <select class="form-control required valid" name="pms" aria-required="true"
+                                        ng-model="tempProject.pm"
+                                        ng-options="pm.name for pm in pms">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="text-right tooltip-demo">
