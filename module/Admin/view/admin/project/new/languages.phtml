@@ -8,6 +8,31 @@
                 <div class="form-group form-horizontal">
                     <label class="col-sm-4 control-label">Source Language *</label>
                     <div class="col-sm-8">
+                        <select class="form-control required valid sLanguage" name="sourceLanguage"
+                                ng-options="language.name for language in languages"
+                                ng-model="project.sourceLanguage" ng-change="change_client(project.client)">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Target Languages * &nbsp; </label>
+                    <div class="col-sm-8">
+                        <select class="form-control required valid tLanguages" name=""
+                                ng-options="language.name for language in languages"
+                                ng-model="project.targetLanguages" ng-multiple="true" ng-change="change_client(project.client)">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--
+            <div class="col-lg-6">
+                <div class="form-group form-horizontal">
+                    <label class="col-sm-4 control-label">Source Language *</label>
+                    <div class="col-sm-8">
                         <select class="form-control required valid" name="sourceLanguage" aria-required="true"
                                 ng-options="language.name for language in languages"
                                 ng-model="project.sourceLanguage" ng-change="change_client(project.client)">
@@ -30,6 +55,7 @@
                     </div>
                 </div>
             </div>
+            -->
         </div>
     </div>
 </div>

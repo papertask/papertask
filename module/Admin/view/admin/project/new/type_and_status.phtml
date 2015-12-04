@@ -8,33 +8,80 @@
             <label class="col-sm-3 control-label">
                 <h4><i class="fa fa-coffee"></i>&nbsp; Translation</h4>
             </label>
+            <!--
             <div data-toggle="buttons">
                 <label class="btn btn-outline btn-primary {{translation_active[translation.id]}}"
                        ng-repeat="translation in ProjectType.translations" ng-click="addType(translation)">
                     <input type="checkbox" name="type" ng-value="translation.id"/> {{translation.name}}
                 </label>
             </div>
+            -->
+            <div class="checkbox checkbox-success checkbox-inline">
+                <input type="checkbox" id="Translation1" value="option1">
+                <label for="Translation1"> Translation (No TM) </label>
+            </div>
+            <div class="checkbox checkbox-success checkbox-inline">
+                <input type="checkbox" id="Translation2" value="option1">
+                <label for="Translation2"> Translation (Use TM) </label>
+            </div>
+            <div class="checkbox checkbox-success checkbox-inline">
+                <input type="checkbox" id="Translation3" value="option1">
+                <label for="Translation3"> Proofreading </label>
+            </div>
+
         </div>
         <div class="form-group project-types">
             <label class="col-sm-3 control-label">
                 <h4><i class="fa fa-desktop"></i> &nbsp;DTP/Engineering</h4>
             </label>
+            <!--
             <div data-toggle="buttons">
                 <label class="btn btn-outline btn-primary {{dtp_active[dtp.id]}}" ng-repeat="dtp in ProjectType.dtps"
                        ng-click="addType(dtp)">
                     <input type="checkbox" name="type" ng-value="dtp.id" /> <span ng-bind-html="dtp.name"></span>
                 </label>
             </div>
+            -->
+            <div class="checkbox checkbox-info checkbox-inline">
+                <input type="checkbox" id="DTP1" value="option2">
+                <label for="DTP1"> DTP <i class="fa fa-apple"></i> </label>
+            </div>
+            <div class="checkbox checkbox-info checkbox-inline">
+                <input type="checkbox" id="DTP2" value="option2">
+                <label for="DTP2"> DTP <i class="fa fa-windows"></i> </label>
+            </div>
+            <div class="checkbox checkbox-info checkbox-inline">
+                <input type="checkbox" id="DTP3" value="option2">
+                <label for="DTP3"> Engineering <i class="fa fa-gears"></i> </label>
+            </div>
         </div>
         <div class="form-group" id="project-interpreting">
             <label class="col-sm-3 control-label">
                 <h4><i class="fa fa-comments-o"></i> &nbsp; Interpreting</h4>
             </label>
+            <!--
             <div data-toggle="buttons">
                 <label class="btn btn-outline btn-primary {{interpreting == project.interpreting ? 'active': ''}}"
                        ng-repeat="interpreting in ProjectType.interpretings" ng-click="setInterpreting(interpreting)">
                     <input type="radio" name="type" ng-value="intepreting.id" /> {{interpreting.name}}
                 </label>
+            </div>
+            -->
+            <div class="checkbox checkbox-primary checkbox-inline">
+                <input type="checkbox" id="Interpreting1" value="option3">
+                <label for="Interpreting1"> Simultaneous </label>
+            </div>
+            <div class="checkbox checkbox-primary checkbox-inline">
+                <input type="checkbox" id="Interpreting2" value="option3">
+                <label for="Interpreting2"> Consecutive </label>
+            </div>
+            <div class="checkbox checkbox-primary checkbox-inline">
+                <input type="checkbox" id="Interpreting3" value="option3">
+                <label for="Interpreting3"> Business Escort </label>
+            </div>
+            <div class="checkbox checkbox-primary checkbox-inline">
+                <input type="checkbox" id="Interpreting4" value="option3">
+                <label for="Interpreting4"> Tourism Escort </label>
             </div>
         </div>
         <div class="hr-line-dashed"></div>
@@ -42,6 +89,7 @@
             <label class="col-sm-3 control-label">
                 <h4><i class="fa fa-cube"></i> &nbsp;Status</h4>
             </label>
+            <!--
             <div data-toggle="buttons">
                 <label class="btn btn-outline btn-{{status.decorator}}" ng-repeat="status in statuses"
                        ng-click="project.status=status">
@@ -49,6 +97,16 @@
                            data-errorplace="element.parent().parent().after(error)"/> {{status.name}}
                 </label>
             </div>
+            -->
+            <div class="checkbox checkbox-warning checkbox-inline">
+                <input type="checkbox" id="Status1" value="option4">
+                <label for="Status1"> Quote </label>
+            </div>
+            <div class="checkbox checkbox-warning checkbox-inline">
+                <input type="checkbox" id="Status2" value="option4">
+                <label for="Status2"> Ordered </label>
+            </div>
+
         </div>
     </div>
 </div>
