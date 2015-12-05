@@ -90,7 +90,7 @@ $this->inlineScript()
                                 <span ng-show="task.status.id == 3 || task.status.id == 4 || task.status.id == 6">
                                     <button class="btn btn-warning pull-right" ng-click="Accept(task.id)"><i class="fa fa-check-square-o"></i> <?php echo $this->translate('Accept','Application'); ?></button>
                                 </span>
-                                <h1 class="product-main-price">$406,602 </h1>
+                                <h1 class="product-main-price">{{ task.currency }} {{ task.total_freelancer }}</h1>
                             </div>
 
                             <hr>
