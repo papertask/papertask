@@ -74,7 +74,9 @@ $this->inlineScript()
                         </div>
 
                         <div>
-                            <h1 class="product-main-price">$406,602 <small class="text-muted" style="font-size: 18px;">1800 <?php echo $this->translate('words','Application'); ?></small> </h1>
+                            <h1 class="product-main-price">{{ task.currency }} {{ task.total_freelancer }} 
+							<small ng-show="1==0" class="text-muted" style="font-size: 18px;">1800 <?php echo $this->translate('words','Application'); ?></small> 
+							</h1>
                         </div>
                         <div class="hidden-sm">
 		                    <table class="footable table small m-b-xs table-responsive" style="font-size: 16px;">
