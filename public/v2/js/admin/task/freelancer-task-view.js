@@ -44,6 +44,8 @@ angularApp.controller('FreelancerTaskView', function($scope, $http, $timeout, $q
  				task["type"] = ProjectType.get(element.type);
  				task["dueDate"] = element.dueDate;
 				task["startDate"] = element.startDate;
+				task["task_number"] = element.task_number;
+				task["total_freelancer"] = element.total_freelancer;
  				
 				task["client"] = element.project.client;
 				

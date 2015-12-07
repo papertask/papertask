@@ -31,7 +31,7 @@ angularApp.controller('FreelancerTaskView', function($scope, $http, $timeout, $q
             //params: $params
         }).success(function($data){
         	$scope.tasks_tmp = $data.tasks;
-			
+			console.log($data);
  			$scope.tasks = [];
  			angular.forEach($scope.tasks_tmp, function(element) {
 				
@@ -44,13 +44,13 @@ angularApp.controller('FreelancerTaskView', function($scope, $http, $timeout, $q
  				task["type"] = ProjectType.get(element.type);
  				task["dueDate"] = element.dueDate;
 				task["startDate"] = element.startDate;
- 				
+ 				task["task_number"] = element.task_number;
+				task["total_freelancer"] = element.total_freelancer;
 				task["client"] = element.project.client;
 				
 				//alert(task);
  				
  				$scope.tasks.push(task);
-				console.log($scope.tasks);
  			});
 			
             $scope.pages = $data.pages;

@@ -96,7 +96,7 @@ $this->inlineScript()
                                 <span style="font-size: 14px;">{{ task.project.reference }}</span>
                             </td>
                             <td class="project-actions text-right">
-                                <span class="text-navy" style="font-size: 15px;"><strong>$350.22</strong></span>&nbsp;
+                                <span class="text-navy" style="font-size: 15px;"><strong>{{ task.currency }} {{ task.total_freelancer }}</strong></span>&nbsp;
                                 <a href="" ng-if="task.status.id == 6" ng-click="Accept(task.id)" class="btn btn-info btn-sm"><i class="fa fa-check-square-o"></i> <?php echo $this->translate('Accept','Freelancer'); ?></a> <a href="" class="btn btn-white btn-sm" ng-click="View(task.id)"><i class="fa fa-folder"></i> <?php echo $this->translate('View','Freelancer'); ?></a></a>
                             </td>
                         </tr>
