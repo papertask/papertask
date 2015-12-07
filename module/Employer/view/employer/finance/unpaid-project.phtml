@@ -1,0 +1,172 @@
+<?php $this->headTitle($this->translate(' Unpaid Projects')) ?>
+<!-- Scripts -->
+<?php $this->headLink()
+	->prependStylesheet($this->basePath() . '/v2/css/plugins/footable/footable.core.css');
+?>
+
+<?php
+$this->headScript ()
+	->prependFile($this->basePath() . '/v2/js/plugins/footable/footable.all.min.js')
+	->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
+	->prependFile($this->basePath() . '/v2/js/admin/finance/client-unpaid-project.js')
+	->prependScript("angularApp = angular.module('project', []);")
+	->prependFile($this->basePath() . '/v2/js/plugins/pace/pace.min.js')
+	->prependFile($this->basePath() . '/v2/js/inspinia.js');
+
+$this->inlineScript()
+->prependScript("
+		var LANG_CODE = '" . $this->lang_code . "';
+		var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
+		");
+?>
+
+    <script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+
+        });
+
+    </script>
+
+<div class="row animated fadeInUp" ng-controller="ClientUnpaidProject" ng-init="init()">
+
+	<div class="ibox">
+		<div class="ibox-title">
+			<h5><?php echo $this->translate('Unpaid Projects','Employer'); ?></h5>
+		</div>
+
+		<div class="ibox-content">
+
+			<div class="row m-b-sm m-t-sm">
+				<div class="col-md-10">
+					<div class="input-group">
+						<input type="text" placeholder="<?php echo $this->translate('Search','Employer'); ?>"
+							class="input-sm form-control" ng-model="filter.bsearch"> <span
+							class="input-group-btn">
+							<button type="button" class="btn btn-sm btn-primary"
+								ng-click='search()'><?php echo $this->translate('Search','Employer'); ?></button>
+						</span>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<a data-toggle="collapse" href="#adv_search"
+						class="btn btn-sm btn-primary"><i class="fa fa-search"></i>
+						<?php echo $this->translate('Advance Search','Employer'); ?></a>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12">
+					<div id="adv_search" class="panel-collapse collapse faq-answer">
+						<form method="" class="form-horizontal">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label class="col-sm-3 control-label"> <?php echo $this->translate('Project ID','Employer'); ?></label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" ng-model="filter.projectId">
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label class="col-sm-3 control-label"><?php echo $this->translate('Reference','Employer'); ?></label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" ng-model="filter.reference">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="text-right tooltip-demo">
+								<a class="btn btn-sm btn-primary" ng-click="advancedSearch()"><i
+									class="fa fa-search"></i> <?php echo $this->translate('Search','Employer'); ?></a> <a
+									class="btn btn-white btn-sm" type="reset" ng-click="reset()"><i
+									class="fa fa-times"></i> <?php echo $this->translate('Reset','Employer'); ?></a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<div class="table-responsive">
+				<table class="footable table table-hover toggle-arrow-tiny">
+					<thead>
+						<tr>
+							<th><?php echo $this->translate('Project ID','Employer'); ?></th>
+							<th><?php echo $this->translate('Project Reference','Employer'); ?></th>
+							<th><?php echo $this->translate('Status','Employer'); ?></th>
+							<th><?php echo $this->translate('Completed Date','Employer'); ?></th>
+							<th><?php echo $this->translate('Amount','Employer'); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="project in projects">
+							<td ng-click="gotodetail(project)"><a href="#" ng-click="gotodetail(project)">{{ project.project_no }}</a></td>
+							<td>{{ project.reference }}</td>
+							<td>{{ project.status.name }}</td>
+							<td>{{formatDate(project.dueDate.date) | date:'yyyy.MMM.dd'}}</td>
+							<td>{{project.currency | uppercase}} {{project.total_tmp}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="btn-group text-right">
+				<button type="button" class="btn btn-white"
+					ng-class="pages.previous?'':'disabled'"
+					ng-click="onBtnPreviousClicked()">
+					<i class="fa fa-chevron-left"></i>
+				</button>
+				<button ng-repeat="page in pages.pagesInRange"
+					class="btn btn-white" ng-class="page==pages.current?'active':''"
+					ng-click="onBtnGoto(page-1)">{{page}}</button>
+				<button type="button" class="btn btn-white"
+					ng-class="pages.next?'':'disabled'" ng-click="onBtnNextClicked()">
+					<i class="fa fa-chevron-right"></i>
+				</button>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+<script>
+ $(document).ready(function(){
+
+     $('#loading-example-btn').click(function () {
+         btn = $(this);
+         simpleLoad(btn, true)
+
+         // Ajax example
+//         $.ajax().always(function () {
+//             simpleLoad($(this), false)
+//         });
+
+         simpleLoad(btn, false)
+     });
+ });
+
+ function simpleLoad(btn, state) {
+     if (state) {
+         btn.children().addClass('fa-spin');
+         btn.contents().last().replaceWith(" Loading");
+     } else {
+         setTimeout(function () {
+             btn.children().removeClass('fa-spin');
+             btn.contents().last().replaceWith(" Refresh");
+         }, 2000);
+     }
+ }
+    $(document).ready(function(){
+        $('.dtbox').DateTimePicker();
+
+        // trigger datetime picker when click to calendar icon
+        // TODO: this is not working
+        $('i.fa.fa-calendar').on('click', function(e){
+            console.log('clicked');
+            e.preventDefault();
+
+            $(this).parents('.input-group').find('input[readonly]').click();
+        });
+    });
+</script>

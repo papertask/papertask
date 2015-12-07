@@ -71,6 +71,7 @@ return array(
 			'employer/quotes' => __DIR__ . '/../view/employer/quote/index.phtml',
 			'employer/projects' => __DIR__ . '/../view/employer/project/index.phtml',
       'employer/finance/transaction' => __DIR__ . '/../view/employer/finance/transaction.phtml',
+      'employer/finance/unpaid-project' => __DIR__ . '/../view/employer/finance/unpaid-project.phtml',
 
 
         ),
