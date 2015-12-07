@@ -114,6 +114,7 @@ $allow_employer = array(
 	'finance\transaction',
 	'finance\unpaid-project',
 	'profile\index',
+	'reset-password\index',
 
 	// -- Email
 	'email\loadTemplate',

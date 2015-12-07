@@ -59,6 +59,7 @@ return array(
 			           'Employer\Controller\Project' => 'Employer\Controller\ProjectController',
                  'Employer\Controller\Finance' => 'Employer\Controller\FinanceController',
                  'Employer\Controller\Profile' => 'Employer\Controller\ProfileController',
+                 'Employer\Controller\ResetPassword' => 'Employer\Controller\ResetPasswordController',
         ),
     ),
     'view_manager' => array(
@@ -74,6 +75,7 @@ return array(
       'employer/finance/transaction' => __DIR__ . '/../view/employer/finance/transaction.phtml',
       'employer/finance/unpaid-project' => __DIR__ . '/../view/employer/finance/unpaid-project.phtml',
       'employer/profile' => __DIR__ . '/../view/employer/profile/index.phtml',
+      'employer/reset-password/index' => __DIR__ . '/../view/employer/reset-password/index.phtml',
 
 
         ),
