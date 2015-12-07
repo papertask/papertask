@@ -72,13 +72,13 @@
                             <div class="col-sm-9">
                                 <div class="input-group date" >
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-									<input data-field="datetime" readonly type="text" name="startDate" ng-model="project.dueDate.date" 
+									<input data-field="datetime" readonly type="text" name="startDate" ng-model="project.dueDate.date"
 										   class="form-control required valid" data-errorplace="element.parent().before(error)"/>
                                 </div>
 								<div class="dtbox1"></div>
                             </div>
                         </div>
-						<?php if (!$this->isemployer) {?>	
+						<?php if (!$this->isemployer) {?>
                         <div class="form-group">
                             <label class="col-sm-3 control-label"><?php echo $this->translate('Client','Employer') ?> *</label>
                             <div class="col-sm-9">
@@ -91,7 +91,7 @@
                         </div>
 						<?php } ?>
 						<?php if ($this->isemployer) {?>
-							
+
 						<div class="form-group">
                             <label class="col-sm-3 control-label"><?php echo $this->translate('PO No','Employer') ?></label>
                             <div class="col-sm-9">
@@ -114,8 +114,8 @@
                             <label class="col-sm-3 control-label"><?php echo $this->translate('Project Status','Employer') ?> *</label>
                             <div class="col-sm-9">
                                 <select class="form-control required valid" name="pms" aria-required="true"
-                                        ng-model="tempProject.pm"
-                                        ng-options="pm.name for pm in pms">
+                                        ng-model="tempProject.status"
+                                        ng-options="stt.name for stt in projectstatus track by stt.id">
                                     <option value=""></option>
                                 </select>
                             </div>
