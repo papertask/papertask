@@ -54,9 +54,10 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Employer\Controller\Dashboard' => 'Employer\Controller\DashboardController',
-			'Employer\Controller\Quote' => 'Employer\Controller\QuoteController',
-			'Employer\Controller\Project' => 'Employer\Controller\ProjectController',
+                'Employer\Controller\Dashboard' => 'Employer\Controller\DashboardController',
+			           'Employer\Controller\Quote' => 'Employer\Controller\QuoteController',
+			           'Employer\Controller\Project' => 'Employer\Controller\ProjectController',
+                 'Employer\Controller\Finance' => 'Employer\Controller\FinanceController',
         ),
     ),
     'view_manager' => array(
@@ -69,6 +70,7 @@ return array(
 			'employer/dashboard/client-dashboard' => __DIR__ . '/../view/employer/dashboard/client-dashboard.phtml',
 			'employer/quotes' => __DIR__ . '/../view/employer/quote/index.phtml',
 			'employer/projects' => __DIR__ . '/../view/employer/project/index.phtml',
+      'employer/finance/transaction' => __DIR__ . '/../view/employer/finance/transaction.phtml',
 
 
         ),

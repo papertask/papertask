@@ -6,7 +6,7 @@ $allow_employer = array(
 	'index\languages',
 	'index\freelancer',
 	'index\contact',
-	
+
 	'index\contact-post',
 
 	'index\order',
@@ -37,9 +37,9 @@ $allow_employer = array(
 	// Dashboard Panel
 	'dashboard\index',
 	'dashboard\client-dashboard',
-	
+
 	// -- Task
-	
+
 	'task\detail',
 	'task\getFreelancerTaskList',
 	'task\FreelancerAcceptTask',
@@ -47,9 +47,9 @@ $allow_employer = array(
 	'task\getTaskPoolList',
 	'task\freelancer-unpaid-task',
 		'task\getFreelancerAssigningTaskList',
-		
+
 	// -- Project
-	
+
 	'project\detail', // Quotes in menu
 	'project\uploadFile',
 	'project\quoteprint',
@@ -68,20 +68,20 @@ $allow_employer = array(
 	'project\wordcount',
 	'project\uploadtemp',
 	'project\getClientProjectList',
-	
-	// -- Quote	
+
+	// -- Quote
 	'quote\index',
 	'project\index',
-	
+
 	// -- Freelancer
 	'freelancer\download',
-	
+
 	'freelancer\new',
 	'freelancer\uploadFile',
 	'freelancer\getFreelancesList',
 	'freelancer\finishRegistration',
 	'freelancer\getuserbyfreelancerid',
-	
+
 	// -- Employer (Client)
 	'employer\profile',
 	'employer\detail',
@@ -107,11 +107,12 @@ $allow_employer = array(
 	'finance\getTransaction',
 	'finance\getTransactionTask',
 	'finance\client-transaction',
-	
+
 	'finance\searchProjectUnpaidList',
 	'finance\advsearchProjectUnpaidList',
 	'finance\getFreelancerOutTransactionList',
-	
+	'finance\transaction',
+
 	// -- Email
 	'email\loadTemplate',
 	'email\check',
@@ -133,7 +134,7 @@ $allow_freelancer = array(
 	'index\languages',
 	'index\freelancer',
 	'index\contact',
-	
+
 	'index\contact-post',
 
 	'index\order',
@@ -164,9 +165,9 @@ $allow_freelancer = array(
 	// Dashboard Panel
 	'dashboard\index',
 	'dashboard\freelancer-dashboard',
-	
+
 	// -- Task
-	
+
 	'task\detail',
 	'task\freelancer-task-view',
 	'task\getFreelancerTaskList',
@@ -176,9 +177,9 @@ $allow_freelancer = array(
 	'task\getTaskPoolList',
 	'task\freelancer-unpaid-task',
 		'task\getFreelancerAssigningTaskList',
-		
+
 	// -- Project
-	
+
 	'project\detail', // Quotes in menu
 	'project\uploadFile',
 	'project\quoteprint',
@@ -189,10 +190,10 @@ $allow_freelancer = array(
 	'project\wordcount',
 	'project\uploadtemp',
 	'project\getClientProjectList',
-	
-	// -- Quote	
-	
-	
+
+	// -- Quote
+
+
 	// -- Freelancer
 	'freelancer\download',
 	'freelancer\detail',
@@ -203,7 +204,7 @@ $allow_freelancer = array(
 	'freelancer\edit-price',
 	'freelancer\finishRegistration',
 	'freelancer\getuserbyfreelancerid',
-	
+
 	// -- Employer (Client)
 	'employer\detail',
 	'employer\edit',
@@ -226,13 +227,13 @@ $allow_freelancer = array(
 	'finance\outgoing-detail',
 	'finance\getTransaction',
 	'finance\getTransactionTask',
-	
+
 	'finance\searchProjectUnpaidList',
 	'finance\advsearchProjectUnpaidList',
 	'finance\freelancer-transaction',
 	'finance\getFreelancerOutTransactionList',
 	'finance\freelancer-unpaid-task',
-	
+
 	// -- Email
 	'email\loadTemplate',
 	'email\check',
@@ -253,7 +254,7 @@ $allow_all = array(
 	'index\languages',
 	'index\freelancer',
 	'index\contact',
-	
+
 	'index\contact-post',
 
 	'index\order',
@@ -298,7 +299,7 @@ $allow_all = array(
 	'task\getTaskPoolList',
 	'task\freelancer-unpaid-task',
 		'task\getFreelancerAssigningTaskList',
-		
+
 	// -- Project
 	'project\index',
 	'project\new',
@@ -322,16 +323,16 @@ $allow_all = array(
 	'project\wordcount',
 	'project\uploadtemp',
 	'project\getClientProjectList',
-	
-	// -- Quote	
+
+	// -- Quote
 	'quote\detail',
 	'quote\new',
-	
-	
+
+
 	// -- Freelancer
 	'freelancer\index',
 	'freelancer\download',
-	
+
 	'freelancer\new',
 	'freelancer\detail',
 	'freelancer\edit-profile',
@@ -341,7 +342,7 @@ $allow_all = array(
 	'freelancer\edit-price',
 	'freelancer\finishRegistration',
 	'freelancer\getuserbyfreelancerid',
-	
+
 	// -- Employer (Client)
 	'employer\list',
 	'employer\new',
@@ -376,13 +377,13 @@ $allow_all = array(
 	'finance\outgoing-detail',
 	'finance\getTransaction',
 	'finance\getTransactionTask',
-	
+
 	'finance\searchProjectUnpaidList',
 	'finance\advsearchProjectUnpaidList',
 	'finance\freelancer-transaction',
 	'finance\getFreelancerOutTransactionList',
 	'finance\freelancer-unpaid-task',
-	
+
 	// -- Email
 	'email\index',
 	'email\new',
@@ -418,16 +419,16 @@ return array(
 		'index\privacy',
 		'index\terms',
 		'index\contact-post',
-    		
-    	// Project Order	
+
+    	// Project Order
     	'project',
     	'project/uploadFile',
-		
+
     	'admin',
     	'admin/project',
     	'admin/project/wordcount',
     	'project/wordcount',
-    		
+
 		'home',
 		'languages',
 		'freelancer',
@@ -449,17 +450,17 @@ return array(
 		'register\social',
 		'register\employer',
 		'register\freelancer',
-		
+
 		// API
 		'api/common',
 		'api/papertask',
     	'api/data',
     	'api/admin',
-     		
+
      	// Landing
 		'landing/file',
    		'file/wordcount',
-		
+
 		'payment/capture',
 		'payment/done',
     ),
