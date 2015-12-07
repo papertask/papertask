@@ -26,8 +26,8 @@
                     <li class="dropdown ">
                         <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-book"></i> <?php echo $this->translate('Finance', 'Application'); ?> <span class="caret"></span></a>
                         <ul role="menu" class="dropdown-menu">
-                            <li><a href="<?php echo $this->url('admin', array('controller' => 'finance', 'action' => 'client-transaction',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Transactions', 'Application'); ?></a></li>
-                            <li><a href="<?php echo $this->url('admin', array('controller' => 'finance', 'action' => 'client-unpaid-project',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Unpaid Projects', 'Application'); ?></a></li>
+                            <li><a href="<?php echo $this->url('employer', array('controller' => 'finance', 'action' => 'transaction',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Transactions', 'Application'); ?></a></li>
+                            <li><a href="<?php echo $this->url('employer', array('controller' => 'finance', 'action' => 'unpaid-project',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Unpaid Projects', 'Application'); ?></a></li>
                         </ul>
                     </li>
 
@@ -38,8 +38,8 @@
                     <li class="dropdown ">
                         <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <?php echo $this->userData()['name'] ?> <span class="caret"></span></a>
                         <ul role="menu" class="dropdown-menu">
-                            <li><a href="<?php echo $this->url('admin', array('controller' => 'employer', 'action' => 'profile',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Profile', 'Application'); ?></a></li>
-                            <li><a href="<?php echo $this->url('admin', array('controller' => 'resetpassword', 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Reset Password', 'Application'); ?></a></li>
+                            <li><a href="<?php echo $this->url('employer', array('controller' => 'profile', 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Profile', 'Application'); ?></a></li>
+                            <li><a href="<?php echo $this->url('employer', array('controller' => 'reset-password', 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>"><?php echo $this->translate('Reset Password', 'Application'); ?></a></li>
                             <li class="divider"></li>
                             <li><a href="<?php echo $this->url('user', array('controller' => 'logout', 'action' => 'index',"lang"=>$this->translate('lang','Application'))) ?>/logout"><i class="fa fa-sign-out"></i> <?php echo $this->translate('Logout', 'Application'); ?></a>
                             </li>
