@@ -113,6 +113,7 @@ $allow_employer = array(
 	'finance\getFreelancerOutTransactionList',
 	'finance\transaction',
 	'finance\unpaid-project',
+	'profile\index',
 
 	// -- Email
 	'email\loadTemplate',

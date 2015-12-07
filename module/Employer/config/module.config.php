@@ -58,6 +58,7 @@ return array(
 			           'Employer\Controller\Quote' => 'Employer\Controller\QuoteController',
 			           'Employer\Controller\Project' => 'Employer\Controller\ProjectController',
                  'Employer\Controller\Finance' => 'Employer\Controller\FinanceController',
+                 'Employer\Controller\Profile' => 'Employer\Controller\ProfileController',
         ),
     ),
     'view_manager' => array(
@@ -72,6 +73,7 @@ return array(
 			'employer/projects' => __DIR__ . '/../view/employer/project/index.phtml',
       'employer/finance/transaction' => __DIR__ . '/../view/employer/finance/transaction.phtml',
       'employer/finance/unpaid-project' => __DIR__ . '/../view/employer/finance/unpaid-project.phtml',
+      'employer/profile' => __DIR__ . '/../view/employer/profile/index.phtml',
 
 
         ),
