@@ -1,0 +1,50 @@
+<?php
+
+$this->headScript ()->prependFile ( $this->basePath () . '/js/admin/reset-password/index.js' )
+                    ->prependFile ( $this->basePath () . '/js/plugins/validate/jquery.validate.min.js' )
+                    ->prependScript ( "angularApp = angular.module('project', []);" )
+                    ->prependFile ( $this->basePath () . '/js/inspinia.js' );
+
+$this->inlineScript()
+    ->prependScript("
+        var USER_ID = '" . $this->userData()['id'] . "';
+        var LANG_CODE = '" . $this->lang_code . "';
+    ");
+?>
+<?php $this->headTitle($this->translate('Reset your password')) ?>
+<div class="ibox float-e-margins" ng-controller="ResetPasswordController" id="ResetPasswordController">
+    <div class="alert {{formMessageClass}}" ng-show="formMessage">
+        <button aria-hidden="true" class="close" type="button">×</button>
+        {{ formMessage }}
+    </div>
+    <div class="ibox-title">
+        <h4><i class="fa fa-edit"></i> <?php echo $this->translate('Reset your password') ?></h4>
+    </div>
+    <div class="ibox-content">
+        <form id="form" class="form-horizontal" method="post" role="form" action="">
+            <?php
+            foreach ($this->form->getElements() as $element): ?>
+                <?php
+                $messages = $element->getMessages();
+                ?>
+                <div class="form-group<?php if ($messages) echo " has-error" ?>">
+                    <?php if ($messages): ?>
+                        <?php foreach ($messages as $message): ?>
+                            <div class="alert-danger"><?php echo $message; ?></div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <label class="col-sm-3 control-label"><?php echo $this->translate($element->getLabel()) ?> *</label>
+                    <div class="col-sm-9"><?php echo $this->formInput($element); ?></div>
+                </div>
+                <div class="hr-line-dashed"></div>
+            <?php endforeach; ?>
+
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <button class="btn btn-primary btn-block" type="submit">Save</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

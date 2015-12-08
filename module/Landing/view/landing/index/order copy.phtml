@@ -1,0 +1,344 @@
+<?php $this->headTitle($this->translate('ORDER YOUR TRANSLATION')) ?>
+
+<!-- Le styles -->
+<?php $this->headLink()
+//   ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
+//  ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
+//   ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
+//  ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
+//  ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+->prependStylesheet($this->basePath() . '/css/plugins/jquery-fileupload/jquery.fileupload.css');
+?>
+<script
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/js/angular.min.js'?>"></script>
+<script
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/js/plugins/angular-file-upload/angular-file-upload.js'?>"></script>
+<script type="text/javascript"">
+  angularApp = angular.module('project', ['summernote', 'angularFileUpload']);
+  var LANG_CODE ='<?php echo $this->lang_code ?>';
+</script>
+<script
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/js/landing/order.js'?>"></script>
+<script
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/js/admin/common/angular/service/project.js'?>"></script>
+<script
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/js/admin/common/angular/CurrentUser.js'?>"></script>
+<script
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/js/admin/bootstrap-modal.js'?>"></script>
+
+<script
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js'?>"></script>
+<script
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/js/plugins/angular-summernote/angular-summernote.js'?>"></script>
+<script
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/js/plugins/summernote/summernote.min.js'?>"></script>
+<script
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/js/plugins/validate/jquery.validate.min.js'?>"></script>
+<script
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/js/plugins/metisMenu/jquery.metisMenu.js'?>"></script>
+<script
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/js/inspinia.js'?>"></script>
+<script
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/js/plugins/pace/pace.min.js'?>"></script>
+
+
+<!-- Scripts -->
+<?php  $this->headScript()
+//  ->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
+//->prependFile($this->basePath() . '/assets/js/landing/order.js')
+->prependFile($this->basePath() . '/assets/js/common/angular/service/project.js')
+->prependFile($this->basePath() . '/assets/js/common/angular/CurrentUser.js')
+//->prependFile($this->basePath() . '/js/admin/angular-steps.js')
+->prependFile($this->basePath() . '/assets/js/bootstrap-modal.js')
+->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload']);")
+->prependFile($this->basePath() . '/assets/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+->prependFile($this->basePath() . '/assets/plugins/angular-summernote/angular-summernote.js')
+->prependFile($this->basePath() . '/assets/plugins/summernote/summernote.min.js')
+//  ->prependFile($this->basePath() . '/js/plugins/datapicker/bootstrap-datepicker.js')
+//  ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
+->prependFile($this->basePath() . '/assets/plugins/validate/jquery.validate.min.js')
+//  ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
+//  ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
+//  ->prependFile($this->basePath() . '/js/inspinia.js');
+
+
+->prependFile($this->basePath() . '/assets/js/inspinia.js')
+->prependFile($this->basePath() . '/assets/plugins/pace/pace.min.js')
+->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.ui.widget.js')
+->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.iframe-transport.js')
+->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.fileupload.js')
+->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.fileupload-validate.js');
+
+
+
+?>
+
+<?php
+$this->inlineScript()
+->prependScript("var LANG_CODE = '" . $this->lang_code . "';");
+?>
+
+<style type="text/css">
+.wizard>.content {
+  min-height: 1000px;
+}
+
+.note-editor {
+  height: 150px;
+}
+
+.nav-pills>li.active>a,.nav-pills>li.active>a:hover,.nav-pills>li.active>a:focus
+  {
+  background-color: #19aa8d;
+}
+
+.nav>li.active {
+}
+
+.form-group label.btn-outline {
+  margin-right: 0.3em;
+}
+
+.main-content {
+  padding: 50px 0 0;
+}
+
+.btn-primary {
+  background-color: #1ab394;
+  border-color: #1ab394;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #158E76;
+  border-color: #158E76;
+  color: #ffffff;
+}
+
+.btn-primary.active {
+  background-color: #1ab394;
+  border-color: #1ab394;
+  color: #ffffff;
+}
+
+.btn-custom {
+  background-color: #F5F5F5;
+  border-color: #1ab394;
+  color: #1ab394;
+}
+
+.btn-custom.active>i.fa {
+  color: #1ab394 !important;
+}
+
+.progress-bar {
+  background-color: #1ab394;
+}
+
+.label-primary {
+  background-color: #1ab394;
+}
+
+.open>.dropdown-toggle.btn-primary {
+  background-color: #1ab394;
+  border-color: #1ab394;
+  color: #fff;
+}
+.banner {
+    background-color: #1ab394;
+    color: #fff;
+    text-align: center;
+    padding: 50px 0 0;
+}
+.features {
+    padding: 50px 0;
+    border-bottom: 1px solid #f3f3f3;
+  background-color: #f3f3f3;
+}
+.thumbnail.setup-panel{
+display: block;
+    padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.42857;
+    background-color: #f3f3f3;
+    border: 1px solid #dddddd;
+    border-radius: 2px;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+h4{
+font-weight: 600;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #555555;
+    background-color: #f3f3f3;
+    border: 1px solid #dddddd;
+    border-bottom-color: transparent;
+    cursor: default;
+}
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857;
+    border: 1px solid transparent;
+    border-radius: 2px 2px 0 0;
+}
+tbody {
+    background-color: #f9f9f9;
+}
+</style>
+
+<div class="main-content" ng-controller="OrderNoSignin">
+  <div class="banner">
+    <div class="container">
+      <div class="row">
+        <h1 class="text-center" style="font-size: 60px;">
+          <strong>ORDER YOUR TRANSLATION</strong>
+        </h1>
+        <h3 class="text-center">PLEASE FOLLOW THE STEPS TO PLACE AN ORDER</h3>
+        <br> <br>
+      </div>
+    </div>
+  </div>
+  <div id="features" class="features">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          
+
+            <div class=" form-group">
+              <div class="col-md-12">
+                <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+                  <li class="active"><a href="#step-1">
+                      <h4 class="list-group-item-heading">Step 1</h4>
+                      <p class="list-group-item-text">Upload the file(s)</p>
+                  </a></li>
+                  <li class="disabled"><a href="#step-2">
+                      <h4 class="list-group-item-heading">Step 2</h4>
+                      <p class="list-group-item-text">Select Languages and Quality</p>
+                  </a></li>
+                  <li class="disabled"><a href="#step-3">
+                      <h4 class="list-group-item-heading">Step 3</h4>
+                      <p class="list-group-item-text">Confirm Your Information</p>
+                  </a></li>
+                </ul>
+              </div>
+            </div>
+
+
+            <?php include "order/step1.phtml"?>
+            <?php include "order/step2.phtml"?>
+            <?php include "order/step3.phtml"?>
+
+          
+        </div>
+        <?php include "order/orderinfo.phtml"?>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+      $(document).ready(function() {
+          
+          var navListItems = $('ul.setup-panel li a'),
+              allWells = $('.setup-content');
+
+          allWells.hide();
+
+          navListItems.click(function(e)
+          {
+              e.preventDefault();
+              var $target = $($(this).attr('href')),
+                  $item = $(this).closest('li');
+              
+              if (!$item.hasClass('disabled')) {
+                  navListItems.closest('li').removeClass('active');
+                  $item.addClass('active');
+                  allWells.hide();
+                  $target.show();
+              }
+          });
+          
+          $('ul.setup-panel li.active a').trigger('click');
+          
+          // DEMO ONLY //
+          /*
+          $('#activate-step-2').on('click', function(e) {
+              $('ul.setup-panel li:eq(1)').removeClass('disabled');
+              $('ul.setup-panel li a[href="#step-2"]').trigger('click');
+              //$(this).remove();
+          }) 
+          */
+          /*   
+          $('#activate-step-3').on('click', function(e) {
+              
+              $('ul.setup-panel li:eq(2)').removeClass('disabled');
+              console.info('currency',$scope.project.currency);
+              //checkValidStep2();
+              //$('ul.setup-panel li a[href="#step-3"]').trigger('click');
+              //$(this).remove();
+
+              return false;
+          })   
+          */
+
+          
+
+          jQuery.validator.setDefaults({
+          debug: false,
+          success: "valid"
+        });
+      
+        $( "#formStep2" ).validate(); 
+        $( "#formStep3" ).validate(); 
+        console.info('formStep2',$( "#formStep2" ).validate());
+      /*
+      alert('hi');
+        function checkValidStep2(){
+                if($( "#formStep2" ).valid()){
+                    alert('true');
+                } else{
+                  alert('false');
+                }
+          }
+          */
+          
+          
+      });
+
+      function StrDate(dateIn) {
+           var yyyy = dateIn.getFullYear();
+           var mm = dateIn.getMonth()+1; // getMonth() is zero-based
+           var dd  = dateIn.getDate();
+           var hh = dateIn.getHours();
+           var mi = dateIn.getMinutes();
+           var ss = dateIn.getSeconds();
+           return String(yyyy +'-'+ mm +'-'+ dd + ' '+ hh +':'+ mi + ':' + ss); // Leading zeros for mm and dd
+         }
+
+      function PrevStep3(){
+        $('ul.setup-panel li a[href="#step-2"]').trigger('click');
+      }
+
+      function PrevStep2(){
+        $('ul.setup-panel li a[href="#step-1"]').trigger('click');
+      }
+     
+      
+    </script>

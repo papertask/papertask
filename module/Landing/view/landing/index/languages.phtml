@@ -3,7 +3,6 @@
 <?php
 echo $this->headScript()
     ->prependFile($this->basePath() . '/js/landing/languages.js')
-    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
     ->prependScript("angularApp = angular.module('project', []);")
     ->prependFile($this->basePath() . '/js/angular.min.js')
 ?>
@@ -48,7 +47,9 @@ echo $this->inlineScript()
                                 <select ngChange="updateTargetLanguages()" ng-model="params.sourceLanguage"
                                         required name="sourceLanguage" class="form-control required">
                                     <option value=""><?php echo $this->translate('Please select','Landing') ?></option>
-                                    <option ng-repeat="id in sourceLanguages" value="{{id}}"><?php echo $this->translate('{{languages[id] | i18n}}','Landing');?></option>
+                                    <option ng-repeat="id in sourceLanguages" value="{{id}}">
+									<?php echo $this->translate('{{languages[id] | i18n}}','Landing');?>
+									</option>
                                 </select>
                             </div>
                         </div>

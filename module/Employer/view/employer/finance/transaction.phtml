@@ -1,0 +1,147 @@
+<?php $this->headTitle($this->translate('Unpaid Project')) ?>
+<!-- Scripts -->
+<?php $this->headLink()
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/footable/footable.core.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/datapicker/datepicker3.css');
+?>
+
+<?php
+$this->headScript ()
+
+	->prependFile ( $this->basePath () . '/v2/js/admin/finance/client-transaction.js' )
+	->prependFile($this->basePath() . '/v2/js/admin/common/angular/ItemListController.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/CurrentUser.js')
+    ->prependScript("angularApp = angular.module('project', []);")
+    ->prependFile($this->basePath() . '/v2/js/plugins/angular-bootstrap/ui-bootstrap-0.11.2.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/datapicker/bootstrap-datepicker.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/footable/footable.all.min.js');
+
+$this->inlineScript()
+    ->prependScript("
+		var LANG_CODE = '" . $this->lang_code . "';
+    ");
+?>
+
+    <script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+
+        });
+
+        $('#pay_date .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+
+    </script>
+
+
+<div class="row animate fadeInUp">
+
+    <div class="ibox" ng-controller="ClientUnpaidController" ng-init="init()">
+
+        <div class="ibox-content m-b-sm ">
+            <div class="row">
+                <form method="" class="form-horizontal">
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label"><?php echo $this->translate('Transaction ID','Employer'); ?></label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="q" ng-model="filter.trans_id" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group" id="pay_date">
+                                <label class="col-sm-4 control-label"><?php echo $this->translate('Pay Date','Employer'); ?></label>
+                                <div class="col-sm-8">
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control" name="payDate" ng-model="filter.payDate">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label"><?php echo $this->translate('FAPIAO No.','Employer'); ?></label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="q" ng-model="filter.fapiao_no" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <a href="#" class="btn btn-sm btn-primary" ng-click="advancedSearch()"><i class="fa fa-search"></i> <?php echo $this->translate('Search','Employer'); ?></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="ibox-content">
+
+            <table class="footable table table-hover toggle-arrow-tiny">
+                <thead>
+                <tr>
+                    <th><?php echo $this->translate('Transaction ID','Employer'); ?></th>
+                    <th><?php echo $this->translate('Pay Date','Employer'); ?></th>
+                    <th class="text-right"><?php echo $this->translate('Amount','Employer'); ?></th>
+                    <th width="20%" class="text-right"></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="transaction in transactionlist">
+                        <td class="project-status">
+                            <strong style="font-size: 16px;">{{transaction.intrans_no}}</strong>
+                        </td>
+                        <td class="project-title">
+                            <strong style="font-size: 16px;">{{DateFormatter.short(transaction.payDate)}}</strong>
+                        </td>
+                        <td class="project-title text-right">
+                            <span class="text-navy" style="font-size: 15px;"><strong>{{transaction.currency}} {{transaction.total}}</strong></span>
+                        </td>
+                        <td class="project-actions text-right">
+                            <a href="#" class="btn btn-white btn-sm" ng-click="gotodetail(transaction)"><i class="fa fa-folder"> <?php echo $this->translate('View','Employer'); ?> </i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="btn-group text-right">
+                <pagination total-items="pages.totalItemCount" ng-model="page" max-size="maxSize"
+                            class="pagination-sm" boundary-links="true" ng-change="pageChanged()"></pagination>
+            </div>
+
+            <div class="btn-group text-right">
+                <button type="button" class="btn btn-white" ng-class="pages.previous?'':'disabled'" ng-click="onBtnPreviousClicked()"><i class="fa fa-chevron-left"></i></button>
+                <button ng-repeat="page in pages.pagesInRange" class="btn btn-white" ng-class="page==pages.current?'active':''" ng-click="onBtnGoto(page-1)">{{page}}</button>
+                <button type="button" class="btn btn-white" ng-class="pages.next?'':'disabled'" ng-click="onBtnNextClicked()"><i class="fa fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+ <script>
+    $(document).ready(function(){
+        $('.dtbox').DateTimePicker();
+
+        // trigger datetime picker when click to calendar icon
+        // TODO: this is not working
+        $('i.fa.fa-calendar').on('click', function(e){
+            console.log('clicked');
+            e.preventDefault();
+
+            $(this).parents('.input-group').find('input[readonly]').click();
+        });
+    });
+</script>

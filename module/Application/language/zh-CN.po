@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2015-01-29 14:16+0800\n"
+"PO-Revision-Date: 2015-11-27 12:44+0800\n"
 "Last-Translator: Evan Coury <me@evancoury.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: zh_CN\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: translate\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.7.3\n"
+"X-Generator: Poedit 1.8.6\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: module/Application/view/layout/landing.phtml:86
@@ -23,8 +23,14 @@ msgstr "zh-CN"
 msgid "Languages and Pricing"
 msgstr "语言价格"
 
+msgid "Overview"
+msgstr "概述"
+
 msgid "Freelancer"
 msgstr "自由译者"
+
+msgid "Client"
+msgstr "客户"
 
 msgid "Contact"
 msgstr "联系我们"
@@ -58,6 +64,222 @@ msgstr "隐私政策"
 #: ../view/layout/layout.phtml:106
 msgid "Terms of Use"
 msgstr "使用条款"
+
+msgid "Step 1"
+msgstr "第一步"
+
+msgid "Upload the file(s)"
+msgstr "上传文件（可同时上传多个文件）"
+
+msgid "Step 2"
+msgstr "第二步"
+
+msgid "Select Languages and Quality"
+msgstr "选择语言和质量级别"
+
+msgid "Step 3"
+msgstr "第三步"
+
+msgid "Confirm Your Information"
+msgstr "确认您的联系信息"
+
+msgid "Upload Files"
+msgstr "上传文件"
+
+msgid "Select files"
+msgstr "选择文件"
+
+msgid "We accept the following files, under"
+msgstr "我们支持下列格式，文件应小于"
+
+msgid "size:"
+msgstr "："
+
+msgid "File Name"
+msgstr "文件名"
+
+msgid "Word Count"
+msgstr "字数"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Next"
+msgstr "下一步"
+
+msgid "Select Currency"
+msgstr "选择币种"
+
+msgid "Select Quality Level"
+msgstr "选择质量级别"
+
+msgid "Professional"
+msgstr "专业级"
+
+msgid "Business"
+msgstr "商务级"
+
+msgid "Premium"
+msgstr "旗舰级"
+
+msgid "Translate Graphics"
+msgstr "翻译图片"
+
+msgid "YES"
+msgstr "是"
+
+msgid "NO"
+msgstr "否"
+
+msgid "Translate From"
+msgstr "翻译自"
+
+msgid "Translate To"
+msgstr "翻译到"
+
+msgid "Target Languages"
+msgstr "目标语言"
+
+msgid "Word Count & Unit Price"
+msgstr "字数以及单价"
+
+msgid "Select Source Language"
+msgstr "选择源语言"
+
+msgid "Add Target Languages"
+msgstr "添加目标语言"
+
+msgid "Previous"
+msgstr "上一步"
+
+msgid "Email"
+msgstr "电子邮件"
+
+msgid "Email Address"
+msgstr "电子邮箱地址"
+
+msgid "Need Fapiao"
+msgstr "需要发票"
+
+msgid "Title"
+msgstr "抬头"
+
+msgid "Your Chinese Company Title for Issue FAPIAO"
+msgstr "发票抬头"
+
+msgid "Address"
+msgstr "地址"
+
+msgid "Your Mailing Address"
+msgstr "您的通信地址"
+
+msgid "Last Name"
+msgstr "姓"
+
+msgid "First Name"
+msgstr "名"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Type Your Password"
+msgstr "请输入密码"
+
+msgid "Cellphone"
+msgstr "手机"
+
+msgid "Your Cellphone/Landline"
+msgstr "您的手机/座机"
+
+msgid "Company"
+msgstr "公司"
+
+msgid "Your Company Full Name"
+msgstr "您的公司全称"
+
+msgid "Country"
+msgstr "国家"
+
+msgid "Pay and Start to Translate"
+msgstr "支付并开始翻译任务"
+
+msgid "Request a Quote"
+msgstr "询价"
+
+msgid "Order Information"
+msgstr "订单信息"
+
+msgid "Languages"
+msgstr "语言"
+
+msgid "items"
+msgstr "个项目"
+
+msgid "words"
+msgstr "字数"
+
+msgid "Word"
+msgstr "字"
+
+msgid "Quality Level"
+msgstr "质量级别"
+
+msgid "Items Total"
+msgstr "订单金额"
+
+msgid "Tax"
+msgstr "税"
+
+msgid "Total"
+msgstr "总金额"
+
+msgid "Estimated delivery"
+msgstr "预计工期"
+
+msgid "hours."
+msgstr "小时。"
+
+msgid "Dashboard"
+msgstr "控制台"
+
+msgid "Quotes"
+msgstr "报价"
+
+msgid "Projects"
+msgstr "项目"
+
+msgid "Finance"
+msgstr "财务"
+
+msgid "Transactions"
+msgstr "交易历史"
+
+msgid "Unpaid Projects"
+msgstr "未付款项目"
+
+msgid "Profile"
+msgstr "个人资料"
+
+msgid "Reset Password"
+msgstr "重置密码"
+
+msgid "Logout"
+msgstr "登出"
+
+msgid "Task Pool"
+msgstr "任务池"
+
+msgid "My Tasks"
+msgstr "我的任务"
+
+msgid "Unpaid Tasks"
+msgstr "未付款任务"
+
+msgid "Edit Payment Info"
+msgstr "编辑银行信息"
+
+msgid "Order Translation"
+msgstr "订购翻译服务"
 
 #: ../view/application/index/index.phtml:2
 #, php-format

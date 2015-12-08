@@ -1,0 +1,136 @@
+<!-- Scripts -->
+<?php
+
+$this->headScript ()->prependFile ( $this->basePath () . '/v2/js/admin/employer/profile.js' )
+					->prependFile ( $this->basePath () . '/v2/js/admin/bootstrap-modal.js' )
+					->prependScript ( "angularApp = angular.module('project', []);" )
+					->prependFile ( $this->basePath () . '/v2/js/plugins/validate/jquery.validate.min.js' )
+					->prependFile ( $this->basePath () . '/js/plugins/summernote/summernote.min.js' )
+					->prependFile ( $this->basePath () . '/js/plugins/validate/jquery.validate.min.js' )
+					->prependFile ( $this->basePath () . '/js/plugins/pace/pace.min.js' )
+					->prependFile ( $this->basePath () . '/js/inspinia.js' )
+					->prependFile ( $this->basePath () . '/js/common.js' );
+?>
+<?php
+$this->inlineScript()
+    ->prependScript("
+        var USER_ID = '" . $user['id'] . "';
+        var EMPLOYER_ID = '';
+		var LANG_CODE = '" . $this->lang_code . "';
+
+    ");
+?>
+
+<div class="row" ng-controller="PapertaskEmployerProfileController" ng-init="init()" id="EmployerController">
+	<div class="col-lg-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h3>
+					<i class="fa fa-edit"></i> <?php echo $this->translate('Edit Profile','Employer'); ?>
+				</h3>
+			</div>
+			<div class="ibox-content">
+				<form id="form" action="">
+					<!-- Basic Information -->
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<i class="fa fa-info-circle"> <strong><?php echo $this->translate('Basic Information','Employer'); ?></strong></i>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label><?php echo $this->translate('Email','Employer'); ?> *</label>
+										<input type="text" class="form-control " ng-model="userInfo.email" disabled>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label><?php echo $this->translate('First name','Employer'); ?> *</label>
+										<input id="firstname" name="firstname" type="text" ng-model="userInfo.firstName" class="form-control required">
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label><?php echo $this->translate('Gender','Employer'); ?> *</label>
+										<div data-toggle="buttons">
+											<label class="btn btn-outline btn-primary btn-sm" ng-class="userInfo.gender == '0'?'active':''"  ng-click="setGender('0')" >
+												<input type="radio" name="gender" > <?php echo $this->translate('Male','Employer'); ?>
+											</label> &nbsp; <label
+												class="btn btn-outline btn-primary btn-sm"  ng-class="userInfo.gender == '1'?'active':''"   ng-click="setGender('1')">
+												<input type="radio" name="gender"> <?php echo $this->translate('Female','Employer'); ?>
+											</label>
+										</div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label><?php echo $this->translate('City','Employer'); ?> *</label>
+										<input id="city" name="city" type="text" class="form-control required" ng-model="userInfo.city">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label><?php echo $this->translate('Username','Employer'); ?> *</label>
+										<input id="username" name="userName" type="text" class="form-control " ng-model="employer.name" disabled>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label><?php echo $this->translate('Last name','Employer'); ?> *</label>
+										<input id="lastname" name="surname" type="text" class="form-control required" ng-model="userInfo.lastName">
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label><?php echo $this->translate('Phone','Employer'); ?> *</label>
+										<input id="phone" name="phone" type="phone" class="form-control required" ng-model="userInfo.phone">
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label><?php echo $this->translate('Country','Employer'); ?> *</label>
+
+										<select class="form-control required" id="country" name="country" ng-model="userInfo.country">
+											<option value=""><?php echo $this->translate('Please select','Employer') ?></option>
+											<option ng-repeat="id in countries" value="{{id.id}}"><?php echo $this->translate('{{id.name | i18n}}','Employer');?></option>
+										</select>
+
+
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Company Information -->
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<i class="fa fa-building"> <strong><?php echo $this->translate('Company Information','Employer'); ?></strong></i>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label><?php echo $this->translate('Position','Employer'); ?> </label>
+										<input id="position" name="position" type="text" class="form-control" ng-model="employer.position">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label><?php echo $this->translate('Company','Employer'); ?> </label>
+										<select class="form-control required" id="company" name="company" ng-model="employer.company" ng-options="company.name for company in companies">
+										</select> <span class="help-block m-b-none"> &nbsp;<?php echo $this->translate('Not in the list? Please','Employer'); ?> <a data-toggle="modal" class="text-info" href="#modal-company"><?php echo $this->translate('create a new company.','Employer'); ?></a>
+										</span>
+									</div>
+								</div>
+								<input type="hidden" id="defaultServiceLevel" ng-model="employer.defaultServiceLevel">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4 col-sm-offset-4">
+							<button class="btn btn-primary btn-block" type="submit" ng-click="submit()" ><?php echo $this->translate('Save','Employer'); ?></button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<?php include "profile/modal.phtml" ?>

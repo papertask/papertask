@@ -30,7 +30,7 @@ class DashboardController extends AbstractActionController
 			$this->redirect()->toUrl('/' . $lang_code . '/admin/dashboard/freelancer-dashboard');
 		}
 		else if($user->isEmployer()){
-			$url = "/" . $lang_code . '/admin/dashboard/client-dashboard';
+			$url = "/" . $lang_code . '/employer/dashboard/client-dashboard';
 			$this->redirect()->toUrl($url);
 		} else if($user->isAdmin()){
 			$url = "/" . $lang_code . '/admin/dashboard/admin-pm-dashboard';

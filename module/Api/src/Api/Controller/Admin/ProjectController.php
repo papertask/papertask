@@ -3,7 +3,7 @@ namespace Api\Controller\Admin;
 
 use Zend\View\Model\JsonModel;
 use Zend\Paginator\Paginator;
-use Zend\Session\Container; 
+use Zend\Session\Container;
 
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
@@ -100,30 +100,30 @@ class ProjectController extends AbstractRestfulJsonController
     {
 		//error_reporting(E_ALL);
 		//ini_set('display_errors', 1);
-        
+
 		$projectTotal = 0;
-    	
+
 		$this->cleanData($data);
-		
+
         $targetLanguages = [];
         foreach($data['targetLanguages'] as $targetLanguage){
             $targetLanguages[$targetLanguage['id']] = $this->getReference('\User\Entity\Language', $targetLanguage['id']);
         }
         $data['targetLanguages'] = $targetLanguages;
-		
+
 
 		if($data['status'] == 2){//set odered
 			$data['quote_no'] = "QUO-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
 		}
 		$data['project_no'] = date("Ymd").$this->generateRandomNumber();
 		$project = new Project();
-		if(($data['client'] == null || $data['client'] == '')&&$data['newClient']!=null){			
+		if(($data['client'] == null || $data['client'] == '')&&$data['newClient']!=null){
 			// Create User
 			$Udata = array();
 			$Udata['isActive'] = 1;
 			$Udata['profileUpdated'] = null;
 			$Udata['city'] = null;
-			
+
 			$Udata['currency'] = $data['currency'];
 			$Udata['createdTime'] = new \DateTime('now');
 			$Udata['email'] = $data['newClient']['Email'];
@@ -146,11 +146,11 @@ class ProjectController extends AbstractRestfulJsonController
 			$Udata['pm'] = null;
 			$Udata['sales'] = null;
 			$userExist = $UserEntityManager->getRepository('User\Entity\User')->findOneBy(array('email'=>$data['newClient']['Email']));
-				
+
 			if ( $userExist ) {
-				
-				$data['client'] = $userExist;				
-				$userExist->createEmployer( $this, $Udata, $UserEntityManager, null);				
+
+				$data['client'] = $userExist;
+				$userExist->createEmployer( $this, $Udata, $UserEntityManager, null);
 				$employer = $userExist->getEmployer();
 				$employer->updateData(array(
 						'position'=>null,
@@ -163,13 +163,13 @@ class ProjectController extends AbstractRestfulJsonController
 						'sales' => null,
 				));
 				$employer->save($UserEntityManager);
-				
+
 			} else {
 				$user = new User();
 				$user->setData( $Udata );
-				$user->save($UserEntityManager);								
+				$user->save($UserEntityManager);
 				$user->createEmployer( $this, $Udata, $UserEntityManager, null);
-				
+
 				$employer = $user->getEmployer();
 				$employer->updateData(array(
 						'position'=>null,
@@ -187,10 +187,10 @@ class ProjectController extends AbstractRestfulJsonController
 			// End Create User
 		} else {
 			//$employer = $this->find('User\Entity\Employer', $data['client']->getId());
-			//$client = $this->getEntityManager()->getRepository('User\Entity\User')->findOneBy(array('employer' => $employer));			
+			//$client = $this->getEntityManager()->getRepository('User\Entity\User')->findOneBy(array('employer' => $employer));
 			//$data['client'] = $client;
 		}
-		
+
         $project->setData($data);
 		$project->save($this->getEntityManager());
         $files = [];
@@ -198,7 +198,7 @@ class ProjectController extends AbstractRestfulJsonController
             foreach($data['files'] as $file){
                 $id = $file['id'];
                 $file = $this->find('\User\Entity\File', $id);
-				
+
                 if($file->getProject() == null){
                     $file->setProject($project);
                     $file->save($this->getEntityManager());
@@ -206,10 +206,10 @@ class ProjectController extends AbstractRestfulJsonController
                 }
             }
         }
-		
+
 
         // Create new Tasks for OrderTranslation & OrderTranslation Non Contract
-        
+
         if(isset($data['createType'])){
         	if($data['createType']=='orderTranslation'||$data['createType']=='orderTranslationNonContract' || $data['createType'] == 'landingOrder'){
 				$i = 0;
@@ -219,7 +219,7 @@ class ProjectController extends AbstractRestfulJsonController
 					$i++;
 					$task = new Task();
 					$taskArrData = array(
-						//'type' => $data['types'][0],        		
+						//'type' => $data['types'][0],
 						'language' => 	$targetLang,
 						'status' => 3, // unassigned
 						'project' => $project,
@@ -233,12 +233,12 @@ class ProjectController extends AbstractRestfulJsonController
 					$taskArrData['type'] = (is_array($data['types'])&&count($data['types'])>0)?$data['types'][0]: 1;
 					$name_ref = $data['files'][0]['name'];
 					$taskArrData['name'] = (array_key_exists('reference',$data))?$data['reference']:$name_ref;
-				
+
 					$task->setData( $taskArrData );
 					$task->save($this->getEntityManager());
 					$task_array[$key] = $task;
 					if($data['createType']=='orderTranslationNonContract' || $data['createType'] == 'landingOrder'){
-						
+
 						foreach($files as $key_id => $file){
 							$iterm = new Itermnotm();
 							$iterm->setProject($project);
@@ -249,7 +249,7 @@ class ProjectController extends AbstractRestfulJsonController
 							//var_dump($task);
 							$name_ref_tmp = $file->getName();
 							//$name_ref_tmp = (array_key_exists('reference',$data))?$data['reference']:$name_ref_tmp;
-							
+
 							$iterm->setTask($task);
 							$iterm->setData([
 								'name' => $name_ref_tmp,
@@ -264,9 +264,9 @@ class ProjectController extends AbstractRestfulJsonController
 							$iterm->save($this->getEntityManager());
 						}
 					}
-					
+
 				}
-				
+
 			$invoice = new Invoice();
 			$invoice_no = "INV-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
 			$invoiceDataArr = array(
@@ -284,8 +284,8 @@ class ProjectController extends AbstractRestfulJsonController
 			$invoice->setData($invoiceDataArr);
 			$invoice->setProject($project);
 			$invoice->save($this->getEntityManager());
-			
-			//set session 
+
+			//set session
 			if($data['createType'] == 'landingOrder'){
 				$ns = new Container('order');
 				$ns->project = $project->getId();
@@ -293,13 +293,13 @@ class ProjectController extends AbstractRestfulJsonController
 				$ns->total = $data['invoiceinfo']['total'];
 				$ns->currency = $data['currency'];
 				$ns->client = $data['client']->getId();
-				
+
 			}
         	}
         }
-        
-        
-		
+
+
+
 		//
 		 if(isset($data['data'])){
 		 $i = 0;
@@ -328,9 +328,9 @@ class ProjectController extends AbstractRestfulJsonController
 			//if(!$type)
 			//	$type = 1;
             $languageId = $identifier[1]['id'];
-			
+
 			$task = new Task();
-			
+
 			$task->setData([
                     'project' => $project,
                     'language' => $targetLanguages[$languageId],
@@ -338,19 +338,19 @@ class ProjectController extends AbstractRestfulJsonController
                     'status' => 3,
 					'name' => $data['reference'],// . '-' . $identifier[0],
 					'startDate' => $data['startDate'],
-					'dueDate' => $data['dueDate'], 
+					'dueDate' => $data['dueDate'],
 					'task_number' => $data['project_no'].'-'.$i,
-					
+
                 ]);
 			$task->save($this->getEntityManager());
-		}	
+		}
 
         foreach($data['data'] as $iterms){
             $identifier = $iterms['identifier'];
             $type = $identifier[0];
             $languageId = $identifier[1]['id'];
 			if ($type == 'translationNoTM'){
-				
+
 				foreach($iterms['items'] as $item){
 					//var_dump($item); exit;
 					$iterm = new Itermnotm();
@@ -374,10 +374,10 @@ class ProjectController extends AbstractRestfulJsonController
 					$iterm->save($this->getEntityManager());
 				}
 				//exit;
-				
+
 			}
 			else if ($type == 'translationTM'){
-				
+
 				//foreach($iterms['itemtm'] as $item){
 					$iterm = new Itermtm();
 					$iterm->setProject($project);
@@ -407,7 +407,7 @@ class ProjectController extends AbstractRestfulJsonController
 				$iterm->save($this->getEntityManager());
 			}
 			else if ($type == 'dtpMac'){
-				
+
 				foreach($iterms['items'] as $item){
 					$iterm = new Itermdtpmac();
 					$iterm->setProject($project);
@@ -424,11 +424,11 @@ class ProjectController extends AbstractRestfulJsonController
 					$projectTotal = $projectTotal + floatval( $item['total']);
 					$iterm->save($this->getEntityManager());
 				}
-				
-			
+
+
 			}
 			else if ($type == 'dtpPc'){
-				
+
 				foreach($iterms['items'] as $item){
 					$iterm = new Itermdtppc();
 					$iterm->setProject($project);
@@ -439,16 +439,16 @@ class ProjectController extends AbstractRestfulJsonController
 						'rate' => $item['rate'],
 						'quantity' => $item['quantity'],
 						'total' => $item['total'],
-						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']), 
+						'software' => $this->getReference('\User\Entity\DesktopSoftware', $item['software']['id']),
 						'language' => $targetLanguages[$languageId],
 					]);
 					$projectTotal = $projectTotal + floatval( $item['total']);
 					$iterm->save($this->getEntityManager());
 				}
-				
+
 			}
 			else if ($type == 'engineering'){
-				
+
 				foreach($iterms['items'] as $item){
 					$iterm = new Itermengineering();
 					$iterm->setProject($project);
@@ -459,16 +459,16 @@ class ProjectController extends AbstractRestfulJsonController
 						'rate' => $item['rate'],
 						'quantity' => $item['quantity'],
 						'total' => $item['total'],
-						'engineeringcategory' => $this->getReference('\Common\Entity\EngineeringCategory', $item['category']['id']), 
+						'engineeringcategory' => $this->getReference('\Common\Entity\EngineeringCategory', $item['category']['id']),
 						'language' => $targetLanguages[$languageId],
 					]);
 					$projectTotal = $projectTotal + floatval( $item['total']);
 					$iterm->save($this->getEntityManager());
 				}
-				
+
 			}
 			else{
-				
+
 				foreach($iterms['items'] as $item){
 					$iterm = new Iterminterpreting();
 					$iterm->setProject($project);
@@ -484,10 +484,10 @@ class ProjectController extends AbstractRestfulJsonController
 					$projectTotal = $projectTotal + floatval( $item['total']);
 					$iterm->save($this->getEntityManager());
 				}
-				
+
 			}
         }
-       
+
         // Create Invoice forData
         $invoice = new Invoice();
         $invoice_no = "INV-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
@@ -499,37 +499,37 @@ class ProjectController extends AbstractRestfulJsonController
         		'discount' => 0,
         		'total' => $projectTotal,
         );
-        
+
         $invoice->setData($invoiceDataArr);
         $invoice->setProject($project);
         $invoice->save($this->getEntityManager());
-       
-       
+
+
         $project->save($this->getEntityManager());
-        
+
 		}
-		
+
 		$ActiDataArr = [
             'activityDate' => new \DateTime('NOW'),
             'project' => $project,
             'type' => "create_quote",
 		];
-		
+
 		if( array_key_exists('pm', $data))
 			$ActiDataArr['sender'] = $data['pm'];
 		if( array_key_exists('description', $data))
 			$ActiDataArr['message'] = $data['description'];
-		
-		
+
+
         $activity = new Activity();
         $activity->setData($ActiDataArr);
-        
+
 		$project->setData([
 				'total_tmp' => $projectTotal,
 				]);
         $project->save($this->getEntityManager());
-        
-        
+
+
         $activity->save($this->getEntityManager());
 		//var_dump($project); exit;
         return new JsonModel([
@@ -556,17 +556,21 @@ class ProjectController extends AbstractRestfulJsonController
 				$queryBuilder->expr()->like('project.reference',$queryBuilder->expr()->literal("%$q%")),
 				$queryBuilder->expr()->like('project.id',$queryBuilder->expr()->literal("%$q%"))
 			)
-		
+
             //$queryBuilder->andWhere("project.reference like %?% OR project.id like %?%", array($q, $q)
-			
+
 			);
         }
-		
-       
-		
+
+
+
         /** start filter */
         if($project_id = $this->params()->fromQuery('project_id')){
             $queryBuilder->andWhere($queryBuilder->expr()->eq('project.id', $project_id));
+        }
+		if($project_no = $this->params()->fromQuery('project_no')){
+            $queryBuilder->andWhere($queryBuilder->expr()->eq('project.project_no', $project_no));
+			//$queryBuilder->expr()->like('project.project_no', $project_no);
         }
         if($reference = $this->params()->fromQuery('reference')){
             $queryBuilder->andWhere(
@@ -604,14 +608,14 @@ class ProjectController extends AbstractRestfulJsonController
             );
         }
 		$currentUserId = User::currentLoginId();
-		
+
 		$currentUser = $this->find('User\Entity\User',$currentUserId);
 		if($currentUser->isEmployer()){
 			 $queryBuilder->andWhere(
                 $queryBuilder->expr()->eq('project.client', $currentUserId)
             );
 		}
-		
+
         if($clientId = $this->params()->fromQuery('clientId')){
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->eq('project.client', $clientId)
@@ -620,12 +624,11 @@ class ProjectController extends AbstractRestfulJsonController
 		if($statusproject = $this->params()->fromQuery('statusproject')){
 			if($statusproject == '7and8'){
 				$queryBuilder->andWhere("project.status = 7 or project.status = 8");
+			} else if($statusproject == 'client'){
+				$queryBuilder->andWhere("project.status = 0 or project.status = 1 or project.status = 2 or project.status = 3 or project.status = 4");
 			} else {
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->eq('project.status', $statusproject)
-            );
-        }
-            
+				$queryBuilder->andWhere($queryBuilder->expr()->eq('project.status', $statusproject));
+			}
         }
 		if($getQuote = $this->params()->fromQuery('quote')){
 			//echo 'hi'; exit;
@@ -636,12 +639,12 @@ class ProjectController extends AbstractRestfulJsonController
 						$queryBuilder->expr()->like('project.status', $getQuote)
             );
         }
-		
+
 			//$queryBuilder->andWhere("project.status = 2");
-			
+
         }
-		
-		
+
+
         if($startDate = $this->params()->fromQuery('startDate')){
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->gte('project.startDate', $startDate)
@@ -662,12 +665,12 @@ class ProjectController extends AbstractRestfulJsonController
         }
         /** end filter */
 		$queryBuilder->orderBy('project.id', 'DESC');
-		
+
         $adapter = new DoctrineAdapter(new ORMPaginator($queryBuilder));
         $paginator = new Paginator($adapter);
-		 
-		 
-		$number = $this->params()->fromQuery('number'); 
+
+
+		$number = $this->params()->fromQuery('number');
 		if(!$number){
             $number = 10;
         }
@@ -677,7 +680,7 @@ class ProjectController extends AbstractRestfulJsonController
         if($page) $paginator->setCurrentPageNumber($page);
         $data = array();
         $helper = new Helper();
-        
+
         foreach($paginator as $user){
             $userData = $user->getData();
            // var_dump($userData); exit;
@@ -691,12 +694,12 @@ class ProjectController extends AbstractRestfulJsonController
     }
 
     public function get($id){
-		
+
 		$entityManager = $this->getEntityManager();
         $project = $this->find('User\Entity\Project', $id);
         /*$Itermnotm = $entityManager->getRepository('User\Entity\Itermnotm')->findBy(array('project'=>$project));
         $Itermnotms = array();
-        foreach( $Itermnotm as $k => $v ) 
+        foreach( $Itermnotm as $k => $v )
         {
             $Itermnotms[$k] = $v->getData();
         }*/
@@ -707,7 +710,7 @@ class ProjectController extends AbstractRestfulJsonController
 		return new JsonModel([
             'project' => $projectData,
 			//'itermnotms' => $Itermnotms,
-			
+
         ]);
     }
 
@@ -718,7 +721,7 @@ class ProjectController extends AbstractRestfulJsonController
             'is_deleted' => true
         ]);
         $project->save($this->getEntityManager());
-        
+
         // Delete Task
         $entityManager = $this->getEntityManager();
         //$tasks = $entityManager->getRepository('User\Entity\Task');
@@ -729,11 +732,11 @@ class ProjectController extends AbstractRestfulJsonController
         				->where('task.project = :project')
         				->setParameter('project', $id);
         $result = $queryBuilder->getQuery()->execute();
-        
+
         //var_dump($result);
-        			
-        			
-        
+
+
+
         return new JsonModel([
             'project' => $project->getData(),
         ]);
@@ -820,13 +823,13 @@ class ProjectController extends AbstractRestfulJsonController
 			$project->save($this->getEntityManager());
 		}
 		if($action==4){
-			
+
 			$entityManager = $this->getEntityManager();
 			$employer = $this->getReference('\User\Entity\Employer', $data['client']['id']);
-			
+
 			$user_client = $entityManager->getRepository('User\Entity\User')
 				->findOneBy(array('employer' => $employer));
-			//var_dump($data['startDate']);exit;	
+			//var_dump($data['startDate']);exit;
 			if(isset($data['startDate'])){
 				$data['startDate'] = new \DateTime($data['startDate']['date']);
 			}
@@ -838,6 +841,7 @@ class ProjectController extends AbstractRestfulJsonController
 				'pm' =>  $this->getReference('\User\Entity\Staff', $data['pm']['id']),
 				'sale' =>  $data['sale'],
 				'priority' =>  $data['priority']['id'],
+        'status' =>  $data['status']['id'],
 				'reference' => $data['reference'],
 				'field' => $this->getReference('\User\Entity\Field', $data['field']['id']),
 				'po' => $data['po'],
@@ -846,12 +850,12 @@ class ProjectController extends AbstractRestfulJsonController
 			]);
 			$project->save($this->getEntityManager());
 		}
-		
+
         return new JsonModel([
             'project' => $project->getData(),
         ]);
     }
-	
+
 	public function generateRandomNumber ( $length = 4 ) {
         $characters = '01234567890';
         $randomString = '';

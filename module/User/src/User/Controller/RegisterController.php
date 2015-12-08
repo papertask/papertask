@@ -19,6 +19,9 @@ class RegisterController extends AbstractActionController
 {
 
     public function indexAction(){
+		//$lang = $this->params()->fromRoute('lang');
+		//$next ='/user/register';
+		//return $this->redirect()->toUrl('/'.$lang.$next);
         return new ViewModel();
     }
 

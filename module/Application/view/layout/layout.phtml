@@ -1,46 +1,43 @@
-<?php echo $this->doctype(); ?>
-
+<!DOCTYPE html>
+<?php
+//var_dump($this->route);exit; 
+?>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <?php echo $this->headTitle()->setSeparator(' | ')->prepend($this->translate('PaperTask'))->setAutoEscape(false) ?>
+<head>
+    <meta charset="utf-8">
 
-        <?php echo $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
+    <?php echo $this->headTitle()->setSeparator(' | ')->prepend($this->translate('PaperTask'))->setAutoEscape(false) ?>
 
-        <!-- Le styles -->
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                        ->prependStylesheet($this->basePath() . '/css/style.css')
-                        ->prependStylesheet($this->basePath() . '/css/animate.css')
-                        ->prependStylesheet($this->basePath() . '/css/plugins/iCheck/custom.css')
-                        ->prependStylesheet($this->basePath() . '/font-awesome/css/font-awesome.css')
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+    <?php echo $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
 
-        <!-- Scripts -->
-        <?php echo $this->headScript()
-            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-            
-            ->prependFile($this->basePath() . '/js/jquery-1.10.2.js')
-            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
-        ; ?>
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    </head>
-    <body class="gray-bg">
+
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/v2/css/style.css')
+        ->prependStylesheet($this->basePath() . '/v2/font-awesome/css/font-awesome.min.css')
+        ->prependStylesheet($this->basePath() . '/v2/css/animate.css')
+        ->prependStylesheet($this->basePath() . '/v2/css/bootstrap.min.css')
+    ?>
+
+</head>
+
+<body class="gray-bg">
 
     <div class="text-center loginscreen   animated fadeInDown">
         <div>
             <div>
 
                 <a class="logo-name" href="<?php echo $this->url('home') ?>" style="font-size: 80px;">
-                    <img src="<?php echo $this->basePath() . '/img/logo.png' ?>" alt="" width="200">
+                    <img src="<?php echo $this->basePath() . '/v2/img/logo.png' ?>" alt="" width="200">
                 </a>
 
             </div>
 
-            <div id="content" class="">
                 <!-- Flash Messenger -->
                 <?php
                 $flash = $this->flashMessenger();
@@ -59,19 +56,58 @@
                 ?><!-- End Flash Messenger -->
 
                 <?php echo $this->content ?>
-            </div>
-
-            <br><br><br>
-
-            <p class="m-t">
-            2015 &copy; <a href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>">PaperTask.com</a> <?php echo $this->translate('All rights reserved.', 'Application'); ?>
-            <a href="<?php echo $this->url('privacy',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Privacy Policy', 'Application'); ?></a> |
-            <a href="<?php echo $this->url('terms',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Terms of Use', 'Application'); ?></a>
-            </p>
-            <br><br>
-
         </div>
     </div>
-        <?php echo $this->inlineScript() ?>
-    </body>
+
+    <br /><br /><br /><br />
+    <div class="row m-b-lg text-center">
+        <p><strong>&copy; 2015 <a href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>">PaperTask.com</a> <?php echo $this->translate('All rights reserved.', 'Application'); ?></strong> &nbsp;&nbsp;&nbsp; <a href="<?php echo $this->url('terms',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Terms of Use', 'Application'); ?></a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="<?php echo $this->url('privacy',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Privacy Policy', 'Application'); ?></a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="btn-group dropup">
+                <button type="button" class="btn btn-sm btn-default"><?php
+                if ($this->translate('lang', 'Application')=="en-US"){
+                    echo "ENGLISH";
+                }
+                if ($this->translate('lang', 'Application')=="zh-CN"){
+                    echo "简体中文";
+                }
+                ?></button>
+                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="<?php echo $this->url(null,array("lang"=>"en-US"), array(), true) ?>">ENGLISH</a></li>
+                    <li selected="selected"><a href="<?php echo $this->url(null,array("lang"=>"zh-CN"), array(), true) ?>">简体中文</a></li>
+                </ul>
+            </div>
+        </p>
+    </div>
+
+
+    <!-- Mainly scripts -->
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/jquery-2.1.1.js'?>"></script>
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/bootstrap.min.js'?>"></script>
+
+</head>
+<script>
+	$(document).ready(function() 
+	{
+		$('ul.dropdown-menu li').click(function(e) 
+		{ 
+			var lang = $(this).text();
+			var href = $(location).attr('href');
+			if(lang = "ENGLISH"){
+				
+			}
+			else {
+			
+			}
+		});
+	});
+</script>
+</div>
+</body>
 </html>

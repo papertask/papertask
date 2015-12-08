@@ -1,33 +1,31 @@
-<?php $this->headTitle($this->translate('Project detail')) ?>
+<?php $this->headTitle($this->translate('Project Details','Employer')) ?>
 <!-- Le styles -->
 <?php $this->headLink()
-    ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/datetimepicker/DateTimePicker.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/summernote/summernote-bs3.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/summernote/summernote.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/multiselect/bootstrap-multiselect.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/steps/jquery.steps.css')
 ?>
 <!-- Scripts -->
 <?php $this->headScript()
-    ->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
-    ->prependFile($this->basePath() . '/js/admin/project/project-detail.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/ItemListController.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
-    ->prependFile($this->basePath() . '/js/admin/angular-steps.js')
-    ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
-    ->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-tpls-0.11.2.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/datetimepicker/DateTimePicker.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/project/project-detail.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/ItemListController.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/CurrentUser.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/bootstrap-modal.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/angular-bootstrap/ui-bootstrap-tpls-0.11.2.min.js')
     ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload','ui.bootstrap']);")
     ->prependScript("PROJECT_ID = {$this->id};")
-    ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
-    ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
-    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
-    ->prependFile($this->basePath() . '/js/inspinia.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/angular-summernote/angular-summernote.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/summernote/summernote.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/multiselect/bootstrap-multiselect.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/validate/jquery.validate.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/slimscroll/jquery.slimscroll.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/metisMenu/jquery.metisMenu.js"') 
+    ->prependFile($this->basePath() . '/v2/js/plugins/bootbox/bootbox.min.js');
 ?>
 
 <?php
@@ -56,53 +54,65 @@ $this->inlineScript()
         cursor: pointer;
     }
 </style>
-<div class="row">
-<div class="col-lg-12">
-<div class="ibox" ng-controller="ProjectDetailController" id="ProjectDetailController">
-<div class="ibox-content">
-    <?php include "detail/info.phtml"; ?>
-	<?php if (!$this->isemployer) { include "detail/miniform.phtml"; } ?>
 
 
-<div class="row m-t-sm">
-<div class="col-lg-12">
-<div class="panel blank-panel">
-                            <?php
-                                switch($this->userData()['role']){
-                                    case 'Admin':
-                                        //staff menus here
-                                        switch($this->userData()['type']){
-                                            case 'Admin':
-                                            case 'Financial Manager':
-                                            case 'Operation Manager':
-                                            case 'Project Manager':
-                                            case 'Sales Director':
-                                            case 'Sales': // Sales Manager
-                                            case 'General Manager': // Inhouse
-                                            default:
-                                                include "detail-common.phtml";
-                                        }
-                                        break;
-                                    case 'Employer': // employer == client
-                                    case 'Client':
-										
-                                        $filesTabActive = true;
-                                        include "detail-client.phtml";
-                                        break;
-                                    case 'Freelancer':
-                                    default:
-                                        include "detail-common.phtml";
-                                        // TODO: default menu
-                                };
-                            ?>
 
+<div ng-controller="ProjectDetailController" id="ProjectDetailController">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="ibox product-detail">
+                    <div class="ibox-content">
+
+                        <?php include "detail/info.phtml"; ?>
+                        <?php if (!$this->isemployer) { include "detail/miniform.phtml"; } ?>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+
+                <?php
+                    switch($this->userData()['role']){
+                        case 'Admin':
+                            //staff menus here
+                            switch($this->userData()['type']){
+                                case 'Admin':
+                                case 'Financial Manager':
+                                case 'Operation Manager':
+                                case 'Project Manager':
+                                case 'Sales Director':
+                                case 'Sales': // Sales Manager
+                                case 'General Manager': // Inhouse
+                                default:
+                                    include "detail-common.phtml";
+                            }
+                            break;
+                        case 'Employer': // employer == client
+                        case 'Client':
+                            
+                            $filesTabActive = true;
+                            include "detail-client.phtml";
+                            break;
+                        case 'Freelancer':
+                        default:
+                            include "detail-common.phtml";
+                            // TODO: default menu
+                    };
+                ?>
+
+            </div>
+        </div>
+
+    </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+
 <script>
     $(document).ready(function(){
         $('.dtbox').DateTimePicker();

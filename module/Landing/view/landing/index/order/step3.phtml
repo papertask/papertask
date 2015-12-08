@@ -7,16 +7,16 @@
 				<!-- here need ajax verify to see if the email address is exist, if no show below infor to create a new account -->
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label class="col-sm-4 control-label">Email *</label>
+						<label class="col-sm-4 control-label"><?php echo $this->translate('Email', 'Application'); ?> *</label>
 						<div class="col-sm-8">
 							<input type="email" id='emailAddress' name="email" class="form-control  required valid" value=""
-								placeholder="Email Address" required ng-model="project.newClient.Email">
+								placeholder="<?php echo $this->translate('Email Address', 'Application'); ?>" required ng-model="project.newClient.Email">
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label class="col-sm-5 control-label">Need Fapiao *</label>
+						<label class="col-sm-5 control-label"><?php echo $this->translate('Need Fapiao', 'Application'); ?> *</label>
 						<div class="col-sm-7">
 							<div data-toggle="buttons">
 								<!-- here IF YES, THEN SHOW TITLE, "NO" = HIDE TITLE, by default "NO"-->
@@ -37,19 +37,19 @@
 				<!-- here need ajax verify to see if the email address is exist, if no show below infor to create a new account -->
 				<div class="col-sm-12">
 					<div class="form-group">
-						<label class="col-sm-2 control-label"> Title *</label>
+						<label class="col-sm-2 control-label"> <?php echo $this->translate('Title', 'Application'); ?> *</label>
 						<div class="col-sm-10">
 							<input id="tit" type="text" name="title" class="form-control required valid" value=""
-								placeholder="Your Chinese Company Title for Issue FAPIAO" required ng-model="project.fapiaoTitle">
+								placeholder="<?php echo $this->translate('Your Chinese Company Title for Issue FAPIAO', 'Application'); ?>" required ng-model="project.fapiaoTitle">
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-12">
 					<div class="form-group">
-						<label class="col-sm-2 control-label"> Address *</label>
+						<label class="col-sm-2 control-label"> <?php echo $this->translate('Address', 'Application'); ?> *</label>
 						<div class="col-sm-10">
 							<input id="add" type="text" class="form-control required valid" value=""
-								placeholder="Your Mailing Address" required ng-model="project.fapiaoAddress">
+								placeholder="<?php echo $this->translate('Your Mailing Address', 'Application'); ?>" required ng-model="project.fapiaoAddress">
 						</div>
 					</div>
 				</div>
@@ -58,53 +58,52 @@
 			<div class="row" ng-hide="haveEmail">
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label class="col-sm-4 control-label">Last Name *</label>
+						<label class="col-sm-4 control-label"><?php echo $this->translate('Last Name', 'Application'); ?> *</label>
 						<div class="col-sm-8">
 							<input id="lastname" name='lastname' type="text" class="form-control required valid" value=""
-								placeholder="Last Name" required ng-model="project.newClient.LastName">
+								placeholder="<?php echo $this->translate('Last Name', 'Application'); ?>" required ng-model="project.newClient.LastName">
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label for="inputPassword" class="col-sm-4 control-label">First
-							Name *</label>
+						<label for="inputPassword" class="col-sm-4 control-label"><?php echo $this->translate('First Name', 'Application'); ?> *</label>
 						<div class="col-sm-8">
 							<input id="firstname" name='firstname' type="text" class="form-control required valid" value=""
-								placeholder="First Name" required ng-model="project.newClient.FirstName">
+								placeholder="<?php echo $this->translate('First Name', 'Application'); ?>" required ng-model="project.newClient.FirstName">
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label class="col-sm-4 control-label">Password *</label>
+						<label class="col-sm-4 control-label"><?php echo $this->translate('Password', 'Application'); ?> *</label>
 						<div class="col-sm-8">
 							<input id="pass" type="password" name='password' class="form-control required valid" value=""
-								placeholder="Type Your Password" required ng-model="project.newClient.Pass">
+								placeholder="<?php echo $this->translate('Type Your Password', 'Application'); ?>" required ng-model="project.newClient.Pass">
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label class="col-sm-4 control-label">Cellphone *</label>
+						<label class="col-sm-4 control-label"><?php echo $this->translate('Cellphone', 'Application'); ?> *</label>
 						<div class="col-sm-8">
 							<input id="cellphone" name='cellphone' type="text" class="form-control required valid" value=""
-								placeholder="Your Cellphone/Landline" required ng-model="project.newClient.CellPhone">
+								placeholder="<?php echo $this->translate('Your Cellphone/Landline', 'Application'); ?>" required ng-model="project.newClient.CellPhone">
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label for="inputPassword" class="col-sm-4 control-label">Company</label>
+						<label for="inputPassword" class="col-sm-4 control-label"><?php echo $this->translate('Company', 'Application'); ?></label>
 						<div class="col-sm-8">
 							<input id="company" name='company' type="text" class="form-control  required valid" value=""
-								placeholder="Your Company Full Name" required ng-model="project.newClient.CompanyName">
+								placeholder="<?php echo $this->translate('Your Company Full Name', 'Application'); ?>" required ng-model="project.newClient.CompanyName">
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="form-group">
-						<label for="inputPassword" class="col-sm-4 control-label">Country</label>
+						<label for="inputPassword" class="col-sm-4 control-label"><?php echo $this->translate('Country', 'Application'); ?></label>
 						<div class="col-sm-8">
 							<select class="form-control required valid" name="country"
 								aria-required="true"
@@ -123,21 +122,19 @@
 		<hr>
 		<div class="text-center" ng-show="!isGraph">
 			<button id="" type="button" class="btn btn-primary btn-lg"
-				onclick="PrevStep3()">Previous</button>
+				onclick="PrevStep3()"><?php echo $this->translate('Previous', 'Application'); ?></button>
 			<!-- if second step choose NO to translate graphic, then show this button -->
 			<button id='PayAndStartTrans' type="button"
-				class="btn btn-primary btn-lg" ng-click="PayAndStartTrans()">Pay and
-				Start to Translate</button>
+				class="btn btn-primary btn-lg" ng-click="PayAndStartTrans()"><?php echo $this->translate('Pay and Start to Translate', 'Application'); ?></button>
 			<!--<button id="" type="button" class="btn btn-primary btn-lg"
 				ng-click="showpay()">Oder</button>	-->
 		</div>
 		<div class="text-center" ng-show="isGraph">
 			<button id="" type="button" class="btn btn-primary btn-lg"
-				onclick="PrevStep3()">Previous</button>
+				onclick="PrevStep3()"><?php echo $this->translate('Previous', 'Application'); ?></button>
 			<!-- if second step choose yes to translate graphic, then show this button -->
 			<button id='RequestQuote' type="button"
-				class="btn btn-primary btn-lg" ng-click="RequestQuote()">Request a
-				Quote</button>
+				class="btn btn-primary btn-lg" ng-click="RequestQuote()"><?php echo $this->translate('Request a Quote', 'Application'); ?></button>
 			
 		</div>
 	

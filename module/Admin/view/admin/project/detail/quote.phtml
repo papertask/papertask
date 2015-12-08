@@ -1,280 +1,284 @@
+<div class="tab-pane" id="quote">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12" align="right">
+                		<?php if($this->userData()['role']=='Admin'){ ?>
+                			<a data-toggle="modal" ng-href="{{url_editQuote}}" ng-click="editQuote()" class="btn btn-white"><i class="fa fa-pencil"></i> <?php echo $this->translate('Edit','Employer') ?> </a>
+                        <?php } ?>
+                		<a ng-href="{{url_downloadQuote}}" target="_blank" class="btn btn-white" ng-click="downloadQuote()"><i class="fa fa-file-pdf-o "></i> <?php echo $this->translate('Download','Employer') ?> </a>
 
-<div class="row">
-<div class="row">
-    <div class="col-lg-12" align="right">
-		<?php if($this->userData()['role']=='Admin'){ ?>
-			<a data-toggle="modal" ng-href="{{url_editQuote}}" ng-click="editQuote()" class="btn btn-white"><i class="fa fa-pencil"></i> Edit </a>
-        <?php } ?>
-		<a ng-href="{{url_downloadQuote}}" target="_blank" class="btn btn-white" ng-click="downloadQuote()"><i class="fa fa-file-pdf-o "></i> Download </a>
+                        <a ng-href="{{url_printQuote}}" target="_blank" class="btn btn-primary" ng-click="printQuote()"><i class="fa fa-print"></i> <?php echo $this->translate('Print Quote','Employer') ?> </a>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div id="quotetoprint">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h4><?php echo $this->translate('Quote No.','Employer') ?></h4>
+                            <h4 class="text-navy">{{ project.quote_no }}</h4>
 
-        <a ng-href="{{url_printQuote}}" target="_blank" class="btn btn-primary" ng-click="printQuote()"><i class="fa fa-print"></i> Print Quote </a>
-    </div>
-</div>
-<div class="hr-line-dashed"></div>
-<div id="quotetoprint">
-<div class="row">
-    <div class="col-xs-6">
-        <h4>Quote No.</h4>
-        <h4 class="text-navy">{{ project.quote_no }}</h4>
+                            <h5><?php echo $this->translate('From:','Employer') ?></h5>
+                            <strong>{{ project.pm.user.firstName }}</strong><br>
+                            <strong><?php echo $this->translate('Project Manager','Employer') ?></strong><br>
+                            <address>
+                                <strong>{{companyinfo1.name}}</strong><br>
+                                {{companyinfo1.address}}<br>
+                                {{companyinfo1.city}}, {{companyinfo1.country.name}}<br>
+                            </address>
+                        </div>
 
-        <h5>From:</h5>
-        <strong>{{ project.pm.user.firstName }}</strong><br>
-        <strong>Project Manager</strong><br>
-        <address>
-            <strong>{{companyinfo1.name}}</strong><br>
-            {{companyinfo1.address}}<br>
-            {{companyinfo1.city}}, {{companyinfo1.country.name}}<br>
-            <abbr title="Phone">P:</abbr> {{companyinfo1.telephone}}
-        </address>
-    </div>
+                        <div class="col-xs-6 text-right">
+                            <p>
+                                <span><strong><?php echo $this->translate('Quote Date:','Employer') ?></strong> {{ formatDate(project.startDate.date) | date:'dd MMMM yyyy - h:mm a' }}</span><br/>
+                                <span><strong><?php echo $this->translate('Due Date:','Employer') ?></strong> {{ formatDate(project.dueDate.date) | date:'dd MMMM yyyy - h:mm a' }}</span>
+                            </p>
+                            <h5><?php echo $this->translate('To:','Employer') ?></span></h5>
+                            <strong>{{ project.user.lastName }}, {{ project.user.firstName }}</strong><br>
+                            <strong>{{ project.client.position }} </strong><br>
+                            <address>
+                                <strong>{{ project.client.company.name }}</strong><br>
+                                {{ project.client.company.address }}<br>
+                                {{ project.client.company.city }}, {{ project.client.company.country }}<br>
+                                <abbr title="Phone">P:</abbr> {{ project.client.company.telephone }}
+                            </address>
 
-    <div class="col-xs-6 text-right">
-        <p>
-            <span><strong>Quote Date:</strong>{{ formatDate(project.startDate.date) | date:'dd MMMM yyyy - h:mm a' }}</span><br/>
-            <span><strong>Due Date:</strong>{{ formatDate(project.dueDate.date) | date:'dd MMMM yyyy - h:mm a' }}</span>
-        </p>
-        <h5>To:</span></h5>
-        <strong>{{ project.user.lastName }}, {{ project.user.firstName }}</strong><br>
-        <strong>{{ project.client.position }} </strong><br>
-        <address>
-            <strong>{{ project.client.company.name }}</strong><br>
-            {{ project.client.company.address }}<br>
-            {{ project.client.company.city }}, {{ project.client.company.country }}<br>
-            <abbr title="Phone">P:</abbr> {{ project.client.company.telephone }}
-        </address>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <h4><?php echo $this->translate('Dear','Employer') ?> {{ project.user.firstName }},</h4><br>
+                    <h4><?php echo $this->translate('RE:','Employer') ?> {{ project.reference }} </h4><br>
+                    <p><?php echo $this->translate('Further to receipt of your enquiry, I now have pleasure in providing you with the cost for the above requirement.','Employer') ?></p>
+                    <p><strong><?php echo $this->translate('Service Level: ','Employer') ?><span class="text-navy">  {{ project.serviceLevel.name }}</span></strong></p>
+                    <p><strong><?php echo $this->translate('Approximate duration: ','Employer') ?><span class="text-navy">{{ project.duration }}<?php echo $this->translate(' working days','Employer') ?></span></strong></p>
+                    <div class="hr-line-dashed"></div>
 
-    </div>
-</div>
-<div class="hr-line-dashed"></div>
-<h4>Dear {{ project.user.firstName }},</h4><br>
-<h4>RE: {{ project.reference }} </h4><br>
-<p>Further to receipt of your enquiry, I now have pleasure in providing you with the cost for the above requirement.</p>
-<p><strong>Service Level: <span class="text-navy">  {{ project.serviceLevel.name }}</span></strong></p>
-<p><strong>Approximate duration: <span class="text-navy">{{ project.duration }} Working days</span></strong></p>
-<div class="hr-line-dashed"></div>
-
-<div class="table-responsive m-t"  ng-repeat="targetLanguage in project.targetLanguages">
-    <table class="table table-bordered invoice-table">
-        <thead>
-        <tr>
-            <th>{{ project.sourceLanguage.name }} to {{ targetLanguage.name }} - task</th>
-            <th>Unit</th>
-            <th>Unit Price</th>
-            <th>Quantity</th>
-            <th>Total Price</th>
-        </tr>
-        </thead>
-        <tbody>
-		<!-- this is only for translation use TM -->
-        <tr  ng-show="hasTypeTranslationUseTM(itemtms[targetLanguage.id][0])" >
-
-            <td><div><a data-toggle="collapse" href="#use_tm{{targetLanguage.id}}"><i class="fa fa-eye"></i> <strong>{{ itemtms[targetLanguage.id][0].name }}</strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
-            <td>Source Word</td>
-            <td>{{ itemtms[targetLanguage.id][0].rate }}</td>
-            <td>{{ itemtms[targetLanguage.id][0].sourcerepetitions + itemtms[targetLanguage.id][0].sourceyibai
-			+ itemtms[targetLanguage.id][0].sourcejiuwu + itemtms[targetLanguage.id][0].sourcebawu
-			+ itemtms[targetLanguage.id][0].sourceqiwu + itemtms[targetLanguage.id][0].sourcewushi + itemtms[targetLanguage.id][0].sourcenomatch}}</td>
-            <td>{{ itemtms[targetLanguage.id][0].total }}</td>
-        </tr>
-        <tr  ng-show="hasTypeTranslationUseTM(itemtms[targetLanguage.id][0])"> <!-- this is only for translation use TM -->
-            <td colspan="5">
-                <div id="use_tm{{targetLanguage.id}}" class="panel-collapse collapse">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
+                    <div class="table-responsive m-t"  ng-repeat="targetLanguage in project.targetLanguages">
+                        <table class="table table-bordered invoice-table">
                             <thead>
                             <tr>
-                                <th>TM Template</th>
-                                <th>Rate (%)</th>
-                                <th>Unit Price</th>
-                                <th>Quantity (Word)</th>
-                                <th>Quantity</th>
+                                <th>{{ project.sourceLanguage.name }} to {{ targetLanguage.name }} - task</th>
+                                <th><?php echo $this->translate('Unit','Employer') ?></th>
+                                <th><?php echo $this->translate('Unit Price','Employer') ?></th>
+                                <th><?php echo $this->translate('Quantity','Employer') ?></th>
+                                <th><?php echo $this->translate('Total Price','Employer') ?></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Repetitions</td>
-                                <td>{{ itemtms[targetLanguage.id][0].raterepetitions }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].raterepetitions / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourcerepetitions }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].raterepetitions / 100) * itemtms[targetLanguage.id][0].sourcerepetitions | number:3 }}</td>
+                    		<!-- this is only for translation use TM -->
+                            <tr  ng-show="hasTypeTranslationUseTM(itemtms[targetLanguage.id][0])" >
+
+                                <td><div><a data-toggle="collapse" href="#use_tm{{targetLanguage.id}}"><i class="fa fa-eye"></i> <strong>{{ itemtms[targetLanguage.id][0].name }}</strong></a> - <span class="text-navy"> Translation (Use TM)</span></div></td>
+                                <td>Source Word</td>
+                                <td>{{ itemtms[targetLanguage.id][0].rate }}</td>
+                                <td>{{ itemtms[targetLanguage.id][0].sourcerepetitions + itemtms[targetLanguage.id][0].sourceyibai
+                    			+ itemtms[targetLanguage.id][0].sourcejiuwu + itemtms[targetLanguage.id][0].sourcebawu
+                    			+ itemtms[targetLanguage.id][0].sourceqiwu + itemtms[targetLanguage.id][0].sourcewushi + itemtms[targetLanguage.id][0].sourcenomatch}}</td>
+                                <td>{{ itemtms[targetLanguage.id][0].total }}</td>
                             </tr>
-                            <tr>
-                                <td>100%</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rateyibai }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateyibai / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourceyibai }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateyibai / 100) * itemtms[targetLanguage.id][0].sourceyibai | number:3 }}</td>
+                            <tr  ng-show="hasTypeTranslationUseTM(itemtms[targetLanguage.id][0])"> <!-- this is only for translation use TM -->
+                                <td colspan="5">
+                                    <div id="use_tm{{targetLanguage.id}}" class="panel-collapse collapse">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th><?php echo $this->translate('TM Template','Employer') ?></th>
+                                                    <th><?php echo $this->translate('Rate','Employer') ?> (%)</th>
+                                                    <th><?php echo $this->translate('Unit Price','Employer') ?></th>
+                                                    <th><?php echo $this->translate('Quantity (Word)','Employer') ?></th>
+                                                    <th><?php echo $this->translate('Quantity','Employer') ?></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Repetitions</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].raterepetitions }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].raterepetitions / 100  }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].sourcerepetitions }}</td>
+                                                    <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].raterepetitions / 100) * itemtms[targetLanguage.id][0].sourcerepetitions  }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>100%</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].rateyibai }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateyibai / 100  }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].sourceyibai }}</td>
+                                                    <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateyibai / 100) * itemtms[targetLanguage.id][0].sourceyibai  }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>95%-99%</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].ratejiuwu }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratejiuwu / 100  }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].sourcejiuwu }}</td>
+                                                    <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratejiuwu / 100) * itemtms[targetLanguage.id][0].sourcejiuwu  }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>85%-94%</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].ratebawu }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratebawu / 100  }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].sourcebawu }}</td>
+                                                    <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratebawu / 100) * itemtms[targetLanguage.id][0].sourcebawu  }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>75%-84%</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].rateqiwu }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateqiwu / 100  }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].sourceqiwu }}</td>
+                                                    <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateqiwu / 100) * itemtms[targetLanguage.id][0].sourceqiwu  }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>50%-74%</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].ratewushi }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratewushi / 100  }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].sourcewushi }}</td>
+                                                    <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratewushi / 100) * itemtms[targetLanguage.id][0].sourcewushi  }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>No Match</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].ratenomatch }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratenomatch / 100  }}</td>
+                                                    <td>{{ itemtms[targetLanguage.id][0].sourcenomatch }}</td>
+                                                    <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratenomatch / 100) * itemtms[targetLanguage.id][0].sourcenomatch  }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" align="right"><strong><?php echo $this->translate('TOTAL','Employer') ?></strong></td>
+                                                    <td class="text-info">{{ itemtms[targetLanguage.id][0].total }}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
-                            <tr>
-                                <td>95%-99%</td>
-                                <td>{{ itemtms[targetLanguage.id][0].ratejiuwu }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratejiuwu / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourcejiuwu }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratejiuwu / 100) * itemtms[targetLanguage.id][0].sourcejiuwu | number:3 }}</td>
+
+                            <tr ng-show="hasTypeTranslationNoTM()" ng-repeat = "itermnotmsnew in itermnotmsnews[targetLanguage.id]">
+
+                                <td><div><strong> {{ itermnotmsnew.name }} </strong> - <span class="text-navy"> <?php echo $this->translate('Translation (No TM)','Employer') ?></span></div></td>
+                                <td><?php echo $this->translate('Source Word','Employer') ?></td>
+                                <td>{{ itermnotmsnew.rate }}</td>
+                                <td>{{ itermnotmsnew.quantity }}</td>
+                                <td>{{ itermnotmsnew.total }}</td>
                             </tr>
-                            <tr>
-                                <td>85%-94%</td>
-                                <td>{{ itemtms[targetLanguage.id][0].ratebawu }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratebawu / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourcebawu }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratebawu / 100) * itemtms[targetLanguage.id][0].sourcebawu | number:3 }}</td>
+                            <tr ng-show="hasTypeDesktopPublishingMac()" ng-repeat = "itermdtpmac in itermdtpmacs[targetLanguage.id]">
+                                <td><div><strong> {{ itermdtpmac.name }}</strong> - <span class="text-info"><?php echo $this->translate('DTP','Employer') ?> <i class="fa fa-apple"></i></span></div></td>
+                                <td>{{ itermdtpmac.unit }}</td>
+                                <td>{{ itermdtpmac.rate }} </td>
+                                <td>{{ itermdtpmac.quantity }}</td>
+                                <td>{{ itermdtpmac.total }} </td>
                             </tr>
-                            <tr>
-                                <td>75%-84%</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rateqiwu }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateqiwu / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourceqiwu }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].rateqiwu / 100) * itemtms[targetLanguage.id][0].sourceqiwu | number:3 }}</td>
+                    		<tr ng-show="hasTypeDesktopPublishingWin()" ng-repeat = "itermdtppc in itermdtppcs[targetLanguage.id]">
+                                <td><div><strong> {{ itermdtppc.name }}</strong> - <span class="text-info"><?php echo $this->translate('DTP','Employer') ?> <i class="fa fa-windows"></i></span></div></td>
+                                <td>{{ itermdtppc.unit }}</td>
+                                <td>{{ itermdtppc.rate }}</td>
+                                <td>{{ itermdtppc.quantity }}</td>
+                                <td>{{itermdtppc.total }} </td>
                             </tr>
-                            <tr>
-                                <td>50%-74%</td>
-                                <td>{{ itemtms[targetLanguage.id][0].ratewushi }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratewushi / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourcewushi }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratewushi / 100) * itemtms[targetLanguage.id][0].sourcewushi | number:3 }}</td>
+                    		<tr ng-show="hasTypeDesktopPublishingEngineer()" ng-repeat = "itermengineering in itermengineerings[targetLanguage.id]">
+                                <td><div><strong> {{ itermengineering.name }}</strong> - <span class="text-info"><?php echo $this->translate('Engineering','Employer') ?> </span></div></td>
+                                <td>{{ itermengineering.unit }}</td>
+                                <td>{{ itermengineering.rate }}</td>
+                                <td>{{ itermengineering.quantity }}</td>
+                                <td>{{ itermengineering.total }} </td>
                             </tr>
-                            <tr>
-                                <td>No Match</td>
-                                <td>{{ itemtms[targetLanguage.id][0].ratenomatch }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratenomatch / 100 | number:3 }}</td>
-                                <td>{{ itemtms[targetLanguage.id][0].sourcenomatch }}</td>
-                                <td>{{ (itemtms[targetLanguage.id][0].rate_tmp * itemtms[targetLanguage.id][0].ratenomatch / 100) * itemtms[targetLanguage.id][0].sourcenomatch | number:3 }}</td>
+                    		<tr ng-show="interpreting.id > 0" ng-repeat = "iterminterpreting in iterminterpretings[targetLanguage.id]">
+                                <td><div><strong> {{ iterminterpreting.name }}</strong> - <span class="text-info"> <?php echo $this->translate('Interpreting','Employer') ?> </span></div></td>
+                                <td>{{ iterminterpreting.unit }}</td>
+                                <td>{{ iterminterpreting.rate }} </td>
+                                <td>{{ iterminterpreting.quantity }}</td>
+                                <td>{{ iterminterpreting.total }}</td>
                             </tr>
-                            <tr>
-                                <td colspan="4" align="right"><strong>Total</strong></td>
-                                <td class="text-info">{{ itemtms[targetLanguage.id][0].total }}</td>
-                            </tr>
+
                             </tbody>
                         </table>
+                    </div><!-- /table-responsive -->
+                    <table class="table invoice-total">
+                        <tbody>
+                        <tr>
+                            <td><strong><?php echo $this->translate('Sub Total','Employer') ?></strong></td>
+                            <td>{{ subtotal }}</td>
+                        </tr>
+                        <tr ng-show="project.discount > 0">
+                            <td><strong>(-) <?php echo $this->translate('Discount','Employer') ?></strong></td>
+                            <td><span class="text-danger"><strong>-</strong></span> {{currency}} {{ project.discount }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong><?php echo $this->translate('TAX','Employer') ?>({{ project.tax }} %):</strong></td>
+                            <td>{{ tax }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong><?php echo $this->translate('TOTAL','Employer') ?></strong></td>
+                            <td>{{ total }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                <!-- if the client is uncontracted, then "make a payment" will show, if client type is "contracted", then dont show "make a payment" instead of "accept the quote" after accept, the project status changed from quoted to ordered -->
+                    <div class="text-right">
+                        <button class="btn btn-primary" ng-show="project.status.id == 1" ng-click="quoteAccepted()"><i class="fa fa-dollar"></i> <?php echo $this->translate('Accept this Quote','Employer') ?></button>
                     </div>
-                </div>
-            </td>
-        </tr>
-
-        <tr ng-show="hasTypeTranslationNoTM()" ng-repeat = "itermnotmsnew in itermnotmsnews[targetLanguage.id]">
-
-            <td><div><strong> {{ itermnotmsnew.name }} </strong> - <span class="text-navy"> Translation (No TM)</span></div></td>
-            <td>Source Word</td>
-            <td>{{ itermnotmsnew.rate }}</td>
-            <td>{{ itermnotmsnew.quantity }}</td>
-            <td>{{ itermnotmsnew.total }}</td>
-        </tr>
-        <tr ng-show="hasTypeDesktopPublishingMac()" ng-repeat = "itermdtpmac in itermdtpmacs[targetLanguage.id]">
-            <td><div><strong> {{ itermdtpmac.name }}</strong> - <span class="text-info">DTP <i class="fa fa-apple"></i></span></div></td>
-            <td>{{ itermdtpmac.unit }}</td>
-            <td>{{ itermdtpmac.rate }} </td>
-            <td>{{ itermdtpmac.quantity }}</td>
-            <td>{{ itermdtpmac.total }} </td>
-        </tr>
-		<tr ng-show="hasTypeDesktopPublishingWin()" ng-repeat = "itermdtppc in itermdtppcs[targetLanguage.id]">
-            <td><div><strong> {{ itermdtppc.name }}</strong> - <span class="text-info">DTP <i class="fa fa-windows"></i></span></div></td>
-            <td>{{ itermdtppc.unit }}</td>
-            <td>{{ itermdtppc.rate }}</td>
-            <td>{{ itermdtppc.quantity }}</td>
-            <td>{{itermdtppc.total }} </td>
-        </tr>
-		<tr ng-show="hasTypeDesktopPublishingEngineer()" ng-repeat = "itermengineering in itermengineerings[targetLanguage.id]">
-            <td><div><strong> {{ itermengineering.name }}</strong> - <span class="text-info">Engineering </span></div></td>
-            <td>{{ itermengineering.unit }}</td>
-            <td>{{ itermengineering.rate }}</td>
-            <td>{{ itermengineering.quantity }}</td>
-            <td>{{ itermengineering.total }} </td>
-        </tr>
-		<tr ng-show="interpreting.id > 0" ng-repeat = "iterminterpreting in iterminterpretings[targetLanguage.id]">
-            <td><div><strong> {{ iterminterpreting.name }}</strong> - <span class="text-info"> Interpreting </span></div></td>
-            <td>{{ iterminterpreting.unit }}</td>
-            <td>{{ iterminterpreting.rate }} </td>
-            <td>{{ iterminterpreting.quantity }}</td>
-            <td>{{ iterminterpreting.total }}</td>
-        </tr>
-
-        </tbody>
-    </table>
-</div><!-- /table-responsive -->
-<table class="table invoice-total">
-    <tbody>
-    <tr>
-        <td><strong>Sub Total :</strong></td>
-        <td>{{ subtotal }}</td>
-    </tr>
-    <tr ng-show="project.discount > 0">
-        <td><strong>(-) Discount :</strong></td>
-        <td><span class="text-danger"><strong>-</strong></span> {{currency}} {{ project.discount }}</td>
-    </tr>
-    <tr>
-        <td><strong>TAX ({{ project.tax }} %):</strong></td>
-        <td>{{ tax }}</td>
-    </tr>
-    <tr>
-        <td><strong>TOTAL :</strong></td>
-        <td>{{ total }}</td>
-    </tr>
-    </tbody>
-</table>
-<!-- if the client is uncontracted, then "make a payment" will show, if client type is "contracted", then dont show "make a payment" instead of "accept the quote" after accept, the project status changed from quoted to ordered -->
-<div class="text-right">
-    <button class="btn btn-primary" ng-show="project.status.id == 1" ng-click="quoteAccepted()"><i class="fa fa-dollar"></i> Quote Accepted</button>
-</div>
-<div class="hr-line-dashed"></div>
-<div class="m-t">
-    The above costs include supplying the translations as electronic files in formats per your requirements.
-    <br><br>
-    Should any amendments or changes to the source text be required after the project has commenced, they will be incorporated at the standard rate which can be provided upon request.
-    <br><br>
-    <strong>Turnaround Time</strong>
-    <br>
-    It would take approximately <span class="text-navy">{{ project.duration }} working days</span> from your accept the quote order to complete the translation work.
-    <br><br>
-    We strongly recommend that any text be reviewed prior to going to print. We would be happy to liase with any reviewers in country should you require it.
-    <br><br>
-    <strong>Terms of Service</strong>
-    <br>
-    Work will be invoiced on completion of each stage of the client order. The Company cannot accept a delay in payment due to translated documents awaiting approval of agents abroad, unless by prior agreement at the commencement of the project.
-    <br><br>
-    Prices quoted are valid for 30 days after this letter.
-    <br><br>
-    If you should require any further information please do not hesitate to contact me.
-    <br><br>
-    Assuring you of our best attention at all times.
-    <br><br>
-    Yours sincerely,
-    <br><br>
-    {{ project.pm.user.firstName }} {{ project.pm.user.lastName }}<br>
-    <strong>PaperTask</strong>
-</div>
-</div>
-</div>
-<!--- modal-->
-<div ng-controller="ModalController" id="modalContainer">
-<div id="modal-edit-quote" class="modal fade" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Quote discount and tax</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label>Tax (%)</label>
-										<input class="form-control required" type="number" ng-model="project.tax">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Discount</label>
-										<input class="form-control required" type="number" ng-model="project.discount">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-w-m btn-primary" ng-click="submitTo('#modal-edit-quote','#ProjectDetailController',
-	                                           'saveTaxandDiscount', project)">Save changes</button>
+                    <div class="hr-line-dashed"></div>
+                    <div class="m-t">
+                        <?php echo $this->translate('The above costs include supplying the translations as electronic files in formats per your requirements.','Employer') ?>
+                        <br><br>
+                        <?php echo $this->translate('Should any amendments or changes to the source text be required after the project has commenced, they will be incorporated at the standard rate which can be provided upon request.','Employer') ?>
+                        <br><br>
+                        <strong><?php echo $this->translate('Turnaround Time','Employer') ?></strong>
+                        <br>
+                        <?php echo $this->translate('It would take approximately ','Employer') ?><span class="text-navy">{{ project.duration }}<?php echo $this->translate(' working days','Employer') ?></span><?php echo $this->translate(' from your accept the quote order to complete the translation work.','Employer') ?>
+                        <br><br>
+                        <?php echo $this->translate('We strongly recommend that any text be reviewed prior to going to print. We would be happy to liase with any reviewers in country should you require it.','Employer') ?>
+                        <br><br>
+                        <strong><?php echo $this->translate('Terms of Service','Employer') ?></strong>
+                        <br>
+                        <?php echo $this->translate('Work will be invoiced on completion of each stage of the client order. The Company cannot accept a delay in payment due to translated documents awaiting approval of agents abroad, unless by prior agreement at the commencement of the project.','Employer') ?>
+                        <br><br>
+                        <?php echo $this->translate('Prices quoted are valid for 30 days after this letter.','Employer') ?>
+                        <br><br>
+                        <?php echo $this->translate('If you should require any further information please do not hesitate to contact me.','Employer') ?>
+                        <br><br>
+                        <?php echo $this->translate('Assuring you of our best attention at all times.','Employer') ?>
+                        <br><br>
+                        <?php echo $this->translate('Yours sincerely,','Employer') ?>
+                        <br><br>
+                        {{ project.pm.user.firstName }} {{ project.pm.user.lastName }}<br>
+                        <strong>PaperTask</strong>
                     </div>
                 </div>
             </div>
-</div>
+            <!--- modal-->
+            <div ng-controller="ModalController" id="modalContainer">
+                <div id="modal-edit-quote" class="modal fade" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $this->translate('Close','Employer') ?></span></button>
+                                <h4 class="modal-title" id="myModalLabel"><?php echo $this->translate('Quote discount and tax','Employer') ?></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label><?php echo $this->translate('TAX','Employer') ?> (%)</label>
+                								<input class="form-control required" type="number" ng-model="project.tax">
+                                            </div>
+                                            <div class="form-group">
+                                                <label><?php echo $this->translate('Discount','Employer') ?></label>
+                								<input class="form-control required" type="number" ng-model="project.discount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-w-m btn-white" data-dismiss="modal"><?php echo $this->translate('Close','Employer') ?></button>
+                                <button type="button" class="btn btn-w-m btn-primary" ng-click="submitTo('#modal-edit-quote','#ProjectDetailController',
+                                                       'saveTaxandDiscount', project)"><?php echo $this->translate('Save changes','Employer') ?></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

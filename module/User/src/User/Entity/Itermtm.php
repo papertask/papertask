@@ -130,12 +130,12 @@ class Itermtm extends Entity{
 	protected $rate_freelancer = 0.00; 
 	 /**
      * @var float
-     * @ORM\Column(type="decimal", scale=3, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=15)
      */ 
     protected $total = 0.00;
 		 /**
      * @var float
-     * @ORM\Column(type="decimal", scale=3, precision=6)
+     * @ORM\Column(type="decimal", scale=3, precision=15)
      */ 
     protected $total_freelancer = 0.00;
 	

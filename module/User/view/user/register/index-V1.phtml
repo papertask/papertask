@@ -1,0 +1,32 @@
+<?php $this->headTitle($this->translate('Register to PaperTask','User')) ?>
+<style>
+    .logo-name {
+        font-size: 80px;
+    }
+</style>
+<h3><?php echo $this->translate('Register to PaperTask','User') ?></h3>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-5 col-lg-offset-1">
+            <div class="jumbotron">
+                <h1><?php echo $this->translate('Need translation services','User') ?></h1>
+
+                <p>
+                    <?php echo $this->translate('I have translation requirements, need to translate documents from one language to other languages.','User') ?>
+                </p>
+                <a href="<?php echo $this->url('user',array("lang"=>$this->translate('lang','Application'))) ?>/register/employer" role="button"><i class="fa fa-sign-in" style="font-size: 80px;"></i></a>
+            </div>
+        </div>
+		
+        <div class="col-lg-5">
+            <div class="jumbotron">
+                <h1><?php echo $this->translate('Find translation works','User') ?></h1>
+
+                <p>
+                    <?php echo $this->translate('I am a professional translator, hope to find a job, make money at here, and grow my career.','User') ?>
+                </p>
+                <a href="<?php echo $this->url('user',array("lang"=>$this->translate('lang','Application'))) ?>/register/freelancer" role="button"><i class="fa fa-sign-in" style="font-size: 80px;"></i></a>
+            </div>
+        </div>
+    </div>
+</div>

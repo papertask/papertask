@@ -1,8 +1,8 @@
-<?php 
+<?php
 $children = $this->viewModel()->getCurrent()->getChildren();
 $child = $children[0];
 $user = $child->user;
-//var_dump($this->viewModel()); 
+//var_dump($this->viewModel());
 //exit;
 ?>
 
@@ -54,16 +54,16 @@ $user = $child->user;
             <li>
                 <a href="#"><i class="fa fa-book"></i> <span class="nav-lable">Finance</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="<?php echo $this->url('admin', ['controller'=>'finance', 'action'=>'freelancer-transaction']) ?>">Transactions</a></li>
-                    <li><a href="<?php echo $this->url('admin', ['controller'=>'finance', 'action'=>'freelancer-unpaid-task']) ?>">Unpaid Tasks</a></li>
-                    <li><a href="<?php echo $this->url('admin', ['controller'=>'freelancer', 'action'=>'edit-payment-info']) ?>">Edit Payment Info</a></li>
+                    <li><a href="<?php echo $this->url('admin', array('controller'=>'finance', 'action'=>'freelancer-transaction',"lang"=>$this->translate('lang','Application'))) ?>">Transactions</a></li>
+                    <li><a href="<?php echo $this->url('admin', array('controller'=>'finance', 'action'=>'freelancer-unpaid-task',"lang"=>$this->translate('lang','Application'))) ?>">Unpaid Tasks</a></li>
+                    <li><a href="<?php echo $this->url('admin', array('controller'=>'freelancer', 'action'=>'edit-payment-info',"lang"=>$this->translate('lang','Application'))) ?>">Edit Payment Info</a></li>
                 </ul>
             </li>
 
 
 			<!-- only admin can see the mail system -->
-			<!-- 
-            <li> 
+			<!--
+            <li>
                 <a href="#"><i class="fa fa-envelope"></i> <span class="nav-lable">Mail</span></a>
             </li>
 			 -->

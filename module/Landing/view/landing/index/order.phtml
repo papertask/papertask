@@ -1,4 +1,4 @@
-<?php $this->headTitle($this->translate('ORDER YOUR TRANSLATION')) ?>
+<?php $this->headTitle($this->translate('ORDER YOUR TRANSLATION', 'Landing')) ?>
 
 <!-- Le styles -->
 <?php $this->headLink()
@@ -7,84 +7,52 @@
 //   ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
 //  ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
 //  ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
-->prependStylesheet($this->basePath() . '/css/plugins/jquery-fileupload/jquery.fileupload.css');
+->prependStylesheet($this->basePath() . '/v2/css/plugins/jquery-fileupload/jquery.fileupload.css');
 ?>
 <script
-	type="text/javascript"
-	src="<?php echo $this->basePath() .'/js/angular.min.js'?>"></script>
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/v2/js/angular.min.js'?>"></script>
 <script
-	type="text/javascript"
-	src="<?php echo $this->basePath() .'/js/plugins/angular-file-upload/angular-file-upload.js'?>"></script>
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/v2/js/plugins/angular-file-upload/angular-file-upload.js'?>"></script>
 <script type="text/javascript"">
-	angularApp = angular.module('project', ['summernote', 'angularFileUpload']);
-	var LANG_CODE ='<?php echo $this->lang_code ?>';
+  angularApp = angular.module('project', ['summernote', 'angularFileUpload']);
+  var LANG_CODE ='<?php echo $this->lang_code ?>';
 </script>
 <script
-	type="text/javascript"
-	src="<?php echo $this->basePath() .'/js/landing/order.js'?>"></script>
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/v2/js/landing/order.js'?>"></script>
 <script
-	type="text/javascript"
-	src="<?php echo $this->basePath() .'/js/admin/common/angular/service/project.js'?>"></script>
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/v2/js/admin/common/angular/service/project.js'?>"></script>
 <script
-	type="text/javascript"
-	src="<?php echo $this->basePath() .'/js/admin/common/angular/CurrentUser.js'?>"></script>
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/v2/js/admin/common/angular/CurrentUser.js'?>"></script>
 <script
-	type="text/javascript"
-	src="<?php echo $this->basePath() .'/js/admin/bootstrap-modal.js'?>"></script>
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/v2/js/admin/bootstrap-modal.js'?>"></script>
 
 <script
-	type="text/javascript"
-	src="<?php echo $this->basePath() .'/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js'?>"></script>
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/v2/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js'?>"></script>
 <script
-	type="text/javascript"
-	src="<?php echo $this->basePath() .'/js/plugins/angular-summernote/angular-summernote.js'?>"></script>
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/v2/js/plugins/angular-summernote/angular-summernote.js'?>"></script>
 <script
-	type="text/javascript"
-	src="<?php echo $this->basePath() .'/js/plugins/summernote/summernote.min.js'?>"></script>
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/v2/js/plugins/summernote/summernote.min.js'?>"></script>
 <script
-	type="text/javascript"
-	src="<?php echo $this->basePath() .'/js/plugins/validate/jquery.validate.min.js'?>"></script>
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/v2/js/plugins/validate/jquery.validate.min.js'?>"></script>
 <script
-	type="text/javascript"
-	src="<?php echo $this->basePath() .'/js/plugins/metisMenu/jquery.metisMenu.js'?>"></script>
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/v2/js/plugins/metisMenu/jquery.metisMenu.js'?>"></script>
 <script
-	type="text/javascript"
-	src="<?php echo $this->basePath() .'/js/inspinia.js'?>"></script>
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/v2/js/inspinia.js'?>"></script>
 <script
-	type="text/javascript"
-	src="<?php echo $this->basePath() .'/js/plugins/pace/pace.min.js'?>"></script>
-
-
-<!-- Scripts -->
-<?php  $this->headScript()
-//  ->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
-//->prependFile($this->basePath() . '/assets/js/landing/order.js')
-->prependFile($this->basePath() . '/assets/js/common/angular/service/project.js')
-->prependFile($this->basePath() . '/assets/js/common/angular/CurrentUser.js')
-//->prependFile($this->basePath() . '/js/admin/angular-steps.js')
-->prependFile($this->basePath() . '/assets/js/bootstrap-modal.js')
-->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload']);")
-->prependFile($this->basePath() . '/assets/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
-->prependFile($this->basePath() . '/assets/plugins/angular-summernote/angular-summernote.js')
-->prependFile($this->basePath() . '/assets/plugins/summernote/summernote.min.js')
-//  ->prependFile($this->basePath() . '/js/plugins/datapicker/bootstrap-datepicker.js')
-//  ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
-->prependFile($this->basePath() . '/assets/plugins/validate/jquery.validate.min.js')
-//  ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
-//  ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
-//  ->prependFile($this->basePath() . '/js/inspinia.js');
-
-
-->prependFile($this->basePath() . '/assets/js/inspinia.js')
-->prependFile($this->basePath() . '/assets/plugins/pace/pace.min.js')
-->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.ui.widget.js')
-->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.iframe-transport.js')
-->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.fileupload.js')
-->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.fileupload-validate.js');
-
-
-
-?>
+  type="text/javascript"
+  src="<?php echo $this->basePath() .'/v2/js/plugins/pace/pace.min.js'?>"></script>
 
 <?php
 $this->inlineScript()
@@ -93,69 +61,69 @@ $this->inlineScript()
 
 <style type="text/css">
 .wizard>.content {
-	min-height: 1000px;
+  min-height: 1000px;
 }
 
 .note-editor {
-	height: 150px;
+  height: 150px;
 }
 
 .nav-pills>li.active>a,.nav-pills>li.active>a:hover,.nav-pills>li.active>a:focus
-	{
-	background-color: #19aa8d;
+  {
+  background-color: #19aa8d;
 }
 
 .nav>li.active {
 }
 
 .form-group label.btn-outline {
-	margin-right: 0.3em;
+  margin-right: 0.3em;
 }
 
 .main-content {
-	padding: 50px 0 0;
+  padding: 50px 0 0;
 }
 
 .btn-primary {
-	background-color: #1ab394;
-	border-color: #1ab394;
-	color: #ffffff;
+  background-color: #1ab394;
+  border-color: #1ab394;
+  color: #ffffff;
 }
 
 .btn-primary:hover {
-	background-color: #158E76;
-	border-color: #158E76;
-	color: #ffffff;
+  background-color: #158E76;
+  border-color: #158E76;
+  color: #ffffff;
 }
 
 .btn-primary.active {
-	background-color: #1ab394;
-	border-color: #1ab394;
-	color: #ffffff;
+  background-color: #1ab394;
+  border-color: #1ab394;
+  color: #ffffff;
 }
 
 .btn-custom {
-	background-color: #F5F5F5;
-	border-color: #1ab394;
-	color: #1ab394;
+  background-color: #F5F5F5;
+  border-color: #1ab394;
+  color: #1ab394;
 }
 
 .btn-custom.active>i.fa {
-	color: #1ab394 !important;
+  color: #1ab394 !important;
 }
 
 .progress-bar {
-	background-color: #1ab394;
+  background-color: #1ab394;
 }
 
 .label-primary {
-	background-color: #1ab394;
+  background-color: #1ab394;
 }
 
 .open>.dropdown-toggle.btn-primary {
-	background-color: #1ab394;
-	border-color: #1ab394;
-	color: #fff;
+  background-color: #1ab394;
+  border-color: #1ab394;
+  color: #fff;
 }
 .banner {
     background-color: #1ab394;
@@ -166,7 +134,7 @@ $this->inlineScript()
 .features {
     padding: 50px 0;
     border-bottom: 1px solid #f3f3f3;
-	background-color: #f3f3f3;
+  background-color: #f3f3f3;
 }
 .thumbnail.setup-panel{
 display: block;
@@ -201,56 +169,106 @@ tbody {
 }
 </style>
 
-<div class="main-content" ng-controller="OrderNoSignin">
-	<div class="banner">
-		<div class="container">
-			<div class="row">
-				<h1 class="text-center" style="font-size: 60px;">
-					<strong>ORDER YOUR TRANSLATION</strong>
-				</h1>
-				<h3 class="text-center">PLEASE FOLLOW THE STEPS TO PLACE AN ORDER</h3>
-				<br> <br>
-			</div>
-		</div>
-	</div>
-	<div id="features" class="features">
+<nav class="navbar navbar-default navbar-fixed-top navbar-scroll" style="padding: 0px 0;" role="navigation">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>">
+                PAPERTASK
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="page-scroll" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>#overview"><?php echo $this->translate('Overview', 'Application'); ?></a></li>
+                <li><a class="page-scroll" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>#pricing"><?php echo $this->translate('Languages and Pricing', 'Application'); ?></a></li>
+                <li><a class="page-scroll" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>#freelancer"><?php echo $this->translate('Freelancer', 'Application'); ?></a></li>
+                <li><a class="page-scroll" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>#client"><?php echo $this->translate('Client', 'Application'); ?></a></li>
+                <li><a class="page-scroll" href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>#contact"><?php echo $this->translate('Contact', 'Application'); ?></a></li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li>
+                    <a class="page-scroll" href="<?php echo $this->url('user',array("lang"=>$this->translate('lang', 'Application'))) ?>/login/"><i class="fa fa-sign-in"> <?php echo $this->translate('SIGN IN', 'Application'); ?></i></a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="<?php echo $this->url('user',array("lang"=>$this->translate('lang', 'Application'))) ?>/register/"><span class="text-navy"><i class="fa fa-user"> <?php echo $this->translate('SIGN UP', 'Application'); ?></i></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8">
-					
-
-						<div class=" form-group">
-							<div class="col-md-12">
-								<ul class="nav nav-pills nav-justified thumbnail setup-panel">
-									<li class="active"><a href="#step-1">
-											<h4 class="list-group-item-heading">Step 1</h4>
-											<p class="list-group-item-text">Upload the file(s)</p>
-									</a></li>
-									<li class="disabled"><a href="#step-2">
-											<h4 class="list-group-item-heading">Step 2</h4>
-											<p class="list-group-item-text">Select Languages and Quality</p>
-									</a></li>
-									<li class="disabled"><a href="#step-3">
-											<h4 class="list-group-item-heading">Step 3</h4>
-											<p class="list-group-item-text">Confirm Your Information</p>
-									</a></li>
-								</ul>
-							</div>
-						</div>
+<div class="gray-bg" ng-controller="OrderNoSignin">
+<br /><br /><br /><br /><br />
 
 
-						<?php include "order/step1.phtml"?>
-						<?php include "order/step2.phtml"?>
-						<?php include "order/step3.phtml"?>
 
-					
-				</div>
-				<?php include "order/orderinfo.phtml"?>
-			</div>
 
-		</div>
-	</div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+            <div class=" form-group">
+              <div class="col-md-12">
+                <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+                  <li class="active"><a href="#step-1">
+                      <h2 class="list-group-item-heading"><?php echo $this->translate('Step 1', 'Application'); ?></h2>
+                      <p class="list-group-item-text"><?php echo $this->translate('Upload the file(s)', 'Application'); ?></p>
+                  </a></li>
+                  <li class="disabled"><a href="#step-2">
+                      <h2 class="list-group-item-heading"><?php echo $this->translate('Step 2', 'Application'); ?></h2>
+                      <p class="list-group-item-text"><?php echo $this->translate('Select Languages and Quality', 'Application'); ?></p>
+                  </a></li>
+                  <li class="disabled"><a href="#step-3">
+                      <h2 class="list-group-item-heading"><?php echo $this->translate('Step 3', 'Application'); ?></h2>
+                      <p class="list-group-item-text"><?php echo $this->translate('Confirm Your Information', 'Application'); ?></p>
+                  </a></li>
+                </ul>
+              </div>
+            </div>
+
+
+            <?php include "order/step1.phtml"?>
+            <?php include "order/step2.phtml"?>
+            <?php include "order/step3.phtml"?>
+
+          
+        </div>
+        <?php include "order/orderinfo.phtml"?>
+      </div>
+
+    </div>
+    
+
+    <div class="row m-b-lg text-center">
+
+            <p><strong>&copy; 2015 <a href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>">PaperTask.com</a> <?php echo $this->translate('All rights reserved.', 'Application'); ?></strong> &nbsp;&nbsp;&nbsp; <a href="<?php echo $this->url('terms',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Terms of Use', 'Application'); ?></a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a href="<?php echo $this->url('privacy',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Privacy Policy', 'Application'); ?></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="btn-group dropup">
+                    <button type="button" class="btn btn-sm btn-default"><?php
+                    if ($this->translate('lang', 'Application')=="en-US"){
+                        echo "ENGLISH";
+                    }
+                    if ($this->translate('lang', 'Application')=="zh-CN"){
+                        echo "简体中文";
+                    }
+                    ?></button>
+                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ><a href="<?php echo $this->url('order',array('controller'=>'index', 'action'=>'order', "lang"=>"en-US"), array(), true) ?>">ENGLISH</a></li>
+                        <li selected="selected"><a href="<?php echo $this->url(null,array("lang"=>"zh-CN"), array(), true) ?>">简体中文</a></li>
+                    </ul>
+                </div>
+            </p>
+    </div>
+  
 </div>
 
 <script>
@@ -301,44 +319,44 @@ tbody {
           
 
           jQuery.validator.setDefaults({
-    		  debug: false,
-    		  success: "valid"
-    		});
-  		
-    		$( "#formStep2" ).validate(); 
-    		$( "#formStep3" ).validate(); 
-    		console.info('formStep2',$( "#formStep2" ).validate());
-			/*
-			alert('hi');
-    		function checkValidStep2(){
-    	          if($( "#formStep2" ).valid()){
-    	              alert('true');
-    	          } else{
-    	        	  alert('false');
-    	          }
-    	    }
-    	    */
-    	    
-    	    
+          debug: false,
+          success: "valid"
+        });
+      
+        $( "#formStep2" ).validate(); 
+        $( "#formStep3" ).validate(); 
+        console.info('formStep2',$( "#formStep2" ).validate());
+      /*
+      alert('hi');
+        function checkValidStep2(){
+                if($( "#formStep2" ).valid()){
+                    alert('true');
+                } else{
+                  alert('false');
+                }
+          }
+          */
+          
+          
       });
 
       function StrDate(dateIn) {
-      	   var yyyy = dateIn.getFullYear();
-      	   var mm = dateIn.getMonth()+1; // getMonth() is zero-based
-      	   var dd  = dateIn.getDate();
-      	   var hh = dateIn.getHours();
-      	   var mi = dateIn.getMinutes();
-      	   var ss = dateIn.getSeconds();
-      	   return String(yyyy +'-'+ mm +'-'+ dd + ' '+ hh +':'+ mi + ':' + ss); // Leading zeros for mm and dd
-      	 }
+           var yyyy = dateIn.getFullYear();
+           var mm = dateIn.getMonth()+1; // getMonth() is zero-based
+           var dd  = dateIn.getDate();
+           var hh = dateIn.getHours();
+           var mi = dateIn.getMinutes();
+           var ss = dateIn.getSeconds();
+           return String(yyyy +'-'+ mm +'-'+ dd + ' '+ hh +':'+ mi + ':' + ss); // Leading zeros for mm and dd
+         }
 
-  		function PrevStep3(){
-  			$('ul.setup-panel li a[href="#step-2"]').trigger('click');
-  		}
+      function PrevStep3(){
+        $('ul.setup-panel li a[href="#step-2"]').trigger('click');
+      }
 
-  		function PrevStep2(){
-  			$('ul.setup-panel li a[href="#step-1"]').trigger('click');
-  		}
+      function PrevStep2(){
+        $('ul.setup-panel li a[href="#step-1"]').trigger('click');
+      }
      
       
     </script>

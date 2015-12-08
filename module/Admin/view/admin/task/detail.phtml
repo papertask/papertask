@@ -1,34 +1,32 @@
 <?php $this->headTitle($this->translate('Task detail')) ?>
 <!-- Le styles -->
 <?php $this->headLink()
-    ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/datetimepicker/DateTimePicker.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/summernote/summernote-bs3.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/summernote/summernote.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/multiselect/bootstrap-multiselect.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/steps/jquery.steps.css')
 ?>
 <!-- Scripts -->
 <?php $this->headScript()
-    ->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/datetimepicker/DateTimePicker.js')
     
 	//->prependFile($this->basePath() . '/js/plugins/datetimepicker/bootstrap-datetimepicker.min.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/ItemListController.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
-    ->prependFile($this->basePath() . '/js/admin/angular-steps.js')
-    ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
-    ->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-tpls-0.11.2.min.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/ItemListController.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/CurrentUser.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/angular-steps.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/bootstrap-modal.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/angular-bootstrap/ui-bootstrap-tpls-0.11.2.min.js')
     ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload','ui.bootstrap']);")
     ->prependScript("TASK_ID = {$this->id};")
-    ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
-    ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
-    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
-    ->prependFile($this->basePath() . '/js/inspinia.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/angular-summernote/angular-summernote.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/summernote/summernote.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/multiselect/bootstrap-multiselect.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/validate/jquery.validate.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/bootbox/bootbox.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/steps/jquery.steps.min.js')
 ?>
 
 <?php
@@ -52,9 +50,9 @@ $this->inlineScript()
 		var Freelancer_user_id = '" . $user['id'] . "';
 		
     ")
-	->prependFile($this->basePath() . '/js/admin/task/task-detail-freelancer.js');
+	->prependFile($this->basePath() . '/v2/js/admin/task/task-detail-freelancer.js');
  } else {
-	$this->inlineScript()->prependFile($this->basePath() . '/js/admin/task/task-detail.js');
+	$this->inlineScript()->prependFile($this->basePath() . '/v2/js/admin/task/task-detail.js');
  }
     
             
@@ -69,55 +67,111 @@ $this->inlineScript()
     }
 </style>
 
-<div class="row">
-<div class="col-lg-12">
-	<div class="ibox" ng-controller="TaskDetailController" id="TaskDetailController">
-		<div class="ibox-content">
-			<?php include "detail/info.phtml"; ?>
-			<?php include "detail/miniform.phtml"; ?>
-			<div class="hr-line-dashed"></div>
-			
-			<!-- Project File -->
-            <?php if($user['role'] == 'Admin') 
-            			include "detail/files.phtml";
-            	else if ($user['role'] == 'Freelancer') 
-            			include "detail/files_freelancer.phtml";
+<div class="animated fadeInRight" ng-controller="TaskDetailController" id="TaskDetailController">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="ibox product-detail">
+                <div class="ibox-content" style="padding-bottom: 10px;">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php if ($this->isStaff==1) {?>
+                            <button class="btn btn-danger pull-right" ng-click="showEdit()">
+                                <i class="fa fa-edit"></i><?php echo $this->translate('Edit Task') ?>
+                            </button>
+                            <?php } ?>
+                            <h2 class="font-bold m-b-xs">
+                                <span class="text-info">{{ task.task_number }}</span><?php echo ' '; ?><span style="font-size: 15px;">{{ task.name }}</span>
+                            </h2>
+                            <hr>
+                            <?php include "detail/miniform.phtml"; ?>
+                            <div>
+                                <span ng-show="task.status.id == 3 || task.status.id == 4 || task.status.id == 6">
+                                    <button class="btn btn-warning pull-right" ng-click="Accept(task.id)"><i class="fa fa-check-square-o"></i> <?php echo $this->translate('Accept','Application'); ?></button>
+                                </span>
+                                <h1 class="product-main-price">{{ task.currency }} {{ task.total_freelancer }}</h1>
+                            </div>
+
+                            <hr>
+                            <div class="col-md-6 tooltip-demo">
+                                <dl class="dl-horizontal m-t-md small" style="font-size: 14px;">
+                                    <dt><?php echo $this->translate('Due Date'); ?></dt>
+                                    <dd>{{ DateFormatter.format(task.dueDate) }}</dd>
+                                    <dt><?php echo $this->translate('Task Type'); ?></dt>
+                                    <dd><code {{ task.type.inline_attrs }}>{{ task.type.name_short }}</code></dd>
+                                    <dt><?php echo $this->translate('Field'); ?></dt>
+                                    <dd>{{ project.field.name }}</dd>
+                                    <?php if (!$this->isStaff) {?>
+                                    <?php }else { ?>
+                                    <dt><?php echo $this->translate('Client Contact'); ?></dt>
+                                    <dd>{{ project.user.lastName }} {{ project.user.firstName }}</dd>
+                                    <?php } ?>
+                                    <?php if($user['role'] == 'Freelancer') 
+                                                include "detail/files_freelancer.phtml";            
+                                    ?>
+                                </dl>
+                            </div>
+                            <div class="col-md-6">
+                                <dl class="dl-horizontal m-t-md small" style="font-size: 14px;">
+                                    <dt><?php echo $this->translate('Priority'); ?></dt>
+                                    <dd><span class="label label-{{ project.priority.decorator }}">{{ project.priority.name }}</span></dd>
+                                    <dt><?php echo $this->translate('Languages'); ?></dt>
+                                    <dd><code>{{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ task.language.name }}</code></dd>
+                                    <dt><?php echo $this->translate('Project Manager'); ?></dt>
+                                    <dd>{{ project.pm.name }}</dd>
+                                    <?php if (!$this->isStaff) {?>
+                                    <?php }else { ?>
+                                    <dt><?php echo $this->translate('Client Company'); ?></dt>
+                                    <dd>{{ project.client.company.name }}</dd>
+                                    <?php } ?>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
             
-            ?>   
-			
-			<?php //if ($this->isStaff==1) {?>
-			<div class="hr-line-dashed"></div>			
-			<div class="row m-t-sm" >
-				<div class="col-lg-12">
-				<div class="panel blank-panel">
-					<div class="panel-heading">
-						<div class="panel-options">
-							<ul class="nav nav-tabs">
-								<li class="active"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasksNum }}</span> <?php echo $this->translate("Task Allocation"); ?></a></li>
-								
-								<li class="" ><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> Messages & Activities</a></li>
-								<li class="" ng-show="havecorrection"><a href="#correction" data-toggle="tab">Correction</a></li>
-								<li class="" ng-show="havefeedback"><a href="#feedback" data-toggle="tab">Feedback</a></li>
-								
-							</ul>
-						</div>
-					</div>
-					<div class="panel-body">
-						<div class="tab-content">	
-							<?php include "detail/order_information.phtml"; ?>
-							<?php include "detail/activities.phtml"; ?>
-							<?php include "detail/correction.phtml"; ?>
-							<?php include "detail/feedback.phtml"; ?>
-						</div>
-					</div>	
-				</div>
-				</div>
-			</div>
-			<?php //} ?>
-		</div>
-	</div>
+            <!-- Project File -->
+            <?php if($user['role'] == 'Admin') 
+                        include "detail/files.phtml";            
+            ?>
+
+        <div class="ibox-content">
+            <?php //if ($this->isStaff==1) {?>
+            <div class="row m-t-sm" >
+                <div class="col-lg-12">
+                <div class="panel blank-panel">
+                    <div class="panel-heading">
+                        <div class="panel-options">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasksNum }}</span> <?php echo $this->translate("Task Allocation"); ?></a></li>
+                                
+                                <li class="" ><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> Messages & Activities</a></li>
+                                <li class="" ng-show="havecorrection"><a href="#correction" data-toggle="tab">Correction</a></li>
+                                <li class="" ng-show="havefeedback"><a href="#feedback" data-toggle="tab">Feedback</a></li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">   
+                            <?php include "detail/order_information.phtml"; ?>
+                            <?php include "detail/activities.phtml"; ?>
+                            <?php include "detail/correction.phtml"; ?>
+                            <?php include "detail/feedback.phtml"; ?>
+                        </div>
+                    </div>  
+                </div>
+                </div>
+            </div>
+            <?php //} ?>
+        </div>
+        </div>
+    </div>
 </div>
-</div>
+<br /><br />
 <div ng-controller="ModalController" id="modalContainer">
 	<?php include "detail/modal/translation_modal.phtml"; ?>
     <?php include "detail/modal/interpreting_modal.phtml" ?>

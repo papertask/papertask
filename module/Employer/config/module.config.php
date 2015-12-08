@@ -54,7 +54,12 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Employer\Controller\Dashboard' => 'Employer\Controller\DashboardController',
+                'Employer\Controller\Dashboard' => 'Employer\Controller\DashboardController',
+			           'Employer\Controller\Quote' => 'Employer\Controller\QuoteController',
+			           'Employer\Controller\Project' => 'Employer\Controller\ProjectController',
+                 'Employer\Controller\Finance' => 'Employer\Controller\FinanceController',
+                 'Employer\Controller\Profile' => 'Employer\Controller\ProfileController',
+                 'Employer\Controller\ResetPassword' => 'Employer\Controller\ResetPasswordController',
         ),
     ),
     'view_manager' => array(
@@ -65,6 +70,12 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
 			'employer/dashboard/client-dashboard' => __DIR__ . '/../view/employer/dashboard/client-dashboard.phtml',
+			'employer/quotes' => __DIR__ . '/../view/employer/quote/index.phtml',
+			'employer/projects' => __DIR__ . '/../view/employer/project/index.phtml',
+      'employer/finance/transaction' => __DIR__ . '/../view/employer/finance/transaction.phtml',
+      'employer/finance/unpaid-project' => __DIR__ . '/../view/employer/finance/unpaid-project.phtml',
+      'employer/profile' => __DIR__ . '/../view/employer/profile/index.phtml',
+      'employer/reset-password/index' => __DIR__ . '/../view/employer/reset-password/index.phtml',
 
 
         ),
@@ -82,7 +93,7 @@ return array(
     ),
 
     // Doctrine
-    'doctrine' => array(
+    /*'doctrine' => array(
         'driver' => array(
             'employer_entities' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
@@ -93,5 +104,5 @@ return array(
                 'drivers' => array(
                     'Employer\Entity' => 'employer_entities'
                 )
-            ))),
+            ))),*/
 );

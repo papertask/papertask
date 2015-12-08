@@ -1,31 +1,37 @@
 <?php $this->headTitle($this->translate('Add New Project')) ?>
 <!-- Le styles -->
 <?php $this->headLink()
-    ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
-    ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/datetimepicker/DateTimePicker.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/summernote/summernote-bs3.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/summernote/summernote.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/multiselect/bootstrap-multiselect.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/steps/jquery.steps.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/chosen/chosen.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/datapicker/datepicker3.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/select2/select2.min.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/footable/footable.core.css')
 ?>
 
 <!-- Scripts -->
 <?php $this->headScript()
-    ->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
-    ->prependFile($this->basePath() . '/js/admin/project/create-project.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
-    ->prependFile($this->basePath() . '/js/admin/angular-steps.js')
-    ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/datetimepicker/DateTimePicker.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/project/create-project.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/CurrentUser.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/angular-steps.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/bootstrap-modal.js')
     ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload']);")
-    ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
-    ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
-    //->prependFile($this->basePath() . '/js/plugins/datapicker/bootstrap-datepicker.js')
-    ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
-    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
-    ->prependFile($this->basePath() . '/js/inspinia.js');
+    ->prependFile($this->basePath() . '/v2/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/angular-summernote/angular-summernote.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/summernote/summernote.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/datapicker/bootstrap-datepicker.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/multiselect/bootstrap-multiselect.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/validate/jquery.validate.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/chosen/chosen.jquery.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/select2/select2.full.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/footable/footable.all.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/steps/jquery.steps.min.js');
 ?>
 <?php
 $this->inlineScript()
@@ -33,6 +39,7 @@ $this->inlineScript()
 		var LANG_CODE = '" . $this->lang_code . "';
     ");
 ?>
+
 <style>
     .form-group label.btn-outline {
         margin-right: 0.3em;
@@ -45,6 +52,33 @@ $this->inlineScript()
         cursor: pointer;
     }
 </style>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable();
+        $('.summernote').summernote();
+        $(".sLanguage").select2();
+        $(".tLanguages").select2();
+        $('#ordered_date .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+        $('#due_date .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+    });
+
+</script>
+
+
 <div class="row">
     <div class="col-lg-12">
         <div class="ibox">
@@ -76,16 +110,6 @@ $this->inlineScript()
     <?php include "new/modal/desktop_publishing_modal.phtml" ?>
     <?php include "new/modal/translation_modal.phtml" ?>
 </div>
-<script>
-    var edit = function() {
-        $('.click2edit').summernote({focus: true});
-    };
-    var save = function() {
-        var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
-        $('.click2edit').destroy();
-    };
-
-</script>
 
 <script>
     $(document).ready(function(){
