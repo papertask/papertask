@@ -146,8 +146,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Payment Methord</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo $this->translate('Close', 'Application'); ?></span></button>
+                    <h4 class="modal-title" id="myModalLabel"><?php echo $this->translate('Payment Methord', 'Application'); ?></h4>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -166,7 +166,7 @@
                                                       <i class="fa fa-cc-paypal text-success"></i>
                                                   </div>
                                                   <h5 class="panel-title">
-                                                      <a data-toggle="collapse" data-parent="#accordion" href="#paypal">PayPal</a>
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#paypal"><?php echo $this->translate('PayPal', 'Application'); ?></a>
                                                   </h5>
                                               </div>
                                               <div id="paypal" class="panel-collapse collapse in">
@@ -177,17 +177,17 @@
                                                             <table class="table">
                                                               <thead>
                                                               <tr>
-                                                                  <th>Total</th>
+                                                                  <th><?php echo $this->translate('Total', 'Application'); ?></th>
                                                                   <th class="text-right">{{CurrentCurrency}} {{total | currency : '' : 2}}</th>
                                                               </tr>
                                                               </thead>
                                                             </table>
                                                             <p class="m-t">
-                                                                You will be redirected to PayPal's payment page and then sent back once you complete your purchase.
+                                                                <?php echo $this->translate('You will be redirected to PayPal\s payment page and then sent back once you complete your purchase.', 'Application'); ?>
                                                             </p>
                                                             <a class="btn btn-primary" ng-click="paypaypal()"> 
                                                                 <i class="fa fa-cc-stripe">
-                                                                    Purchase via PayPal
+                                                                    <?php echo $this->translate('Purchase via PayPal', 'Application'); ?>
                                                                 </i>
                                                             </a>
                                                         </div>
@@ -204,7 +204,7 @@
                                                       <i class="fa fa-cc-alipay text-success"></i>
                                                   </div>
                                                   <h5 class="panel-title">
-                                                      <a data-toggle="collapse" data-parent="#accordion" href="#alipay">Alipay</a>
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#alipay"><?php echo $this->translate('Alipay', 'Application'); ?></a>
                                                   </h5>
                                               </div>
                                               <div id="alipay" class="panel-collapse collapse in">
@@ -215,17 +215,17 @@
                                                             <table class="table">
                                                               <thead>
                                                               <tr>
-                                                                  <th>Total</th>
+                                                                  <th><?php echo $this->translate('Total', 'Application'); ?></th>
                                                                   <th class="text-right">{{CurrentCurrency}} {{total | currency : '' : 2}}</th>
                                                               </tr>
                                                               </thead>
                                                             </table>
                                                             <p class="m-t">
-                                                                You will be redirected to Alipay's payment page and then sent back once you complete your purchase.
+                                                                <?php echo $this->translate('You will be redirected to Alipay\s payment page and then sent back once you complete your purchase.', 'Application'); ?>
                                                             </p>
                                                             <a class="btn btn-primary" ng-click="payalipay()">
                                                                 <i class="fa fa-cc-alipay">
-                                                                    Purchase via Alipay
+                                                                    <?php echo $this->translate('Purchase via Alipay', 'Application'); ?>
                                                                 </i>
                                                             </a>
                                                         </div>
