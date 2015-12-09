@@ -18,7 +18,7 @@
 
     <!-- Scripts -->
     <?php echo $this->headScript()
-        //->prependFile($this->basePath() . '/v2/js/common.js')
+        ->prependFile($this->basePath() . '/v2/js/common.js')
         ->prependFile($this->basePath() . '/v2/js/plugins/pace/pace.min.js')
         ->prependFile($this->basePath() . '/v2/js/inspinia.js')
         ->prependFile($this->basePath() . '/v2/js/plugins/slimscroll/jquery.slimscroll.min.js')
@@ -152,7 +152,7 @@
                     </div>
                 </div>
             </div><!-- End Footer -->
-        
+
         </div>
     </div>
 
@@ -160,20 +160,20 @@
     <script>
         if(typeof(angular) != 'undefined' && typeof(angularApp) == 'undefined'){
             var angularApp = angularApp || angular.module('project', []);}
-		$(document).ready(function() 
+		$(document).ready(function()
 		{
-			$('ul.dropdown-menu li').click(function(e) 
-			{ 
+			$('ul.dropdown-menu li').click(function(e)
+			{
 				var lang = $(this).text();
 				var href = $(location).attr('href');
 				if(lang = "ENGLISH"){
-					
+
 				}
 				else {
-				
+
 				}
 			});
-		});	
+		});
     </script>
 </body>
 </html>
