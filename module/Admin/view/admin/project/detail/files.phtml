@@ -3,133 +3,138 @@
     </div>
 </div>
 <div class="tab-pane<?php echo ($filesTabActive == true ? ' active': '');?>" id="files" ng-controller="ProjectFilesController">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th><?php echo $this->translate('#') ?></th>
-                <th><?php echo $this->translate('Source File Name') ?></th>
-                <th><?php echo $this->translate('Size') ?></th>
-                <th><?php echo $this->translate('Time Stamp') ?></th>
-                <th><?php echo $this->translate('Action') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="file in files">
-                <td>{{$index + 1}}</td>
-                <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
-                <td>{{file.size | filesize}}</td>
-                <td>{{ formatDate(file.time.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
-                <td><a><i class="fa fa-trash" ng-click="removeFile(file)"></i></a></td>
-            </tr>
-            <tr ng-repeat="item in uploader.queue" ng-show="item.isUploading">
-                                        <td>{{$index + files.length + 1 }}</td>
-                                        
-                                        <td>{{ item.file.name }}
-                                            <div class="progress" style="margin-bottom: 0" ng-show="item.isUploading">
-                                                <div class="progress-bar" role="progressbar"
-                                                     ng-style="{ 'width': uploader.progress + '%' }" style="width: 0%;">{{ item.file.name }}</div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">{{ item.file.size | filesize }}</td>
-                                        <td>{{ formatDate(item._file.lastModified.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
-                                        <td class="text-center child-is-link">
-                                            <a href="#"><i ng-click="removeFile(item)" class="fa fa-trash-o text-danger"></i></a>
-                                        </td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="text-right m-t-md">
-    
-        <input type="file" nv-file-select="" uploader="uploader" multiple="multiple" class="filestyle" data-options = '{ "input": false, "buttonText": " Upload Source files", "iconName": "glyphicon-cloud-upload", "buttonText": "Upload Source files", "buttonName": "btn btn-sm btn-primary", "badge": false}'/> 
-    	
-    	<!--   <input id="fileupload" type="file" name="files[]" nv-file-select="" uploader="Fuploader" multiple> -->
-    </div>
-    <div class="hr-line-dashed"></div>
-    <h4><?php echo $this->translate('Files For Client Review') ?></h4>
     <div class="panel-body">
-        <div class="panel-group" id="accordion_files">
-            <div class="panel panel-default" ng-repeat="lang in project.targetLanguages">
-                <div class="panel-heading" style="padding-bottom: 10px;">
-                    <h5 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion_preview" href="#preview_lang{{$index}}"><i class="fa fa-exclamation-triangle text-danger" ng-show="lang.correction"></i> {{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ lang.name }} </a> <i class="fa fa-paperclip" ng-show="lang.files.length"></i></a> <!-- with paperclip means file for this language has been uploaded -->
-                    </h5>
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th><?php echo $this->translate('#') ?></th>
+                            <th><?php echo $this->translate('Source File Name') ?></th>
+                            <th><?php echo $this->translate('Size') ?></th>
+                            <th><?php echo $this->translate('Time Stamp') ?></th>
+                            <th><?php echo $this->translate('Action') ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="file in files">
+                            <td>{{$index + 1}}</td>
+                            <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
+                            <td>{{file.size | filesize}}</td>
+                            <td>{{ formatDate(file.time.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
+                            <td><a><i class="fa fa-trash" ng-click="removeFile(file)"></i></a></td>
+                        </tr>
+                        <tr ng-repeat="item in uploader.queue" ng-show="item.isUploading">
+                                                    <td>{{$index + files.length + 1 }}</td>
+                                                    
+                                                    <td>{{ item.file.name }}
+                                                        <div class="progress" style="margin-bottom: 0" ng-show="item.isUploading">
+                                                            <div class="progress-bar" role="progressbar"
+                                                                 ng-style="{ 'width': uploader.progress + '%' }" style="width: 0%;">{{ item.file.name }}</div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-right">{{ item.file.size | filesize }}</td>
+                                                    <td>{{ formatDate(item._file.lastModified.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
+                                                    <td class="text-center child-is-link">
+                                                        <a href="#"><i ng-click="removeFile(item)" class="fa fa-trash-o text-danger"></i></a>
+                                                    </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-right m-t-md">
+                
+                    <input type="file" nv-file-select="" uploader="uploader" multiple="multiple" class="filestyle" data-options = '{ "input": false, "buttonText": " Upload Source files", "iconName": "glyphicon-cloud-upload", "buttonText": "Upload Source files", "buttonName": "btn btn-sm btn-primary", "badge": false}'/> 
+                	
+                	<!--   <input id="fileupload" type="file" name="files[]" nv-file-select="" uploader="Fuploader" multiple> -->
                 </div>
-                    <div id="preview_lang{{$index}}" class="panel-collapse collapse in">
+                <div class="hr-line-dashed"></div>
+                <h4><?php echo $this->translate('Files For Client Review') ?></h4>
 
-                    <div class="panel-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                        <th><?php echo $this->translate('#') ?></th>
-                                        <th><?php echo $this->translate('Languages') ?></th>
-                                        <th><?php echo $this->translate('File Name') ?></th>
-                                        <th><?php echo $this->translate('Size') ?></th>
-                                        <th><?php echo $this->translate('Time Stamp') ?></th>
-                                        <th><?php echo $this->translate('Action') ?></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                    <tr ng-repeat="file in lang.files">
-                                        <td>{{$index + 1}}</td>
-                                        <td>{{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ lang.name }}</td>
-                                        <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
-                                        <td>{{file.size | filesize}}</td>
-                                        <td>{{ formatDate(file.time.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
-                                        <td><i class="fa fa-trash" ng-click="removeFile(file)"></i></td>
-                                    </tr>
-                                    <tr ng-repeat="item in lang.uploader.queue" ng-show="item.isUploading">
-                                        <td>{{$index + lang.files.length + 1 }}</td>
-                                        <td>{{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ lang.name }}</td>
-                                        <td><a href="#" ng-click="downloadFile(item.token)" ng-hide="item.isUploading">{{ item.file.name }}</a>
-                                            <div class="progress" style="margin-bottom: 0" ng-show="item.isUploading">
-                                                <div class="progress-bar" role="progressbar"
-                                                     ng-style="{ 'width': lang.uploader.progress + '%' }" style="width: 0%;">{{ item.file.name }}</div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">{{ item.file.size | filesize }}</td>
-                                        <td>{{ formatDate(item._file.lastModified.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
-                                        <td class="text-center child-is-link">
-                                            <a href="#"><i ng-click="removeItem(item)" class="fa fa-trash-o text-danger"></i></a>
-                                        </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="text-center m-t-md">
-                                <!-- <a href="#" class=""><i class="fa fa-cloud-upload"></i> Upload files</a> -->
-                                <input type="file" nv-file-select="" uploader="lang.uploader" multiple="multiple" class="filestyle" data-options = '{ "input": false, "buttonText": " Upload files", "iconName": "glyphicon-cloud-upload", "buttonText": "Upload files", "buttonName": "btn btn-sm btn-primary", "badge": false}'/>
-                                <!-- <file-uploader></file-uploader> -->
-
+                <div class="panel-group" id="accordion_files">
+                    <div class="panel panel-default" ng-repeat="lang in project.targetLanguages">
+                        <div class="panel-heading" style="padding-bottom: 10px;">
+                            <h5 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion_preview" href="#preview_lang{{$index}}"><i class="fa fa-exclamation-triangle text-danger" ng-show="lang.correction"></i> {{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ lang.name }} </a> <i class="fa fa-paperclip" ng-show="lang.files.length"></i></a> <!-- with paperclip means file for this language has been uploaded -->
+                            </h5>
                         </div>
-                            <div ng-show="lang.correction">
-                        <div class="hr-line-dashed"></div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                        <label class="control-label"><?php echo $this->translate('What\'s wrong with the translation?') ?></label>
-                                <div class="checkbox">
-                                    <label>
-                                                <input type="checkbox" disabled ng-model="lang.correction.options.incomplete"> <?php echo $this->translate('It is incomplete') ?> </label>
+                            <div id="preview_lang{{$index}}" class="panel-collapse collapse in">
+
+                            <div class="panel-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                                <th><?php echo $this->translate('#') ?></th>
+                                                <th><?php echo $this->translate('Languages') ?></th>
+                                                <th><?php echo $this->translate('File Name') ?></th>
+                                                <th><?php echo $this->translate('Size') ?></th>
+                                                <th><?php echo $this->translate('Time Stamp') ?></th>
+                                                <th><?php echo $this->translate('Action') ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr ng-repeat="file in lang.files">
+                                                <td>{{$index + 1}}</td>
+                                                <td>{{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ lang.name }}</td>
+                                                <td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{file.name}} <i class="fa fa-cloud-download"></i></a> </td>
+                                                <td>{{file.size | filesize}}</td>
+                                                <td>{{ formatDate(file.time.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
+                                                <td><i class="fa fa-trash" ng-click="removeFile(file)"></i></td>
+                                            </tr>
+                                            <tr ng-repeat="item in lang.uploader.queue" ng-show="item.isUploading">
+                                                <td>{{$index + lang.files.length + 1 }}</td>
+                                                <td>{{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ lang.name }}</td>
+                                                <td><a href="#" ng-click="downloadFile(item.token)" ng-hide="item.isUploading">{{ item.file.name }}</a>
+                                                    <div class="progress" style="margin-bottom: 0" ng-show="item.isUploading">
+                                                        <div class="progress-bar" role="progressbar"
+                                                             ng-style="{ 'width': lang.uploader.progress + '%' }" style="width: 0%;">{{ item.file.name }}</div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-right">{{ item.file.size | filesize }}</td>
+                                                <td>{{ formatDate(item._file.lastModified.date) | date:'dd MMMM yyyy - h:mm a' }}</td>
+                                                <td class="text-center child-is-link">
+                                                    <a href="#"><i ng-click="removeItem(item)" class="fa fa-trash-o text-danger"></i></a>
+                                                </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-center m-t-md">
+                                        <!-- <a href="#" class=""><i class="fa fa-cloud-upload"></i> Upload files</a> -->
+                                        <input type="file" nv-file-select="" uploader="lang.uploader" multiple="multiple" class="filestyle" data-options = '{ "input": false, "buttonText": " Upload files", "iconName": "glyphicon-cloud-upload", "buttonText": "Upload files", "buttonName": "btn btn-sm btn-primary", "badge": false}'/>
+                                        <!-- <file-uploader></file-uploader> -->
+
                                 </div>
-                                <div class="checkbox">
-                                    <label>
-                                                <input type="checkbox" disabled ng-model="lang.correction.options.spelling"> <?php echo $this->translate('It contains spelling or grammatical errors') ?> </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                                <input type="checkbox" disabled ng-model="lang.correction.options.meaning"> <?php echo $this->translate('It misses key meaning or details from the original') ?> </label>
+                                    <div ng-show="lang.correction">
+                                <div class="hr-line-dashed"></div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                                <label class="control-label"><?php echo $this->translate('What\'s wrong with the translation?') ?></label>
+                                        <div class="checkbox">
+                                            <label>
+                                                        <input type="checkbox" disabled ng-model="lang.correction.options.incomplete"> <?php echo $this->translate('It is incomplete') ?> </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                        <input type="checkbox" disabled ng-model="lang.correction.options.spelling"> <?php echo $this->translate('It contains spelling or grammatical errors') ?> </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                        <input type="checkbox" disabled ng-model="lang.correction.options.meaning"> <?php echo $this->translate('It misses key meaning or details from the original') ?> </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                                <label class="control-label"><?php echo $this->translate('Comments') ?></label>
+                                                <p>{{lang.correction.message}}</p>
+                                    </div>
+                                    <!-- /form-group -->
                                 </div>
                             </div>
-                            <div class="form-group">
-                                        <label class="control-label"><?php echo $this->translate('Comments') ?></label>
-                                        <p>{{lang.correction.message}}</p>
-                            </div>
-                            <!-- /form-group -->
                         </div>
                     </div>
+
+                    </div>
+
                 </div>
             </div>
-
-            </div>
-
         </div>
     </div>
 </div>
