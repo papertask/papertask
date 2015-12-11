@@ -462,6 +462,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 	
     $scope.setInterpreting = function($interpreting){
         jQuery(".project-types .active").removeClass("active");
+		jQuery(".project-types :checked").prop("checked", false);
         $scope.project.types = [$interpreting];
         $scope.interpreting = $interpreting;
 		
@@ -469,7 +470,8 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 
     $scope.clearInterpreting =function (){
         jQuery("#project-interpreting .active").removeClass("active");
-        jQuery("#project-interpreting :checked").prop("checked", false);
+		jQuery("#project-interpreting :checked").prop("checked", false);
+        
         $scope.interpreting = null;
     };
 
