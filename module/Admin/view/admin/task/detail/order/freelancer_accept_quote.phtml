@@ -6,7 +6,7 @@
 			<div class="row">
 				<div class="col-md-3"></div>
 				<div class="col-md-6">
-					<a href="" class="btn btn-block btn-warning" type="submit" ng-click="Accept(task.id)">Accept</a>
+					<a href="" class="btn btn-block btn-warning" type="submit" ng-click="Accept(task.id)"><?php echo $this->translate('Accept','Admin'); ?></a>
 				</div>
 				<div class="col-md-3"></div>
 			</div>
@@ -23,10 +23,10 @@
 			<thead>
 			<tr>
 					<th>#</th>
-					<th>Final Task Files</th>
-					<th>Size</th>
-					<th>Time Stamp</th>
-					<th>Action</th>
+					<th><?php echo $this->translate('Final Task Files','Admin'); ?></th>
+					<th><?php echo $this->translate('Size','Admin'); ?></th>
+					<th><?php echo $this->translate('Time Stamp','Admin'); ?></th>
+					<th></th>
 			</tr>
 			</thead>
 			<tbody>
@@ -82,8 +82,7 @@
 				<div class="col-md-3"></div>
 				<div class="col-md-6">
 
-					<a href="#" class="btn btn-block btn-success" type="submit" ng-click="SubmitReview(task.id)">Submit
-						for Reviewing</a><!-- if there is no file (at least one file) in the final file upload section, then disable the Reviewing button -->
+					<a href="#" class="btn btn-block btn-success" type="submit" ng-click="SubmitReview(task.id)"><?php echo $this->translate('Submit for Reviewing','Admin'); ?></a><!-- if there is no file (at least one file) in the final file upload section, then disable the Reviewing button -->
 				</div>
 				<!-- if there is no file (at least one file) in the final file upload section, then disable the Reviewing button -->
 				<div class="col-md-3"></div>

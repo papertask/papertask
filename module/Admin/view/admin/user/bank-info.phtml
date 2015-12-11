@@ -1,15 +1,15 @@
-<h4><i class="fa fa-bank"></i> <?php echo $this->translate('Payment Information') ?></h4>
+<h4><i class="fa fa-bank"></i> <?php echo $this->translate('Payment Information','Admin') ?></h4>
 <div class="hr-line-dashed"></div>
 <div class="row">
     <div class="col-lg-6">
         <div class="form-group">
-            <label><?php echo $this->translate('Paypal') ?></label>
+            <label><?php echo $this->translate('PAYPAL','Admin') ?></label>
             <input id="paypal" ng-model="bankInfo.paypal" name="paypal" type="text" class="form-control">
         </div>
     </div>
     <div class="col-lg-6">
         <div class="form-group">
-            <label><?php echo $this->translate('Alipay') ?></label>
+            <label><?php echo $this->translate('ALIPAY','Admin') ?></label>
             <input id="alipay" ng-model="bankInfo.alipay" name="alipay" type="text" class="form-control">
         </div>
     </div>
@@ -18,37 +18,37 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="form-group">
-            <label><?php echo $this->translate('Bank Account') ?></label>
+            <label><?php echo $this->translate('Bank Account','Admin') ?></label>
             <input ng-model="bankInfo.account" name="bank_name" value="" type="text" class="form-control">
         </div>
         <div class="form-group">
-            <label><?php echo $this->translate('Bank Address') ?></label>
+            <label><?php echo $this->translate('Bank Address','Admin') ?></label>
             <input ng-model="bankInfo.address" name="bank_address" value="" type="text" class="form-control">
         </div>
         <div class="form-group">
-            <label><?php echo $this->translate('Bank City') ?></label>
+            <label><?php echo $this->translate('Bank City','Admin') ?></label>
             <input ng-model="bankInfo.city" name="bank_city" value="" type="text" class="form-control">
         </div>
         <div class="form-group">
-            <label><?php echo $this->translate('Bank Country') ?></label>
+            <label><?php echo $this->translate('Bank Country','Admin') ?></label>
             <input ng-model="bankInfo.country" name="bank_country" value="" type="text" class="form-control">
         </div>
     </div>
     <div class="col-lg-6">
         <div class="form-group">
-            <label><?php echo $this->translate('Beneficiar Name') ?></label>
+            <label><?php echo $this->translate('Beneficiar Name','Admin') ?></label>
             <input ng-model="bankInfo.name" name="beneficiar" value="" type="text" class="form-control">
         </div>
         <div class="form-group">
-            <label><?php echo $this->translate('Account No./IBAN') ?></label>
+            <label><?php echo $this->translate('Account No./IBAN','Admin') ?></label>
             <input ng-model="bankInfo.accountNo" name="account_no" value="" type="text" class="form-control">
         </div>
         <div class="form-group">
-            <label><?php echo $this->translate('Swift Code') ?></label>
+            <label><?php echo $this->translate('Swift Code','Admin') ?></label>
             <input ng-model="bankInfo.swift" name="swift" value="" type="text" class="form-control">
         </div>
         <div class="form-group">
-            <label><?php echo $this->translate('ABA Routing Number') ?></label>
+            <label><?php echo $this->translate('ABA Routing Number','Admin') ?></label>
             <input ng-model="bankInfo.routingNumber" name="aba" value="" type="text" class="form-control">
         </div>
     </div>

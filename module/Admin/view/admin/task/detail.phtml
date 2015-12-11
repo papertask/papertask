@@ -1,4 +1,4 @@
-<?php $this->headTitle($this->translate('Task detail')) ?>
+<?php $this->headTitle($this->translate('Task detail','Admin')) ?>
 <!-- Le styles -->
 <?php $this->headLink()
     ->prependStylesheet($this->basePath() . '/v2/css/plugins/datetimepicker/DateTimePicker.css')
@@ -33,11 +33,11 @@
 $this->inlineScript()
     ->prependScript("
 		var LANG_CODE = '" . $this->lang_code . "';
-		var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?') . "';
-		var EXITS_CONFIRM_TEXT = '" . $this->translate('This client was existed') . "';
-		var EXITS_CONFIRM_OPTION_TEXT = '" . $this->translate('This option was existed, please chose other') . "';
-		var CANNOT_DELETE_TEXT =  '" . $this->translate('This file can not delete, it is using by iterms') . "';
-		var ASSIGN_SUCCESSFUL =  '" . $this->translate('Assign successful') . "';
+		var DELETE_CONFIRM_TEXT = '" . $this->translate('Are you sure to delete?','Admin') . "';
+		var EXITS_CONFIRM_TEXT = '" . $this->translate('This client was existed','Admin') . "';
+		var EXITS_CONFIRM_OPTION_TEXT = '" . $this->translate('This option was existed, please chose other','Admin') . "';
+		var CANNOT_DELETE_TEXT =  '" . $this->translate('This file can not delete, it is using by iterms','Admin') . "';
+		var ASSIGN_SUCCESSFUL =  '" . $this->translate('Assign successful','Admin') . "';
     ");
 ?>
 <?php 
@@ -78,7 +78,7 @@ $this->inlineScript()
                         <div class="col-md-12">
                             <?php if ($this->isStaff==1) {?>
                             <button class="btn btn-danger pull-right" ng-click="showEdit()">
-                                <i class="fa fa-edit"></i><?php echo $this->translate('Edit Task') ?>
+                                <i class="fa fa-edit"></i><?php echo $this->translate('Edit Task','Admin') ?>
                             </button>
                             <?php } ?>
                             <h2 class="font-bold m-b-xs">
@@ -88,7 +88,7 @@ $this->inlineScript()
                             <?php include "detail/miniform.phtml"; ?>
                             <div>
                                 <span ng-show="task.status.id == 3 || task.status.id == 4 || task.status.id == 6">
-                                    <button class="btn btn-warning pull-right" ng-click="Accept(task.id)"><i class="fa fa-check-square-o"></i> <?php echo $this->translate('Accept','Application'); ?></button>
+                                    <button class="btn btn-warning pull-right" ng-click="Accept(task.id)"><i class="fa fa-check-square-o"></i> <?php echo $this->translate('Accept','Admin'); ?></button>
                                 </span>
                                 <h1 class="product-main-price">{{ task.currency }} {{ task.total_freelancer }}</h1>
                             </div>
@@ -96,15 +96,15 @@ $this->inlineScript()
                             <hr>
                             <div class="col-md-6 tooltip-demo">
                                 <dl class="dl-horizontal m-t-md small" style="font-size: 14px;">
-                                    <dt><?php echo $this->translate('Due Date'); ?></dt>
+                                    <dt><?php echo $this->translate('Due Date','Admin'); ?></dt>
                                     <dd>{{ DateFormatter.format(task.dueDate) }}</dd>
-                                    <dt><?php echo $this->translate('Task Type'); ?></dt>
+                                    <dt><?php echo $this->translate('Task Type','Admin'); ?></dt>
                                     <dd><code {{ task.type.inline_attrs }}>{{ task.type.name_short }}</code></dd>
-                                    <dt><?php echo $this->translate('Field'); ?></dt>
+                                    <dt><?php echo $this->translate('Field','Admin'); ?></dt>
                                     <dd>{{ project.field.name }}</dd>
                                     <?php if (!$this->isStaff) {?>
                                     <?php }else { ?>
-                                    <dt><?php echo $this->translate('Client Contact'); ?></dt>
+                                    <dt><?php echo $this->translate('Client Contact','Admin'); ?></dt>
                                     <dd>{{ project.user.lastName }} {{ project.user.firstName }}</dd>
                                     <?php } ?>
                                     <?php if($user['role'] == 'Freelancer') 
@@ -114,15 +114,15 @@ $this->inlineScript()
                             </div>
                             <div class="col-md-6">
                                 <dl class="dl-horizontal m-t-md small" style="font-size: 14px;">
-                                    <dt><?php echo $this->translate('Priority'); ?></dt>
+                                    <dt><?php echo $this->translate('Priority','Admin'); ?></dt>
                                     <dd><span class="label label-{{ project.priority.decorator }}">{{ project.priority.name }}</span></dd>
-                                    <dt><?php echo $this->translate('Languages'); ?></dt>
+                                    <dt><?php echo $this->translate('Translation Languages','Admin'); ?></dt>
                                     <dd><code>{{ project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ task.language.name }}</code></dd>
-                                    <dt><?php echo $this->translate('Project Manager'); ?></dt>
+                                    <dt><?php echo $this->translate('Project Manager','Admin'); ?></dt>
                                     <dd>{{ project.pm.name }}</dd>
                                     <?php if (!$this->isStaff) {?>
                                     <?php }else { ?>
-                                    <dt><?php echo $this->translate('Client Company'); ?></dt>
+                                    <dt><?php echo $this->translate('Client Company','Admin'); ?></dt>
                                     <dd>{{ project.client.company.name }}</dd>
                                     <?php } ?>
                                 </dl>
@@ -146,11 +146,11 @@ $this->inlineScript()
                     <div class="panel-heading">
                         <div class="panel-options">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasksNum }}</span> <?php echo $this->translate("Task Allocation"); ?></a></li>
+                                <li class="active"><a href="#tasks" data-toggle="tab"><span class="label label-warning">{{ project.tasksNum }}</span> <?php echo $this->translate('Task Allocation','Admin'); ?></a></li>
                                 
-                                <li class="" ><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> Messages & Activities</a></li>
-                                <li class="" ng-show="havecorrection"><a href="#correction" data-toggle="tab">Correction</a></li>
-                                <li class="" ng-show="havefeedback"><a href="#feedback" data-toggle="tab">Feedback</a></li>
+                                <li class="" ><a href="#message" data-toggle="tab"><span class="label label-warning">{{ project.activitiesNum }}</span> <?php echo $this->translate('Messages','Admin'); ?></a></li>
+                                <li class="" ng-show="havecorrection"><a href="#correction" data-toggle="tab"><?php echo $this->translate('Correction','Admin'); ?></a></li>
+                                <li class="" ng-show="havefeedback"><a href="#feedback" data-toggle="tab"><?php echo $this->translate('Feedback','Admin'); ?></a></li>
                                 
                             </ul>
                         </div>

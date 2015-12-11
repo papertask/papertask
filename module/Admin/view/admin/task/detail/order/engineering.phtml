@@ -4,15 +4,15 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Iterms</th>
-					<th>File</th>
-                    <th>ENG Category </th>
-                    <th>Unit </th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
+                    <th><?php echo $this->translate('Item','Admin'); ?></th>
+					<th><?php echo $this->translate('File','Admin'); ?></th>
+                    <th><?php echo $this->translate('ENG Category','Admin'); ?></th>
+                    <th><?php echo $this->translate('Unit','Admin'); ?></th>
+                    <th><?php echo $this->translate('Unit Price','Admin'); ?></th>
+                    <th><?php echo $this->translate('Quantity','Admin'); ?></th>
+                    <th><?php echo $this->translate('Total','Admin'); ?></th>
                     <?php if (!($user['role'] == 'Freelancer')) { ?>
-					<th>Action</th>
+					<th></th>
 					<?php  } ?>	
                 </tr>
                 </thead>
@@ -43,7 +43,7 @@
         <?php if (!($user['role'] == 'Freelancer')) { ?>
         <div class="text-center">
             <a class="btn btn-outline btn-primary"
-                   ng-click="addEngineering(language.id)">Add Iterm</a>
+                   ng-click="addEngineering(language.id)"><?php echo $this->translate('Add Item','Admin'); ?></a>
         </div>
 		<?php  } ?>	
 	</div>	

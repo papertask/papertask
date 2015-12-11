@@ -1,37 +1,15 @@
-<?php $this->headTitle($this->translate('Payments')) ?>
+<?php $this->headTitle($this->translate('Payments Record','Admin')) ?>
 <!-- Scripts -->
 <?php $this->headLink()
-->prependStylesheet($this->basePath() . '/css/plugins/datapicker/datepicker3.css')
-//->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
-//->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
-//->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
-//->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
+->prependStylesheet($this->basePath() . '/v2/css/plugins/datapicker/datepicker3.css')
 ?>
 
 <?php
 $this->headScript ()
-//->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
-->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
-->prependFile($this->basePath() . '/js/admin/finance/freelancer-transaction.js')
-//->prependFile($this->basePath() . '/js/admin/common/angular/ItemListController.js')
-//->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
-//->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
-//->prependFile($this->basePath() . '/js/admin/angular-steps.js')
-//->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
+->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
+->prependFile($this->basePath() . '/v2/js/admin/finance/freelancer-transaction.js')
 ->prependScript("angularApp = angular.module('project', []);")
-//->prependScript("FREELANCER_ID = {$this->freelancer_id};")
-//->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
-//->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-tpls-0.11.2.min.js')
-//->prependFile($this->basePath() . '/js/plugins/angular-bootstrap/ui-bootstrap-0.11.2.min.js')
-//->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
-//->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
-//->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
-//->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
-//->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
-//->prependFile($this->basePath() . '/js/plugins/bootbox/bootbox.min.js')
-->prependFile($this->basePath() . '/js/plugins/datapicker/bootstrap-datepicker.js')
-->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
-->prependFile($this->basePath() . '/js/inspinia.js');
+->prependFile($this->basePath() . '/v2/js/plugins/datapicker/bootstrap-datepicker.js');
 
 $this->inlineScript()
 ->prependScript("
@@ -46,7 +24,7 @@ $this->inlineScript()
 		<div class="wrapper wrapper-content animated fadeInUp">
 			<div class="ibox">
 				<div class="ibox-title">
-					<h5>Payments</h5>
+					<h5><?php echo $this->translate('Payments Record','Admin'); ?></h5>
 				</div>
 
 				<div class="ibox-content">
@@ -58,14 +36,14 @@ $this->inlineScript()
 									class="input-sm form-control" ng-model="filter.bsearch"> <span
 									class="input-group-btn">
 									<button type="button" class="btn btn-sm btn-primary"
-										ng-click='search()'>Search</button>
+										ng-click='search()'><?php echo $this->translate('Search','Admin'); ?></button>
 								</span>
 							</div>
 						</div>
 						<div class="col-md-2">
 							<a data-toggle="collapse" href="#adv_search"
 								class="btn btn-sm btn-primary"><i class="fa fa-search"></i>
-								Advance Search</a>
+								<?php echo $this->translate('Advance Search','Admin'); ?></a>
 						</div>
 					</div>
 
@@ -76,7 +54,7 @@ $this->inlineScript()
 									<div class="row">
 										<div class="col-lg-4">
 											<div class="form-group">
-												<label class="col-sm-3 control-label"> Trans. ID</label>
+												<label class="col-sm-3 control-label"><?php echo $this->translate('Trans. ID','Admin'); ?></label>
 												<div class="col-sm-9">
 													<input type="text" class="form-control" ng-model="filter.outtrId">
 												</div>
@@ -84,7 +62,7 @@ $this->inlineScript()
 										</div>
 										<div class="col-lg-4">
 											<div class="form-group">
-												<label class="col-sm-3 control-label"> Task ID</label>
+												<label class="col-sm-3 control-label"><?php echo $this->translate('Task ID','Admin'); ?></label>
 												<div class="col-sm-9">
 													<input type="text" class="form-control" ng-model="filter.taskId">
 												</div>
@@ -92,7 +70,7 @@ $this->inlineScript()
 										</div>
 										<div class="col-lg-4">
 											<div class="form-group" id="data_4">
-												<label class="col-sm-3 control-label">Month</label>
+												<label class="col-sm-3 control-label"><?php echo $this->translate('Month','Admin'); ?></label>
 												<div class="col-sm-9">
 													<div class="input-group date">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i>
@@ -104,9 +82,9 @@ $this->inlineScript()
 									</div>
 									<div class="text-right tooltip-demo">
 										<a class="btn btn-sm btn-primary" ng-click="advancedSearch()"><i
-											class="fa fa-search"></i> Search</a> <a 
+											class="fa fa-search"></i> <?php echo $this->translate('Search','Admin'); ?></a> <a 
 											class="btn btn-white btn-sm" type="reset" ng-click="reset()"><i
-											class="fa fa-times"></i> Reset</a>
+											class="fa fa-times"></i> <?php echo $this->translate('Reset','Admin'); ?></a>
 									</div>
 								</form>
 							</div>
@@ -118,20 +96,20 @@ $this->inlineScript()
 							<tbody>
 	                                    <tr ng-repeat="outtr in outtrs">
 	                                        <td class="project-status">
-	                                            <span class="label label-primary"><i class="fa fa-sign-in"></i>Incomming</span>
+	                                            <span class="label label-primary"><i class="fa fa-sign-in"></i><?php echo $this->translate('Incomming','Admin'); ?></span>
 	                                        </td>
                                             <td class="project-title">
-                                                <strong class="">Transaction No. {{outtr.intrans_no}}</strong>
+                                                <strong class=""><?php echo $this->translate('Transaction No.','Admin'); ?> {{outtr.intrans_no}}</strong>
                                                 <br/>
-                                                <small>Pay Date: {{formatDate(outtr.payDate.date) | date:'yyyy.MMM.dd'}}</small>
+                                                <small><?php echo $this->translate('Pay Date:','Admin'); ?> {{formatDate(outtr.payDate.date) | date:'yyyy.MMM.dd'}}</small>
                                             </td>
                                             <td class="project-status">
                                                 <strong class="text-navy">{{outtr.currency | uppercase}} {{outtr.total}}</strong>
                                                 <br>
-                                                <small>Record Date: {{formatDate(outtr.createDate.date) | date:'yyyy.MMM.dd'}}</small>
+                                                <small><?php echo $this->translate('Record Date:','Admin'); ?> {{formatDate(outtr.createDate.date) | date:'yyyy.MMM.dd'}}</small>
                                             </td>
                                             <td class="project-actions">
-                                                <a class="btn btn-white btn-sm" ng-click="View(outtr.id)"><i class="fa fa-folder"></i> View </a>
+                                                <a class="btn btn-white btn-sm" ng-click="View(outtr.id)"><i class="fa fa-folder"></i> <?php echo $this->translate('View','Admin'); ?></a>
                                             </td>
 	                                    </tr>
                             </tbody>

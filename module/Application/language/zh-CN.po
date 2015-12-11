@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2015-12-09 14:09+0800\n"
+"PO-Revision-Date: 2015-12-11 14:07+0800\n"
 "Last-Translator: Evan Coury <me@evancoury.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: zh_CN\n"
@@ -15,7 +15,8 @@ msgstr ""
 "X-Generator: Poedit 1.8.6\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: module/Application/view/layout/landing.phtml:86 module/Application/view/layout/landing.phtml:89
+#: module/Application/view/layout/landing.phtml:86
+#: module/Application/view/layout/landing.phtml:89
 msgid "lang"
 msgstr "zh-CN"
 
@@ -40,7 +41,6 @@ msgstr "登入"
 msgid "SIGN UP"
 msgstr "注册"
 
-#: module/Application/view/layout/landing.phtml:89
 msgid "Language"
 msgstr "China"
 
@@ -308,13 +308,8 @@ msgstr "欢迎使用%sZend Framework 2%s"
 
 #: ../view/application/index/index.phtml:3
 #, php-format
-msgid ""
-"Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently "
-"running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin "
-"building your application on ZF2."
-msgstr ""
-"恭喜！您已经成功安装了%sZF2 Skeleton Application%s。您现在运行的Zend Framework的版本为%s。这个框架应用可以"
-"用作您创建自己的ZF2应用的起点。"
+msgid "Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2."
+msgstr "恭喜！您已经成功安装了%sZF2 Skeleton Application%s。您现在运行的Zend Framework的版本为%s。这个框架应用可以用作您创建自己的ZF2应用的起点。"
 
 #: ../view/application/index/index.phtml:4
 msgid "Fork Zend Framework 2 on GitHub"
@@ -326,14 +321,8 @@ msgstr "关注开发"
 
 #: ../view/application/index/index.phtml:11
 #, php-format
-msgid ""
-"Zend Framework 2 is under active development. If you are interested in following the development of ZF2, "
-"there is a special ZF2 portal on the official Zend Framework website which provides links to the ZF2 "
-"%swiki%s, %sdev blog%s, %sissue tracker%s, and much more. This is a great resource for staying up to date "
-"with the latest developments!"
-msgstr ""
-"Zend Framework 2正在开发中。如果您有兴趣关注ZF2的开发，Zend Framework的官方网站有一个专门的ZF2入口，从这个"
-"入口可以进入ZF2的%swiki%s, %sdev blog%s, %sissue tracker%s等。这些是关注我们最新开发的好资源！"
+msgid "Zend Framework 2 is under active development. If you are interested in following the development of ZF2, there is a special ZF2 portal on the official Zend Framework website which provides links to the ZF2 %swiki%s, %sdev blog%s, %sissue tracker%s, and much more. This is a great resource for staying up to date with the latest developments!"
+msgstr "Zend Framework 2正在开发中。如果您有兴趣关注ZF2的开发，Zend Framework的官方网站有一个专门的ZF2入口，从这个入口可以进入ZF2的%swiki%s, %sdev blog%s, %sissue tracker%s等。这些是关注我们最新开发的好资源！"
 
 #: ../view/application/index/index.phtml:12
 msgid "ZF2 Development Portal"
@@ -345,13 +334,8 @@ msgstr "探索模块"
 
 #: ../view/application/index/index.phtml:17
 #, php-format
-msgid ""
-"The community is working on developing a community site to serve as a repository and gallery for ZF2 "
-"modules. The project is available %son GitHub%s. The site is currently live and currently contains a list "
-"of some of the modules already available for ZF2."
-msgstr ""
-"社区正在开发一个能够存储和展示ZF2模块的功能。这个项目可以在%son GitHub%s找到。这个网站现在已经包含了许多"
-"ZF2可用的模块。"
+msgid "The community is working on developing a community site to serve as a repository and gallery for ZF2 modules. The project is available %son GitHub%s. The site is currently live and currently contains a list of some of the modules already available for ZF2."
+msgstr "社区正在开发一个能够存储和展示ZF2模块的功能。这个项目可以在%son GitHub%s找到。这个网站现在已经包含了许多ZF2可用的模块。"
 
 #: ../view/application/index/index.phtml:18
 msgid "Explore ZF2 Modules"
@@ -363,13 +347,8 @@ msgstr "帮助 &amp; 支持"
 
 #: ../view/application/index/index.phtml:23
 #, php-format
-msgid ""
-"If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk on Freenode"
-"%s. We'd love to hear any questions or feedback you may have regarding the beta releases. Alternatively, "
-"you may subscribe and post questions to the %smailing lists%s."
-msgstr ""
-"如果您需要一些关于ZF2开发的帮助和支持，可以通过IRC: %s#zftalk on Freenode%s。我们非常乐意收到您对于发布的"
-"公测版提问和反馈。或者，您也可以通过%smailing lists%s订阅并发布问题。"
+msgid "If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk on Freenode%s. We'd love to hear any questions or feedback you may have regarding the beta releases. Alternatively, you may subscribe and post questions to the %smailing lists%s."
+msgstr "如果您需要一些关于ZF2开发的帮助和支持，可以通过IRC: %s#zftalk on Freenode%s。我们非常乐意收到您对于发布的公测版提问和反馈。或者，您也可以通过%smailing lists%s订阅并发布问题。"
 
 #: ../view/application/index/index.phtml:24
 msgid "Ping us on IRC"
@@ -391,7 +370,8 @@ msgstr "文件"
 msgid "Message"
 msgstr "消息"
 
-#: ../view/error/index.phtml:19 ../view/error/index.phtml:43 ../view/error/404.phtml:55
+#: ../view/error/index.phtml:19 ../view/error/index.phtml:43
+#: ../view/error/404.phtml:55
 msgid "Stack trace"
 msgstr "Stack trace"
 

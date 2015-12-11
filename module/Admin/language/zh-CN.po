@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonAdmin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2015-10-05 22:27+0700\n"
+"PO-Revision-Date: 2015-12-11 18:40+0800\n"
 "Last-Translator: Evan Coury <me@evancoury.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: translate\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.7.3\n"
+"X-Generator: Poedit 1.8.6\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../view/layout/layout.phtml:6 ../view/layout/layout.phtml:33
@@ -34,13 +34,8 @@ msgstr "欢迎使用%sZend Framework 2%s"
 
 #: ../view/admin/index/index.phtml:3
 #, php-format
-msgid ""
-"Congratulations! You have successfully installed the %sZF2 Skeleton Admin%s. "
-"You are currently running Zend Framework version %s. This skeleton can serve "
-"as a simple starting point for you to begin building your admin on ZF2."
-msgstr ""
-"恭喜！您已经成功安装了%sZF2 Skeleton Admin%s。您现在运行的Zend Framework的版"
-"本为%s。这个框架应用可以用作您创建自己的ZF2应用的起点。"
+msgid "Congratulations! You have successfully installed the %sZF2 Skeleton Admin%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your admin on ZF2."
+msgstr "恭喜！您已经成功安装了%sZF2 Skeleton Admin%s。您现在运行的Zend Framework的版本为%s。这个框架应用可以用作您创建自己的ZF2应用的起点。"
 
 #: ../view/admin/index/index.phtml:4
 msgid "Fork Zend Framework 2 on GitHub"
@@ -52,16 +47,8 @@ msgstr "关注开发"
 
 #: ../view/admin/index/index.phtml:11
 #, php-format
-msgid ""
-"Zend Framework 2 is under active development. If you are interested in "
-"following the development of ZF2, there is a special ZF2 portal on the "
-"official Zend Framework website which provides links to the ZF2 %swiki%s, "
-"%sdev blog%s, %sissue tracker%s, and much more. This is a great resource for "
-"staying up to date with the latest developments!"
-msgstr ""
-"Zend Framework 2正在开发中。如果您有兴趣关注ZF2的开发，Zend Framework的官方网"
-"站有一个专门的ZF2入口，从这个入口可以进入ZF2的%swiki%s, %sdev blog%s, "
-"%sissue tracker%s等。这些是关注我们最新开发的好资源！"
+msgid "Zend Framework 2 is under active development. If you are interested in following the development of ZF2, there is a special ZF2 portal on the official Zend Framework website which provides links to the ZF2 %swiki%s, %sdev blog%s, %sissue tracker%s, and much more. This is a great resource for staying up to date with the latest developments!"
+msgstr "Zend Framework 2正在开发中。如果您有兴趣关注ZF2的开发，Zend Framework的官方网站有一个专门的ZF2入口，从这个入口可以进入ZF2的%swiki%s, %sdev blog%s, %sissue tracker%s等。这些是关注我们最新开发的好资源！"
 
 #: ../view/admin/index/index.phtml:12
 msgid "ZF2 Development Portal"
@@ -73,14 +60,8 @@ msgstr "探索模块"
 
 #: ../view/admin/index/index.phtml:17
 #, php-format
-msgid ""
-"The community is working on developing a community site to serve as a "
-"repository and gallery for ZF2 modules. The project is available %son GitHub"
-"%s. The site is currently live and currently contains a list of some of the "
-"modules already available for ZF2."
-msgstr ""
-"社区正在开发一个能够存储和展示ZF2模块的功能。这个项目可以在%son GitHub%s找"
-"到。这个网站现在已经包含了许多ZF2可用的模块。"
+msgid "The community is working on developing a community site to serve as a repository and gallery for ZF2 modules. The project is available %son GitHub%s. The site is currently live and currently contains a list of some of the modules already available for ZF2."
+msgstr "社区正在开发一个能够存储和展示ZF2模块的功能。这个项目可以在%son GitHub%s找到。这个网站现在已经包含了许多ZF2可用的模块。"
 
 #: ../view/admin/index/index.phtml:18
 msgid "Explore ZF2 Modules"
@@ -92,15 +73,8 @@ msgstr "帮助 &amp; 支持"
 
 #: ../view/admin/index/index.phtml:23
 #, php-format
-msgid ""
-"If you need any help or support while developing with ZF2, you may reach us "
-"via IRC: %s#zftalk on Freenode%s. We'd love to hear any questions or "
-"feedback you may have regarding the beta releases. Alternatively, you may "
-"subscribe and post questions to the %smailing lists%s."
-msgstr ""
-"如果您需要一些关于ZF2开发的帮助和支持，可以通过IRC: %s#zftalk on Freenode%s。"
-"我们非常乐意收到您对于发布的公测版提问和反馈。或者，您也可以通过%smailing "
-"lists%s订阅并发布问题。"
+msgid "If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk on Freenode%s. We'd love to hear any questions or feedback you may have regarding the beta releases. Alternatively, you may subscribe and post questions to the %smailing lists%s."
+msgstr "如果您需要一些关于ZF2开发的帮助和支持，可以通过IRC: %s#zftalk on Freenode%s。我们非常乐意收到您对于发布的公测版提问和反馈。或者，您也可以通过%smailing lists%s订阅并发布问题。"
 
 #: ../view/admin/index/index.phtml:24
 msgid "Ping us on IRC"
@@ -144,8 +118,7 @@ msgid "The requested controller was unable to dispatch the request."
 msgstr "所请求的控制器不能分发该请求"
 
 #: ../view/error/404.phtml:13
-msgid ""
-"The requested controller could not be mapped to an existing controller class."
+msgid "The requested controller could not be mapped to an existing controller class."
 msgstr "所请求的控制器不能映射到已存在的控制器类"
 
 #: ../view/error/404.phtml:16
@@ -175,3 +148,567 @@ msgstr "异常"
 
 msgid "Order a Translation"
 msgstr "订购翻译服务"
+
+msgid "I Need a Quote"
+msgstr "需要翻译报价"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Project ID"
+msgstr "项目号"
+
+msgid "Project Info"
+msgstr "项目信息"
+
+msgid "Price"
+msgstr "价格"
+
+msgid "Quote No."
+msgstr "报价号码"
+
+msgid "Reference"
+msgstr "项目信息"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "View"
+msgstr "查看"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "Source"
+msgstr "源语言"
+
+msgid "Target"
+msgstr "目标语言"
+
+msgid "Pay Date"
+msgstr "付款日期"
+
+msgid "Amount"
+msgstr "金额"
+
+msgid "Transaction ID"
+msgstr "交易号码"
+
+msgid "FAPIAO No."
+msgstr "发票号码"
+
+msgid "Unpaid Projects"
+msgstr "未付款项目"
+
+msgid "Advance Search"
+msgstr "高级搜索"
+
+msgid "Project Reference"
+msgstr "项目信息"
+
+msgid "Completed Date"
+msgstr "结束日期"
+
+msgid "Transaction"
+msgstr "付款内容"
+
+msgid "Record Add Date"
+msgstr "记录添加日期"
+
+msgid "Bank Information"
+msgstr "银行信息"
+
+msgid "Sub Total"
+msgstr "小计"
+
+msgid "Transaction Fee"
+msgstr "交易费用"
+
+msgid "TOTAL"
+msgstr "总金额"
+
+msgid "Basic Information"
+msgstr "基本信息"
+
+msgid "Edit Profile"
+msgstr "编辑个人信息"
+
+msgid "Email"
+msgstr "电子邮箱"
+
+msgid "Username"
+msgstr "用户名"
+
+msgid "First name"
+msgstr "名"
+
+msgid "Last name"
+msgstr "姓"
+
+msgid "Gender"
+msgstr "性别"
+
+msgid "Male"
+msgstr "男"
+
+msgid "Female"
+msgstr "女"
+
+msgid "Phone"
+msgstr "电话"
+
+msgid "City"
+msgstr "城市"
+
+msgid "Country"
+msgstr "国家"
+
+msgid "Company Information"
+msgstr "公司信息"
+
+msgid "Position"
+msgstr "职位"
+
+msgid "Company"
+msgstr "公司"
+
+msgid "Not in the list? Please"
+msgstr "不在列表？请"
+
+msgid "create a new company."
+msgstr "创建新公司"
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Add Company"
+msgstr "添加公司"
+
+msgid "Company Name"
+msgstr "公司名称"
+
+msgid "Telephone"
+msgstr "电话"
+
+msgid "Fax"
+msgstr "传真"
+
+msgid "Address"
+msgstr "地址"
+
+msgid "Website"
+msgstr "公司网址"
+
+msgid "Save changes"
+msgstr "保存修改"
+
+msgid "Quotes"
+msgstr "报价"
+
+msgid "Project Details"
+msgstr "项目细节"
+
+msgid "Project Files for Preview"
+msgstr "项目最终文件"
+
+msgid "Feedbacks"
+msgstr "项目反馈"
+
+msgid "Quote"
+msgstr "报价"
+
+msgid "Invoice"
+msgstr "发票"
+
+msgid "Edit Project"
+msgstr "编辑项目"
+
+msgid "Due Date"
+msgstr "提交日期"
+
+msgid "Payment Due Date:"
+msgstr "付款到期日："
+
+msgid "Source Language"
+msgstr "源语言"
+
+msgid "Project Type"
+msgstr "项目类别"
+
+msgid "PO No"
+msgstr "订单号"
+
+msgid "Languages"
+msgstr "目标语言"
+
+msgid "Project Manager"
+msgstr "项目经理"
+
+msgid "Start Date"
+msgstr "开始日期"
+
+msgid "Field"
+msgstr "领域"
+
+msgid "Sales"
+msgstr "销售"
+
+msgid "Priority"
+msgstr "优先级"
+
+msgid "Client"
+msgstr "客户"
+
+msgid "PM"
+msgstr "项目经理"
+
+msgid "Source Files"
+msgstr "源文件"
+
+msgid "Files For Review"
+msgstr "需要验收的译文"
+
+msgid "Source File Name"
+msgstr "源文件名"
+
+msgid "Size"
+msgstr "文件大小"
+
+msgid "Time Stamp"
+msgstr "文件上传时间"
+
+msgid "Happy with your translation? Formally approve it here."
+msgstr "对我们的翻译质量满意么？请评估。"
+
+msgid "If you need the translator to fix mistakes or make changes？"
+msgstr "您需要我们对译文修改？"
+
+msgid "Approve"
+msgstr "批准"
+
+msgid "Request corrections"
+msgstr "请求修改"
+
+msgid "Leaving feedback here will help you get a better translation next time."
+msgstr "为了更好地为您提供服务，非常欢迎能得到您的反馈。"
+
+msgid "Quality"
+msgstr "质量"
+
+msgid "Turn Around Time"
+msgstr "提交时间"
+
+msgid "Feed back to Translator and Project Manager"
+msgstr "对翻译和项目经理的反馈"
+
+msgid "What's wrong with the translation?"
+msgstr "翻译内容问题？"
+
+msgid "It is incomplete"
+msgstr "翻译没有完成"
+
+msgid "It contains spelling or grammatical errors"
+msgstr "翻译中存在拼写和语法错误"
+
+msgid "It misses key meaning or details from the original"
+msgstr "译文跟原文意思不符"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Download"
+msgstr "下载"
+
+msgid "Print Quote"
+msgstr "打印报价"
+
+msgid "From:"
+msgstr " "
+
+msgid "To:"
+msgstr " "
+
+msgid "Quote Date:"
+msgstr "报价日期："
+
+msgid "Due Date:"
+msgstr "报价有效期："
+
+msgid "Dear"
+msgstr "尊敬的"
+
+msgid "RE:"
+msgstr "关于："
+
+msgid "Further to receipt of your enquiry, I now have pleasure in providing you with the cost for the above requirement."
+msgstr "根据您的翻译需求，我很荣幸为您提供上述需求的费用。"
+
+msgid "Service Level: "
+msgstr "翻译级别："
+
+msgid "Approximate duration: "
+msgstr "预估翻译所需时间："
+
+msgid " working days"
+msgstr "个工作日"
+
+msgid "Unit"
+msgstr "单位"
+
+msgid "Unit Price"
+msgstr "单价"
+
+msgid "Quantity"
+msgstr "数量"
+
+msgid "Total Price"
+msgstr "总金额"
+
+msgid "TM Template"
+msgstr "翻译记忆库模板"
+
+msgid "Rate"
+msgstr "翻译记忆库费率"
+
+msgid "Quantity (Word)"
+msgstr "数量（字）"
+
+msgid "Translation (No TM)"
+msgstr "翻译（不适用记忆库）"
+
+msgid "Translation (Use TM)"
+msgstr "翻译（适用记忆库）"
+
+msgid "Engineering"
+msgstr "工程"
+
+msgid "Interpreting"
+msgstr "口译"
+
+msgid "TAX"
+msgstr "税点"
+
+msgid "Discount"
+msgstr "折扣"
+
+msgid "Quote discount and tax"
+msgstr "报价折扣和税点"
+
+msgid "Accept this Quote"
+msgstr "接受报价"
+
+msgid "The above costs include supplying the translations as electronic files in formats per your requirements."
+msgstr "上述费用包括按您的要求提供的格式的电子文件的翻译。"
+
+msgid "Should any amendments or changes to the source text be required after the project has commenced, they will be incorporated at the standard rate which can be provided upon request."
+msgstr "如果在本项目源文件基础上有任何修改或者添加，修改或者添加的部分将按照标准费率收取。"
+
+msgid "Turnaround Time"
+msgstr "提交时间"
+
+msgid "It would take approximately "
+msgstr "从您接受报价开始至项目结束总共大概需要"
+
+msgid " from your accept the quote order to complete the translation work."
+msgstr "。"
+
+msgid "We strongly recommend that any text be reviewed prior to going to print. We would be happy to liase with any reviewers in country should you require it."
+msgstr "我们强烈建议任何文字在印刷前需要复查。如果您需要我们也非常愿意提供母语专家帮助您"
+
+msgid "Terms of Service"
+msgstr "服务条款"
+
+msgid "Work will be invoiced on completion of each stage of the client order. The Company cannot accept a delay in payment due to translated documents awaiting approval of agents abroad, unless by prior agreement at the commencement of the project."
+msgstr "我们会在项目每个阶段结束提交发票。我们不接受延期付款，除非在项目开始前有协议。"
+
+msgid "Prices quoted are valid for 30 days after this letter."
+msgstr "报价有效期为收到此报价后30天。"
+
+msgid "If you should require any further information please do not hesitate to contact me."
+msgstr "如果您有任何其他的需求，请随时与我们联系。"
+
+msgid "Assuring you of our best attention at all times."
+msgstr "我们会在第一时间回复您。"
+
+msgid "Yours sincerely,"
+msgstr "恭祝商祺"
+
+msgid "Set"
+msgstr "设定"
+
+msgid "Bank Details"
+msgstr "银行信息"
+
+msgid "Company Name:"
+msgstr "公司名称："
+
+msgid "Bank Name:"
+msgstr "银行名称："
+
+msgid "Bank Address:"
+msgstr "银行地址："
+
+msgid "Account Number:"
+msgstr "账户号码："
+
+msgid "Swift Code:"
+msgstr "Swift Code："
+
+msgid "Other Payment Methods"
+msgstr "其他付款方式"
+
+msgid "PAYPAL:"
+msgstr "贝宝（PAYPAL）："
+
+msgid "ALIPAY:"
+msgstr "支付宝（ALIPAY）："
+
+msgid "Invoice Date"
+msgstr "发票日期"
+
+msgid "Print Invoice"
+msgstr "打印发票"
+
+msgid "Invoice No."
+msgstr "发票号码"
+
+msgid "Repetitions"
+msgstr "重复（Repetitions）"
+
+msgid "100%"
+msgstr "匹配率（100%）"
+
+msgid "95%-99%"
+msgstr "匹配率（95%-99%）"
+
+msgid "85%-94%"
+msgstr "匹配率（85%-94%）"
+
+msgid "75%-84%"
+msgstr "匹配率（75%-84%）"
+
+msgid "50%-74%"
+msgstr "匹配率（50%-74%）"
+
+msgid "No Match"
+msgstr "无匹配（No Match）"
+
+msgid "Thank you for your business!"
+msgstr "谢谢您的惠顾！"
+
+msgid "Invoice No: "
+msgstr "发票号："
+
+msgid "Translation Languages:"
+msgstr "翻译语言："
+
+msgid "Translation Languages"
+msgstr "翻译语言"
+
+msgid "Task Type:"
+msgstr "任务类别："
+
+msgid "Task Type"
+msgstr "任务类别"
+
+msgid "Accept"
+msgstr "接受任务"
+
+msgid "My Tasks"
+msgstr "我的任务"
+
+msgid "Task ID"
+msgstr "任务号"
+
+msgid "Task Source Files"
+msgstr "任务源文件"
+
+msgid "Task Info"
+msgstr "任务信息"
+
+msgid "Task Price"
+msgstr "任务价格"
+
+msgid "Task Allocation"
+msgstr "任务分配"
+
+msgid "Messages"
+msgstr "信息"
+
+msgid "Correction"
+msgstr "译文纠正"
+
+msgid "Feedback"
+msgstr "反馈"
+
+msgid "Final Task Files"
+msgstr "任务最终译文"
+
+msgid "Submit for Reviewing"
+msgstr "点击确认完成任务"
+
+msgid "Total"
+msgstr "金额"
+
+msgid "Task"
+msgstr "任务"
+
+msgid "Add Item"
+msgstr "添加任务"
+
+msgid "Item"
+msgstr "任务"
+
+msgid "DTP Software"
+msgstr "排版软件"
+
+msgid "ENG Category"
+msgstr "工程类别"
+
+msgid "Payments Record"
+msgstr "付款记录"
+
+msgid "Trans. ID"
+msgstr "转账号"
+
+msgid "Month"
+msgstr "月份"
+
+msgid "Incomming"
+msgstr "进账"
+
+msgid "Edit Payment Information"
+msgstr "编辑付款信息"
+
+msgid "Your bank information has been updated"
+msgstr "您的银行信息已更新"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Payment Information"
+msgstr "付款信息"
+
+msgid "Bank Account"
+msgstr "银行账号"
+
+msgid "Bank Address"
+msgstr "开户行地址"
+
+msgid "Bank City"
+msgstr "开户行城市"
+
+msgid "Bank Country"
+msgstr "国家"
+
+msgid "Beneficiar Name"
+msgstr "收款人姓名"
+
+msgid "Account No./IBAN"
+msgstr "收款人银行账号"
+
+msgid "PAYPAL"
+msgstr "贝宝（PAYPAL）"
+
+msgid "ALIPAY"
+msgstr "支付宝（ALIPAY）"

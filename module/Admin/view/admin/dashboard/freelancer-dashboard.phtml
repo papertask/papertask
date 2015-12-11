@@ -45,11 +45,11 @@ $this->inlineScript()
                     <div class="ibox-content product-box">
 
                         <div class="product-desc">
-                            <div><strong><?php echo $this->translate('Language:','Application'); ?> </strong><strong><code>{{ task.project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ task.language.name }}</code></strong></div>
-                            <div><strong><?php echo $this->translate('Due Date:','Application'); ?></strong> <strong><code>{{ DateFormatter.short(task.dueDate) }}</code></strong></div>
-                            <div><strong><?php echo $this->translate('Task Type:','Application'); ?></strong> <strong><code data-toggle="tooltip"  tooltip-placement="top"  tooltip="{{ProjectType.get(task.type).tootip}}"  ng-bind-html="ProjectType.get(task.type).name_task" compile-template> </code></strong></div>
+                            <div><strong><?php echo $this->translate('Translation Languages:','Admin'); ?> </strong><strong><code>{{ task.project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ task.language.name }}</code></strong></div>
+                            <div><strong><?php echo $this->translate('Due Date:','Admin'); ?></strong> <strong><code>{{ DateFormatter.short(task.dueDate) }}</code></strong></div>
+                            <div><strong><?php echo $this->translate('Task Type:','Admin'); ?></strong> <strong><code data-toggle="tooltip"  tooltip-placement="top"  tooltip="{{ProjectType.get(task.type).tootip}}"  ng-bind-html="ProjectType.get(task.type).name_task" compile-template> </code></strong></div>
                             <div class="m-t text-righ">
-                                <a href="#" ng-click="View(task.id)" class="btn btn-outline btn-primary"><i class="fa fa-folder"></i> <?php echo $this->translate('View','Application'); ?></a>
+                                <a href="#" ng-click="View(task.id)" class="btn btn-outline btn-primary"><i class="fa fa-folder"></i> <?php echo $this->translate('View','Admin'); ?></a>
                             </div>
                         </div>
                     </div>
@@ -69,13 +69,13 @@ $this->inlineScript()
                     </div>
                     <div class="ibox-content">
                     	<div class="btn-group pull-right">
-                            <button ng-click="Accept(task.id)" class="btn btn-warning" type="button"><i class="fa fa-check-square-o"></i> <?php echo $this->translate('Accept','Application'); ?></button>
-                            <button class="btn btn-white" type="button" ng-click="View(task.id)"><i class="fa fa-folder"></i> <?php echo $this->translate('View','Application'); ?></button>
+                            <button ng-click="Accept(task.id)" class="btn btn-warning" type="button"><i class="fa fa-check-square-o"></i> <?php echo $this->translate('Accept','Admin'); ?></button>
+                            <button class="btn btn-white" type="button" ng-click="View(task.id)"><i class="fa fa-folder"></i> <?php echo $this->translate('View','Admin'); ?></button>
                         </div>
 
                         <div>
                             <h1 class="product-main-price">{{ task.currency }} {{ task.total_freelancer }} 
-							<small ng-show="1==0" class="text-muted" style="font-size: 18px;">1800 <?php echo $this->translate('words','Application'); ?></small> 
+							<small ng-show="1==0" class="text-muted" style="font-size: 18px;">1800 <?php echo $this->translate('words','Admin'); ?></small> 
 							</h1>
                         </div>
                         <div class="hidden-sm">
@@ -83,7 +83,7 @@ $this->inlineScript()
 		                        <tbody>
 		                        <tr>
 		                            <td>
-		                                <strong><?php echo $this->translate('Language:','Application'); ?></strong>
+		                                <strong><?php echo $this->translate('Translation Languages:','Admin'); ?></strong>
 		                            </td>
 		                            <td>
 		                                <strong><code>{{ task.project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ task.language.name }}</code></strong>
@@ -92,10 +92,10 @@ $this->inlineScript()
 		                        </tr>
 		                        <tr>
 		                            <td>
-		                                <strong><?php echo $this->translate('Due Date:','Application'); ?></strong> <strong><code>{{ DateFormatter.short(task.dueDate) }}</code></strong>
+		                                <strong><?php echo $this->translate('Due Date:','Admin'); ?></strong> <strong><code>{{ DateFormatter.short(task.dueDate) }}</code></strong>
 		                            </td>
 		                            <td>
-		                                <strong><?php echo $this->translate('Task Type:','Application'); ?></strong> <strong><code data-toggle="tooltip"  tooltip-placement="top"  tooltip="{{ProjectType.get(task.type).tootip}}"  ng-bind-html="ProjectType.get(task.type).name_task" compile-template> </code></strong>
+		                                <strong><?php echo $this->translate('Task Type:','Admin'); ?></strong> <strong><code data-toggle="tooltip"  tooltip-placement="top"  tooltip="{{ProjectType.get(task.type).tootip}}"  ng-bind-html="ProjectType.get(task.type).name_task" compile-template> </code></strong>
 		                            </td>
 		                        </tr>
 		                        </tbody>
@@ -120,11 +120,11 @@ $this->inlineScript()
                     <div class="ibox-content product-box">
 
                         <div class="product-desc">
-                            <div><strong><?php echo $this->translate('Language:','Application'); ?> </strong><strong><code>{{ task.project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ task.language.name }}</code></strong></div>
-                            <div><strong><?php echo $this->translate('Due Date:','Application'); ?></strong> <strong><code>{{ DateFormatter.short(task.dueDate) }}</code></strong></div>
-                            <div><strong><?php echo $this->translate('Task Type:','Application'); ?></strong> <strong><code data-toggle="tooltip"  tooltip-placement="top"  tooltip="{{ProjectType.get(task.type).tootip}}"  ng-bind-html="ProjectType.get(task.type).name_task" compile-template> </code></strong></div>
+                            <div><strong><?php echo $this->translate('Translation Languages:','Admin'); ?> </strong><strong><code>{{ task.project.sourceLanguage.name }} <i class="fa fa-arrow-right"></i> {{ task.language.name }}</code></strong></div>
+                            <div><strong><?php echo $this->translate('Due Date:','Admin'); ?></strong> <strong><code>{{ DateFormatter.short(task.dueDate) }}</code></strong></div>
+                            <div><strong><?php echo $this->translate('Task Type:','Admin'); ?></strong> <strong><code data-toggle="tooltip"  tooltip-placement="top"  tooltip="{{ProjectType.get(task.type).tootip}}"  ng-bind-html="ProjectType.get(task.type).name_task" compile-template> </code></strong></div>
                             <div class="m-t text-right">
-                                <a href="#" ng-click="View(task.id)" class="btn btn-outline btn-primary"><i class="fa fa-folder"></i> <?php echo $this->translate('View','Application'); ?></a>
+                                <a href="#" ng-click="View(task.id)" class="btn btn-outline btn-primary"><i class="fa fa-folder"></i> <?php echo $this->translate('View','Admin'); ?></a>
                             </div>
                         </div>
                     </div>

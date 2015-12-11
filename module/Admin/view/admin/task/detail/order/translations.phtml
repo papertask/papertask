@@ -4,14 +4,14 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Iterms - <span class="text-info">Translation (No TM)</span></th>
-						<th>File</span></th>
-                        <th>Unit </th>
-                        <th>Unit Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
+                        <th><?php echo $this->translate('Task','Admin'); ?> - <span class="text-info">Translation (No TM)</span></th>
+						<th><?php echo $this->translate('File','Admin'); ?></span></th>
+                        <th><?php echo $this->translate('Unit','Admin'); ?> </th>
+                        <th><?php echo $this->translate('Unit Price','Admin'); ?></th>
+                        <th><?php echo $this->translate('Quantity','Admin'); ?></th>
+                        <th><?php echo $this->translate('Total','Admin'); ?></th>
 						<?php if (!($user['role'] == 'Freelancer')) { ?>
-                        <th>Action</th>
+                        <th></th>
 						<?php } ?>
                     </tr>
                     </thead>
@@ -56,12 +56,12 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Iterms - <span class="text-info">Translation (Use TM)</span></th>
-                        <th>Unit </th>
-                        <th>Unit Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-						<th>Action</th>
+                        <th><?php echo $this->translate('Task','Admin'); ?> - <span class="text-info">Translation (Use TM)</span></th>
+                        <th><?php echo $this->translate('Unit','Admin'); ?></th>
+                        <th><?php echo $this->translate('Unit Price','Admin'); ?></th>
+                        <th><?php echo $this->translate('Quantity','Admin'); ?></th>
+                        <th><?php echo $this->translate('Total','Admin'); ?></th>
+						<th></th>
 
                     </tr>
                     </thead>
@@ -90,11 +90,11 @@
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
-                                            <th>TM Template</th>
-                                            <th>Rate (%)</th>
-                                            <th>Unit Price</th>
-                                            <th>Quantity (Word)</th>
-                                            <th>Quantity</th>
+                                            <th><?php echo $this->translate('TM Template','Admin'); ?></th>
+                                            <th><?php echo $this->translate('Rate','Admin'); ?> (%)</th>
+                                            <th><?php echo $this->translate('Unit Price','Admin'); ?></th>
+                                            <th><?php echo $this->translate('Quantity (Word)','Admin'); ?></th>
+                                            <th><?php echo $this->translate('Quantity','Admin'); ?></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -148,7 +148,7 @@
 											<td>{{ (itemtms[language.id][0].rate_tmp * itemtms[language.id][0].ratenomatch_fl / 100) * itemtms[language.id][0].sourcenomatch | number:2 }}</td>
 										</tr>
 										<tr>
-											<td colspan="4" align="right"><strong>Total</strong></td>
+											<td colspan="4" align="right"><strong><?php echo $this->translate('Total','Admin'); ?></strong></td>
 											<td class="text-info">{{ itemtms[language.id][0].total }}</td>
 										</tr>
                                         </tbody>

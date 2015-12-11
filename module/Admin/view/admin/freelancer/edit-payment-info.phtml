@@ -1,9 +1,9 @@
-<?php echo $this->headTitle($this->translate('Edit Payment Information')) ?>
+<?php echo $this->headTitle($this->translate('Edit Payment Information','Admin')) ?>
 
 <?php
 $this->headScript()
-    ->prependFile($this->basePath() . '/js/admin/freelancer/edit-bank-info.js')
-    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/freelancer/edit-bank-info.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/validate/jquery.validate.min.js')
     ->prependScript("angularApp = angular.module('project', []);");
 $this->inlineScript()
     ->prependScript("
@@ -12,7 +12,7 @@ $this->inlineScript()
 ?>
 <div ng-controller="editBankInfoController" class="ibox float-e-margins">
     <div class="ibox-title">
-        <h4><i class="fa fa-edit"></i> <?php echo $this->translate('Edit Payment Information') ?></h4>
+        <h4><i class="fa fa-edit"></i> <?php echo $this->translate('Edit Payment Information','Admin') ?></h4>
     </div>
 
     <div class="ibox-content">
@@ -22,7 +22,7 @@ $this->inlineScript()
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <p class="alert alert-success alert-dismissable" ng-show="updated">
-                        <?php echo $this->translate('Your bank information has been updated') ?>
+                        <?php echo $this->translate('Your bank information has been updated','Admin') ?>
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                             &times;
                         </button>
@@ -34,7 +34,7 @@ $this->inlineScript()
             <div class="row">
                 <div class="col-sm-4 col-sm-offset-4">
                     <button ng-click="submit()" class="btn btn-primary btn-block" type="submit">
-                        <?php echo $this->translate('Save') ?></button>
+                        <?php echo $this->translate('Save','Admin') ?></button>
                 </div>
             </div>
 

@@ -4,15 +4,15 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Iterms - <span class="text-info">DTP <i class="fa fa-apple"></i></span></th>
-						<th>File</th>
-                        <th>DTP Software </th>
-                        <th>Unit </th>
-                        <th>Unit Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
+                        <th><?php echo $this->translate('Item','Admin'); ?> - <span class="text-info">DTP <i class="fa fa-apple"></i></span></th>
+						<th><?php echo $this->translate('File','Admin'); ?></th>
+                        <th><?php echo $this->translate('DTP Software','Admin'); ?></th>
+                        <th><?php echo $this->translate('Unit','Admin'); ?></th>
+                        <th><?php echo $this->translate('Unit Price','Admin'); ?></th>
+                        <th><?php echo $this->translate('Quantity','Admin'); ?></th>
+                        <th><?php echo $this->translate('Total','Admin'); ?></th>
 						<?php if (!($user['role'] == 'Freelancer')) { ?>
-                        <th>Action</th>
+                        <th></th>
 						<?php } ?>
                     </tr>
                     </thead>
@@ -41,7 +41,7 @@
 			<?php if (!($user['role'] == 'Freelancer')) { ?>
             <div class="text-center">
 				 <a class="btn btn-outline btn-primary"
-                   ng-click="addDesktopMac(language.id)">Add Iterm</a>
+                   ng-click="addDesktopMac(language.id)"><?php echo $this->translate('Add Item','Admin'); ?></a>
 				   
                 
             </div>
@@ -54,15 +54,15 @@
                     <thead>
                     <tr>
                         <th>#</th>
-						<th>Iterms - <span class="text-info">DTP <i class="fa fa-windows"></i></span></th>
-                        <th>File</th>
-                        <th>DTP Software </th>
-                        <th>Unit </th>
-                        <th>Unit Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
+						<th><?php echo $this->translate('Item','Admin'); ?> - <span class="text-info">DTP <i class="fa fa-windows"></i></span></th>
+                        <th><?php echo $this->translate('File','Admin'); ?></th>
+                        <th><?php echo $this->translate('DTP Software','Admin'); ?></th>
+                        <th><?php echo $this->translate('Unit','Admin'); ?></th>
+                        <th><?php echo $this->translate('Unit Price','Admin'); ?></th>
+                        <th><?php echo $this->translate('Quantity','Admin'); ?></th>
+                        <th><?php echo $this->translate('Total','Admin'); ?></th>
 						<?php if (!($user['role'] == 'Freelancer')) { ?>
-                        <th>Action</th>
+                        <th></th>
 						<?php } ?>
                     </tr>
                     </thead>
@@ -92,7 +92,7 @@
 			<?php if (!($user['role'] == 'Freelancer')) { ?>
             <div class="text-center">
                 <a class="btn btn-outline btn-primary"
-                   ng-click="addDesktopPc(language.id)">Add Iterm</a>
+                   ng-click="addDesktopPc(language.id)"><?php echo $this->translate('Add Item','Admin'); ?></a>
             </div>
 			<?php } ?>
 		</div>	

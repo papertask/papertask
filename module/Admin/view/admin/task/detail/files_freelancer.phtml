@@ -1,2 +1,2 @@
-                                    <dt><?php echo $this->translate('Task Source Files'); ?></dt>
+                                    <dt><?php echo $this->translate('Task Source Files','Admin'); ?></dt>
                                     <dd ng-repeat="file in files_tm"><a href="<?php echo $this->url('admin',array('controller'=>'project','action'=>'downloadFile'),array('query'=>array('token'=>'')))?>{{file.token}}" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{ file.size/1024/1024|number:2 }} MB | {{ file.date }}"><i class="fa fa-file"></i> {{ file.name }}</a></dd>
