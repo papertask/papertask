@@ -55,8 +55,8 @@ echo $this->inlineScript()
     </div>
 </div><!--//slider-->
 
-<section id="ovewview" class="container overview">
-    <br />
+<section id="ovewview" class="overview gray-section" style="margin-top: 0px;">
+    <div class="container">
     <div class="row">
         <div class="col-lg-12 text-center">
             <div class="navy-line"></div>
@@ -65,9 +65,6 @@ echo $this->inlineScript()
         </div>
     </div>
 
-    <br />
-    <br />
-    <br />
     <br />
     <br />
     <div class="row">
@@ -100,13 +97,15 @@ echo $this->inlineScript()
             </div>
         </div>
     </div>
+    <br />
+    <br />
+    </div>
 </section>
-<br />
 <br />
 <br />
 <section id="pricing" class="pricing"  ng-app="languages" id="languagesController" ng-controller="languagesController">
     <div class="container">
-        <div class="row m-b-lg">
+        <div class="row m-b-lg" style="margin-bottom: 20px;">
             <div class="col-lg-12 text-center">
                 <div class="navy-line"></div>
                 <h1><?php echo $this->translate('PLEASE CHECK OUT THE LANGUAGES WE SUPPORT','Landing') ?></h1>
@@ -167,9 +166,9 @@ echo $this->inlineScript()
                     </div>
                     <p />
                     <div align="center">
-                        <br><br><br><br>
+                        <br><br><br>
                         <button type="submit" style="font-size: 18px;" ng-click="showPrice()" class="btn btn-primary btn-lg"><?php echo $this->translate('Show Price','Landing') ?> </button>
-                        <br><br><br><br><br><br>
+                        <br><br>
                     </div>
                 </form>
 
