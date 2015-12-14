@@ -11,8 +11,9 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		        //types: [],
 				files: []	
 	};
-
-     $('select[name=sourceLanguage]').on('change', function(){
+	$scope.totalitems = $scope.project.files.length;
+    
+	$('select[name=sourceLanguage]').on('change', function(){
         $scope.modifiedTarLangs = [];
         $scope.project.targetLanguage = null;
         var that = $(this);

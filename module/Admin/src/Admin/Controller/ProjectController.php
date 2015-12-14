@@ -96,7 +96,7 @@ class ProjectController extends AbstractActionController
     	$currentUserId = User::currentLoginId();
     	$currentUser = $this->find('User\Entity\User',$currentUserId);
     	$employer = $currentUser->getEmployer();
-    	$isContracted = $employer->getContract();
+    	$isContracted = $employer->getContract();//var_dump($employer);var_dump($isContracted);exit;	
     	if($isContracted == 1){
     		$view =  new ViewModel(array(
     				"lang_code" => $lang_code,

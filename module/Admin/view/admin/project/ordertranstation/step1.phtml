@@ -86,7 +86,7 @@
         <br /><br />
 
 		<div class="text-center">
-			<button id="activate-step-2" type="button"
+			<button ng-show="project.files.length > 0" id="activate-step-2" type="button"
 				class="btn btn-primary btn-lg" ng-click="initStep2()"><?php echo $this->translate('Next','Admin'); ?></button>
 			<!-- next button show after at least one file is uploaded -->
 		</div>
