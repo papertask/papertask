@@ -1,42 +1,30 @@
-<?php $this->headTitle($this->translate('Order  Translation')) ?>
+<?php $this->headTitle($this->translate('Order Translation','Admin')) ?>
 
 
 <!-- Le styles -->
 <?php $this->headLink()
- //   ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
-  //  ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
- //   ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
-  //  ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
-    //->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
-	->prependStylesheet($this->basePath() . '/css/plugins/jquery-fileupload/jquery.fileupload.css');
+	->prependStylesheet($this->basePath() . '/v2/css/plugins/select2/select2.min.css')
+	->prependStylesheet($this->basePath() . '/v2/css/plugins/footable/footable.core.css')
+	->prependStylesheet($this->basePath() . '/v2/css/plugins/jquery-fileupload/jquery.fileupload.css');
 ?>
 
 <!-- Scripts -->
 <?php  $this->headScript()
-  //  ->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
-    ->prependFile($this->basePath() . '/js/admin/project/order-translation.js')
-   ->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
-  //  ->prependFile($this->basePath() . '/js/admin/angular-steps-order-translation.js')
-    ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/project/order-translation.js')
+   ->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/CurrentUser.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/bootstrap-modal.js')
     ->prependScript("angularApp = angular.module('project', ['summernote', 'angularFileUpload']);")
-    ->prependFile($this->basePath() . '/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
-    ->prependFile($this->basePath() . '/js/plugins/angular-summernote/angular-summernote.js')
-    ->prependFile($this->basePath() . '/js/plugins/summernote/summernote.min.js')
-  //  ->prependFile($this->basePath() . '/js/plugins/datapicker/bootstrap-datepicker.js')
-  //  ->prependFile($this->basePath() . '/js/plugins/multiselect/bootstrap-multiselect.js')
-    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
-  //  ->prependFile($this->basePath() . '/js/plugins/steps/jquery.steps.min.js')
-  //  ->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
-  //  ->prependFile($this->basePath() . '/js/inspinia.js');
-	  
-
-->prependFile($this->basePath() . '/js/inspinia.js')
-->prependFile($this->basePath() . '/js/plugins/pace/pace.min.js')
-->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.ui.widget.js')
-->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.iframe-transport.js')
-->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.fileupload.js')
-->prependFile($this->basePath() . '/js/plugins/jquery-fileupload/jquery.fileupload-validate.js');
+    ->prependFile($this->basePath() . '/v2/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/angular-summernote/angular-summernote.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/summernote/summernote.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/select2/select2.full.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/validate/jquery.validate.min.js')
+	->prependFile($this->basePath() . '/v2/js/plugins/jquery-fileupload/jquery.ui.widget.js')
+	->prependFile($this->basePath() . '/v2/js/plugins/jquery-fileupload/jquery.iframe-transport.js')
+	->prependFile($this->basePath() . '/v2/js/plugins/jquery-fileupload/jquery.fileupload.js')
+	->prependFile($this->basePath() . '/v2/js/plugins/jquery-fileupload/jquery.fileupload-validate.js')
+	->prependFile($this->basePath() . '/v2/js/plugins/footable/footable.all.min.js');
 
 ?>
 
@@ -56,54 +44,65 @@ $this->inlineScript()
         }
 
         .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+            color: #fff;
             background-color: #19aa8d;
         }
 
+        .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+            background-color: #19aa8d;
+        }
+        .top-navigation .nav > li.active > a {
+        	color: #fff;
+        }
         .nav > li.active {
             border-left: 4px solid #19aa8d;
             background: #19aa8d;
         }
+		.tabs-container .nav-tabs > li.active > a, .tabs-container .nav-tabs > li.active > a:hover, .tabs-container .nav-tabs > li.active > a:focus {
+			    color: #555555;
+		}
+		.top-navigation .nav > li.active {
+		    background: none;
+		    border: none;
+		}
 
+		.select2-container .select2-selection--single {
+		    height: 38px;
+		        font-size: 16px;
+		}
+		.select2-container--default .select2-selection--single .select2-selection__rendered {
+		    line-height: 32px;
+		}
     </style>
 
 
-<div class="row">
+    <div class="animate fadeInUp">
+        <div class="row">
             <div class="col-lg-12">
-                <div class="wrapper wrapper-content animated">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5><i class="fa fa-files-o"></i> Order A Translation </h5>
-                        </div>
-                        <div class="ibox-content">
-                        <div class="row">
-                            <div class="col-lg-12">
-                              <form id="form" action="#" class="wizard-big" ng-controller="OrderTranslationController" novalidate >
+              <form id="form" action="#" class="wizard-big" ng-controller="OrderTranslationController" novalidate >
 
-                                  <div class=" form-group">
-                                    <div class="col-md-12">
-                                        <ul class="nav nav-pills nav-justified thumbnail setup-panel">
-                                            <li class="active"><a href="#step-1">
-                                                <h4 class="list-group-item-heading">Step 1</h4>
-                                                <p class="list-group-item-text">Upload the file(s)</p>
-                                            </a></li>
-                                            <li class="disabled"><a href="#step-2">
-                                                <h4 class="list-group-item-heading">Step 2</h4>
-                                                <p class="list-group-item-text">Select Languages and Quality</p>
-                                            </a></li>
-                                        </ul>
-                                    </div>
-                                  </div>                                  
-                                     <?php include "ordertranstation/step1.phtml" ?>                                                                 
-                                     <?php include "ordertranstation/step2.phtml" ?>                                        
-    
-                              </form>
-                            </div>
-                            </div>
-                        </div>
+                  <div class=" form-group">
+                    <div class="col-md-12">
+                        <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+                            <li class="active"><a href="#step-1">
+                                <h1 class="list-group-item-heading"><?php echo $this->translate('Step 1','Admin'); ?></h1>
+                                <p class="list-group-item-text" style="font-size: 18px;"><?php echo $this->translate('Upload file(s)','Admin'); ?></p>
+                            </a></li>
+                            <li class="disabled"><a href="#step-2">
+                                <h1 class="list-group-item-heading"><?php echo $this->translate('Step 2','Admin'); ?></h1>
+                                <p class="list-group-item-text" style="font-size: 18px;"><?php echo $this->translate('Select Languages and Quality','Admin'); ?></p>
+                            </a></li>
+                        </ul>
                     </div>
-                </div>
+                  </div>                                  
+                     <?php include "ordertranstation/step1.phtml" ?>                                                                 
+                     <?php include "ordertranstation/step2.phtml" ?>                                        
+
+              </form>
             </div>
+
         </div>
+    </div>
 
    <script>
       $(document).ready(function() {
@@ -126,6 +125,10 @@ $this->inlineScript()
                   $target.show();
               }
           });
+
+          $(".sLanguage").select2();
+          $(".tLanguage").select2();
+          $('.footable').footable();
           
           $('ul.setup-panel li.active a').trigger('click');
           
