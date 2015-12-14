@@ -17,16 +17,17 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
         $scope.modifiedTarLangs = [];
         $scope.project.targetLanguage = null;
         var that = $(this);
-		//console.log("that");
-		//console.log(that);
+		console.log("that");
+		console.log($scope.languages);
+		$scope.modifiedTarLangs=[];
+			$.each($scope.translation, function(){
+					console.log(this);
+					console.log(that.val());
+				if(this.sourceLanguage == that.val()){
+					$scope.modifiedTarLangs.push($scope.languages[this.targetLanguage - 1]);
+				}
+			});
 		
-        $.each($scope.translation, function(){
-				console.log(this);
-				console.log(that.val());
-            if(this.sourceLanguage == that.val()){
-                $scope.modifiedTarLangs.push($scope.languages[this.targetLanguage - 1]);
-            }
-        });
     });
 	
 	 $scope.init = function(){		 
@@ -48,11 +49,13 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			 
 			 $http.get("/api/papertask/translation").success(function($data){
 				$scope.translation = $data['translation'];
+				if($scope.translation.length>0){
 				$.each($scope.translation, function(){
 					if($scope.sourceLanguages.indexOf(this.sourceLanguage.toString()) == -1){
 						$scope.sourceLanguages.push($scope.languages[this.sourceLanguage - 1]);
 					}
 				});
+				}else{$scope.sourceLanguages=[];}
 			 }).error(function($e){
 				 alert('error');
 			 });

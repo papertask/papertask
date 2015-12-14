@@ -8,28 +8,26 @@
 			<div class="row">
 				
 				<div class="col-md-6">					
-					<select id="sourceLanguage" required class="form-control required valid sLanguage" name="sourceLanguage" style="width: 80%;" 
-						aria-required="true"
-						ng-options="language.name for language in sourceLanguages track by language.id"
-						ng-model="project.sourceLanguage"
-						required
-						ng-change="removeLangFSML();clearTargetLanguages();">
-						<option value=""><?php echo $this->translate('Select Source Language','Admin'); ?></option>
-						<option value="" ng-disabled="disable" ng-hide="true"><?php echo $this->translate('Select Source Language','Admin'); ?></option>
-					</select>
+					<select id="sourceLanguage" required class="form-control required valid" name="sourceLanguage"
+					aria-required="true"
+					ng-options="language.name for language in sourceLanguages track by language.id"
+					ng-model="project.sourceLanguage"
+					required
+					ng-change="changePServicePrice();removeLangFSML();clearTargetLanguages();">
+					<option value="" ng-disabled="disable" ng-hide="true">Select Source Language</option>
+				</select>
 
 				</div>
 				<div class="col-md-6">
 
-					<select class="form-control required valid tLanguage" name="targetLanguage" style="width: 80%" 
-						aria-required="true"
-						ng-options="language.name for language in modifiedTarLangs track by language.id"
-						ng-model="project.targetLanguage"
-						required
-						ng-change="add_targetLanguage();changePServicePrice();">
-						<option value=""><?php echo $this->translate('Add Target Languages','Admin'); ?></option>
-						<option value="" ng-hide="true" ><?php echo $this->translate('Add Target Languages','Admin'); ?></option>
-					</select>
+					<select class="form-control required valid" name="targetLanguage"
+					aria-required="true"
+					ng-options="language.name for language in modifiedTarLangs track by language.id"
+					ng-model="project.targetLanguage"
+					required
+					ng-change="add_targetLanguage();changePServicePrice();">
+					<option value="" ng-hide="hidetargetLang" >Add Target Languages</option>
+				</select>
 				</div>
 			</div>
 		</div>
