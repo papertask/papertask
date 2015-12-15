@@ -13,7 +13,7 @@ use Application\Controller\AbstractRestfulController;
 use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator as ZendPaginator;
-use User\Entity\User; 
+use User\Entity\User;
 use User\Entity\UserGroup;
 use Admin\Model\Helper;
 use User\Entity\UserDesktopPrice;
@@ -26,11 +26,13 @@ use User\Entity\Company;
 class EmployerController extends AbstractRestfulController
 {
 	public function create( $pdata ) {
+		error_reporting(E_ALL);
+ini_set('display_errors', 1);
 		$data = array();
 		$data['isActive'] = $pdata['isActive'];
 		$data['profileUpdated'] = $pdata['profileUpdated'];
 		$data['city'] = $pdata['city'];
-		
+
 		$data['currency'] = $pdata['currency'];
 		$data['createdTime'] = new \DateTime('now');
         $data['lastLogin'] = new \DateTime('now');
@@ -51,7 +53,7 @@ class EmployerController extends AbstractRestfulController
         $data['pm'] = $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $pdata['pm']['id']));
         $data['sales'] = $entityManager->getRepository('User\Entity\Staff')->findOneBy(array('id' => $pdata['sales']['id']));
 		$userExist = $entityManager->getRepository('User\Entity\User')->findOneBy(array('email'=>$pdata['email']));
-		 
+
 		if ( $userExist ) {
             return new JsonModel(['success'=>'failed', 'msg'=>'']);
 		} else {
@@ -70,7 +72,7 @@ class EmployerController extends AbstractRestfulController
                 'name' => $pdata['name'],
                 'sales' => $data['sales']));
 			$employer->save($entityManager);
-	
+
 			$ret_data = $user->getData();
 			$projectType = array();
 			// Set Translation Price
@@ -87,19 +89,19 @@ class EmployerController extends AbstractRestfulController
 				$pTranslationPrice->setData( $translationPrice );
 				$pTranslationPrice->save( $entityManager );
 			}
-	
+
 			// Set Desktop Prices
 			foreach ( $pdata['desktopPrices'] as $k => $v) {
 				if( $v['priceMac'] != 0 || $v['priceHourMac'] != 0){
 					if(!in_array(4, $projectType))
 						$projectType[] =4;
 				}
-				
+
 				if( $v['pricePc'] != 0 || $v['priceHourPc'] != 0){
 					if(!in_array(5, $projectType))
 						$projectType[] =5;
-				} 
-				
+				}
+
                 $desktopPrice = array (
 						'user'=> $user,
 						'language' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id'=>$v['language']['id'])),
@@ -113,7 +115,7 @@ class EmployerController extends AbstractRestfulController
 				$pDesktopPrice->setData( $desktopPrice );
 				$pDesktopPrice->save( $entityManager );
 			}
-	
+
 			// Set Interpreting Price
 			foreach ( $pdata['interpretingPrices'] as $k=>$v) {
 				if(!in_array(7, $projectType)){
@@ -122,8 +124,8 @@ class EmployerController extends AbstractRestfulController
 					$projectType[] =9;
 					$projectType[] =10;
 				}
-					
-				
+
+
 				$interpretingPrice = array(
 						'user' => $user,
 						'sourceLanguage' => $entityManager->getRepository('User\Entity\Language')->findOneBy(array('id' => $v['sourceLanguage']['id'])),
@@ -136,7 +138,7 @@ class EmployerController extends AbstractRestfulController
 				$pInterpretingPrice->setData( $interpretingPrice );
 				$pInterpretingPrice->save( $entityManager );
 			}
-	
+
 			// Set TM Ratio
 			if( $pdata['tmRatio'] != null){
 				if(!in_array(2, $projectType))
@@ -153,10 +155,10 @@ class EmployerController extends AbstractRestfulController
 					'nomatch'        => $pdata['tmRatio']['nomatch'],
 					'user'            => $user
 			);
-			 
+
 			$pTmRatio->setData( $tmRatio );
 			$pTmRatio->save( $entityManager );
-	
+
 			// Set Engineering Price
 			foreach ( $pdata['engineeringPrices'] as $k=>$v ) {
 				if( $pdata['tmRatio'] != null){
@@ -173,15 +175,15 @@ class EmployerController extends AbstractRestfulController
 				$pEngineeringPrices->setData( $engineeringPrice );
 				$pEngineeringPrices->save( $entityManager );
 			}
-	
+
 			$user->setData(array('types'=> $projectType));
 			$user->save($entityManager);
 			//var_dump($projectType); exit;
-	
+
 			return new JsonModel(['user'=>$ret_data, 'success'=>'success']);
 		}
 	}
-	
+
     public function get($id){
         $user = $this->getUserById($id);
         $employerData = $user->getEmployer()->getData();
@@ -190,15 +192,15 @@ class EmployerController extends AbstractRestfulController
             'employer' => $employerData,
         ]);
     }
-    
+
     public function update($id, $data){
         $userId = $this->getRequest()->getQuery('user_id');
         $entityManager = $this->getEntityManager();
         $user = $this->getUserById($userId);
         $employer = $user->getEmployer();
         $employer->updateData(array(
-                'position'=>isset($data['position'])?$data['position']:'', 
-                'company'=>$entityManager->getRepository('User\Entity\Company')->findOneBy(array('id' => $data['company'])), 
+                'position'=>isset($data['position'])?$data['position']:'',
+                'company'=>$entityManager->getRepository('User\Entity\Company')->findOneBy(array('id' => $data['company'])),
                 'defaultServiceLevel'=>$data['defaultServiceLevel'],
                 'comments'=>$data['comments'],
                 'name' => $data['username'],
@@ -210,15 +212,15 @@ class EmployerController extends AbstractRestfulController
 
         return new JsonModel([]);
     }
-    
+
     public function delete($id) {
 		error_reporting(E_ALL);
 		ini_set('display_errors', 1);
         $userId = $this->getEvent()->getRouteMatch()->getParam('id');
         $entityManager = $this->getEntityManager();
-        
+
         $user = $this->getUserById($userId);
-        
+
         $employer = $user->getEmployer();
 		// Remove UserClientTranslation
         $repository = $entityManager->getRepository('User\Entity\UserClientTranslation');
@@ -231,22 +233,22 @@ class EmployerController extends AbstractRestfulController
         // Remove Project
         $repository_project = $entityManager->getRepository('User\Entity\Project');
         $projects = $repository_project->findBy( array('client'=>$user) );
-				
+
 
         foreach ($projects as $k=>$v) {
-			
+
 			//remove Itermnotm
 			$repository_Itermnotm = $entityManager->getRepository('User\Entity\Itermnotm');
 			$Itermnotms = $repository_Itermnotm->findBy( array('project'=>$v) );
-			 
+
 			foreach ($Itermnotms as $k_Itermnotm=>$v_Itermnotm) {
 					//remove file Itermnotm
 					$Itermnotm = $repository_Itermnotm->find($v_Itermnotm->getId());
 					//var_dump($Itermnotm);exit;
 					$entityManager->remove($Itermnotm);
 					$entityManager->flush();
-					
-					
+
+
 					$repository_file_Itermnotm = $entityManager->getRepository('User\Entity\File');
 					//var_dump($v_Itermnotm->getData());exit;
 					if($v_Itermnotm->getFile()){
@@ -255,13 +257,13 @@ class EmployerController extends AbstractRestfulController
 						$entityManager->remove($file_Itermnotm);
 						$entityManager->flush();
 					}
-						
-					
+
+
 				}
 			//remove file
 			$repository_file = $entityManager->getRepository('User\Entity\File');
 			$files = $repository_file->findBy( array('project'=>$v) );
-			 
+
 			foreach ($files as $k_file=>$v_file) {
 					$file = $repository_file->find($v_file->getId());
 					$entityManager->remove($file);
@@ -270,41 +272,41 @@ class EmployerController extends AbstractRestfulController
 			//remove invoice
 			$repository_invoice = $entityManager->getRepository('User\Entity\Invoice');
 			$invoices = $repository_invoice->findBy( array('project'=>$v) );
-			 
+
 			foreach ($invoices as $k_invoice=>$v_invoices) {
 					$invoice = $repository_invoice->find($v_invoices->getId());
 					$entityManager->remove($invoice);
 					$entityManager->flush();
-				}	
+				}
 			//project feedback
 			$repository_feedback = $entityManager->getRepository('User\Entity\ProjectFeedback');
 			$feedbacks = $repository_feedback->findBy( array('project'=>$v) );
-			 
+
 			foreach ($feedbacks as $k_feedback=>$v_feedback) {
 					$feedback = $repository_feedback->find($v_feedback->getId());
 					$entityManager->remove($feedback);
 					$entityManager->flush();
-				}		
-				
+				}
+
 			//remove activity
 			$repository_activity = $entityManager->getRepository('User\Entity\Activity');
 			$activitys = $repository_activity->findBy( array('project'=>$v) );
-			 
+
 			foreach ($activitys as $k_activity=>$v_activity) {
 					$activity = $repository_activity->find($v_activity->getId());
 					$entityManager->remove($activity);
 					$entityManager->flush();
-				}			
+				}
 			//remove task
 			$repository_task = $entityManager->getRepository('User\Entity\Task');
 			$tasks = $repository_task->findBy( array('project'=>$v) );
-			 
+
 			foreach ($tasks as $k_task=>$v_task) {
 					$task = $repository_task->find($v_task->getId());
 					$entityManager->remove($task);
 					$entityManager->flush();
-				}	
-			
+				}
+
 			//remove project
             $project = $repository_project->find($v->getId());
             $entityManager->remove($project);
@@ -318,7 +320,7 @@ class EmployerController extends AbstractRestfulController
             $entityManager->remove($interPretingPrice);
             $entityManager->flush();
         }
-        
+
         // Remove EngeeringPrice
         $repository = $entityManager->getRepository('User\Entity\UserEngineeringPrice');
         $engineeringPrices = $repository->findBy(array('user'=>$user));
@@ -327,7 +329,7 @@ class EmployerController extends AbstractRestfulController
             $entityManager->remove($engineeringPrice);
             $entityManager->flush();
         }
-        
+
         // Remove Translation Price
         $repository = $entityManager->getRepository('User\Entity\UserTranslationPrice');
         $translationPrices = $repository->findBy(array('user'=>$user));
@@ -336,7 +338,7 @@ class EmployerController extends AbstractRestfulController
             $entityManager->remove($translationPrice);
             $entityManager->flush();
         }
-        
+
         // Remove DesktopPrices
         $repository = $entityManager->getRepository('User\Entity\UserDesktopPrice');
         $dtpPrices = $repository->findBy(array('user'=>$user));
@@ -345,7 +347,7 @@ class EmployerController extends AbstractRestfulController
             $entityManager->remove($dtpPrice);
             $entityManager->flush();
         }
-        
+
         // Remove Translation Ratio
         $repository = $entityManager->getRepository('User\Entity\UserTmRatio');
         $tmRatios = $repository->findBy(array('user'=>$user));
@@ -360,15 +362,15 @@ class EmployerController extends AbstractRestfulController
         $entityManager->flush();
         return new JsonModel([]);
     }
-    
+
     public function getList( ) {
         $entityManager = $this->getEntityManager();
-        
+
         $employerGroup = $entityManager->find('User\Entity\UserGroup', UserGroup::EMPLOYER_GROUP_ID);
         $employerList = $entityManager->getRepository('User\Entity\User');
         $queryBuilder = $employerList->createQueryBuilder('user');
         $request = $this->getRequest();
-		
+
         if($request->getQuery('search') && $request->getQuery('company')){
             $company = $entityManager->getRepository('User\Entity\Company')->findBy(array('id'=>$request->getQuery('company')));
             $queryBuilder->leftJoin('user.employer', 'employer')->where('employer.company=?1')->setParameter(1, $company);
@@ -383,7 +385,7 @@ class EmployerController extends AbstractRestfulController
                 if(count($arrayName) != 2){
                     $queryBuilder->andWhere(
                         $queryBuilder->expr()->like('user.firstName', "'%". $arrayName[0] . "%'"));
-                    
+
                 } else {
                     $queryBuilder->andWhere(
                         $queryBuilder->expr()->like('user.firstName', "'%". $arrayName[0] . "%'"));
@@ -391,21 +393,21 @@ class EmployerController extends AbstractRestfulController
                         $queryBuilder->expr()->like('user.lastName', "'%". $arrayName[1] ."%'"));
                 }
             }
-            
+
             if($request->getQuery('idEmployer')){
                 $queryBuilder->andWhere(
                         $queryBuilder->expr()->eq("user.id", (int)$request->getQuery('idEmployer')));
             }
-            
+
             if ( $request->getQuery('email') ) {
                 $queryBuilder->andWhere(
                     $queryBuilder->expr()->like('user.email',
                         "'%" . $request->getQuery('email') ."%'" ));
             }
-            
+
             if ( $request->getQuery('currency')) {
                 $queryBuilder->andWhere(
-                        $queryBuilder->expr()->eq("user.currency", 
+                        $queryBuilder->expr()->eq("user.currency",
                         $queryBuilder->expr()->literal($request->getQuery('currency'))));
             }
 
@@ -426,9 +428,9 @@ class EmployerController extends AbstractRestfulController
         if($page) $paginator->setCurrentPageNumber($page);
         $data = array();
         $helper = new Helper();
-        
+
         foreach($paginator as $user){
-        	
+
             $userData = $user->getData();
             $userData['employer'] = $user->getEmployer()->getData();
             $userData['createdTime'] = $helper->formatDate($userData['createdTime']);
@@ -443,9 +445,9 @@ class EmployerController extends AbstractRestfulController
             $task_result = $taskquery->getArrayResult();
             $userData['taskDone']=$task_result[0][1];
             // End Count TaskDone
-            
+
             $data[] = $userData;
-            
+
         }
         return new JsonModel(array(
             'employers'=>$data,
