@@ -59,16 +59,15 @@ body {
 			</table>
 									
 			<div class="hr-line-dashed" style="clear:both;border-top: 1px dashed #676a6c; color: #ffffff; background-color: #ffffff;height: 1px;margin: 5px 0;"></div>
-			<span style="font-size: 10px;">Dear <?php echo $this->project['user']['firstName']; ?>,</span><br />
-			<span style="font-size: 10px;">RE: <?php echo $this->project['reference']; ?></span><br />
+			<p style="font-size: 10px;">Dear <?php echo $this->project['user']['firstName']; ?>,</p>
+			<p style="font-size: 10px;">RE: <?php echo $this->project['reference']; ?></p>
 
-			<p style="font-size: 10px;">Further to receipt of your enquiry, I now have pleasure in providing you with the cost for the above requirement.</p>
-			<p style="font-size: 10px;">Service Level: <span style="color: #1ab394;"><?php echo $this->serviceLevel; ?></span></p>
-			<p style="font-size: 10px;">Approximate duration: <span style="color: #1ab394;"><?php echo $this->project['duration']; ?>Working days</span></p>
-
-			<div class="hr-line-dashed" style="clear:both;border-top: 1px dashed #676a6c; color: #ffffff; background-color: #ffffff;height: 1px;margin: 5px 0;"></div>
+			<span style="font-size: 10px;">Further to receipt of your enquiry, I now have pleasure in providing you with the cost for the above requirement.</span><br />
+			<span style="font-size: 10px;">Service Level: <span style="color: #1ab394;"><?php echo $this->serviceLevel; ?></span></span><br />
+			<span style="font-size: 10px;">Approximate duration: <span style="color: #1ab394;"><?php echo $this->project['duration']; ?>Working days</span></span><br />
 
 			<div class="table-responsive m-t" style="margin-left:2px;">
+			<div class="hr-line-dashed" style="clear:both;border-top: 1px dashed #676a6c; color: #ffffff; background-color: #ffffff;height: 1px;margin: 5px 0;"></div>
 			<?php foreach($this->project['targetLanguages'] as $targetLanguage) { ?>
 			<table class="table table-bordered" style="border: 1px solid #e7e7e7; width: 100%; max-width: 100%; margin-bottom: 20px; border-spacing: 0px; padding: 2px;">
 				<thead>
@@ -273,11 +272,7 @@ body {
 		
 		<br />
 		<div class="hr-line-dashed" style="clear:both;border-top: 1px dashed #676a6c; color: #ffffff; background-color: #ffffff;height: 1px;margin: 5px 0;"></div>
-		<div class="m-t">
-			<h2 style="text-align: center;color: #ed5565;">Due Date: <?php echo $this->dueDate;?></h2>
-			</br>
-			
-		</div>
+
 		<div class="m-t" style="text-align:justify; font-size: 10px;">
 			The above costs include supplying the translations as electronic files in formats per your requirements.
 			<br><br>
