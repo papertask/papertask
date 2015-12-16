@@ -526,7 +526,7 @@ class ProjectController extends AbstractActionController
 		//$fontx = $font->addTTFfont('public/fonts/STHeiti-Light.ttc');
 		//$pdf->SetFont($fontx, '', 12, '', false);
 		
-        $pdf->SetFont('droidsansfallbacki', '', 7);
+        $pdf->SetFont('droidsansfallback', '', 7);
         $pdf->setFontSubsetting(true);
 		$preferences = array(
 			'HideToolbar' => true,
