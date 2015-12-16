@@ -526,7 +526,7 @@ class ProjectController extends AbstractActionController
 		//$fontx = $font->addTTFfont('public/fonts/STHeiti-Light.ttc');
 		//$pdf->SetFont($fontx, '', 12, '', false);
 		
-        $pdf->SetFont('stsongstdlight', '', 7);
+        $pdf->SetFont('droidsansfallbacki', '', 7);
         $pdf->setFontSubsetting(true);
 		$preferences = array(
 			'HideToolbar' => true,
@@ -762,9 +762,12 @@ class ProjectController extends AbstractActionController
 		// set array for viewer preferences
 		$pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 		$font = new \TCPDF_FONTS();
-		$fontx = $font->addTTFfont('public/fonts/STHeiti-Light.ttc');
+		//$fontx = $font->addTTFfont('public/fonts/STHeiti-Light.ttc');
 		//$pdf->SetFont($fontx, '', 12, '', false);
-		$pdf->SetFont('microsoftyahei' , '', 12,'',false);
+		//$pdf->SetFont('microsoftyahei' , '', 12,'',false);
+        $pdf->SetFont('droidsansfallbacki', '', 7);
+        $pdf->setFontSubsetting(true);
+        
 		$preferences = array(
 			'HideToolbar' => true,
 			'HideMenubar' => true,
