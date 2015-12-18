@@ -173,7 +173,7 @@
 
 .wizard > .content > .body ul > li
 {
-    display: list-item;
+    /*display: list-item;*/
 }
 
 .wizard > .content > .body > iframe

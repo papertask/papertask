@@ -4,12 +4,12 @@
     ->prependStylesheet($this->basePath() . '/v2/css/plugins/datetimepicker/DateTimePicker.css')
     ->prependStylesheet($this->basePath() . '/v2/css/plugins/summernote/summernote-bs3.css')
     ->prependStylesheet($this->basePath() . '/v2/css/plugins/summernote/summernote.css')
-    ->prependStylesheet($this->basePath() . '/v2/css/plugins/multiselect/bootstrap-multiselect.css')
+   // ->prependStylesheet($this->basePath() . '/v2/css/plugins/multiselect/bootstrap-multiselect.css')
     ->prependStylesheet($this->basePath() . '/v2/css/plugins/steps/jquery.steps.css')
     ->prependStylesheet($this->basePath() . '/v2/css/plugins/chosen/chosen.css')
     ->prependStylesheet($this->basePath() . '/v2/css/plugins/datapicker/datepicker3.css')
     ->prependStylesheet($this->basePath() . '/v2/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css')
-    //->prependStylesheet($this->basePath() . '/v2/css/plugins/select2/select2.min.css')
+    ->prependStylesheet($this->basePath() . '/v2/css/plugins/select2/select2.min.css')
     ->prependStylesheet($this->basePath() . '/v2/css/plugins/footable/footable.core.css')
 ?>
 
@@ -26,10 +26,10 @@
     ->prependFile($this->basePath() . '/v2/js/plugins/angular-summernote/angular-summernote.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/summernote/summernote.min.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/datapicker/bootstrap-datepicker.js')
-    ->prependFile($this->basePath() . '/v2/js/plugins/multiselect/bootstrap-multiselect.js')
+//    ->prependFile($this->basePath() . '/v2/js/plugins/multiselect/bootstrap-multiselect.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/validate/jquery.validate.min.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/chosen/chosen.jquery.js')
-    //->prependFile($this->basePath() . '/v2/js/plugins/select2/select2.full.min.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/select2/select2.full.min.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/footable/footable.all.min.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/steps/jquery.steps.min.js');
 ?>
@@ -59,7 +59,14 @@ $this->inlineScript()
         $('.footable').footable();
         $('.summernote').summernote();
         //$(".sLanguage").select2();
-        //$(".tLanguages").select2();
+		//$(".tLanguages").select2();
+		$(".sLanguage").select2({
+		  placeholder: "Select language"
+		});
+		$(".tLanguages").select2({
+		  placeholder: "Select language"
+		});
+        
         $('#ordered_date .input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,

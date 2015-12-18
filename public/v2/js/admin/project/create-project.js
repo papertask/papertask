@@ -84,7 +84,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
 
                 $scope.project.targetLanguages = [];
                 $timeout(function(){
-                    jQuery("select.multiselect").multiselect("destroy").multiselect();
+                    //jQuery("select.multiselect").multiselect("destroy").multiselect();
                 });
             });
 		var ajaxPmlist = $http.get("/" + LANG_CODE + "/admin/staff/getPmList")
