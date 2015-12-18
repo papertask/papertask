@@ -1,14 +1,12 @@
 <!-- Scripts -->
 <?php
-$this->headScript ()->prependFile ( $this->basePath () . '/js/admin/employer/details.js' )
-					->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
-					->prependFile ( $this->basePath () . '/js/admin/bootstrap-modal.js' )
+$this->headScript ()->prependFile ( $this->basePath () . '/v2/js/admin/employer/details.js' )
+					->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
+					->prependFile ( $this->basePath () . '/v2/js/admin/bootstrap-modal.js' )
 					->prependScript ( "angularApp = angular.module('project', []);" )
-					->prependFile ( $this->basePath () . '/js/plugins/summernote/summernote.min.js' )
-					->prependFile ( $this->basePath () . '/js/plugins/validate/jquery.validate.min.js' )
-					->prependFile ( $this->basePath () . '/js/plugins/steps/jquery.steps.min.js' )
-					->prependFile ( $this->basePath () . '/js/plugins/pace/pace.min.js' )
-					->prependFile ( $this->basePath () . '/js/inspinia.js' );
+					->prependFile ( $this->basePath () . '/v2/js/plugins/summernote/summernote.min.js' )
+					->prependFile ( $this->basePath () . '/v2/js/plugins/validate/jquery.validate.min.js' )
+					->prependFile ( $this->basePath () . '/v2/js/plugins/steps/jquery.steps.min.js' );
 ?>
 <?php
 $this->inlineScript()
@@ -19,7 +17,14 @@ $this->inlineScript()
 		
     ");
 ?>
-					
+
+<style>
+	.top-navigation .nav > li.active {
+	    background: none;
+	    border: none;
+	}
+</style>
+
 <div class="row animated fadeInRight" ng-controller="PapertaskEmployerDetailController" ng-init="init()">
 	<div class="col-md-4">
 		<div class="ibox">
