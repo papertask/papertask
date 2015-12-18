@@ -112,9 +112,9 @@ class ProjectController extends AbstractRestfulJsonController
         $data['targetLanguages'] = $targetLanguages;
 
 
-		if($data['status'] == 2){//set odered
+		//if($data['status'] == 2){//set odered
 			$data['quote_no'] = "QUO-".date("Ymd").mt_rand(0,9).mt_rand(0,9).mt_rand(0,9).mt_rand(0,9);
-		}
+		//}
 		$data['project_no'] = date("Ymd").$this->generateRandomNumber();
 		$project = new Project();
 		if(($data['client'] == null || $data['client'] == '')&&$data['newClient']!=null){
