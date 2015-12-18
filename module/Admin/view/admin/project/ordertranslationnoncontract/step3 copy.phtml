@@ -1,0 +1,63 @@
+<div class="setup-content" id="step-3">
+
+		<form id="formStep3" class="form-horizontal" role="form" novalidate>
+		<div class="col-md-12 well">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="form-group">
+						<label class="col-sm-3 control-label"> Need Fapiao *</label>
+						<div class="col-sm-9">
+							<div data-toggle="buttons" class="form-group">
+								<!-- here IF YES, THEN SHOW TITLE, "NO" = HIDE TITLE, by default "NO"-->
+								<label
+									class="btn btn-outline btn-primary {{Fapiao == project.fapiao ? 'active': ''}}"
+									ng-repeat="Fapiao in Fapiaos"
+									ng-click="chooseFapiao(Fapiao);">
+									<input type="radio" name="{{Fapiao.name}}"
+									value="{{Fapiao.id}}" />
+									{{Fapiao.name}}
+								</label>
+							</div>
+						</div>
+					</div>
+					
+
+					
+					<div class="form-group" ng-show="isFapiao">
+						<label class="col-sm-3 control-label"> Title *</label>
+						<div class="col-sm-9">
+							<input id="tit" type="text" name="title" class="form-control required valid" value=""
+								placeholder="Your Chinese Company Title for Issue FAPIAO" required ng-model="project.fapiaoTitle">
+						</div>
+					</div>	
+					
+					<div class="form-group" ng-show="isFapiao">
+						<label class="col-sm-3 control-label"> Address *</label>
+						<div class="col-sm-9">
+
+							<input type="email"  name='mail' class="form-control required valid" value=""
+								placeholder="Your Mailing Address" required ng-model="project.fapiaoAddress"> 
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		
+
+		<div class="text-center" ng-show="!isGraph">
+			<button id=""  type="button"  class="btn btn-primary btn-lg" onclick="PrevStep3()">Previous</button>
+			<!-- if second step choose NO to translate graphic, then show this button -->
+			<button id='PayAndStartTrans'  type="button" class="btn btn-primary btn-lg" ng-click="PayAndStartTrans()">Pay
+				and Start to Translate</button>
+		</div>
+		<div class="text-center" ng-show="isGraph">
+			<button id="" type="button"  class="btn btn-primary btn-lg" onclick="PrevStep3()">Previous</button>
+			<!-- if second step choose yes to translate graphic, then show this button -->
+			<button id='RequestQuote'  type="button"  class="btn btn-primary btn-lg" ng-click="RequestQuote()">Request
+				a Quote</button>
+		</div>
+		</div>
+		</form>
+
+</div>

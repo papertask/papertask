@@ -1,9 +1,52 @@
 <div class="setup-content" id="step-3">
-	
-
-		<form id="formStep3" class="form-horizontal" role="form" novalidate>
+	<form id="formStep3" class="form-horizontal" role="form" novalidate>
 		<div class="col-md-12 well">
 			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-4 control-label"> <?php echo $this->translate('Style','Admin'); ?> *</label>
+						<div class="col-sm-8">
+			                <select data-placeholder="Choose literary style" class="form-control m-b">
+				                <option value="">Select</option>
+				                <option value="United States">Contract and certificate</option>
+				                <option value="United States">Business documents</option>
+				                <option value="United States">Instructions & manuals</option>
+				                <option value="United States">Reports</option>
+				                <option value="United States">Localization</option>
+				                <option value="United States">Comprehensive documents</option>
+				                <option value="United States">Personal documents</option>
+			                </select>
+						</div>
+					</div>	
+				</div>
+				<div class="col-sm-6">
+					<!-- document field load the project field content, once create the project, save selected field info to project field -->
+					<div class="form-group">
+						<label class="col-sm-4 control-label"> <?php echo $this->translate('Fields','Admin'); ?> *</label>
+						<div class="col-sm-8">
+			                <select data-placeholder="Choose literary style" class="form-control m-b">
+				                <option value="">Select</option>
+				                <option value="United States">Contract and certificate</option>
+				                <option value="United States">Business documents</option>
+				                <option value="United States">Instructions & manuals</option>
+				                <option value="United States">Reports</option>
+				                <option value="United States">Localization</option>
+				                <option value="United States">Comprehensive documents</option>
+				                <option value="United States">Personal documents</option>
+			                </select>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12">
+					<!-- save this information to Project Description -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label"> <?php echo $this->translate('Remarks','Admin'); ?></label>
+						<div class="col-sm-10">
+			                <textarea class="form-control m-b" rows="6"></textarea>
+						</div>
+					</div>
+				</div>
+				<hr />
 				<!-- here need ajax verify to see if the email address is exist, if no show below infor to create a new account -->
 				<div class="col-sm-6">
 					<div class="form-group">
@@ -14,12 +57,12 @@
 						</div>
 					</div>
 				</div>
+				<!--
 				<div class="col-sm-6">
 					<div class="form-group">
 						<label class="col-sm-5 control-label"><?php echo $this->translate('Need Fapiao', 'Application'); ?> *</label>
 						<div class="col-sm-7">
 							<div data-toggle="buttons">
-								<!-- here IF YES, THEN SHOW TITLE, "NO" = HIDE TITLE, by default "NO"-->
 								<label
 									class="btn btn-outline btn-primary btn-custom {{Fapiao == project.fapiao ? 'active': ''}}"
 									ng-repeat="Fapiao in Fapiaos"
@@ -32,9 +75,10 @@
 						</div>
 					</div>
 				</div>
+				-->
 			</div>
+			<!--
 			<div class="row" ng-show="isFapiao">
-				<!-- here need ajax verify to see if the email address is exist, if no show below infor to create a new account -->
 				<div class="col-sm-12">
 					<div class="form-group">
 						<label class="col-sm-2 control-label"> <?php echo $this->translate('Title', 'Application'); ?> *</label>
@@ -54,7 +98,7 @@
 					</div>
 				</div>
 			</div>
-
+			-->
 			<div class="row" ng-hide="haveEmail">
 				<div class="col-sm-6">
 					<div class="form-group">
@@ -117,29 +161,29 @@
 					</div>
 				</div>
 			</div>
-			</div>
-		</form>
-		<hr>
-		<div class="text-center" ng-show="!isGraph">
-			<button id="" type="button" class="btn btn-primary btn-lg"
-				onclick="PrevStep3()"><?php echo $this->translate('Previous', 'Application'); ?></button>
-			<!-- if second step choose NO to translate graphic, then show this button -->
-			<button id='PayAndStartTrans' type="button"
-				class="btn btn-primary btn-lg" ng-click="PayAndStartTrans()"><?php echo $this->translate('Pay and Start to Translate', 'Application'); ?></button>
-			<!--<button id="" type="button" class="btn btn-primary btn-lg"
-				ng-click="showpay()">Oder</button>	-->
 		</div>
-		<div class="text-center" ng-show="isGraph">
-			<button id="" type="button" class="btn btn-primary btn-lg"
-				onclick="PrevStep3()"><?php echo $this->translate('Previous', 'Application'); ?></button>
-			<!-- if second step choose yes to translate graphic, then show this button -->
-			<button id='RequestQuote' type="button"
-				class="btn btn-primary btn-lg" ng-click="RequestQuote()"><?php echo $this->translate('Request a Quote', 'Application'); ?></button>
-			
-		</div>
-	
-
+	</form>
+	<hr>
+	<div class="text-center" ng-show="!isGraph">
+		<button id="" type="button" class="btn btn-primary btn-lg"
+			onclick="PrevStep3()"><?php echo $this->translate('Previous', 'Application'); ?></button>
+		<!-- if second step choose NO to translate graphic, then show this button -->
+		<button id='PayAndStartTrans' type="button"
+			class="btn btn-primary btn-lg" ng-click="PayAndStartTrans()"><?php echo $this->translate('Pay and Start to Translate', 'Application'); ?></button>
+		<!--<button id="" type="button" class="btn btn-primary btn-lg"
+			ng-click="showpay()">Oder</button>	-->
+	</div>
+	<div class="text-center" ng-show="isGraph">
+		<button id="" type="button" class="btn btn-primary btn-lg"
+			onclick="PrevStep3()"><?php echo $this->translate('Previous', 'Application'); ?></button>
+		<!-- if second step choose yes to translate graphic, then show this button -->
+		<button id='RequestQuote' type="button"
+			class="btn btn-primary btn-lg" ng-click="RequestQuote()"><?php echo $this->translate('Request a Quote', 'Application'); ?></button>
+		
+	</div>
 </div>
+
+<br /><br />
 
 <!-- Payment methord -->
     <div id="modal-order-pay" class="modal fade" aria-hidden="true" style="display:none;">
