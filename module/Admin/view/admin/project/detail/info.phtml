@@ -10,7 +10,7 @@
                                 <hr>
                                 <div>
                                     <button class="btn btn-{{ task.status.decorator }} pull-right">{{ project.status.name }}</button>
-                                    <h1 class="product-main-price">{{ project.currency}} {{ project.total_tmp}} </h1>
+                                    <h1 class="product-main-price">{{ project.currency}} {{ project.total_tmp | number:2 }} </h1>
                                 </div>
                                 <hr>
                                 <div class="row">
