@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Target Languages * &nbsp; </label>
                     <div class="col-sm-8">
-                        <select class="form-control required valid tLanguages" name="" multiple="multiple"
+                        <select class="form-control required valid tLanguages" name="" multiple="multiple" data-role="multiselect"
                                 ng-options="language.name for language in languages"
                                 ng-model="project.targetLanguages" ng-multiple="true" ng-change="change_client(project.client)">
                             <option value=""></option>

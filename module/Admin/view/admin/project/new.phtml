@@ -9,7 +9,7 @@
     ->prependStylesheet($this->basePath() . '/v2/css/plugins/chosen/chosen.css')
     ->prependStylesheet($this->basePath() . '/v2/css/plugins/datapicker/datepicker3.css')
     ->prependStylesheet($this->basePath() . '/v2/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css')
-    ->prependStylesheet($this->basePath() . '/v2/css/plugins/select2/select2.min.css')
+    //->prependStylesheet($this->basePath() . '/v2/css/plugins/select2/select2.min.css')
     ->prependStylesheet($this->basePath() . '/v2/css/plugins/footable/footable.core.css')
 ?>
 
@@ -29,7 +29,7 @@
     ->prependFile($this->basePath() . '/v2/js/plugins/multiselect/bootstrap-multiselect.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/validate/jquery.validate.min.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/chosen/chosen.jquery.js')
-    ->prependFile($this->basePath() . '/v2/js/plugins/select2/select2.full.min.js')
+    //->prependFile($this->basePath() . '/v2/js/plugins/select2/select2.full.min.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/footable/footable.all.min.js')
     ->prependFile($this->basePath() . '/v2/js/plugins/steps/jquery.steps.min.js');
 ?>
@@ -58,8 +58,8 @@ $this->inlineScript()
 
         $('.footable').footable();
         $('.summernote').summernote();
-        $(".sLanguage").select2();
-        $(".tLanguages").select2();
+        //$(".sLanguage").select2();
+        //$(".tLanguages").select2();
         $('#ordered_date .input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
