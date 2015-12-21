@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2015-12-11 14:07+0800\n"
+"PO-Revision-Date: 2015-12-21 14:07+0800\n"
 "Last-Translator: Evan Coury <me@evancoury.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: zh_CN\n"
@@ -300,6 +300,30 @@ msgstr "页面将会跳转到支付宝（Alipay）的付款页面，在您成功
 
 msgid "Purchase via Alipay"
 msgstr "通过支付宝（Alipay）付款"
+
+msgid "Upload file(s)"
+msgstr "上传文件（多个文件）"
+
+msgid "Languages and Quality"
+msgstr "选择语言和质量"
+
+msgid "Currency"
+msgstr "选择币种"
+
+msgid "Unit Price"
+msgstr "单价"
+
+msgid "Translate Graphics?"
+msgstr "翻译图片？"
+
+msgid "Style"
+msgstr "稿件文体"
+
+msgid "Field"
+msgstr "稿件领域"
+
+msgid "Remarks"
+msgstr "备注"
 
 #: ../view/application/index/index.phtml:2
 #, php-format

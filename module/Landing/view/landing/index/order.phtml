@@ -2,11 +2,6 @@
 
 <!-- Le styles -->
 <?php $this->headLink()
-//   ->prependStylesheet($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.css')
-//  ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote-bs3.css')
-//   ->prependStylesheet($this->basePath() . '/css/plugins/summernote/summernote.css')
-//  ->prependStylesheet($this->basePath() . '/css/plugins/multiselect/bootstrap-multiselect.css')
-//  ->prependStylesheet($this->basePath() . '/css/plugins/steps/jquery.steps.css')
 ->prependStylesheet($this->basePath() . '/v2/css/plugins/jquery-fileupload/jquery.fileupload.css');
 ?>
 <script
@@ -60,113 +55,50 @@ $this->inlineScript()
 ?>
 
 <style type="text/css">
-.wizard>.content {
-  min-height: 1000px;
+        .wizard > .content {
+            min-height: 1000px;
+        }
+        .note-editor {
+            height: 150px;
+        }
+
+        .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+            color: #fff;
+            background-color: #19aa8d;
+        }
+
+        .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+            background-color: #19aa8d;
+        }
+        .top-navigation .nav > li.active > a {
+          color: #fff;
+        }
+        .nav > li.active {
+            border-left: 4px solid #19aa8d;
+            background: #19aa8d;
+        }
+    .tabs-container .nav-tabs > li.active > a, .tabs-container .nav-tabs > li.active > a:hover, .tabs-container .nav-tabs > li.active > a:focus {
+          color: #555555;
+    }
+    .top-navigation .nav > li.active {
+        background: none;
+        border: none;
+    }
+
+    .select2-container .select2-selection--single {
+        height: 38px;
+            font-size: 16px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 32px;
+    }
+
+.landing-page .btn-primary {
+    background-color: #fff;
+    border-color: #1ab394;
+    color: #1ab394;
 }
 
-.note-editor {
-  height: 150px;
-}
-
-.nav-pills>li.active>a,.nav-pills>li.active>a:hover,.nav-pills>li.active>a:focus
-  {
-  background-color: #19aa8d;
-}
-
-.nav>li.active {
-}
-
-.form-group label.btn-outline {
-  margin-right: 0.3em;
-}
-
-.main-content {
-  padding: 50px 0 0;
-}
-
-.btn-primary {
-  background-color: #1ab394;
-  border-color: #1ab394;
-  color: #ffffff;
-}
-
-.btn-primary:hover {
-  background-color: #158E76;
-  border-color: #158E76;
-  color: #ffffff;
-}
-
-.btn-primary.active {
-  background-color: #1ab394;
-  border-color: #1ab394;
-  color: #ffffff;
-}
-
-.btn-custom {
-  background-color: #F5F5F5;
-  border-color: #1ab394;
-  color: #1ab394;
-}
-
-.btn-custom.active>i.fa {
-  color: #1ab394 !important;
-}
-
-.progress-bar {
-  background-color: #1ab394;
-}
-
-.label-primary {
-  background-color: #1ab394;
-}
-
-.open>.dropdown-toggle.btn-primary {
-  background-color: #1ab394;
-  border-color: #1ab394;
-  color: #fff;
-}
-.banner {
-    background-color: #1ab394;
-    color: #fff;
-    text-align: center;
-    padding: 50px 0 0;
-}
-.features {
-    padding: 50px 0;
-    border-bottom: 1px solid #f3f3f3;
-  background-color: #f3f3f3;
-}
-.thumbnail.setup-panel{
-display: block;
-    padding: 4px;
-    margin-bottom: 20px;
-    line-height: 1.42857;
-    background-color: #f3f3f3;
-    border: 1px solid #dddddd;
-    border-radius: 2px;
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
-}
-h4{
-font-weight: 600;
-}
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-    color: #555555;
-    background-color: #f3f3f3;
-    border: 1px solid #dddddd;
-    border-bottom-color: transparent;
-    cursor: default;
-}
-.nav-tabs > li > a {
-    margin-right: 2px;
-    line-height: 1.42857;
-    border: 1px solid transparent;
-    border-radius: 2px 2px 0 0;
-}
-tbody {
-    background-color: #f9f9f9;
-}
 </style>
 
 <nav class="navbar navbar-default navbar-fixed-top navbar-scroll" style="padding: 0px 0;" role="navigation">
@@ -201,47 +133,49 @@ tbody {
     </div>
 </nav>
 
-<div class="gray-bg" ng-controller="OrderNoSignin">
+
+
+<div class="animate fadeInUp gray-bg" ng-controller="OrderNoSignin">
 <br /><br /><br /><br /><br />
+    <div class="row">
+	    <div class="col-md-12">
+	        <div class="col-lg-8">
+	          <div class=" form-group">
+	            <div class="col-md-12">
+	                <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+	                    <li class="active">
+	                      <a href="#step-1">
+	                        <h1 class="list-group-item-heading"><?php echo $this->translate('Step 1','Application'); ?></h1>
+	                        <p class="list-group-item-text" style="font-size: 18px;"><?php echo $this->translate('Upload file(s)','Application'); ?></p>
+	                      </a>
+	                    </li>
+	                    <li class="disabled">
+	                      <a href="#step-2">
+	                        <h1 class="list-group-item-heading"><?php echo $this->translate('Step 2','Application'); ?></h1>
+	                        <p class="list-group-item-text" style="font-size: 18px;"><?php echo $this->translate('Languages and Quality','Application'); ?></p>
+	                      </a>
+	                    </li>
+	                    <li class="disabled">
+	                      <a href="#step-3">
+	                        <h1 class="list-group-item-heading"><?php echo $this->translate('Step 3','Application'); ?></h1>
+	                        <p class="list-group-item-text" style="font-size: 18px;"><?php echo $this->translate('Confirm Your Information','Application'); ?></p>
+	                      </a>
+	                    </li>
+	                </ul>
+	            </div>
+	          </div> 
+	            <?php include "order/step1.phtml"?>
+	            <?php include "order/step2.phtml"?>
+	            <?php include "order/step3.phtml"?>
 
-
-
-
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8">
-            <div class=" form-group">
-              <div class="col-md-12">
-                <ul class="nav nav-pills nav-justified thumbnail setup-panel">
-                  <li class="active"><a href="#step-1">
-                      <h2 class="list-group-item-heading"><?php echo $this->translate('Step 1', 'Application'); ?></h2>
-                      <p class="list-group-item-text"><?php echo $this->translate('Upload the file(s)', 'Application'); ?></p>
-                  </a></li>
-                  <li class="disabled"><a href="#step-2">
-                      <h2 class="list-group-item-heading"><?php echo $this->translate('Step 2', 'Application'); ?></h2>
-                      <p class="list-group-item-text"><?php echo $this->translate('Select Languages and Quality', 'Application'); ?></p>
-                  </a></li>
-                  <li class="disabled"><a href="#step-3">
-                      <h2 class="list-group-item-heading"><?php echo $this->translate('Step 3', 'Application'); ?></h2>
-                      <p class="list-group-item-text"><?php echo $this->translate('Confirm Your Information', 'Application'); ?></p>
-                  </a></li>
-                </ul>
-              </div>
-            </div>
-
-
-            <?php include "order/step1.phtml"?>
-            <?php include "order/step2.phtml"?>
-            <?php include "order/step3.phtml"?>
-
-          
-        </div>
-        <?php include "order/orderinfo.phtml"?>
-      </div>
-
+	        </div>
+	        <div class="col-lg-4">
+	          <?php include "order/orderinfo.phtml"?>
+	        </div>
+	    </div>
     </div>
-    
 
+    <br /><br />
     <div class="row m-b-lg text-center">
 
             <p><strong>&copy; 2015 <a href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>">PaperTask.com</a> <?php echo $this->translate('All rights reserved.', 'Application'); ?></strong> &nbsp;&nbsp;&nbsp; <a href="<?php echo $this->url('terms',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Terms of Use', 'Application'); ?></a>
@@ -268,7 +202,7 @@ tbody {
                 </div>
             </p>
     </div>
-  
+
 </div>
 
 <script>

@@ -1,189 +1,193 @@
-<div class="setup-content" id="step-3">
-	<form id="formStep3" class="form-horizontal" role="form" novalidate>
-		<div class="col-md-12 well">
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"> <?php echo $this->translate('Style','Admin'); ?> *</label>
-						<div class="col-sm-8">
-			                <select data-placeholder="Choose literary style" class="form-control m-b">
-				                <option value="">Select</option>
-				                <option value="United States">Contract and certificate</option>
-				                <option value="United States">Business documents</option>
-				                <option value="United States">Instructions & manuals</option>
-				                <option value="United States">Reports</option>
-				                <option value="United States">Localization</option>
-				                <option value="United States">Comprehensive documents</option>
-				                <option value="United States">Personal documents</option>
-			                </select>
+<div class=" setup-content" id="step-3">
+	<div class="col-lg-12">
+		<div class="ibox-content">
+			<form id="formStep3" class="form-horizontal" role="form" novalidate>
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="col-sm-4 control-label" style="font-size: 14px;"> <?php echo $this->translate('Style','Application'); ?> *</label>
+								<div class="col-sm-8">
+					                <select style="font-size: 14px;" data-placeholder="Choose literary style" class="form-control m-b">
+						                <option value="">Select</option>
+						                <option value="United States">Contract and certificate</option>
+						                <option value="United States">Business documents</option>
+						                <option value="United States">Instructions & manuals</option>
+						                <option value="United States">Reports</option>
+						                <option value="United States">Localization</option>
+						                <option value="United States">Comprehensive documents</option>
+						                <option value="United States">Personal documents</option>
+					                </select>
+								</div>
+							</div>	
 						</div>
-					</div>	
-				</div>
-				<div class="col-sm-6">
-					<!-- document field load the project field content, once create the project, save selected field info to project field -->
-					<div class="form-group">
-						<label class="col-sm-4 control-label"> <?php echo $this->translate('Fields','Admin'); ?> *</label>
-						<div class="col-sm-8">
-			                <select data-placeholder="Choose literary style" class="form-control m-b">
-				                <option value="">Select</option>
-				                <option value="United States">Contract and certificate</option>
-				                <option value="United States">Business documents</option>
-				                <option value="United States">Instructions & manuals</option>
-				                <option value="United States">Reports</option>
-				                <option value="United States">Localization</option>
-				                <option value="United States">Comprehensive documents</option>
-				                <option value="United States">Personal documents</option>
-			                </select>
+						<div class="col-sm-6">
+							<!-- document field load the project field content, once create the project, save selected field info to project field -->
+							<div class="form-group">
+								<label class="col-sm-4 control-label" style="font-size: 14px;"> <?php echo $this->translate('Field','Application'); ?> *</label>
+								<div class="col-sm-8">
+					                <select style="font-size: 14px;" data-placeholder="Choose literary style" class="form-control m-b">
+						                <option value="">Select</option>
+						                <option value="United States">Contract and certificate</option>
+						                <option value="United States">Business documents</option>
+						                <option value="United States">Instructions & manuals</option>
+						                <option value="United States">Reports</option>
+						                <option value="United States">Localization</option>
+						                <option value="United States">Comprehensive documents</option>
+						                <option value="United States">Personal documents</option>
+					                </select>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<!-- save this information to Project Description -->
+							<div class="form-group">
+								<label class="col-sm-2 control-label" style="font-size: 14px;"> <?php echo $this->translate('Remarks','Application'); ?></label>
+								<div class="col-sm-10" style="font-size: 14px;">
+					                <textarea class="form-control m-b" rows="6"></textarea>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<!-- here need ajax verify to see if the email address is exist, if no show below infor to create a new account -->
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="col-sm-4 control-label" style="font-size: 14px;"><?php echo $this->translate('Email', 'Application'); ?> *</label>
+								<div class="col-sm-8">
+									<input style="font-size: 14px;" type="email" id='emailAddress' name="email" class="form-control  required valid" value=""
+										placeholder="<?php echo $this->translate('Email Address', 'Application'); ?>" required ng-model="project.newClient.Email">
+								</div>
+							</div>
+						</div>
+						<!--
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="col-sm-5 control-label"><?php echo $this->translate('Need Fapiao', 'Application'); ?> *</label>
+								<div class="col-sm-7">
+									<div data-toggle="buttons">
+										<label
+											class="btn btn-outline btn-primary btn-custom {{Fapiao == project.fapiao ? 'active': ''}}"
+											ng-repeat="Fapiao in Fapiaos"
+											ng-click="chooseFapiao(Fapiao);">
+											<input type="radio" name="{{Fapiao.name}}"
+											value="{{Fapiao.id}}" />
+											{{Fapiao.name}}
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						-->
+					</div>
+					<!--
+					<div class="row" ng-show="isFapiao">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label class="col-sm-2 control-label"> <?php echo $this->translate('Title', 'Application'); ?> *</label>
+								<div class="col-sm-10">
+									<input id="tit" type="text" name="title" class="form-control required valid" value=""
+										placeholder="<?php echo $this->translate('Your Chinese Company Title for Issue FAPIAO', 'Application'); ?>" required ng-model="project.fapiaoTitle">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="form-group">
+								<label class="col-sm-2 control-label"> <?php echo $this->translate('Address', 'Application'); ?> *</label>
+								<div class="col-sm-10">
+									<input id="add" type="text" class="form-control required valid" value=""
+										placeholder="<?php echo $this->translate('Your Mailing Address', 'Application'); ?>" required ng-model="project.fapiaoAddress">
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-sm-12">
-					<!-- save this information to Project Description -->
-					<div class="form-group">
-						<label class="col-sm-2 control-label"> <?php echo $this->translate('Remarks','Admin'); ?></label>
-						<div class="col-sm-10">
-			                <textarea class="form-control m-b" rows="6"></textarea>
+					-->
+					<div class="row" ng-hide="haveEmail">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="col-sm-4 control-label" style="font-size: 14px;"><?php echo $this->translate('Last Name', 'Application'); ?> *</label>
+								<div class="col-sm-8">
+									<input style="font-size: 14px;" id="lastname" name='lastname' type="text" class="form-control required valid" value=""
+										placeholder="<?php echo $this->translate('Last Name', 'Application'); ?>" required ng-model="project.newClient.LastName">
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<hr />
-				<!-- here need ajax verify to see if the email address is exist, if no show below infor to create a new account -->
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><?php echo $this->translate('Email', 'Application'); ?> *</label>
-						<div class="col-sm-8">
-							<input type="email" id='emailAddress' name="email" class="form-control  required valid" value=""
-								placeholder="<?php echo $this->translate('Email Address', 'Application'); ?>" required ng-model="project.newClient.Email">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label style="font-size: 14px;" for="inputPassword" class="col-sm-4 control-label"><?php echo $this->translate('First Name', 'Application'); ?> *</label>
+								<div class="col-sm-8">
+									<input style="font-size: 14px;" id="firstname" name='firstname' type="text" class="form-control required valid" value=""
+										placeholder="<?php echo $this->translate('First Name', 'Application'); ?>" required ng-model="project.newClient.FirstName">
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<!--
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label class="col-sm-5 control-label"><?php echo $this->translate('Need Fapiao', 'Application'); ?> *</label>
-						<div class="col-sm-7">
-							<div data-toggle="buttons">
-								<label
-									class="btn btn-outline btn-primary btn-custom {{Fapiao == project.fapiao ? 'active': ''}}"
-									ng-repeat="Fapiao in Fapiaos"
-									ng-click="chooseFapiao(Fapiao);">
-									<input type="radio" name="{{Fapiao.name}}"
-									value="{{Fapiao.id}}" />
-									{{Fapiao.name}}
-								</label>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="col-sm-4 control-label" style="font-size: 14px;"><?php echo $this->translate('Password', 'Application'); ?> *</label>
+								<div class="col-sm-8">
+									<input style="font-size: 14px;" id="pass" type="password" name='password' class="form-control required valid" value=""
+										placeholder="<?php echo $this->translate('Type Your Password', 'Application'); ?>" required ng-model="project.newClient.Pass">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="col-sm-4 control-label" style="font-size: 14px;"><?php echo $this->translate('Cellphone', 'Application'); ?> *</label>
+								<div class="col-sm-8">
+									<input style="font-size: 14px;" id="cellphone" name='cellphone' type="text" class="form-control required valid" value=""
+										placeholder="<?php echo $this->translate('Your Cellphone/Landline', 'Application'); ?>" required ng-model="project.newClient.CellPhone">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-4 control-label" style="font-size: 14px;"><?php echo $this->translate('Company', 'Application'); ?></label>
+								<div class="col-sm-8">
+									<input style="font-size: 14px;" id="company" name='company' type="text" class="form-control  required valid" value=""
+										placeholder="<?php echo $this->translate('Your Company Full Name', 'Application'); ?>" required ng-model="project.newClient.CompanyName">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<label for="inputPassword" class="col-sm-4 control-label" style="font-size: 14px;"><?php echo $this->translate('Country', 'Application'); ?></label>
+								<div class="col-sm-8">
+									<select style="font-size: 14px;" class="form-control required valid" name="country"
+										aria-required="true"
+										ng-options="country.name for country in countries"
+										ng-model="project.newClient.Country"
+										required
+										ng-change="">
+										<option value=""></option>
+									</select>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				-->
+			</form>
+			
+			<br />
+			<div class="text-center" ng-show="!isGraph">
+				<button id="" type="button" class="btn btn-primary btn-lg"
+					onclick="PrevStep3()" style="font-size: 18px;"><?php echo $this->translate('Previous', 'Application'); ?></button>
+				<!-- if second step choose NO to translate graphic, then show this button -->
+				<button id='PayAndStartTrans' type="button"
+					class="btn btn-primary btn-lg" ng-click="PayAndStartTrans()" style="font-size: 18px;"><?php echo $this->translate('Pay and Start to Translate', 'Application'); ?></button>
+				<!--<button id="" type="button" class="btn btn-primary btn-lg"
+					ng-click="showpay()">Oder</button>	-->
 			</div>
-			<!--
-			<div class="row" ng-show="isFapiao">
-				<div class="col-sm-12">
-					<div class="form-group">
-						<label class="col-sm-2 control-label"> <?php echo $this->translate('Title', 'Application'); ?> *</label>
-						<div class="col-sm-10">
-							<input id="tit" type="text" name="title" class="form-control required valid" value=""
-								placeholder="<?php echo $this->translate('Your Chinese Company Title for Issue FAPIAO', 'Application'); ?>" required ng-model="project.fapiaoTitle">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-12">
-					<div class="form-group">
-						<label class="col-sm-2 control-label"> <?php echo $this->translate('Address', 'Application'); ?> *</label>
-						<div class="col-sm-10">
-							<input id="add" type="text" class="form-control required valid" value=""
-								placeholder="<?php echo $this->translate('Your Mailing Address', 'Application'); ?>" required ng-model="project.fapiaoAddress">
-						</div>
-					</div>
-				</div>
-			</div>
-			-->
-			<div class="row" ng-hide="haveEmail">
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><?php echo $this->translate('Last Name', 'Application'); ?> *</label>
-						<div class="col-sm-8">
-							<input id="lastname" name='lastname' type="text" class="form-control required valid" value=""
-								placeholder="<?php echo $this->translate('Last Name', 'Application'); ?>" required ng-model="project.newClient.LastName">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label for="inputPassword" class="col-sm-4 control-label"><?php echo $this->translate('First Name', 'Application'); ?> *</label>
-						<div class="col-sm-8">
-							<input id="firstname" name='firstname' type="text" class="form-control required valid" value=""
-								placeholder="<?php echo $this->translate('First Name', 'Application'); ?>" required ng-model="project.newClient.FirstName">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><?php echo $this->translate('Password', 'Application'); ?> *</label>
-						<div class="col-sm-8">
-							<input id="pass" type="password" name='password' class="form-control required valid" value=""
-								placeholder="<?php echo $this->translate('Type Your Password', 'Application'); ?>" required ng-model="project.newClient.Pass">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label class="col-sm-4 control-label"><?php echo $this->translate('Cellphone', 'Application'); ?> *</label>
-						<div class="col-sm-8">
-							<input id="cellphone" name='cellphone' type="text" class="form-control required valid" value=""
-								placeholder="<?php echo $this->translate('Your Cellphone/Landline', 'Application'); ?>" required ng-model="project.newClient.CellPhone">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label for="inputPassword" class="col-sm-4 control-label"><?php echo $this->translate('Company', 'Application'); ?></label>
-						<div class="col-sm-8">
-							<input id="company" name='company' type="text" class="form-control  required valid" value=""
-								placeholder="<?php echo $this->translate('Your Company Full Name', 'Application'); ?>" required ng-model="project.newClient.CompanyName">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label for="inputPassword" class="col-sm-4 control-label"><?php echo $this->translate('Country', 'Application'); ?></label>
-						<div class="col-sm-8">
-							<select class="form-control required valid" name="country"
-								aria-required="true"
-								ng-options="country.name for country in countries"
-								ng-model="project.newClient.Country"
-								required
-								ng-change="">
-								<option value=""></option>
-							</select>
-						</div>
-					</div>
-				</div>
+			<div class="text-center" ng-show="isGraph">
+				<button id="" type="button" class="btn btn-primary btn-lg"
+					onclick="PrevStep3()" style="font-size: 18px;"><?php echo $this->translate('Previous', 'Application'); ?></button>
+				<!-- if second step choose yes to translate graphic, then show this button -->
+				<button id='RequestQuote' type="button"
+					class="btn btn-primary btn-lg" ng-click="RequestQuote()" style="font-size: 18px;"><?php echo $this->translate('Request a Quote', 'Application'); ?></button>
 			</div>
 		</div>
-	</form>
-	<hr>
-	<div class="text-center" ng-show="!isGraph">
-		<button id="" type="button" class="btn btn-primary btn-lg"
-			onclick="PrevStep3()"><?php echo $this->translate('Previous', 'Application'); ?></button>
-		<!-- if second step choose NO to translate graphic, then show this button -->
-		<button id='PayAndStartTrans' type="button"
-			class="btn btn-primary btn-lg" ng-click="PayAndStartTrans()"><?php echo $this->translate('Pay and Start to Translate', 'Application'); ?></button>
-		<!--<button id="" type="button" class="btn btn-primary btn-lg"
-			ng-click="showpay()">Oder</button>	-->
-	</div>
-	<div class="text-center" ng-show="isGraph">
-		<button id="" type="button" class="btn btn-primary btn-lg"
-			onclick="PrevStep3()"><?php echo $this->translate('Previous', 'Application'); ?></button>
-		<!-- if second step choose yes to translate graphic, then show this button -->
-		<button id='RequestQuote' type="button"
-			class="btn btn-primary btn-lg" ng-click="RequestQuote()"><?php echo $this->translate('Request a Quote', 'Application'); ?></button>
-		
 	</div>
 </div>
 
-<br /><br />
+<br /><br /><br /><br />
 
 <!-- Payment methord -->
     <div id="modal-order-pay" class="modal fade" aria-hidden="true" style="display:none;">

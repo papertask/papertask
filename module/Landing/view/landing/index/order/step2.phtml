@@ -1,105 +1,199 @@
 <div class="setup-content" id="step-2">
-<form id="formStep2" name='formStep2' action="#" class="wizard-big" validate>	
-	<div class="col-md-12 well">
-		<div class="row">
-			<div class="col-md-3">
-				<h3><?php echo $this->translate('Select Currency', 'Application'); ?></h3>
-				<div data-toggle="buttons">
-					<!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
-					<labels style="margin-right: 5px"  class="btn btn-outline btn-primary btn-custom {{currency == project.currency ? 'active': ''}}"
-					 ng-repeat="currency in currencys" ng-click="chooseCurrency(currency);refreshInfo()"> <input type="radio"
-						 value="{{currency.id}}" name="{{currency.name}}" /> <?php echo $this->translate('{{currency.name}}', 'Application'); ?>
-					</label> 
-				</div>
-			</div>
-			<div class="col-md-6">
-				<h3><?php echo $this->translate('Select Quality Level', 'Application'); ?></h3>
-				<div data-toggle="buttons">
-					<!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
-					<label style="margin-right: 5px" class="btn btn-outline btn-primary btn-custom {{ProjectServiceLevel == project.serviceLevel ? 'active': ''}}" 
-					ng-repeat="ProjectServiceLevel in ProjectServiceLevels" 
-					ng-click="chooseProjectServiceLevel(ProjectServiceLevel);changePServicePrice();">
-						<input type="radio"
-						name="{{ProjectServiceLevel.name}}" value="{{ProjectServiceLevel.id}}"
-						/> <?php echo $this->translate('{{ProjectServiceLevel.name}}', 'Application'); ?> <i 
-						class="fa fa-question-circle"></i>
-					</label>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<h3><?php echo $this->translate('Translate Graphics', 'Application'); ?></h3>
-				<div data-toggle="buttons">
-					<!-- here put it in default NO -->
-					<label style="margin-right: 5px" class="btn btn-outline btn-primary btn-custom {{transGraph == project.transGraph ? 'active': ''}}" 
-					ng-repeat="transGraph in transGraphs" ng-click="choosetransGraph(transGraph)" > 
-					<input type="radio"
-						name="{{transGraph.name}}" value="{{transGraph.id}}" /> <?php echo $this->translate('{{transGraph.name}}', 'Application'); ?>
-					</label>
-				</div>
-			</div>
-		</div>
-
-
-		<hr>
-		<div class="row">
-			<div class="col-md-6">
-				<h3><?php echo $this->translate('Translate From', 'Application'); ?> *</h3>
-				<select id="sourceLanguage" required class="form-control required valid" name="sourceLanguage"
-					aria-required="true"
-					ng-options="language.name for language in sourceLanguages track by language.id"
-					ng-model="project.sourceLanguage"
-					required
-					ng-change="changePServicePrice();removeLangFSML();clearTargetLanguages();">
-					<option value="" ng-disabled="disable" ng-hide="true"><?php echo $this->translate('Select Source Language', 'Application'); ?></option>
-				</select>
-			</div>
-			<div class="col-md-6">
-				<h3><?php echo $this->translate('Translate To', 'Application'); ?> *</h3>
-				<select class="form-control required valid" name="targetLanguage"
-					aria-required="true"
-					ng-options="language.name for language in modifiedTarLangs track by language.id"
-					ng-model="project.targetLanguage"
-					required
-					ng-change="add_targetLanguage();changePServicePrice();">
-					<option value="" ng-hide="hidetargetLang" ><?php echo $this->translate('Add Target Languages', 'Application'); ?></option>
-				</select>
-			</div>
-		</div>
-		<br>
-		<div class="project-list">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th><?php echo $this->translate('Target Languages', 'Application'); ?></th>
-						<th class="text-center"><?php echo $this->translate('Word Count & Unit Price', 'Application'); ?></th>
-						<th></th>
-					</tr>
-				</thead>
+	<form id="formStep2" name='formStep2' action="#" class="wizard-big" validate>	
+		<div class="col-md-12">
+			<!--<div class="ibox-content">
 				
-				<tbody>
-					<tr ng-repeat="item in project.targetLanguages">
-						<td class="project-status"><span class="label label-primary"><?php echo $this->translate('{{item.name}}', 'Application'); ?></span>
-						</td>
-						<td class="project-title text-center"><strong>{{totalwords}} (<?php echo $this->translate('words', 'Application'); ?>)
-								&nbsp;&nbsp;&nbsp;&nbsp; x &nbsp;&nbsp;&nbsp;&nbsp; {{CurrentCurrency}} {{item.price | currency : '' : 2}}
-								&nbsp;&nbsp;&nbsp;&nbsp; = &nbsp;&nbsp;&nbsp;&nbsp; {{CurrentCurrency}} {{item.price*totalwords | currency : '' : 2}}</strong>
-						</td>
-						<td class="project-actions text-right"><a
-							class="btn btn-danger btn-xs" ng-click="removeTargetLang(item)"><i class="fa fa-trash-o"></i>
-								<?php echo $this->translate('Delete', 'Application'); ?> </a></td>
-					</tr>
-					
-				</tbody>
-			</table>
+				<div class="row">
+					<div class="col-md-3">
+						<h3><?php echo $this->translate('Select Currency', 'Application'); ?></h3>
+						<div data-toggle="buttons">
+							<label style="margin-right: 5px"  class="btn btn-outline btn-primary btn-custom {{currency == project.currency ? 'active': ''}}"
+							 ng-repeat="currency in currencys" ng-click="chooseCurrency(currency);refreshInfo()"> <input type="radio"
+								 value="{{currency.id}}" name="{{currency.name}}" /> <?php echo $this->translate('{{currency.name}}', 'Application'); ?>
+							</label> 
+						</div>
+					</div>
+					<div class="col-md-6">
+						<h3><?php echo $this->translate('Select Quality Level', 'Application'); ?></h3>
+						<div data-toggle="buttons">
+							<label style="margin-right: 5px" class="btn btn-outline btn-primary btn-custom {{ProjectServiceLevel == project.serviceLevel ? 'active': ''}}" 
+							ng-repeat="ProjectServiceLevel in ProjectServiceLevels" 
+							ng-click="chooseProjectServiceLevel(ProjectServiceLevel);changePServicePrice();">
+								<input type="radio"
+								name="{{ProjectServiceLevel.name}}" value="{{ProjectServiceLevel.id}}"
+								/> <?php echo $this->translate('{{ProjectServiceLevel.name}}', 'Application'); ?> <i 
+								class="fa fa-question-circle"></i>
+							</label>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<h3><?php echo $this->translate('Translate Graphics', 'Application'); ?></h3>
+						<div data-toggle="buttons">
+							<label style="margin-right: 5px" class="btn btn-outline btn-primary btn-custom {{transGraph == project.transGraph ? 'active': ''}}" 
+							ng-repeat="transGraph in transGraphs" ng-click="choosetransGraph(transGraph)" > 
+							<input type="radio"
+								name="{{transGraph.name}}" value="{{transGraph.id}}" /> <?php echo $this->translate('{{transGraph.name}}', 'Application'); ?>
+							</label>
+						</div>
+					</div>
+				</div>
+				
+
+				<hr>
+				<div class="row">
+					<div class="col-md-6">
+						<h3><?php echo $this->translate('Translate From', 'Application'); ?> *</h3>
+						<select id="sourceLanguage" required class="form-control required valid" name="sourceLanguage"
+							aria-required="true"
+							ng-options="language.name for language in sourceLanguages track by language.id"
+							ng-model="project.sourceLanguage"
+							required
+							ng-change="changePServicePrice();removeLangFSML();clearTargetLanguages();">
+							<option value="" ng-disabled="disable" ng-hide="true"><?php echo $this->translate('Select Source Language', 'Application'); ?></option>
+						</select>
+					</div>
+					<div class="col-md-6">
+						<h3><?php echo $this->translate('Translate To', 'Application'); ?> *</h3>
+						<select class="form-control required valid" name="targetLanguage"
+							aria-required="true"
+							ng-options="language.name for language in modifiedTarLangs track by language.id"
+							ng-model="project.targetLanguage"
+							required
+							ng-change="add_targetLanguage();changePServicePrice();">
+							<option value="" ng-hide="hidetargetLang" ><?php echo $this->translate('Add Target Languages', 'Application'); ?></option>
+						</select>
+					</div>
+				</div>
+				<br>
+				<div class="project-list">
+					<table class="table table-hover">
+						
+						<tbody>
+							<tr ng-repeat="item in project.targetLanguages">
+								<td class="project-status"><span class="label label-primary" style="font-size: 15px;"><?php echo $this->translate('{{item.name}}', 'Application'); ?></span>
+								</td>
+								<td class="project-title text-center" style="font-size: 15px;"><strong>{{totalwords}} (<?php echo $this->translate('words', 'Application'); ?>)
+										&nbsp;&nbsp;&nbsp;&nbsp; x &nbsp;&nbsp;&nbsp;&nbsp; {{CurrentCurrency}} {{item.price | currency : '' : 2}}
+										&nbsp;&nbsp;&nbsp;&nbsp; = &nbsp;&nbsp;&nbsp;&nbsp; {{CurrentCurrency}} {{item.price*totalwords | currency : '' : 2}}</strong>
+								</td>
+								<td class="project-actions text-right"><a
+									class="btn btn-danger btn-xs" ng-click="removeTargetLang(item)" style="font-size: 15px;"><i class="fa fa-trash-o"></i>
+										<?php echo $this->translate('Delete', 'Application'); ?> </a></td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="text-center">
+					<button id="" type="button" class="btn btn-primary btn-lg"
+						onclick="PrevStep2()" style="font-size: 18px;"><?php echo $this->translate('Previous', 'Application'); ?></button>
+					<button id="" type="button" class="btn btn-primary btn-lg"
+						ng-click="checkValidStep2()" style="font-size: 18px;"><?php echo $this->translate('Next', 'Application'); ?></button>
+				</div>
+			</div>-->
+			<div class="ibox-content">
+				<div class="row">
+					<div class="col-md-5">	
+						<h4 style="font-size: 16px;"><?php echo $this->translate('Translate From','Application'); ?> *</h4>				
+						<select id="sourceLanguage" required class="form-control required valid" name="sourceLanguage"
+							aria-required="true"
+							ng-options="language.name for language in sourceLanguages track by language.id"
+							ng-model="project.sourceLanguage"
+							required
+							ng-change="changePServicePrice();removeLangFSML();clearTargetLanguages();">
+							<option value="" ng-disabled="disable" ng-hide="true">Select Source Language</option>
+						</select>
+					</div>
+					<div class="col-md-5">
+						<h4 style="font-size: 16px;"><?php echo $this->translate('Translate To','Application'); ?> *</h4>
+						<select class="form-control required valid" name="targetLanguage"
+						aria-required="true"
+						ng-options="language.name for language in modifiedTarLangs track by language.id"
+						ng-model="project.targetLanguage"
+						required
+						ng-change="add_targetLanguage();changePServicePrice();">
+						<option value="" ng-hide="hidetargetLang" >Add Target Languages</option>
+						</select>
+					</div>
+					<div class="col-md-2">
+						<h4 style="font-size: 16px;"><?php echo $this->translate('Currency','Application'); ?> *</h4>
+						<div data-toggle="buttons" class="form-group">
+							<!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
+							<select class="form-control required valid" name="currency"
+								aria-required="true"
+								ng-options="currency.name for currency in currencys"
+								 ng-model="project.currency"
+								required
+								ng-change="chooseCurrency(currency);refreshInfo();">
+								<option value="" ng-hide="true" >Please Select Currency</option>
+						   </select>  
+						</div>
+					</div>
+				</div>
+			</div>
+			<br />
+
+	        <div class="ibox-content">
+                <div class="project-list">
+
+                    <table class="footable table table-hover toggle-arrow-tiny">
+                        <thead>
+                        <tr style="font-size: 16px;">
+                        	<th data-hide="phone,tablet"></th>
+                            <th ><?php echo $this->translate('Target Languages','Application'); ?></th>
+                            <th data-hide="phone,tablet"><?php echo $this->translate('Quality Level','Application'); ?></th>
+                            <th data-hide="phone,tablet"><?php echo $this->translate('Unit Price','Application'); ?></th>
+                            <th data-hide="phone,tablet"><?php echo $this->translate('Translate Graphics?','Application'); ?></th>
+                            <th class="text-right"></th>
+                        </tr>
+                        </thead>                                
+                        <tbody>
+                            <tr ng-repeat="item in project.targetLanguages">
+                                <td class="project-status">
+                                    <span class="label label-warning pull-left">{{$index + 1}}</span>
+                                </td>
+                                <td class="project-status">
+                                    <span style="font-size: 14px;" class="label label-info">{{item.name}}</span>
+                                </td>
+								<td class="project-title tooltip-demo">
+									<select required class="form-control valid" name="servicelevel"
+										aria-required="false"
+										ng-options="servicelevel.name for servicelevel in ProjectServiceLevels"
+										ng-model="project.serviceLevel"	
+										ng-change="chooseProjectServiceLevel();changePServicePrice();">
+										<option value="" ng-hide="true">Select Quality level</option>
+									</select>
+								</td>
+                                <td class="project-title">
+                                    <strong class="text-danger" style="font-size: 16px;">{{CurrentCurrency}} {{item.price | currency : '' : 2}} / <?php echo $this->translate('Word','Application'); ?></strong>
+                                </td>
+                                <td class="project-title tooltip-demo">
+									<select class="form-control required valid " name="transGraph"
+										aria-required="true"
+										ng-options="transGraph.name for transGraph in transGraphs"
+										ng-model="project.transGraph"
+										ng-change="choosetransGraph();">	
+									</select>
+                                </td>
+
+                                <td class="project-actions text-right child-is-link">
+                                	<button ng-click="removeTargetLang(item)" class="btn btn-white btn-xs"> <i class="fa fa-trash-o text-danger"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+				<div class="text-center">
+					<button id="" type="button"  class="btn btn-primary btn-lg" onclick="PrevStep2()" style="font-size: 18px;"><?php echo $this->translate('Previous','Application'); ?></button>
+					<button id=""  type="button"  class="btn btn-primary btn-lg" ng-click="checkValidStep2()" style="font-size: 18px;"><?php echo $this->translate('Next','Application'); ?></button>
+				</div>
+
+	        </div>
+
+
 		</div>
-		<hr>
-		<div class="text-center">
-			<button id="" type="button" class="btn btn-primary btn-lg"
-				onclick="PrevStep2()"><?php echo $this->translate('Previous', 'Application'); ?></button>
-			<button id="" type="button" class="btn btn-primary btn-lg"
-				ng-click="checkValidStep2()"><?php echo $this->translate('Next', 'Application'); ?></button>
-		</div>
-	</div>
-</form>
+	</form>
 </div>
 
