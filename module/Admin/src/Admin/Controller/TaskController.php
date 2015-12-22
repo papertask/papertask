@@ -114,7 +114,7 @@ class TaskController extends AbstractActionController
     	$freelancerList = $entityManager->getRepository('User\Entity\Task');
     	$queryBuilder = $freelancerList->createQueryBuilder('task');
     	$queryBuilder->where("task.assignee=?1")->setParameter(1, $freelancerId);
-    	$queryBuilder->andWhere('task.is_deleted = 0');
+    	$queryBuilder->andWhere("task.is_deleted = 0");
     	
     	// Unpaid Task
     	if($params->paystatus !=null && $params->paystatus != ''){

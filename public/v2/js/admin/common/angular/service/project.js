@@ -183,6 +183,43 @@ angularApp.factory("TaskStatus", function(){
     }
 });
 
+angularApp.factory("Style", function(){
+    var values = [{
+        'id': 1,
+        'name': 'Contract and certificate',
+    },{
+        'id': 2,
+        'name': 'Business documents',
+    },{
+        'id': 3,
+        'name': 'Instructions & manuals',
+    },{
+        'id': 4,
+        'name': 'Reports',
+    },{
+        'id': 5,
+        'name': 'Localization',
+    },{
+        'id': 6,
+        'name': 'Comprehensive documents',
+    },{
+        'id': 7,
+        'name': 'Personal documents',
+    }];
+
+    return {
+        get: function ($id) {
+            for (var i = 0; i < values.length; i++) {
+                if (values[i].id == $id) {
+                    return values[i];
+                }
+            }
+        },
+        all: function () {
+            return values;
+        }
+    }
+});
 angularApp.factory("ResourceType", function(){
     var values = [{
         'id': 1,

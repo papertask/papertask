@@ -169,6 +169,12 @@ class Project extends Entity{
      */
     protected $types;
 	
+	/**
+     * @var int
+     * @ORM\Column(type="array", length=255)
+     */
+    //protected $style = 0;
+	
     /**
      * @var int
      * @ORM\Column(type="integer")

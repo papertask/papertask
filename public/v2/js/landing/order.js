@@ -1,6 +1,6 @@
 angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sce, Currency, 
 		TableItemListService, ProjectServiceLevel, TransGraphs, 
-		ProjectStatus, ProjectPriority, Fapiao,  ProjectType, CurrentcyRate){
+		ProjectStatus, ProjectPriority, Fapiao,  ProjectType, CurrentcyRate, Style){
 	$scope.files = [];
 	$scope.wordsperitem = 0;
 	$scope.price = 0;
