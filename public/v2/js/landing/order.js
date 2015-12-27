@@ -30,8 +30,8 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 		//console.log(that);
 		
         $.each($scope.translation, function(){
-				console.log(this);
-				console.log(that.val());
+				//console.log(this);
+				//console.log(that.val());
             if(this.sourceLanguage == that.val()){
                 $scope.modifiedTarLangs.push($scope.languages[this.targetLanguage - 1]);
             }
@@ -43,8 +43,8 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
          .success(function($data){
 				
              jQuery.extend(true, $scope, $data);  // copy data to scope
-				console.log($scope.fields);
-				console.log($scope.style);
+				//console.log($scope.fields);
+				//console.log($scope.style);
              $scope.project.targetLanguages = [];
              $timeout(function(){
                  //jQuery("select.multiselect").multiselect("destroy").multiselect();
@@ -54,17 +54,27 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 				$scope.translation = $data['translation'];
 				
 				$.each($scope.translation, function(){
-					if($scope.sourceLanguages.indexOf(this.sourceLanguage.toString()) == -1){
+					
+					if(arrayObjectIndexOf($scope.sourceLanguages,this.sourceLanguage) == -1){
 						$scope.sourceLanguages.push($scope.languages[this.sourceLanguage - 1]);
 					}
 				});
+				console.log("$scope.translation");
 				console.log($scope.translation);
 			 console.log($scope.sourceLanguages);
 			 console.log($scope.languages);
 			 });
 			 
          });
-		 
+		 function arrayObjectIndexOf(arr, id){
+			for(var i = 0; i < arr.length; i++){
+				if(arr[i].id == id){
+					return i;
+				}
+			};
+			return -1;
+		}
+		
 		 $http.get("/api/common/country/")
          .success(function($data){
         	 jQuery.extend(true, $scope, $data);  // copy data to scope
