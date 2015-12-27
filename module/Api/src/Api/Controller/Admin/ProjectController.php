@@ -70,6 +70,17 @@ class ProjectController extends AbstractRestfulJsonController
         if(isset($data['status'])){
             $data['status'] = $data['status']['id'];
         }
+		if(isset($data['currency']) && isset($data['currency']['id'])){
+            $data['currency'] = $data['currency']['id'];
+        }
+		if(isset($data['transGraph']) && isset($data['transGraph']['id']) ){
+            $data['transGraph'] = $data['transGraph']['id'];
+        }
+		if(isset($data['serviceLevel']) && isset($data['serviceLevel']['id'])){
+            $data['serviceLevel'] = $data['serviceLevel']['id'];
+        }
+		
+		
         if(isset($data['priority'])){
             $data['priority'] = $data['priority']['id'];
         }
@@ -82,6 +93,7 @@ class ProjectController extends AbstractRestfulJsonController
         if(isset($data['createType'])) {
         	$data['createType'] = $data['createType'];
         }
+		
         if(isset($data['types'])){
             $arr = [];
             foreach($data['types'] as $type){

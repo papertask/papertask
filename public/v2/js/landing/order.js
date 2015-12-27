@@ -112,17 +112,17 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
          $('ul.setup-panel li a[href="#step-2"]').trigger('click');
          
          // Default transGraphs => No
-         $scope.transGraphs = TransGraphs.all();
+         $scope.transGraphs = TransGraphs.all(LANG_CODE);
 		 $scope.project.transGraph = $scope.transGraphs[0]; 
-		 if($scope.project.transGraph.name == 'no') 
+		 if($scope.project.transGraph.id == 0) 
 			 $scope.isGraph = false;
 		 else
 			 $scope.isGraph = true;
 	 }
 	 
-	 $scope.choosetransGraph = function(transGraph){
-		 $scope.project.transGraph = transGraph;
-		 if($scope.project.transGraph.name == 'no') 
+	 $scope.choosetransGraph = function(){
+		 //$scope.project.transGraph = transGraph;
+		 if($scope.project.transGraph.id == 0) 
 			 $scope.isGraph = false;
 		 else
 			 $scope.isGraph = true;
@@ -130,12 +130,12 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 
 	 $scope.curentStep = 1;
 	 
-	 $scope.currencys = Currency.all();
+	 $scope.currencys = Currency.all(LANG_CODE);
 	 
-	 $scope.ProjectServiceLevels = ProjectServiceLevel.all();
+	 $scope.ProjectServiceLevels = ProjectServiceLevel.all(LANG_CODE);
 	 
 	 // Default Currency => USA
-	 $scope.project.currency = Currency.get(1);	
+	 $scope.project.currency = Currency.get(1,LANG_CODE);	
 	 $scope.CurrentCurrency = $scope.project.currency.name;
 		 
 	 
@@ -151,14 +151,15 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 		 	 
 	 }
 	 
-	 $scope.chooseCurrency = function(currency){
-		 $scope.project.currency = currency;
-		 if($scope.project.currency.name == "CNY"){
+	 $scope.chooseCurrency = function(){
+		 //$scope.project.currency = currency;
+		 //console.log(currency);
+		 if($scope.project.currency.id == 1){
 			 $scope.changeRate = $scope.currencyrate;
-		 } else if ($scope.project.currency.name == "USD") {
+		 } else if($scope.project.currency.id == 2) {
 			 $scope.changeRate = 1/$scope.currencyrate;
 		 }
-		 $scope.CurrentCurrency = $scope.project.currency.name;
+		 $scope.CurrentCurrency =  Currency.get($scope.project.currency.id,LANG_CODE).name;	 
 		 $scope.changePrice($scope.changeRate);
 		 $scope.refreshwithoutWordCount();
 		 
@@ -171,7 +172,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 }
 	 
 	 $scope.chooseProjectServiceLevel = function(ProjectServiceLevel){
-		 $scope.project.serviceLevel = ProjectServiceLevel;
+		 //$scope.project.serviceLevel = ProjectServiceLevel;
 		 
 	 }
 	 $scope.chooseFapiao = function(Fapiao){
@@ -458,9 +459,9 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 									tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : Number($scope.translation[k].premiumPrice)});
 								}
 								isFind = true;
-								if($scope.project.currency.name == "CNY"){
+								if($scope.project.currency.id == 2){
 									//price = price/$scope.currencyrate;			 
-								 } else if ($scope.project.currency.name == "USD") {	
+								 } else if ($scope.project.currency.id == 1) {	
 									price = price/$scope.currencyrate;	
 								 }
 								break;
@@ -475,9 +476,9 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 						else 
 							price = 0;
 						
-						if($scope.project.currency.name == "CNY"){
+						if($scope.project.currency.id == 2){
 							price = $scope.currencyrate*price;			 
-						 } else if ($scope.project.currency.name == "USD") {					 
+						 } else if ($scope.project.currency.id == 1) {					 
 						 }
 						
 						tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : '1.10'});

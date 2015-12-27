@@ -90,6 +90,16 @@ angularApp.factory("TransGraphs", function(){
         'name': 'yes',
         'decorator': 'Translate Graphic'
     }];
+	
+	var statuses_cn = [{
+        'id': 0,
+        'name': '没有',
+        'decorator': 'No Translate Graphic'
+    },{
+        'id': 1,
+        'name': '是',
+        'decorator': 'Translate Graphic'
+    }];
 
     return {
         get: function ($id) {
@@ -99,8 +109,11 @@ angularApp.factory("TransGraphs", function(){
                 }
             }
         },
-        all: function () {
-            return statuses;
+        all: function (lang) {
+			if(lang == 'zh-CN')
+				return statuses_cn;
+			else 	
+				return statuses;
         }
     }
 });
@@ -515,16 +528,29 @@ angularApp.factory("Currency", function(){
         'id': 2,
         'name': 'CNY'
     }];
+	var statuses_cn = [{
+        'id': 1,
+        'name': '美元'
+    },{
+        'id': 2,
+        'name': '中国新年'
+    }];
     return {
-        get: function ($id) {
+        get: function ($id,lang) {
             for (var i = 0; i < statuses.length; i++) {
                 if (statuses[i].id == $id) {
-                    return statuses[i];
+					if(lang == 'zh-CN')
+						return statuses_cn[i];
+					else 	
+						return statuses[i];
                 }
             }
         },
-        all: function () {
-            return statuses;
+        all: function (lang) {
+			if(lang == 'zh-CN')
+				return statuses_cn;
+			else 	
+				return statuses;
         }
     }
 });
@@ -555,6 +581,31 @@ angularApp.factory("ProjectServiceLevel", function(){
             CNY: 30.00
         }
     }];
+	var levels_cn = [{
+        decorator: 'success',
+        id: 1,
+        name: '专业',
+        price: {
+            USD: 1.00,
+            CNY: 10.00
+        }
+    },{
+        decorator: 'info',
+        id: 2,
+        name: '商业',
+        price: {
+            USD: 2.00,
+            CNY: 20.00
+        }
+    }, {
+        decorator: 'primary',
+        id: 3,
+        name: '保费',
+        price: {
+            USD: 3.00,
+            CNY: 30.00
+        }
+    }];
     return {
         get: function($id){
             for(var i = 0; i < levels.length; i++){
@@ -563,8 +614,11 @@ angularApp.factory("ProjectServiceLevel", function(){
                 }
             }
         },
-        all: function(){
-            return levels;
+        all: function (lang) {
+			if(lang == 'zh-CN')
+				return levels_cn;
+			else 	
+				return levels;
         }
     }
 });

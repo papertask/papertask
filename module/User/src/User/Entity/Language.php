@@ -25,12 +25,16 @@ class Language{
 
     /** @ORM\Column(type="string") */
     protected $name;
+	
+	/** @ORM\Column(type="string") */
+    protected $name_cn;
 
     public function getData(){
         return array(
             'id' => $this->id,
             'code' => $this->code,
             'name' => $this->name,
+			'name_cn' => $this->name_cn,
         );
     }
 
