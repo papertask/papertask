@@ -14,7 +14,7 @@ use Common\Entity;
 
 
 /** @ORM\Entity */
-class Field extends  Entity{
+class Style extends  Entity{
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")

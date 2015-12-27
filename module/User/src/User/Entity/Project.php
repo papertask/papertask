@@ -105,6 +105,12 @@ class Project extends Entity{
      * @ORM\ManyToOne(targetEntity="Field")
      */
     protected $field;
+	
+	/**
+     * @var \User\Entity\Style
+     * @ORM\ManyToOne(targetEntity="Style")
+     */
+    protected $style;
 
     /**
      * @var \User\Entity\User
@@ -169,11 +175,6 @@ class Project extends Entity{
      */
     protected $types;
 	
-	/**
-     * @var int
-     * @ORM\Column(type="array", length=255)
-     */
-    //protected $style = 0;
 	
     /**
      * @var int

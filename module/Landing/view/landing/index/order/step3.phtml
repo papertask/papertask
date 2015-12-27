@@ -8,7 +8,29 @@
 							<div class="form-group">
 								<label class="col-sm-4 control-label" style="font-size: 14px;"> <?php echo $this->translate('Style','Application'); ?> *</label>
 								<div class="col-sm-8">
-					                <select style="font-size: 14px;" data-placeholder="Choose literary style" class="form-control m-b">
+									<?php if($this->lang_code == 'en-US') {?>
+									<select id="style" required class="form-control required valid" name="style"
+										aria-required="true"
+										ng-options="style_item.name for style_item in style track by style_item.id"
+										ng-model="project.style"
+										required
+										>
+										<option value="" ng-disabled="disable" ng-hide="true">Select Style</option>
+									</select>
+									<?php } else {?>
+									<select id="style" required class="form-control required valid" name="style"
+										aria-required="true"
+										ng-options="style_item.name_cn for style_item in style track by style_item.id"
+										ng-model="project.style"
+										required
+										>
+										<option value="" ng-disabled="disable" ng-hide="true">选择风格</option>
+									</select>
+									<?php }?>
+									
+									
+									
+					                <!--<select style="font-size: 14px;" data-placeholder="Choose literary style" class="form-control m-b">
 						                <option value="">Select</option>
 						                <option value="United States">Contract and certificate</option>
 						                <option value="United States">Business documents</option>
@@ -17,7 +39,7 @@
 						                <option value="United States">Localization</option>
 						                <option value="United States">Comprehensive documents</option>
 						                <option value="United States">Personal documents</option>
-					                </select>
+					                </select>-->
 								</div>
 							</div>	
 						</div>
@@ -26,16 +48,25 @@
 							<div class="form-group">
 								<label class="col-sm-4 control-label" style="font-size: 14px;"> <?php echo $this->translate('Field','Application'); ?> *</label>
 								<div class="col-sm-8">
-					                <select style="font-size: 14px;" data-placeholder="Choose literary style" class="form-control m-b">
-						                <option value="">Select</option>
-						                <option value="United States">Contract and certificate</option>
-						                <option value="United States">Business documents</option>
-						                <option value="United States">Instructions & manuals</option>
-						                <option value="United States">Reports</option>
-						                <option value="United States">Localization</option>
-						                <option value="United States">Comprehensive documents</option>
-						                <option value="United States">Personal documents</option>
-					                </select>
+					                <?php if($this->lang_code == 'en-US') {?>
+									<select id="field" required class="form-control required valid" name="field"
+										aria-required="true"
+										ng-options="field_item.name for field_item in fields track by field_item.id"
+										ng-model="project.field"
+										required
+										>
+										<option value="" ng-disabled="disable" ng-hide="true">Select Style</option>
+									</select>
+									<?php } else {?>
+									<select id="field" required class="form-control required valid" name="field"
+										aria-required="true"
+										ng-options="field_item.name_cn for field_item in fields track by field_item.id"
+										ng-model="project.field"
+										required
+										>
+										<option value="" ng-disabled="disable" ng-hide="true">选择字段</option>
+									</select>
+									<?php }?>
 								</div>
 							</div>
 						</div>
@@ -44,7 +75,7 @@
 							<div class="form-group">
 								<label class="col-sm-2 control-label" style="font-size: 14px;"> <?php echo $this->translate('Remarks','Application'); ?></label>
 								<div class="col-sm-10" style="font-size: 14px;">
-					                <textarea class="form-control m-b" rows="6"></textarea>
+					                <textarea class="form-control m-b" rows="6" ng-model="project.description"></textarea>
 								</div>
 							</div>
 						</div>

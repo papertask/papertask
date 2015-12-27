@@ -39,6 +39,9 @@ class ProjectController extends AbstractRestfulJsonController
         if(isset($data['field'])){
             $data['field'] = $this->getReference('User\Entity\Field', $data['field']['id']);
         }
+		if(isset($data['style'])){
+            $data['style'] = $this->getReference('User\Entity\Style', $data['style']['id']);
+        }
         if(isset($data['sale'])){
             $data['sale'] = $this->getReference('User\Entity\Staff', $data['sale']['id']);
         }

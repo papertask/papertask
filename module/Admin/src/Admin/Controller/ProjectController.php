@@ -234,7 +234,7 @@ class ProjectController extends AbstractActionController
 
             $entityManager = $this->getEntityManager();
             $file = $entityManager->getRepository('\User\Entity\File')->findOneBy(
-    array('token' => $token));
+			array('token' => $token));
 
             $downloadPath = $file->getPath();
             //var_dump($downloadPath);

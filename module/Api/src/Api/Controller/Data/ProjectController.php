@@ -30,6 +30,7 @@ class ProjectController extends AbstractRestfulController
 		//var_dump($data['clients']);
 		//$data['clients']['name'] = $data['clients']['firstName'] + ' ' + $data['clients']['lastName'];
         $data['fields'] = $this->getAllData('\User\Entity\Field');
+		$data['style'] = $this->getAllData('\User\Entity\Style');
         //$data['pms'] = $this->getAllDataBy('\User\Entity\Staff', ['type' => Staff::STAFF_TYPE_PM]);
         //$data['sales'] = $this->getAllDataBy('\User\Entity\Staff', ['type' => Staff::STAFF_TYPE_SALE]);
         $data = array_merge($data, $projectTypes);

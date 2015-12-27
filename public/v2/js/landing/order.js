@@ -1,6 +1,6 @@
 angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sce, Currency, 
 		TableItemListService, ProjectServiceLevel, TransGraphs, 
-		ProjectStatus, ProjectPriority, Fapiao,  ProjectType, CurrentcyRate, Style){
+		ProjectStatus, ProjectPriority, Fapiao,  ProjectType, CurrentcyRate){
 	$scope.files = [];
 	$scope.wordsperitem = 0;
 	$scope.price = 0;
@@ -43,8 +43,8 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
          .success(function($data){
 				
              jQuery.extend(true, $scope, $data);  // copy data to scope
-         
-
+				console.log($scope.fields);
+				console.log($scope.style);
              $scope.project.targetLanguages = [];
              $timeout(function(){
                  //jQuery("select.multiselect").multiselect("destroy").multiselect();
@@ -143,6 +143,8 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 
 	 //Fapiao
 	 $scope.Fapiaos = Fapiao.all();	
+	 
+	 //$scope.styles = Style.all();	
 	 $scope.project.fapiao = Fapiao.get(0);
 	 
 	 $scope.checkCurr = function(){
