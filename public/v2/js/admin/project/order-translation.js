@@ -29,7 +29,10 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			});
 		
     });
-	
+	$scope.chooseProjectServiceLevel = function(ProjectServiceLevel){
+		 //$scope.project.serviceLevel = ProjectServiceLevel;
+		 
+	 }
 	 $scope.init = function(){		 
 		 $http.get("/api/data/project/")
          .success(function($data){
@@ -132,45 +135,52 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 			TableItemListService.translationPrices = new Array(); 
 			var tempTrans = [];
 			for(j=0; j<$scope.project.targetLanguages.length; j++){
-				var isFind = false;
-				var price = null;
-				for(i=0; i<$scope.employer.translationPrices.length; i++) {
-					if($scope.project.sourceLanguage.id == $scope.employer.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.employer.translationPrices[i].targetLanguage.id){
-						isFind = true; 
+					var isFind = false;
+					var price = null;
+					
+						//get default papertask
+						for(k=0;k<$scope.translation.length;k++){
+							if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage){
+								if($scope.project.serviceLevel.id==1) {
+									
+									price = Number($scope.translation[k].professionalPrice);
+									tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : Number($scope.translation[k].professionalPrice)});
+								}	
+								else if($scope.project.serviceLevel.id==2) {
+									price = Number($scope.translation[k].businessPrice);
+									tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : Number($scope.translation[k].businessPrice)});
+								}
+								else {
+									price = Number($scope.translation[k].premiumPrice);
+									tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : Number($scope.translation[k].premiumPrice)});
+								}
+								isFind = true;
+								if($scope.project.currency.id == 2){
+									//price = price/$scope.currencyrate;			 
+								 } else if ($scope.project.currency.id == 1) {	
+									price = price/$scope.currencyrate;	
+								 }
+								break;
+							}						
+						}
+					
+					
+					if(isFind == false){
 						
-						price = ($scope.currency == 'cny')?Number($scope.employer.translationPrices[i].price):format2n(Number($scope.interpretingPPrices[k].pricePerDay)/$scope.CurrentcyRate);
-						tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : price });
-						//return;
+						if($scope.project.serviceLevel != null )
+							price = $scope.project.serviceLevel.price.USD;
+						else 
+							price = 0;
+						
+						if($scope.project.currency.id == 2){
+							price = $scope.currencyrate*price;			 
+						 } else if ($scope.project.currency.id == 1) {					 
+						 }
+						
+						tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : '1.10'});
 					}
-				}
-				if(isFind == false){
-					//get default papertask
-					for(k=0;k<$scope.translation.length;k++){
-						if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage && $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage){
-							if($scope.project.serviceLevel.id==1) {
-								
-								price = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):format2n(Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate);
-								tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : price});
-							}	
-							else if($scope.project.serviceLevel.id==2) {
-								price = ($scope.currency == 'cny')?Number($scope.translation[k].businessPrice):format2n(Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate);
-								tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : price});
-							}
-							else {
-								price = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);
-								tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : price});
-							}
-							isFind = true;
-						}						
-					}
-				}
-				
-				if(isFind == false){
-					price = '1.10';
-					tempTrans.push({ 'langId' : $scope.project.targetLanguages[j].id , 'price' : '1.10'});
-				}
-				$scope.project.targetLanguages[j].price = price;
-			} 
+					$scope.project.targetLanguages[j].price = price;
+				} 
 			TableItemListService.translationPrices = tempTrans;
 		}		 
 	 }

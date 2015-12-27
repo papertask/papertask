@@ -64,12 +64,12 @@
 										aria-required="false"
 										ng-options="servicelevel.name for servicelevel in ProjectServiceLevel"
 										ng-model="project.serviceLevel"							
-										ng-change="changePServicePrice();">
+										ng-change="chooseProjectServiceLevel();changePServicePrice();">
 										<option value="" ng-hide="true">Select Quality level</option>
 									</select>
                                 </td>
                                 <td class="project-title tooltip-demo">
-									<select class="form-control required valid " name="transGraph"
+									<select ng-init="transGraph.name = 'no'" class="form-control required valid " name="transGraph"
 										aria-required="true"
 										ng-options="transGraph.name for transGraph in transGraphs"
 										ng-model="project.transGraph"
