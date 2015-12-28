@@ -93,7 +93,7 @@ angularApp.factory("TransGraphs", function(){
 	
 	var statuses_cn = [{
         'id': 0,
-        'name': '没有',
+        'name': '否',
         'decorator': 'No Translate Graphic'
     },{
         'id': 1,
@@ -533,7 +533,7 @@ angularApp.factory("Currency", function(){
         'name': '美元'
     },{
         'id': 2,
-        'name': '中国新年'
+        'name': '人民币'
     }];
     return {
         get: function ($id,lang) {
@@ -584,7 +584,7 @@ angularApp.factory("ProjectServiceLevel", function(){
 	var levels_cn = [{
         decorator: 'success',
         id: 1,
-        name: '专业',
+        name: '专业级',
         price: {
             USD: 1.00,
             CNY: 10.00
@@ -592,7 +592,7 @@ angularApp.factory("ProjectServiceLevel", function(){
     },{
         decorator: 'info',
         id: 2,
-        name: '商业',
+        name: '商务级',
         price: {
             USD: 2.00,
             CNY: 20.00
@@ -600,7 +600,7 @@ angularApp.factory("ProjectServiceLevel", function(){
     }, {
         decorator: 'primary',
         id: 3,
-        name: '保费',
+        name: '旗舰级',
         price: {
             USD: 3.00,
             CNY: 30.00
