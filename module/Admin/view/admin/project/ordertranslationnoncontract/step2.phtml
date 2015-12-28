@@ -4,38 +4,59 @@
 			<div class="ibox-content">
 				<div class="row">
 					<div class="col-md-5">	
-						<h4><?php echo $this->translate('Translate From','Admin'); ?> *</h4>				
+						<h4 style="font-size: 16px;"><?php echo $this->translate('Translate From','Application'); ?> *</h4>	
+						<?php if($this->lang_code == 'en-US') {?>		
 						<select id="sourceLanguage" required class="form-control required valid" name="sourceLanguage"
 							aria-required="true"
 							ng-options="language.name for language in sourceLanguages track by language.id"
 							ng-model="project.sourceLanguage"
 							required
 							ng-change="changePServicePrice();removeLangFSML();clearTargetLanguages();">
-							<option value="" ng-disabled="disable" ng-hide="true">Select Source Language</option>
+							<option value="" ng-disabled="disable" ng-hide="true"><?php echo $this->translate('Select Source Language','Application'); ?></option>
 						</select>
+						<?php } else {?>
+						<select id="sourceLanguage" required class="form-control required valid" name="sourceLanguage"
+							aria-required="true"
+							ng-options="language.name_cn for language in sourceLanguages track by language.id"
+							ng-model="project.sourceLanguage"
+							required
+							ng-change="changePServicePrice();removeLangFSML();clearTargetLanguages();">
+							<option value="" ng-disabled="disable" ng-hide="true"><?php echo $this->translate('Select Source Language','Application'); ?></option>
+						</select>
+						<?php }?>
 					</div>
 					<div class="col-md-5">
-						<h4><?php echo $this->translate('Translate To','Admin'); ?> *</h4>
+						<h4 style="font-size: 16px;"><?php echo $this->translate('Translate To','Application'); ?> *</h4>
+						<?php if($this->lang_code == 'en-US') {?>		
 						<select class="form-control required valid" name="targetLanguage"
 						aria-required="true"
 						ng-options="language.name for language in modifiedTarLangs track by language.id"
 						ng-model="project.targetLanguage"
 						required
 						ng-change="add_targetLanguage();changePServicePrice();">
-						<option value="" ng-hide="hidetargetLang" >Add Target Languages</option>
+						<option value="" ng-hide="hidetargetLang" ><?php echo $this->translate('Add Target Languages','Application'); ?></option>
 						</select>
+						<?php } else {?>
+						<select class="form-control required valid" name="targetLanguage"
+						aria-required="true"
+						ng-options="language.name_cn for language in modifiedTarLangs track by language.id"
+						ng-model="project.targetLanguage"
+						required
+						ng-change="add_targetLanguage();changePServicePrice();">
+						<option value="" ng-hide="hidetargetLang" ><?php echo $this->translate('Add Target Languages','Application'); ?></option>
+						</select>
+						<?php }?>
 					</div>
 					<div class="col-md-2">
-						<h4><?php echo $this->translate('Currency','Admin'); ?> *</h4>
+						<h4 style="font-size: 16px;"><?php echo $this->translate('Currency','Application'); ?> *</h4>
 						<div data-toggle="buttons" class="form-group">
 							<!-- here do a judgement, if page load in chinese, then defaule currency is CNY, otherwise USD -->
-							<select class="form-control required valid" name="currency"
+							<select class="form-control required valid" name="currency" id="currency"
 								aria-required="true"
-								ng-options="currency.name for currency in currencys"
+								ng-options="currency.name for currency in currencys track by currency.id"
 								 ng-model="project.currency"
 								required
-								ng-change="chooseCurrency(currency);refreshInfo();">
-								<option value="" ng-hide="true" >Please Select Currency</option>
+								ng-change="chooseCurrency();refreshInfo();">
 						   </select>  
 						</div>
 					</div>
@@ -63,7 +84,11 @@
                                     <span class="label label-warning pull-left">{{$index + 1}}</span>
                                 </td>
                                 <td class="project-status">
+									<?php if($this->lang_code == 'en-US') {?>		
                                     <span style="font-size: 14px;" class="label label-info">{{item.name}}</span>
+									<?php } else {?>
+									<span style="font-size: 14px;" class="label label-info">{{item.name_cn}}</span>
+									<?php }?>
                                 </td>
 								<td class="project-title tooltip-demo">
 									<select required class="form-control valid" name="servicelevel"
@@ -71,11 +96,10 @@
 										ng-options="servicelevel.name for servicelevel in ProjectServiceLevels"
 										ng-model="project.serviceLevel"	
 										ng-change="chooseProjectServiceLevel();changePServicePrice();">
-										<option value="" ng-hide="true">Select Quality level</option>
 									</select>
 								</td>
                                 <td class="project-title">
-                                    <strong class="text-danger" style="font-size: 16px;">{{CurrentCurrency}} {{item.price | currency : '' : 2}} / <?php echo $this->translate('Word','Admin'); ?></strong>
+                                    <strong class="text-danger" style="font-size: 16px;">{{CurrentCurrency}} {{item.price | currency : '' : 2}} / <?php echo $this->translate('Word','Application'); ?></strong>
                                 </td>
                                 <td class="project-title tooltip-demo">
 									<select class="form-control required valid " name="transGraph"

@@ -14,7 +14,7 @@
 										ng-model="project.style"
 										required
 										>
-										<option value="" ng-disabled="disable" ng-hide="true">Select Style</option>
+										<option value="" ng-disabled="disable" ng-hide="true">Select Translation Style</option>
 									</select>
 									<?php } else {?>
 									<select id="style" required class="form-control required valid" name="style"
@@ -23,14 +23,14 @@
 										ng-model="project.style"
 										required
 										>
-										<option value="" ng-disabled="disable" ng-hide="true">选择风格</option>
+										<option value="" ng-disabled="disable" ng-hide="true">选择翻译风格</option>
 									</select>
 									<?php }?>
 							</div>
 						</div>	
 						<!-- document field load the project field content -->
 						<div class="form-group">
-							<label class="col-sm-3 control-label"> <?php echo $this->translate('Document fields','Admin'); ?> *</label>
+							<label class="col-sm-3 control-label"> <?php echo $this->translate('Document field','Admin'); ?> *</label>
 							<div class="col-sm-6">
 				                <?php if($this->lang_code == 'en-US') {?>
 									<select id="field" required class="form-control required valid" name="field"
@@ -39,7 +39,7 @@
 										ng-model="project.field"
 										required
 										>
-										<option value="" ng-disabled="disable" ng-hide="true">Select Style</option>
+										<option value="" ng-disabled="disable" ng-hide="true">Select Document Field</option>
 									</select>
 									<?php } else {?>
 									<select id="field" required class="form-control required valid" name="field"
@@ -48,7 +48,7 @@
 										ng-model="project.field"
 										required
 										>
-										<option value="" ng-disabled="disable" ng-hide="true">选择字段</option>
+										<option value="" ng-disabled="disable" ng-hide="true">选择文件领域</option>
 									</select>
 									<?php }?>
 							</div>

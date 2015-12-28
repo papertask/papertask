@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonAdmin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-05 22:17-0700\n"
-"PO-Revision-Date: 2015-12-28 13:42+0800\n"
+"PO-Revision-Date: 2015-12-28 14:26+0800\n"
 "Last-Translator: Evan Coury <me@evancoury.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -401,6 +401,18 @@ msgstr "质量级别"
 msgid "Translate Graphics?"
 msgstr "翻译图片？"
 
+msgid "Literary Style"
+msgstr "翻译风格？"
+
+msgid "Document field"
+msgstr "文件领域"
+
+msgid "Pay and Start to Translate"
+msgstr "付款并开始翻译"
+
+msgid "Request a Quote"
+msgstr "需要翻译报价"
+
 msgid "Turn Around Time"
 msgstr "提交时间"
 
@@ -734,11 +746,20 @@ msgstr "第一步"
 msgid "Step 2"
 msgstr "第二步"
 
+msgid "Step 3"
+msgstr "第三步"
+
+msgid "Confirm Your Information"
+msgstr "确认您的信息"
+
 msgid "Languages and Quality"
 msgstr "选择语言和质量"
 
 msgid "We accept the following files, under"
 msgstr "我们支持下列格式，文件应小于 "
+
+msgid "Currency"
+msgstr "币种"
 
 msgid "size:"
 msgstr "："

@@ -1,52 +1,57 @@
 
-					<div class="ibox float-e-margins">
-						<div class="ibox-title">
-							<h5>
-								<i class="fa fa-files-o"></i> Order Information
-							</h5>
-						</div>
-						<div class="ibox-content">
-							<br>
-							<table class="table">
-								<thead>
-									<tr>
-										<th>{{totalitems}} iterms</th>
-										<!-- before iterms, put the number of files uploaded -->
-										<th class="text-right">{{totalwords}} words</th>
-									</tr>
-									<tr>
-										<th>Languages</th>
-										<th class="text-right">{{numberLangs}}</th>
-										<!-- target languages number -->
-									</tr>
-									<tr>
-										<th>Quality Level</th>
-										<th class="text-right" ng-show="totalitems > 0"><span class="label label-primary">{{project.serviceLevel.name}}</span>
-											{{CurrentCurrency}} {{price | currency : '' : 2}}/Word</th>
-									</tr>
-								</thead>
-							</table>
-							<br> <br>
-							<table class="table">
-								<thead>
-									<tr>
-										<th>Iterms Total</th>
-										<th class="text-right" ng-show="totalitems > 0">{{CurrentCurrency}} {{ItermsTotal | currency : '' : 2}}</th>
-									</tr>
-									<tr ng-show="1==0">
-										<th>Tax</th>
-										<th class="text-right">{{CurrentCurrency}} {{tax | currency : '' : 2}}</th>
-									</tr>
-									<tr style="font-size: 22px;">
-										<th>Total</th>
-										<th class="text-right" ng-show="totalitems > 0">{{CurrentCurrency}} {{total | currency : '' : 2}}</th>
-									</tr>
-								</thead>
-							</table>
-							<br>
-							<p>
-								Estimated delivery <strong>{{hours | currency : '' : 0}} hours.</strong>
-							</p>
-							<!-- this hour based on the word count of the files, algorithm is estimate time = total word count / 2000 = number of hours, if the result is 1.2, then show 2, if 1.7, show 2 also-->
-						</div>
-					</div>
+          <div class="ibox">
+            <div class="ibox-title">
+              <h2>
+                <i class="fa fa-files-o"></i> <?php echo $this->translate('Order Information', 'Application'); ?>
+              </h2>
+            </div>
+            <div class="ibox-content">
+              <br>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="font-size: 14px;">{{totalitems}} <?php echo $this->translate('items', 'Application'); ?></th>
+                    <!-- before iterms, put the number of files uploaded -->
+                    <th class="text-right" style="font-size: 14px;">{{totalwords}} <?php echo $this->translate('words', 'Application'); ?></th>
+                  </tr>
+                  <tr>
+                    <th style="font-size: 14px;"><?php echo $this->translate('Languages', 'Application'); ?></th>
+                    <th style="font-size: 14px;" class="text-right">{{numberLangs}}</th>
+                    <!-- target languages number -->
+                  </tr>
+                  <tr>
+                    <th style="font-size: 14px;"><?php echo $this->translate('Quality Level', 'Application'); ?></th>
+                    <th style="font-size: 14px;" class="text-right" ng-show="totalitems > 0"><span class="label label-primary"><?php echo $this->translate('{{project.serviceLevel.name}}', 'Application'); ?></span>
+                      {{CurrentCurrency}} {{price | currency : '' : 2}}/<?php echo $this->translate('Word', 'Application'); ?></th>
+                  </tr>
+                </thead>
+              </table>
+              <br> <br>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="font-size: 14px;"><?php echo $this->translate('Items Total', 'Application'); ?></th>
+                    <th class="text-right" ng-show="totalitems > 0" style="font-size: 14px;">{{CurrentCurrency}} {{ItermsTotal | currency : '' : 2}}</th>
+                  </tr>
+                  <tr ng-show="1==0">
+                    <th>Tax</th>
+                    <th class="text-right">{{CurrentCurrency}} {{tax | currency : '' : 2}}</th>
+                  </tr>
+                  <tr style="font-size: 22px;">
+                    <th><?php echo $this->translate('Total', 'Application'); ?></th>
+                    <th class="text-right" ng-show="totalitems > 0">{{CurrentCurrency}} {{ItermsTotal | currency : '' : 2}}</th>
+                    <!--
+                    <th class="text-right" ng-show="totalitems > 0">{{CurrentCurrency}} {{total | currency : '' : 2}}</th>
+                    -->
+                  </tr>
+                </thead>
+              </table>
+              <br>
+              <!--
+              <p>
+                Estimated delivery <strong>{{hours | currency : '' : 0}} hours.</strong>
+              </p>
+              -->
+              <!-- this hour based on the word count of the files, algorithm is estimate time = total word count / 2000 = number of hours, if the result is 1.2, then show 2, if 1.7, show 2 also-->
+            </div>
+          </div>
