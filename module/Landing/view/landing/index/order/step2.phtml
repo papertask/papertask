@@ -103,7 +103,7 @@
 							ng-model="project.sourceLanguage"
 							required
 							ng-change="changePServicePrice();removeLangFSML();clearTargetLanguages();">
-							<option value="" ng-disabled="disable" ng-hide="true">Select Source Language</option>
+							<option value="" ng-disabled="disable" ng-hide="true"><?php echo $this->translate('Select Source Language','Application'); ?></option>
 						</select>
 						<?php } else {?>
 						<select id="sourceLanguage" required class="form-control required valid" name="sourceLanguage"
@@ -112,7 +112,7 @@
 							ng-model="project.sourceLanguage"
 							required
 							ng-change="changePServicePrice();removeLangFSML();clearTargetLanguages();">
-							<option value="" ng-disabled="disable" ng-hide="true">Select Source Language</option>
+							<option value="" ng-disabled="disable" ng-hide="true"><?php echo $this->translate('Select Source Language','Application'); ?></option>
 						</select>
 						<?php }?>
 					</div>
@@ -125,7 +125,7 @@
 						ng-model="project.targetLanguage"
 						required
 						ng-change="add_targetLanguage();changePServicePrice();">
-						<option value="" ng-hide="hidetargetLang" >Add Target Languages</option>
+						<option value="" ng-hide="hidetargetLang" ><?php echo $this->translate('Add Target Languages','Application'); ?></option>
 						</select>
 						<?php } else {?>
 						<select class="form-control required valid" name="targetLanguage"
@@ -134,7 +134,7 @@
 						ng-model="project.targetLanguage"
 						required
 						ng-change="add_targetLanguage();changePServicePrice();">
-						<option value="" ng-hide="hidetargetLang" >Add Target Languages</option>
+						<option value="" ng-hide="hidetargetLang" ><?php echo $this->translate('Add Target Languages','Application'); ?></option>
 						</select>
 						<?php }?>
 					</div>
@@ -148,7 +148,6 @@
 								 ng-model="project.currency"
 								required
 								ng-change="chooseCurrency();refreshInfo();">
-								<option value="" ng-hide="true" >Please Select Currency</option>
 						   </select>  
 						</div>
 					</div>
@@ -188,7 +187,6 @@
 										ng-options="servicelevel.name for servicelevel in ProjectServiceLevels"
 										ng-model="project.serviceLevel"	
 										ng-change="chooseProjectServiceLevel();changePServicePrice();">
-										<option value="" ng-hide="true">Select Quality level</option>
 									</select>
 								</td>
                                 <td class="project-title">
