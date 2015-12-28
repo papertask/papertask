@@ -34,7 +34,7 @@
                 </ul>
 
                 <ul class="nav navbar-top-links navbar-right">
-                    <a href="<?php echo $this->url('admin', ['controller' => 'project', 'action' => 'order-translation']) ?>" class="btn btn-primary"><?php echo $this->translate('Order Translation', 'Application'); ?></a>
+                    <a href="<?php echo $this->url('admin',array('controller' => 'project', 'action' => 'order-translation',"lang"=>$this->translate('lang','Application'))) ?>" class="btn btn-primary"><?php echo $this->translate('Order Translation', 'Application'); ?></a>
                     <li class="dropdown ">
                         <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <?php echo $this->userData()['name'] ?> <span class="caret"></span></a>
                         <ul role="menu" class="dropdown-menu">
