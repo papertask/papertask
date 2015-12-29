@@ -607,11 +607,14 @@ angularApp.factory("ProjectServiceLevel", function(){
         }
     }];
     return {
-        get: function($id){
+        get: function($id,lang){
             for(var i = 0; i < levels.length; i++){
-                if(levels[i].id == $id){
-                    return levels[i];
-                }
+				if (levels[i].id == $id) {
+					if(lang == 'zh-CN')
+						return levels_cn[i];
+					else 	
+						return levels[i];
+				}	
             }
         },
         all: function (lang) {

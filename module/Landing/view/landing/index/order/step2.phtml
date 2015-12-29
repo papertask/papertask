@@ -184,13 +184,13 @@
 								<td class="project-title tooltip-demo">
 									<select required class="form-control valid" name="servicelevel"
 										aria-required="false"
-										ng-options="servicelevel.name for servicelevel in ProjectServiceLevels"
+										ng-options="servicelevel.name for servicelevel in ProjectServiceLevels track by servicelevel.id"
 										ng-model="project.serviceLevel"	
 										ng-change="chooseProjectServiceLevel();changePServicePrice();">
 									</select>
 								</td>
                                 <td class="project-title">
-                                    <strong class="text-danger" style="font-size: 16px;">{{CurrentCurrency}} {{item.price | currency : '' : 2}} / <?php echo $this->translate('Word','Application'); ?></strong>
+                                    <strong class="text-danger" style="font-size: 16px;">{{CurrentCurrency}} {{item.price | currency : '' : 3}} / <?php echo $this->translate('Word','Application'); ?></strong>
                                 </td>
                                 <td class="project-title tooltip-demo">
 									<select class="form-control required valid " name="transGraph"

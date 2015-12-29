@@ -142,10 +142,21 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 
 	 $scope.currencys = Currency.all(LANG_CODE);
 	 
+	 $scope.project.serviceLevel = ProjectServiceLevel.get(2,LANG_CODE);
 	 $scope.ProjectServiceLevels = ProjectServiceLevel.all(LANG_CODE);
 	 
+	 
+	 console.log("LANG_CODE");
+	 console.log(LANG_CODE);
+	 console.log($scope.ProjectServiceLevels);
+	 console.log($scope.project.serviceLevel);
 	 // Default Currency => USA
-	 $scope.project.currency = Currency.get(1,LANG_CODE);	
+	 if(LANG_CODE=="en-US"){
+		$scope.project.currency = Currency.get(1,LANG_CODE);	
+	 }
+	 else{
+		$scope.project.currency = Currency.get(2,LANG_CODE);	
+	 }
 	 $scope.CurrentCurrency = $scope.project.currency.name;
 		 
 	 
@@ -371,8 +382,8 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 		  $scope.refreshwithoutWordCount();
 	 }	 
 
-	 $scope.ProjectServiceLevels = ProjectServiceLevel.all(); 
-	 $scope.project.serviceLevel = ProjectServiceLevel.get(1);
+	 //$scope.ProjectServiceLevels = ProjectServiceLevel.all(); 
+	 //$scope.project.serviceLevel = ProjectServiceLevel.get(1);
 	 //$scope.project.client = CurrentUser.info;
 	 
 	 // Get EmployerInfo
@@ -448,6 +459,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 				
 				TableItemListService.translationPrices = new Array(); 
 				var tempTrans = [];
+				if(!$scope.project.serviceLevel) return false;
 				for(j=0; j<$scope.project.targetLanguages.length; j++){
 					var isFind = false;
 					var price = null;
