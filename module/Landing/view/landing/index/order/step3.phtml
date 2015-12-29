@@ -239,7 +239,7 @@
                                   <div class="ibox-content">
 
                                       <div class="panel-group payments-method" id="accordion">
-                                          <div class="panel panel-default" ng-show="CurrentCurrency == 'USD'">
+                                          <div class="panel panel-default" ng-show="CurrentCurrency == 'USD' || CurrentCurrency == '美元'">
                                               <div class="panel-heading">
                                                   <div class="pull-right">
                                                       <i class="fa fa-cc-paypal text-success"></i>
@@ -277,7 +277,7 @@
                                                        </div>
                                               </div>
                                           </div>
-                                          <div class="panel panel-default" ng-show="CurrentCurrency == 'CNY'">
+                                          <div class="panel panel-default" ng-show="CurrentCurrency == 'CNY' || CurrentCurrency == '人民币'">
                                               <div class="panel-heading">
                                                   <div class="pull-right">
                                                       <i class="fa fa-cc-alipay text-success"></i>
