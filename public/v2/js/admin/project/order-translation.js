@@ -54,7 +54,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 				$scope.translation = $data['translation'];
 				if($scope.translation.length>0){
 				$.each($scope.translation, function(){
-					if($scope.sourceLanguages.indexOf(this.sourceLanguage.toString()) == -1){
+					if(arrayObjectIndexOf($scope.sourceLanguages,this.sourceLanguage)  == -1){
 						$scope.sourceLanguages.push($scope.languages[this.sourceLanguage - 1]);
 					}
 				});
@@ -63,7 +63,14 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 				 alert('error');
 			 });
          }); 		 
-		
+		function arrayObjectIndexOf(arr, id){
+			for(var i = 0; i < arr.length; i++){
+				if(arr[i].id == id){
+					return i;
+				}
+			};
+			return -1;
+		}
 		$http.get("/api/papertask/currencyrate").success(function($data){
 			$scope.profileservice = $data['profileservice'];
 			$scope.currencyrate_t = $scope.profileservice[0];
@@ -122,8 +129,9 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		  
 	 }	 
 
-	 $scope.ProjectServiceLevel = ProjectServiceLevel.all(); 
-	 
+	 //$scope.ProjectServiceLevel = ProjectServiceLevel.all(); 
+	 $scope.project.serviceLevel = ProjectServiceLevel.get(2,LANG_CODE);
+	 $scope.ProjectServiceLevels = ProjectServiceLevel.all(LANG_CODE);
 	 
 	 //$scope.USER_ID = $scope.project.client.id;
 	 function format2n(n) {
