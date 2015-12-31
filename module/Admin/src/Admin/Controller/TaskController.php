@@ -46,10 +46,10 @@ class TaskController extends AbstractActionController
 		//ini_set('display_errors', 1);
         $id = $this->params()->fromQuery('id');
 		$lang_code = $this->params()->fromRoute('lang');
-		
+
 		$currentUserId = User::currentLoginId();
     	$currentUser = $this->find('User\Entity\User',$currentUserId);
-        
+
 		if($currentUser->isFreelancer()){
 			//get iterm translation
 			$entityManager = $this->getEntityManager();
@@ -63,25 +63,25 @@ class TaskController extends AbstractActionController
 				//var_dump($project);exit;
 				//$this->_redirect($lang_code.'/admin/dashboard/client-dashboard/');
 				return false;
-			}	
+			}
 		}
 		return new ViewModel([
-		
+
             'id' => $id,
 			"lang_code" => $lang_code,
 			'isStaff' => $currentUser->isStaff(),
         ]);
     }
-    
+
     public function freelancertaskviewAction(){
     	$lang_code = $this->params()->fromRoute('lang');
     	$currentUserId = User::currentLoginId();
-    	$currentUser = $this->find('User\Entity\User',$currentUserId);    	
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);
     	$freelancer = $currentUser->getFreelancer();
 
     	//var_dump($freelancer->getId());exit;
-    	
-    	// Count task	
+
+    	// Count task
     	$entityManager = $this->getEntityManager();
     	$taskList = $entityManager->createQueryBuilder()
     					->select("COUNT(task.id)")
@@ -90,7 +90,7 @@ class TaskController extends AbstractActionController
     					->where("task.assignee=?1")->setParameter(1, 2)
     					->andWhere('task.is_deleted = 0');
     	$taskNum = $taskList->getQuery()->getSingleScalarResult();
-    	
+
 
     	return new ViewModel([
     			'freelancer_id' => $freelancer->getId(),
@@ -98,37 +98,37 @@ class TaskController extends AbstractActionController
     			'taskNum' => $taskNum
     	]);
     }
-    
+
     public function getFreelancerTaskListAction(){
     	$freelancerId = (int)$this->getRequest()->getQuery('freelancer_id');
-    	
+
     	$params = $this->getRequest()->getQuery();
     	foreach($params as $key => $value){
     		if (strpos( $value,'{') !== false) {
     			$params->$key = json_decode($value);
     		}
-    	}   	    	
+    	}
     	//var_dump($params); exit;
-    	
+
     	$entityManager = $this->getEntityManager();
     	$freelancerList = $entityManager->getRepository('User\Entity\Task');
     	$queryBuilder = $freelancerList->createQueryBuilder('task');
     	$queryBuilder->where("task.assignee=?1")->setParameter(1, $freelancerId);
     	$queryBuilder->andWhere("task.is_deleted = 0");
-    	
+
     	// Unpaid Task
     	if($params->paystatus !=null && $params->paystatus != ''){
     		$queryBuilder->andWhere('task.payStatus = :paystatus');
     		$queryBuilder->setParameter('paystatus', $params->paystatus);
-    	
+
     	}
     	//get task base on status
 		if($params->statustask !=null && $params->statustask != ''){
     			$queryBuilder->andWhere('task.status = :status');
     			$queryBuilder->setParameter('status', $params->statustask);
     	}
-		
-		
+
+
     	if($params->bsearch !=null && $params->bsearch != ''){
     		$queryBuilder->andWhere('task.name LIKE :name');
     		$queryBuilder->setParameter('name', "%".$params->bsearch."%");
@@ -139,13 +139,13 @@ class TaskController extends AbstractActionController
     			$queryBuilder->andWhere('task.status = :status');
     			$queryBuilder->setParameter('status', $params->status->id);
     		}
-    		
+
     		if($params->task_id !=null && $params->task_id != ''){
     			$queryBuilder->andWhere('task.task_number = :task_number');
     			$queryBuilder->setParameter('task_number', $params->task_id);
     			//$queryBuilder_tmp->distinct();
     		}
-    		
+
     		if($params->startDate !=null && $params->startDate != ''){
     			$time=strtotime($params->startDate);
     			$time = date("Y-m-d", $time);
@@ -155,7 +155,7 @@ class TaskController extends AbstractActionController
     			->setParameter(6, $begin)
     			->setParameter(7, $end);
     		}
-    			
+
     		if($params->dueDate !=null && $params->dueDate != ''){
     			$time=strtotime($params->dueDate);
     			$time = date("Y-m-d", $time);
@@ -165,22 +165,22 @@ class TaskController extends AbstractActionController
     			->setParameter(8, $begin)
     			->setParameter(9, $end);
     		}
-    		
+
     		if($params->dueMonth !=null && $params->dueMonth != ''){
     			$time=strtotime($params->dueMonth);
     			//$time = date("Y-m-d", $time);
     			$begin = date("Y-m-d", $time)." 00:00:00";
     			$end = date("Y-m-t", $time)." 23:59:59";
-    			
-    			
-    	
+
+
+
     			//var_dump($begin); var_dump($end); exit;
-    			
+
     			$queryBuilder->andWhere('task.dueDate BETWEEN :begin AND :end')
     			->setParameter('begin', $begin)
-    			->setParameter('end', $end);    		
+    			->setParameter('end', $end);
     		}
-    		
+
     		if(($params->reference !=null && $params->reference != '')) {
     			$entityManagerP = $this->getEntityManager();
     			$ProjectList = $entityManagerP->getRepository('User\Entity\Project');
@@ -198,46 +198,46 @@ class TaskController extends AbstractActionController
     			//var_dump($statement); exit;
     		}
     	}
-    	
-    	
-    	
-    	
+
+
+
+
     	$query = $queryBuilder->getQuery();
     	//$result = $query->getArrayResult();
     	//var_dump($result); exit;
-    	
+
     	$adapter = new DoctrineAdapter(new ORMPaginator($query));
     	$paginator = new Paginator($adapter);
     	$paginator->setDefaultItemCountPerPage(10);
-    	
+
     	$page = (int)$this->getRequest()->getQuery('page');
     	if($page) $paginator->setCurrentPageNumber($page);
     	$data = array();
 
-    	foreach($paginator as $task){  
+    	foreach($paginator as $task){
     		$task_data = $task->getData();
     		$project = $this->find('User\Entity\Project',$task_data['project']);
     		$task_data['project'] = $project->getData();
-    		$data[] = $task_data; 			
+    		$data[] = $task_data;
     	}
-    	
+
     	return new JsonModel(array(
     			'tasks' => $data,
     			'pages' => $paginator->getPages()
     	));
     }
-    
+
     public function getFreelancerAssigningTaskListAction(){
     	$freelancerId = (int)$this->getRequest()->getQuery('freelancer_id');
-    	
-    	
+
+
     	$entityManager = $this->getEntityManager();
-    	
+
     	$freelancer = $entityManager->getRepository('User\Entity\User')->findOneBy(array('freelancer'=>$freelancerId));
     	//var_dump($freelancer); exit;
-    	
+
     	$taskEntity = $entityManager->getRepository('User\Entity\Task');
-    	
+
     	$tasks =  $taskEntity->findBy(array('status'=>6,'is_deleted'=>0));
     	$taskArr = array();
     	foreach ($tasks as $task){
@@ -249,22 +249,28 @@ class TaskController extends AbstractActionController
     			$data['project'] = $project->getData();
     			$taskArr[]=$data;
     		//}
-    		//var_dump($client->getFreelancerPool()); 
+    		//var_dump($client->getFreelancerPool());
     	}
-    	
+
     	return new JsonModel(array(
     			'tasks' => $taskArr
     	));
-    	
+
     }
-    
+
     public function FreelancerAcceptTaskAction(){
 		error_reporting(E_ALL);
 		ini_set('display_errors', 1);
 		$currentUserId = User::currentLoginId();
     	$currentUser = $this->find('User\Entity\User',$currentUserId);
+      //var_dump($currentUserId);
+      //var_dump($currentUser);
+//exit;
     	$freelancer = $currentUser->getFreelancer();
-    	$freelancer_id = $freelancer->getId();
+      if($freelancer)
+    	   $freelancer_id = $freelancer->getId();
+      else
+         $freelancer_id = $this->getRequest()->getQuery('assignee');
 		//get task accept
 		$entityManager = $this->getEntityManager();
 		$freelancerList = $entityManager->getRepository('User\Entity\Task');
@@ -274,13 +280,13 @@ class TaskController extends AbstractActionController
     	$queryBuilder->andWhere('task.is_deleted = 0');
 		$query = $queryBuilder->getQuery();
 		$result = $query->getArrayResult();
-	
+
 		if(count($result) > 0){
 			return new JsonModel(array(
     			'status' => "have ongoing task",
 			));
 		}
-			
+
     	else{
 			$taskId = (int)$this->getRequest()->getQuery('id');
 			$currentTask = $this->find('User\Entity\Task',$taskId);
@@ -289,16 +295,16 @@ class TaskController extends AbstractActionController
 					'status' => 2,
 					'assignee' => $freelancer,
 					]);
-			
+
 			$entityManager->persist($currentTask);
 			$entityManager->flush();
-			
+
 			$project = $currentTask->getProject();
 			$project->setData([
 					'status' => 3,
 					]);
 			$project->save($entityManager);
-			
+
 
 			return new JsonModel(array(
     			'status' => "ok",
@@ -309,18 +315,18 @@ class TaskController extends AbstractActionController
 				//'task' => $currentTask->getData();
 			));
     }
-    
+
     public function submitTaskAction(){
     	$currentUserId = User::currentLoginId();
     	$currentUser = $this->find('User\Entity\User',$currentUserId);
     	$freelancer = $currentUser->getFreelancer();
-    	
+
     	// only Freelancer Can submit
     	if($freelancer){
     		$taskId = (int)$this->getRequest()->getQuery('id');
     		$currentTask = $this->find('User\Entity\Task',$taskId);
     		$currentTask->setStatus(7);
-    		
+
     		$entityManager = $this->getEntityManager();
     		$entityManager->persist($currentTask);
     		$entityManager->flush();
@@ -331,23 +337,23 @@ class TaskController extends AbstractActionController
     		$project->save($entityManager);
     		return new JsonModel(array(
     				'status' => "ok",
-    				//'task' => 
+    				//'task' =>
     		));
     	}
-    	
+
     	return new JsonModel(array(
     			'status' => "error",
     			//'task' =>
     	));
-    	
+
     }
-    
+
     public function FreelancerAcceptPoolingTaskAction(){
     	$currentUserId = User::currentLoginId();
     	$currentUser = $this->find('User\Entity\User',$currentUserId);
     	$freelancer = $currentUser->getFreelancer();
     	$freelancer_id = $freelancer->getId();
-    	
+
     	$taskId = (int)$this->getRequest()->getQuery('id');
     	$currentTask = $this->find('User\Entity\Task',$taskId);
     	$currentTask->setStatus(2);
@@ -357,17 +363,17 @@ class TaskController extends AbstractActionController
     	$entityManager->flush();
     	exit;
     }
-    
+
     public function TaskPoolAction(){
     	//echo 'hi';exit;
     	$lang_code = $this->params()->fromRoute('lang');
 
     	return new ViewModel([
-    			
+
     			"lang_code" => $lang_code
     	]);
     }
-    
+
     public function getTaskPoolListAction(){
     	$entityManager = $this->getEntityManager();
     	$freelancerList = $entityManager->getRepository('User\Entity\Task');
@@ -377,32 +383,32 @@ class TaskController extends AbstractActionController
 		$query = $queryBuilder->getQuery();
     	//$result = $query->getArrayResult();
     	//var_dump($result); exit;
-    	
+
     	$adapter = new DoctrineAdapter(new ORMPaginator($query));
     	$paginator = new Paginator($adapter);
     	$paginator->setDefaultItemCountPerPage(10);
-    	
+
     	$page = (int)$this->getRequest()->getQuery('page');
     	if($page) $paginator->setCurrentPageNumber($page);
     	$data = array();
 
-    	foreach($paginator as $task){  
+    	foreach($paginator as $task){
     		$task_data = $task->getData();
     		$project = $this->find('User\Entity\Project',$task_data['project']);
     		$task_data['project'] = $project->getData();
-    		$data[] = $task_data; 			
+    		$data[] = $task_data;
     	}
-    	
+
     	return new JsonModel(array(
     			'tasks' => $data,
     			'pages' => $paginator->getPages()
     	));
     }
-    
+
     public function FreelancerUnpaidTaskAction(){
     	$lang_code = $this->params()->fromRoute('lang');
     	$currentUserId = User::currentLoginId();
-    	$currentUser = $this->find('User\Entity\User',$currentUserId);    	
+    	$currentUser = $this->find('User\Entity\User',$currentUserId);
     	$freelancer = $currentUser->getFreelancer();
 
     	return new ViewModel([
@@ -410,6 +416,6 @@ class TaskController extends AbstractActionController
     			"lang_code" => $lang_code
     	]);
     }
-    
+
 
 }

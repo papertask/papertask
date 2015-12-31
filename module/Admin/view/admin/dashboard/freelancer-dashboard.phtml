@@ -32,7 +32,7 @@ $this->inlineScript()
 
     </script>
 <div class="row" ng-controller="DashboardFreelancerTaskControler" ng-init="init()">
-    
+
     <div class="animated fadeInRight" ng-repeat="task in rejectedtasks">
         <div class="row">
             <div class="col-lg-12">
@@ -74,8 +74,8 @@ $this->inlineScript()
                         </div>
 
                         <div>
-                            <h1 class="product-main-price">{{ task.currency }} {{ task.total_freelancer }} 
-							<small ng-show="1==0" class="text-muted" style="font-size: 18px;">1800 <?php echo $this->translate('words','Admin'); ?></small> 
+                            <h1 class="product-main-price">{{ task.currency }} {{ task.total_freelancer }}
+							<small ng-show="1==0" class="text-muted" style="font-size: 18px;">1800 <?php echo $this->translate('words','Admin'); ?></small>
 							</h1>
                         </div>
                         <div class="hidden-sm">
@@ -135,7 +135,7 @@ $this->inlineScript()
     </div>
 
 </div>
-						
+
  <script>
  $(document).ready(function(){
 
@@ -164,7 +164,7 @@ $this->inlineScript()
      }
  }
     $(document).ready(function(){
-        $('.dtbox').DateTimePicker();
+        //$('.dtbox').DateTimePicker();
 
         // trigger datetime picker when click to calendar icon
         // TODO: this is not working

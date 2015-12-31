@@ -41,7 +41,7 @@ angularApp.filter("parsehtml", ['$sce', function($sce) {
 
 angularApp.controller('TaskDetailController', function($scope, $http, $timeout, $location, ProjectApi, DateFormatter, ProjectStatus, LangGroup,
                                                           ProjectServiceLevel, ProjectPriority, StaffApi, ClientApi,
-                                                          FeedbackQuality, FeedbackTime, 
+                                                          FeedbackQuality, FeedbackTime,
                                                           FieldApi, ProjectType, TaskApi, TaskStatus, FileListService, $q){
 
     $scope.DateFormatter = DateFormatter;
@@ -91,7 +91,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	//papertask price
 	$scope.softwarePrices =[];
 	$scope.engineeringPPrices=[];
-	
+
     function search_by_id($array, $id){
         for(var i = 0; i < $array.length; i++){
             if($array[i].id == $id){
@@ -104,57 +104,57 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	}
 	function showiterm(){
 	$http.get('/api/admin/file?projectId='+ $scope.projectId).success(function($data) {
-								
+
 							arrangeFile($data['files']);
 							//$scope.files = $data['files'];
 							$scope.project.files = $scope.files;
 							setModalControllerData('files', $scope.files);
-									
+
 						});
-						
+
 					if($scope.task.type.id == 1){
-						
+
 						$http.get('/api/admin/projectitermnotm?projectId='+ $scope.projectId +'&taskId='+TASK_ID).success(function($data) {
 							$scope.itermnotms = $data['Itermnotms'];
-							
+
 							// arrange itermnotms based language
-							
+
 							$scope.itermnotmsnews = arrangeItem($data['Itermnotms']);
 							console.log($scope.itermnotmsnews);
-									
+
 						});
 					}
 					if($scope.task.type.id == 2){
 						$http.get('/api/admin/projectitermtm?projectId='+ $scope.projectId).success(function($data) {
 							$scope.itemtms = arrangeItem($data['Itermtms']);
 							//if($scope.itemtm)
-							//	$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);	
-								
-							
+							//	$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);
+
+
 						});
-					}	
+					}
 					if($scope.task.type.id == 4){
 						$http.get('/api/admin/projectitermdtpmac?projectId='+ $scope.projectId).success(function($data) {
 							$scope.itermdtpmacs = arrangeItem($data['Itermdtpmacs'], 'dtpUnits');
-									
+
 						});
 					}
 					if($scope.task.type.id == 5){
 						$http.get('/api/admin/projectitermdtppc?projectId='+ $scope.projectId).success(function($data) {
 							$scope.itermdtppcs = arrangeItem($data['Itermdtppcs'], 'dtpUnits');
-										
+
 						});
 					}
 					if($scope.task.type.id == 6){
 						$http.get('/api/admin/projectitermengineering?projectId='+ $scope.projectId).success(function($data) {
 							$scope.itermengineerings = arrangeItem($data['Itermengineerings'], 'engineeringUnits');
-										
+
 						});
 					}
 					if($scope.task.type.id > 6){
 						$http.get('/api/admin/projectiterminterpreting?projectId='+ $scope.projectId).success(function($data) {
 							$scope.iterminterpretings = arrangeItem($data['Iterminterpretings'], 'interpretingUnits');
-										
+
 						});
 					}
 	}
@@ -162,37 +162,37 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	$scope.taskId = taskId;
     function init(){
 		$("*[rel=tooltip]").tooltip();
-        
+
 		// get task
 		var task_listener = $http.get("/api/admin/task/" + taskId)
             .success( function ( $task ) {
-				
+
                 $scope.task = $task.task;
 				$scope.language = $scope.task.language;
-				
+
 				$scope.projectId = $scope.task.project;
 				if(!$scope.task.type)
 					$scope.task.type = 1;
 				$scope.task.type = ProjectType.get($scope.task.type);
 				$scope.task.status = TaskStatus.get($scope.task.status);
-				
+
 				jQuery.extend($scope.tempTask, $scope.task);;
-				
+
 				var dueDateArr = $scope.task.dueDate.date.split(" ");
 				var dueDateStr =  dueDateArr[0]+'T'+dueDateArr[1];
 				var dueDate = new Date(dueDateStr);
 				var month = dueDate.getMonth() + 1;
 				$scope.tempTask.dueDate = dueDate.getDate() + '-' + month + '-' + dueDate.getFullYear() +  ' ' + dueDate.getHours() + ':' + dueDate.getSeconds() ;
-				
+
 				var startDateArr = $scope.task.startDate.date.split(" ");
 				var startDateStr =  startDateArr[0]+'T'+startDateArr[1];
 				var startDate = new Date(startDateStr);
 				var startmonth = startDate.getMonth() + 1;
 				$scope.tempTask.startDate = startDate.getDate() + '-' + startmonth + '-' + startDate.getFullYear() +  ' ' + startDate.getHours() + ':' + startDate.getSeconds() ;
-				
+
             });
-		
-        
+
+
 		var pm_listener = $http.get("/" + LANG_CODE + "/admin/staff/getPmList")
             .success( function ( $data ) {
                 $scope.pms = $data.pmlist;
@@ -202,13 +202,13 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
             .success( function ( $data ) {
                 $scope.sales = $data.saleslist;
             });
-		
+
 		var freelancer_listener = $http.get("/" + LANG_CODE + "/admin/freelancer/getFreelancesList")
             .success( function ( $data ) {
                 $scope.freelancers = $data.freelancerslist;
 				setModalControllerData('freelancers', $scope.freelancers);
 
-            });		
+            });
 		//get company info
 		 var companyinfo = $http.get("/api/papertask/companyinfo").success(function($data){
             $scope.companyinfo = $data['companyinfo'];
@@ -216,18 +216,18 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 
         }).error(function($e){
             alert('error');
-        });	
+        });
 		//get bank info
 		$http.get("/api/papertask/bankinfo").success(function($data){
             $scope.bankinfo = $data['bankinfo'];
 			$scope.bankinfo1 = $scope.bankinfo[0];
 			$scope.bankinfo2 = $scope.bankinfo[1];
-			
+
 
         }).error(function($e){
             alert('error');
-        });		
-		
+        });
+
         var client_listener = ClientApi.list({}, function($clients){
 
             $scope.clients = $clients;
@@ -245,7 +245,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					$project.serviceLevel = ProjectServiceLevel.get($project.serviceLevel);
 					$project.status = ProjectStatus.get($project.status);
 					$project.tasks = [];
-					
+
 					$scope.project = $project;
 					console.log($scope.project);
 					var str = $scope.project.quote_no;
@@ -253,72 +253,72 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 						var res = str.split("-");
 						$scope.project.project_no = res[1];
 					}
-					
+
 					$scope.USER_ID = $scope.project.userid;
 					console.log($scope.task);
 					if($scope.task.assignee)
 					{
-						$http.get("/" + LANG_CODE + '/admin/freelancer/getuserbyfreelancerid?idfreelancer='+ $scope.task.assignee.id).success(function($data) {	
+						$http.get("/" + LANG_CODE + '/admin/freelancer/getuserbyfreelancerid?idfreelancer='+ $scope.task.assignee.id).success(function($data) {
 							$scope.currency = $data.freelancer_user.currency;
 							//console.log($data.freelancer_user);
 							showiterm();
-							
-						})						
+
+						})
 					}
 					else {
 						$scope.currency = $scope.project.currency;
 						showiterm();
-					}	
+					}
 					//get user login
-					
-					
-					
-					
+
+
+
+
 					$scope.project.field = search_by_id($scope.fields, $scope.project.field.id);
-						
+
 					if($scope.project.pm)
 					$scope.project.pm = search_by_id($scope.pms, $scope.project.pm.id);
 					if($scope.project.sale)
 						$scope.project.sale = search_by_id($scope.sales, $scope.project.sale.id);
-					
+
 					//$scope.project.client = search_by_id($scope.clients, $scope.project.client.id);
-					//console.log("$scope.project.client");	
-					//console.log($scope.project.client);	
+					//console.log("$scope.project.client");
+					//console.log($scope.project.client);
 					//get all file
-					
-					
-					//get private price 	
+
+
+					//get private price
 					$http.get('/api/user/translationprice?userId='+ $scope.USER_ID).success(function($data) {
 						$scope.translationPrices = $data['translationPrices'];
-					});	
+					});
 					$http.get('/api/user/desktopprice?userId='+$scope.USER_ID).success(function($data) {
 						$scope.desktopPrices = $data['desktopPrices'];
-						
-					});	
+
+					});
 					$http.get('/api/user/engineeringprice?userId=' + $scope.USER_ID).success(function($data) {
 						$scope.engineeringPrices = $data['engineeringPrices'];
-						
+
 					});
-					
+
 					//Get Client Info
-					
+
 					var ajaxUserInfo = $http.get("/api/user/" + $scope.USER_ID + "")
 		            .success ( function ( $data ) {
-		            	
+
 		            	$scope.clientTmRatios = $data.tmRatios;
-		            			          						
-		            });	
-					
-					
+
+		            });
+
+
 					/** order information condition **/
 					$scope.hasTypeTranslationNoTM = function(){
 						return existsIdInArray($scope.project.types, 1);
 					};
 					$scope.hasTypeTranslationUseTM = function(item){
-						
+
 						if(!item)
 							return false;
-						else	
+						else
 							return existsIdInArray($scope.project.types, 2);
 					};
 					$scope.hasTypeTranslationShow = function(){
@@ -336,109 +336,109 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					$scope.hasTypeDesktopPublishingEngineer = function(){
 						return existsIdInArray($scope.project.types, 6);
 					};
-					
-					
+
+
 				});
-				
-				
+
+
 				var PROJECT_ID = $scope.projectId;
 		    	var LANG_ID = $scope.language.id;
 		    	//alert(PROJECT_ID); alert(LANG_ID);
 		    	//get Correction
 				$http.get("/api/admin/projectcorrection/?project_id=" + PROJECT_ID).success(function($data){
 					$scope.havecorrection = false;
-					
+
 		            for(var i=0; i< $data.corrections.length; i++){
-		            	
-		            	
+
+
 		            	if($data.corrections[i].language.id == LANG_ID){
-		            		
+
 		            		$scope.correction = $data.corrections[i];
 		            		if( $scope.task.status.id == 8 )
 		            			$scope.havecorrection = true;
 		            		break;
 		            	}
 		            }
-		            
+
 		        }).error(function($e){
 
 		        	$scope.havecorrection = false;
 		        });
-				
+
 				//get Feedback
 				$http.get("/api/admin/projectfeedback/?project_id=" + PROJECT_ID).success(function($data){
 					$scope.havefeedback = false;
-					
+
 		            for(var i=0; i< $data.feedbacks.length; i++){
-		            	
-		            	
+
+
 		            	if($data.feedbacks[i].language == LANG_ID){
-		            		
+
 		            		$scope.feedback = $data.feedbacks[i];
 		            		if( $scope.task.status.id == 1 )
 		            			$scope.havefeedback = true;
 		            		break;
 		            	}
 		            }
-		            
+
 		        }).error(function($e){
 
 		        	$scope.havefeedback = false;
 		        });
-				
-				
+
+
             });
 		// Get list translationTM
        $http.get("/api/papertask/translationtm").success(function($data){
            $scope.translationTM = $data['translationTM'];
-        
+
         }).error(function($e){
            alert('error');
         });
-		
+
 		$http.get("/api/papertask/translation").success(function($data){
             $scope.translation = $data['translation'];
-            
+
         }).error(function($e){
             alert('error');
         });
-		
+
 		$http.get("/api/papertask/interpreting").success(function($data){
             $scope.interpretingPPrices = $data['interpreting'];
-            
+
         }).error(function($e){
             alert('error');
         });
-		
+
 		$http.get("/api/papertask/engineering").success(function($data){
 				$scope.engineeringPPrices = $data['engineering'];
-				
+
 			}).error(function($e){
 				alert('error');
 		});
 		$http.get("/api/papertask/desktop-publishing").success(function($data){
 				$scope.softwarePrices = $data['softwarePrices'];
-				
-				
+
+
 			}).error(function($e){
 				alert('error');
-		});		
+		});
 		$http.get("/api/data/project/")
             .success(function($data){
-				
+
                 jQuery.extend(true, $scope, $data);  // copy data to scope
                 var shareData = ['interpretingUnits', 'engineeringUnits', 'dtpUnits'];
                 for(var i = 0; i < shareData.length; i++){
                     var key = shareData[i];
                     setModalControllerData(key, $scope[key]);
                 }
-				
+
 
                 //$scope.project.targetLanguages = [];
                 $timeout(function(){
                     jQuery("select.multiselect").multiselect("destroy").multiselect();
                 });
-            });	
+            });
 		// get some option
 		var priceDataRequest = $http.get("/api/user/priceData")
             .success(function($data){
@@ -447,14 +447,14 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				$scope.engineeringCategories = $data['engcategory'];
 				setModalControllerData('engineeringCategories', $scope.engineeringCategories);
 				setModalControllerData('softwares', $scope.softwares);
-        });		
+        });
     }
 
     $scope.Accept = function(task_id){
-		$http.get("/" + LANG_CODE + "/admin/task/FreelancerAcceptTask?id="+ task_id, {
+		$http.get("/" + LANG_CODE + "/admin/task/FreelancerAcceptTask?id="+ task_id+"&assignee="+$scope.task.assignee.id, {
            // params: $params
         }).success(function($data){
-        	
+
         	if($data.status=="have ongoing task"){
         		bootbox.alert(  'You are having an ongoing task. You cannot Accept any more');
         		return false;
@@ -462,23 +462,23 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
         		bootbox.alert(  'You accepted task successfully');
         		$scope.task["status"] = TaskStatus.get(2);
         	}
-        	
+
         });
 	}
-    
+
     $scope.SubmitReview = function(task_id){
-    	
+
     	if($scope.taskfiles.length == 0){
     		bootbox.alert(  'You need to add final file before submiting');
     		return false;
     	}
-		
-		
+
+
 		bootbox.confirm('Do you want to submit task for reviewing?', function() {
 			$http.get("/" + LANG_CODE + "/admin/task/submitTask?id="+ task_id, {
 		           // params: $params
 		        }).success(function($data){
-		        	
+
 		        	if($data.status=="error"){
 		        		bootbox.alert(  'There are some error');
 		        		return false;
@@ -486,7 +486,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		        		bootbox.alert(  'Task is submited successfully');
 		        		$scope.task["status"] = TaskStatus.get(7);
 		        	}
-		        	
+
 		        });
 	    });
 	}
@@ -494,16 +494,16 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 /**
      * Translation Prices
      */
-   
+
 	$scope.saveTranslationTM = function( itemtm ){
 			$scope.iterm_tm =[];
 			$scope.iterm_tm = itemtm;
-			
+
 			//$scope.itemtms[$scope.laguageid][0] = $scope.iterm_tm;
 			//return;
-			
+
 			//$scope.iterm_notm.rate_tmp = $scope.iterm_notm.rate;
-			
+
 		if ( itemtm.id ) {
 			itemtm.total_tmp = 	($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratebawu)/100)*$scope.iterm_tm.sourcebawu
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratejiuwu)/100)*$scope.iterm_tm.sourcejiuwu
@@ -515,12 +515,12 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			$scope.iterm_tm.total = itemtm.total_tmp;
 			$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 			$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-			
-			$http.put("/api/admin/projectitermtm/" + itemtm.id, 
+
+			$http.put("/api/admin/projectitermtm/" + itemtm.id,
 				{
     				languageid: $scope.laguageid,
-					rate: itemtm.rate_tmp, 
-					sourcebawu: itemtm.sourcebawu, 
+					rate: itemtm.rate_tmp,
+					sourcebawu: itemtm.sourcebawu,
 					sourcejiuwu: itemtm.sourcejiuwu,
 					sourcenomatch: itemtm.sourcenomatch,
 					sourceqiwu: itemtm.sourceqiwu,
@@ -533,11 +533,11 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				}).success(function( data ) {
 					$scope.itemtms[$scope.laguageid][0] = $scope.iterm_tm;
     			});
-				
+
     	} else {
-    		
-    			
-    		
+
+
+
     		itemtm.total_tmp = 	($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.bawu)/100)*$scope.iterm_tm.sourcebawu
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.jiuwu)/100)*$scope.iterm_tm.sourcejiuwu
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.clientTmRatios.nomatch)/100)*$scope.iterm_tm.sourcenomatch
@@ -548,21 +548,21 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
     		$scope.iterm_tm.total = itemtm.total_tmp;
     		$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     		$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-    		
-    		
-    		
-			$http.post("/api/admin/projectitermtm?projectid="+$scope.projectId, 
+
+
+
+			$http.post("/api/admin/projectitermtm?projectid="+$scope.projectId,
 					{
 						//languageid: $scope.laguageid,
-						//rate: itemtm.rate_tmp, 
-						//quantity: itemtm.quantity, 
+						//rate: itemtm.rate_tmp,
+						//quantity: itemtm.quantity,
 						//total: itemtm.total_tmp,
 						//name : itemtm.name,
 						//file : itemtm.file
-						
+
 						languageid: $scope.laguageid,
-						rate: itemtm.rate_tmp, 
-						sourcebawu: itemtm.sourcebawu, 
+						rate: itemtm.rate_tmp,
+						sourcebawu: itemtm.sourcebawu,
 						sourcejiuwu: itemtm.sourcejiuwu,
 						sourcenomatch: itemtm.sourcenomatch,
 						sourceqiwu: itemtm.sourceqiwu,
@@ -572,7 +572,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 						total: itemtm.total_tmp,
 						name : itemtm.name,
 						file : itemtm.file,
-						
+
 						raterepetitions :  $scope.clientTmRatios.repetitions,
 						rateyibai : $scope.clientTmRatios.yibai,
 						ratejiuwu : $scope.clientTmRatios.jiuwu,
@@ -580,7 +580,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 						rateqiwu : $scope.clientTmRatios.qiwu,
 						ratewushi : $scope.clientTmRatios.wushi ,
 						ratenomatch : $scope.clientTmRatios.nomatch,
-						
+
 					}).success(function( data ) {
 						$scope.iterm_tm.id = data.iterm.id;
 						$scope.itemtms[$scope.laguageid].push($scope.iterm_tm);
@@ -593,7 +593,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	$scope.editTranslationTM = function ( index, tid, laguageid ) {
     	$scope.editTm = index;
 		$scope.laguageid = laguageid;
-		
+
 		if($scope.itemtms[laguageid][0]){
 			$scope.itemtm = $scope.itemtms[laguageid][0];
 			$scope.itemtm.rate_tmp = Number($scope.itemtms[laguageid][0].rate_tmp);
@@ -610,7 +610,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	/**
      * Translation Prices
      */
-   
+
 	$scope.saveTranslationNoTM = function( translationNoTM ){
 			$scope.iterm_notm =[];
 			$scope.iterm_notm = translationNoTM;
@@ -620,35 +620,35 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			$scope.iterm_notm.total = $scope.currency + " " + Number($scope.iterm_notm.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 			$scope.iterm_notm.rate = $scope.currency + " " + Number($scope.iterm_notm.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		if ( $scope.editTranslation == -1 ) {
-			$http.post("/api/admin/projectitermnotm?projectid="+$scope.projectId, 
+			$http.post("/api/admin/projectitermnotm?projectid="+$scope.projectId,
 					{
 						languageid: $scope.laguageid,
-						rate: translationNoTM.rate_tmp, 
-						quantity: translationNoTM.quantity, 
+						rate: translationNoTM.rate_tmp,
+						quantity: translationNoTM.quantity,
 						total: translationNoTM.total_tmp,
 						name : translationNoTM.name,
 						file : translationNoTM.file,
 						task_id : TASK_ID,
 						of_freelancer : 1,
-						
+
 					}).success(function( data ) {
 						$scope.iterm_notm.id = data.iterm.id;
 						$scope.itermnotmsnews[$scope.laguageid].push($scope.iterm_notm);
 					});
-				
+
     	} else {
-    		$http.put("/api/admin/projectitermnotm/" + translationNoTM.id, 
+    		$http.put("/api/admin/projectitermnotm/" + translationNoTM.id,
 				{
     				languageid: $scope.laguageid,
-					rate: translationNoTM.rate_tmp, 
-					quantity: translationNoTM.quantity, 
+					rate: translationNoTM.rate_tmp,
+					quantity: translationNoTM.quantity,
 					total: translationNoTM.total_tmp,
 					name : translationNoTM.name,
 					file : translationNoTM.file
 				}).success(function( data ) {
 					$scope.itermnotmsnews[$scope.laguageid][$scope.editTranslation] = $scope.iterm_notm;
     			});
-    		
+
     	}
     	jQuery("#modal-translation-noTM").modal("hide");
     	setModalControllerData('translationNoTM', []);
@@ -657,7 +657,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	$scope.editTranslationNoTMPrice = function ( index, tid, laguageid ) {
     	$scope.editTranslation = index;
 		$scope.laguageid = laguageid;
-		
+
 		$scope.translationNoTM = $scope.itermnotmsnews[laguageid][index];
 		$scope.translationNoTM.rate_tmp = Number($scope.itermnotmsnews[laguageid][index].rate_tmp);
     	setModalControllerData('translationNoTM', $scope.translationNoTM);
@@ -669,7 +669,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.translationNoTM = [];
 		//get auto rate here
 		if($scope.project.client.defaultServiceLevel == $scope.project.serviceLevel){
-			
+
 			for(i=0;i<$scope.translationPrices.length;i++){
 				if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id &&  $scope.translationPrices[i].targetLanguage.id == laguageid){
 					$scope.translationNoTM.rate_tmp = Number($scope.translationPrices[i].price);
@@ -681,16 +681,16 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					if($scope.project.serviceLevel==1){
 						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].professionalPrice);
 						break;
-					}	
+					}
 					else if($scope.project.serviceLevel==2){
 						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].businessPrice);
 						break;
-					}	
+					}
 					else{
 						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].premiumPrice);
 						break;
-					}	
-				}			
+					}
+				}
 			}
 		}
 		else {
@@ -699,41 +699,41 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					if($scope.project.serviceLevel==1){
 						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].professionalPrice);
 						break;
-					}	
+					}
 					else if($scope.project.serviceLevel==2){
 						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].businessPrice);
 						break;
-					}	
+					}
 					else{
 						$scope.translationNoTM.rate_tmp = Number($scope.translation[k].premiumPrice);
 						break;
-					}	
-				}			
+					}
+				}
 			}
 		}
-		
+
 		setModalControllerData('translationNoTM',$scope.translationNoTM);
-		
+
 		jQuery("#modal-translation-noTM").modal("show");
 	}
-	$scope.deleteTranslationNoTMPrice = function ( index, tid, laguageid  ) {    	
+	$scope.deleteTranslationNoTMPrice = function ( index, tid, laguageid  ) {
         bootbox.confirm( DELETE_CONFIRM_TEXT, function( bflag ) {
             if ( bflag == true ) {
                 $http.delete("/api/admin/projectitermnotm/" + tid, {
-                    tid: tid            
-                }).success(function( data ) {                
+                    tid: tid
+                }).success(function( data ) {
 					$scope.itermnotmsnews[laguageid].splice(index, 1);
-                    
-                });                
+
+                });
             }
-        });       
+        });
     }
 	/**
      * Desktop Price Mac
      */
-    
+
     $scope.saveDesktopMac = function ( desktopMac ) {
-		
+
 		$scope.iterm_dtpmac =[];
 		$scope.iterm_dtpmac = desktopMac;
 		desktopMac.total_tmp = $scope.iterm_dtpmac.rate_tmp * $scope.iterm_dtpmac.quantity;
@@ -741,28 +741,28 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.iterm_dtpmac.total = $scope.currency + " " + Number($scope.iterm_dtpmac.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		$scope.iterm_dtpmac.rate = $scope.currency + " " + Number($scope.iterm_dtpmac.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     	if ( $scope.editDtpMac == -1) {
-			$http.post("/api/admin/projectitermdtpmac?projectid="+$scope.projectId, 
+			$http.post("/api/admin/projectitermdtpmac?projectid="+$scope.projectId,
 					{
 						languageid: $scope.laguageid,
-						rate: desktopMac.rate_tmp, 
+						rate: desktopMac.rate_tmp,
 						unit : desktopMac.unit,
-						quantity: desktopMac.quantity, 
+						quantity: desktopMac.quantity,
 						total: desktopMac.total_tmp,
 						name : desktopMac.name,
 						file : desktopMac.file,
 						software : desktopMac.software,
 						of_freelancer : 1,
-						
+
 					}).success(function( data ) {
 						$scope.iterm_dtpmac.id = data.iterm.id;
 						$scope.itermdtpmacs[$scope.laguageid].push($scope.iterm_dtpmac);
 					});
 		} else {
-			$http.put("/api/admin/projectitermdtpmac/" + desktopMac.id, 
+			$http.put("/api/admin/projectitermdtpmac/" + desktopMac.id,
 				{
     				languageid: $scope.laguageid,
-					rate: desktopMac.rate_tmp, 
-					quantity: desktopMac.quantity, 
+					rate: desktopMac.rate_tmp,
+					quantity: desktopMac.quantity,
 					total: desktopMac.total_tmp,
 					name : desktopMac.name,
 					file : desktopMac.file,
@@ -771,7 +771,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					$scope.itermdtpmacs[$scope.laguageid][$scope.editDtpMac] = $scope.iterm_dtpmac;
     			});
     	}
-    	
+
     	jQuery("#modal-dtp-mac").modal("hide");
     	setModalControllerData('desktopMac', []);
     	$scope.editDtpMac = -1;
@@ -781,8 +781,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.laguageid = laguageid;
 		$scope.desktopMac = $scope.itermdtpmacs[laguageid][index];
 		$scope.desktopMac.rate_tmp = Number($scope.itermdtpmacs[laguageid][index].rate_tmp);
-		
-		
+
+
     	setModalControllerData('desktopMac', $scope.desktopMac);
     	jQuery("#modal-dtp-mac").modal("show");
     }
@@ -792,26 +792,26 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.laguageid = laguageid;
 		jQuery("#modal-dtp-mac").modal("show");
 	}
-	
+
     $scope.deleteDesktopMac = function ( index, tid, laguageid ) {
         bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
             if ( bflag == true ) {
                 $http.delete("/api/admin/projectItermdtpmac/" + tid, {
-                    tid: tid            
-                }).success(function( data ) {                
+                    tid: tid
+                }).success(function( data ) {
 					$scope.itermdtpmacs[laguageid].splice(index, 1);
-                    
-                });                
+
+                });
             }
         });
-    	
+
     }
 	/**
      * Desktop Price Pc
      */
-    
+
     $scope.saveDesktopPc = function ( desktopPc ) {
-		
+
 		$scope.iterm_dtppc =[];
 		$scope.iterm_dtppc = desktopPc;
 		desktopPc.total_tmp = $scope.iterm_dtppc.rate_tmp * $scope.iterm_dtppc.quantity;
@@ -819,28 +819,28 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.iterm_dtppc.total = $scope.currency + " " + Number($scope.iterm_dtppc.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		$scope.iterm_dtppc.rate = $scope.currency + " " + Number($scope.iterm_dtppc.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     	if ( $scope.editDtpPc == -1) {
-			$http.post("/api/admin/projectitermdtppc?projectid="+$scope.projectId, 
+			$http.post("/api/admin/projectitermdtppc?projectid="+$scope.projectId,
 					{
 						languageid: $scope.laguageid,
-						rate: desktopPc.rate_tmp, 
+						rate: desktopPc.rate_tmp,
 						unit : desktopPc.unit,
-						quantity: desktopPc.quantity, 
+						quantity: desktopPc.quantity,
 						total: desktopPc.total_tmp,
 						name : desktopPc.name,
 						file : desktopPc.file,
 						software : desktopPc.software,
 						of_freelancer : 1,
-						
+
 					}).success(function( data ) {
 						$scope.iterm_dtppc.id = data.iterm.id;
 						$scope.itermdtppcs[$scope.laguageid].push($scope.iterm_dtppc);
 					});
 		} else {
-			$http.put("/api/admin/projectitermdtppc/" + desktopPc.id, 
+			$http.put("/api/admin/projectitermdtppc/" + desktopPc.id,
 				{
     				languageid: $scope.laguageid,
-					rate: desktopPc.rate_tmp, 
-					quantity: desktopPc.quantity, 
+					rate: desktopPc.rate_tmp,
+					quantity: desktopPc.quantity,
 					total: desktopPc.total_tmp,
 					name : desktopPc.name,
 					file : desktopPc.file,
@@ -849,7 +849,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					$scope.itermdtppcs[$scope.laguageid][$scope.editDtpPc] = $scope.iterm_dtppc;
     			});
     	}
-    	
+
     	jQuery("#modal-dtp-pc").modal("hide");
     	setModalControllerData('desktopPc', []);
     	$scope.editDtpPc = -1;
@@ -859,8 +859,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.laguageid = laguageid;
 		$scope.desktopPc = $scope.itermdtppcs[laguageid][index];
 		$scope.desktopPc.rate_tmp = Number($scope.itermdtppcs[laguageid][index].rate_tmp);
-		
-		
+
+
     	setModalControllerData('desktopPc', $scope.desktopPc);
     	jQuery("#modal-dtp-pc").modal("show");
     }
@@ -870,26 +870,26 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.laguageid = laguageid;
 		jQuery("#modal-dtp-pc").modal("show");
 	}
-	
+
     $scope.deleteDesktopPc = function ( index, tid, laguageid ) {
         bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
             if ( bflag == true ) {
                 $http.delete("/api/admin/projectitermdtppc/" + tid, {
-                    tid: tid            
-                }).success(function( data ) {                
+                    tid: tid
+                }).success(function( data ) {
 					$scope.itermdtppcs[laguageid].splice(index, 1);
-                    
-                });                
+
+                });
             }
         });
-    	
+
     }
 	/**
      * Engineering
      */
-    
+
     $scope.saveEngineering = function ( engineering ) {
-		
+
 		$scope.iterm_engineering =[];
 		$scope.iterm_engineering = engineering;
 		engineering.total_tmp = $scope.iterm_engineering.rate_tmp * $scope.iterm_engineering.quantity;
@@ -897,28 +897,28 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.iterm_engineering.total = $scope.currency + " " + Number($scope.iterm_engineering.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		$scope.iterm_engineering.rate = $scope.currency + " " + Number($scope.iterm_engineering.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
     	if ( $scope.editEngineering == -1) {
-			$http.post("/api/admin/projectitermengineering?projectid="+$scope.projectId, 
+			$http.post("/api/admin/projectitermengineering?projectid="+$scope.projectId,
 					{
 						languageid: $scope.laguageid,
-						rate: engineering.rate_tmp, 
+						rate: engineering.rate_tmp,
 						unit : engineering.unit,
-						quantity: engineering.quantity, 
+						quantity: engineering.quantity,
 						total: engineering.total_tmp,
 						name : engineering.name,
 						file : engineering.file,
 						engineeringcategory : engineering.engineeringcategory,
 						of_freelancer : 1,
-						
+
 					}).success(function( data ) {
 						$scope.iterm_engineering.id = data.iterm.id;
 						$scope.itermengineerings[$scope.laguageid].push($scope.iterm_engineering);
 					});
 		} else {
-			$http.put("/api/admin/projectitermengineering/" + engineering.id, 
+			$http.put("/api/admin/projectitermengineering/" + engineering.id,
 				{
     				languageid: $scope.laguageid,
-					rate: engineering.rate_tmp, 
-					quantity: engineering.quantity, 
+					rate: engineering.rate_tmp,
+					quantity: engineering.quantity,
 					total: engineering.total_tmp,
 					name : engineering.name,
 					file : engineering.file,
@@ -927,7 +927,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					$scope.itermengineerings[$scope.laguageid][$scope.editEngineering] = $scope.iterm_engineering;
     			});
     	}
-    	
+
     	jQuery("#modal-eng").modal("hide");
     	setModalControllerData('engineering', []);
     	$scope.editEngineering = -1;
@@ -937,8 +937,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.laguageid = laguageid;
 		$scope.engineering = $scope.itermengineerings[laguageid][index];
 		$scope.engineering.rate_tmp = Number($scope.itermengineerings[laguageid][index].rate_tmp);
-		
-		
+
+
     	setModalControllerData('engineering', $scope.engineering);
     	jQuery("#modal-eng").modal("show");
     }
@@ -948,19 +948,19 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.laguageid = laguageid;
 		jQuery("#modal-eng").modal("show");
 	}
-	
+
     $scope.deleteEngineering = function ( index, tid, laguageid ) {
         bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
             if ( bflag == true ) {
                 $http.delete("/api/admin/projectitermengineering/" + tid, {
-                    tid: tid            
-                }).success(function( data ) {                
+                    tid: tid
+                }).success(function( data ) {
 					$scope.itermengineerings[laguageid].splice(index, 1);
-                    
-                });                
+
+                });
             }
         });
-    	
+
     }
 	/**
      * Interpreting price
@@ -973,34 +973,34 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			$scope.iterm_interpreting.total = $scope.currency + " " + Number($scope.iterm_interpreting.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 			$scope.iterm_interpreting.rate = $scope.currency + " " + Number($scope.iterm_interpreting.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 		if ( $scope.editInterpreting == -1 ) {
-			$http.post("/api/admin/projectiterminterpreting?projectid="+$scope.projectId, 
+			$http.post("/api/admin/projectiterminterpreting?projectid="+$scope.projectId,
 					{
 						languageid: $scope.laguageid,
-						rate: interpreting.rate_tmp, 
-						quantity: interpreting.quantity, 
+						rate: interpreting.rate_tmp,
+						quantity: interpreting.quantity,
 						total: interpreting.total_tmp,
 						name : interpreting.name,
 						file : interpreting.file,
 						of_freelancer : 1,
-						
+
 					}).success(function( data ) {
 						$scope.iterm_interpreting.id = data.iterm.id;
 						$scope.iterminterpretings[$scope.laguageid].push($scope.iterm_interpreting);
 					});
-				
+
     	} else {
-    		$http.put("/api/admin/projectiterminterpreting/" + interpreting.id, 
+    		$http.put("/api/admin/projectiterminterpreting/" + interpreting.id,
 				{
     				languageid: $scope.laguageid,
-					rate: interpreting.rate_tmp, 
-					quantity: interpreting.quantity, 
+					rate: interpreting.rate_tmp,
+					quantity: interpreting.quantity,
 					total: interpreting.total_tmp,
 					name : interpreting.name,
 					file : interpreting.file
 				}).success(function( data ) {
 					$scope.iterminterpretings[$scope.laguageid][$scope.editInterpreting] = $scope.iterm_interpreting;
     			});
-    		
+
     	}
     	jQuery("#modal-interpreting").modal("hide");
     	setModalControllerData('interpreting', []);
@@ -1009,7 +1009,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	$scope.editInt = function ( index, tid, laguageid ) {
     	$scope.editInterpreting = index;
 		$scope.laguageid = laguageid;
-		
+
 		$scope.interpreting = $scope.iterminterpretings[laguageid][index];
 		$scope.interpreting.rate_tmp = Number($scope.iterminterpretings[laguageid][index].rate_tmp);
     	setModalControllerData('interpreting', $scope.interpreting);
@@ -1021,65 +1021,65 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		$scope.laguageid = laguageid;
 		jQuery("#modal-interpreting").modal("show");
 	}
-	$scope.deleteInt = function ( index, tid, laguageid  ) {    	
+	$scope.deleteInt = function ( index, tid, laguageid  ) {
         bootbox.confirm( DELETE_CONFIRM_TEXT, function( bflag ) {
             if ( bflag == true ) {
                 $http.delete("/api/admin/projectiterminterpreting/" + tid, {
-                    tid: tid            
-                }).success(function( data ) {                
+                    tid: tid
+                }).success(function( data ) {
 					$scope.iterminterpretings[laguageid].splice(index, 1);
-                    
-                });                
+
+                });
             }
-        });       
+        });
     }
-	
+
 	// save project
 	$scope.saveProject = function(){
         var updateProject= $http.put("/api/admin/project/" + $scope.project.id + "?action=3", $scope.project)
 		.success( function ( $data ) {
 			//comback project detail/
 			location.href = "/" + LANG_CODE + "/admin/project/detail?id=" + projectId;
-			
-		});	
+
+		});
     };
 	//get translation
-	
+
 	// get rate dtp mac
 	$scope.getRateDtpMac = function($item){
 			if($item.software && $item.unit)
 			{
 				$scope.desktopMac = $item;
-				
+
 				//get private
 				if( $scope.desktopPrices)
 				{
-					
+
 					for(i=0;i<$scope.desktopPrices.length;i++)
 					{
-						if($scope.laguageid == $scope.desktopPrices[i].language.id 
+						if($scope.laguageid == $scope.desktopPrices[i].language.id
 						&& $item.software.id == $scope.desktopPrices[i].software.id){
-						
+
 							if($item.unit.id == 1){
 								$scope.desktopMac.name = $item.name;
 								$scope.desktopMac.rate_tmp = Number($scope.desktopPrices[i].priceHourMac);
 								setModalControllerData('desktopMac', $scope.desktopMac);
 								return;
-							}	
-							else if ($item.unit.id == 2){	
+							}
+							else if ($item.unit.id == 2){
 								$scope.desktopMac.name = $item.name;
 								setModalControllerData('desktopMac', $scope.desktopMac);
 								return;
-							}	
+							}
 						}
 					}
-					
+
 					$lang_group = LangGroup.get($scope.laguageid);
-					
+
 					for(j=0;j<$scope.softwarePrices.length;j++)
 						{
 							if($scope.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  $scope.softwarePrices[j].desktopSoftware.id){
-								
+
 								if($item.unit.id == 1){
 									$scope.desktopMac.name = $item.name;
 									$scope.desktopMac.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceApplePerHour):format2n(Number($scope.softwarePrices[j].priceApplePerHour)/$scope.CurrentcyRate);
@@ -1094,11 +1094,11 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 								}
 							}
 						}
-						
+
 				}
 				else {//if not get paper task
 						//get group language
-						
+
 						$lang_group  =    LangGroup.get($scope.laguageid);
 						for(j=0;j<$scope.softwarePrices.length;j++)
 						{
@@ -1109,7 +1109,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 									setModalControllerData('desktopMac', $scope.desktopMac);
 									return;
 								}
-								else if ($item.unit.id == 2){	
+								else if ($item.unit.id == 2){
 									$scope.desktopMac.name = $item.name;
 									$scope.desktopMac.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceApplePerPage):format2n(Number($scope.softwarePrices[j].priceApplePerPage)/$scope.CurrentcyRate);
 									setModalControllerData('desktopMac', $scope.desktopMac);
@@ -1120,50 +1120,50 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				}
 			}
 	}
-	
+
 	// get rate dtp pc
 	$scope.getRateDtpPc = function($item){
 			if($item.software && $item.unit)
 			{
-				
+
 				$scope.desktopPc = $item;
 				//get private
 				if( $scope.desktopPrices)
 				{
-					
+
 					for(i=0;i<$scope.desktopPrices.length;i++)
 					{
-						if($scope.laguageid == $scope.desktopPrices[i].language.id 
+						if($scope.laguageid == $scope.desktopPrices[i].language.id
 						&& $item.software.id == $scope.desktopPrices[i].software.id){
-						
+
 							if($item.unit.id == 1){
 								$scope.desktopPc.name = $item.name;
 								$scope.desktopPc.rate_tmp = Number($scope.desktopPrices[i].priceHourPc);
 								setModalControllerData('desktopPc', $scope.desktopPc);
 								return;
-							}	
+							}
 							else if ($item.unit.id == 2){
-								$scope.desktopPc.name = $item.name;	
+								$scope.desktopPc.name = $item.name;
 								$scope.desktopPc.rate_tmp = Number($scope.desktopPrices[i].pricePc);
 								setModalControllerData('desktopPc', $scope.desktopPc);
 								return;
-							}	
+							}
 						}
 					}
-					
+
 					$lang_group = LangGroup.get($scope.laguageid);
-					
+
 					for(j=0;j<$scope.softwarePrices.length;j++)
 						{
 							if($scope.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  $scope.softwarePrices[j].desktopSoftware.id){
-								
+
 								if($item.unit.id == 1){
 									$scope.desktopPc.name = $item.name;
 									$scope.desktopPc.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceWindowPerHour):format2n(Number($scope.softwarePrices[j].priceWindowPerHour)/$scope.CurrentcyRate);
 									setModalControllerData('desktopPc', $scope.desktopPc);
 									return;
 								}
-								else if ($item.unit.id == 2){	
+								else if ($item.unit.id == 2){
 									$scope.desktopPc.name = $item.name;
 									$scope.desktopPc.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceWindowPerPage):format2n(Number($scope.softwarePrices[j].priceWindowPerPage)/$scope.CurrentcyRate);
 									setModalControllerData('desktopPc', $scope.desktopPc);
@@ -1171,23 +1171,23 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 								}
 							}
 						}
-						
+
 				}
 				else {//if not get paper task
 						//get group language
-						
+
 						$lang_group  =    LangGroup.get($scope.laguageid);
 						for(j=0;j<$scope.softwarePrices.length;j++)
 						{
 							if($scope.softwarePrices[j].languageGroup.id == $lang_group.group_id && $item.software.id ==  $scope.softwarePrices[j].desktopSoftware.id){
-								
+
 								if($item.unit.id == 1){
 									$scope.desktopPc.name = $item.name;
 									$scope.desktopPc.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceWindowPerHour):format2n(Number($scope.softwarePrices[j].priceWindowPerHour)/$scope.CurrentcyRate);
 									setModalControllerData('desktopPc', $scope.desktopPc);
 									return;
 								}
-								else if ($item.unit.id == 2){	
+								else if ($item.unit.id == 2){
 									$scope.desktopPc.name = $item.name;
 									$scope.desktopPc.rate_tmp = ($scope.currency == 'cny')?Number($scope.softwarePrices[j].priceWindowPerPage):format2n(Number($scope.softwarePrices[j].priceWindowPerPage)/$scope.CurrentcyRate);
 									setModalControllerData('desktopPc', $scope.desktopPc);
@@ -1200,32 +1200,32 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 	}
 	// get auto end price
 	$scope.getRateEng = function($item){
-		
-		
+
+
 		if($item.engineeringcategory && $item.unit)
 		{
 			$scope.engineering = $item;
 			//get private
-			
+
 			if( $scope.engineeringPrices.length)
 			{
 				for(i=0;i<$scope.engineeringPrices.length;i++){
-					if($item.engineeringcategory.id == $scope.engineeringPrices[i].engineeringcategory.id 
+					if($item.engineeringcategory.id == $scope.engineeringPrices[i].engineeringcategory.id
 					&&  $item.unit.id == $scope.engineeringPrices[i].unit.id){
-						
+
 						$scope.engineering.rate_tmp =  Number($scope.engineeringPrices[i].price);
 						setModalControllerData('engineering', $scope.engineering);
 						return;
 					}
-				}	
-				
+				}
+
 				for(j=0;j<$scope.engineeringPPrices.length;j++)
 					{
-						
-						
-						if($item.engineeringcategory.id == $scope.engineeringPPrices[j].engineeringCategory.id 
+
+
+						if($item.engineeringcategory.id == $scope.engineeringPPrices[j].engineeringCategory.id
 							&&  $item.unit.id == $scope.engineeringPPrices[j].unit.id){
-								
+
 							$scope.engineering.rate_tmp =  ($scope.currency == 'cny')?Number($scope.engineeringPPrices[j].price):format2n(Number($scope.engineeringPPrices[j].price)/$scope.CurrentcyRate);
 							setModalControllerData('engineering', $scope.engineering);
 							return;
@@ -1233,14 +1233,14 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					}
 				$scope.engineering.rate_tmp =  0;
 				setModalControllerData('engineering', $scope.engineering);
-				return;	
+				return;
 				//$item.rate = 0;
 
 			}
 			else{
 				for(j=0;j<$scope.engineeringPPrices.length;j++)
 				{
-					if($item.category.id == $scope.engineeringPPrices[j].engineeringCategory.id 
+					if($item.category.id == $scope.engineeringPPrices[j].engineeringCategory.id
 					&&  $item.unit.id == $scope.engineeringPPrices[j].unit.id){
 						$scope.engineering.rate_tmp =  ($scope.currency == 'cny')?Number($scope.engineeringPPrices[j].price):format2n(Number($scope.engineeringPPrices[j].price)/$scope.CurrentcyRate);
 						setModalControllerData('engineering', $scope.engineering);
@@ -1249,13 +1249,13 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				}
 				$scope.engineering.rate_tmp = 0;
 				setModalControllerData('engineering', $scope.engineering);
-				return;	
+				return;
 			}
 		}
 	}
-	
+
 	$scope.getRateInt = function($item){
-		
+
 		if($scope.interpretingPrices){
 			if($item.unit.id == 1)
 			{
@@ -1263,14 +1263,14 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			}
 			else if ($item.unit.id == 2){
 				$item.rate =  Number($scope.interpretingPrices[$scope.laguageid].priceHalfDay);
-			
+
 			}
 		}
 	}
 	$scope.downloadInvoice = function(){
 		$scope.url_downloadInvoice = "/" + LANG_CODE + "/admin/project/invoicedownload?id=" + projectId;
     };
-	
+
 	function existsIdInArray(arr, id){
         for(var i = 0; i < arr.length; i++){
             if(arr[i].id == id){
@@ -1279,7 +1279,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
         }
         return false;
     }
-	
+
 	function format22(n) {
 		n = Number(n)
 		return $scope.currency + " " + n.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
@@ -1290,16 +1290,16 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 		for(var i = 0; i < files.length; i++)
 		{
 			var date = new Date(files[i].time*1000);
-			var month = date.getMonth() + 1;	
+			var month = date.getMonth() + 1;
 			files[i].date = date.getFullYear()  + '-' + month + '-' + date.getDate() +  ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() ;
 			if(files[i].task && files[i].filetype==1){
 				if(files[i].task.id == TASK_ID)
-					$scope.taskfiles.push(files[i]); 
-			}	
+					$scope.taskfiles.push(files[i]);
+			}
 			else if(files[i].task && files[i].filetype==0){
-				if(files[i].task.id == TASK_ID)	
-					$scope.tasksourcefiles.push(files[i]); 	
-			}	
+				if(files[i].task.id == TASK_ID)
+					$scope.tasksourcefiles.push(files[i]);
+			}
 			else $scope.files.push(files[i]);
 		}
 		return true;
@@ -1317,16 +1317,16 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					$scope.task_total = $scope.task_total + total;
 					var rate = Number(Itemr[j].rate_freelancer);
 					var subtotal_tmp = Number($scope.subtotal_tmp);
-									
-					Itemr[j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
-					
+
+					Itemr[j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+
 					Itemr[j].rate_tmp = Itemr[j].rate_freelancer;
 					/*if(rate == 0){
 						total = 0;
 						Itemr[j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-					}*/	
+					}*/
 					Itemr[j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-						
+
 					//set unit
 					if(unit == 'interpretingUnits'){
 						if(Itemr[j].unit == 1) {
@@ -1338,61 +1338,61 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 							Itemr[j].unit = {};
 							Itemr[j].unit.id = 2;
 							Itemr[j].unit.name = 'Half Day';
-						}	
-					}	
+						}
+					}
 					else if(unit == 'engineeringUnits'){
 						if(Itemr[j].unit == 1) {
 							Itemr[j].unit = {};
 							Itemr[j].unit.id = 1;
 							Itemr[j].unit.name = 'Hour';
-						}	
+						}
 						else if(Itemr[j].unit == 2) {
-							Itemr[j].unit = {};	
+							Itemr[j].unit = {};
 							Itemr[j].unit.id = 2;
 							Itemr[j].unit.name = 'Day';
-						}	
+						}
 						else if(Itemr[j].unit == 3) {
 							Itemr[j].unit = {};
 							Itemr[j].unit.id = 3;
 							Itemr[j].unit.name = 'Month';
-						}	
+						}
 						else  if(Itemr[j].unit == 4) {
 							Itemr[j].unit = {};
 							Itemr[j].unit.id = 4;
-							Itemr[j].unit.name = 'Word';	
+							Itemr[j].unit.name = 'Word';
 						}
 						else  if(Itemr[j].unit == 5) {
 							Itemr[j].unit = {};
 							Itemr[j].unit.id = 5;
 							Itemr[j].unit.name = 'Graphic';
-						}	
+						}
 						else {
 							Itemr[j].unit = {};
 							Itemr[j].unit.id = 6;
 							Itemr[j].unit.name = 'Page';
-						}	
-					}		
+						}
+					}
 					else if(unit == 'dtpUnits'){
 						if(Itemr[j].unit == 1) {
 							Itemr[j].unit = {};
 							Itemr[j].unit.id = 1;
 							Itemr[j].unit.name = 'Hour';
-						}	
+						}
 						else{
 							Itemr[j].unit = {};
 							Itemr[j].unit.id = 2;
 							Itemr[j].unit.name  = 'Page';
-						}	
+						}
 					}
 					$scope.subtotal = $scope.currency + " " + subtotal_tmp.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					var tax = Number((subtotal_tmp - $scope.project.discount)* $scope.project.tax/100);
 					$scope.tax = $scope.currency + " " + tax.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-					
+
 					var total_tm = Number( (subtotal_tmp - $scope.project.discount)* $scope.project.tax/100 + subtotal_tmp - $scope.project.discount );
-					
+
 					$scope.total = $scope.currency + " " + total_tm.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					$scope.itermtmnew[$scope.project.targetLanguages[i].id].push(Itemr[j]);
-				}	
+				}
 			}
 		}
         return $scope.itermtmnew;
@@ -1405,43 +1405,43 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					Itemr[targetLanguagesid][j].rate_freelancer = rate;
 					Itemr[targetLanguagesid][j].total_freelancer = total + Itemr[targetLanguagesid][j].total_freelancer;
 					Itemr[targetLanguagesid][j].rate_tmp = rate;
-					Itemr[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+					Itemr[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 					Itemr[targetLanguagesid][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-					
+
 			}
-		}	
+		}
         return Itemr;
     }
 	// update task
 	$scope.assignFre = function(){
-		
+
 		$scope.task.freelancerassign.total = $scope.task_total;
-		
-		
+
+
 		if($scope.task.freelancerassign){
-			
-			
-			//get translation price 
-			
-			$scope.task.freelancerassign.type = $scope.task.type.id;	
+
+
+			//get translation price
+
+			$scope.task.freelancerassign.type = $scope.task.type.id;
 			var ajaxUserInfo = $http.get("/api/user/" + $scope.task.freelancerassign.userid + "")
             .success ( function ( $data ) {
 				$scope.currency = $data.user.currency;
 			});
 			$q.all([ajaxUserInfo])
                 .then(function(){
-            
+
 			if($scope.task.type.id == 1){//translationNoTM
 				$http.get('/api/user/translationprice?userId='+ $scope.task.freelancerassign.userid).success(function($data) {
-				
+
 					$scope.translationPrices = $data['translationPrices'];
-					
+
 					for(i=0;i<$scope.translationPrices.length;i++){
 						if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.task.language.id == $scope.translationPrices[i].targetLanguage.id  ){
 							$scope.task.freelancerassign.rate_freelancer  = $scope.translationPrices[i].price;
 							//$scope.task.freelancerassign.total_freelancer  = Number($scope.task.freelancerassign.rate_freelancer) * Number($scope.itermnotmsnews[$scope.task.language.id][0].quantity);
 						}
-						
+
 					}
 					if(!$scope.task.freelancerassign.rate_freelancer){
 						//get papertask
@@ -1452,14 +1452,14 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 									for(j=0;j<$scope.project.targetLanguages.length;j++) {
 									//get default papertask
 										for(k=0;k<$scope.translation.length;k++){
-											if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage 
+											if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage
 												&& $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage){
 												if($scope.project.serviceLevel==1)
 													$scope.task.freelancerassign.rate_freelancer  = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):format2n(Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate);
 												else if($scope.project.serviceLevel==2)
 													$scope.task.freelancerassign.rate_freelancer  = ($scope.currency == 'cny')?Number($scope.translation[k].businessPrice):format2n(Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate);
 												else
-													$scope.task.freelancerassign.rate_freelancer  = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);		
+													$scope.task.freelancerassign.rate_freelancer  = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);
 												}
 										}
 									}
@@ -1475,27 +1475,27 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 											total_task_freelancer = total_task_freelancer + total;
 											$scope.itermnotmsnews[targetLanguagesid][j].rate_tmp = rate;
 											$scope.itermnotmsnews[targetLanguagesid][j].total_freelancer = total;
-											$scope.itermnotmsnews[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+											$scope.itermnotmsnews[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 											$scope.itermnotmsnews[targetLanguagesid][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-											
+
 									}
-									
+
 									$scope.task.freelancerassign.itermnotmsnews = $scope.itermnotmsnews[$scope.task.language.id];
 									$scope.task.freelancerassign.total_task_freelancer = total_task_freelancer;
 									$scope.task.freelancerassign.currency = $scope.currency;
 									console.log($scope.task.freelancerassign);
 									console.log($scope.task.total_task_freelancer);
-									
+
 									var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
 									.success( function ( $data ) {
 										//$scope.task = $data.task;
 										$scope.task.status = TaskStatus.get($scope.task.status);
 										bootbox.alert(ASSIGN_SUCCESSFUL);
-									});	
+									});
 						});
 					}
 					else{
-					
+
 						console.log("fdfsfd");
 						console.log($scope.task.freelancerassign.rate_freelancer);
 						var total_task_freelancer = 0;
@@ -1507,34 +1507,34 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 								total_task_freelancer = total_task_freelancer + total;
 								$scope.itermnotmsnews[targetLanguagesid][j].rate_tmp = rate;
 								$scope.itermnotmsnews[targetLanguagesid][j].total_freelancer = total;
-								$scope.itermnotmsnews[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+								$scope.itermnotmsnews[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 								$scope.itermnotmsnews[targetLanguagesid][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-								
+
 						}
-						
+
 						$scope.task.freelancerassign.itermnotmsnews = $scope.itermnotmsnews[$scope.task.language.id];
 						$scope.task.freelancerassign.total_task_freelancer = total_task_freelancer;
 						$scope.task.freelancerassign.currency = $scope.currency;
 						console.log($scope.task.freelancerassign);
 						console.log($scope.task.total_task_freelancer);
-						
+
 						var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
 						.success( function ( $data ) {
 							//$scope.task = $data.task;
 							$scope.task.status = TaskStatus.get($scope.task.status);
 							bootbox.alert(ASSIGN_SUCCESSFUL);
-						});	
+						});
 					}
-					
-				});	
-			
+
+				});
+
 			}
 			else if($scope.task.type.id == 2){
 				var ajaxUserInfo = $http.get("/api/user/" + $scope.task.freelancerassign.userid + "")
 				.success ( function ( $data ) {
 					$scope.currency = $data.user.currency;
 					$scope.tmRatios = $data.tmRatios;
-					
+
 					console.log($data);
 				});
 				$q.all([ajaxUserInfo])
@@ -1559,36 +1559,36 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 							$scope.itemtms[$scope.task.language.id][0].ratebawu_fl = Number($scope.translationTM[3].rate*100);
 							$scope.itemtms[$scope.task.language.id][0].rateqiwu_fl = Number($scope.translationTM[4].rate*100);
 							$scope.itemtms[$scope.task.language.id][0].ratewushi_fl = Number($scope.translationTM[5].rate*100);
-							$scope.itemtms[$scope.task.language.id][0].ratenomatch_fl = Number($scope.translationTM[6].rate*100);		
+							$scope.itemtms[$scope.task.language.id][0].ratenomatch_fl = Number($scope.translationTM[6].rate*100);
 
 						}).error(function($e){
 						   alert('error');
 						});
 					}
-					//get rate 
+					//get rate
 					$http.get('/api/user/translationprice?userId='+ $scope.task.freelancerassign.userid).success(function($data) {
-				
+
 						$scope.translationPrices = $data['translationPrices'];
-					
+
 						for(i=0;i<$scope.translationPrices.length;i++){
 							if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.task.language.id == $scope.translationPrices[i].targetLanguage.id  ){
 								$scope.task.freelancerassign.rate_freelancer  = $scope.translationPrices[i].price;
-								var rate_freelancer = Number($scope.task.freelancerassign.rate_freelancer);						
+								var rate_freelancer = Number($scope.task.freelancerassign.rate_freelancer);
 									$scope.itemtms[$scope.task.language.id][0].rate_tmp = Number($scope.task.freelancerassign.rate_freelancer);
-									var total_freelancer = 
+									var total_freelancer =
 										($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].raterepetitions_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcerepetitions
 										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].rateyibai_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourceyibai
 										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratejiuwu_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcejiuwu
 										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratebawu_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcebawu
 										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratewushi_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcewushi
 										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratenomatch_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcenomatch;
-										
-										$scope.itemtms[$scope.task.language.id][0].total = $scope.currency + " " + total_freelancer.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+
+										$scope.itemtms[$scope.task.language.id][0].total = $scope.currency + " " + total_freelancer.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itemtms[$scope.task.language.id][0].rate = $scope.currency + " " + rate_freelancer.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-										$scope.itemtms[$scope.task.language.id][0].total_freelancer = total_freelancer; 
+										$scope.itemtms[$scope.task.language.id][0].total_freelancer = total_freelancer;
 										$scope.itemtms[$scope.task.language.id][0].rate_freelancer = rate_freelancer;
-	
-										
+
+
 									$scope.task.freelancerassign.itemtms = $scope.itemtms[$scope.task.language.id];
 									$scope.task.freelancerassign.total_task_freelancer = total_freelancer;
 									$scope.task.freelancerassign.currency = $scope.currency;
@@ -1597,12 +1597,12 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 										$scope.task = $data.task;
 										$scope.task.status = TaskStatus.get($scope.task.status);
 										bootbox.alert(ASSIGN_SUCCESSFUL);
-									});	
-								
+									});
+
 								//console.log($scope.task.freelancerassign.rate_freelancer);
 								//$scope.task.freelancerassign.total_freelancer  = Number($scope.task.freelancerassign.rate_freelancer) * Number($scope.itermnotmsnews[$scope.task.language.id][0].quantity);
 							}
-							
+
 						}
 						if(!$scope.task.freelancerassign.rate_freelancer){
 							$http.get("/api/papertask/translation").success(function($data){
@@ -1612,33 +1612,33 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 									for(j=0;j<$scope.project.targetLanguages.length;j++) {
 									//get default papertask
 										for(k=0;k<$scope.translation.length;k++){
-											if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage 
+											if($scope.project.sourceLanguage.id == $scope.translation[k].sourceLanguage
 												&& $scope.project.targetLanguages[j].id == $scope.translation[k].targetLanguage){
 												if($scope.project.serviceLevel==1)
 													$scope.task.freelancerassign.rate_freelancer  = ($scope.currency == 'cny')?Number($scope.translation[k].professionalPrice):format2n(Number($scope.translation[k].professionalPrice)/$scope.CurrentcyRate);
 												else if($scope.project.serviceLevel==2)
 													$scope.task.freelancerassign.rate_freelancer  = ($scope.currency == 'cny')?Number($scope.translation[k].businessPrice):format2n(Number($scope.translation[k].businessPrice)/$scope.CurrentcyRate);
 												else
-													$scope.task.freelancerassign.rate_freelancer  = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);		
+													$scope.task.freelancerassign.rate_freelancer  = ($scope.currency == 'cny')?Number($scope.translation[k].premiumPrice):format2n(Number($scope.translation[k].premiumPrice)/$scope.CurrentcyRate);
 												}
 										}
 									}
-									var rate_freelancer = Number($scope.task.freelancerassign.rate_freelancer);						
+									var rate_freelancer = Number($scope.task.freelancerassign.rate_freelancer);
 									$scope.itemtms[$scope.task.language.id][0].rate_tmp = Number($scope.task.freelancerassign.rate_freelancer);
-									var total_freelancer = 
+									var total_freelancer =
 										($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].raterepetitions_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcerepetitions
 										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].rateyibai_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourceyibai
 										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratejiuwu_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcejiuwu
 										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratebawu_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcebawu
 										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratewushi_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcewushi
 										+($scope.task.freelancerassign.rate_freelancer * $scope.itemtms[$scope.task.language.id][0].ratenomatch_fl / 100) * $scope.itemtms[$scope.task.language.id][0].sourcenomatch;
-										
-										$scope.itemtms[$scope.task.language.id][0].total = $scope.currency + " " + total_freelancer.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+
+										$scope.itemtms[$scope.task.language.id][0].total = $scope.currency + " " + total_freelancer.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itemtms[$scope.task.language.id][0].rate = $scope.currency + " " + rate_freelancer.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-										$scope.itemtms[$scope.task.language.id][0].total_freelancer = total_freelancer; 
+										$scope.itemtms[$scope.task.language.id][0].total_freelancer = total_freelancer;
 										$scope.itemtms[$scope.task.language.id][0].rate_freelancer = rate_freelancer;
-	
-										
+
+
 									$scope.task.freelancerassign.itemtms = $scope.itemtms[$scope.task.language.id];
 									$scope.task.freelancerassign.total_task_freelancer = total_freelancer;
 									$scope.task.freelancerassign.currency = $scope.currency;
@@ -1647,16 +1647,16 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 										$scope.task = $data.task;
 										$scope.task.status = TaskStatus.get($scope.task.status);
 										bootbox.alert(ASSIGN_SUCCESSFUL);
-									});	
-							
+									});
+
 							}).error(function($e){
 								alert('error');
 							});
 						}
-						
-						
-						
-					
+
+
+
+
 						//$scope.itermnotmsnews = rearrangeItem($scope.itermnotmsnews,$scope.task.language.id,$scope.task.freelancerassign.rate_freelancer);
 						/*var total_task_freelancer = 0;
 						var targetLanguagesid = $scope.task.language.id;
@@ -1667,33 +1667,33 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 								total_task_freelancer = total_task_freelancer + total;
 								$scope.itermnotmsnews[targetLanguagesid][j].rate_tmp = rate;
 								$scope.itermnotmsnews[targetLanguagesid][j].total_freelancer = total;
-								$scope.itermnotmsnews[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,"); 
+								$scope.itermnotmsnews[targetLanguagesid][j].total = $scope.currency + " " + total.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 								$scope.itermnotmsnews[targetLanguagesid][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
-								
+
 						}
-					
+
 						$scope.task.freelancerassign.itermnotmsnews = $scope.itermnotmsnews[$scope.task.language.id];
 						$scope.task.freelancerassign.total_task_freelancer = total_task_freelancer;
 						$scope.task.freelancerassign.currency = $scope.currency;
 						console.log($scope.task.freelancerassign);
 						console.log($scope.task.total_task_freelancer);
-						
+
 						var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
 						.success( function ( $data ) {
 							$scope.task = $data.task;
 							$scope.task.status = TaskStatus.get($scope.task.status);
 							bootbox.alert(ASSIGN_SUCCESSFUL);
-						});*/	
-					
-				});	
+						});*/
+
+				});
 					/*$http.get('/api/user/translationprice?userId='+ $scope.task.freelancerassign.userid).success(function($data) {
-				
+
 					}*/
-				})					
+				})
 			}
 			else if($scope.task.type.id == 3){
-				
-			
+
+
 			}
 			else if($scope.task.type.id == 4){
 			var ajaxUserInfo = $http.get("/api/user/" + $scope.task.freelancerassign.userid + "")
@@ -1709,11 +1709,11 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					for(i=0;i<$scope.desktopPrices.length;i++)
 					{
 						if($scope.desktopPrices[i].language.id == $scope.task.language.id){
-						
+
 							for(j=0;i<$scope.itermdtpmacs[$scope.task.language.id].length;i++)
 							{
 								if($scope.itermdtpmacs[$scope.task.language.id][j].software.id == $scope.desktopPrices[i].software.id){
-								
+
 									if($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Hour"){
 										var rate = Number($scope.desktopPrices[i].priceHourMac);
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_tmp = rate;
@@ -1722,10 +1722,10 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_freelancer = rate;
 										$scope.itermdtpmacs[$scope.task.language.id][j].total_freelancer = $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp;
-										
+
 										//return;
-									}	
-									else if ($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Page"){	
+									}
+									else if ($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Page"){
 										var rate = Number($scope.desktopPrices[i].priceMac);
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_tmp = rate;
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
@@ -1734,29 +1734,29 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_freelancer = rate;
 										$scope.itermdtpmacs[$scope.task.language.id][j].total_freelancer = $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp;
 										//return;
-									}	
+									}
 								}
-								
-							}	
+
+							}
 						}
-					}	
-					
+					}
+
 					$scope.task.freelancerassign.itermdtpmacs = $scope.itermdtpmacs[$scope.task.language.id];
 					console.log($scope.task.freelancerassign);
-					
+
 					var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
 					.success( function ( $data ) {
 						//$scope.task = $data.task;
 						//$scope.task.status = TaskStatus.get($scope.task.status);
 						bootbox.alert(ASSIGN_SUCCESSFUL);
-					});	
-					
+					});
+
 				});
 				})
-			
+
 			}
 			else if($scope.task.type.id == 5){
-				
+
 			var ajaxUserInfo = $http.get("/api/user/" + $scope.task.freelancerassign.userid + "")
             .success ( function ( $data ) {
 				$scope.currency = $data.user.currency;
@@ -1770,11 +1770,11 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					for(i=0;i<$scope.desktopPrices.length;i++)
 					{
 						if($scope.desktopPrices[i].language.id == $scope.task.language.id){
-						
+
 							for(j=0;i<$scope.itermdtppcs[$scope.task.language.id].length;i++)
 							{
 								if($scope.itermdtppcs[$scope.task.language.id][j].software.id == $scope.desktopPrices[i].software.id){
-								
+
 									if($scope.itermdtppcs[$scope.task.language.id][j].unit.name == "Hour"){
 										var rate = Number($scope.desktopPrices[i].priceHourPc);
 										$scope.itermdtppcs[$scope.task.language.id][j].rate_tmp = rate;
@@ -1783,10 +1783,10 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 										$scope.itermdtppcs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtppcs[$scope.task.language.id][j].total_tmp.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtppcs[$scope.task.language.id][j].rate_freelancer = rate;
 										$scope.itermdtppcs[$scope.task.language.id][j].total_freelancer = $scope.itermdtppcs[$scope.task.language.id][j].total_tmp;
-										
+
 										//return;
-									}	
-									else if ($scope.itermdtppcs[$scope.task.language.id][j].unit.name == "Page"){	
+									}
+									else if ($scope.itermdtppcs[$scope.task.language.id][j].unit.name == "Page"){
 										var rate = Number($scope.desktopPrices[i].pricePc);
 										$scope.itermdtppcs[$scope.task.language.id][j].rate_tmp = rate;
 										$scope.itermdtppcs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
@@ -1795,30 +1795,30 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 										$scope.itermdtppcs[$scope.task.language.id][j].rate_freelancer = rate;
 										$scope.itermdtppcs[$scope.task.language.id][j].total_freelancer = $scope.itermdtppcs[$scope.task.language.id][j].total_tmp;
 										//return;
-									}	
+									}
 								}
-								
-							}	
+
+							}
 						}
-					}	
-					
+					}
+
 					$scope.task.freelancerassign.itermdtpmacs = $scope.itermdtpmacs[$scope.task.language.id];
 					console.log($scope.task.freelancerassign);
-					
+
 					var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
 					.success( function ( $data ) {
 						//$scope.task = $data.task;
 						//$scope.task.status = TaskStatus.get($scope.task.status);
 						bootbox.alert(ASSIGN_SUCCESSFUL);
-					});	
-					
+					});
+
 				});
 				})
-			
-			
+
+
 			}
 			else if($scope.task.type.id == 6){//engineering
-			
+
 			var ajaxUserInfo = $http.get("/api/user/" + $scope.task.freelancerassign.userid + "")
             .success ( function ( $data ) {
 				$scope.currency = $data.user.currency;
@@ -1832,11 +1832,11 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					/*for(i=0;i<$scope.engineeringPrices.length;i++)
 					{
 						if($scope.desktopPrices[i].language.id == $scope.task.language.id){
-						
+
 							for(j=0;i<$scope.itermdtpmacs[$scope.task.language.id].length;i++)
 							{
 								if($scope.itermdtpmacs[$scope.task.language.id][j].software.id == $scope.desktopPrices[i].software.id){
-								
+
 									if($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Hour"){
 										var rate = Number($scope.desktopPrices[i].priceHourMac);
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_tmp = rate;
@@ -1845,10 +1845,10 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 										$scope.itermdtpmacs[$scope.task.language.id][j].total = $scope.currency + " " + $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_freelancer = rate;
 										$scope.itermdtpmacs[$scope.task.language.id][j].total_freelancer = $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp;
-										
+
 										//return;
-									}	
-									else if ($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Page"){	
+									}
+									else if ($scope.itermdtpmacs[$scope.task.language.id][j].unit.name == "Page"){
 										var rate = Number($scope.desktopPrices[i].priceMac);
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_tmp = rate;
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate = $scope.currency + " " + rate.toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
@@ -1857,107 +1857,107 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 										$scope.itermdtpmacs[$scope.task.language.id][j].rate_freelancer = rate;
 										$scope.itermdtpmacs[$scope.task.language.id][j].total_freelancer = $scope.itermdtpmacs[$scope.task.language.id][j].total_tmp;
 										//return;
-									}	
+									}
 								}
-								
-							}	
+
+							}
 						}
-					}	
-					
+					}
+
 					$scope.task.freelancerassign.itermdtpmacs = $scope.itermdtpmacs[$scope.task.language.id];
 					console.log($scope.task.freelancerassign);
-					
+
 					var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=2", $scope.task.freelancerassign)
 					.success( function ( $data ) {
 						//$scope.task = $data.task;
 						//$scope.task.status = TaskStatus.get($scope.task.status);
 						bootbox.alert(ASSIGN_SUCCESSFUL);
 					});	*/
-					
+
 				});
 				})
-			
-				
+
+
 			}
 			else{
-			
-			
+
+
 			}
-            
-			
+
+
 			});
-			
-			
-			
-			
+
+
+
+
 		}
-	};	
+	};
 	$scope.sendToSpecialismPool = function(){
 		var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=3")
 		.success( function ( $data ) {
 			$scope.task = $data.task;
 			bootbox.alert(ASSIGN_SUCCESSFUL);
-		});	
+		});
 	};
 	$scope.sendToClientPool = function(){
 		var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=4")
 		.success( function ( $data ) {
 			$scope.task = $data.task;
 			bootbox.alert(ASSIGN_SUCCESSFUL);
-		});	
+		});
 	};
-	
+
 	$scope.update = function(){
         var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=1", $scope.tempTask)
 		.success( function ( $data ) {
 			$scope.task = $data.task;
 			//location.href = "/" + LANG_CODE + "/admin/admin/task?id=" + projectId;
-		});	
-    };	
+		});
+    };
 	$scope.removeItem = function(item){
             var id = item.id;
 			bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
 				if ( bflag == true ) {
 					$http.delete("/api/admin/file/" + id, {
-						id: id            
-					}).success(function( data ) {                
+						id: id
+					}).success(function( data ) {
 						for(var i = 0; i < $scope.files.length; i++){
 							if($scope.files[i].id == id){
 								$scope.files.splice(i, 1);
-								
+
 								break;
 							}
-						}	
-						
+						}
+
 					})
 					.error(function( data ){
 						bootbox.alert(CANNOT_DELETE_TEXT);
-					});             
-					
+					});
+
 				}
 			});
     };
-		
+
 	$scope.removetaskItem = function(item){
 		var id = item.id;
 			bootbox.confirm( DELETE_CONFIRM_TEXT, function (bflag) {
 				if ( bflag == true ) {
 					$http.delete("/api/admin/file/" + id, {
-						id: id            
-					}).success(function( data ) {                
+						id: id
+					}).success(function( data ) {
 						for(var i = 0; i < $scope.taskfiles.length; i++){
 							if($scope.taskfiles[i].id == id){
 								$scope.taskfiles.splice(i, 1);
-								
+
 								break;
 							}
-						}	
-						
+						}
+
 					})
 					.error(function( data ){
 						bootbox.alert(CANNOT_DELETE_TEXT);
-					});             
-					
+					});
+
 				}
 			});
     };
@@ -1983,7 +1983,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				$scope.task = $data.task;
 				jQuery("#edit_task").collapse("toggle");
 				//location.href = "/" + LANG_CODE + "/admin/admin/task?id=" + projectId;
-			});	
+			});
             /*ProjectApi.update($scope.project.id, data, function () {
                 jQuery.extend($scope.project, $scope.tempProject);
                 jQuery("#edit_project").collapse("toggle");
@@ -2049,7 +2049,7 @@ angularApp.factory("FileListService", function(){
 		files: files,
 		taskfiles: taskfiles,
 		tasksourcefiles: tasksourcefiles,
-		
+
 		projectid: projectid,
 		taskid :taskid,
 	};
@@ -2058,43 +2058,43 @@ angularApp.factory("FileListService", function(){
 });
 /*
 angularApp.controller("TaskCorrectionController", function($scope,  $http, $q, $timeout, CorrectionApi){
-	
-	
+
+
 	$q.all([task_listener])
     .then(function(){
-       
+
     	var PROJECT_ID = $scope.projectId;
     	//var LANG_ID = $scope.language.id;
-    	
-    	alert(PROJECT_ID); 
+
+    	alert(PROJECT_ID);
     	//alert(LANG_ID);
-    	
+
     	$http.get("/api/papertask/projectcorrection/?project_id=" + PROJECT_ID).success(function($data){
             for(var i=0; i< $data.corrections.length; i++){
             	//if($data.corrections[i]=)
             }
         }).error(function($e){
-            
+
         });
-		
+
     });
-   
+
 });
 */
 angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', function($scope, FileUploader, $timeout) {
     var uploader = $scope.uploader = new FileUploader({
-		scope: true, 
+		scope: true,
         url: "/" + LANG_CODE + "/admin/project/uploadFile" ,
 		//formData : [{projectId : $scope.projectId}],
     });
-	
+
 	var uploadertask = $scope.uploadertask  = new FileUploader({
-        url: "/" + LANG_CODE + "/admin/project/uploadFile", 
+        url: "/" + LANG_CODE + "/admin/project/uploadFile",
 		//formData : [{projectId : $scope.projectId, taskid : $scope.taskId}],
     });
-	
+
 	var uploadertasksource = $scope.uploadertasksource  = new FileUploader({
-        url: "/" + LANG_CODE + "/admin/project/uploadFile", 
+        url: "/" + LANG_CODE + "/admin/project/uploadFile",
 		//formData : [{projectId : $scope.projectId, taskid : $scope.taskId}],
     });
 
@@ -2106,14 +2106,14 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
             return this.queue.length < 10;
         }
     });
-	
+
 	uploadertask.filters.push({
         name: 'customFilter',
         fn: function(item /*{File|FileLikeObject}*/, options) {
             return this.queue.length < 10;
         }
     });
-	
+
 	uploadertasksource.filters.push({
         name: 'customFilter',
         fn: function(item /*{File|FileLikeObject}*/, options) {
@@ -2125,30 +2125,30 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
     // CALLBACKS FILE PROJECT
 
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-        
+
     };
     uploader.onAfterAddingFile = function(fileItem) {
         fileItem.upload();
     };
     uploader.onAfterAddingAll = function(addedFileItems) {
-        
+
     };
     uploader.onBeforeUploadItem = function(item) {
-		//var projectId = 
+		//var projectId =
 		item.formData.push({ projectId: $scope.projectId });
 		uploader.isUploading = 1;
         //uploader.formData.projectId = $scope.projectId;
-        
+
     };
     uploader.onProgressItem = function(fileItem, progress) {
         //uploader.
     };
     uploader.onProgressAll = function(progress) {
-        
+
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
-		
-		
+
+
 		uploader.isUploading = 0;
         if(!response.success){
             fileItem.file.name += " - Uploading error";
@@ -2158,59 +2158,59 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
             return;
         }
 		var date = new Date(response.file.time*1000);
-		
-		var month = date.getMonth() + 1;	
+
+		var month = date.getMonth() + 1;
 		var dateshow = date.getFullYear()  + '-' + month + '-' + date.getDate() +  ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() ;
-	
+
         fileItem.projectFile = {
             name: fileItem.file.name,
             id: response.file.id,
 			size : response.file.size,
 			date : dateshow,
-			path : response.file.path, 
+			path : response.file.path,
         };
 		$scope.files.push(fileItem.projectFile);
 		uploader.queue = [];
-		
-		
+
+
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
-        
+
     };
     uploader.onCancelItem = function(fileItem, response, status, headers) {
-        
+
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
     };
     uploader.onCompleteAll = function() {
-        
+
     };
 
-    
+
 
 
     // -------------------------------
 	// CALLBACKS FILE TASK
 
     uploadertask.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-        
+
     };
     uploadertask.onAfterAddingFile = function(fileItem) {
         fileItem.upload();
     };
     uploadertask.onAfterAddingAll = function(addedFileItems) {
-        
+
     };
     uploadertask.onBeforeUploadItem = function(item) {
 		item.formData.push({ projectId: $scope.projectId, taskId: $scope.taskId,  filetype: 1 });
 		uploadertask.isUploading = 1;
-        
+
     };
     uploadertask.onProgressItem = function(fileItem, progress) {
-        
+
     };
     uploadertask.onProgressAll = function(progress) {
-        
+
     };
     uploadertask.onSuccessItem = function(fileItem, response, status, headers) {
         if(!response.success){
@@ -2221,9 +2221,9 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
             return;
         }
 		var date = new Date(response.file.time*1000);
-		var month = date.getMonth() + 1;	
+		var month = date.getMonth() + 1;
 		var dateshow = date.getFullYear()  + '-' + month + '-' + date.getDate() +  ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() ;
-		
+
         fileItem.taskFile = {
             name: fileItem.file.name,
             id: response.file.id,
@@ -2236,40 +2236,40 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
 		uploadertask.queue = [];
     };
     uploadertask.onErrorItem = function(fileItem, response, status, headers) {
-        
+
     };
     uploadertask.onCancelItem = function(fileItem, response, status, headers) {
-        
+
     };
     uploadertask.onCompleteItem = function(fileItem, response, status, headers) {
     };
     uploadertask.onCompleteAll = function() {
-        
+
     };
 
-    
+
 	// -------------------------------
 	// CALLBACKS FILE TASK SOURCE
 
     uploadertasksource.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-        
+
     };
     uploadertasksource.onAfterAddingFile = function(fileItem) {
         fileItem.upload();
     };
     uploadertasksource.onAfterAddingAll = function(addedFileItems) {
-        
+
     };
     uploadertasksource.onBeforeUploadItem = function(item) {
 		item.formData.push({ projectId: $scope.projectId, taskId: $scope.taskId, filetype: 0 });
 		uploadertasksource.isUploading=1;
-        
+
     };
     uploadertasksource.onProgressItem = function(fileItem, progress) {
-        
+
     };
     uploadertasksource.onProgressAll = function(progress) {
-        
+
     };
     uploadertasksource.onSuccessItem = function(fileItem, response, status, headers) {
         if(!response.success){
@@ -2280,9 +2280,9 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
             return;
         }
 		var date = new Date(response.file.time*1000);
-		var month = date.getMonth() + 1;	
+		var month = date.getMonth() + 1;
 		var dateshow = date.getFullYear()  + '-' + month + '-' + date.getDate() +  ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() ;
-		
+
         fileItem.taskFile = {
             name: fileItem.file.name,
             id: response.file.id,
@@ -2295,15 +2295,15 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
 		uploadertasksource.queue=[];
     };
     uploadertasksource.onErrorItem = function(fileItem, response, status, headers) {
-        
+
     };
     uploadertasksource.onCancelItem = function(fileItem, response, status, headers) {
-        
+
     };
     uploadertasksource.onCompleteItem = function(fileItem, response, status, headers) {
     };
     uploadertasksource.onCompleteAll = function() {
-        
+
     };
 
 
@@ -2319,7 +2319,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
     var calTo = $scope.calTo = function(){
 
         var modalSelector = arguments[0];
-        
+
         if(modalSelector){
             var elementSelector = arguments[1];
             var functionName = arguments[2];
@@ -2330,5 +2330,5 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
             angular.element(elementSelector).scope()[functionName].apply(null, args);
         }
     }
-	
+
 }]);
