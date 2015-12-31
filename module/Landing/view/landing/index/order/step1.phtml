@@ -1,5 +1,5 @@
 <div class="setup-content" id="step-1">
-	
+
 	<div class="col-md-12">
 		<div class="ibox-content" ng-controller="AppController" nv-file-drop="" uploader="uploader">
 			<div class="row">
@@ -32,9 +32,9 @@
 								<th width="10%">#</th>
 								<th><?php echo $this->translate('File Name','Application'); ?></th>
 								<th width="20%"><?php echo $this->translate('File Size','Application'); ?></th>
-								
+
 								<th><?php echo $this->translate('size:','Application'); ?>Time Stamp</th>
-								
+
 								<th width="5%"></th>
 							</tr>
 						</thead>
@@ -55,9 +55,11 @@
 								<!--
 								<td>{{ getTime(item) }}</td>
 								-->
-								<td width="5%" class="text-center child-is-link"><a href=""><i
-									ng-click="removeItem(item)"
-									class="fa fa-trash-o text-danger"></i></a></td>
+								<td  class="text-center child-is-link">
+									<a ng-click = "removeItem(item)">
+										<i class="fa fa-trash-o text-danger"></i>
+									</a>
+							</td>
 							</tr>
 						</tbody>
 					</table>
@@ -72,13 +74,5 @@
 			</div>
 		</div>
 	</div>
-	
+
 </div>
-
-
-
-
-
-
-
-

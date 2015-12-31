@@ -231,14 +231,16 @@ class ProjectController extends AbstractActionController
     }
 
     public function downloadFileAction(){
+        $token = $this->params()->fromQuery('token');
 
-        if ( $token = $this->params()->fromQuery('token') ) {
+        if ( $token) {
 
             $entityManager = $this->getEntityManager();
             $file = $entityManager->getRepository('\User\Entity\File')->findOneBy(
-			array('token' => $token));
+			         array('token' => $token));
 
             $downloadPath = $file->getPath();
+            var_dump($downloadPath);exit;
             //var_dump($downloadPath);
             // ob_end_clean();
 

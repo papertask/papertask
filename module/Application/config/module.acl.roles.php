@@ -193,6 +193,7 @@ $allow_freelancer = array(
 	'project\wordcount',
 	'project\uploadtemp',
 	'project\getClientProjectList',
+	'project\downloadFile',
 
 	// -- Quote
 
