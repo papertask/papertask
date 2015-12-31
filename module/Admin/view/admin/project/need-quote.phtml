@@ -33,6 +33,7 @@
 $this->inlineScript()
     ->prependScript("
 		var LANG_CODE = '" . $this->lang_code . "';
+		var UserId = '" . $this->currentUserId . "';
     ");
 ?>
 
@@ -95,9 +96,9 @@ $this->inlineScript()
                             </a></li>
                         </ul>
                     </div>
-                  </div>                                  
-                     <?php include "needquote/step1.phtml" ?>                                                                 
-                     <?php include "needquote/step2.phtml" ?>                                        
+                  </div>
+                     <?php include "needquote/step1.phtml" ?>
+                     <?php include "needquote/step2.phtml" ?>
 
               </form>
             </div>
@@ -108,7 +109,7 @@ $this->inlineScript()
 
    <script>
       $(document).ready(function() {
-          
+
           var navListItems = $('ul.setup-panel li a'),
               allWells = $('.setup-content');
 
@@ -119,7 +120,7 @@ $this->inlineScript()
               e.preventDefault();
               var $target = $($(this).attr('href')),
                   $item = $(this).closest('li');
-              
+
               if (!$item.hasClass('disabled')) {
                   navListItems.closest('li').removeClass('active');
                   $item.addClass('active');
@@ -131,30 +132,30 @@ $this->inlineScript()
           $(".sLanguage").select2();
           $(".tLanguage").select2();
           $('.footable').footable();
-                    
+
           $('ul.setup-panel li.active a').trigger('click');
-          
+
           // DEMO ONLY //
           $('#activate-step-2').on('click', function(e) {
               $('ul.setup-panel li:eq(1)').removeClass('disabled');
               $('ul.setup-panel li a[href="#step-2"]').trigger('click');
-          });    
+          });
 
           /*
           $('#activate-step-3').on('click', function(e) {
               $('ul.setup-panel li a[href="#step-3"]').trigger('click');
               $(this).remove();
-          }); 
-			
+          });
+
 			*/
-			
+
           $('#activate-step-4').on('click', function(e) {
               $('ul.setup-panel li a[href="#step-4"]').trigger('click');
-          }); 
-          
+          });
+
           $('#activate-step-1').on('click', function(e) {
-              $('ul.setup-panel li a[href="#step-1"]').trigger('click');             
-          }); 
+              $('ul.setup-panel li a[href="#step-1"]').trigger('click');
+          });
       });
 
       function StrDate(dateIn) {
@@ -174,8 +175,3 @@ $this->inlineScript()
 		$( "#form" ).validate();
 
  </script>
-
-
- 
-
-    

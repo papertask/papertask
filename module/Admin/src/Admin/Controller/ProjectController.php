@@ -123,12 +123,14 @@ class ProjectController extends AbstractActionController
     	if($isContracted == 1){
     		$view =  new ViewModel(array(
     				"lang_code" => $lang_code,
+            'currentUserId' => $currentUserId,
     		));
     		$view->setTemplate('admin/project/need-quote.phtml');
     		return $view;
     	} else{
     		$view =  new ViewModel(array(
     			"lang_code" => $lang_code,
+          'currentUserId' => $currentUserId,
     	));
     		$view->setTemplate('admin/project/order-translation-non-contract.phtml');
     		return $view;
@@ -240,7 +242,7 @@ class ProjectController extends AbstractActionController
 			         array('token' => $token));
 
             $downloadPath = $file->getPath();
-            var_dump($downloadPath);exit;
+            //var_dump($downloadPath);exit;
             //var_dump($downloadPath);
             // ob_end_clean();
 
