@@ -96,16 +96,18 @@ class ProjectController extends AbstractActionController
     	$currentUserId = User::currentLoginId();
     	$currentUser = $this->find('User\Entity\User',$currentUserId);
     	$employer = $currentUser->getEmployer();
-    	$isContracted = $employer->getContract();//var_dump($employer);var_dump($isContracted);exit;	
+    	$isContracted = $employer->getContract();//var_dump($employer);var_dump($isContracted);exit;
     	if($isContracted == 1){
     		$view =  new ViewModel(array(
     				"lang_code" => $lang_code,
+            'currentUserId' => $currentUserId,
     		));
     		$view->setTemplate('admin/project/order-translation.phtml');
     		return $view;
     	} else{
     		$view =  new ViewModel(array(
     			"lang_code" => $lang_code,
+          'currentUserId' => $currentUserId,
     	));
     		$view->setTemplate('admin/project/order-translation-non-contract.phtml');
     		return $view;
@@ -525,7 +527,7 @@ class ProjectController extends AbstractActionController
 		$font = new \TCPDF_FONTS();
 		//$fontx = $font->addTTFfont('public/fonts/STHeiti-Light.ttc');
 		//$pdf->SetFont($fontx, '', 12, '', false);
-		
+
         $pdf->SetFont('droidsansfallback', '', 7);
         $pdf->setFontSubsetting(true);
 		$preferences = array(
@@ -767,7 +769,7 @@ class ProjectController extends AbstractActionController
 		//$pdf->SetFont('microsoftyahei' , '', 12,'',false);
         $pdf->SetFont('droidsansfallback', '', 7);
         $pdf->setFontSubsetting(true);
-        
+
 		$preferences = array(
 			'HideToolbar' => true,
 			'HideMenubar' => true,
