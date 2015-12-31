@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Papertask\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-26 14:16+0800\n"
-"PO-Revision-Date: 2015-11-19 14:02+0800\n"
+"PO-Revision-Date: 2015-12-31 11:28+0800\n"
 "Last-Translator: \n"
 "Language-Team: Hat Dao <enjoy3013@gmail.com>\n"
 "Language: en_US\n"
@@ -54,12 +54,12 @@ msgid "High quality human translation"
 msgstr "高品质专业人工翻译"
 
 #: module/Landing/view/landing/index/index.phtml:15
-msgid "20,000+ professional translators worldwide"
-msgstr "全球 20,000 多专业翻译人员"
+msgid "10,000+ professional translators worldwide"
+msgstr "全球 10,000 多专业翻译人员"
 
 #: module/Landing/view/landing/index/index.phtml:18
-msgid "Support more than 70 languages"
-msgstr "支持50多种语言"
+msgid "Support more than 30 languages"
+msgstr "支持30多种语言"
 
 #: module/Landing/view/landing/index/index.phtml:21
 msgid "New smart quotation system, without human intervention"
