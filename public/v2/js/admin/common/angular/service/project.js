@@ -24,7 +24,7 @@ angularApp.factory("CurrentcyRate", function(){
             return rates;
         }
     }
-});	
+});
 
 angularApp.factory("ProjectStatus", function(){
     var statuses = [
@@ -64,6 +64,10 @@ angularApp.factory("ProjectStatus", function(){
         'id': 8,
         'name': 'Pooling',
         'decorator': 'warning'
+    },{
+        'id': 9,
+        'name': 'Unpaid',
+        'decorator': 'warning'
     }];
 
     return {
@@ -90,7 +94,7 @@ angularApp.factory("TransGraphs", function(){
         'name': 'yes',
         'decorator': 'Translate Graphic'
     }];
-	
+
 	var statuses_cn = [{
         'id': 0,
         'name': '否',
@@ -112,7 +116,7 @@ angularApp.factory("TransGraphs", function(){
         all: function (lang) {
 			if(lang == 'zh-CN')
 				return statuses_cn;
-			else 	
+			else
 				return statuses;
         }
     }
@@ -237,19 +241,19 @@ angularApp.factory("ResourceType", function(){
     var values = [{
         'id': 1,
         'name': 'Translator',
-        'resourceGroup': 1,       
+        'resourceGroup': 1,
     },{
         'id': 2,
         'name': 'Proofreader',
-        'resourceGroup': 1,       
+        'resourceGroup': 1,
     },{
         'id': 3,
         'name': 'Desktop Publishing',
-        'resourceGroup': 2,       
+        'resourceGroup': 2,
     },{
         'id': 4,
         'name': 'Simultaneous',
-        'resourceGroup': 3,  
+        'resourceGroup': 3,
     },{
         'id': 5,
         'name': 'Consecutive',
@@ -257,11 +261,11 @@ angularApp.factory("ResourceType", function(){
     },{
         'id': 6,
         'name': 'Business Escort',
-        'resourceGroup': 3,       
+        'resourceGroup': 3,
     },{
         'id': 7,
         'name': 'Tourism Escort',
-        'resourceGroup': 3,      
+        'resourceGroup': 3,
     }];
 
     return {
@@ -281,15 +285,15 @@ angularApp.factory("ResourceType", function(){
 angularApp.factory("ResourceGroup", function(){
     var values = [{
         'id': 1,
-        'name': 'Translation',  
+        'name': 'Translation',
         'icon' : 'fa-coffee'
     },{
         'id': 2,
-        'name': 'Desktop Publishing',      
+        'name': 'Desktop Publishing',
         'icon' : 'fa-desktop'
     },{
         'id': 3,
-        'name': 'Interpreting',   
+        'name': 'Interpreting',
         'icon' : 'fa-comments-o'
     }];
 
@@ -541,7 +545,7 @@ angularApp.factory("Currency", function(){
                 if (statuses[i].id == $id) {
 					if(lang == 'zh-CN')
 						return statuses_cn[i];
-					else 	
+					else
 						return statuses[i];
                 }
             }
@@ -549,7 +553,7 @@ angularApp.factory("Currency", function(){
         all: function (lang) {
 			if(lang == 'zh-CN')
 				return statuses_cn;
-			else 	
+			else
 				return statuses;
         }
     }
@@ -612,15 +616,15 @@ angularApp.factory("ProjectServiceLevel", function(){
 				if (levels[i].id == $id) {
 					if(lang == 'zh-CN')
 						return levels_cn[i];
-					else 	
+					else
 						return levels[i];
-				}	
+				}
             }
         },
         all: function (lang) {
 			if(lang == 'zh-CN')
 				return levels_cn;
-			else 	
+			else
 				return levels;
         }
     }
@@ -1130,9 +1134,9 @@ angularApp.factory("LangGroup", function(){
         "group_id": 4,
         "group_name": "Others"
     },
-	
+
 	];
-	
+
 	return {
         get: function($id){
             for(var i = 0; i < group.length; i++){
@@ -1170,7 +1174,7 @@ angularApp.factory("ProjectType", function($sce){
         "id": 4,
         "name": $sce.trustAsHtml('DTP <i class=\"fa fa-apple\"><\/i>'),
         "name_short": "MAC",
-		"name_task" : $sce.trustAsHtml('DTP <i class=\"fa fa-apple\"><\/i>'),	
+		"name_task" : $sce.trustAsHtml('DTP <i class=\"fa fa-apple\"><\/i>'),
 		"tootip" : "Desktop Publishing",
         "name_text": "DTP MAC"
     }, {
@@ -1304,18 +1308,18 @@ angularApp.factory("DateFormatter", function(){
     function format($date){
 	//console.log("check_date");
 		//console.log($date);
-		
+
 		if(!$date)
 			return "";
         if(typeof($date) == 'undefined'){
             return "";
         }
 		var date;
-		
+
 		if($date.date){
 			var tem = $date.date;
 			if(typeof tem !== 'undefined'){
-				
+
 				var tempDate = tem.split(' ');
 				if(tempDate[0]=='-0001-11-30')
 					return 'undefined';
@@ -1350,7 +1354,7 @@ angularApp.factory("DateFormatter", function(){
             return "";
         }
 		var date;
-		
+
 		if($date.date){
 			var tem = $date.date;
 			if(typeof tem !== 'undefined'){

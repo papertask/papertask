@@ -79,8 +79,8 @@ class ProjectController extends AbstractRestfulJsonController
 		if(isset($data['serviceLevel']) && isset($data['serviceLevel']['id'])){
             $data['serviceLevel'] = $data['serviceLevel']['id'];
         }
-		
-		
+
+
         if(isset($data['priority'])){
             $data['priority'] = $data['priority']['id'];
         }
@@ -93,7 +93,7 @@ class ProjectController extends AbstractRestfulJsonController
         if(isset($data['createType'])) {
         	$data['createType'] = $data['createType'];
         }
-		
+
         if(isset($data['types'])){
             $arr = [];
             foreach($data['types'] as $type){
@@ -169,7 +169,7 @@ class ProjectController extends AbstractRestfulJsonController
 				$employer = $userExist->getEmployer();
 				$employer->updateData(array(
 						'position'=>null,
-						'company'=>$data['company_id'],
+						//'company'=>$data['company_id'],
 						'defaultServiceLevel'=>null,
 						'comments'=>null,
 						'contracted'=> '0',
@@ -188,7 +188,7 @@ class ProjectController extends AbstractRestfulJsonController
 				$employer = $user->getEmployer();
 				$employer->updateData(array(
 						'position'=>null,
-						'company'=>$data['company_id'],
+						//'company'=>$data['company_id'],
 						'defaultServiceLevel'=>null,
 						'comments'=>null,
 						'contracted'=> '0',

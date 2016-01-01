@@ -244,7 +244,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 $scope.PayAndStartTrans = function(){
 		 if($( "#formStep3" ).valid()){
 			 //$scope.project.client = CurrentUser.info;
-			 $scope.project.status = ProjectStatus.get(2);
+			 $scope.project.status = ProjectStatus.get(9);
 			 $scope.project.startDate = StrDate(new Date());
 			 $scope.project.dueDate =  $scope.project.startDate;
 			 var $params = $scope.prepareData($scope.project);
