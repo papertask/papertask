@@ -90,6 +90,7 @@ class EmailTemplates{
         $variables = $this->wrap($variables);
         $search = array_keys($variables);
         $replace = array_values($variables);
+        //var_dump($search);var_dump($replace);
         $this->mailContent = str_replace($search, $replace, $this->content);
     }
 
@@ -100,13 +101,14 @@ class EmailTemplates{
      */
     public function wrap($variables){
         $newArray = array();
+        if(count($variables) > 0){
         foreach($variables as $key => $value){
             $key = '{{' . $key . '}}';
             if(!is_scalar($value)){
                 $value = $this->wrap($value);
             }
             $newArray[$key] = $value;
-        }
+        }}
         return $newArray;
     }
 
@@ -141,4 +143,3 @@ class EmailTemplates{
         return $message;
     }
 }
-

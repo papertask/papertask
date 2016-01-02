@@ -14,9 +14,9 @@ if (php_sapi_name() === 'cli-server' && is_file(__DIR__ . parse_url($_SERVER['RE
 // Setup autoloading
 require 'init_autoloader.php';
 //$ch = curl_init();
-//curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, TRUE); 
+//curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, TRUE);
 //curl_setopt ($ch, CURLOPT_CAINFO, "cacert.pem");
 // Run the application!
-//error_reporting(E_ALL);
+error_reporting(0);
 //ini_set('display_errors', 1);
 Zend\Mvc\Application::init(require 'config/application.config.php')->run();

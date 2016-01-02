@@ -64,7 +64,7 @@ class Activity extends Entity{
         //$lang_code = $controller->params()->fromRoute('lang');
 
         $projectLink = $controller->getBaseUrl().'/'. $lang_code . '/admin/project/detail?id=' . $this->project->getId();
-		
+
 
         $data = array(
             'project' => $this->project->getData(),
@@ -95,7 +95,7 @@ class Activity extends Entity{
             case 'create_task':
             case 'message':
         }
-        
+
         foreach ($emails as $email) {
             Mail::sendMail($controller, $tpl, $email, $data);
         }
@@ -108,7 +108,7 @@ class Activity extends Entity{
             'project' => $this->project->getId(),
             'task' => $this->task ? $this->task->getData()['id'] : null,
             'type' => $this->type,
-            'sender' => $this->sender->getData(),
+            'sender' => ($this->sender)?$this->sender->getData():null,
             'message' => $this->message,
         ];
     }
