@@ -14,15 +14,15 @@ angularApp.controller('ProjectIndexController', function($scope, StaffApi, Langu
     $scope.PayStatus = PayStatus;
     $scope.ProjectField = ProjectField;
     $scope.StaffApi = StaffApi;
-    $scope.ProjectType = ProjectType; 
+    $scope.ProjectType = ProjectType;
 
     /** This is for listing item controller **/
-	
+
 	//console.log($scope.listgoing);
-	
+
     $scope.ItemApi = ProjectApi;
-	
-	//console.log($scope.ItemApi);
+
+	//console.log($scope.items);
 
     $scope.languages = {};
     $scope.pms = {};
@@ -46,7 +46,7 @@ angularApp.controller('ProjectIndexController', function($scope, StaffApi, Langu
         type: 1
     }, function($sales){
         $scope.sales = $sales;
-        
+
     });
 
     LanguageApi.list({}, function($languages){
