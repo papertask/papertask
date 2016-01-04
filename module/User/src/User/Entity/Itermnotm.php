@@ -123,5 +123,14 @@ class Itermnotm extends Entity{
 	public function getQuantity(){
         return $this->quantity;
     }
+	public function getTask(){
+        return $this->task;
+    }
+	public function getTotal(){
+        return $this->total;
+    }
+	public function getTotalFreelancer(){
+        return $this->total_freelancer;
+    }
 
 }

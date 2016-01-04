@@ -215,8 +215,33 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 					'quantity' => $data['quantity'],
 					'total_freelancer' => $data['total'],
 			   ]);
+			   
+			   
            }
-           $itermnotm->save($entityManager);
+		    //$taskId = $itermnotm->getTask()->getId();
+            //$task = $entityManager->getRepository('\User\Entity\Task')->find( $taskId );
+			$task = $itermnotm->getTask();
+			$Itermnotm_array = $entityManager->getRepository('\User\Entity\Itermnotm')->findBy(array('task'=>$task));
+			$total=0;
+			$total_freelancer=0;
+			foreach($Itermnotm_array as $Itermnotm){
+				$total += $Itermnotm->getTotal();
+				$total_freelancer += $Itermnotm->getTotalFreelancer();
+			}
+		   //update total task
+		   if($data['rate_client']){
+				//$itermnotm = $entityManager->find('\User\Entity\Itermnotm', $id);
+				$task->setData([
+                    'total' => $total,
+                ]);
+				$task->save($this->getEntityManager());
+		   }else{
+				$task->setData([
+                    'total_freelancer' => $total_freelancer,
+                ]);
+				$task->save($this->getEntityManager());
+		   }
+		   
            
            return new JsonModel([
                'itermnotm' => $itermnotm->getData(),

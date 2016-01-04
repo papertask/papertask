@@ -115,11 +115,14 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					if($scope.task.type.id == 1){
 
 						$http.get('/api/admin/projectitermnotm?projectId='+ $scope.projectId +'&taskId='+TASK_ID).success(function($data) {
+							
 							$scope.itermnotms = $data['Itermnotms'];
 
 							// arrange itermnotms based language
 
 							$scope.itermnotmsnews = arrangeItem($data['Itermnotms']);
+							console.log("$scope.itermnotmsnews");
+							console.log($data['Itermnotms']);
 							console.log($scope.itermnotmsnews);
 
 						});
