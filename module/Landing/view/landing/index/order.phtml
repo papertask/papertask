@@ -10,7 +10,7 @@
 <script
   type="text/javascript"
   src="<?php echo $this->basePath() .'/v2/js/plugins/angular-file-upload/angular-file-upload.js'?>"></script>
-<script type="text/javascript"">
+<script type="text/javascript">
   angularApp = angular.module('project', ['summernote', 'angularFileUpload']);
   var LANG_CODE ='<?php echo $this->lang_code ?>';
 </script>
@@ -77,28 +77,27 @@ $this->inlineScript()
             border-left: 4px solid #19aa8d;
             background: #19aa8d;
         }
-    .tabs-container .nav-tabs > li.active > a, .tabs-container .nav-tabs > li.active > a:hover, .tabs-container .nav-tabs > li.active > a:focus {
-          color: #555555;
-    }
-    .top-navigation .nav > li.active {
-        background: none;
-        border: none;
-    }
+	    .tabs-container .nav-tabs > li.active > a, .tabs-container .nav-tabs > li.active > a:hover, .tabs-container .nav-tabs > li.active > a:focus {
+	          color: #555555;
+	    }
+	    .top-navigation .nav > li.active {
+	        background: none;
+	        border: none;
+	    }
 
-    .select2-container .select2-selection--single {
-        height: 38px;
-            font-size: 16px;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 32px;
-    }
+	    .select2-container .select2-selection--single {
+	        height: 38px;
+	            font-size: 16px;
+	    }
+	    .select2-container--default .select2-selection--single .select2-selection__rendered {
+	        line-height: 32px;
+	    }
 
-.landing-page .btn-primary {
-    background-color: #fff;
-    border-color: #1ab394;
-    color: #1ab394;
-}
-
+		.landing-page .btn-primary {
+		    background-color: #fff;
+		    border-color: #1ab394;
+		    color: #1ab394;
+		}
 </style>
 
 <nav class="navbar navbar-default navbar-fixed-top navbar-scroll" style="padding: 0px 0;" role="navigation">
@@ -133,77 +132,89 @@ $this->inlineScript()
     </div>
 </nav>
 
+<div id="page-wrapper" class="gray-bg">
+    <div class="wrapper wrapper-content">
 
+		<div class="animate fadeInUp" ng-controller="OrderNoSignin">
+		<br /><br /><br /><br /><br />
+		    <div class="row">
+			    <div class="col-md-12">
+			        <div class="col-lg-8">
+			          <div class=" form-group">
+			            <div class="col-md-12">
+			                <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+			                    <li class="active">
+			                      <a href="#step-1">
+			                        <h1 class="list-group-item-heading"><?php echo $this->translate('Step 1','Application'); ?></h1>
+			                        <p class="list-group-item-text" style="font-size: 18px;"><?php echo $this->translate('Upload file(s)','Application'); ?></p>
+			                      </a>
+			                    </li>
+			                    <li class="disabled">
+			                      <a href="#step-2">
+			                        <h1 class="list-group-item-heading"><?php echo $this->translate('Step 2','Application'); ?></h1>
+			                        <p class="list-group-item-text" style="font-size: 18px;"><?php echo $this->translate('Languages and Quality','Application'); ?></p>
+			                      </a>
+			                    </li>
+			                    <li class="disabled">
+			                      <a href="#step-3">
+			                        <h1 class="list-group-item-heading"><?php echo $this->translate('Step 3','Application'); ?></h1>
+			                        <p class="list-group-item-text" style="font-size: 18px;"><?php echo $this->translate('Confirm Your Information','Application'); ?></p>
+			                      </a>
+			                    </li>
+			                </ul>
+			            </div>
+			          </div> 
+			            <?php include "order/step1.phtml" ?>
+			            <?php include "order/step2.phtml" ?>
+			            <?php include "order/step3.phtml" ?>
 
-<div class="animate fadeInUp gray-bg" ng-controller="OrderNoSignin">
-<br /><br /><br /><br /><br />
-    <div class="row">
-	    <div class="col-md-12">
-	        <div class="col-lg-8">
-	          <div class=" form-group">
-	            <div class="col-md-12">
-	                <ul class="nav nav-pills nav-justified thumbnail setup-panel">
-	                    <li class="active">
-	                      <a href="#step-1">
-	                        <h1 class="list-group-item-heading"><?php echo $this->translate('Step 1','Application'); ?></h1>
-	                        <p class="list-group-item-text" style="font-size: 18px;"><?php echo $this->translate('Upload file(s)','Application'); ?></p>
-	                      </a>
-	                    </li>
-	                    <li class="disabled">
-	                      <a href="#step-2">
-	                        <h1 class="list-group-item-heading"><?php echo $this->translate('Step 2','Application'); ?></h1>
-	                        <p class="list-group-item-text" style="font-size: 18px;"><?php echo $this->translate('Languages and Quality','Application'); ?></p>
-	                      </a>
-	                    </li>
-	                    <li class="disabled">
-	                      <a href="#step-3">
-	                        <h1 class="list-group-item-heading"><?php echo $this->translate('Step 3','Application'); ?></h1>
-	                        <p class="list-group-item-text" style="font-size: 18px;"><?php echo $this->translate('Confirm Your Information','Application'); ?></p>
-	                      </a>
-	                    </li>
-	                </ul>
-	            </div>
-	          </div> 
-	            <?php include "order/step1.phtml"?>
-	            <?php include "order/step2.phtml"?>
-	            <?php include "order/step3.phtml"?>
+			        </div>
+			        <div class="col-lg-4">
+			          <?php include "order/orderinfo.phtml" ?>
+			        </div>
+			    </div>
+		    </div>
+		</div>
 
-	        </div>
-	        <div class="col-lg-4">
-	          <?php include "order/orderinfo.phtml"?>
-	        </div>
-	    </div>
     </div>
 
-    <br /><br />
-    <div class="row m-b-lg text-center">
-
-            <p><strong>&copy; 2015 <a href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>">PaperTask.com</a> <?php echo $this->translate('All rights reserved.', 'Application'); ?></strong> &nbsp;&nbsp;&nbsp; <a href="<?php echo $this->url('terms',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Terms of Use', 'Application'); ?></a>
-                    &nbsp;&nbsp;&nbsp;
-                    <a href="<?php echo $this->url('privacy',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Privacy Policy', 'Application'); ?></a>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <div class="btn-group dropup">
-                    <button type="button" class="btn btn-sm btn-default"><?php
+    <br><br>
+    <!-- Footer -->
+    <div class="footer">
+        <div class="text-center">
+          <small class="copyright">
+              2015 &copy; <a href="<?php echo $this->url('home',array('lang'=>$this->translate('lang', 'Application'))) ?>">PaperTask.com</a> <?php echo $this->translate('All rights reserved.', 'Application'); ?>&nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="<?php echo $this->url('terms',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Terms of Use', 'Application'); ?></a>
+              &nbsp;&nbsp;&nbsp;
+              <a href="<?php echo $this->url('privacy',array('lang'=>$this->translate('lang', 'Application'))) ?>"><?php echo $this->translate('Privacy Policy', 'Application'); ?></a>
+          </small>
+          &nbsp;&nbsp;&nbsp;
+            <div class="btn-group dropup">
+                <button type="button" class="btn btn-sm btn-default">
+                    <?php
                     if ($this->translate('lang', 'Application')=="en-US"){
                         echo "ENGLISH";
                     }
                     if ($this->translate('lang', 'Application')=="zh-CN"){
                         echo "简体中文";
                     }
-                    ?></button>
-                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li ><a href="<?php echo $this->url('order',array('controller'=>'index', 'action'=>'order', "lang"=>"en-US"), array(), true) ?>">ENGLISH</a></li>
-                        <li selected="selected"><a href="<?php echo $this->url(null,array("lang"=>"zh-CN"), array(), true) ?>">简体中文</a></li>
-                    </ul>
-                </div>
-            </p>
-    </div>
+                    ?>
+                </button>
+                <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li ><a href="<?php echo $this->url(null,array("lang"=>"en-US"), array(), true) ?>">ENGLISH</a></li>
+                    <li selected="selected"><a href="<?php echo $this->url(null,array("lang"=>"zh-CN"), array(), true) ?>">简体中文</a></li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- End Footer -->
 
 </div>
+
+
 
 <script>
       $(document).ready(function() {
@@ -228,29 +239,6 @@ $this->inlineScript()
           });
           
           $('ul.setup-panel li.active a').trigger('click');
-          
-          // DEMO ONLY //
-          /*
-          $('#activate-step-2').on('click', function(e) {
-              $('ul.setup-panel li:eq(1)').removeClass('disabled');
-              $('ul.setup-panel li a[href="#step-2"]').trigger('click');
-              //$(this).remove();
-          }) 
-          */
-          /*   
-          $('#activate-step-3').on('click', function(e) {
-              
-              $('ul.setup-panel li:eq(2)').removeClass('disabled');
-              console.info('currency',$scope.project.currency);
-              //checkValidStep2();
-              //$('ul.setup-panel li a[href="#step-3"]').trigger('click');
-              //$(this).remove();
-
-              return false;
-          })   
-          */
-
-          
 
           jQuery.validator.setDefaults({
           debug: false,
@@ -260,17 +248,6 @@ $this->inlineScript()
         $( "#formStep2" ).validate(); 
         $( "#formStep3" ).validate(); 
         console.info('formStep2',$( "#formStep2" ).validate());
-      /*
-      alert('hi');
-        function checkValidStep2(){
-                if($( "#formStep2" ).valid()){
-                    alert('true');
-                } else{
-                  alert('false');
-                }
-          }
-          */
-          
           
       });
 
