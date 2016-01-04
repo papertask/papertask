@@ -21,12 +21,13 @@
         ->prependStylesheet($this->basePath() . '/v2/font-awesome/css/font-awesome.min.css')
         ->prependStylesheet($this->basePath() . '/v2/css/animate.css')
         ->prependStylesheet($this->basePath() . '/v2/css/bootstrap.min.css')
+        ->prependStylesheet($this->basePath() . '/v2/css/plugins/footable/footable.core.css')
     ?>
 	<script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/jquery-2.1.1.js'?>"></script>
     <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/bootstrap.min.js'?>"></script>
     <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/plugins/metisMenu/jquery.metisMenu.js'?>"></script>
     <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/plugins/slimscroll/jquery.slimscroll.min.js'?>"></script>
-
+    <script type="text/javascript" src="<?php echo $this->basePath() .'/v2/js/plugins/footable/footable.all.min.js'?>"></script>
     <!--[if !IE]>--> 
 
 </head>
@@ -96,6 +97,7 @@
 
     <script>
         $(document).ready(function () {
+            $('.footable').footable();
             $('body').scrollspy({
                 target: '.navbar-fixed-top',
                 offset: 80

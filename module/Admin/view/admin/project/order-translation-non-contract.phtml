@@ -4,6 +4,7 @@
 <!-- Le styles -->
 <?php $this->headLink()
   ->prependStylesheet($this->basePath() . '/v2/css/plugins/jquery-fileupload/jquery.fileupload.css')
+  ->prependStylesheet($this->basePath() . '/v2/css/plugins/footable/footable.core.css')
   ->prependStylesheet($this->basePath() . '/v2/css/plugins//chosen/chosen.css');
 ?>
 
@@ -22,7 +23,8 @@
   ->prependFile($this->basePath() . '/v2/js/plugins/jquery-fileupload/jquery.iframe-transport.js')
   ->prependFile($this->basePath() . '/v2/js/plugins/jquery-fileupload/jquery.fileupload.js')
   ->prependFile($this->basePath() . '/v2/js/plugins/chosen/chosen.jquery.js')
-  ->prependFile($this->basePath() . '/v2/js/plugins/jquery-fileupload/jquery.fileupload-validate.js');
+  ->prependFile($this->basePath() . '/v2/js/plugins/jquery-fileupload/jquery.fileupload-validate.js')
+  ->prependFile($this->basePath() . '/v2/js/plugins/footable/footable.all.min.js');
 
 ?>
 
@@ -152,7 +154,7 @@ $this->inlineScript()
     		  debug: false,
     		  success: "valid"
     		});
-  		
+        $('.footable').footable();
     		$( "#formStep2" ).validate(); 
     		$( "#formStep3" ).validate(); 
     		console.info('formStep2',$( "#formStep2" ).validate());

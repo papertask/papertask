@@ -33,20 +33,18 @@
 								</span>
 							</div>
 							<br /><br />
-							<table class="table table-bordered">
-								<!--
-								<thead>
-									<tr>
-										<th width="10%">#</th>
-										<th><?php echo $this->translate('File Name','Admin'); ?></th>
-										<th width="20%"><?php echo $this->translate('File Size','Admin'); ?></th>
-										
-										<th><?php echo $this->translate('size:','Admin'); ?>Time Stamp</th>
-										
-										<th width="5%"></th>
-									</tr>
-								</thead>
-								-->
+							<table class="footable table table-stripped">
+		                        <thead>
+			                        <tr>
+			                            <th data-hide="phone,tablet" data-sort-ignore="true"></th>
+			                            <th data-sort-ignore="true"></th>
+			                            <th data-hide="phone,tablet" data-sort-ignore="true"></th>
+			                            <!--
+			                            <th data-sort-ignore="true"></th>
+			                            -->
+			                            <th data-sort-ignore="true"></th>
+			                        </tr>
+		                        </thead>
 								<tbody>
 									<tr ng-repeat="item in uploader.queue" style="font-size: 18px;">
 										<td width="5%">{{$index + 1}}</td>
@@ -60,7 +58,7 @@
 											</div></td>
 										<td>{{ item.file.size/1024/1024|number:2 }} Mb</td>
 										<!--
-										<td>{{ getTime(item) }}</td>
+										<td>678 <?php echo $this->translate('words','Application'); ?></td>
 										-->
 										<td width="5%" class="text-center child-is-link"><a href=""><i
 											ng-click="removeItem(item)"
