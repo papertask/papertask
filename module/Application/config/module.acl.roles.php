@@ -40,7 +40,7 @@ $allow_employer = array(
 
 	// -- Task
 
-	'task\detail',
+	//'task\detail',
 	'task\getFreelancerTaskList',
 	'task\FreelancerAcceptTask',
 	'task\submitTask',
