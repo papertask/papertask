@@ -114,8 +114,13 @@ class IndexController extends AbstractActionController
 		$order = new Container('order');
 
 		//var_dump($order->offsetGet('total'));exit;
+		$details['L_PAYMENTREQUEST_0_NAME0'] = 'Transalate';
+		$details['L_PAYMENTREQUEST_0_AMT0'] = round($order->offsetGet('total'), 2);
+		$details['L_PAYMENTREQUEST_0_DESC0'] = "Translate Service";
+		$details['L_PAYMENTREQUEST_0_QTY0'] = 1;
+		
         $details['PAYMENTREQUEST_0_CURRENCYCODE'] = 'USD';
-        $details['PAYMENTREQUEST_0_AMT'] = round($order->offsetGet('total'), 2)  ;
+        $details['PAYMENTREQUEST_0_AMT'] = round($order->offsetGet('total'), 2);
         $storage->update($details);
         $captureToken = $this->getServiceLocator()->get('payum.security.token_factory')->createCaptureToken(
             'paypal_ec', $details, 'payment_done'
