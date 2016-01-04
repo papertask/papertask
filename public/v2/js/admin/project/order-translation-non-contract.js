@@ -399,7 +399,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 }
 
 
-		var str = $('#sourcetext').val();
+		/*var str = $('#sourcetext').val();
 		str = str.trim();
 		 var words = str.split(' ');
 		 var wordsArr = new Array();
@@ -424,14 +424,18 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 				 $scope.totalwords =  0;
 			 else
 				 $scope.totalwords = words.length;
-		 }
-
+		 }*/
+		if($scope.totalwordFiles){
+			$scope.totalwords = $scope.totalwordFiles;
+		} else {
+			$scope.totalwords =  0;
+		}	
 
 		 $scope.refreshwithoutWordCount();
 	 }
 
 	 $scope.refreshwithoutWordCount = function(){
-		 var str = $('#sourcetext').val();
+		 /*var str = $('#sourcetext').val();
 		 if(!str) return false;
 		str = str.trim();
 		var words = str.split(' ');
@@ -462,9 +466,13 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 				 $scope.totalwords =  0;
 			 else
 				 $scope.totalwords = words.length;
-		 }
+		 }*/
 
-
+		if($scope.totalwordFiles){
+			$scope.totalwords = $scope.totalwordFiles;
+		} else {
+			$scope.totalwords =  0;
+		}	
 		 $scope.numberLangs = $scope.project.targetLanguages.length;
 		 //$scope.price = ($scope.numberLangs > 0)? $scope.project.targetLanguages[0].price : 0 ;
 
