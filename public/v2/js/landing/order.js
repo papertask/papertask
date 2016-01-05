@@ -730,6 +730,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', '$
 					}
 			};
 			item.remove();
+			$scope.refreshInfo();
 
 
     };
