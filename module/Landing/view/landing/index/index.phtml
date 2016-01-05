@@ -2,10 +2,10 @@
 
 <?php
 echo $this->headScript()
-    ->prependFile($this->basePath() . '/js/plugins/validate/jquery.validate.min.js')
-    ->prependFile($this->basePath() . '/js/landing/languages.js')
+    ->prependFile($this->basePath() . '/v2/js/plugins/validate/jquery.validate.min.js')
+    ->prependFile($this->basePath() . '/v2/js/landing/languages.js')
     ->prependScript("angularApp = angular.module('project', []);")
-	->prependFile($this->basePath() . '/js/angular.min.js')
+	->prependFile($this->basePath() . '/v2/js/angular.min.js')
 ?>    
 <?php
 echo $this->inlineScript()
