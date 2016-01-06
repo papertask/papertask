@@ -113,7 +113,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 
 	 $scope.initStep2 = function(){
 		 $scope.currency = CurrentUser.info.currency;
-		 $scope.project.currency =  $scope.currency;
+		 //$scope.project.currency =  $scope.currency;
 		 $scope.ajaxEmployerInfo();
 		 $scope.transGraphs = TransGraphs.all(LANG_CODE);
  	 	 $scope.project.transGraph = $scope.transGraphs[0];
@@ -122,7 +122,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 //$scope.project.transGraph = $scope.transGraphs[1];
 		 $scope.isGraph = true;
 
-		 if(LANG_CODE=="en-US"){
+		 if($scope.currency=="usd" || $scope.currency =="USD" ){
 		  $scope.currency_tmp = Currency.get(1,LANG_CODE);
 		 }
 		 else{
@@ -130,7 +130,7 @@ angularApp.controller('OrderTranslationController', function($scope, $http, $tim
 		 }
 		 $scope.CurrentCurrency = $scope.currency_tmp.name;
 		 //$scope.CurrentCurrency = $scope.project.currency.name;
-
+		 $scope.project.currency	= $scope.currency_tmp;
 		 console.log("$scope.project.currency");
 		 console.log($scope.project.currency);
 

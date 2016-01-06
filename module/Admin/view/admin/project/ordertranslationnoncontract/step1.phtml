@@ -54,7 +54,7 @@
 													style="width: 0%;">{{ item.file.name }}</div>
 											</div></td>
 										<td>{{ item.file.size/1024/1024|number:2 }} Mb</td>
-										<td>678 <?php echo $this->translate('words','Application'); ?></td>
+										<td>{{project.files[$index].count}} <?php echo $this->translate('words','Application'); ?></td>
 										<td width="5%" class="text-center child-is-link"><a href=""><i
 											ng-click="removeItem(item)"
 											class="fa fa-trash-o text-danger"></i></a></td>
