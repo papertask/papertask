@@ -115,7 +115,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					if($scope.task.type.id == 1){
 
 						$http.get('/api/admin/projectitermnotm?projectId='+ $scope.projectId +'&taskId='+TASK_ID).success(function($data) {
-							
+
 							$scope.itermnotms = $data['Itermnotms'];
 
 							// arrange itermnotms based language
@@ -1895,6 +1895,10 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 
 		}
 	};
+  $scope.downloadFile = function(token){
+      // alert("DWD");
+      $window.open("/" + LANG_CODE + "/admin/project/downloadFile?token="+token, '_blank');
+  };
 	$scope.sendToSpecialismPool = function(){
 		var updateTask= $http.put("/api/admin/task/" + $scope.task.id + "?action=3")
 		.success( function ( $data ) {
