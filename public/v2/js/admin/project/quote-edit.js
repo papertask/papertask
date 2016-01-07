@@ -170,9 +170,9 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 				//get private price
 				$http.get('/api/user/translationprice?userId='+ $scope.USER_ID).success(function($data) {
 					$scope.translationPrices = $data['translationPrices'];
-					//console.log("$scope.translationPrices");
+					console.log("$scope.translationPrices");
 
-					//console.log($scope.translationPrices);
+					console.log($scope.translationPrices);
 					for(j=0;j<$scope.project.targetLanguages.length;j++){
 						for(i=0;i<$scope.translationPrices.length;i++){
 							if($scope.project.sourceLanguage.id == $scope.translationPrices[i].sourceLanguage.id && $scope.project.targetLanguages[j].id == $scope.translationPrices[i].targetLanguage.id  ){
@@ -574,6 +574,8 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		//get auto rate here
     console.log($scope.project.client);
     console.log($scope.project.serviceLevel);
+	
+	console.log($scope.translationPrices);
 
 		if($scope.project.client.defaultServiceLevel == $scope.project.serviceLevel){
 
