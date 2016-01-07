@@ -120,6 +120,9 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 			$scope.currency = $scope.project.currency;
 			if($scope.currency == "2")
 				$scope.currency = "CNY";
+			if($scope.currency == "1")
+				$scope.currency = "USD";
+				
 			console.log("$scope.currency");
 			console.log($scope.currency);
 			if($project.pm){
