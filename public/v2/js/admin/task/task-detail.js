@@ -258,6 +258,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					}
 
 					$scope.USER_ID = $scope.project.userid;
+					console.log("$scope.task");
 					console.log($scope.task);
 					if($scope.task.assignee)
 					{
