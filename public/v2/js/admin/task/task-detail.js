@@ -1303,7 +1303,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 				if(files[i].task.id == TASK_ID)
 					$scope.tasksourcefiles.push(files[i]);
 			}
-			else $scope.files.push(files[i]);
+			else if (files[i].filetype==0) $scope.files.push(files[i]);
 		}
 		return true;
 	}
