@@ -483,6 +483,7 @@ angularApp.controller('CreateProjectController', function($scope, $http, $timeou
         } else {
             $scope.project.types.splice($index, 1);
         }
+		console.log($scope.project.types);
     };
 
     $scope.addFile = function($fileInput){

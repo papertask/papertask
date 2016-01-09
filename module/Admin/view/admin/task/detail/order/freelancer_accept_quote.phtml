@@ -32,7 +32,7 @@
 			<tbody>
 			<tr ng-repeat="file in taskfiles">
 					<td>{{$index + 1}}</td>
-					<td><a href="{{file.path}}"><i class="fa fa-file"></i> {{ file.name }} </a> </td>
+					<td><a href="#" ng-click="downloadFile(file.token)"><i class="fa fa-file"></i> {{ file.name }} </a> </td>
 					<td>{{ file.size/1024/1024|number:2 }} MB</td>
 					<td>{{ file.date }}</td>
 					<td><a href="#" ng-click="calTo('#modal-taskfile','#TaskDetailController', 'removetaskItem', file)"> <i class="fa fa-trash"></i></a> </td>

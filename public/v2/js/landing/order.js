@@ -18,7 +18,7 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 	 $scope.totalitems = $scope.project.files.length;
 	 $scope.totalwords = $scope.wordsperitem*$scope.totalitems;
 	 $scope.ItermsTotal = $scope.price*$scope.totalwords*$scope.numberLangs;
-	 $scope.taxRate = 0.1;
+	 $scope.taxRate = 0;
 	 $scope.tax = $scope.taxRate*$scope.ItermsTotal;
 	 $scope.total = $scope.ItermsTotal + $scope.tax;
 

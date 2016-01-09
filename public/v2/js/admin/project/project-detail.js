@@ -118,6 +118,13 @@ angularApp.controller('ProjectDetailController', function($scope, $rootScope, $h
 
 			$scope.project = $project;
 			$scope.currency = $scope.project.currency;
+			if($scope.currency == "2")
+				$scope.currency = "CNY";
+			if($scope.currency == "1")
+				$scope.currency = "USD";
+				
+			console.log("$scope.currency");
+			console.log($scope.currency);
 			if($project.pm){
 			var ajaxPmUser = $http.get("/" + LANG_CODE + "/admin/staff/getUserByPm?staffid="+$project.pm.id)
             .success( function ( $data ) {

@@ -291,10 +291,17 @@ class TaskController extends AbstractActionController
 			$taskId = (int)$this->getRequest()->getQuery('id');
 			$currentTask = $this->find('User\Entity\Task',$taskId);
 			//$currentTask->setStatus(2);
-			$currentTask->setData([
+			if($freelancer){
+				$currentTask->setData([
 					'status' => 2,
 					'assignee' => $freelancer,
 					]);
+			}		
+			else{
+				$currentTask->setData([
+					'status' => 2,
+					]);
+			}
 
 			$entityManager->persist($currentTask);
 			$entityManager->flush();

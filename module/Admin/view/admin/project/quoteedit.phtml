@@ -11,9 +11,9 @@
 <!-- Scripts -->
 <?php $this->headScript()
     ->prependFile($this->basePath() . '/js/plugins/datetimepicker/DateTimePicker.js')
-    ->prependFile($this->basePath() . '/js/admin/project/quote-edit.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/service/project.js')
-    ->prependFile($this->basePath() . '/js/admin/common/angular/CurrentUser.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/project/quote-edit.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/service/project.js')
+    ->prependFile($this->basePath() . '/v2/js/admin/common/angular/CurrentUser.js')
     ->prependFile($this->basePath() . '/js/admin/angular-steps.js')
     ->prependFile($this->basePath() . '/js/admin/bootstrap-modal.js')
 	->prependScript("PROJECT_ID = {$this->id};")
@@ -85,16 +85,16 @@ $this->inlineScript()
                                                 <span class="col-sm-1 control-label">%</span>
                                             </div>
                             </div>
-													
+
                         </div>
 						<div class="hr-line-dashed"></div>
 		                <div class="row">
 		                    <div class="col-sm-4 col-sm-offset-4">
 		                        <button class="btn btn-primary btn-block" type="button" ng-click="saveProject()">Update</button>
 		                    </div>
-		                </div>							
+		                </div>
 					</div>
-				
+
 				</div>
             </div>
         </div>
@@ -105,7 +105,7 @@ $this->inlineScript()
     <?php include "quoteedit/modal/interpreting_modal.phtml" ?>
     <?php include "quoteedit/modal/engineering_modal.phtml" ?>
     <?php include "quoteedit/modal/desktop_publishing_modal.phtml" ?>
-   
+
 </div>
 <script>
     var edit = function() {
