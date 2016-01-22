@@ -34,7 +34,7 @@ angularApp.filter("parsehtml", ['$sce', function($sce) {
 angularApp.controller('TaskDetailController', function($scope, $http, $timeout, $location, ProjectApi, DateFormatter, ProjectStatus, LangGroup,
                                                           ProjectServiceLevel, ProjectPriority, StaffApi, ClientApi,
                                                           FeedbackQuality, FeedbackTime, 
-                                                          FieldApi, ProjectType, TaskApi, TaskStatus, FileListService, $q){
+                                                          FieldApi, ProjectType, TaskApi, TaskStatus, FileListService, $q,$window){
 
     $scope.DateFormatter = DateFormatter;
     $scope.ProjectStatus = ProjectStatus;
@@ -454,7 +454,10 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
         	
         });
 	}
-    
+    $scope.downloadFile = function(token){
+      // alert("DWD");
+      $window.open("/" + LANG_CODE + "/admin/project/downloadFile?token="+token, '_blank');
+  };
     $scope.SubmitReview = function(task_id){
     	
     	if($scope.taskfiles.length == 0){
@@ -1673,7 +1676,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
             return this.queue.length < 10;
         }
     });
-
+	
 
     // CALLBACKS FILE PROJECT
 
@@ -1720,6 +1723,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
 			size : response.file.size,
 			date : dateshow,
 			path : response.file.path, 
+			token : response.file.token,
         };
 		$scope.files.push(fileItem.projectFile);
 		
@@ -1781,10 +1785,11 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
 			size : response.file.size,
 			date : dateshow,
 			path : response.file.path,
+			token : response.file.token,
         };
 		$scope.taskfiles.push(fileItem.taskFile);
 		uploadertask.isUploading=0;
-		uploadertask.queue=[];
+		//uploadertask.queue=[];
     };
     uploadertask.onErrorItem = function(fileItem, response, status, headers) {
         
@@ -1795,7 +1800,7 @@ angularApp.controller('AppController', ['$scope', 'FileUploader', '$timeout', fu
     uploadertask.onCompleteItem = function(fileItem, response, status, headers) {
     };
     uploadertask.onCompleteAll = function() {
-        
+        uploadertask.queue=[];
     };
 
     
