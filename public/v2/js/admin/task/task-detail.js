@@ -513,14 +513,23 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
       console.log(itemtm);
       console.log(itemtm.total_tmp);
 		if ( itemtm.id ) {
-			itemtm.total_tmp = 	($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratebawu)/100)*$scope.iterm_tm.sourcebawu
-								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratejiuwu)/100)*$scope.iterm_tm.sourcejiuwu
-								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratenomatch)/100)*$scope.iterm_tm.sourcenomatch
-								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.rateqiwu)/100)*$scope.iterm_tm.sourceqiwu
-								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.raterepetitions)/100)*$scope.iterm_tm.sourcerepetitions
-								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratewushi)/100)*$scope.iterm_tm.sourcewushi
-								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.rateyibai)/100)*$scope.iterm_tm.sourceyibai;
+      console.log(($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratebawu_fl)/100)*$scope.iterm_tm.sourcebawu);
+      console.log(($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratejiuwu_fl)/100)*$scope.iterm_tm.sourcejiuwu);
+      console.log(($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratenomatch_fl)/100)*$scope.iterm_tm.sourcenomatch);
+      console.log(($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.rateqiwu_fl)/100)*$scope.iterm_tm.sourceqiwu);
+      console.log(($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.raterepetitions_fl)/100)*$scope.iterm_tm.sourcerepetitions);
+      console.log(($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratewushi_fl)/100)*$scope.iterm_tm.sourcewushi);
+      console.log(($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.rateyibai_fl)/100)*$scope.iterm_tm.sourceyibai);
+
+			itemtm.total_tmp = 	($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratebawu_fl)/100)*$scope.iterm_tm.sourcebawu
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratejiuwu_fl)/100)*$scope.iterm_tm.sourcejiuwu
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratenomatch_fl)/100)*$scope.iterm_tm.sourcenomatch
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.rateqiwu_fl)/100)*$scope.iterm_tm.sourceqiwu
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.raterepetitions_fl)/100)*$scope.iterm_tm.sourcerepetitions
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratewushi_fl)/100)*$scope.iterm_tm.sourcewushi
+								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.rateyibai_fl)/100)*$scope.iterm_tm.sourceyibai;
 			$scope.iterm_tm.total = itemtm.total_tmp;
+      console.log($scope.iterm_tm.total);
 			$scope.iterm_tm.total = $scope.currency + " " + Number($scope.iterm_tm.total).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 			$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 
