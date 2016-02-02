@@ -22,7 +22,7 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
      * @param $data
      */
     protected function cleanData(&$data){
-       
+
     }
 
     public function create($data)
@@ -34,15 +34,15 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
 		$project = $this->find('User\Entity\Project', $projectid);
 		$iterm->setProject($project);
 		$language = $this->find('User\Entity\Language', $data['languageid']);
-		$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']); 
-		
+		$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']);
+
 		$taskList = $this->getEntityManager()->getRepository('User\Entity\Task')->findBy(array('project' => $project));
 		$taskOrderArr = array();
 		foreach ($taskList as $task){
 			$order = explode('-',$task->getTaskNumber());
 			$order = $order[1];
 			$taskOrderArr[] = (int)$order;
-		}		
+		}
 		$max = max($taskOrderArr);
 		$max++;
 		$task_number = $project->getProjectNo().'-'.$max;
@@ -77,7 +77,7 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
 		if(!$task){
 			$task = new Task();
 			$task->setData([
-					
+
                     'project' => $project,
                     'language' => $language,
                     'type' => 4,
@@ -86,8 +86,8 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
                 ]);
 			$task->save($this->getEntityManager());
 		}
-		
-		
+
+
 		return new JsonModel([
             'iterm' => $iterm->getData(),
         ]);
@@ -99,7 +99,7 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
         $project = $entityManager->getRepository('\User\Entity\Project')->find( $projectId );
         $Itermdtpmac = $entityManager->getRepository('\User\Entity\Itermdtpmac')->findBy(array('project'=>$project));
         $Itermdtpmacs = array();
-        foreach( $Itermdtpmac as $k => $v ) 
+        foreach( $Itermdtpmac as $k => $v )
         {
             $Itermdtpmacs[$k] = $v->getData();
         }
@@ -107,7 +107,7 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
     }
 
     public function get($id){
-		
+
     }
 
     public function delete($id){
@@ -122,15 +122,15 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
           $entityManager = $this->getEntityManager();
 		   if($data['file'])
 			 $file = $this->find('\User\Entity\File', $data['file']['id']);
-			 
-			$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']); 
+
+			$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']);
            $itermdtpmac = $entityManager->find('\User\Entity\Itermdtpmac', $id);
            if($data['rate_client']){
 		   $itermdtpmac->setData([
 				'name' => $data['name'],
 				'unit' => $data['unit']['id'],
 				'file' => ($file)?$file:null,
-				'rate' => $data['rate'],
+				'rate' => $data['rate_client'],
 				'quantity' => $data['quantity'],
 				'total' => $data['total'],
 				'software' => $software,
@@ -146,9 +146,9 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
 				'software' => $software,
            ]);
 		   }
-           
+
            $itermdtpmac->save($entityManager);
-           
+
            return new JsonModel([
                'itermdtpmac' => $itermdtpmac->getData(),
            ]);

@@ -574,7 +574,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 		//get auto rate here
     console.log($scope.project.client);
     console.log($scope.project.serviceLevel);
-	
+
 	console.log($scope.translationPrices);
 
 		if($scope.project.client.defaultServiceLevel == $scope.project.serviceLevel){
@@ -677,6 +677,7 @@ angularApp.controller('QuoteEditController', function($scope, $http, $timeout, $
 				{
     				languageid: $scope.laguageid,
 					rate_client: desktopMac.rate_tmp,
+          unit : desktopMac.unit,
 					quantity: desktopMac.quantity,
 					total: desktopMac.total_tmp,
 					name : desktopMac.name,
