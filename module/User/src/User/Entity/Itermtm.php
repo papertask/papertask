@@ -21,17 +21,17 @@ class Itermtm extends Entity{
      * @ORM\Column(type="integer")
      */
     protected $id;
-	
+
 	/**
      * @var \User\Entity\Project
      * @ORM\ManyToOne(targetEntity="Project")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true)
      */
     protected $project;
-	
+
 	/** @ORM\Column(type="string") */
     protected $name;
-	
+
     /**
      * @var \User\Entity\Language
      * @ORM\ManyToOne(targetEntity="Language")
@@ -43,56 +43,56 @@ class Itermtm extends Entity{
      * @ORM\Column(type="integer")
      */
     protected $sourcerepetitions;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $raterepetitions = 0.00;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="integer")
      */
     protected $sourcebawu;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $rateyibai = 0.00;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $ratejiuwu = 0.00;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $ratebawu = 0.00;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $rateqiwu = 0.00;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $ratewushi = 0.00;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $ratenomatch = 0.00;
-	
-	
+
+
 	/**
      * @var integer
      * @ORM\Column(type="integer")
@@ -122,79 +122,88 @@ class Itermtm extends Entity{
      * @var decimal
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
-    protected $rate = 0.00; 
+    protected $rate = 0.00;
 	 /**
      * @var float
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
-	protected $rate_freelancer = 0.00; 
+	protected $rate_freelancer = 0.00;
 	 /**
      * @var float
      * @ORM\Column(type="decimal", scale=3, precision=15)
-     */ 
+     */
     protected $total = 0.00;
 		 /**
      * @var float
      * @ORM\Column(type="decimal", scale=3, precision=15)
-     */ 
+     */
     protected $total_freelancer = 0.00;
-	
-	
+
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $raterepetitions_fl = 0.00;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $rateyibai_fl = 0.00;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $ratejiuwu_fl = 0.00;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $ratebawu_fl = 0.00;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $rateqiwu_fl = 0.00;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $ratewushi_fl = 0.00;
-	
+
 	/**
      * @var integer
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
-	 
+
     protected $ratenomatch_fl = 0.00;
 	/**
      * @var integer
      * @ORM\Column(type="integer")
      */
     protected $of_freelancer=0;
-	
+
      public function getProject(){
         return $this->project;
     }
 
     public function setProject($project){
         $this->project = $project;
-    }    
+    }
+
+    public function getLanguage(){
+       return $this->language;
+   }
+
+   public function setLanguage($language){
+       $this->language = $language;
+   }
+
 	public function getData(){
         return [
 			'id' => $this->id,
@@ -217,7 +226,7 @@ class Itermtm extends Entity{
 			'ratewushi' => $this->ratewushi,
 			'ratenomatch' => $this->ratenomatch,
 			'total' => $this->total,
-			
+
 			'raterepetitions_fl' => $this->raterepetitions_fl,
 			'rateyibai_fl' => $this->rateyibai_fl,
 			'ratejiuwu_fl' => $this->ratejiuwu_fl,
@@ -228,8 +237,14 @@ class Itermtm extends Entity{
 			'total_freelancer' => $this->total_freelancer,
 			'rate_freelancer' => $this->rate_freelancer,
 			'of_freelancer' => $this->of_freelancer,
-			
+
         ];
-    }	
+    }
+    public function getTotal(){
+          return $this->total;
+      }
+  	public function getTotalFreelancer(){
+          return $this->total_freelancer;
+      }
 
 }

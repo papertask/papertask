@@ -130,6 +130,8 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 					if($scope.task.type.id == 2){
 						$http.get('/api/admin/projectitermtm?projectId='+ $scope.projectId).success(function($data) {
 							$scope.itemtms = arrangeItem($data['Itermtms']);
+              console.log("$scope.itemtms");
+              console.log($scope.itemtms);
 							//if($scope.itemtm)
 							//	$scope.subtotal = $scope.subtotal + parseFloat($scope.itemtm.total);
 
@@ -507,7 +509,9 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			//return;
 
 			//$scope.iterm_notm.rate_tmp = $scope.iterm_notm.rate;
-
+      console.log("itemtm.total_tmp");
+      console.log(itemtm);
+      console.log(itemtm.total_tmp);
 		if ( itemtm.id ) {
 			itemtm.total_tmp = 	($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratebawu)/100)*$scope.iterm_tm.sourcebawu
 								+ ($scope.iterm_tm.rate_tmp * Number($scope.iterm_tm.ratejiuwu)/100)*$scope.iterm_tm.sourcejiuwu
@@ -523,6 +527,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 			$http.put("/api/admin/projectitermtm/" + itemtm.id,
 				{
     				languageid: $scope.laguageid,
+            //rate_client: itemtm.rate_tmp,
 					rate: itemtm.rate_tmp,
 					sourcebawu: itemtm.sourcebawu,
 					sourcejiuwu: itemtm.sourcejiuwu,
@@ -554,7 +559,6 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
     		$scope.iterm_tm.rate = $scope.currency + " " + Number($scope.iterm_tm.rate_tmp).toFixed(3).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
 
 
-
 			$http.post("/api/admin/projectitermtm?projectid="+$scope.projectId,
 					{
 						//languageid: $scope.laguageid,
@@ -565,6 +569,7 @@ angularApp.controller('TaskDetailController', function($scope, $http, $timeout, 
 						//file : itemtm.file
 
 						languageid: $scope.laguageid,
+            //rate_client: itemtm.rate_tmp,
 						rate: itemtm.rate_tmp,
 						sourcebawu: itemtm.sourcebawu,
 						sourcejiuwu: itemtm.sourcejiuwu,

@@ -21,7 +21,7 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
      * @param $data
      */
     protected function cleanData(&$data){
-       
+
     }
 
     public function create($data)
@@ -30,7 +30,7 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 		//ini_set('display_errors', 1);
 		//var_dump($data['laguageid']);exit;
 		$projectid = $this->getRequest()->getQuery('projectid');
-		
+
 		$projectid = $this->getRequest()->getQuery('projectid');
 
 		$iterm = new Itermnotm();
@@ -43,11 +43,11 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 			$order = explode('-',$task->getTaskNumber());
 			$order = $order[1];
 			$taskOrderArr[] = (int)$order;
-		}		
+		}
 		$max = max($taskOrderArr);
 		$max++;
 		$task_number = $project->getProjectNo().'-'.$max;
-		
+
 		$iterm->setProject($project);
 		$language = $this->find('User\Entity\Language', $data['languageid']);
 		if($data['task_id']){
@@ -62,7 +62,7 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 				'task' => $task,
 				'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
 			]);
-			
+
 		}
 		else{
 			$entityManager = $this->getEntityManager();
@@ -91,8 +91,8 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 					'language' => $language,
 					'task' => $task[0],
 					'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
-				]);	
-				
+				]);
+
 				}
 			}
 			else{
@@ -123,7 +123,7 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 		//add task if have not
 		$entityManager = $this->getEntityManager();
 		$repository = $entityManager->getRepository('User\Entity\Task');
-		
+
         $task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>1));
 		if(!$task){
 			$task = new Task();
@@ -149,12 +149,12 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 		if($taskId){
 			$task = $entityManager->getRepository('\User\Entity\Task')->find( $taskId );
 			$Itermnotm = $entityManager->getRepository('\User\Entity\Itermnotm')->findBy(array('project'=>$project,'task'=>$task));
-		}	
+		}
 		else {
 	        $Itermnotm = $entityManager->getRepository('\User\Entity\Itermnotm')->findBy(array('project'=>$project));
-		}	
+		}
         $Itermnotms = array();
-        foreach( $Itermnotm as $k => $v ) 
+        foreach( $Itermnotm as $k => $v )
         {
 			//$data = $v->getData();
 			//var_dump()
@@ -171,7 +171,7 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
         $project = $this->find('User\Entity\Itermnotm', $id);
         $Itermnotm = $entityManager->getRepository('\User\Entity\Itermnotm')->findBy(array('project'=>$project));
         $Itermnotms = array();
-        foreach( $Itermnotm as $k => $v ) 
+        foreach( $Itermnotm as $k => $v )
         {
             $Itermnotms[$k] = $v->getData();
         }
@@ -179,12 +179,12 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 		return new JsonModel([
             'project' => $project->getData(),
 			'itermnotms' => $Itermnotms,
-			
+
         ]);
     }
 
     public function delete($id){
-	
+
 		$entityManager = $this->getEntityManager();
         $Itermnotm = $entityManager->find('\User\Entity\Itermnotm', $id);
         $entityManager->remove($Itermnotm);
@@ -193,7 +193,7 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
     }
 
 
-	
+
 	 public function update( $id, $data ) {
            $entityManager = $this->getEntityManager();
 		   if($data['file']['id'])
@@ -215,8 +215,8 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
 					'quantity' => $data['quantity'],
 					'total_freelancer' => $data['total'],
 			   ]);
-			   
-			   
+
+
            }
 		    //$taskId = $itermnotm->getTask()->getId();
             //$task = $entityManager->getRepository('\User\Entity\Task')->find( $taskId );
@@ -241,8 +241,8 @@ class ProjectItermnotmController extends AbstractRestfulJsonController
                 ]);
 				$task->save($this->getEntityManager());
 		   }
-		   
-           
+
+
            return new JsonModel([
                'itermnotm' => $itermnotm->getData(),
            ]);

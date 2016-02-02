@@ -29,23 +29,23 @@ class ProjectItermtmController extends AbstractRestfulJsonController
      * @param $data
      */
     protected function cleanData(&$data){
-       
+
     }
 
     public function create($data)
     {
 		$projectid = $this->getRequest()->getQuery('projectid');
 		$iterm = new Itermtm();
-		
+
 		if(array_key_exists('file', $data)){
 		if($data['file']['id'])
 			$file = $this->find('\User\Entity\File', $data['file']['id']);
 		}
-		
+
 		$project = $this->find('User\Entity\Project', $projectid);
 		$iterm->setProject($project);
 		$language = $this->find('User\Entity\Language', $data['languageid']);
-		
+
 		if($data['rate_client']){
 		$DataArr = array(
 			'name' => $data['name'],
@@ -79,7 +79,7 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 
 		);
 		}
-		
+
 		$DataArr['raterepetitions'] = ($data['raterepetitions'] != null)? 	$data['raterepetitions'] : 0;
 		$DataArr['rateyibai'] = ($data['rateyibai'] != null)? 	$data['rateyibai'] : 0;
 		$DataArr['ratejiuwu'] = ($data['ratejiuwu'] != null)? 	$data['ratejiuwu'] : 0;
@@ -87,16 +87,16 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 		$DataArr['rateqiwu'] = ($data['rateqiwu'] != null)? 	$data['rateqiwu'] : 0;
 		$DataArr['ratewushi'] = ($data['ratewushi'] != null)? 	$data['ratewushi'] : 0;
 		$DataArr['ratenomatch'] = ($data['ratenomatch'] != null)? 	$data['ratenomatch'] : 0;
-		
+
 		$iterm->setData($DataArr);
-		
+
 		$iterm->save($this->getEntityManager());
 		//add task if have not
 		$entityManager = $this->getEntityManager();
 		$repository = $entityManager->getRepository('User\Entity\Task');
         $task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>2));
-        
-        //var_dump($task);
+
+      //var_dump($data['total']);exit;
 		if(!$task){
 			$task = new Task();
 			$task->setData([
@@ -117,12 +117,15 @@ class ProjectItermtmController extends AbstractRestfulJsonController
     }
 
     public function getList(){
+      error_reporting(E_ALL);
+  		ini_set('display_errors', 1);
+      //var_dump("dsadada");exit;
         $entityManager = $this->getEntityManager();
         $projectId = $this->getRequest()->getQuery('projectId');
         $project = $entityManager->getRepository('\User\Entity\Project')->find( $projectId );
         $Itermtm = $entityManager->getRepository('\User\Entity\Itermtm')->findBy(array('project'=>$project));
         $Itermtms = array();
-        foreach( $Itermtm as $k => $v ) 
+        foreach( $Itermtm as $k => $v )
         {
             $Itermtms[$k] = $v->getData();
         }
@@ -130,21 +133,22 @@ class ProjectItermtmController extends AbstractRestfulJsonController
     }
 
     public function get($id){
-		//error_reporting(E_ALL);
-		//ini_set('display_errors', 1);
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
+    //var_dump("dsadada");exit;
 		$entityManager = $this->getEntityManager();
         $project = $this->find('User\Entity\Itermnotm', $id);
         $Itermnotm = $entityManager->getRepository('\User\Entity\Itermnotm')->findBy(array('project'=>$project));
         $Itermnotms = array();
-        foreach( $Itermnotm as $k => $v ) 
+        foreach( $Itermnotm as $k => $v )
         {
             $Itermnotms[$k] = $v->getData();
         }
-		var_dump($Itermnotms);exit;
+		//var_dump($Itermnotms);exit;
 		return new JsonModel([
             'project' => $project->getData(),
 			'itermnotms' => $Itermnotms,
-			
+
         ]);
     }
 
@@ -161,6 +165,8 @@ class ProjectItermtmController extends AbstractRestfulJsonController
     }
 
     public function update($id, $data){
+      //error_reporting(E_ALL);
+  		//ini_set('display_errors', 1);
 		$entityManager = $this->getEntityManager();
 		if($data['file']['id'])
 			 $file = $this->find('\User\Entity\File', $data['file']['id']);
@@ -191,11 +197,43 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 				'sourceyibai' => $data['sourceyibai'],
 				'total_freelancer' => $data['total'],
            ]);
-		}	
+		}
         $itermtm->save($entityManager);
-           
+
+        $repository = $entityManager->getRepository('User\Entity\Task');
+
+        $projectid = $itermtm->getProject()->getId();
+        $languageid = $itermtm->getLanguage()->getId();
+        $project = $this->find('User\Entity\Project', $projectid);
+    		$language = $this->find('User\Entity\Language', $languageid);
+
+        $task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>2));
+
+        $total = $itermtm->getTotal();
+				$total_freelancer = $itermtm->getTotalFreelancer();
+
+        //update total task
+        //var_dump($task);//exit;
+        //return;
+        if($task){
+          $task_tmp = $task[0];
+     		   if($data['rate_client']){
+     				//$itermnotm = $entityManager->find('\User\Entity\Itermnotm', $id);
+     				$task_tmp->setData([
+                         'total' => $total,
+                     ]);
+     				$task_tmp->save($this->getEntityManager());
+     		   }else{
+     				$task_tmp->setData([
+                         'total_freelancer' => $total_freelancer,
+                     ]);
+     				$task_tmp->save($this->getEntityManager());
+          }
+        }
+
         return new JsonModel([
                'itermtm' => $itermtm->getData(),
+               '$task_tmp' => $task_tmp->getData(),
            ]);
     }
 }
