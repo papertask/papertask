@@ -85,9 +85,7 @@ class Iterminterpreting extends Entity{
        */
 
       protected $task;
-      public function setProject($project){
-          $this->project = $project;
-      }
+
   	public function setTask($task){
           $this->task = $task;
       }

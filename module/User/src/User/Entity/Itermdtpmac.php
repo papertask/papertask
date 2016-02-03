@@ -103,9 +103,7 @@ class Itermdtpmac extends Entity{
         return $this->project;
     }
 
-    public function setProject($project){
-        $this->project = $project;
-    }
+  
     public function getTotal(){
           return $this->total;
       }

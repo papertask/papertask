@@ -107,9 +107,7 @@ class Itermengineering extends Entity{
         return $this->project;
     }
 
-    public function setProject($project){
-        $this->project = $project;
-    }
+  
 	public function getData(){
         return [
 			'id' =>  $this->id,

@@ -57,7 +57,7 @@ class Itermdtppc extends Entity{
        */
 
       protected $project;
-      
+
 	/**
      * @var \User\Entity\DesktopSoftware
      * @ORM\ManyToOne(targetEntity="DesktopSoftware")
@@ -113,9 +113,7 @@ class Itermdtppc extends Entity{
         return $this->project;
     }
 
-    public function setProject($project){
-        $this->project = $project;
-    }
+    
 	public function getData(){
         return [
 			'id' =>  $this->id,
