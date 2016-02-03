@@ -22,12 +22,7 @@ class Itermdtppc extends Entity{
      */
     protected $id;
 
-	/**
-     * @var \User\Entity\Project
-     * @ORM\ManyToOne(targetEntity="Project")
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true)
-     */
-    protected $project;
+
 
 	/** @ORM\Column(type="string") */
     protected $name;
@@ -62,6 +57,7 @@ class Itermdtppc extends Entity{
        */
 
       protected $project;
+      
 	/**
      * @var \User\Entity\DesktopSoftware
      * @ORM\ManyToOne(targetEntity="DesktopSoftware")
