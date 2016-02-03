@@ -21,14 +21,14 @@ class Iterminterpreting extends Entity{
      * @ORM\Column(type="integer")
      */
     protected $id;
-	
+
 	/**
      * @var \User\Entity\Project
      * @ORM\ManyToOne(targetEntity="Project")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true)
      */
     protected $project;
-	
+
 	/** @ORM\Column(type="string") */
     protected $name;
     /**
@@ -78,7 +78,25 @@ class Iterminterpreting extends Entity{
      * @ORM\Column(type="decimal", scale=3, precision=6)
      */
     protected $rate_freelancer = 0.00;
-	
+    /**
+       * @var \User\Entity\Task
+       * @ORM\ManyToOne(targetEntity="Task")
+       * @ORM\JoinColumn(name="task_id", referencedColumnName="id", nullable=true)
+       */
+
+      protected $task;
+      public function setProject($project){
+          $this->project = $project;
+      }
+  	public function setTask($task){
+          $this->task = $task;
+      }
+      public function getTotal(){
+            return $this->total;
+        }
+    	public function getTotalFreelancer(){
+            return $this->total_freelancer;
+        }
 	public function getProject(){
         return $this->project;
     }
@@ -86,6 +104,8 @@ class Iterminterpreting extends Entity{
     public function setProject($project){
         $this->project = $project;
     }
+
+
 	public function getData(){
         return [
 			'id' =>  $this->id,

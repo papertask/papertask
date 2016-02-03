@@ -29,7 +29,7 @@ class ProjectItermengineeringController extends AbstractRestfulJsonController
      * @param $data
      */
     protected function cleanData(&$data){
-       
+
     }
 
     public function create($data)
@@ -45,41 +45,97 @@ class ProjectItermengineeringController extends AbstractRestfulJsonController
 			$order = explode('-',$task->getTaskNumber());
 			$order = $order[1];
 			$taskOrderArr[] = (int)$order;
-		}		
+		}
 		$max = max($taskOrderArr);
 		$max++;
 		$task_number = $project->getProjectNo().'-'.$max;
-		
+
 		$iterm->setProject($project);
 		$language = $this->find('User\Entity\Language', $data['languageid']);
-		$engineeringcategory = $this->find('\Common\Entity\EngineeringCategory', $data['engineeringcategory']['id']); 
+		$engineeringcategory = $this->find('\Common\Entity\EngineeringCategory', $data['engineeringcategory']['id']);
 		//$unit = ($data['unit'] == 'Hour')?1:2;
-		
-		//var_dump($data['unit']);exit;
-		if($data['rate_client']){
-		$iterm->setData([
-			'name' => $data['name'],
-			'unit' => $data['unit']['id'],
-			'file' => ($file)?$file:null,
-			'rate' => $data['rate_client'],
-			'quantity' => $data['quantity'],
-			'total' => $data['total'],
-			'language' => $language,
-			'engineeringcategory' => $engineeringcategory,
-		]);
-		}else{
-		$iterm->setData([
-			'name' => $data['name'],
-			'unit' => $data['unit']['id'],
-			'file' => ($file)?$file:null,
-			'rate_freelancer' => $data['rate'],
-			'quantity' => $data['quantity'],
-			'total_freelancer' => $data['total'],
-			'language' => $language,
-			'engineeringcategory' => $engineeringcategory,
-		]);
-		}
-		
+    if($data['task_id']){
+      $task = $this->find('User\Entity\Task', $data['task_id']);
+      $iterm->setData([
+        'name' => $data['name'],
+        'unit' => $data['unit']['id'],
+        'file' => ($file)?$file:null,
+        'rate_freelancer' => $data['rate'],
+        'quantity' => $data['quantity'],
+        'total_freelancer' => $data['total'],
+        'language' => $language,
+        'task' => $task,
+        'engineeringcategory' => $engineeringcategory,
+        'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+      ]);
+
+    } else{
+        $entityManager = $this->getEntityManager();
+        $repository = $entityManager->getRepository('User\Entity\Task');
+        $task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>6));
+        //var_dump($task);exit;
+        if($task){
+          if($data['rate_client']){
+          $iterm->setData([
+            'name' => $data['name'],
+            'unit' => $data['unit']['id'],
+            'file' => ($file)?$file:null,
+            'rate' => $data['rate_client'],
+            'quantity' => $data['quantity'],
+            'total' => $data['total'],
+            'language' => $language,
+            'task' => $task[0],
+            'engineeringcategory' => $engineeringcategory,
+            'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+          ]);
+          }else{
+          $iterm->setData([
+            'name' => $data['name'],
+            'unit' => $data['unit']['id'],
+            'file' => ($file)?$file:null,
+            'rate_freelancer' => $data['rate'],
+            'quantity' => $data['quantity'],
+            'total_freelancer' => $data['total'],
+            'language' => $language,
+            'task' => $task[0],
+            'engineeringcategory' => $engineeringcategory,
+            'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+          ]);
+
+          }
+        }
+        else{
+          if($data['rate_client']){
+          $iterm->setData([
+            'name' => $data['name'],
+            'unit' => $data['unit']['id'],
+            'file' => ($file)?$file:null,
+            'rate' => $data['rate_client'],
+            'quantity' => $data['quantity'],
+            'total' => $data['total'],
+            'language' => $language,
+            'engineeringcategory' => $engineeringcategory,
+            'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+          ]);
+          }else{
+          $iterm->setData([
+            'name' => $data['name'],
+            'unit' => $data['unit']['id'],
+            'file' => ($file)?$file:null,
+            'rate_freelancer' => $data['rate'],
+            'quantity' => $data['quantity'],
+            'total_freelancer' => $data['total'],
+            'language' => $language,
+            'engineeringcategory' => $engineeringcategory,
+            'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+          ]);
+          }
+        }
+
+    }
+
+
+
 		$iterm->save($this->getEntityManager());
 		//add task if have not
 		$entityManager = $this->getEntityManager();
@@ -107,7 +163,7 @@ class ProjectItermengineeringController extends AbstractRestfulJsonController
         $project = $entityManager->getRepository('\User\Entity\Project')->find( $projectId );
         $Itermengineering = $entityManager->getRepository('\User\Entity\Itermengineering')->findBy(array('project'=>$project));
         $Itermengineerings = array();
-        foreach( $Itermengineering as $k => $v ) 
+        foreach( $Itermengineering as $k => $v )
         {
             $Itermengineerings[$k] = $v->getData();
         }
@@ -115,7 +171,7 @@ class ProjectItermengineeringController extends AbstractRestfulJsonController
     }
 
     public function get($id){
-		
+
     }
 
     public function delete($id){
@@ -130,8 +186,8 @@ class ProjectItermengineeringController extends AbstractRestfulJsonController
        $entityManager = $this->getEntityManager();
 		   if($data['file']['id'])
 			 $file = $this->find('\User\Entity\File', $data['file']['id']);
-			 
-			$engineeringcategory = $this->find('\Common\Entity\EngineeringCategory', $data['engineeringcategory']['id']); 
+
+			$engineeringcategory = $this->find('\Common\Entity\EngineeringCategory', $data['engineeringcategory']['id']);
            $itermengineering = $entityManager->find('\User\Entity\Itermengineering', $id);
 		   if($data['rate_client']){
            $itermengineering->setData([
@@ -154,9 +210,9 @@ class ProjectItermengineeringController extends AbstractRestfulJsonController
 				'engineeringcategory' => $engineeringcategory,
            ]);
 		   }
-           
+
            $itermengineering->save($entityManager);
-           
+
            return new JsonModel([
                'itermengineering' => $itermengineering->getData(),
            ]);

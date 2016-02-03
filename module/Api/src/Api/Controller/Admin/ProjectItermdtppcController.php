@@ -22,7 +22,7 @@ class ProjectItermdtppcController extends AbstractRestfulJsonController
      * @param $data
      */
     protected function cleanData(&$data){
-       
+
     }
 
     public function create($data)
@@ -38,37 +38,94 @@ class ProjectItermdtppcController extends AbstractRestfulJsonController
 			$order = explode('-',$task->getTaskNumber());
 			$order = $order[1];
 			$taskOrderArr[] = (int)$order;
-		}		
+		}
 		$max = max($taskOrderArr);
 		$max++;
 		$task_number = $project->getProjectNo().'-'.$max;
-		
+
 		$iterm->setProject($project);
 		$language = $this->find('User\Entity\Language', $data['languageid']);
-		$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']); 
-		if($data['rate_client']){
-		$iterm->setData([
-			'name' => $data['name'],
-			'unit' => $data['unit']['id'],
-			'file' => ($file)?$file:null,
-			'rate' => $data['rate_client'],
-			'quantity' => $data['quantity'],
-			'total' => $data['total'],
-			'language' => $language,
-			'software' => $software,
-		]);
-		}else{
-		$iterm->setData([
-			'name' => $data['name'],
-			'unit' => $data['unit']['id'],
-			'file' => ($file)?$file:null,
-			'rate_freelancer' => $data['rate'],
-			'quantity' => $data['quantity'],
-			'total_freelancer' => $data['total'],
-			'language' => $language,
-			'software' => $software,
-		]);
-		}
+		$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']);
+    if($data['task_id']){
+      $task = $this->find('User\Entity\Task', $data['task_id']);
+      $iterm->setData([
+        'name' => $data['name'],
+        'unit' => $data['unit']['id'],
+        'file' => ($file)?$file:null,
+        'rate_freelancer' => $data['rate'],
+        'quantity' => $data['quantity'],
+        'total_freelancer' => $data['total'],
+        'language' => $language,
+        'task' => $task,
+        'software' => $software,
+        'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+      ]);
+
+    } else{
+        $entityManager = $this->getEntityManager();
+        $repository = $entityManager->getRepository('User\Entity\Task');
+        $task = $repository->findBy(array('project'=>$project, 'language'=>$language, 'type'=>5));
+        //var_dump($task);exit;
+        if($task){
+          if($data['rate_client']){
+          $iterm->setData([
+            'name' => $data['name'],
+            'unit' => $data['unit']['id'],
+            'file' => ($file)?$file:null,
+            'rate' => $data['rate_client'],
+            'quantity' => $data['quantity'],
+            'total' => $data['total'],
+            'language' => $language,
+            'task' => $task[0],
+            'software' => $software,
+            'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+          ]);
+          }else{
+          $iterm->setData([
+            'name' => $data['name'],
+            'unit' => $data['unit']['id'],
+            'file' => ($file)?$file:null,
+            'rate_freelancer' => $data['rate'],
+            'quantity' => $data['quantity'],
+            'total_freelancer' => $data['total'],
+            'language' => $language,
+            'task' => $task[0],
+            'software' => $software,
+            'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+          ]);
+
+          }
+        }
+        else{
+          if($data['rate_client']){
+          $iterm->setData([
+            'name' => $data['name'],
+            'unit' => $data['unit']['id'],
+            'file' => ($file)?$file:null,
+            'rate' => $data['rate_client'],
+            'quantity' => $data['quantity'],
+            'total' => $data['total'],
+            'language' => $language,
+            'software' => $software,
+            'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+          ]);
+          }else{
+          $iterm->setData([
+            'name' => $data['name'],
+            'unit' => $data['unit']['id'],
+            'file' => ($file)?$file:null,
+            'rate_freelancer' => $data['rate'],
+            'quantity' => $data['quantity'],
+            'total_freelancer' => $data['total'],
+            'language' => $language,
+            'software' => $software,
+            'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
+          ]);
+          }
+        }
+
+    }
+
 		$iterm->save($this->getEntityManager());
 		//add task if have not
 		$entityManager = $this->getEntityManager();
@@ -96,7 +153,7 @@ class ProjectItermdtppcController extends AbstractRestfulJsonController
         $project = $entityManager->getRepository('\User\Entity\Project')->find( $projectId );
         $Itermdtppc = $entityManager->getRepository('\User\Entity\Itermdtppc')->findBy(array('project'=>$project));
         $Itermdtppcs = array();
-        foreach( $Itermdtppc as $k => $v ) 
+        foreach( $Itermdtppc as $k => $v )
         {
             $Itermdtppcs[$k] = $v->getData();
         }
@@ -118,8 +175,8 @@ class ProjectItermdtppcController extends AbstractRestfulJsonController
 			$entityManager = $this->getEntityManager();
 			if($data['file']){
 				$file = $this->find('\User\Entity\File', $data['file']['id']);
-			} 
-			$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']); 
+			}
+			$software = $this->find('\User\Entity\DesktopSoftware', $data['software']['id']);
 			$itermdtppc = $entityManager->find('\User\Entity\Itermdtppc', $id);
 			if($data['rate_client']){
 			$itermdtppc->setData([
@@ -142,9 +199,9 @@ class ProjectItermdtppcController extends AbstractRestfulJsonController
 				'software' => $software,
            ]);
 		   }
-           
+
 			$itermdtppc->save($entityManager);
-           
+
 			return new JsonModel([
                'itermdtppc' => $itermdtppc->getData(),
            ]);

@@ -59,8 +59,6 @@ class ProjectItermtmController extends AbstractRestfulJsonController
 			'sourceyibai' => $data['sourceyibai'],
 				'total' => $data['total'],
 				'language' => $language,
-
-
 		);
 		}else{
 		$DataArr = array(
