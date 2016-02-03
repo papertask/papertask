@@ -55,7 +55,13 @@ class Itermdtppc extends Entity{
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $unit;
+    /**
+       * @var \User\Entity\Project
+       * @ORM\ManyToOne(targetEntity="Project")
+       * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true)
+       */
 
+      protected $project;
 	/**
      * @var \User\Entity\DesktopSoftware
      * @ORM\ManyToOne(targetEntity="DesktopSoftware")
