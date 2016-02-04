@@ -58,6 +58,7 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
 				'total_freelancer' => $data['total'],
 				'language' => $language,
 				'task' => $task,
+        'software' => $software,
 				'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
 			]);
 
@@ -77,6 +78,7 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
   					'total' => $data['total'],
   					'language' => $language,
   					'task' => $task[0],
+            'software' => $software,
   					'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
   				]);
   				}else{
@@ -89,6 +91,7 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
   					'total_freelancer' => $data['total'],
   					'language' => $language,
   					'task' => $task[0],
+            'software' => $software,
   					'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
   				]);
 
@@ -104,6 +107,7 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
   					'quantity' => $data['quantity'],
   					'total' => $data['total'],
   					'language' => $language,
+            'software' => $software,
   					'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
   				]);
   				}else{
@@ -115,12 +119,15 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
   					'quantity' => $data['quantity'],
   					'total_freelancer' => $data['total'],
   					'language' => $language,
+            'software' => $software,
   					'of_freelancer' => ($data['of_freelancer'])?$data['of_freelancer']:0,
   				]);
   				}
   			}
 
     }
+
+
 
 		$iterm->save($this->getEntityManager());
 		//add task if have not
@@ -147,15 +154,24 @@ class ProjectItermdtpmacController extends AbstractRestfulJsonController
     }
 
     public function getList(){
+      //var_dump("sadasdas");exit;
+      error_reporting(E_ALL);
+  		ini_set('display_errors', 1);
         $entityManager = $this->getEntityManager();
         $projectId = $this->getRequest()->getQuery('projectId');
+        //var_dump($projectId);
         $project = $entityManager->getRepository('\User\Entity\Project')->find( $projectId );
+        //
         $Itermdtpmac = $entityManager->getRepository('\User\Entity\Itermdtpmac')->findBy(array('project'=>$project));
         $Itermdtpmacs = array();
+        //var_dump($Itermdtpmac);
+        if(count($Itermdtpmac)){
         foreach( $Itermdtpmac as $k => $v )
         {
             $Itermdtpmacs[$k] = $v->getData();
-        }
+        }}
+
+        //var_dump($Itermdtpmacs);exit;
         return new JsonModel(['Itermdtpmacs'=>$Itermdtpmacs]);
     }
 

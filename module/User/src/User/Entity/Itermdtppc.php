@@ -113,17 +113,17 @@ class Itermdtppc extends Entity{
         return $this->project;
     }
 
-    
+
 	public function getData(){
         return [
 			'id' =>  $this->id,
             'name' => $this->name,
-            'file' => $this->file,
+        'file' => ($this->file)?$this->file->getData():null,
 			'language' => $this->language->getData(),
 			'rate' => $this->rate,
 			'quantity' => $this->quantity,
             'unit' => $this->unit,
-			'software' => $this->software->getData(),
+			'software' => ($this->software)?$this->software->getData():null,
 			'total' => $this->total,
 			'total_freelancer' => $this->total_freelancer,
 			'of_freelancer' => $this->of_freelancer,

@@ -108,7 +108,7 @@ class Iterminterpreting extends Entity{
         return [
 			'id' =>  $this->id,
             'name' => $this->name,
-            'file' => $this->file,
+        'file' => ($this->file)?$this->file->getData():null,
 			'language' => $this->language->getData(),
 			'rate' => $this->rate,
 			'quantity' => $this->quantity,

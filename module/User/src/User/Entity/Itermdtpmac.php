@@ -103,7 +103,7 @@ class Itermdtpmac extends Entity{
         return $this->project;
     }
 
-  
+
     public function getTotal(){
           return $this->total;
       }
@@ -120,7 +120,7 @@ class Itermdtpmac extends Entity{
 			'rate_freelancer' => $this->rate_freelancer,
 			'quantity' => $this->quantity,
             'unit' => $this->unit,
-			'software' => $this->software->getData(),
+			'software' => ($this->software)?$this->software->getData():null,
 			'total' => $this->total,
 			'total_freelancer' => $this->total_freelancer,
 			'of_freelancer' => $this->of_freelancer
