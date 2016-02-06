@@ -107,19 +107,17 @@ class Itermengineering extends Entity{
         return $this->project;
     }
 
-    public function setProject($project){
-        $this->project = $project;
-    }
+
 	public function getData(){
         return [
 			'id' =>  $this->id,
             'name' => $this->name,
-            'file' => $this->file,
+      'file' => ($this->file)?$this->file->getData():null,
 			'language' => $this->language->getData(),
 			'rate' => $this->rate,
 			'quantity' => $this->quantity,
             'unit' => $this->unit,
-			'engineeringcategory' => $this->engineeringcategory->getData(),
+      'engineeringcategory' => ($this->engineeringcategory)?$this->engineeringcategory->getData():null,
 			'total' => $this->total,
 			'rate_freelancer' => $this->rate_freelancer,
 			'total_freelancer' => $this->total_freelancer,

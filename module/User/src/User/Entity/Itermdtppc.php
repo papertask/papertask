@@ -22,12 +22,7 @@ class Itermdtppc extends Entity{
      */
     protected $id;
 
-	/**
-     * @var \User\Entity\Project
-     * @ORM\ManyToOne(targetEntity="Project")
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true)
-     */
-    protected $project;
+
 
 	/** @ORM\Column(type="string") */
     protected $name;
@@ -55,6 +50,13 @@ class Itermdtppc extends Entity{
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $unit;
+    /**
+       * @var \User\Entity\Project
+       * @ORM\ManyToOne(targetEntity="Project")
+       * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true)
+       */
+
+      protected $project;
 
 	/**
      * @var \User\Entity\DesktopSoftware
@@ -111,19 +113,17 @@ class Itermdtppc extends Entity{
         return $this->project;
     }
 
-    public function setProject($project){
-        $this->project = $project;
-    }
+
 	public function getData(){
         return [
 			'id' =>  $this->id,
             'name' => $this->name,
-            'file' => $this->file,
+        'file' => ($this->file)?$this->file->getData():null,
 			'language' => $this->language->getData(),
 			'rate' => $this->rate,
 			'quantity' => $this->quantity,
             'unit' => $this->unit,
-			'software' => $this->software->getData(),
+			'software' => ($this->software)?$this->software->getData():null,
 			'total' => $this->total,
 			'total_freelancer' => $this->total_freelancer,
 			'of_freelancer' => $this->of_freelancer,
