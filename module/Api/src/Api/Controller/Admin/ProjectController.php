@@ -316,13 +316,77 @@ class ProjectController extends AbstractRestfulJsonController
 
 
 		//
-		 if(isset($data['data'])){
-		 $i = 0;
-		 foreach($data['data'] as $iterms){
-			$i++;
-            $identifier = $iterms['identifier'];
+    $tmp_type =  array();
+    if(isset($data['data'])){
+      $i = 0;
+      foreach($data['data'] as $iterms){
+        $i++;
+        $identifier = $iterms['identifier'];
+        $type = $identifier[0];
+        if ($type == 'translationNoTM'){
+          $type = 1;
+          if(!$tmp_type[$type])
+            $tmp_type[1] = $iterms;
+        }
+        else if ($type == 'translationTM'){
+          $type = 2;
+          if(!$tmp_type[$type])
+            $tmp_type[2] = $iterms;
+  			}
+  			else if ($type == 'dtpMac'){
+          $type = 4;
+          if(!$tmp_type[$type])
+            $tmp_type[4] = $iterms;
+  			}
+  			else if ($type == 'dtpPc'){
+          $type = 5;
+          if(!$tmp_type[$type])
+            $tmp_type[5] = $iterms;
+  			}
+  			else if ($type == 'engineering'){
+          $type = 6;
+          if(!$tmp_type[$type])
+            $tmp_type[6] = $iterms;
+  			}
+  			else{
+          $type = $data['types'][0]['id'];
+          if(!$tmp_type[$type])
+            $tmp_type[$type] = $iterms;
+
+  			}
+      }
+
+     if(isset($data['data'])){
+       $i = 0;
+    $tmp_task =  array();
+     foreach($tmp_type as $key => $iterm){
+      $i++;
+      $task = new Task();
+      $identifier = $iterm['identifier'];
+      $languageId = $identifier[1]['id'];
+			$task->setData([
+                    'project' => $project,
+                    'language' => $targetLanguages[$languageId],
+                    'type' => $key,
+                    'status' => 3,
+					'name' => $data['reference'],// . '-' . $identifier[0],
+					'startDate' => $data['startDate'],
+					'dueDate' => $data['dueDate'],
+					'task_number' => $data['project_no'].'-'.$i,
+
+                ]);
+			$task->save($this->getEntityManager());
+      $tmp_task[$key] = $task;
+
+    }
+  }
+		 /*if(isset($data['data'])){
+		      $i = 0;
+		      foreach($data['data'] as $iterms){
+			    $i++;
+          $identifier = $iterms['identifier'];
             $type = $identifier[0];
-			if ($type == 'translationNoTM'){
+			      if ($type == 'translationNoTM'){
 				$type = 1;
 			}
 			else if ($type == 'translationTM'){
@@ -358,9 +422,11 @@ class ProjectController extends AbstractRestfulJsonController
 
                 ]);
 			$task->save($this->getEntityManager());
-		}
 
-        foreach($data['data'] as $iterms){
+		}*/
+
+        //if(isset($data['data'])){
+          foreach($data['data'] as $iterms){
             $identifier = $iterms['identifier'];
             $type = $identifier[0];
             $languageId = $identifier[1]['id'];
@@ -375,7 +441,7 @@ class ProjectController extends AbstractRestfulJsonController
 					//var_dump($targetLanguages[$languageId]);
 					//var_dump($project);
 					//var_dump($task);
-					$iterm->setTask($task);
+					$iterm->setTask($tmp_task[1]);
 					$iterm->setData([
 						'name' => $item['name'],
 						'file' => $files[$item['file']['id']],
@@ -426,6 +492,7 @@ class ProjectController extends AbstractRestfulJsonController
 				foreach($iterms['items'] as $item){
 					$iterm = new Itermdtpmac();
 					$iterm->setProject($project);
+          $iterm->setTask($tmp_task[4]);
 					$iterm->setData([
 						'name' => $item['name'],
 						'file' => $files[$item['file']['id']],
@@ -447,6 +514,7 @@ class ProjectController extends AbstractRestfulJsonController
 				foreach($iterms['items'] as $item){
 					$iterm = new Itermdtppc();
 					$iterm->setProject($project);
+          $iterm->setTask($tmp_task[5]);
 					$iterm->setData([
 						'name' => $item['name'],
 						'file' => $files[$item['file']['id']],
@@ -467,6 +535,7 @@ class ProjectController extends AbstractRestfulJsonController
 				foreach($iterms['items'] as $item){
 					$iterm = new Itermengineering();
 					$iterm->setProject($project);
+          $iterm->setTask($tmp_task[6]);
 					$iterm->setData([
 						'name' => $item['name'],
 						'file' => $files[$item['file']['id']],
@@ -487,6 +556,7 @@ class ProjectController extends AbstractRestfulJsonController
 				foreach($iterms['items'] as $item){
 					$iterm = new Iterminterpreting();
 					$iterm->setProject($project);
+          $iterm->setTask($tmp_task[7]);
 					$iterm->setData([
 						'name' => $item['name'],
 						'file' => $files[$item['file']['id']],
