@@ -174,10 +174,11 @@ angularApp.controller('OrderNoSignin', function($scope, $http, $timeout, $q, $sc
 
 	 $scope.chooseCurrency = function(){
 		 //$scope.project.currency = currency;
-		 //console.log(currency);
-		 if($scope.project.currency.id == 1){
+		 console.log("$scope.project.currency");
+		 console.log($scope.project.currency);
+		 if($scope.project.currency.id == 2){
 			 $scope.changeRate = $scope.currencyrate;
-		 } else if($scope.project.currency.id == 2) {
+		 } else if($scope.project.currency.id == 1) {
 			 $scope.changeRate = 1/$scope.currencyrate;
 		 }
 		 $scope.CurrentCurrency =  Currency.get($scope.project.currency.id,LANG_CODE).name;
