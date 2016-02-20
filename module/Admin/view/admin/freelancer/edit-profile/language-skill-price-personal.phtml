@@ -13,7 +13,9 @@
                                                                 <th>#</th>
 																<th><?php echo $this->translate('Source Language') ?></th>
 																<th><?php echo $this->translate('Target Language') ?></th>
-																<th><?php echo $this->translate('Translation Pric') ?></th>
+																<!--
+                                                                <th><?php echo $this->translate('Translation Pric') ?></th>
+                                                                -->
 																<th><?php echo $this->translate('Action') ?></th>
                                                             </tr>
                                                             </thead>
@@ -22,7 +24,9 @@
 																<td>{{$index + 1}}</td>
 																<td>{{tp.sourceLanguage.name}}</td>
 																<td>{{tp.targetLanguage.name}}</td>
-																<td>{{tp.price | number:2 }}</td>
+																<!--
+                                                                <td>{{tp.price | number:2 }}</td>
+                                                                -->
 																<td>
 																	<a href="#" ng-click="editTranslationPrice($index, tp.id)" onclick="return false;">
 																		<i class="fa fa-edit"></i>
@@ -37,7 +41,7 @@
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
                                                 <div class="text-center">
-                                                    <a data-toggle="modal" class="btn btn-outline btn-primary" ng-click="addTranslationPrice()"  onclick="return false;" href="#">Add Language pairs and prices</a>
+                                                    <a data-toggle="modal" class="btn btn-outline btn-primary" ng-click="addTranslationPrice()"  onclick="return false;" href="#">Add Language pairs</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -53,10 +57,12 @@
                                                                 <th>#</th>
 																<th><?php echo $this->translate('Languages') ?></th>
 																<th>DTP <?php echo $this->translate('software') ?></th>
+                                                                <!--
 																<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Page') ?> <i class="fa fa-apple"></th>
 																<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Page') ?> <i class="fa fa-windows"></i></th>
 																<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Hour') ?> <i class="fa fa-apple"></th>
 																<th><?php echo $this->translate('Price') ?>/<?php echo $this->translate('Hour') ?> <i class="fa fa-windows"></i></th>
+                                                                -->
 																<th>Action</th>
                                                             </tr>
                                                         </thead>
@@ -65,10 +71,12 @@
 																<td>{{$index + 1}}</td>
 																<td>{{desktopPrice.language.name}}</td>
 																<td>{{desktopPrice.software.name}}</td>
-																<td>{{desktopPrice.priceMac | number:2 }}</td>
+																<!--
+                                                                <td>{{desktopPrice.priceMac | number:2 }}</td>
 																<td>{{desktopPrice.pricePc | number:2 }}</td>
 																<td>{{desktopPrice.priceHourMac | number:2 }}</td>
 																<td>{{desktopPrice.priceHourPc | number:2 }}</td>
+                                                                -->
 																<td>
 																	<a data-toggle="modal" href="#modal-dtp" ng-click="editDesktopPrice($index)" onclick="return false;"><i class="fa fa-edit"></i></a>
 																	<a href="#" ng-click="deleteDesktopPrice($index, desktopPrice.id)" onClick="return false;"><i class="fa fa-trash-o text-danger"></i></a>
@@ -78,7 +86,7 @@
                                                     </table>
                                                 </div>
                                                 <div class="text-center">
-                                                    <a data-toggle="modal" class="btn btn-outline btn-info" ng-click="addDesktopPrice()" onclick="return false;" href="#"><?php echo $this->translate('Add DTP prices') ?></a>
+                                                    <a data-toggle="modal" class="btn btn-outline btn-info" ng-click="addDesktopPrice()" onclick="return false;" href="#"><?php echo $this->translate('Add DTP Skills') ?></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -95,8 +103,10 @@
                                                                 <th>Source Language </th>
                                                                 <th>Target Language </th>
                                                                 <th>Interpreting Service</th>
+                                                                <!--
                                                                 <th>Price/Day</th>
                                                                 <th>Price/half-Day</th>
+                                                                -->
                                                                 <th>Action</th>
                                                             </tr>
                                                             </thead>
@@ -106,8 +116,10 @@
 																<td>{{interpretingPrice.sourceLanguage.name}}</td>
 																<td>{{interpretingPrice.targetLanguage.name}}</td>
 																<td>{{interpretingPrice.service.name}}</td>
+                                                                <!--
 																<td>{{interpretingPrice.priceDay | number:2 }}</td>
 																<td>{{interpretingPrice.priceHalfDay | number:2 }}</td>
+                                                                -->
 																<td>
 																	<a data-toggle="modal" href="#" ng-click="editInterpretingPrice($index)" onclick="return false;"><i class="fa fa-edit"></i></a>
 																	<a href="#" ng-click="deleteEngineeringPrice($index, interpretingPrice.id)" onclick="return false;"><i class="fa fa-trash-o text-danger"></i></a>
@@ -117,7 +129,7 @@
                                                     </table>
                                                 </div>
                                                 <div class="text-center">
-                                                    <a data-toggle="modal" class="btn btn-outline btn-success" ng-click="addInterpretingPrice()" onclick="return false;" href="#"><?php echo $this->translate('Add Interpreting prices') ?></a>
+                                                    <a data-toggle="modal" class="btn btn-outline btn-success" ng-click="addInterpretingPrice()" onclick="return false;" href="#"><?php echo $this->translate('Add Interpreting Skills') ?></a>
                                                 </div>
                                             </div>
                                         </div>

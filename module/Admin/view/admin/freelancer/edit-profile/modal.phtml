@@ -47,7 +47,7 @@
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
 	                        class="sr-only">Close</span></button>
-	                <h4 class="modal-title" id="myModalLabel">Add Language pairs and prices</h4>
+	                <h4 class="modal-title" id="myModalLabel">Add Language Pairs</h4>
 	            </div>
 	            <div class="modal-body">
 	                <form>
@@ -67,11 +67,13 @@
 	                                        ng-options="language.name for language in languages track by language.id">
 	                                </select>
 	                            </div>
+	                            <!--
 	                            <div class="form-group">
 	                                <label>Price/word *</label>
 	                                <input name="price" type="number" class="form-control required"
 	                                       ng-model="translationPrice.price">
 	                            </div>
+	                            -->
 	                        </div>
 	                    </div>
 	                </form>
@@ -155,7 +157,7 @@
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
 	                        class="sr-only">Close</span></button>
-	                <h4 class="modal-title" id="myModalLabel">Add DTP prices</h4>
+	                <h4 class="modal-title" id="myModalLabel">Add DTP Skills</h4>
 	            </div>
 	            <div class="modal-body">
 	                <form>
@@ -175,6 +177,7 @@
 	                                        ng-options="software.name for software in softwares track by software.id">
 	                                </select>
 	                            </div>
+	                            <!--
 	                            <div class="form-group">
 	                                <label>Price/Page (MAC) *</label>
 	                                <input name="priceMac" type="number" value="" class="form-control required"
@@ -195,6 +198,7 @@
 	                                <input name="priceHourPc" type="number" value="" class="form-control required"
 	                                       ng-model="desktopPrice.priceHourPc">
 	                            </div>
+	                            -->
 	                        </div>
 	                    </div>
 	                </form>
@@ -216,7 +220,7 @@
 	            <div class="modal-header">
 	                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
 	                        class="sr-only">Close</span></button>
-	                <h4 class="modal-title" id="myModalLabel">Add Interpreting prices</h4>
+	                <h4 class="modal-title" id="myModalLabel">Add Interpreting Skills</h4>
 	            </div>
 	            <div class="modal-body">
 	                <form>
@@ -243,6 +247,7 @@
 	                                        ng-options="service.name for service in services track by service.id">
 	                                </select>
 	                            </div>
+	                            <!--
 	                            <div class="form-group">
 	                                <label>Price/Day *</label>
 	                                <input name="priceDay" type="number" class="form-control required"
@@ -253,6 +258,7 @@
 	                                <input name="priceHalfDay" type="number" class="form-control required"
 	                                       ng-model="interpretingPrice.priceHalfDay">
 	                            </div>
+	                            -->
 	                        </div>
 	                    </div>
 	                </form>

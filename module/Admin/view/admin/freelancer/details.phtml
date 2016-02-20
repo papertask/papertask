@@ -344,9 +344,9 @@ $this->inlineScript()
 										</li>
 									</ul>
 								</div>
+                                <?php if($this->isAdmin): ?>
 								<div class="hr-line-dashed"></div>
 								<h4><?php echo $this->translate('Languages and Price') ?> </h4>
-                                <?php if($this->isAdmin): ?>
 								<div class="table-responsive">
 									<table class="table table-striped">
 										<thead>
@@ -376,6 +376,9 @@ $this->inlineScript()
 									  </table>
 								  </div>
                               <?php endif ?>
+
+								<div class="hr-line-dashed"></div>
+								<h4><?php echo $this->translate('Languages and Price') ?> </h4>
 								<div class="table-responsive">
 									<table class="table table-striped">
 										<thead>
@@ -398,6 +401,7 @@ $this->inlineScript()
 										</tbody>
 									</table>
 								</div>
+
 							</div>
 						</div>
 						<div class="ibox float-e-margins" ng-show="freelancer.ResourcesGroup['desktop'] == 1" >
